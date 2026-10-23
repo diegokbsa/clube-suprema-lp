@@ -5,11 +5,11 @@ services:
     name: clube-suprema-lp
     runtime: node
     region: virginia
-    plan: starter
+    plan: 0.5c-512mb
     buildCommand: echo "sem dependencias para instalar"
     startCommand: node server.js
     healthCheckPath: /
-    autoDeploy: true
+    autoDeployTrigger: commit
     envVars:
       - key: NODE_VERSION
         value: 22.12.0
