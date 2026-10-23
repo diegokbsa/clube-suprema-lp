@@ -1,11 +1,18 @@
 // Vida na página: revelações ao rolar (GSAP), celular com parallax, cards com brilho
-// e a ficha de poker 3D de fundo (Three.js). Nada aqui é obrigatório: se uma biblioteca
-// não carregar, a página continua funcionando e tudo fica visível.
+// e a arte 3D de fundo (Three.js). Nada aqui é obrigatório: se uma biblioteca não
+// carregar, a página continua funcionando e tudo fica visível.
 // Princípios em docs/design-system.md (seção 5).
+//
+// Versões da LP pela rota (motion sempre ligado, cada uma com sua arte 3D):
+//   /fichas  → ficha de poker preta e dourada
+//   /spin    → tambor do Spin Suprema com os multiplicadores
+//   /        → padrão: ficha, respeitando a preferência de menos movimento do sistema
 
 const $ = (sel, root = document) => root.querySelector(sel);
 const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
-const forceMotion = /[?&]motion=on(?:&|$)/.test(location.search); // para ver tudo mesmo com o sistema pedindo menos movimento
+const ROUTE = (location.pathname.match(/^[/](fichas|spin)[/]?$/) || [])[1] || '';
+const ART = ROUTE === 'spin' ? 'spin' : 'chip';
+const forceMotion = /[?&]motion=on(?:&|$)/.test(location.search) || Boolean(ROUTE);
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches && !forceMotion;
 const finePointer = window.matchMedia('(pointer: fine)').matches;
 const isDesktop = () => window.innerWidth >= 900;
@@ -95,9 +102,9 @@ function initGlow() {
   }, { passive: true });
 }
 
-// ---------- Ficha de poker 3D: gira devagar, acompanha a rolagem e pode ser arrastada ----------
+// ---------- Arte 3D de fundo: acompanha a rolagem e pode ser arrastada ----------
 
-// Caminho da ficha ao longo da página (p = 0 topo, 1 fim): x/y em fração da meia-largura/meia-altura visível.
+// Caminho da arte ao longo da página (p = 0 topo, 1 fim): x/y em fração da meia-largura/meia-altura visível.
 const PATH = [
   { p: 0.00, x: -0.66, y: -0.18, s: 1.00 },
   { p: 0.32, x: 0.72, y: 0.18, s: 0.82 },
@@ -120,7 +127,15 @@ function pathAt(p, out) {
 const INTERACTIVE = 'a, button, input, textarea, select, label, summary, details, .sheet, .glow-card, .pill, .wa-float, .topbar, .toast';
 const GOLD = '#efa144';
 
-// Desenha a face da ficha num canvas: anel dourado, marcas na borda, ♠ e o nome do clube.
+const makeTexture = (THREE, cv) => {
+  const tex = new THREE.CanvasTexture(cv);
+  tex.colorSpace = THREE.SRGBColorSpace;
+  tex.anisotropy = 8;
+  return tex;
+};
+
+// --- Ficha de poker: disco preto, listras douradas na borda, ♠ e o nome do clube ---
+
 function chipFaceTexture(THREE, label) {
   const size = 1024;
   const cv = document.createElement('canvas');
@@ -131,8 +146,7 @@ function chipFaceTexture(THREE, label) {
   g.fillStyle = '#141416';
   g.beginPath(); g.arc(c, c, c, 0, Math.PI * 2); g.fill();
 
-  // Marcas da borda (8 setores dourados, como numa ficha de cassino)
-  for (let i = 0; i < 8; i++) {
+  for (let i = 0; i < 8; i++) { // marcas da borda, como numa ficha de cassino
     const a0 = (i / 8) * Math.PI * 2 - Math.PI / 24;
     g.fillStyle = GOLD;
     g.beginPath();
@@ -141,13 +155,11 @@ function chipFaceTexture(THREE, label) {
     g.closePath();
     g.fill();
   }
-  // Anéis
   const ring = (r, w, color) => { g.strokeStyle = color; g.lineWidth = w; g.beginPath(); g.arc(c, c, r, 0, Math.PI * 2); g.stroke(); };
   ring(c * 0.84, 10, GOLD);
   ring(c * 0.66, 6, GOLD);
   ring(c * 0.62, 2, 'rgba(239, 161, 68, .5)');
 
-  // Centro: ♠ grande e textos
   g.fillStyle = GOLD;
   g.textAlign = 'center';
   g.textBaseline = 'middle';
@@ -160,14 +172,128 @@ function chipFaceTexture(THREE, label) {
   g.fillStyle = GOLD;
   g.fillText(label, c, c + size * 0.275);
   g.fillText('POKER', c, c - size * 0.255);
-
-  const tex = new THREE.CanvasTexture(cv);
-  tex.colorSpace = THREE.SRGBColorSpace;
-  tex.anisotropy = 4;
-  return tex;
+  return makeTexture(THREE, cv);
 }
 
-async function initChip() {
+function buildChip(THREE) {
+  const R = 1.55, H = 0.26;
+  const clubLabel = ($('[data-bind="club-id"]')?.textContent || '').trim();
+  const face = new THREE.MeshStandardMaterial({ map: chipFaceTexture(THREE, clubLabel ? `CLUBE ${clubLabel}` : 'CLUBE'), metalness: 0.35, roughness: 0.4 });
+  const side = new THREE.MeshStandardMaterial({ color: 0x1c1c1c, metalness: 0.45, roughness: 0.5 });
+  const chip = new THREE.Mesh(new THREE.CylinderGeometry(R, R, H, 96, 1, false), [side, face, face]);
+  const gold = new THREE.MeshStandardMaterial({ color: 0xefa144, metalness: 0.7, roughness: 0.3, emissive: 0x2a1a05 });
+  for (let i = 0; i < 8; i++) {
+    chip.add(new THREE.Mesh(new THREE.CylinderGeometry(R + 0.006, R + 0.006, H + 0.004, 24, 1, true, (i / 8) * Math.PI * 2 - Math.PI / 24, Math.PI / 12), gold));
+  }
+  const tilt = new THREE.Group();
+  tilt.add(chip);
+  let spin = 0;
+  return {
+    root: tilt,
+    hitRadius: R,
+    // arrastar na horizontal faz a ficha girar mais
+    impulse: (dx) => { spin += dx * 1.5; },
+    update: (dt, t, progress) => {
+      spin *= 1 - Math.min(1, dt * 1.2);
+      chip.rotation.y += dt * 0.45 + spin * dt;
+      tilt.rotation.x = -1.15 + progress * 0.85 + Math.sin(t * 0.4) * 0.06;
+      tilt.rotation.z = Math.sin(t * 0.3) * 0.12;
+    },
+  };
+}
+
+// --- Tambor do Spin Suprema: multiplicadores em verde feltro com molduras douradas ---
+
+const MULTIPLIERS = ['2×', '5×', '10×', '100×', '1.000×', '50.000×'];
+
+function reelTexture(THREE) {
+  const W = 3072, Hh = 768; // largura = volta do tambor, altura = comprimento (eixo)
+  const cv = document.createElement('canvas');
+  cv.width = W; cv.height = Hh;
+  const g = cv.getContext('2d');
+  const seg = W / MULTIPLIERS.length;
+  MULTIPLIERS.forEach((label, i) => {
+    const x0 = i * seg;
+    const grad = g.createLinearGradient(x0, 0, x0 + seg, 0);
+    grad.addColorStop(0, '#0a3320');
+    grad.addColorStop(0.5, '#15663d');
+    grad.addColorStop(1, '#0a3320');
+    g.fillStyle = grad;
+    g.fillRect(x0, 0, seg, Hh);
+    g.fillStyle = GOLD; // divisórias e bordas douradas
+    g.fillRect(x0, 0, 8, Hh);
+    g.fillRect(x0, 0, seg, 26);
+    g.fillRect(x0, Hh - 26, seg, 26);
+    g.fillStyle = 'rgba(0, 0, 0, .35)'; // sombra interna (profundidade do tambor)
+    g.fillRect(x0, 26, seg, 40);
+    g.fillRect(x0, Hh - 66, seg, 40);
+
+    g.save(); // o texto corre ao longo do eixo: lê-se na horizontal quando o tambor está deitado
+    g.translate(x0 + seg / 2, Hh / 2);
+    g.rotate(Math.PI / 2);
+    g.textAlign = 'center';
+    g.textBaseline = 'middle';
+    g.font = `700 ${label.length > 5 ? 230 : 300}px "Antonio", "Montserrat", Arial, sans-serif`;
+    g.fillStyle = 'rgba(0, 0, 0, .45)';
+    g.fillText(label, 8, 10);
+    g.fillStyle = i === MULTIPLIERS.length - 1 ? GOLD : '#ffffff';
+    g.fillText(label, 0, 0);
+    g.restore();
+  });
+  return makeTexture(THREE, cv);
+}
+
+function buildReel(THREE) {
+  const R = 1.25, L = 2.6;
+  const side = new THREE.MeshStandardMaterial({ map: reelTexture(THREE), metalness: 0.15, roughness: 0.55 });
+  const cap = new THREE.MeshStandardMaterial({ color: 0x141416, metalness: 0.5, roughness: 0.45 });
+  const drum = new THREE.Mesh(new THREE.CylinderGeometry(R, R, L, 72, 1, false), [side, cap, cap]);
+  const gold = new THREE.MeshStandardMaterial({ color: 0xefa144, metalness: 0.75, roughness: 0.28, emissive: 0x2a1a05 });
+  for (const y of [-L / 2, L / 2]) { // aros dourados nas pontas
+    const rim = new THREE.Mesh(new THREE.TorusGeometry(R + 0.01, 0.07, 16, 72), gold);
+    rim.rotation.x = Math.PI / 2;
+    rim.position.y = y;
+    drum.add(rim);
+  }
+  const holder = new THREE.Group(); // deita o tambor: o eixo fica na horizontal
+  holder.rotation.z = Math.PI / 2;
+  holder.add(drum);
+  // Tampas fixas com a face da ficha: ficam paradas enquanto o tambor gira
+  const faceTex = chipFaceTexture(THREE, 'SPIN');
+  faceTex.center.set(0.5, 0.5);
+  faceTex.rotation = -Math.PI / 2;
+  const faceMat = new THREE.MeshStandardMaterial({ map: faceTex, metalness: 0.35, roughness: 0.4 });
+  for (const sgn of [-1, 1]) {
+    const disc = new THREE.Mesh(new THREE.CircleGeometry(R - 0.01, 72), faceMat);
+    disc.position.y = sgn * (L / 2 + 0.003);
+    disc.rotation.x = sgn > 0 ? -Math.PI / 2 : Math.PI / 2;
+    holder.add(disc);
+  }
+  const root = new THREE.Group();
+  root.add(holder);
+  // Janela do rolo: duas barras douradas fixas na frente do tambor
+  for (const y of [-0.72, 0.72]) {
+    const bar = new THREE.Mesh(new THREE.BoxGeometry(L + 0.1, 0.08, 0.08), gold);
+    bar.position.set(0, y, R + 0.04);
+    root.add(bar);
+  }
+  let spin = 0, angle = 0;
+  return {
+    root,
+    hitRadius: 1.5,
+    // arrastar na vertical gira o rolo
+    impulse: (dx, dy) => { spin += dy * 2.2; },
+    update: (dt, t, progress) => {
+      spin *= 1 - Math.min(1, dt * 1.4);
+      angle += dt * 0.35 + spin * dt;
+      drum.rotation.y = angle + progress * Math.PI * 3; // rolar a página gira o tambor
+      root.rotation.y = -0.22 + Math.sin(t * 0.3) * 0.05;
+      root.rotation.x = 0.1 + Math.sin(t * 0.4) * 0.04;
+    },
+  };
+}
+
+async function init3D() {
   const canvas = $('#chip3d');
   if (!canvas) return;
   if (reduceMotion || !isDesktop() || !window.WebGLRenderingContext) { canvas.remove(); return; }
@@ -203,25 +329,13 @@ async function initChip() {
   warm.position.set(-4, -2, 4);
   scene.add(warm);
 
-  // Ficha: disco preto com faces texturizadas e listras douradas na borda
-  const R = 1.55, H = 0.26;
-  const clubLabel = ($('[data-bind="club-id"]')?.textContent || '').trim();
-  const face = new THREE.MeshStandardMaterial({ map: chipFaceTexture(THREE, clubLabel ? `CLUBE ${clubLabel}` : 'CLUBE'), metalness: 0.35, roughness: 0.4 });
-  const side = new THREE.MeshStandardMaterial({ color: 0x1c1c1c, metalness: 0.45, roughness: 0.5 });
-  const chip = new THREE.Mesh(new THREE.CylinderGeometry(R, R, H, 96, 1, false), [side, face, face]);
-  const gold = new THREE.MeshStandardMaterial({ color: 0xefa144, metalness: 0.7, roughness: 0.3, emissive: 0x2a1a05 });
-  for (let i = 0; i < 8; i++) {
-    const stripe = new THREE.Mesh(new THREE.CylinderGeometry(R + 0.006, R + 0.006, H + 0.004, 24, 1, true, (i / 8) * Math.PI * 2 - Math.PI / 24, Math.PI / 12), gold);
-    chip.add(stripe);
-  }
-  const tilt = new THREE.Group(); // inclinação (muda com a rolagem)
+  const art = ART === 'spin' ? buildReel(THREE) : buildChip(THREE);
   const group = new THREE.Group(); // posição e escala (caminho + arraste)
-  tilt.add(chip);
-  group.add(tilt);
+  group.add(art.root);
   scene.add(group);
 
   // Estado: alvo pela rolagem + deslocamento do arraste (que volta sozinho)
-  let w = 1, h = 1, progress = 0, dragging = false, hover = false, visible = true, spin = 0;
+  let w = 1, h = 1, progress = 0, dragging = false, hover = false, visible = true;
   const target = new THREE.Vector3();
   const drag = new THREE.Vector3();
   const grabOffset = new THREE.Vector3();
@@ -261,17 +375,17 @@ async function initChip() {
     ray.ray.intersectPlane(plane, out);
     return out;
   };
-  const overChip = (e) => {
+  const overArt = (e) => {
     const c = group.position.clone().project(camera);
     const sx = ((c.x + 1) / 2) * w;
     const sy = ((1 - c.y) / 2) * h;
-    const radiusPx = (R * group.scale.x / halfHeight()) * (h / 2);
+    const radiusPx = (art.hitRadius * group.scale.x / halfHeight()) * (h / 2);
     return Math.hypot(e.clientX - sx, e.clientY - sy) < radiusPx;
   };
   const freeArea = (e) => visible && !e.target.closest?.(INTERACTIVE) && $('#sheet')?.hidden !== false;
 
   window.addEventListener('pointerdown', (e) => {
-    if (e.button !== 0 || !freeArea(e) || !overChip(e)) return;
+    if (e.button !== 0 || !freeArea(e) || !overArt(e)) return;
     dragging = true;
     pointerToWorld(e, hit);
     grabOffset.copy(group.position).sub(hit);
@@ -281,13 +395,13 @@ async function initChip() {
   window.addEventListener('pointermove', (e) => {
     if (dragging) {
       pointerToWorld(e, hit);
-      const before = drag.x;
+      const bx = drag.x, by = drag.y;
       drag.copy(hit).add(grabOffset).sub(target);
-      spin += (drag.x - before) * 1.5; // arrastar faz a ficha girar mais
+      art.impulse(drag.x - bx, drag.y - by);
       return;
     }
     if (!finePointer) return;
-    const over = freeArea(e) && overChip(e);
+    const over = freeArea(e) && overArt(e);
     if (over !== hover) {
       hover = over;
       document.body.classList.toggle('can-grab', over);
@@ -321,12 +435,7 @@ async function initChip() {
     const s = group.scale.x + (targetScale - group.scale.x) * Math.min(1, dt * 3);
     group.scale.setScalar(s);
 
-    // Gira devagar no próprio eixo; a inclinação vai da face quase de frente até mais de lado
-    spin *= 1 - Math.min(1, dt * 1.2);
-    chip.rotation.y += dt * 0.45 + spin * dt;
-    tilt.rotation.x = -1.15 + progress * 0.85 + Math.sin(t * 0.4) * 0.06;
-    tilt.rotation.z = Math.sin(t * 0.3) * 0.12;
-
+    art.update(dt, t, progress);
     renderer.render(scene, camera);
   };
   requestAnimationFrame(frame);
@@ -341,7 +450,7 @@ function boot() {
   initReveal();
   initPhone();
   initGlow();
-  initChip();
+  init3D();
 }
 // app.js avisa quando a configuração chegou e os blocos do fluxo certo já estão visíveis.
 document.addEventListener('lp:ready', boot, { once: true });

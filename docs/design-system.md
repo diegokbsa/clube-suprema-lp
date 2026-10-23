@@ -68,8 +68,9 @@ Brilho (glow) dourado para destaque: `0 0 40px rgba(239,161,68,.35)`.
 
 1. **Entrada por rolagem:** fade-in + deslize de `30px` para cima, `0.8s`, easing `cubic-bezier(.16, 1, .3, 1)`.
    Elementos de uma mesma seção entram em sequência com atraso de `90ms` entre si (stagger).
-2. **Elemento vivo de fundo:** ficha de poker 3D (preto com detalhes dourados e o ♠), girando devagar, ligada ao progresso
-   da rolagem (posição, escala e inclinação mudam entre seções) e arrastável. Sempre em `z-index: -1`, sem bloquear
+2. **Elemento vivo de fundo:** ficha de poker 3D (preto com detalhes dourados e o ♠) na raiz e em `/fichas`; tambor do Spin
+   Suprema (verde feltro, aros dourados, multiplicadores até 50.000×) em `/spin`. Gira devagar, acompanha o progresso da
+   rolagem (posição, escala e inclinação mudam entre seções) e é arrastável. Sempre em `z-index: -1`, sem bloquear
    cliques. Em telas pequenas vira um brilho estático; com `prefers-reduced-motion` some.
 3. **Celular do app:** flutua devagar (`6s`), inclina até `10°` seguindo o mouse, troca da tela de abertura para a mesa
    logo após carregar e acompanha a rolagem em parallax leve.

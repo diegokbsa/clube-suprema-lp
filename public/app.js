@@ -102,12 +102,15 @@ function trackOnce(key, event, params) {
 
 function loadTracking({ ga4Id, metaPixelId }) {
   if (ga4Id) {
-    const s = document.createElement('script');
-    s.async = true;
-    s.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(ga4Id)}`;
-    document.head.append(s);
-    window.gtag = function gtag() { window.dataLayer.push(arguments); };
-    window.gtag('js', new Date());
+    // O Google tag do Google Ads já vem no <head> da página; se existir, só acrescenta a configuração do GA4.
+    if (typeof window.gtag !== 'function') {
+      const s = document.createElement('script');
+      s.async = true;
+      s.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(ga4Id)}`;
+      document.head.append(s);
+      window.gtag = function gtag() { window.dataLayer.push(arguments); };
+      window.gtag('js', new Date());
+    }
     window.gtag('config', ga4Id);
   }
   if (metaPixelId) {
@@ -123,11 +126,17 @@ function loadTracking({ ga4Id, metaPixelId }) {
   }
 }
 
+// Versão da LP pela rota: /fichas e /spin (motion ligado, cada uma com sua arte 3D); a raiz é a padrão.
+function lpVariant() {
+  const m = location.pathname.match(/^[/](fichas|spin)[/]?$/);
+  return m ? m[1] : 'padrao';
+}
+
 function captureUtm() {
   const params = new URLSearchParams(location.search);
   const keys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'gclid', 'fbclid', 'ref'];
   const found = Object.fromEntries(keys.filter((k) => params.get(k)).map((k) => [k, params.get(k).slice(0, 200)]));
-  if (Object.keys(found).length && !storage.get(KEYS.utm)) {
+  if ((Object.keys(found).length || lpVariant() !== 'padrao') && !storage.get(KEYS.utm)) {
     storage.set(KEYS.utm, JSON.stringify({ ...found, landing: location.pathname, at: new Date().toISOString() }));
   }
 }
@@ -886,7 +895,7 @@ async function init() {
   loadTracking(state.config.tracking);
   bindDynamic();
   refreshResume();
-  track('lp_view');
+  track('lp_view', { variant: lpVariant() });
   // Avisa o motion.js que a página está pronta (fluxo certo visível) para animar as entradas.
   document.dispatchEvent(new CustomEvent('lp:ready'));
   if (location.hash === '#cadastro') start();

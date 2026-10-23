@@ -17,6 +17,7 @@ O servidor é Node puro, sem dependências. Qualquer hospedagem que rode `node s
 
 - **Publicar uma mudança:** `git add -A`, `git commit -m "..."` e `git push`. O Render reconstrói sozinho em cerca de 1 minuto.
 - **Painel:** https://suprema.blog/admin pede a senha (`ADMIN_TOKEN`).
+- **Versões para anúncios:** https://suprema.blog/fichas (ficha 3D) e https://suprema.blog/spin (tambor do Spin Suprema), as duas com motion sempre ligado; o lead guarda a rota de entrada.
 - **Limites do plano Free:** o serviço dorme após 15 min sem visitas (a primeira visita seguinte demora até 1 min) e a lista de leads zera a cada reinício ou novo deploy. Para guardar os leads: cartão na conta Render, plano `0.5c-512mb` e um disco em `/var/data` com `DATA_DIR=/var/data` (o `render.yaml` tem o comentário com o que mudar).
 - **Mudar DNS no GoDaddy:** cada alteração pede um código por SMS (proteção total do domínio).
 

@@ -98,6 +98,20 @@ No PowerShell:
 $env:SUPREMA_MODE="real"; $env:F24H_MODE="real"; $env:ADMIN_TOKEN="uma-senha-forte"; node server.js
 ```
 
+## Versões da LP
+
+A mesma página existe em três endereços. Nas duas versões com rota, o motion fica sempre ligado (ignora a
+preferência de menos movimento do sistema), cada uma com sua arte 3D de fundo no desktop:
+
+| Endereço | Arte 3D | Motion |
+|---|---|---|
+| https://suprema.blog/ | ficha de poker | segue a preferência do sistema |
+| https://suprema.blog/fichas | ficha de poker (preta e dourada, ♠ e clube) | sempre ligado |
+| https://suprema.blog/spin | tambor do Spin Suprema com os multiplicadores | sempre ligado |
+
+O evento `lp_view` leva `variant` (`padrao`, `fichas` ou `spin`) e o lead guarda a rota de entrada em `landing`,
+para comparar as versões nos anúncios (ex.: `https://suprema.blog/spin?utm_source=instagram`).
+
 ## Motion e acessibilidade
 
 A página respeita a preferência "menos movimento" do sistema: nesse caso a ficha 3D e o parallax somem, as
@@ -112,7 +126,7 @@ Se alguma não carregar, a página funciona do mesmo jeito, só sem o efeito.
 
 Os eventos já são enviados para `window.dataLayer`: `lp_view`, `signup_start`, `signup_submit`, `signup_complete`, `payer_complete`, `deposit_pix_created`, `pix_copy`, `deposit_paid`, `club_invite_click`, `app_download_click` e `whatsapp_click`. As origens (`utm_*`, `gclid`, `fbclid`) ficam salvas no cadastro e aparecem no painel.
 
-Para ligar o GA4 e o Pixel da Meta, defina `GA4_ID` e `META_PIXEL_ID` ao rodar o servidor.
+O Google tag do Google Ads (`AW-970454313`) está fixo no `<head>` de `public/index.html`, como o Google pede; os eventos acima também chegam a ele via `gtag('event', …)`. Para ligar o GA4 e o Pixel da Meta, defina `GA4_ID` e `META_PIXEL_ID` ao rodar o servidor.
 
 ## Antes de ir para produção
 
