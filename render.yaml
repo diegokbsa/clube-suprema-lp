@@ -19,5 +19,7 @@ services:
         value: 22.12.0
       - key: FLOW
         value: convite
+      - key: GA4_ID
+        value: G-ZXS59RV8GR
       - key: ADMIN_TOKEN
         generateValue: true

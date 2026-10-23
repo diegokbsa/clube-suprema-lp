@@ -35,7 +35,7 @@ export const config = {
   },
 
   tracking: {
-    ga4Id: process.env.GA4_ID || '',
+    ga4Id: process.env.GA4_ID || 'G-ZXS59RV8GR', // propriedade GA4 "Clube Suprema", fluxo suprema.blog
     metaPixelId: process.env.META_PIXEL_ID || '',
   },
 
