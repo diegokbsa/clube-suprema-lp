@@ -58,7 +58,7 @@ p { margin: 0 0 1em; }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
 /* Fundo vivo */
-.bg { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; background: linear-gradient(180deg, var(--bg-0) 0%, var(--bg-1) 60vh); }
+.bg { position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; background: linear-gradient(180deg, var(--bg-0) 0%, var(--bg-1) 60vh); }
 .bg-glow { position: absolute; border-radius: 50%; filter: blur(90px); opacity: .55; }
 .bg-glow-1 { width: 60vw; height: 60vw; max-width: 760px; max-height: 760px; right: -18vw; top: -22vw; background: radial-gradient(circle, rgba(239, 161, 68, .28), rgba(239, 161, 68, 0) 65%); animation: drift 18s ease-in-out infinite alternate; }
 .bg-glow-2 { width: 50vw; height: 50vw; max-width: 640px; max-height: 640px; left: -20vw; top: 55vh; background: radial-gradient(circle, rgba(239, 161, 68, .14), rgba(239, 161, 68, 0) 65%); animation: drift 22s ease-in-out infinite alternate-reverse; }
@@ -71,7 +71,6 @@ p { margin: 0 0 1em; }
 }
 #sphere { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
 @keyframes drift { from { transform: translate3d(0, 0, 0) scale(1); } to { transform: translate3d(-6vw, 5vh, 0) scale(1.12); } }
-body > *:not(.bg) { position: relative; z-index: 1; }
 
 /* Botões */
 .btn {
