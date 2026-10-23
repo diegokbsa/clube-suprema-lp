@@ -5,16 +5,37 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Clube Suprema · Entre no clube e jogue</title>
   <meta name="description" content="Entre no Clube Suprema (ID 10001) em 2 minutos: abra o app pelo nosso link, compre fichas por PIX e jogue com suporte 24h.">
-  <meta name="theme-color" content="#0b0b0d">
+  <meta name="theme-color" content="#040404">
   <meta property="og:title" content="Clube Suprema · Entre no clube e jogue">
-  <meta property="og:description" content="Abra o app pelo nosso link e você já cai dentro do clube. Fichas por PIX e suporte 24h.">
+  <meta property="og:description" content="Ação a qualquer hora, fichas por PIX na hora e suporte 24h. Abra o app pelo nosso link e você já cai dentro do clube.">
   <meta property="og:locale" content="pt_BR">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23f5a524'/%3E%3Ctext x='16' y='23' font-size='20' text-anchor='middle' fill='%23140f05'%3E%E2%99%A0%3C/text%3E%3C/svg%3E">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23efa144'/%3E%3Ctext x='16' y='23' font-size='20' text-anchor='middle' fill='%231c1c1c'%3E%E2%99%A0%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;800;900&family=Antonio:wght@700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/styles.css">
+  <script>
+    (function () {
+      var d = document.documentElement; d.classList.add('js');
+      var force = /[?&]motion=on(?:&|$)/.test(location.search);
+      if (!force && matchMedia('(prefers-reduced-motion: reduce)').matches) d.classList.add('no-motion');
+    })();
+  </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
   <script type="module" src="/app.js"></script>
+  <script type="module" src="/motion.js"></script>
 </head>
 <body>
+  <!-- Fundo vivo: brilhos + esfera 3D (desktop) -->
+  <div class="bg" aria-hidden="true">
+    <div class="bg-glow bg-glow-1"></div>
+    <div class="bg-glow bg-glow-2"></div>
+    <div class="bg-grid"></div>
+    <canvas id="sphere"></canvas>
+  </div>
+
   <div class="test-banner" id="test-banner" hidden>
     Modo teste: as contas e o PIX são simulados. Não pague nenhum PIX desta página.
   </div>
@@ -24,66 +45,97 @@
       <span class="brand-mark" aria-hidden="true">♠</span>
       <span class="brand-text"><strong>Clube Suprema</strong><small data-bind="club-line">ID 10001</small></span>
     </a>
+    <nav class="topnav" aria-label="Seções">
+      <a href="#como-funciona">Como funciona</a>
+      <a href="#acao">Ação 24h</a>
+      <a href="#faq">Dúvidas</a>
+    </nav>
     <button class="btn btn-sm" type="button" data-action="start">Começar</button>
   </header>
 
   <main id="topo">
-    <section class="hero">
-      <p class="eyebrow">Suprema Poker · <span data-bind="club-line">ID 10001</span></p>
-      <div data-flow="convite" hidden>
-        <h1>Entre no Clube Suprema em 2 minutos. <span class="accent">Fichas por PIX e suporte 24h.</span></h1>
-        <p class="lead">Abra o app pelo nosso link e você já cai dentro do clube. As fichas você compra por PIX, na hora.</p>
-      </div>
-      <div data-flow="completo" hidden>
-        <h1>Um cadastro só. PIX aqui mesmo. <span class="accent">Você já entra no clube.</span></h1>
-        <p class="lead">Crie sua conta só com e-mail e senha, deposite por PIX nesta página e abra o app já dentro do clube.</p>
-      </div>
-      <div class="hero-cta">
-        <button class="btn btn-lg" type="button" data-action="start">Quero jogar</button>
-        <a class="btn btn-ghost btn-lg" href="#como-funciona">Como funciona</a>
-      </div>
-      <ul class="trust" aria-label="Vantagens">
-        <li><span aria-hidden="true">⚡</span> PIX na hora</li>
-        <li><span aria-hidden="true">💬</span> Suporte 24h</li>
-        <li><span aria-hidden="true">🔞</span> Somente +18</li>
-      </ul>
-      <div class="resume" id="resume" hidden>
-        <span>Você já começou por aqui.</span>
-        <button class="link" type="button" data-action="resume">Continuar</button>
+    <section class="hero" id="hero">
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow reveal"><span class="live-dot" aria-hidden="true"></span> Suprema Poker · <span data-bind="club-line">ID 10001</span></p>
+          <div data-flow="convite" hidden>
+            <h1 class="reveal">Entre no Clube Suprema em <span class="accent">2 minutos</span>.</h1>
+            <p class="lead reveal">Ação a qualquer hora, fichas por PIX na hora e suporte 24h no WhatsApp. Abra o app pelo nosso link e você já cai dentro do clube.</p>
+          </div>
+          <div data-flow="completo" hidden>
+            <h1 class="reveal">Um cadastro só. PIX aqui mesmo. <span class="accent">Você já entra no clube.</span></h1>
+            <p class="lead reveal">Crie sua conta só com e-mail e senha, deposite por PIX nesta página e abra o app já dentro do clube.</p>
+          </div>
+          <div class="hero-cta reveal">
+            <button class="btn btn-lg" type="button" data-action="start">Quero jogar <span class="btn-arrow" aria-hidden="true">→</span></button>
+            <a class="btn btn-ghost btn-lg" href="#como-funciona">Como funciona</a>
+          </div>
+          <ul class="trust reveal" aria-label="Vantagens">
+            <li><span aria-hidden="true">⚡</span> PIX na hora</li>
+            <li><span aria-hidden="true">💬</span> Suporte 24h</li>
+            <li><span aria-hidden="true">🔞</span> Somente +18</li>
+          </ul>
+          <div class="resume" id="resume" hidden>
+            <span>Você já começou por aqui.</span>
+            <button class="link" type="button" data-action="resume">Continuar</button>
+          </div>
+        </div>
+
+        <div class="hero-visual reveal" id="hero-visual" aria-hidden="true">
+          <div class="phone-stage" id="phone-stage">
+            <div class="phone-float">
+              <img class="phone phone-abertura" src="/img/app-abertura.webp" width="743" height="836" alt="" decoding="async" fetchpriority="high">
+              <img class="phone phone-mesa" src="/img/app-mesa.webp" width="804" height="921" alt="" decoding="async">
+              <div class="pill pill-pix"><span class="pill-inner"><span class="pill-ico">⚡</span><span class="pill-text"><strong>PIX confirmado</strong><small>fichas na conta</small></span></span></div>
+              <div class="pill pill-wa"><span class="pill-inner"><span class="pill-ico pill-ico-wa">💬</span><span class="pill-text"><strong>Suporte online</strong><small>24h · WhatsApp</small></span></span></div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
+    <div class="ticker" aria-hidden="true">
+      <div class="ticker-track">
+        <span>Ação a qualquer hora</span><i>♠</i><span>PIX na hora</span><i>♥</i><span>Suporte 24h</span><i>♦</i><span>Clube <b data-bind="club-id">10001</b></span><i>♣</i><span>NLH · PLO</span><i>♠</i><span>Somente +18</span><i>♥</i>
+        <span>Ação a qualquer hora</span><i>♠</i><span>PIX na hora</span><i>♥</i><span>Suporte 24h</span><i>♦</i><span>Clube <b data-bind="club-id">10001</b></span><i>♣</i><span>NLH · PLO</span><i>♠</i><span>Somente +18</span><i>♥</i>
+      </div>
+    </div>
+
     <section class="section" id="como-funciona">
-      <h2>Como funciona</h2>
+      <div class="section-head">
+        <p class="eyebrow reveal">Passo a passo</p>
+        <h2 class="reveal">Como <span class="accent">funciona</span></h2>
+        <p class="muted reveal">Sem burocracia: três passos e você está na mesa.</p>
+      </div>
       <ol class="steps-grid" data-flow="convite" hidden>
-        <li>
+        <li class="glow-card reveal">
           <span class="num">1</span>
           <h3>Deixe seu e-mail</h3>
           <p>Leva 10 segundos. A gente te mostra o caminho mais rápido.</p>
         </li>
-        <li>
+        <li class="glow-card reveal">
           <span class="num">2</span>
           <h3>Abra o app pelo nosso link</h3>
           <p>Crie sua conta no app da Suprema. Pelo link, você já entra no clube com o nosso agente.</p>
         </li>
-        <li>
+        <li class="glow-card reveal">
           <span class="num">3</span>
           <h3>Compre fichas por PIX</h3>
           <p>No Fichas 24h, com suporte 24h se precisar. As fichas caem na sua conta do app.</p>
         </li>
       </ol>
       <ol class="steps-grid" data-flow="completo" hidden>
-        <li>
+        <li class="glow-card reveal">
           <span class="num">1</span>
           <h3>Cadastro em 30 segundos</h3>
           <p>Só e-mail e senha. A gente cria sua conta na Suprema e prepara o Fichas 24h para o seu PIX.</p>
         </li>
-        <li>
+        <li class="glow-card reveal">
           <span class="num">2</span>
           <h3>PIX nesta página</h3>
           <p>Escolha o valor, pague o QR Code no app do seu banco e as fichas caem na sua conta.</p>
         </li>
-        <li>
+        <li class="glow-card reveal">
           <span class="num">3</span>
           <h3>Baixe e jogue</h3>
           <p>Abra o app pelo nosso link e entre com o mesmo e-mail e senha. Você já cai dentro do clube.</p>
@@ -91,55 +143,101 @@
       </ol>
     </section>
 
-    <section class="section" id="torneios">
-      <h2>Torneios em destaque</h2>
-      <div class="tournaments" id="tournaments"></div>
+    <section class="section" id="acao">
+      <div class="motion reveal" role="img" aria-label="Ação a qualquer hora e suporte 24 horas no Clube Suprema">
+        <div class="m-glow"></div>
+        <div class="m-lines"></div>
+        <div class="m-scene m-s1">
+          <div class="m-cards">
+            <span class="pc pc-1">A<i>♠</i></span>
+            <span class="pc pc-2">K<i>♥</i></span>
+            <span class="pc pc-3">Q<i>♦</i></span>
+          </div>
+          <div class="m-word">AÇÃO</div>
+          <div class="m-sub">Mesas rodando a qualquer hora · NLH e PLO</div>
+        </div>
+        <div class="m-scene m-s2">
+          <div class="m-bubble"><span class="m-dots"><i></i><i></i><i></i></span></div>
+          <div class="m-word">SUPORTE <span class="accent">24h</span></div>
+          <div class="m-sub"><i class="m-online"></i> Online agora no WhatsApp</div>
+        </div>
+        <div class="m-scene m-s3">
+          <div class="m-brand">♠</div>
+          <div class="m-word">SUPREMA</div>
+          <div class="m-sub">Clube <span data-bind="club-id">10001</span> · Entre em 2 minutos</div>
+        </div>
+        <div class="m-progress"><i class="m-p1"></i><i class="m-p2"></i><i class="m-p3"></i></div>
+      </div>
+    </section>
+
+    <section class="section" id="vantagens">
+      <div class="section-head">
+        <p class="eyebrow reveal">Por que o Clube Suprema</p>
+        <h2 class="reveal">Direto ao <span class="accent">ponto</span></h2>
+      </div>
+      <ul class="stats">
+        <li class="glow-card reveal"><strong class="stat-num">2<small>min</small></strong><span>para entrar no clube pelo nosso link</span></li>
+        <li class="glow-card reveal"><strong class="stat-num">24<small>h</small></strong><span>suporte humano no WhatsApp, todo dia</span></li>
+        <li class="glow-card reveal"><strong class="stat-num">PIX</strong><span>fichas na hora pelo Fichas 24h; saque na chave do seu CPF</span></li>
+        <li class="glow-card reveal"><strong class="stat-num">+18</strong><span>app oficial Suprema Poker e jogo consciente</span></li>
+      </ul>
+      <ul class="trust-row reveal" aria-label="Confiança">
+        <li><span aria-hidden="true">♠</span> App oficial Suprema Poker</li>
+        <li><span aria-hidden="true">⚡</span> Pagamentos pelo Fichas 24h</li>
+        <li><a data-link="responsibleGaming" target="_blank" rel="noopener">Jogo consciente</a></li>
+      </ul>
     </section>
 
     <section class="section" id="faq">
-      <h2>Perguntas frequentes</h2>
+      <div class="section-head">
+        <p class="eyebrow reveal">Dúvidas</p>
+        <h2 class="reveal">Perguntas <span class="accent">frequentes</span></h2>
+      </div>
       <div class="faq">
-        <details data-flow="convite" hidden>
+        <details class="reveal" data-flow="convite" hidden>
           <summary>Como eu entro no clube?</summary>
           <p>Abra o app da Suprema pelo nosso link. Se ainda não tiver o app, o link leva para a loja; depois de instalar, abra pelo mesmo link e você entra no clube com o nosso agente.</p>
         </details>
-        <details data-flow="completo" hidden>
+        <details class="reveal" data-flow="completo" hidden>
           <summary>Preciso criar conta no app e no Fichas 24h separado?</summary>
           <p>Não. Com este cadastro criamos a sua conta, e no primeiro depósito preparamos o Fichas 24h para o seu PIX.</p>
         </details>
-        <details>
+        <details class="reveal">
           <summary>Já tenho conta na Suprema. Posso usar?</summary>
           <p data-flow="convite" hidden>Pode. Abra o nosso link com o app instalado e aceite o convite do clube.</p>
           <p data-flow="completo" hidden>Pode. Use o mesmo e-mail: se a conta já existir, pedimos o seu ID da Suprema para vincular ao clube.</p>
         </details>
-        <details>
+        <details class="reveal">
           <summary>Como compro fichas?</summary>
           <p data-flow="convite" hidden>Pelo Fichas 24h, por PIX. Na primeira compra, informe o seu ID da Suprema (fica no seu perfil no app), o clube <strong data-bind="club-id">10001</strong> e o agente <strong data-bind="agent-id">1439098</strong>.</p>
           <p data-flow="completo" hidden>Você paga por PIX aqui na página. O pagamento é processado pelo Fichas 24h e as fichas caem na sua conta do app em instantes.</p>
         </details>
-        <details>
+        <details class="reveal">
           <summary>Como faço para sacar?</summary>
           <p>Pelo Fichas 24h, direto na chave PIX do seu CPF. Se precisar, o suporte 24h ajuda.</p>
         </details>
-        <details data-flow="convite" hidden>
+        <details class="reveal" data-flow="convite" hidden>
           <summary>Por que vocês pedem meu e-mail?</summary>
           <p>Só para te ajudar se você travar em algum passo. Não pedimos senha nem documentos nesta página.</p>
         </details>
-        <details data-flow="completo" hidden>
+        <details class="reveal" data-flow="completo" hidden>
           <summary>Minha senha fica guardada aqui?</summary>
           <p>Não. Ela é usada só na hora de criar suas contas e não fica salva nesta página.</p>
         </details>
-        <details>
+        <details class="reveal">
           <summary>Quem pode jogar?</summary>
           <p>Somente maiores de 18 anos. Jogue com responsabilidade.</p>
         </details>
       </div>
     </section>
 
-    <section class="section cta-final">
-      <h2>Pronto para sentar na mesa?</h2>
-      <p class="muted">Leva menos de 2 minutos.</p>
-      <button class="btn btn-lg" type="button" data-action="start">Quero jogar</button>
+    <section class="section cta-final" id="cta">
+      <div class="cta-panel reveal">
+        <p class="eyebrow">A mesa está aberta</p>
+        <h2>Pronto para <span class="accent">sentar na mesa</span>?</h2>
+        <p class="muted">Leva menos de 2 minutos. Suporte 24h se precisar.</p>
+        <button class="btn btn-lg" type="button" data-action="start">Quero jogar <span class="btn-arrow" aria-hidden="true">→</span></button>
+      </div>
     </section>
   </main>
 

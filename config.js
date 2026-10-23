@@ -39,11 +39,6 @@ export const config = {
     metaPixelId: process.env.META_PIXEL_ID || '',
   },
 
-  tournaments: [
-    { name: 'SPS 200-L Battle', time: '20:00', guaranteed: '25K', game: 'NLH', buyIn: '35', stack: '60K', late: '22:40', blinds: '10 min' },
-    { name: 'SPS 198-L Big Plus', time: '18:00', guaranteed: '108.5K', game: 'NLH', buyIn: '35', stack: '50K', late: '21:20', blinds: '12 min' },
-    { name: 'SPS 153-M Battle HR', time: '19:00', guaranteed: '101.5K', game: 'NLH', buyIn: '150', stack: '80K', late: '22:20', blinds: '12 min' },
-  ],
 };
 
 export const testMode = config.flow === 'completo' && (config.modes.suprema === 'mock' || config.modes.fichas24h === 'mock');

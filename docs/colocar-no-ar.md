@@ -96,7 +96,6 @@ A pasta `data/` do seu PC (com os testes) não deve subir. Se o Railway enviar m
 - [ ] Publicar **termos de uso** e **política de privacidade** (a página coleta e-mail: LGPD) e ligar os links no texto do aceite.
 - [ ] Definir `ADMIN_TOKEN` e abrir `/admin` no domínio para conferir que pede a senha.
 - [ ] Colocar os IDs do GA4 e do Pixel.
-- [ ] Atualizar os torneios em `config.js` (são fixos na página).
 - [ ] Usar links com origem nos anúncios, ex.: `https://seudominio.com.br/?utm_source=instagram&utm_campaign=lancamento`. O link `/#cadastro` abre direto no passo do e-mail.
 
 ## Link único do app

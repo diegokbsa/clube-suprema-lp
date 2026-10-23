@@ -821,25 +821,6 @@ function initApp() {
 
 // ---------- Landing ----------
 
-function renderTournaments() {
-  const list = state.config.tournaments || [];
-  $('#torneios').hidden = !list.length;
-  $('#tournaments').innerHTML = list.map((t) => `
-    <article class="tour">
-      <div class="tour-head">
-        <div class="tour-name">${esc(t.name)} · ${esc(t.time)}</div>
-        <div class="tour-gtd">${esc(t.guaranteed)}</div>
-        <div class="tour-game">${esc(t.game)}</div>
-      </div>
-      <div class="tour-grid">
-        <div><span>Buy-in</span><strong>${esc(t.buyIn)}</strong></div>
-        <div><span>Stack</span><strong>${esc(t.stack)}</strong></div>
-        <div><span>Late</span><strong>${esc(t.late)}</strong></div>
-        <div><span>Blinds</span><strong>${esc(t.blinds)}</strong></div>
-      </div>
-    </article>`).join('');
-}
-
 const ACTIONS = {
   start,
   resume,
@@ -903,10 +884,11 @@ async function init() {
   $('#test-banner').hidden = !state.config.testMode;
   $$('[data-flow]').forEach((el) => { el.hidden = el.dataset.flow !== state.config.flow; });
   loadTracking(state.config.tracking);
-  renderTournaments();
   bindDynamic();
   refreshResume();
   track('lp_view');
+  // Avisa o motion.js que a página está pronta (fluxo certo visível) para animar as entradas.
+  document.dispatchEvent(new CustomEvent('lp:ready'));
   if (location.hash === '#cadastro') start();
 }
 

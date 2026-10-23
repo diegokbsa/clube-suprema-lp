@@ -61,12 +61,15 @@ Depois de mudar arquivos do servidor (`server.js`, `lib/`, `adapters/`, `config.
 
 ```
 public/          página (index.html, app.js, styles.css) e painel (admin.html)
+public/motion.js  vida da página: revelações ao rolar (GSAP), celular com parallax, esfera 3D (Three.js)
+public/img/      artes do app usadas no hero
+docs/design-system.md  tokens de cor, tipografia e animação extraídos do site da Suprema
 public/shared/   validação usada pela página e pelo servidor (mesmas regras)
 server.js        servidor e rotas da API
 lib/orchestrator.js  etapas do cadastro, depósitos e dados do painel
 adapters/        integrações: *.mock.js (simulado) e *.real.js (a fazer)
 lib/store.js     dados em data/db.json (trocar por banco antes de produção)
-config.js        clube, agente, WhatsApp, valores de depósito, links, torneios
+config.js        clube, agente, WhatsApp, valores de depósito, links
 ```
 
 Etapas de cada cadastro:
@@ -94,6 +97,16 @@ No PowerShell:
 ```powershell
 $env:SUPREMA_MODE="real"; $env:F24H_MODE="real"; $env:ADMIN_TOKEN="uma-senha-forte"; node server.js
 ```
+
+## Motion e acessibilidade
+
+A página respeita a preferência "menos movimento" do sistema: nesse caso a esfera 3D e o parallax somem, as
+entradas aparecem sem animação e o bloco "Ação / Suporte 24h / Suprema" só troca de cena com fade. No Windows,
+essa preferência fica ativa quando "Efeitos de animação" está desligado nas configurações de acessibilidade.
+Para ver a experiência completa mesmo assim, abra a página com `?motion=on` (ex.: https://suprema.blog/?motion=on).
+
+Bibliotecas carregadas por CDN (cdnjs): GSAP 3.12.5 + ScrollTrigger e Three.js 0.170 (só em telas de 900 px ou mais).
+Se alguma não carregar, a página funciona do mesmo jeito, só sem o efeito.
 
 ## Tracking
 

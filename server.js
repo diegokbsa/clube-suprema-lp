@@ -17,6 +17,8 @@ const TYPES = {
   '.js': 'text/javascript; charset=utf-8',
   '.svg': 'image/svg+xml',
   '.png': 'image/png',
+  '.webp': 'image/webp',
+  '.jpg': 'image/jpeg',
   '.ico': 'image/x-icon',
   '.json': 'application/json; charset=utf-8',
 };
@@ -98,7 +100,6 @@ const publicConfig = () => ({
   deposit: config.deposit,
   links: config.links,
   tracking: config.tracking,
-  tournaments: config.tournaments,
   testMode,
 });
 
