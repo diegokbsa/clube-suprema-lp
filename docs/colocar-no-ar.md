@@ -4,6 +4,22 @@ A versão convite não depende de nenhuma integração: pede o e-mail, mostra o 
 
 O servidor é Node puro, sem dependências. Qualquer hospedagem que rode `node server.js` serve.
 
+## Como está no ar (desde 23/10/2026)
+
+| Item | Onde |
+|---|---|
+| Site | https://suprema.blog (o `www` redireciona para a raiz) |
+| Endereço do Render | https://clube-suprema-lp.onrender.com |
+| Código | repositório privado https://github.com/diegokbsa/clube-suprema-lp (branch `main`) |
+| Serviço | Render → Web Service **clube-suprema-lp**, região Virginia, plano **Free**, criado pelo `render.yaml` (Blueprint) |
+| Senha do painel | variável `ADMIN_TOKEN`, gerada pelo Render: Render → clube-suprema-lp → **Environment** |
+| DNS | GoDaddy → suprema.blog → DNS: registro `A @ → 216.24.57.1` e `CNAME www → suprema.blog` |
+
+- **Publicar uma mudança:** `git add -A`, `git commit -m "..."` e `git push`. O Render reconstrói sozinho em cerca de 1 minuto.
+- **Painel:** https://suprema.blog/admin pede a senha (`ADMIN_TOKEN`).
+- **Limites do plano Free:** o serviço dorme após 15 min sem visitas (a primeira visita seguinte demora até 1 min) e a lista de leads zera a cada reinício ou novo deploy. Para guardar os leads: cartão na conta Render, plano `0.5c-512mb` e um disco em `/var/data` com `DATA_DIR=/var/data` (o `render.yaml` tem o comentário com o que mudar).
+- **Mudar DNS no GoDaddy:** cada alteração pede um código por SMS (proteção total do domínio).
+
 ## Testar de graça
 
 ### Opção A: túnel da Cloudflare (sem conta, em 2 minutos)
