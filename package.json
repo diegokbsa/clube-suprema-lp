@@ -1,0 +1,13 @@
+{
+  "name": "clube-suprema-lp",
+  "private": true,
+  "type": "module",
+  "description": "LP com cadastro único (Suprema + Fichas 24h), PIX na página e link para o app.",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "engines": {
+    "node": "22.x"
+  }
+}

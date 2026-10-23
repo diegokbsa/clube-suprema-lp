@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Painel de cadastros · Clube Suprema</title>
+  <link rel="stylesheet" href="/styles.css">
+  <style>
+    .admin { max-width: 1200px; margin: 0 auto; padding: 20px 16px 60px; }
+    .admin-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 18px; }
+    .admin-head h1 { font-size: 1.4rem; margin: 0; }
+    .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin-bottom: 18px; }
+    .kpi { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 12px 14px; }
+    .kpi span { display: block; color: var(--muted); font-size: .78rem; }
+    .kpi strong { font-size: 1.5rem; }
+    .kpi small { color: var(--muted); font-size: .75rem; }
+    .filters { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+    .chip { border: 1px solid var(--border); background: var(--card); color: var(--text); border-radius: 999px; padding: 6px 12px; cursor: pointer; font: .85rem var(--font); }
+    .chip[aria-pressed="true"] { border-color: var(--accent); color: var(--accent); }
+    .table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 12px; }
+    table { width: 100%; border-collapse: collapse; font-size: .88rem; min-width: 860px; }
+    th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+    th { color: var(--muted); font-weight: 600; background: var(--bg-2); position: sticky; top: 0; }
+    tr.row { cursor: pointer; }
+    tr.row:hover td { background: var(--card); }
+    .badge { display: inline-block; padding: 3px 8px; border-radius: 999px; font-size: .75rem; font-weight: 700; white-space: nowrap; }
+    .b-pronto { background: rgba(34,197,94,.15); color: #4ade80; }
+    .b-em_andamento { background: rgba(245,165,36,.14); color: var(--accent); }
+    .b-aguardando_jogador { background: rgba(96,165,250,.15); color: #93c5fd; }
+    .b-falhou { background: rgba(239,68,68,.15); color: #fca5a5; }
+    .steps-mini { display: flex; gap: 4px; }
+    .steps-mini i { width: 14px; height: 14px; border-radius: 4px; background: var(--border); display: inline-block; }
+    .steps-mini i.ok { background: var(--ok); }
+    .steps-mini i.rodando { background: var(--accent); }
+    .steps-mini i.aguardando { background: #60a5fa; }
+    .steps-mini i.erro { background: var(--danger); }
+    .detail td { background: var(--bg-2); }
+    .log { list-style: none; margin: 0; padding: 0; font-family: ui-monospace, Consolas, monospace; font-size: .8rem; color: #d4d4d8; display: grid; gap: 3px; max-height: 260px; overflow: auto; }
+    .log time { color: var(--muted); margin-right: 8px; }
+    .detail-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+    .detail-grid h4 { margin: 0 0 6px; font-size: .85rem; color: var(--muted); font-weight: 600; }
+    .empty { padding: 40px; text-align: center; color: var(--muted); }
+    .err-text { color: #fca5a5; font-size: .8rem; max-width: 260px; }
+    .admin-section { margin-bottom: 32px; }
+    .admin-section > h2 { font-size: 1.1rem; margin-bottom: 12px; }
+    .yes { color: #4ade80; }
+  </style>
+</head>
+<body>
+  <div class="admin">
+    <div class="admin-head">
+      <h1>Painel do funil</h1>
+      <span class="muted small" id="updated">carregando…</span>
+    </div>
+    <section id="leads-section" class="admin-section" hidden>
+      <h2>Versão convite · leads</h2>
+      <div class="kpis" id="lead-kpis"></div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Quando</th><th>E-mail</th><th>Origem</th><th>Baixou o app</th><th>Clicou em comprar fichas</th><th>Chamou o suporte</th></tr>
+          </thead>
+          <tbody id="lead-rows"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="signups-section" class="admin-section" hidden>
+    <h2>Cadastro completo</h2>
+    <div class="kpis" id="kpis"></div>
+    <div class="filters" id="filters" role="group" aria-label="Filtrar por status">
+      <button class="chip" data-filter="todos" aria-pressed="true">Todos</button>
+      <button class="chip" data-filter="aguardando_jogador" aria-pressed="false">Aguardando jogador</button>
+      <button class="chip" data-filter="falhou" aria-pressed="false">Com falha</button>
+      <button class="chip" data-filter="em_andamento" aria-pressed="false">Em andamento</button>
+      <button class="chip" data-filter="pronto" aria-pressed="false">Prontos</button>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Quando</th><th>Jogador</th><th>Status</th><th>Etapas</th><th>ID Suprema</th><th>Depósitos</th><th>Origem</th><th></th></tr>
+        </thead>
+        <tbody id="rows"></tbody>
+      </table>
+    </div>
+    </section>
+  </div>
+
+  <script type="module">
+    const STATUS = { pronto: 'Pronto', em_andamento: 'Em andamento', aguardando_jogador: 'Aguardando jogador', falhou: 'Falhou' };
+    const NEEDS = { codigo_email: 'código do e-mail', id_suprema: 'ID da Suprema', dados_pix: 'dados do PIX (1º depósito)' };
+    const esc = (v) => String(v ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
+    const brl = (v) => Number(v).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    const when = (iso) => new Date(iso).toLocaleString('pt-BR', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' });
+    const state = { filter: 'todos', open: new Set(), data: null };
+
+    function token() {
+      try { return sessionStorage.getItem('adminToken') || ''; } catch { return ''; }
+    }
+
+    async function api(path, method = 'GET') {
+      const res = await fetch(path, { method, headers: { 'x-admin-token': token() } });
+      const data = await res.json().catch(() => ({}));
+      if (res.status === 401) {
+        const t = prompt('Token do painel:');
+        if (t) { try { sessionStorage.setItem('adminToken', t); } catch {} return api(path, method); }
+      }
+      if (!res.ok) throw new Error(data.error || 'Erro ao carregar');
+      return data;
+    }
+
+    function renderKpis(f) {
+      const pct = (a, b, label) => (b ? `${Math.round((a / b) * 100)}% ${label}` : '');
+      const items = [
+        ['Cadastros', f.cadastros, ''],
+        ['Contas prontas', f.prontos, pct(f.prontos, f.cadastros, 'dos cadastros')],
+        ['Aguardando jogador', f.aguardando, ''],
+        ['Com falha', f.falhas, ''],
+        ['PIX gerados', f.pixGerados, ''],
+        ['PIX pagos', f.pixPagos, pct(f.pixPagos, f.pixGerados, 'dos gerados')],
+        ['Valor pago', brl(f.valorPago), ''],
+      ];
+      document.getElementById('kpis').innerHTML = items
+        .map(([label, value, sub]) => `<div class="kpi"><span>${label}</span><strong>${esc(value)}</strong>${sub ? `<small>${esc(sub)}</small>` : ''}</div>`)
+        .join('');
+    }
+
+    function renderRows(signups) {
+      const list = state.filter === 'todos' ? signups : signups.filter((s) => s.status === state.filter);
+      const tbody = document.getElementById('rows');
+      if (!list.length) {
+        tbody.innerHTML = `<tr><td colspan="8" class="empty">Nenhum cadastro ${state.filter === 'todos' ? 'ainda' : 'neste filtro'}.</td></tr>`;
+        return;
+      }
+      tbody.innerHTML = list.map((s) => {
+        const paid = s.deposits.filter((d) => d.status === 'pago' || d.status === 'creditado');
+        const origin = s.utm?.utm_source ? `${s.utm.utm_source}${s.utm.utm_campaign ? ' / ' + s.utm.utm_campaign : ''}` : 'direto';
+        const status = `<span class="badge b-${s.status}">${STATUS[s.status] || s.status}</span>` +
+          (s.needs ? `<div class="muted small">falta: ${NEEDS[s.needs] || s.needs}</div>` : '') +
+          (s.status === 'falhou' && s.error ? `<div class="err-text">${esc(s.error)}</div>` : '');
+        const steps = `<span class="steps-mini">${s.steps.map((st) => `<i class="${esc(st.state)}" title="${esc(st.label)}: ${esc(st.state)}"></i>`).join('')}</span>`;
+        const action = s.status === 'falhou' && !s.fatal ? `<button class="btn btn-sm" data-retry="${s.id}">Tentar de novo</button>` : '';
+        const row = `<tr class="row" data-id="${s.id}">
+          <td>${when(s.createdAt)}</td>
+          <td><strong>${esc(s.player.nick)}</strong><div class="muted small">${esc(s.player.email)}</div></td>
+          <td>${status}</td>
+          <td>${steps}</td>
+          <td>${esc(s.supremaId || '—')}</td>
+          <td>${paid.length ? brl(paid.reduce((a, d) => a + d.amount, 0)) : s.deposits.length ? `${s.deposits.length} gerado(s)` : '—'}</td>
+          <td>${esc(origin)}</td>
+          <td>${action}</td>
+        </tr>`;
+        if (!state.open.has(s.id)) return row;
+        const stepList = s.steps.map((st) => `<li>${esc(st.label)}: <strong>${esc(st.state)}</strong>${st.error ? ` — ${esc(st.error)}` : ''}</li>`).join('');
+        const log = s.log.slice().reverse().map((l) => `<li><time>${when(l.at)}</time>${esc(l.msg)}</li>`).join('');
+        const player = s.player.cpf
+          ? `Apelido ${esc(s.player.nick)} · CPF ${esc(s.player.cpf)} · Cel ${esc(s.player.phone)} · Nasc. ${esc(s.player.birth)}`
+          : `Apelido ${esc(s.player.nick)} · dados do PIX ainda não informados`;
+        return row + `<tr class="detail"><td colspan="8"><div class="detail-grid">
+          <div><h4>Jogador</h4><p class="small">${player}</p><h4>Etapas</h4><ul class="small">${stepList}</ul></div>
+          <div><h4>Histórico</h4><ul class="log">${log}</ul></div>
+        </div></td></tr>`;
+      }).join('');
+    }
+
+    function renderLeads({ funnel, list }) {
+      const pct = (a) => (funnel.leads ? `${Math.round((a / funnel.leads) * 100)}% dos leads` : '');
+      const items = [
+        ['Leads', funnel.leads, ''],
+        ['Baixaram o app', funnel.convite, pct(funnel.convite)],
+        ['Clicaram em comprar fichas', funnel.fichas, pct(funnel.fichas)],
+        ['Chamaram o suporte', funnel.suporte, pct(funnel.suporte)],
+      ];
+      document.getElementById('lead-kpis').innerHTML = items
+        .map(([label, value, sub]) => `<div class="kpi"><span>${label}</span><strong>${esc(value)}</strong>${sub ? `<small>${esc(sub)}</small>` : ''}</div>`)
+        .join('');
+      const mark = (at, label = '') => (at ? `<span class="yes">✓</span> ${label}<div class="muted small">${when(at)}</div>` : '—');
+      const DEVICES = { app_android: 'Android', app_ios: 'iPhone', app_desktop: 'Computador' };
+      const devices = (events) => Object.keys(DEVICES).filter((k) => events[k]).map((k) => DEVICES[k]).join(', ');
+      document.getElementById('lead-rows').innerHTML = list.length
+        ? list.map((l) => {
+            const origin = l.utm?.utm_source ? `${l.utm.utm_source}${l.utm.utm_campaign ? ' / ' + l.utm.utm_campaign : ''}` : 'direto';
+            return `<tr><td>${when(l.createdAt)}</td><td>${esc(l.email)}</td><td>${esc(origin)}</td><td>${mark(l.events.invite_click, esc(devices(l.events)))}</td><td>${mark(l.events.buy_chips_click)}</td><td>${mark(l.events.whatsapp_click)}</td></tr>`;
+          }).join('')
+        : '<tr><td colspan="6" class="empty">Nenhum lead ainda.</td></tr>';
+    }
+
+    async function load() {
+      try {
+        state.data = await api('/api/admin/overview');
+        const { mode, leads, signups } = state.data;
+        document.getElementById('leads-section').hidden = !(mode === 'convite' || leads.list.length);
+        document.getElementById('signups-section').hidden = !(mode === 'completo' || signups.length);
+        renderLeads(leads);
+        renderKpis(state.data.funnel);
+        renderRows(state.data.signups);
+        document.getElementById('updated').textContent = 'atualizado ' + new Date().toLocaleTimeString('pt-BR');
+      } catch (err) {
+        document.getElementById('updated').textContent = err.message;
+      }
+    }
+
+    document.getElementById('filters').addEventListener('click', (e) => {
+      const chip = e.target.closest('[data-filter]');
+      if (!chip) return;
+      state.filter = chip.dataset.filter;
+      document.querySelectorAll('[data-filter]').forEach((c) => c.setAttribute('aria-pressed', String(c === chip)));
+      if (state.data) renderRows(state.data.signups);
+    });
+
+    document.getElementById('rows').addEventListener('click', async (e) => {
+      const retry = e.target.closest('[data-retry]');
+      if (retry) {
+        e.stopPropagation();
+        retry.disabled = true;
+        try { await api(`/api/admin/signups/${retry.dataset.retry}/retry`, 'POST'); } catch (err) { alert(err.message); }
+        return load();
+      }
+      const row = e.target.closest('tr.row');
+      if (!row) return;
+      const id = row.dataset.id;
+      state.open.has(id) ? state.open.delete(id) : state.open.add(id);
+      if (state.data) renderRows(state.data.signups);
+    });
+
+    load();
+    setInterval(load, 4000);
+  </script>
+</body>
+</html>

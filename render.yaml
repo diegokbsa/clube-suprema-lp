@@ -1,0 +1,25 @@
+# Blueprint do Render: cria o serviço da LP com disco para os leads.
+# Em https://dashboard.render.com: New → Blueprint → escolher este repositório → Apply.
+services:
+  - type: web
+    name: clube-suprema-lp
+    runtime: node
+    region: virginia
+    plan: starter
+    buildCommand: echo "sem dependencias para instalar"
+    startCommand: node server.js
+    healthCheckPath: /
+    autoDeploy: true
+    envVars:
+      - key: NODE_VERSION
+        value: 22.12.0
+      - key: FLOW
+        value: convite
+      - key: DATA_DIR
+        value: /var/data
+      - key: ADMIN_TOKEN
+        generateValue: true
+    disk:
+      name: leads
+      mountPath: /var/data
+      sizeGB: 1

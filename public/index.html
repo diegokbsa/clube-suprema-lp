@@ -1,0 +1,384 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Clube Suprema · Entre no clube e jogue</title>
+  <meta name="description" content="Entre no Clube Suprema (ID 10001) em 2 minutos: abra o app pelo nosso link, compre fichas por PIX e jogue com suporte 24h.">
+  <meta name="theme-color" content="#0b0b0d">
+  <meta property="og:title" content="Clube Suprema · Entre no clube e jogue">
+  <meta property="og:description" content="Abra o app pelo nosso link e você já cai dentro do clube. Fichas por PIX e suporte 24h.">
+  <meta property="og:locale" content="pt_BR">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23f5a524'/%3E%3Ctext x='16' y='23' font-size='20' text-anchor='middle' fill='%23140f05'%3E%E2%99%A0%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="/styles.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js" defer></script>
+  <script type="module" src="/app.js"></script>
+</head>
+<body>
+  <div class="test-banner" id="test-banner" hidden>
+    Modo teste: as contas e o PIX são simulados. Não pague nenhum PIX desta página.
+  </div>
+
+  <header class="topbar">
+    <a class="brand" href="#topo" aria-label="Clube Suprema, início">
+      <span class="brand-mark" aria-hidden="true">♠</span>
+      <span class="brand-text"><strong>Clube Suprema</strong><small data-bind="club-line">ID 10001</small></span>
+    </a>
+    <button class="btn btn-sm" type="button" data-action="start">Começar</button>
+  </header>
+
+  <main id="topo">
+    <section class="hero">
+      <p class="eyebrow">Suprema Poker · <span data-bind="club-line">ID 10001</span></p>
+      <div data-flow="convite" hidden>
+        <h1>Entre no Clube Suprema em 2 minutos. <span class="accent">Fichas por PIX e suporte 24h.</span></h1>
+        <p class="lead">Abra o app pelo nosso link e você já cai dentro do clube. As fichas você compra por PIX, na hora.</p>
+      </div>
+      <div data-flow="completo" hidden>
+        <h1>Um cadastro só. PIX aqui mesmo. <span class="accent">Você já entra no clube.</span></h1>
+        <p class="lead">Crie sua conta só com e-mail e senha, deposite por PIX nesta página e abra o app já dentro do clube.</p>
+      </div>
+      <div class="hero-cta">
+        <button class="btn btn-lg" type="button" data-action="start">Quero jogar</button>
+        <a class="btn btn-ghost btn-lg" href="#como-funciona">Como funciona</a>
+      </div>
+      <ul class="trust" aria-label="Vantagens">
+        <li><span aria-hidden="true">⚡</span> PIX na hora</li>
+        <li><span aria-hidden="true">💬</span> Suporte 24h</li>
+        <li><span aria-hidden="true">🔞</span> Somente +18</li>
+      </ul>
+      <div class="resume" id="resume" hidden>
+        <span>Você já começou por aqui.</span>
+        <button class="link" type="button" data-action="resume">Continuar</button>
+      </div>
+    </section>
+
+    <section class="section" id="como-funciona">
+      <h2>Como funciona</h2>
+      <ol class="steps-grid" data-flow="convite" hidden>
+        <li>
+          <span class="num">1</span>
+          <h3>Deixe seu e-mail</h3>
+          <p>Leva 10 segundos. A gente te mostra o caminho mais rápido.</p>
+        </li>
+        <li>
+          <span class="num">2</span>
+          <h3>Abra o app pelo nosso link</h3>
+          <p>Crie sua conta no app da Suprema. Pelo link, você já entra no clube com o nosso agente.</p>
+        </li>
+        <li>
+          <span class="num">3</span>
+          <h3>Compre fichas por PIX</h3>
+          <p>No Fichas 24h, com suporte 24h se precisar. As fichas caem na sua conta do app.</p>
+        </li>
+      </ol>
+      <ol class="steps-grid" data-flow="completo" hidden>
+        <li>
+          <span class="num">1</span>
+          <h3>Cadastro em 30 segundos</h3>
+          <p>Só e-mail e senha. A gente cria sua conta na Suprema e prepara o Fichas 24h para o seu PIX.</p>
+        </li>
+        <li>
+          <span class="num">2</span>
+          <h3>PIX nesta página</h3>
+          <p>Escolha o valor, pague o QR Code no app do seu banco e as fichas caem na sua conta.</p>
+        </li>
+        <li>
+          <span class="num">3</span>
+          <h3>Baixe e jogue</h3>
+          <p>Abra o app pelo nosso link e entre com o mesmo e-mail e senha. Você já cai dentro do clube.</p>
+        </li>
+      </ol>
+    </section>
+
+    <section class="section" id="torneios">
+      <h2>Torneios em destaque</h2>
+      <div class="tournaments" id="tournaments"></div>
+    </section>
+
+    <section class="section" id="faq">
+      <h2>Perguntas frequentes</h2>
+      <div class="faq">
+        <details data-flow="convite" hidden>
+          <summary>Como eu entro no clube?</summary>
+          <p>Abra o app da Suprema pelo nosso link. Se ainda não tiver o app, o link leva para a loja; depois de instalar, abra pelo mesmo link e você entra no clube com o nosso agente.</p>
+        </details>
+        <details data-flow="completo" hidden>
+          <summary>Preciso criar conta no app e no Fichas 24h separado?</summary>
+          <p>Não. Com este cadastro criamos a sua conta, e no primeiro depósito preparamos o Fichas 24h para o seu PIX.</p>
+        </details>
+        <details>
+          <summary>Já tenho conta na Suprema. Posso usar?</summary>
+          <p data-flow="convite" hidden>Pode. Abra o nosso link com o app instalado e aceite o convite do clube.</p>
+          <p data-flow="completo" hidden>Pode. Use o mesmo e-mail: se a conta já existir, pedimos o seu ID da Suprema para vincular ao clube.</p>
+        </details>
+        <details>
+          <summary>Como compro fichas?</summary>
+          <p data-flow="convite" hidden>Pelo Fichas 24h, por PIX. Na primeira compra, informe o seu ID da Suprema (fica no seu perfil no app), o clube <strong data-bind="club-id">10001</strong> e o agente <strong data-bind="agent-id">1439098</strong>.</p>
+          <p data-flow="completo" hidden>Você paga por PIX aqui na página. O pagamento é processado pelo Fichas 24h e as fichas caem na sua conta do app em instantes.</p>
+        </details>
+        <details>
+          <summary>Como faço para sacar?</summary>
+          <p>Pelo Fichas 24h, direto na chave PIX do seu CPF. Se precisar, o suporte 24h ajuda.</p>
+        </details>
+        <details data-flow="convite" hidden>
+          <summary>Por que vocês pedem meu e-mail?</summary>
+          <p>Só para te ajudar se você travar em algum passo. Não pedimos senha nem documentos nesta página.</p>
+        </details>
+        <details data-flow="completo" hidden>
+          <summary>Minha senha fica guardada aqui?</summary>
+          <p>Não. Ela é usada só na hora de criar suas contas e não fica salva nesta página.</p>
+        </details>
+        <details>
+          <summary>Quem pode jogar?</summary>
+          <p>Somente maiores de 18 anos. Jogue com responsabilidade.</p>
+        </details>
+      </div>
+    </section>
+
+    <section class="section cta-final">
+      <h2>Pronto para sentar na mesa?</h2>
+      <p class="muted">Leva menos de 2 minutos.</p>
+      <button class="btn btn-lg" type="button" data-action="start">Quero jogar</button>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p><strong>Clube Suprema</strong> · <span data-bind="club-full">ID 10001</span></p>
+    <p>
+      <a data-wa="geral" target="_blank" rel="noopener">Suporte 24h no WhatsApp</a> ·
+      <a data-link="responsibleGaming" target="_blank" rel="noopener">Jogo consciente</a>
+    </p>
+    <p class="muted small">Jogue com responsabilidade. Proibido para menores de 18 anos.</p>
+  </footer>
+
+  <a class="wa-float" data-wa="ajuda" target="_blank" rel="noopener" aria-label="Precisa de ajuda? Fale com o suporte 24h no WhatsApp">
+    <span class="wa-float-label">Precisa de ajuda?</span>
+    <span class="wa-float-icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+    </span>
+  </a>
+
+  <!-- Fluxo -->
+  <div class="sheet" id="sheet" hidden>
+    <div class="sheet-panel" role="dialog" aria-modal="true" aria-labelledby="sheet-title">
+      <div class="sheet-head">
+        <ol class="progress" id="progress" aria-label="Etapas"></ol>
+        <button class="icon-btn" type="button" data-action="close" aria-label="Fechar">✕</button>
+      </div>
+      <div class="sheet-body" id="sheet-body"></div>
+    </div>
+  </div>
+
+  <!-- ===== Versão convite ===== -->
+
+  <template id="tpl-lead">
+    <h2 id="sheet-title">Comece por aqui</h2>
+    <p class="muted">Deixe seu e-mail e a gente te mostra o caminho mais rápido para entrar no clube.</p>
+    <form id="lead-form" novalidate>
+      <div class="field">
+        <label for="f-email">Seu e-mail</label>
+        <input id="f-email" name="email" type="email" inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" required>
+        <small class="error" data-error="email"></small>
+      </div>
+      <label class="check">
+        <input type="checkbox" name="acceptedTerms" id="f-terms">
+        <span>Tenho 18 anos ou mais e aceito os termos de uso e a política de privacidade.</span>
+      </label>
+      <small class="error" data-error="acceptedTerms"></small>
+      <div class="form-error" id="form-error" role="alert" hidden></div>
+      <button class="btn btn-lg btn-block" type="submit" id="lead-submit">Continuar</button>
+      <p class="muted small center">Usamos seu e-mail só para te ajudar no cadastro.</p>
+    </form>
+  </template>
+
+  <template id="tpl-invite">
+    <h2 id="sheet-title">Agora, 3 passos rápidos</h2>
+    <ol class="invite-steps">
+      <li>
+        <h3><span class="num">1</span> Baixe o app pelo nosso link</h3>
+        <p class="muted">Crie sua conta no app (pode usar <strong data-bind="lead-email"></strong>). No celular, o link já te coloca no clube com o nosso agente.</p>
+        <a class="btn btn-lg btn-block" data-app-link target="_blank" rel="noopener">Baixar o app e entrar no clube</a>
+        <p class="muted small center" id="invite-mobile-hint" hidden>Se você já tem o app, ele abre direto no convite do clube.</p>
+        <div id="invite-desktop" hidden>
+          <p class="small center">Vai jogar no celular? <strong>Aponte a câmera</strong> para o mesmo link:</p>
+          <div class="qr" id="invite-qr" aria-label="QR Code do link do app"></div>
+          <p class="muted small center">No computador, depois de instalar, toque em "Entrar com ID" e use o clube <strong data-bind="club-id"></strong> e o agente <strong data-bind="agent-id"></strong>.</p>
+        </div>
+      </li>
+      <li>
+        <h3><span class="num">2</span> Compre suas fichas por PIX</h3>
+        <p class="muted">No Fichas 24h. Na primeira compra, informe o seu ID da Suprema (fica no seu perfil no app) e estes dados:</p>
+        <div class="ids">
+          <div><span class="muted small">Clube</span><strong data-bind="club-id"></strong><button class="btn btn-sm btn-ghost" type="button" data-action="copy" data-copy-bind="club-id">Copiar</button></div>
+          <div><span class="muted small">Agente</span><strong data-bind="agent-id"></strong><button class="btn btn-sm btn-ghost" type="button" data-action="copy" data-copy-bind="agent-id">Copiar</button></div>
+        </div>
+        <a class="btn btn-block" data-buy target="_blank" rel="noopener">Comprar fichas no Fichas 24h</a>
+      </li>
+      <li>
+        <h3><span class="num">3</span> Jogue</h3>
+        <p class="muted">As fichas caem na sua conta do app. Bons jogos!</p>
+      </li>
+    </ol>
+    <a class="btn btn-ghost btn-block" data-wa="convite" target="_blank" rel="noopener">Travou em algum passo? Suporte 24h no WhatsApp</a>
+    <button class="link center-block small" type="button" data-action="restart-lead">Usar outro e-mail</button>
+  </template>
+
+  <!-- ===== Versão completa ===== -->
+
+  <template id="tpl-form">
+    <h2 id="sheet-title">Crie sua conta</h2>
+    <p class="muted">Só e-mail e senha. Leva 30 segundos.</p>
+    <button class="test-fill" type="button" data-action="fill-test" hidden>Preencher com dados de teste</button>
+    <form id="signup-form" novalidate>
+      <div class="field">
+        <label for="f-email">E-mail</label>
+        <input id="f-email" name="email" type="email" inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" required>
+        <small class="error" data-error="email"></small>
+      </div>
+      <div class="field">
+        <label for="f-password">Crie uma senha</label>
+        <div class="pwd">
+          <input id="f-password" name="password" type="password" autocomplete="new-password" maxlength="16" required>
+          <button type="button" class="pwd-toggle" data-action="toggle-pwd">Mostrar</button>
+        </div>
+        <ul class="rules" id="pwd-rules" aria-live="polite"></ul>
+        <small class="error" data-error="password"></small>
+      </div>
+      <label class="check">
+        <input type="checkbox" name="acceptedTerms" id="f-terms">
+        <span>Tenho 18 anos ou mais e aceito os termos de uso e a política de privacidade.</span>
+      </label>
+      <small class="error" data-error="acceptedTerms"></small>
+      <div class="form-error" id="form-error" role="alert" hidden></div>
+      <button class="btn btn-lg btn-block" type="submit" id="signup-submit">Criar minha conta</button>
+      <p class="muted small center">Use esse e-mail e senha para entrar no app da Suprema.</p>
+    </form>
+  </template>
+
+  <template id="tpl-confirm">
+    <h2 id="sheet-title">Criando sua conta</h2>
+    <p class="muted" id="confirm-sub">Isso leva só alguns segundos.</p>
+    <ul class="checklist" id="checklist"></ul>
+
+    <div class="card-inline" id="need-code" hidden>
+      <h3>Confirme seu e-mail</h3>
+      <p class="muted">A Suprema enviou um código de 6 dígitos para <strong data-bind="email"></strong>.</p>
+      <form id="code-form" class="inline-form">
+        <input id="f-code" inputmode="numeric" maxlength="6" autocomplete="one-time-code" placeholder="000000" aria-label="Código de 6 dígitos">
+        <button class="btn" type="submit">Confirmar</button>
+      </form>
+      <small class="error" id="code-error"></small>
+      <p class="test-hint" id="code-hint" hidden></p>
+      <button class="link" type="button" data-action="resend-code">Reenviar código</button>
+    </div>
+
+    <div class="card-inline" id="need-id" hidden>
+      <h3>Você já tem conta na Suprema</h3>
+      <p class="muted">Encontramos uma conta com <strong data-bind="email"></strong>. Informe o seu ID da Suprema (fica no seu perfil no app) para vincular ao clube.</p>
+      <form id="id-form" class="inline-form">
+        <input id="f-sid" inputmode="numeric" maxlength="12" placeholder="Seu ID na Suprema" aria-label="ID da Suprema">
+        <button class="btn" type="submit">Vincular</button>
+      </form>
+      <small class="error" id="id-error"></small>
+    </div>
+
+    <div class="card-inline error-card" id="failed" hidden>
+      <h3>Não conseguimos terminar seu cadastro</h3>
+      <p class="muted" id="failed-msg"></p>
+      <div class="row-actions">
+        <button class="btn" type="button" data-action="retry">Tentar de novo</button>
+        <a class="btn btn-ghost" data-wa="cadastro" target="_blank" rel="noopener">Falar com o suporte</a>
+      </div>
+    </div>
+
+    <button class="link center-block small" type="button" data-action="restart">Não é você? Começar outro cadastro</button>
+  </template>
+
+  <template id="tpl-deposit">
+    <h2 id="sheet-title">Conta criada! Agora, suas fichas</h2>
+    <p class="muted">Escolha o valor e pague com PIX. As fichas caem direto na sua conta da Suprema.</p>
+    <div id="deposit-choose">
+      <div class="amounts" id="amounts" role="radiogroup" aria-label="Valor do depósito"></div>
+      <div class="field">
+        <label for="f-amount">Outro valor (R$)</label>
+        <input id="f-amount" inputmode="decimal" placeholder="Ex.: 75">
+        <small class="hint" id="amount-hint"></small>
+        <small class="error" id="amount-error"></small>
+      </div>
+      <form id="payer-form" class="payer" novalidate hidden>
+        <h3>Seus dados para o PIX</h3>
+        <p class="muted small">O Fichas 24h, que processa o PIX, pede estes dados só no primeiro depósito.</p>
+        <div class="field">
+          <label for="f-cpf">CPF</label>
+          <input id="f-cpf" name="cpf" inputmode="numeric" autocomplete="off" placeholder="000.000.000-00" maxlength="14">
+          <small class="error" data-error="cpf"></small>
+        </div>
+        <div class="row-2">
+          <div class="field">
+            <label for="f-phone">Celular com DDD</label>
+            <input id="f-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="(11) 91234-5678" maxlength="15">
+            <small class="error" data-error="phone"></small>
+          </div>
+          <div class="field">
+            <label for="f-birth">Nascimento</label>
+            <input id="f-birth" name="birth" type="date" autocomplete="bday">
+            <small class="error" data-error="birth"></small>
+          </div>
+        </div>
+        <div class="field" id="payer-password" hidden>
+          <label for="f-payer-password">Sua senha</label>
+          <input id="f-payer-password" name="password" type="password" autocomplete="current-password" maxlength="16">
+          <small class="hint">A mesma que você criou no cadastro.</small>
+          <small class="error" data-error="password"></small>
+        </div>
+      </form>
+      <div class="form-error" id="deposit-error" role="alert" hidden></div>
+      <button class="btn btn-lg btn-block" type="button" id="pix-generate">Gerar PIX</button>
+      <button class="link center-block" type="button" data-action="skip-deposit">Depositar depois</button>
+    </div>
+    <div id="deposit-pay" hidden>
+      <div class="pix-amount">R$ <span id="pix-value"></span></div>
+      <div class="qr" id="qr" aria-label="QR Code do PIX"></div>
+      <div class="copy-row">
+        <input id="pix-code" readonly aria-label="PIX copia e cola">
+        <button class="btn" type="button" data-action="copy-pix">Copiar</button>
+      </div>
+      <p class="pix-status" id="pix-status" aria-live="polite"><span class="dot"></span><span id="pix-status-text">Aguardando pagamento…</span> <span class="muted" id="pix-timer"></span></p>
+      <ol class="howto">
+        <li>Abra o app do seu banco e escolha pagar com PIX.</li>
+        <li>Escaneie o QR Code ou use o copia e cola.</li>
+        <li>Pague: a confirmação aparece aqui sozinha.</li>
+      </ol>
+      <button class="btn btn-ghost btn-block" type="button" id="simulate-paid" hidden>Simular pagamento (modo teste)</button>
+      <div class="row-actions center">
+        <button class="link" type="button" data-action="new-amount">Trocar valor</button>
+        <a class="link" data-wa="deposito" target="_blank" rel="noopener">Ajuda com o PIX</a>
+      </div>
+    </div>
+  </template>
+
+  <template id="tpl-app">
+    <div class="success-icon" aria-hidden="true">✓</div>
+    <h2 id="sheet-title" class="center"></h2>
+    <p class="muted center" id="app-sub"></p>
+
+    <a class="btn btn-lg btn-block" data-app-link target="_blank" rel="noopener">Baixar o app e entrar no clube</a>
+    <p class="muted small center" id="invite-mobile-hint" hidden>Se você já tem o app, ele abre direto no convite do clube.</p>
+    <div id="invite-desktop" hidden>
+      <p class="small center">Vai jogar no celular? <strong>Aponte a câmera</strong> para o mesmo link:</p>
+      <div class="qr" id="invite-qr" aria-label="QR Code do link do app"></div>
+      <p class="muted small center">No computador, depois de instalar, toque em "Entrar com ID" e use o clube <strong data-bind="club-id"></strong> e o agente <strong data-bind="agent-id"></strong>.</p>
+    </div>
+
+    <div class="login-box">
+      <div><span class="muted small">Entre no app com o e-mail</span><strong data-bind="email"></strong></div>
+      <div><span class="muted small">Senha</span><strong>a mesma que você criou aqui</strong></div>
+      <div><span class="muted small">Clube</span><strong data-bind="club-full"></strong></div>
+    </div>
+    <a class="link center-block" data-wa="app" target="_blank" rel="noopener">Precisa de ajuda? Suporte 24h no WhatsApp</a>
+    <button class="link center-block small" type="button" data-action="go-deposit" id="app-deposit-link" hidden>Fazer um depósito agora</button>
+    <button class="link center-block small" type="button" data-action="restart">Começar outro cadastro</button>
+  </template>
+</body>
+</html>

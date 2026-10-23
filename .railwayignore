@@ -1,0 +1,4 @@
+# Não enviar para o Railway: dados de teste locais e configurações do editor.
+data/
+.claude/
+node_modules/
