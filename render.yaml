@@ -1,25 +1,23 @@
-# Blueprint do Render: cria o serviço da LP com disco para os leads.
+# Blueprint do Render: cria o serviço da LP.
 # Em https://dashboard.render.com: New → Blueprint → escolher este repositório → Apply.
+#
+# Plano free: o serviço dorme após 15 min sem visitas (a 1ª visita seguinte demora ~1 min)
+# e a lista de leads (data/db.json) zera a cada reinício ou novo deploy.
+# Para guardar os leads: trocar para plan 0.5c-512mb e adicionar um disk em /var/data
+# com a variável DATA_DIR=/var/data (exige cartão na conta Render).
 services:
   - type: web
     name: clube-suprema-lp
     runtime: node
     region: virginia
-    plan: 0.5c-512mb
+    plan: free
     buildCommand: echo "sem dependencias para instalar"
     startCommand: node server.js
-    healthCheckPath: /
     autoDeployTrigger: commit
     envVars:
       - key: NODE_VERSION
         value: 22.12.0
       - key: FLOW
         value: convite
-      - key: DATA_DIR
-        value: /var/data
       - key: ADMIN_TOKEN
         generateValue: true
-    disk:
-      name: leads
-      mountPath: /var/data
-      sizeGB: 1
