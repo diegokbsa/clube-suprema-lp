@@ -69,7 +69,7 @@ p { margin: 0 0 1em; }
   -webkit-mask-image: radial-gradient(ellipse 70% 55% at 50% 0%, #000 20%, transparent 100%);
   mask-image: radial-gradient(ellipse 70% 55% at 50% 0%, #000 20%, transparent 100%);
 }
-#sphere { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+#chip3d { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
 @keyframes drift { from { transform: translate3d(0, 0, 0) scale(1); } to { transform: translate3d(-6vw, 5vh, 0) scale(1.12); } }
 
 /* Botões */
@@ -291,6 +291,23 @@ main { max-width: 1120px; margin: 0 auto; padding: 0 16px; }
 @keyframes m-p2 { 0%, 33.3% { width: 0; } 66.6% { width: 100%; } 100% { width: 100%; } }
 @keyframes m-p3 { 0%, 66.6% { width: 0; } 100% { width: 100%; } }
 @media (min-width: 900px) { .motion { min-height: 280px; } }
+
+/* Rolo do Spin Suprema */
+.m-reel { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+.m-reel-window {
+  position: relative; width: 150px; height: 56px; overflow: hidden; border-radius: 10px;
+  background: linear-gradient(#0c0c0e, #1c1c1c 50%, #0c0c0e); border: 2px solid var(--accent);
+  box-shadow: inset 0 8px 14px rgba(0, 0, 0, .7), inset 0 -8px 14px rgba(0, 0, 0, .7), var(--glow);
+}
+.m-reel-window::before, .m-reel-window::after { content: ""; position: absolute; left: 0; right: 0; height: 14px; z-index: 1; pointer-events: none; }
+.m-reel-window::before { top: 0; background: linear-gradient(rgba(0, 0, 0, .85), transparent); }
+.m-reel-window::after { bottom: 0; background: linear-gradient(transparent, rgba(0, 0, 0, .85)); }
+.m-reel-strip { display: flex; flex-direction: column; animation: reel 9s cubic-bezier(.2, .9, .3, 1) 3s infinite; }
+.m-reel-strip b { height: 56px; display: grid; place-items: center; font: 700 1.9rem/1 var(--font-num); color: var(--accent); letter-spacing: .02em; text-shadow: 0 0 14px rgba(239, 161, 68, .55); }
+.m-reel-lever { position: relative; width: 6px; height: 46px; border-radius: 3px; background: linear-gradient(#f3ad58, #a86a1c); transform-origin: 50% 100%; animation: lever 9s var(--ease) 3s infinite; }
+.m-reel-lever::before { content: ""; position: absolute; left: 50%; top: -10px; width: 18px; height: 18px; border-radius: 50%; transform: translateX(-50%); background: radial-gradient(circle at 35% 35%, #ffd79a, #b9771f); box-shadow: 0 4px 10px rgba(0, 0, 0, .5); }
+@keyframes reel { 0%, 3% { transform: translateY(0); } 20% { transform: translateY(-280px); } 100% { transform: translateY(-280px); } }
+@keyframes lever { 0%, 2% { transform: rotate(0); } 5% { transform: rotate(38deg); } 12% { transform: rotate(0); } 100% { transform: rotate(0); } }
 
 /* Vantagens */
 .stats { list-style: none; padding: 0; margin: 0 0 24px; display: grid; gap: 20px; grid-template-columns: repeat(2, 1fr); }
@@ -520,6 +537,8 @@ body.grabbing { cursor: grabbing; user-select: none; -webkit-user-select: none; 
 .no-motion .m-lines { display: none; }
 .no-motion .m-scene { animation-name: m-cycle-soft; animation-timing-function: ease-in-out; }
 .no-motion .pc { animation-name: deal-soft; }
+.no-motion .m-reel-strip { animation: none; transform: translateY(-280px); }
+.no-motion .m-reel-lever { animation: none; }
 .no-motion .glow-card, .no-motion .btn { transition: none; }
 .no-motion .glow-card:hover { transform: none; }
 .no-motion .wa-float { animation: none; }

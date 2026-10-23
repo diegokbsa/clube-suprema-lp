@@ -1,6 +1,6 @@
 // Vida na página: revelações ao rolar (GSAP), celular com parallax, cards com brilho
-// e a esfera 3D de fundo (Three.js). Nada aqui é obrigatório: se uma biblioteca não
-// carregar, a página continua funcionando e tudo fica visível.
+// e a ficha de poker 3D de fundo (Three.js). Nada aqui é obrigatório: se uma biblioteca
+// não carregar, a página continua funcionando e tudo fica visível.
 // Princípios em docs/design-system.md (seção 5).
 
 const $ = (sel, root = document) => root.querySelector(sel);
@@ -95,82 +95,14 @@ function initGlow() {
   }, { passive: true });
 }
 
-// ---------- Esfera 3D: wireframe dourado deformado por ruído, ligada à rolagem e arrastável ----------
+// ---------- Ficha de poker 3D: gira devagar, acompanha a rolagem e pode ser arrastada ----------
 
-// Simplex noise 3D (Ashima Arts / Stefan Gustavson, licença MIT)
-const NOISE_GLSL = `
-vec3 mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
-vec4 mod289(vec4 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
-vec4 permute(vec4 x) { return mod289(((x * 34.0) + 1.0) * x); }
-vec4 taylorInvSqrt(vec4 r) { return 1.79284291400159 - 0.85373472095314 * r; }
-float snoise(vec3 v) {
-  const vec2 C = vec2(1.0 / 6.0, 1.0 / 3.0);
-  const vec4 D = vec4(0.0, 0.5, 1.0, 2.0);
-  vec3 i = floor(v + dot(v, C.yyy));
-  vec3 x0 = v - i + dot(i, C.xxx);
-  vec3 g = step(x0.yzx, x0.xyz);
-  vec3 l = 1.0 - g;
-  vec3 i1 = min(g.xyz, l.zxy);
-  vec3 i2 = max(g.xyz, l.zxy);
-  vec3 x1 = x0 - i1 + C.xxx;
-  vec3 x2 = x0 - i2 + C.yyy;
-  vec3 x3 = x0 - D.yyy;
-  i = mod289(i);
-  vec4 p = permute(permute(permute(i.z + vec4(0.0, i1.z, i2.z, 1.0)) + i.y + vec4(0.0, i1.y, i2.y, 1.0)) + i.x + vec4(0.0, i1.x, i2.x, 1.0));
-  float n_ = 0.142857142857;
-  vec3 ns = n_ * D.wyz - D.xzx;
-  vec4 j = p - 49.0 * floor(p * ns.z * ns.z);
-  vec4 x_ = floor(j * ns.z);
-  vec4 y_ = floor(j - 7.0 * x_);
-  vec4 x = x_ * ns.x + ns.yyyy;
-  vec4 y = y_ * ns.x + ns.yyyy;
-  vec4 h = 1.0 - abs(x) - abs(y);
-  vec4 b0 = vec4(x.xy, y.xy);
-  vec4 b1 = vec4(x.zw, y.zw);
-  vec4 s0 = floor(b0) * 2.0 + 1.0;
-  vec4 s1 = floor(b1) * 2.0 + 1.0;
-  vec4 sh = -step(h, vec4(0.0));
-  vec4 a0 = b0.xzyw + s0.xzyw * sh.xxyy;
-  vec4 a1 = b1.xzyw + s1.xzyw * sh.zzww;
-  vec3 p0 = vec3(a0.xy, h.x);
-  vec3 p1 = vec3(a0.zw, h.y);
-  vec3 p2 = vec3(a1.xy, h.z);
-  vec3 p3 = vec3(a1.zw, h.w);
-  vec4 norm = taylorInvSqrt(vec4(dot(p0, p0), dot(p1, p1), dot(p2, p2), dot(p3, p3)));
-  p0 *= norm.x; p1 *= norm.y; p2 *= norm.z; p3 *= norm.w;
-  vec4 m = max(0.6 - vec4(dot(x0, x0), dot(x1, x1), dot(x2, x2), dot(x3, x3)), 0.0);
-  m = m * m;
-  return 42.0 * dot(m * m, vec4(dot(p0, x0), dot(p1, x1), dot(p2, x2), dot(p3, x3)));
-}`;
-
-const VERTEX = `
-uniform float uTime;
-uniform float uStrength;
-uniform float uDensity;
-varying float vDisp;
-${NOISE_GLSL}
-void main() {
-  float n = snoise(position * uDensity + vec3(uTime * 0.35, uTime * 0.25, uTime * 0.2));
-  vDisp = n;
-  vec3 p = position + normal * n * uStrength;
-  gl_Position = projectionMatrix * modelViewMatrix * vec4(p, 1.0);
-}`;
-
-const FRAGMENT = `
-uniform vec3 uColor;
-uniform float uOpacity;
-varying float vDisp;
-void main() {
-  float a = uOpacity * (0.4 + 0.6 * smoothstep(-1.0, 1.0, vDisp));
-  gl_FragColor = vec4(uColor, a);
-}`;
-
-// Caminho da esfera ao longo da página (p = 0 topo, 1 fim): x em fração da meia-largura visível.
+// Caminho da ficha ao longo da página (p = 0 topo, 1 fim): x/y em fração da meia-largura/meia-altura visível.
 const PATH = [
-  { p: 0.00, x: -0.66, y: -0.18, s: 0.92 },
-  { p: 0.32, x: 0.72, y: 0.18, s: 0.76 },
-  { p: 0.64, x: -0.70, y: 0.00, s: 0.66 },
-  { p: 1.00, x: 0.00, y: 0.10, s: 1.00 },
+  { p: 0.00, x: -0.66, y: -0.18, s: 1.00 },
+  { p: 0.32, x: 0.72, y: 0.18, s: 0.82 },
+  { p: 0.64, x: -0.70, y: 0.00, s: 0.72 },
+  { p: 1.00, x: 0.00, y: 0.10, s: 1.05 },
 ];
 const smooth = (t) => t * t * (3 - 2 * t);
 function pathAt(p, out) {
@@ -186,9 +118,57 @@ function pathAt(p, out) {
 }
 
 const INTERACTIVE = 'a, button, input, textarea, select, label, summary, details, .sheet, .glow-card, .pill, .wa-float, .topbar, .toast';
+const GOLD = '#efa144';
 
-async function initSphere() {
-  const canvas = $('#sphere');
+// Desenha a face da ficha num canvas: anel dourado, marcas na borda, ♠ e o nome do clube.
+function chipFaceTexture(THREE, label) {
+  const size = 1024;
+  const cv = document.createElement('canvas');
+  cv.width = cv.height = size;
+  const g = cv.getContext('2d');
+  const c = size / 2;
+
+  g.fillStyle = '#141416';
+  g.beginPath(); g.arc(c, c, c, 0, Math.PI * 2); g.fill();
+
+  // Marcas da borda (8 setores dourados, como numa ficha de cassino)
+  for (let i = 0; i < 8; i++) {
+    const a0 = (i / 8) * Math.PI * 2 - Math.PI / 24;
+    g.fillStyle = GOLD;
+    g.beginPath();
+    g.arc(c, c, c, a0, a0 + Math.PI / 12);
+    g.arc(c, c, c * 0.84, a0 + Math.PI / 12, a0, true);
+    g.closePath();
+    g.fill();
+  }
+  // Anéis
+  const ring = (r, w, color) => { g.strokeStyle = color; g.lineWidth = w; g.beginPath(); g.arc(c, c, r, 0, Math.PI * 2); g.stroke(); };
+  ring(c * 0.84, 10, GOLD);
+  ring(c * 0.66, 6, GOLD);
+  ring(c * 0.62, 2, 'rgba(239, 161, 68, .5)');
+
+  // Centro: ♠ grande e textos
+  g.fillStyle = GOLD;
+  g.textAlign = 'center';
+  g.textBaseline = 'middle';
+  g.font = `700 ${Math.round(size * 0.3)}px "Segoe UI Symbol", "Apple Symbols", "Montserrat", Arial, sans-serif`;
+  g.fillText('♠', c, c - size * 0.015);
+  g.font = `800 ${Math.round(size * 0.065)}px "Montserrat", Arial, sans-serif`;
+  g.fillStyle = '#ffffff';
+  g.fillText('SUPREMA', c, c + size * 0.21);
+  g.font = `700 ${Math.round(size * 0.04)}px "Montserrat", Arial, sans-serif`;
+  g.fillStyle = GOLD;
+  g.fillText(label, c, c + size * 0.275);
+  g.fillText('POKER', c, c - size * 0.255);
+
+  const tex = new THREE.CanvasTexture(cv);
+  tex.colorSpace = THREE.SRGBColorSpace;
+  tex.anisotropy = 4;
+  return tex;
+}
+
+async function initChip() {
+  const canvas = $('#chip3d');
   if (!canvas) return;
   if (reduceMotion || !isDesktop() || !window.WebGLRenderingContext) { canvas.remove(); return; }
 
@@ -199,6 +179,7 @@ async function initSphere() {
     canvas.remove();
     return;
   }
+  try { await document.fonts?.ready; } catch { /* segue com a fonte padrão */ }
 
   let renderer;
   try {
@@ -207,39 +188,40 @@ async function initSphere() {
     canvas.remove();
     return;
   }
-  renderer.setPixelRatio(1); // 1x basta para um wireframe de fundo e poupa GPU
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.25));
   renderer.setClearColor(0x000000, 0);
 
   const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 50);
-  camera.position.z = 7;
+  const camera = new THREE.PerspectiveCamera(40, 1, 0.1, 50);
+  camera.position.z = 7.5;
 
-  const gold = new THREE.Color('#efa144');
-  const uTime = { value: 0 };
-  const uDensity = { value: 1.35 };
-  const wire = new THREE.Mesh(
-    new THREE.IcosahedronGeometry(1.5, 9),
-    new THREE.ShaderMaterial({
-      uniforms: { uTime, uDensity, uStrength: { value: 0.36 }, uColor: { value: gold }, uOpacity: { value: 0.28 } },
-      vertexShader: VERTEX, fragmentShader: FRAGMENT,
-      wireframe: true, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending,
-    }),
-  );
-  const core = new THREE.Mesh(
-    new THREE.IcosahedronGeometry(1.36, 5),
-    new THREE.ShaderMaterial({
-      uniforms: { uTime, uDensity, uStrength: { value: 0.3 }, uColor: { value: gold }, uOpacity: { value: 0.045 } },
-      vertexShader: VERTEX, fragmentShader: FRAGMENT,
-      transparent: true, depthWrite: false, blending: THREE.AdditiveBlending,
-    }),
-  );
-  const group = new THREE.Group();
-  group.add(core);
-  group.add(wire);
+  scene.add(new THREE.AmbientLight(0xffffff, 0.6));
+  const key = new THREE.DirectionalLight(0xffffff, 1.4);
+  key.position.set(3, 5, 6);
+  scene.add(key);
+  const warm = new THREE.PointLight(0xefa144, 60, 30);
+  warm.position.set(-4, -2, 4);
+  scene.add(warm);
+
+  // Ficha: disco preto com faces texturizadas e listras douradas na borda
+  const R = 1.55, H = 0.26;
+  const clubLabel = ($('[data-bind="club-id"]')?.textContent || '').trim();
+  const face = new THREE.MeshStandardMaterial({ map: chipFaceTexture(THREE, clubLabel ? `CLUBE ${clubLabel}` : 'CLUBE'), metalness: 0.35, roughness: 0.4 });
+  const side = new THREE.MeshStandardMaterial({ color: 0x1c1c1c, metalness: 0.45, roughness: 0.5 });
+  const chip = new THREE.Mesh(new THREE.CylinderGeometry(R, R, H, 96, 1, false), [side, face, face]);
+  const gold = new THREE.MeshStandardMaterial({ color: 0xefa144, metalness: 0.7, roughness: 0.3, emissive: 0x2a1a05 });
+  for (let i = 0; i < 8; i++) {
+    const stripe = new THREE.Mesh(new THREE.CylinderGeometry(R + 0.006, R + 0.006, H + 0.004, 24, 1, true, (i / 8) * Math.PI * 2 - Math.PI / 24, Math.PI / 12), gold);
+    chip.add(stripe);
+  }
+  const tilt = new THREE.Group(); // inclinação (muda com a rolagem)
+  const group = new THREE.Group(); // posição e escala (caminho + arraste)
+  tilt.add(chip);
+  group.add(tilt);
   scene.add(group);
 
   // Estado: alvo pela rolagem + deslocamento do arraste (que volta sozinho)
-  let w = 1, h = 1, progress = 0, dragging = false, hover = false, visible = true;
+  let w = 1, h = 1, progress = 0, dragging = false, hover = false, visible = true, spin = 0;
   const target = new THREE.Vector3();
   const drag = new THREE.Vector3();
   const grabOffset = new THREE.Vector3();
@@ -279,17 +261,17 @@ async function initSphere() {
     ray.ray.intersectPlane(plane, out);
     return out;
   };
-  const overSphere = (e) => {
+  const overChip = (e) => {
     const c = group.position.clone().project(camera);
     const sx = ((c.x + 1) / 2) * w;
     const sy = ((1 - c.y) / 2) * h;
-    const radiusPx = (1.5 * group.scale.x / halfHeight()) * (h / 2);
-    return Math.hypot(e.clientX - sx, e.clientY - sy) < radiusPx * 0.95;
+    const radiusPx = (R * group.scale.x / halfHeight()) * (h / 2);
+    return Math.hypot(e.clientX - sx, e.clientY - sy) < radiusPx;
   };
   const freeArea = (e) => visible && !e.target.closest?.(INTERACTIVE) && $('#sheet')?.hidden !== false;
 
   window.addEventListener('pointerdown', (e) => {
-    if (e.button !== 0 || !freeArea(e) || !overSphere(e)) return;
+    if (e.button !== 0 || !freeArea(e) || !overChip(e)) return;
     dragging = true;
     pointerToWorld(e, hit);
     grabOffset.copy(group.position).sub(hit);
@@ -299,11 +281,13 @@ async function initSphere() {
   window.addEventListener('pointermove', (e) => {
     if (dragging) {
       pointerToWorld(e, hit);
+      const before = drag.x;
       drag.copy(hit).add(grabOffset).sub(target);
+      spin += (drag.x - before) * 1.5; // arrastar faz a ficha girar mais
       return;
     }
     if (!finePointer) return;
-    const over = freeArea(e) && overSphere(e);
+    const over = freeArea(e) && overChip(e);
     if (over !== hover) {
       hover = over;
       document.body.classList.toggle('can-grab', over);
@@ -319,12 +303,13 @@ async function initSphere() {
   window.addEventListener('blur', release);
 
   let last = performance.now();
+  let t = 0;
   const frame = (now) => {
     requestAnimationFrame(frame);
     if (!visible || document.hidden) return;
     const dt = Math.min((now - last) / 1000, 0.05);
     last = now;
-    uTime.value += dt;
+    t += dt;
 
     pathAt(progress, pathOut);
     target.set(pathOut.x * halfWidth(), pathOut.y * halfHeight(), 0);
@@ -335,8 +320,12 @@ async function initSphere() {
     group.position.y += (target.y + drag.y - group.position.y) * Math.min(1, dt * 4);
     const s = group.scale.x + (targetScale - group.scale.x) * Math.min(1, dt * 3);
     group.scale.setScalar(s);
-    group.rotation.y += dt * (dragging ? 0.6 : 0.18);
-    group.rotation.x = Math.sin(uTime.value * 0.2) * 0.15 + progress * 0.7;
+
+    // Gira devagar no próprio eixo; a inclinação vai da face quase de frente até mais de lado
+    spin *= 1 - Math.min(1, dt * 1.2);
+    chip.rotation.y += dt * 0.45 + spin * dt;
+    tilt.rotation.x = -1.15 + progress * 0.85 + Math.sin(t * 0.4) * 0.06;
+    tilt.rotation.z = Math.sin(t * 0.3) * 0.12;
 
     renderer.render(scene, camera);
   };
@@ -352,7 +341,7 @@ function boot() {
   initReveal();
   initPhone();
   initGlow();
-  initSphere();
+  initChip();
 }
 // app.js avisa quando a configuração chegou e os blocos do fluxo certo já estão visíveis.
 document.addEventListener('lp:ready', boot, { once: true });

@@ -28,12 +28,12 @@
   <script type="module" src="/motion.js"></script>
 </head>
 <body>
-  <!-- Fundo vivo: brilhos + esfera 3D (desktop) -->
+  <!-- Fundo vivo: brilhos + ficha de poker 3D (desktop) -->
   <div class="bg" aria-hidden="true">
     <div class="bg-glow bg-glow-1"></div>
     <div class="bg-glow bg-glow-2"></div>
     <div class="bg-grid"></div>
-    <canvas id="sphere"></canvas>
+    <canvas id="chip3d"></canvas>
   </div>
 
   <div class="test-banner" id="test-banner" hidden>
@@ -96,8 +96,8 @@
 
     <div class="ticker" aria-hidden="true">
       <div class="ticker-track">
-        <span>Ação a qualquer hora</span><i>♠</i><span>PIX na hora</span><i>♥</i><span>Suporte 24h</span><i>♦</i><span>Clube <b data-bind="club-id">10001</b></span><i>♣</i><span>NLH · PLO</span><i>♠</i><span>Somente +18</span><i>♥</i>
-        <span>Ação a qualquer hora</span><i>♠</i><span>PIX na hora</span><i>♥</i><span>Suporte 24h</span><i>♦</i><span>Clube <b data-bind="club-id">10001</b></span><i>♣</i><span>NLH · PLO</span><i>♠</i><span>Somente +18</span><i>♥</i>
+        <span>Ação a qualquer hora</span><i>♠</i><span>PIX na hora</span><i>♥</i><span>Suporte 24h</span><i>♦</i><span>Clube <b data-bind="club-id">10001</b></span><i>♣</i><span>NLH · PLO</span><i>♠</i><span>Spin Suprema · até <b>50.000×</b></span><i>♦</i><span>Somente +18</span><i>♥</i>
+        <span>Ação a qualquer hora</span><i>♠</i><span>PIX na hora</span><i>♥</i><span>Suporte 24h</span><i>♦</i><span>Clube <b data-bind="club-id">10001</b></span><i>♣</i><span>NLH · PLO</span><i>♠</i><span>Spin Suprema · até <b>50.000×</b></span><i>♦</i><span>Somente +18</span><i>♥</i>
       </div>
     </div>
 
@@ -144,7 +144,7 @@
     </section>
 
     <section class="section" id="acao">
-      <div class="motion reveal" role="img" aria-label="Ação a qualquer hora e suporte 24 horas no Clube Suprema">
+      <div class="motion reveal" role="img" aria-label="Ação a qualquer hora, Spin Suprema e suporte 24 horas no Clube Suprema">
         <div class="m-glow"></div>
         <div class="m-lines"></div>
         <div class="m-scene m-s1">
@@ -157,14 +157,17 @@
           <div class="m-sub">Mesas rodando a qualquer hora · NLH e PLO</div>
         </div>
         <div class="m-scene m-s2">
+          <div class="m-reel">
+            <div class="m-reel-window"><div class="m-reel-strip"><b>2×</b><b>5×</b><b>10×</b><b>100×</b><b>1.000×</b><b>50.000×</b></div></div>
+            <span class="m-reel-lever"></span>
+          </div>
+          <div class="m-word">SPIN <span class="accent">SUPREMA</span></div>
+          <div class="m-sub">Novo no app: mesas de 3 ou 6 e o pote multiplicado em até 50.000×</div>
+        </div>
+        <div class="m-scene m-s3">
           <div class="m-bubble"><span class="m-dots"><i></i><i></i><i></i></span></div>
           <div class="m-word">SUPORTE <span class="accent">24h</span></div>
           <div class="m-sub"><i class="m-online"></i> Online agora no WhatsApp</div>
-        </div>
-        <div class="m-scene m-s3">
-          <div class="m-brand">♠</div>
-          <div class="m-word">SUPREMA</div>
-          <div class="m-sub">Clube <span data-bind="club-id">10001</span> · Entre em 2 minutos</div>
         </div>
         <div class="m-progress"><i class="m-p1"></i><i class="m-p2"></i><i class="m-p3"></i></div>
       </div>

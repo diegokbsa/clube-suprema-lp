@@ -68,14 +68,15 @@ Brilho (glow) dourado para destaque: `0 0 40px rgba(239,161,68,.35)`.
 
 1. **Entrada por rolagem:** fade-in + deslize de `30px` para cima, `0.8s`, easing `cubic-bezier(.16, 1, .3, 1)`.
    Elementos de uma mesma seção entram em sequência com atraso de `90ms` entre si (stagger).
-2. **Elemento vivo de fundo:** esfera 3D em wireframe dourado, deformada por ruído contínuo, ligada ao progresso
-   da rolagem (posição, escala e rotação mudam entre seções) e arrastável. Sempre em `z-index: -1`, sem bloquear
+2. **Elemento vivo de fundo:** ficha de poker 3D (preto com detalhes dourados e o ♠), girando devagar, ligada ao progresso
+   da rolagem (posição, escala e inclinação mudam entre seções) e arrastável. Sempre em `z-index: -1`, sem bloquear
    cliques. Em telas pequenas vira um brilho estático; com `prefers-reduced-motion` some.
 3. **Celular do app:** flutua devagar (`6s`), inclina até `10°` seguindo o mouse, troca da tela de abertura para a mesa
    logo após carregar e acompanha a rolagem em parallax leve.
 4. **Micro-interações:** hover em botões e cards com `scale(1.02)`, brilho que segue o cursor e sombra mais funda,
    `0.4s` (o tempo de transição padrão do site da Suprema). Clique com `translateY(1px)`.
-5. **Texto cinético:** o bloco "Ação / Suporte 24h / Suprema" troca de cena a cada `3s` num loop de `9s`.
+5. **Texto cinético:** o bloco "Ação / Spin Suprema / Suporte 24h" troca de cena a cada `3s` num loop de `9s`; o rolo do Spin
+   para em 50.000×, o multiplicador máximo divulgado pela Suprema.
 6. **Sem movimento gratuito:** nada pisca, nada roda sem parar no texto. Tudo respeita `prefers-reduced-motion`.
 
 ## 6. Personalidade

@@ -61,7 +61,7 @@ Depois de mudar arquivos do servidor (`server.js`, `lib/`, `adapters/`, `config.
 
 ```
 public/          página (index.html, app.js, styles.css) e painel (admin.html)
-public/motion.js  vida da página: revelações ao rolar (GSAP), celular com parallax, esfera 3D (Three.js)
+public/motion.js  vida da página: revelações ao rolar (GSAP), celular com parallax, ficha de poker 3D (Three.js)
 public/img/      artes do app usadas no hero
 docs/design-system.md  tokens de cor, tipografia e animação extraídos do site da Suprema
 public/shared/   validação usada pela página e pelo servidor (mesmas regras)
@@ -100,8 +100,8 @@ $env:SUPREMA_MODE="real"; $env:F24H_MODE="real"; $env:ADMIN_TOKEN="uma-senha-for
 
 ## Motion e acessibilidade
 
-A página respeita a preferência "menos movimento" do sistema: nesse caso a esfera 3D e o parallax somem, as
-entradas aparecem sem animação e o bloco "Ação / Suporte 24h / Suprema" só troca de cena com fade. No Windows,
+A página respeita a preferência "menos movimento" do sistema: nesse caso a ficha 3D e o parallax somem, as
+entradas aparecem sem animação e o bloco "Ação / Spin Suprema / Suporte 24h" só troca de cena com fade. No Windows,
 essa preferência fica ativa quando "Efeitos de animação" está desligado nas configurações de acessibilidade.
 Para ver a experiência completa mesmo assim, abra a página com `?motion=on` (ex.: https://suprema.blog/?motion=on).
 
