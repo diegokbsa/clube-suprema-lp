@@ -9,6 +9,7 @@ import { store } from './lib/store.js';
 import * as flow from './lib/orchestrator.js';
 import { createLead, recordLeadEvent, leadsOverview } from './lib/leads.js';
 import { validateSignup, validateLead } from './public/shared/validate.js';
+import { renderBlogIndex, renderBlogPost, renderNotFound, renderSitemap, renderFeed, renderLlms, renderLlmsFull } from './lib/blog.js';
 
 const PUBLIC_DIR = fileURLToPath(new URL('./public/', import.meta.url));
 const TYPES = {
@@ -258,12 +259,39 @@ function serveStatic(req, res, url) {
   }
   fs.readFile(file, (err, buf) => {
     if (err) {
-      res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
-      return res.end('Página não encontrada.');
+      res.writeHead(404, { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store' });
+      return res.end(renderNotFound());
     }
     res.writeHead(200, { 'Content-Type': TYPES[path.extname(file)] || 'application/octet-stream', 'Cache-Control': 'no-cache' });
     res.end(buf);
   });
+}
+
+// Páginas geradas no servidor: blog, sitemap, feed e llms.txt (ver lib/blog.js).
+function servePage(req, res, url) {
+  const send = (body, type, status = 200, cache = 'public, max-age=300') => {
+    res.writeHead(status, { 'Content-Type': type, 'Cache-Control': cache });
+    res.end(req.method === 'HEAD' ? undefined : body);
+    return true;
+  };
+  const html = (body, status) => send(body, 'text/html; charset=utf-8', status);
+  const p = url.pathname;
+  if (p === '/blog' || p === '/blog/') return html(renderBlogIndex());
+  if (p === '/blog/feed.xml') return send(renderFeed(), 'application/rss+xml; charset=utf-8');
+  if (p === '/sitemap.xml') return send(renderSitemap(), 'application/xml; charset=utf-8');
+  if (p === '/llms.txt') return send(renderLlms(), 'text/plain; charset=utf-8');
+  if (p === '/llms-full.txt') return send(renderLlmsFull(), 'text/plain; charset=utf-8');
+  const post = p.match(/^[/]blog[/]([a-z0-9-]+)([/]?)$/);
+  if (post) {
+    if (post[2]) { // barra final: um só endereço canônico
+      res.writeHead(301, { Location: '/blog/' + post[1], 'Cache-Control': 'public, max-age=86400' });
+      res.end();
+      return true;
+    }
+    const page = renderBlogPost(post[1]);
+    return page ? html(page) : html(renderNotFound(), 404);
+  }
+  return false;
 }
 
 const server = http.createServer(async (req, res) => {
@@ -277,6 +305,7 @@ const server = http.createServer(async (req, res) => {
       return res.end();
     }
     if (url.pathname === '/baixar') return redirectToApp(req, res, url);
+    if (servePage(req, res, url)) return;
     return serveStatic(req, res, url);
   }
 

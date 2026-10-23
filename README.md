@@ -64,6 +64,10 @@ public/          página (index.html, app.js, styles.css) e painel (admin.html)
 public/motion.js  vida da página: revelações ao rolar (GSAP), celular com parallax, ficha de poker 3D (Three.js)
 public/img/      artes do app usadas no hero
 docs/design-system.md  tokens de cor, tipografia e animação extraídos do site da Suprema
+content/blog/    artigos do blog em Markdown (front matter + texto)
+lib/blog.js      blog renderizado no servidor: páginas, JSON-LD, sitemap, feed RSS, llms.txt
+lib/markdown.js  renderizador de Markdown sem dependências
+public/blog.css  tipografia e cards do blog
 public/shared/   validação usada pela página e pelo servidor (mesmas regras)
 server.js        servidor e rotas da API
 lib/orchestrator.js  etapas do cadastro, depósitos e dados do painel
@@ -121,6 +125,41 @@ Para ver a experiência completa mesmo assim, abra a página com `?motion=on` (e
 
 Bibliotecas carregadas por CDN (cdnjs): GSAP 3.12.5 + ScrollTrigger e Three.js 0.170 (só em telas de 900 px ou mais).
 Se alguma não carregar, a página funciona do mesmo jeito, só sem o efeito.
+
+## Blog (SEO e descoberta por IA)
+
+O blog fica em `/blog` e é renderizado no servidor a partir de arquivos Markdown em `content/blog/`. Para publicar um
+artigo novo, crie `content/blog/meu-artigo.md` com o cabeçalho abaixo e faça o push; o servidor relê a pasta sozinho.
+
+```markdown
+---
+title: Título do artigo (até 60 caracteres)
+description: Resumo de 1 ou 2 frases, até 160 caracteres (vira a meta description).
+date: 2026-10-23
+updated: 2026-10-23
+cover: /img/blog/meu-artigo/cover.jpg
+coverAlt: Descrição da imagem de capa
+tags: [app, guia]
+faq:
+  - q: Pergunta curta?
+    a: Resposta direta em uma ou duas frases.
+---
+
+Texto em Markdown: títulos com ##, listas, tabelas, imagens ![alt](/img/blog/meu-artigo/foto.webp "Legenda")
+e caixas :::cta, :::nota, :::dica (fechadas com :::).
+```
+
+O que cada página do blog já entrega:
+
+- **HTML semântico no servidor** (sem depender de JavaScript), título, meta description, canonical, Open Graph e Twitter Card.
+- **Dados estruturados** JSON-LD: `BlogPosting`, `BreadcrumbList`, `FAQPage` (quando há `faq`), `Organization` e `WebSite`; a página inicial tem `FAQPage` com as dúvidas do funil.
+- **Sitemap dinâmico** em `/sitemap.xml` com `lastmod` e as imagens de cada página (sitemap de imagens), **feed RSS** em `/blog/feed.xml`, **`/llms.txt`** e **`/llms-full.txt`** (resumo do site e os artigos em Markdown para assistentes de IA) e `robots.txt` liberando Googlebot, Bingbot, GPTBot, ClaudeBot, PerplexityBot e Google-Extended.
+- **Imagens no próprio domínio**, com nome descritivo, `alt`, largura/altura e carregamento preguiçoso; capas 1200×630 em `public/img/blog/<slug>/cover.jpg`.
+- Sumário automático (a partir dos `##`), tempo de leitura, posts relacionados por tag, CTA para o funil e página 404 própria.
+
+As capas foram geradas com Python/PIL nas cores da marca (script fora do repositório). Para trocar uma capa, basta
+substituir o arquivo mantendo 1200×630. Os comentários `<!-- CAPTURA SUGERIDA -->` dentro dos posts marcam onde
+entram capturas reais do app, com o nome de arquivo e o texto alternativo já definidos.
 
 ## Tracking
 

@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-labelledby="t d">
+  <title id="t">Anatomia da mesa de poker no app</title>
+  <desc id="d">Mesa oval verde com sete marcações numeradas: cartas comunitárias no centro, pote acima delas, sua mão embaixo, stack de cada jogador, botão do dealer, cronômetro de ação e assentos vazios.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#040404"/><stop offset="1" stop-color="#1c1c1c"/></linearGradient>
+    <radialGradient id="felt" cx="50%" cy="45%" r="65%"><stop offset="0" stop-color="#1d7a4c"/><stop offset="1" stop-color="#0d4a2c"/></radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <text x="600" y="46" text-anchor="middle" font-family="Montserrat, Arial, sans-serif" font-size="18" font-weight="700" letter-spacing="4" fill="#efa144">ANATOMIA DA MESA</text>
+
+  <!-- Mesa -->
+  <ellipse cx="600" cy="330" rx="420" ry="210" fill="#2a1d0a" stroke="#efa144" stroke-width="4"/>
+  <ellipse cx="600" cy="330" rx="390" ry="182" fill="url(#felt)" stroke="#0a3320" stroke-width="3"/>
+
+  <g font-family="Montserrat, Arial, sans-serif">
+    <!-- Pote (2) -->
+    <rect x="548" y="222" width="104" height="30" rx="15" fill="rgba(0,0,0,.45)"/>
+    <text x="600" y="243" text-anchor="middle" font-size="15" font-weight="700" fill="#fff">POTE 90</text>
+
+    <!-- Cartas comunitárias (1) -->
+    <g>
+      <rect x="455" y="268" width="52" height="74" rx="7" fill="#fff"/><text x="481" y="312" text-anchor="middle" font-size="26" font-weight="800" fill="#111">2♣</text>
+      <rect x="517" y="268" width="52" height="74" rx="7" fill="#fff"/><text x="543" y="312" text-anchor="middle" font-size="26" font-weight="800" fill="#dc3545">10♥</text>
+      <rect x="579" y="268" width="52" height="74" rx="7" fill="#fff"/><text x="605" y="312" text-anchor="middle" font-size="26" font-weight="800" fill="#111">A♣</text>
+      <rect x="641" y="268" width="52" height="74" rx="7" fill="#fff"/><text x="667" y="312" text-anchor="middle" font-size="26" font-weight="800" fill="#111">10♣</text>
+      <rect x="703" y="268" width="52" height="74" rx="7" fill="#fff"/><text x="729" y="312" text-anchor="middle" font-size="26" font-weight="800" fill="#111">8♣</text>
+    </g>
+
+    <!-- Jogadores -->
+    <g font-size="13" fill="#fff" font-weight="700" text-anchor="middle">
+      <circle cx="600" cy="128" r="26" fill="#333"/><text x="600" y="176">nathan · 3.513</text>
+      <circle cx="940" cy="210" r="26" fill="#333"/><text x="940" y="258">wjr53 · 2.400</text>
+      <circle cx="940" cy="450" r="26" fill="#333"/><text x="940" y="498">Thalles · 2.940</text>
+      <circle cx="260" cy="210" r="26" fill="#2a2a2e" stroke="#555" stroke-dasharray="4 3"/><text x="260" y="258" fill="#b9bbbe">VAZIO</text>
+      <circle cx="260" cy="450" r="26" fill="#2a2a2e" stroke="#555" stroke-dasharray="4 3"/><text x="260" y="498" fill="#b9bbbe">VAZIO</text>
+    </g>
+
+    <!-- Você (3 e 4) -->
+    <g>
+      <rect x="556" y="446" width="40" height="56" rx="6" fill="#fff" transform="rotate(-8 576 474)"/><text x="576" y="482" text-anchor="middle" font-size="18" font-weight="800" fill="#111" transform="rotate(-8 576 474)">A♠</text>
+      <rect x="604" y="446" width="40" height="56" rx="6" fill="#fff" transform="rotate(8 624 474)"/><text x="624" y="482" text-anchor="middle" font-size="18" font-weight="800" fill="#dc3545" transform="rotate(8 624 474)">K♥</text>
+      <rect x="540" y="512" width="120" height="26" rx="13" fill="rgba(0,0,0,.5)"/>
+      <text x="600" y="530" text-anchor="middle" font-size="14" font-weight="700" fill="#efa144">Você · 3.000</text>
+    </g>
+
+    <!-- Botão dealer (5) -->
+    <circle cx="870" cy="300" r="14" fill="#fff"/><text x="870" y="305" text-anchor="middle" font-size="13" font-weight="800" fill="#111">D</text>
+
+    <!-- Cronômetro (6) -->
+    <circle cx="690" cy="520" r="16" fill="none" stroke="#2a2a2e" stroke-width="5"/>
+    <circle cx="690" cy="520" r="16" fill="none" stroke="#efa144" stroke-width="5" stroke-dasharray="70 100" transform="rotate(-90 690 520)"/>
+
+    <!-- Marcadores numerados -->
+    <g font-size="15" font-weight="800">
+      <circle cx="430" cy="252" r="16" fill="#efa144"/><text x="430" y="257" text-anchor="middle" fill="#1c1c1c">1</text>
+      <circle cx="668" cy="214" r="16" fill="#efa144"/><text x="668" y="219" text-anchor="middle" fill="#1c1c1c">2</text>
+      <circle cx="530" cy="470" r="16" fill="#efa144"/><text x="530" y="475" text-anchor="middle" fill="#1c1c1c">3</text>
+      <circle cx="1010" cy="258" r="16" fill="#efa144"/><text x="1010" y="263" text-anchor="middle" fill="#1c1c1c">4</text>
+      <circle cx="900" cy="300" r="16" fill="#efa144"/><text x="900" y="305" text-anchor="middle" fill="#1c1c1c">5</text>
+      <circle cx="722" cy="520" r="16" fill="#efa144"/><text x="722" y="525" text-anchor="middle" fill="#1c1c1c">6</text>
+      <circle cx="226" cy="450" r="16" fill="#efa144"/><text x="226" y="455" text-anchor="middle" fill="#1c1c1c">7</text>
+    </g>
+
+    <!-- Legenda -->
+    <g font-size="15" fill="#e4e4e7">
+      <text x="40" y="585"><tspan font-weight="800" fill="#efa144">1</tspan> Cartas comunitárias   <tspan font-weight="800" fill="#efa144">2</tspan> Pote   <tspan font-weight="800" fill="#efa144">3</tspan> Sua mão   <tspan font-weight="800" fill="#efa144">4</tspan> Stack   <tspan font-weight="800" fill="#efa144">5</tspan> Botão do dealer   <tspan font-weight="800" fill="#efa144">6</tspan> Cronômetro   <tspan font-weight="800" fill="#efa144">7</tspan> Assento vazio</text>
+      <text x="40" y="612" font-size="13" fill="#b9bbbe">Ilustração baseada na mesa do app Suprema Poker. Posições e cores podem variar com a versão.</text>
+    </g>
+  </g>
+</svg>

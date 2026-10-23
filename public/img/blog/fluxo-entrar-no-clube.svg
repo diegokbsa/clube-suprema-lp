@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-labelledby="t d">
+  <title id="t">Fluxo para entrar no Clube Suprema</title>
+  <desc id="d">Quatro etapas: abrir o link oficial ou digitar o ID, abrir o app Suprema Poker, entrar no clube 10001 com o agente 1439098 e comprar fichas por PIX para sentar na mesa.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#040404"/><stop offset="1" stop-color="#1c1c1c"/></linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#df9741" stop-opacity="0"/><stop offset=".5" stop-color="#efa144"/><stop offset="1" stop-color="#df9741" stop-opacity="0"/></linearGradient>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="10" markerHeight="10" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#efa144"/></marker>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect x="140" y="70" width="920" height="2" fill="url(#gold)"/>
+  <text x="600" y="52" text-anchor="middle" font-family="Montserrat, Arial, sans-serif" font-size="18" font-weight="700" letter-spacing="4" fill="#efa144">COMO ENTRAR NO CLUBE SUPREMA</text>
+
+  <g font-family="Montserrat, Arial, sans-serif">
+    <!-- Etapa 1 -->
+    <rect x="60" y="150" width="240" height="220" rx="24" fill="#202023" stroke="#2f2f35"/>
+    <circle cx="180" cy="205" r="26" fill="rgba(239,161,68,.14)" stroke="#efa144" stroke-opacity=".5"/>
+    <text x="180" y="214" text-anchor="middle" font-size="26" font-weight="800" fill="#efa144">1</text>
+    <text x="180" y="265" text-anchor="middle" font-size="22" font-weight="800" fill="#fff">Link oficial</text>
+    <text x="180" y="292" text-anchor="middle" font-size="16" fill="#b9bbbe">ou ID no app</text>
+    <text x="180" y="335" text-anchor="middle" font-size="14" fill="#b9bbbe">suprema.blog/baixar</text>
+    <line x1="310" y1="260" x2="336" y2="260" stroke="#efa144" stroke-width="3" marker-end="url(#arr)"/>
+
+    <!-- Etapa 2 -->
+    <rect x="346" y="150" width="240" height="220" rx="24" fill="#202023" stroke="#2f2f35"/>
+    <circle cx="466" cy="205" r="26" fill="rgba(239,161,68,.14)" stroke="#efa144" stroke-opacity=".5"/>
+    <text x="466" y="214" text-anchor="middle" font-size="26" font-weight="800" fill="#efa144">2</text>
+    <text x="466" y="265" text-anchor="middle" font-size="22" font-weight="800" fill="#fff">App aberto</text>
+    <text x="466" y="292" text-anchor="middle" font-size="16" fill="#b9bbbe">Suprema Poker</text>
+    <text x="466" y="335" text-anchor="middle" font-size="14" fill="#b9bbbe">Android · iPhone · Windows</text>
+    <line x1="596" y1="260" x2="622" y2="260" stroke="#efa144" stroke-width="3" marker-end="url(#arr)"/>
+
+    <!-- Etapa 3 -->
+    <rect x="632" y="150" width="240" height="220" rx="24" fill="#202023" stroke="#efa144" stroke-opacity=".6"/>
+    <circle cx="752" cy="205" r="26" fill="#efa144"/>
+    <text x="752" y="214" text-anchor="middle" font-size="26" font-weight="800" fill="#1c1c1c">3</text>
+    <text x="752" y="265" text-anchor="middle" font-size="22" font-weight="800" fill="#fff">Clube 10001</text>
+    <text x="752" y="292" text-anchor="middle" font-size="16" fill="#b9bbbe">Agente 1439098</text>
+    <text x="752" y="335" text-anchor="middle" font-size="14" fill="#b9bbbe">aceite o convite</text>
+    <line x1="882" y1="260" x2="908" y2="260" stroke="#efa144" stroke-width="3" marker-end="url(#arr)"/>
+
+    <!-- Etapa 4 -->
+    <rect x="918" y="150" width="240" height="220" rx="24" fill="#202023" stroke="#2f2f35"/>
+    <circle cx="1038" cy="205" r="26" fill="rgba(40,167,69,.18)" stroke="#28a745" stroke-opacity=".6"/>
+    <text x="1038" y="214" text-anchor="middle" font-size="26" font-weight="800" fill="#4ade80">4</text>
+    <text x="1038" y="265" text-anchor="middle" font-size="22" font-weight="800" fill="#fff">Fichas por PIX</text>
+    <text x="1038" y="292" text-anchor="middle" font-size="16" fill="#b9bbbe">Fichas 24h · seu CPF</text>
+    <text x="1038" y="335" text-anchor="middle" font-size="14" fill="#b9bbbe">e sente na mesa</text>
+
+    <!-- Rodapé -->
+    <rect x="60" y="430" width="1098" height="120" rx="24" fill="#141416" stroke="#2f2f35"/>
+    <text x="90" y="475" font-size="16" font-weight="700" letter-spacing="3" fill="#efa144">LEMBRETE</text>
+    <text x="90" y="510" font-size="20" fill="#e4e4e7">Pelo link, clube e agente já vão preenchidos. No computador, digite os dois números na opção “Entrar com ID”.</text>
+    <text x="90" y="538" font-size="16" fill="#b9bbbe">Somente maiores de 18 anos · Suporte 24h no WhatsApp</text>
+  </g>
+</svg>

@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-labelledby="t d">
+  <title id="t">Formatos de torneio de poker</title>
+  <desc id="d">Seis cartões: freezeout com uma entrada, re-entry com entradas extras, turbo com níveis curtos, knockout com recompensa por eliminação, satélite que paga vaga em torneio maior e Spin Suprema com multiplicador de até 50.000 vezes.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#040404"/><stop offset="1" stop-color="#1c1c1c"/></linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#df9741" stop-opacity="0"/><stop offset=".5" stop-color="#efa144"/><stop offset="1" stop-color="#df9741" stop-opacity="0"/></linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <text x="600" y="54" text-anchor="middle" font-family="Montserrat, Arial, sans-serif" font-size="18" font-weight="700" letter-spacing="4" fill="#efa144">FORMATOS DE TORNEIO</text>
+  <rect x="140" y="72" width="920" height="2" fill="url(#gold)"/>
+  <g font-family="Montserrat, Arial, sans-serif">
+    <!-- linha 1 -->
+    <rect x="60" y="110" width="340" height="220" rx="22" fill="#202023" stroke="#2f2f35"/>
+    <text x="90" y="160" font-size="26" font-weight="800" fill="#fff">Freezeout</text>
+    <text x="90" y="196" font-size="17" fill="#b9bbbe">Uma entrada só.</text>
+    <text x="90" y="222" font-size="17" fill="#b9bbbe">Sem fichas, fim de jogo.</text>
+    <text x="90" y="290" font-size="14" font-weight="700" letter-spacing="2" fill="#efa144">JOGO MAIS CAUTELOSO</text>
+
+    <rect x="430" y="110" width="340" height="220" rx="22" fill="#202023" stroke="#2f2f35"/>
+    <text x="460" y="160" font-size="26" font-weight="800" fill="#fff">Re-entry</text>
+    <text x="460" y="196" font-size="17" fill="#b9bbbe">Pode entrar de novo enquanto</text>
+    <text x="460" y="222" font-size="17" fill="#b9bbbe">o registro tardio estiver aberto.</text>
+    <text x="460" y="290" font-size="14" font-weight="700" letter-spacing="2" fill="#efa144">PRÊMIOS MAIORES</text>
+
+    <rect x="800" y="110" width="340" height="220" rx="22" fill="#202023" stroke="#2f2f35"/>
+    <text x="830" y="160" font-size="26" font-weight="800" fill="#fff">Turbo / Hyper</text>
+    <text x="830" y="196" font-size="17" fill="#b9bbbe">Níveis de blind curtos:</text>
+    <text x="830" y="222" font-size="17" fill="#b9bbbe">5 min no turbo, 2 a 3 no hyper.</text>
+    <text x="830" y="290" font-size="14" font-weight="700" letter-spacing="2" fill="#efa144">RÁPIDO E DE ALL-IN</text>
+
+    <!-- linha 2 -->
+    <rect x="60" y="360" width="340" height="220" rx="22" fill="#202023" stroke="#2f2f35"/>
+    <text x="90" y="410" font-size="26" font-weight="800" fill="#fff">Knockout / PKO</text>
+    <text x="90" y="446" font-size="17" fill="#b9bbbe">Recompensa por eliminação.</text>
+    <text x="90" y="472" font-size="17" fill="#b9bbbe">No PKO o bounty cresce.</text>
+    <text x="90" y="540" font-size="14" font-weight="700" letter-spacing="2" fill="#efa144">MUDA A MATEMÁTICA</text>
+
+    <rect x="430" y="360" width="340" height="220" rx="22" fill="#202023" stroke="#2f2f35"/>
+    <text x="460" y="410" font-size="26" font-weight="800" fill="#fff">Satélite</text>
+    <text x="460" y="446" font-size="17" fill="#b9bbbe">O prêmio é a vaga</text>
+    <text x="460" y="472" font-size="17" fill="#b9bbbe">em um torneio maior.</text>
+    <text x="460" y="540" font-size="14" font-weight="700" letter-spacing="2" fill="#efa144">SOBREVIVER VALE MAIS</text>
+
+    <rect x="800" y="360" width="340" height="220" rx="22" fill="#141416" stroke="#efa144" stroke-opacity=".7"/>
+    <text x="830" y="410" font-size="26" font-weight="800" fill="#efa144">Spin Suprema</text>
+    <text x="830" y="446" font-size="17" fill="#e4e4e7">Mesa de 3 ou 6 e spinner</text>
+    <text x="830" y="472" font-size="17" fill="#e4e4e7">que multiplica o pote.</text>
+    <text x="830" y="540" font-size="14" font-weight="700" letter-spacing="2" fill="#efa144">ATÉ 50.000×</text>
+  </g>
+</svg>
