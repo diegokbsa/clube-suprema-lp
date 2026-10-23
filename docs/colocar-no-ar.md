@@ -21,6 +21,19 @@ O servidor é Node puro, sem dependências. Qualquer hospedagem que rode `node s
 - **Limites do plano Free:** o serviço dorme após 15 min sem visitas (a primeira visita seguinte demora até 1 min) e a lista de leads zera a cada reinício ou novo deploy. Para guardar os leads: cartão na conta Render, plano `0.5c-512mb` e um disco em `/var/data` com `DATA_DIR=/var/data` (o `render.yaml` tem o comentário com o que mudar).
 - **Mudar DNS no GoDaddy:** cada alteração pede um código por SMS (proteção total do domínio).
 
+## Medição (configurada em 23/10/2026, conta Google h2odiegokbsa)
+
+| Ferramenta | Identificação | Onde está no site |
+|---|---|---|
+| Google Tag Manager | conta "Clube Suprema", contêiner suprema.blog, `GTM-N46659WQ` (versão inicial publicada, sem tags) | snippet no `<head>` e `<noscript>` no `<body>` de `public/index.html` |
+| Google Analytics 4 | conta gamesbigpsn, propriedade "Clube Suprema" (560553417), fluxo web suprema.blog, `G-ZXS59RV8GR` | `config.js` (`tracking.ga4Id`) e `GA4_ID` no `render.yaml` |
+| Google Ads | tag `AW-970454313` | `<head>` de `public/index.html` |
+| Search Console | propriedade de prefixo https://suprema.blog/, verificada por arquivo HTML; sitemap enviado | `public/googled0da7d61222a54ee.html` (não apagar), `public/sitemap.xml`, `public/robots.txt` |
+
+Os eventos da página (`lp_view` com `variant`, `signup_start`, `whatsapp_click` etc.) vão para o `dataLayer` e para o `gtag`,
+então chegam ao GA4 e ao Google Ads e ficam disponíveis como acionadores no GTM. Para conferir: GA4 → Relatórios → Tempo real.
+Atenção: o Brave bloqueia os envios do Analytics por padrão; teste em outro navegador ou com os escudos desligados.
+
 ## Testar de graça
 
 ### Opção A: túnel da Cloudflare (sem conta, em 2 minutos)
