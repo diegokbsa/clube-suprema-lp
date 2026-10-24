@@ -16,7 +16,7 @@ faq:
   - q: O que é um torneio knockout ou bounty?
     a: Parte do buy-in vira uma recompensa sobre a cabeça de cada jogador. Quem elimina alguém ganha essa recompensa na hora, além da premiação normal. No PKO (progressive knockout), metade do bounty vai para quem eliminou e metade aumenta o bounty do eliminador.
   - q: O que é o Spin Suprema?
-    a: É o formato rápido do app Suprema Poker, com mesa de 3 ou 6 jogadores e um spinner que multiplica o pote em até 50.000 vezes. Funciona na linha dos Spin & Go conhecidos do poker online.
+    a: É o formato rápido do app Suprema Poker, com mesa de 3 ou 6 jogadores e uma roleta que define o multiplicador do prêmio, de até 50.000 vezes o buy-in. Funciona na linha dos Spin & Go conhecidos do poker online.
   - q: O que significa GTD na grade?
     a: Garantido. É o valor mínimo de premiação que o torneio paga mesmo que as inscrições não cubram. Se as inscrições passarem do garantido, a premiação cresce.
 ---
@@ -48,7 +48,7 @@ Dependendo do clube e do horário aparecem mesas de variantes como Omaha Hi/Lo e
 | Cash game | Fichas com valor fixo; blinds não sobem; entra e sai quando quiser | Você decide | Quem quer flexibilidade e sessões curtas |
 | Sit & Go | Torneio de uma ou poucas mesas que começa quando enche | 20 min a 1 h | Treinar jogo de mesa curta e final table |
 | Torneio (MTT) | Muitas mesas, buy-in fixo, blinds sobem por níveis, prêmio para os primeiros | 1 h a várias horas | Quem busca prêmios maiores com um buy-in só |
-| Spin Suprema | Mesa de 3 ou 6, spinner sorteia o multiplicador do pote em até 50.000× | Minutos | Partidas rápidas com chance de prêmio desproporcional |
+| [Spin Suprema](/blog/spin-suprema-como-funciona-e-primeiro-grande-ganhador) | Mesa de 3 ou 6, roleta sorteia o multiplicador em até 50.000× o buy-in | Minutos | Partidas rápidas com chance de prêmio desproporcional |
 
 ## Formatos de torneio
 

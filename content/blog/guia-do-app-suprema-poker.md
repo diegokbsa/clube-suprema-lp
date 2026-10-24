@@ -27,7 +27,7 @@ Ao entrar na conta, você cai na tela inicial, com a sua **lista de clubes**. To
 
 - **Mesas de cash game**, com o nome, a modalidade (NLH, PLO), o tamanho dos blinds e quantos lugares estão ocupados.
 - **Torneios**, com horário, garantido, buy-in e o status (inscrições abertas, em andamento, encerrado). Os termos estão explicados no [guia de formatos de torneio](/blog/formatos-de-torneio-poker-online).
-- **Spin Suprema**, o formato rápido com multiplicador do pote em até 50.000×.
+- **[Spin Suprema](/blog/spin-suprema-como-funciona-e-primeiro-grande-ganhador)**, o formato rápido com roleta de multiplicador em até 50.000× o buy-in.
 - **Avisos do clube**, como horários especiais e eventos.
 
 <!-- CAPTURA SUGERIDA: lobby do clube com a lista de mesas e torneios (arquivo /img/blog/guia-do-app-suprema-poker/lobby.webp, alt "Lobby do Clube Suprema no app com mesas e torneios") -->
