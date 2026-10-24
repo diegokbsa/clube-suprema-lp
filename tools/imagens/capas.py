@@ -40,7 +40,7 @@ def overlay(img, fn):
 
 
 def background():
-    return luxo.sophisticated_background(W, H, inset=26, width=10)
+    return luxo.sophisticated_background(W, H, bars=False)
 
 def brand_mark(d, x, y, s):
     d.rounded_rectangle((x, y, x + s, y + s), radius=int(s * 0.28), fill=GOLD)

@@ -82,7 +82,7 @@ SX1, SY1 = SX0 + SAFE_W, SY0 + SAFE_H            # 2053, 931
 
 
 def banner():
-    img = luxo.sophisticated_background(W, H, inset=44, width=16)
+    img = luxo.sophisticated_background(W, H, bars=False)
 
     # decoracao fora da area segura (aparece no desktop e na TV)
     luxo.paste(img, chip(250), (120, SY0 + 70))

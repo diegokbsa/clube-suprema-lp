@@ -42,16 +42,8 @@
   --panel: rgba(16, 12, 7, .72);
   --card-luxo: linear-gradient(180deg, rgba(30, 22, 12, .80), rgba(12, 10, 8, .94));
   --glow-gold: 0 0 40px rgba(239, 161, 68, .18);
-  /* Barras douradas laterais (fundo "preto sofisticado") e recuo lateral do conteúdo */
-  --side: 16px;
-  --bar-w: 5px;
-  --bar-x: 0px;
-  --gold-bar: linear-gradient(90deg, #4a2f0a 0%, #b87a24 22%, #f3d07f 50%, #b87a24 78%, #4a2f0a 100%);
-  --gold-bar-fade: linear-gradient(180deg, rgba(0, 0, 0, .75), rgba(0, 0, 0, 0) 28%, rgba(0, 0, 0, 0) 72%, rgba(0, 0, 0, .75));
-  --gold-bar-glow-l: linear-gradient(90deg, rgba(243, 208, 127, .16), rgba(243, 208, 127, 0));
-  --gold-bar-glow-r: linear-gradient(270deg, rgba(243, 208, 127, .16), rgba(243, 208, 127, 0));
+  --side: 16px; /* recuo lateral do conteúdo */
 }
-@media (min-width: 720px) { :root { --side: 44px; --bar-w: 12px; --bar-x: 16px; } }
 
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
@@ -80,16 +72,6 @@ p { margin: 0 0 1em; }
 /* Fundo vivo */
 .bg { position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; background: url("/img/bg-luxo.webp") center / cover no-repeat #060606; }
 @media (max-width: 720px) { .bg { background-image: url("/img/bg-luxo-m.webp"); } }
-.bg::after, body.page-blog::after, body.page-post::after {
-  content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
-  background:
-    var(--gold-bar-fade) var(--bar-x) 0 / var(--bar-w) 100% no-repeat,
-    var(--gold-bar) var(--bar-x) 0 / var(--bar-w) 100% no-repeat,
-    var(--gold-bar-glow-l) calc(var(--bar-x) + var(--bar-w)) 0 / 48px 100% no-repeat,
-    var(--gold-bar-fade) right var(--bar-x) top 0 / var(--bar-w) 100% no-repeat,
-    var(--gold-bar) right var(--bar-x) top 0 / var(--bar-w) 100% no-repeat,
-    var(--gold-bar-glow-r) right calc(var(--bar-x) + var(--bar-w)) top 0 / 48px 100% no-repeat;
-}
 .bg-glow { position: absolute; border-radius: 50%; filter: blur(90px); opacity: .1; }
 .bg-glow-1 { width: 60vw; height: 60vw; max-width: 760px; max-height: 760px; right: -18vw; top: -22vw; background: radial-gradient(circle, rgba(239, 161, 68, .28), rgba(239, 161, 68, 0) 65%); animation: drift 18s ease-in-out infinite alternate; }
 .bg-glow-2 { width: 50vw; height: 50vw; max-width: 640px; max-height: 640px; left: -20vw; top: 55vh; background: radial-gradient(circle, rgba(239, 161, 68, .14), rgba(239, 161, 68, 0) 65%); animation: drift 22s ease-in-out infinite alternate-reverse; }

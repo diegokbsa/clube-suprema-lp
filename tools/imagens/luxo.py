@@ -165,7 +165,7 @@ def paste(img, im, xy, shadow=True, glow=0.0):
 BAR_COLORS = [(74, 47, 10), (184, 122, 36), (243, 208, 127), (184, 122, 36), (74, 47, 10)]
 
 
-def plaster_texture(W, H, base=9, amplitude=0.11, warm=1):
+def plaster_texture(W, H, base=8, amplitude=0.08, warm=1):
     """Textura preta fosca: ruido em tres escalas (grao, manchas medias e grandes), levemente mais claro no centro."""
     n1 = Image.effect_noise((W, H), 60).filter(ImageFilter.GaussianBlur(1.1))
     n2 = Image.effect_noise((max(2, W // 4), max(2, H // 4)), 60).resize((W, H), Image.BICUBIC).filter(ImageFilter.GaussianBlur(5))

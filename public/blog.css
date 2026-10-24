@@ -9,7 +9,6 @@ body.page-blog::before, body.page-post::before {
   background: url("/img/bg-luxo.webp") center / cover no-repeat #060606;
 }
 @media (max-width: 720px) { body.page-blog::before, body.page-post::before { background-image: url("/img/bg-luxo-m.webp"); } }
-/* as barras douradas laterais (::after) vêm de styles.css */
 
 /* Topo e marca */
 .page-blog .topbar, .page-post .topbar { background: rgba(5, 5, 5, .78); }
