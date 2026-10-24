@@ -1,6 +1,6 @@
 # Kit do canal no YouTube
 
-Gerado em 23/10/2026 com a identidade do Clube Suprema (dourado #efa144 sobre #040404, Montserrat).
+Gerado em 24/10/2026 no estilo das pecas oficiais da Suprema (preto profundo, feixes de luz dourados, degrade dourado, Montserrat), com o script tools/imagens/youtube.py.
 
 | Arquivo | Onde usar no YouTube Studio | Tamanho |
 |---|---|---|
