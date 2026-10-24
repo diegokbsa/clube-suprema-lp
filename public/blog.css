@@ -1,17 +1,6 @@
 /* Blog do Clube Suprema: tokens de styles.css (docs/design-system.md) + camada "luxo"
    (preto profundo, feixes de luz dourados, degradê dourado em botões e destaques, pílulas com borda dourada). */
-:root {
-  --gold-grad: linear-gradient(180deg, #f9cf7f 0%, #efa144 52%, #d4852a 100%);
-  --gold-grad-hover: linear-gradient(180deg, #ffe0a0 0%, #f3ad58 52%, #de9035 100%);
-  --gold-text: linear-gradient(180deg, #ffd98a 0%, #efa144 58%, #d98b2f 100%);
-  --gold-hi: #f3b662;
-  --gold-border: rgba(239, 161, 68, .55);
-  --gold-border-soft: rgba(239, 161, 68, .22);
-  --ink-warm: #1a1206;
-  --panel: rgba(16, 12, 7, .72);
-  --card-luxo: linear-gradient(180deg, rgba(30, 22, 12, .80), rgba(12, 10, 8, .94));
-  --glow-gold: 0 0 40px rgba(239, 161, 68, .18);
-}
+/* Tokens da camada luxo (--gold-grad, --gold-hi, --panel…) vivem em styles.css. */
 
 /* Fundo: imagem com feixes dourados e partículas, fixa atrás de tudo */
 body.page-blog, body.page-post { background: #050505; }
@@ -29,31 +18,12 @@ body.page-blog::before, body.page-post::before {
     url("/img/bg-luxo-m.webp"); background-size: cover; background-position: center top; }
 }
 
-/* Texto com degradê dourado */
-.gold { background: var(--gold-text); -webkit-background-clip: text; background-clip: text; color: #efa144; -webkit-text-fill-color: transparent; }
-
 /* Topo e marca */
 .page-blog .topbar, .page-post .topbar { background: rgba(5, 5, 5, .78); }
-.page-blog .brand-mark, .page-post .brand-mark { background: var(--gold-grad); color: var(--ink-warm); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .45), 0 0 18px rgba(239, 161, 68, .35); }
 .topnav-blog { display: flex; }
 @media (max-width: 899px) { .topnav-blog { display: none; } }
 
-/* Botões: degradê dourado, texto escuro em caixa alta (como as peças oficiais) */
-.page-blog .btn, .page-post .btn {
-  background: var(--gold-grad); color: var(--ink-warm);
-  font-weight: 800; text-transform: uppercase; letter-spacing: .04em; border-radius: 14px;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .5), 0 10px 30px rgba(239, 161, 68, .22);
-}
-.page-blog .btn:hover, .page-post .btn:hover { background: var(--gold-grad-hover); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .55), 0 14px 40px rgba(239, 161, 68, .38); }
-.page-blog .btn .btn-arrow, .page-post .btn .btn-arrow { background: var(--ink-warm); color: var(--gold-hi); }
-.page-blog .btn-ghost, .page-post .btn-ghost { background: rgba(239, 161, 68, .06); color: var(--gold-hi); border: 1px solid var(--gold-border); box-shadow: none; }
-.page-blog .btn-ghost:hover, .page-post .btn-ghost:hover { background: rgba(239, 161, 68, .14); box-shadow: var(--glow-gold); }
-
-/* Pílulas com borda dourada */
-.page-blog .eyebrow, .page-post .eyebrow {
-  padding: 7px 16px; border: 1px solid var(--gold-border); border-radius: var(--pill);
-  background: rgba(239, 161, 68, .08); color: var(--gold-hi); font-size: .74rem; letter-spacing: .16em;
-}
+/* Botões, pílulas (.eyebrow) e marca seguem as regras globais de styles.css. */
 .post-tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 0; }
 .post-tags span { font-size: .7rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--gold-hi); background: rgba(14, 10, 5, .6); border: 1px solid var(--gold-border); border-radius: var(--pill); padding: 4px 11px; }
 

@@ -87,18 +87,20 @@ renders 3D do produto, e um tom de voz que fala de ação e suporte, não de pro
 
 ## Camada "luxo" (24/10/2026)
 
-Referência: peças oficiais da Suprema Poker (stories "Conheça o Rodeo" e "Suprema Poker Tour"). Aplicada no blog,
-nas capas dos posts, na imagem social e no kit do YouTube. A LP continua com o fundo vivo (glows + ficha 3D).
+Referência: peças oficiais da Suprema Poker (stories "Conheça o Rodeo" e "Suprema Poker Tour"). Aplicada na LP, no blog,
+nas capas dos posts, na imagem social e no kit do YouTube. Na LP o fundo luxo fica atrás dos brilhos animados e da ficha 3D; a grade sumiu.
+Os tokens (`--gold-grad`, `--gold-text`, `--gold-hi`, `--gold-border`, `--panel`, `--card-luxo`) e as regras de `.btn`, `.eyebrow`, `.accent`/`.gold`
+vivem em `public/styles.css`; os neutros ficaram quentes (`--bg-1 #15110a`, `--card #1b1610`).
 
 | Elemento | Regra | Onde |
 |---|---|---|
-| Fundo | preto `#050505` com brilho quente no centro, feixes de luz dourados curvos, partículas (algumas em estrela de 4 pontas) e bokeh; vinheta nas bordas | `public/img/bg-luxo.webp` (desktop) e `bg-luxo-m.webp` (celular), fixos atrás do blog via `body.page-blog::before` |
+| Fundo | preto `#050505` com brilho quente no centro, feixes de luz dourados curvos, partículas (algumas em estrela de 4 pontas) e bokeh; vinheta nas bordas | `public/img/bg-luxo.webp` (desktop) e `bg-luxo-m.webp` (celular): na LP em `.bg`, no blog via `body.page-blog::before` |
 | Degradê dourado | `linear-gradient(180deg, #f9cf7f 0%, #efa144 52%, #d4852a 100%)` com brilho fino no topo | `--gold-grad` em `blog.css`; botões `.btn`, marca `.brand-mark`, `luxo.gold_rounded()` nas imagens |
-| Botão | degradê dourado, texto `#1a1206` em caixa alta, peso 800, raio 14 px, sombra dourada suave | `.page-blog .btn` |
+| Botão | degradê dourado, texto `#1a1206` em caixa alta, peso 800, raio 14 px, sombra dourada suave; `.btn-ghost.btn-block` (frases longas) fica em caixa normal | `.btn` em `styles.css` |
 | Botão fantasma | fundo quase transparente, borda 1 px dourada, texto `#f3b662` | `.btn-ghost` |
-| Palavra de destaque | texto com degradê `--gold-text` (background-clip) | `.gold` (título do índice, "Leia também", 404) |
-| Pílula | fundo escuro translúcido, borda 1 px dourada, texto dourado em caixa alta com espaçamento .14 a .16 em | `.eyebrow`, `.post-tags span`, `luxo.outline_pill()` |
-| Título | Montserrat 900; no índice em caixa alta com a última palavra em dourado; nos posts em caixa normal | `.blog-head h1`, `.post-head h1` |
+| Palavra de destaque | texto com degradê `--gold-text` (background-clip), sem text-shadow | `.accent` (LP: h1, h2, bloco de motion, CTA) e `.gold` (blog) |
+| Pílula | fundo escuro translúcido, borda 1 px dourada, texto dourado em caixa alta com espaçamento .14 a .16 em | `.eyebrow` (LP e blog), `.post-tags span`, `luxo.outline_pill()` |
+| Título | Montserrat 900; h2 das seções da LP e h1 do índice do blog em caixa alta com a palavra-chave em dourado; h1 da LP e dos posts em caixa normal | `.section-head h2`, `.cta-panel h2`, `.blog-head h1`, `.post-head h1` |
 | Cards e caixas | fundo `rgba(30,22,12,.8) → rgba(12,10,8,.94)`, borda dourada a 22 % (55 % no hover), brilho dourado no hover | `.post-card`, `.post-cta`, `.toc`, `.post-faq details` |
 | Divisórias | linha de 1 px com `--gold-line` (dourado que some nas pontas) | `.blog-head::after`, `.post-foot::before`, rodapé |
 | Rodapé legal | "18+ · Jogue com responsabilidade." pequeno e discreto | imagens do YouTube e capas; no site, rodapé |
