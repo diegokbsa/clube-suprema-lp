@@ -134,7 +134,10 @@ const makeTexture = (THREE, cv) => {
   return tex;
 };
 
-// --- Ficha de poker: disco preto, listras douradas na borda, ♠ e o nome do clube ---
+// --- Ficha de poker: disco preto, listras douradas na borda, logo "S" e o nome do clube ---
+
+// Logo "S" do Clube Suprema (mesmo desenho de /img/logo-mark.svg), em unidades do desenho: centro 0,0, 345 x 323
+const LOGO_S = 'M-61.13 -145.49A38 38 0 0 1 1.13 -145.49L67.08 -51.29A4 4 0 0 1 63.81 -45L8.57 -45A4 4 0 0 1 5.3 -46.71L-21.81 -85.42A10 10 0 0 0 -38.19 -85.42L-75.28 -32.44A6 6 0 0 0 -70.37 -23L165.66 -23A7 7 0 0 1 171.39 -11.98L61.13 145.49A38 38 0 0 1 -1.13 145.49L-67.08 51.29A4 4 0 0 1 -63.81 45L-8.57 45A4 4 0 0 1 -5.3 46.71L21.81 85.42A10 10 0 0 0 38.19 85.42L75.28 32.44A6 6 0 0 0 70.37 23L-165.66 23A7 7 0 0 1 -171.39 11.98Z';
 
 function chipFaceTexture(THREE, label) {
   const size = 1024;
@@ -160,11 +163,17 @@ function chipFaceTexture(THREE, label) {
   ring(c * 0.66, 6, GOLD);
   ring(c * 0.62, 2, 'rgba(239, 161, 68, .5)');
 
-  g.fillStyle = GOLD;
+  g.save();
+  g.translate(c, c - size * 0.015);
+  const k = (size * 0.3) / 345;
+  g.scale(k, k);
+  const lg = g.createLinearGradient(0, -162, 0, 162);
+  lg.addColorStop(0, '#ffc24d'); lg.addColorStop(0.5, '#ffa51f'); lg.addColorStop(1, '#f5850c');
+  g.fillStyle = lg;
+  g.fill(new Path2D(LOGO_S));
+  g.restore();
   g.textAlign = 'center';
   g.textBaseline = 'middle';
-  g.font = `700 ${Math.round(size * 0.3)}px "Segoe UI Symbol", "Apple Symbols", "Montserrat", Arial, sans-serif`;
-  g.fillText('♠', c, c - size * 0.015);
   g.font = `800 ${Math.round(size * 0.065)}px "Montserrat", Arial, sans-serif`;
   g.fillStyle = '#ffffff';
   g.fillText('SUPREMA', c, c + size * 0.21);

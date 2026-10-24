@@ -68,7 +68,7 @@ Brilho (glow) dourado para destaque: `0 0 40px rgba(239,161,68,.35)`.
 
 1. **Entrada por rolagem:** fade-in + deslize de `30px` para cima, `0.8s`, easing `cubic-bezier(.16, 1, .3, 1)`.
    Elementos de uma mesma seção entram em sequência com atraso de `90ms` entre si (stagger).
-2. **Elemento vivo de fundo:** ficha de poker 3D (preto com detalhes dourados e o ♠) na raiz e em `/fichas`; tambor do Spin
+2. **Elemento vivo de fundo:** ficha de poker 3D (preto com detalhes dourados e o logo "S") na raiz e em `/fichas`; tambor do Spin
    Suprema (verde feltro, aros dourados, multiplicadores até 50.000×) em `/spin`. Gira devagar, acompanha o progresso da
    rolagem (posição, escala e inclinação mudam entre seções) e é arrastável. Sempre em `z-index: -1`, sem bloquear
    cliques. Em telas pequenas vira um brilho estático; com `prefers-reduced-motion` some.
@@ -94,7 +94,8 @@ vivem em `public/styles.css`; os neutros ficaram quentes (`--bg-1 #15110a`, `--c
 
 | Elemento | Regra | Onde |
 |---|---|---|
-| Fundo | "veludo preto", escolhido pelo usuário em 24/10/2026 entre 3 prévias: preto profundo com grão finíssimo, uma luz suave e neutra no alto e vinheta; sem dourado, feixes, partículas ou barras. Imagens do celular do hero recortadas sem o fundo azul (`tools/imagens/recorte-celular.py`) | `luxo.velvet_background()`; textura em `public/img/bg-luxo.webp` e `bg-luxo-m.webp`, na LP em `.bg`, no blog via `body.page-blog::before`; capas, imagem social e kit do YouTube usam a mesma função |
+| Fundo | preto puro `#000` (24/10/2026, pedido do usuário: "100% preto"), sem textura, luz, brilho ou barras, no site, nas capas, na imagem social e no kit do YouTube. Histórico: feixes dourados, textura com barras e veludo foram testados e substituídos; mudanças de fundo pedem prévia antes de publicar | `body`, `.bg` e `body.page-blog` com `#000`; `.bg-glow` desligado; imagens com `luxo.black_background()` |
+| Logo | "S" da Suprema redesenhado em vetor (24/10/2026): geometria medida no logo enviado pelo usuário, diagonais de 55°, simetria de 180°, cantos arredondados; degradê vivo `#FFC24D → #FFA51F → #F5850C`. Substitui o ♠ como marca em todo lugar; cartas de baralho mantêm os naipes | `public/img/logo-mark.svg` (topo, letreiro, rodapé de confiança), favicons em `public/`, `LOGO_S` em `motion.js` (face da ficha 3D), `tools/imagens/logo.py` (capas, YouTube), kit em `marketing/logo/` |
 | Degradê dourado | `linear-gradient(180deg, #f9cf7f 0%, #efa144 52%, #d4852a 100%)` com brilho fino no topo | `--gold-grad` em `blog.css`; botões `.btn`, marca `.brand-mark`, `luxo.gold_rounded()` nas imagens |
 | Botão | degradê dourado, texto `#1a1206` em caixa alta, peso 800, raio 14 px, sombra dourada suave; `.btn-ghost.btn-block` (frases longas) fica em caixa normal | `.btn` em `styles.css` |
 | Botão fantasma | fundo quase transparente, borda 1 px dourada, texto `#f3b662` | `.btn-ghost` |

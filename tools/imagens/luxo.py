@@ -159,6 +159,11 @@ def paste(img, im, xy, shadow=True, glow=0.0):
     img.alpha_composite(im, xy)
 
 
+def black_background(W, H):
+    """Fundo 100% preto (pedido do usuario em 24/10/2026)."""
+    return Image.new("RGBA", (W, H), (0, 0, 0, 255))
+
+
 # ------------------------------------------------------------------ fundo "veludo preto" (opcao 1 escolhida pelo usuario em 24/10/2026)
 
 def grain(W, H, amount=0.03, base=5):

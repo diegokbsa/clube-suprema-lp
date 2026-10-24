@@ -110,7 +110,7 @@ preferência de menos movimento do sistema), cada uma com sua arte 3D de fundo n
 | Endereço | Arte 3D | Motion |
 |---|---|---|
 | https://suprema.blog/ | ficha de poker | segue a preferência do sistema |
-| https://suprema.blog/fichas | ficha de poker (preta e dourada, ♠ e clube) | sempre ligado |
+| https://suprema.blog/fichas | ficha de poker (preta e dourada, logo "S" e clube) | sempre ligado |
 | https://suprema.blog/spin | tambor do Spin Suprema com os multiplicadores | sempre ligado |
 
 O evento `lp_view` leva `variant` (`padrao`, `fichas` ou `spin`) e o lead guarda a rota de entrada em `landing`,

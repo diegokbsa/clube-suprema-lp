@@ -4,6 +4,7 @@ import sys
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import luxo
+import logo
 
 ROOT = sys.argv[1]
 FONT = sys.argv[2]
@@ -40,11 +41,11 @@ def overlay(img, fn):
 
 
 def background():
-    return luxo.velvet_background(W, H)
+    return luxo.black_background(W, H)
 
-def brand_mark(d, x, y, s):
-    d.rounded_rectangle((x, y, x + s, y + s), radius=int(s * 0.28), fill=GOLD)
-    d.text((x + s / 2, y + s / 2), "\u2660", font=symbol(int(s * 0.62)), fill=INK, anchor="mm")
+def logo_box(img, x, y, s):
+    """Logo 'S' (degrade vivo) centralizado num quadrado s x s."""
+    img.alpha_composite(logo.mark_in_box(s, 1.0), (int(x), int(y)))
 
 
 def wrap(d, text, f, max_w):
@@ -100,7 +101,11 @@ def chip(size, color=GOLD, label="\u2660"):
     r = size * 0.36
     d.ellipse((size / 2 - r, size / 2 - r, size / 2 + r, size / 2 + r), fill=INK)
     d.ellipse((size / 2 - r, size / 2 - r, size / 2 + r, size / 2 + r), outline=color, width=max(2, size // 40))
-    d.text((size / 2, size / 2), label, font=symbol(int(size * 0.34)), fill=color, anchor="mm")
+    if label == "\u2660":
+        m = logo.mark(size * 0.46, None if color == GOLD else color)
+        im.alpha_composite(m, ((size - m.width) // 2, (size - m.height) // 2))
+    else:
+        d.text((size / 2, size / 2), label, font=symbol(int(size * 0.34)), fill=color, anchor="mm")
     return im
 
 
@@ -159,7 +164,7 @@ def illus_entrar(img):
     d.text((x0 + 28, y0 + 80), "10001", font=font(58, 800), fill=WHITE)
     d.text((x0 + 28, y0 + 160), "Agente", font=font(16, 500), fill=MUTED)
     d.text((x0 + 28, y0 + 184), "1439098", font=font(40, 800), fill=GOLD)
-    brand_mark(d, x1 - 86, y0 + 26, 58)
+    logo_box(img, x1 - 86, y0 + 26, 58)
     # ficha e "link"
     paste(img, chip(150), (990, 330))
     d = ImageDraw.Draw(img)
@@ -251,7 +256,7 @@ def cover(path, key, eyebrow, title, subtitle, badge=None):
     for ln in wrap(d, subtitle, fs, 620)[:3]:
         d.text((80, y), ln, font=fs, fill=MUTED)
         y += 31
-    brand_mark(d, 80, 534, 56)
+    logo_box(img, 80, 534, 56)
     d.text((152, 540), "Clube Suprema", font=font(26, 800), fill=WHITE)
     d.text((152, 572), "suprema.blog" if key == "og" else "Blog · suprema.blog", font=font(18, 500), fill=MUTED)
     if badge:

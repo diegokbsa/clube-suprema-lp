@@ -8,6 +8,7 @@ from PIL import Image, ImageDraw, ImageFont, ImageFilter
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import luxo
+import logo
 from luxo import GOLD, GOLD_LIGHT, INK, WHITE, MUTED
 
 OUT = sys.argv[1]
@@ -33,8 +34,7 @@ def symbol(size):
 
 
 def brand_mark(size, alpha=255):
-    im = luxo.gold_rounded(size, size, int(size * 0.28))
-    ImageDraw.Draw(im).text((size / 2, size / 2 + size * 0.02), "\u2660", font=symbol(int(size * 0.62)), fill=INK + (255,), anchor="mm")
+    im = logo.mark_in_box(size, 1.0)
     if alpha < 255:
         im.putalpha(im.split()[3].point(lambda v: int(v * alpha / 255)))
     return im
@@ -70,7 +70,11 @@ def chip(size, color=GOLD, label="\u2660"):
     r = size * 0.36
     d.ellipse((size / 2 - r, size / 2 - r, size / 2 + r, size / 2 + r), fill=DARK)
     d.ellipse((size / 2 - r, size / 2 - r, size / 2 + r, size / 2 + r), outline=color, width=max(2, size // 40))
-    d.text((size / 2, size / 2), label, font=symbol(int(size * 0.34)), fill=color, anchor="mm")
+    if label == "\u2660":
+        m = logo.mark(size * 0.46, None if color == GOLD else color)
+        im.alpha_composite(m, ((size - m.width) // 2, (size - m.height) // 2))
+    else:
+        d.text((size / 2, size / 2), label, font=symbol(int(size * 0.34)), fill=color, anchor="mm")
     return im
 
 
@@ -82,7 +86,7 @@ SX1, SY1 = SX0 + SAFE_W, SY0 + SAFE_H            # 2053, 931
 
 
 def banner():
-    img = luxo.velvet_background(W, H)
+    img = luxo.black_background(W, H)
 
     # decoracao fora da area segura (aparece no desktop e na TV)
     luxo.paste(img, chip(250), (120, SY0 + 70))
@@ -123,9 +127,7 @@ def banner():
     block_h = mark + 24 + sub_font.size + 30 + row_h + 24 + foot_font.size
     y = SY0 + (SAFE_H - block_h) // 2
 
-    glow = Image.new("RGBA", img.size, (0, 0, 0, 0))
-    ImageDraw.Draw(glow).ellipse((x + 150, y - 220, x + 1350, y + 420), fill=(239, 161, 68, 36))
-    img = Image.alpha_composite(img, glow.filter(ImageFilter.GaussianBlur(120)))
+    # fundo 100% preto: sem brilho atras do titulo
 
     luxo.paste(img, brand_mark(mark), (x, y), glow=0.35)
     d = ImageDraw.Draw(img)
@@ -161,16 +163,14 @@ def banner():
 # ------------------------------------------------------------------ perfil
 def profile():
     S = 800
-    img = luxo.velvet_background(S, S, light=40)
-    luxo.paste(img, luxo.gold_ring(S, 352, 341), (0, 0), shadow=False, glow=0.35)
-    luxo.gold_text(img, (S / 2, S / 2 + 22), "\u2660", symbol(500), anchor="mm", glow=0.6)
+    img = logo.icon(S, ratio=0.62)  # logo 'S' vivo sobre preto puro (o YouTube recorta em circulo)
     img.convert("RGB").save(os.path.join(OUT, "perfil-youtube-800x800.png"), optimize=True)
     return img
 
 
 # ------------------------------------------------------------------ marca d'agua
 def watermark():
-    im = brand_mark(150, alpha=235)
+    im = logo.mark_in_box(150, 0.92)
     im.save(os.path.join(OUT, "marca-dagua-youtube-150x150.png"), optimize=True)
     return im
 

@@ -3,15 +3,10 @@
 /* Tokens da camada luxo (--gold-grad, --gold-hi, --panel…) vivem em styles.css. */
 
 /* Fundo: imagem com feixes dourados e partículas, fixa atrás de tudo */
-body.page-blog, body.page-post { background: #060606; }
-body.page-blog::before, body.page-post::before {
-  content: ""; position: fixed; inset: 0; z-index: -2; pointer-events: none;
-  background: url("/img/bg-luxo.webp") center / cover no-repeat #060606;
-}
-@media (max-width: 720px) { body.page-blog::before, body.page-post::before { background-image: url("/img/bg-luxo-m.webp"); } }
+body.page-blog, body.page-post { background: #000; } /* fundo 100% preto */
 
 /* Topo e marca */
-.page-blog .topbar, .page-post .topbar { background: rgba(5, 5, 5, .78); }
+.page-blog .topbar, .page-post .topbar { background: rgba(0, 0, 0, .82); }
 .topnav-blog { display: flex; }
 @media (max-width: 899px) { .topnav-blog { display: none; } }
 
