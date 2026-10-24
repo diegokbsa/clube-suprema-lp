@@ -179,12 +179,9 @@ main { max-width: 1120px; margin: 0 auto; padding: 0 var(--side); }
 .phone-stage { width: min(100%, 440px); transform-style: preserve-3d; will-change: transform; }
 .phone-float { position: relative; animation: float 6s ease-in-out infinite; }
 .phone {
-  display: block; width: 100%; height: auto; mix-blend-mode: screen;
-  -webkit-mask-image: linear-gradient(to right, transparent, #000 9%, #000 91%, transparent), linear-gradient(to bottom, transparent, #000 9%, #000 91%, transparent);
-  -webkit-mask-composite: source-in;
-  mask-image: linear-gradient(to right, transparent, #000 9%, #000 91%, transparent), linear-gradient(to bottom, transparent, #000 9%, #000 91%, transparent);
-  mask-composite: intersect;
-  filter: drop-shadow(0 30px 60px rgba(0, 0, 0, .6));
+  /* imagens já recortadas (fundo transparente): sem máscara nem blend */
+  display: block; width: 100%; height: auto;
+  filter: drop-shadow(0 30px 60px rgba(0, 0, 0, .7));
 }
 .phone-mesa { position: absolute; inset: 0; opacity: 0; animation: phone-in 1.4s var(--ease) 1.8s forwards; }
 .phone-abertura { animation: phone-out 1.4s var(--ease) 1.8s forwards; }

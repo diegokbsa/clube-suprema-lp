@@ -94,7 +94,7 @@ vivem em `public/styles.css`; os neutros ficaram quentes (`--bg-1 #15110a`, `--c
 
 | Elemento | Regra | Onde |
 |---|---|---|
-| Fundo | preto fosco `#060606` com textura sutil de reboco (ruído em 3 escalas, vinheta leve), sem feixes, brilhos ou barras. As barras douradas laterais da referência do usuário foram testadas em 24/10/2026 e rejeitadas por ele ("horrível"); mudanças de fundo pedem prévia antes de publicar | textura: `public/img/bg-luxo.webp` e `bg-luxo-m.webp` (`luxo.plaster_texture`), na LP em `.bg`, no blog via `body.page-blog::before` |
+| Fundo | "veludo preto", escolhido pelo usuário em 24/10/2026 entre 3 prévias: preto profundo com grão finíssimo, uma luz suave e neutra no alto e vinheta; sem dourado, feixes, partículas ou barras. Imagens do celular do hero recortadas sem o fundo azul (`tools/imagens/recorte-celular.py`) | `luxo.velvet_background()`; textura em `public/img/bg-luxo.webp` e `bg-luxo-m.webp`, na LP em `.bg`, no blog via `body.page-blog::before`; capas, imagem social e kit do YouTube usam a mesma função |
 | Degradê dourado | `linear-gradient(180deg, #f9cf7f 0%, #efa144 52%, #d4852a 100%)` com brilho fino no topo | `--gold-grad` em `blog.css`; botões `.btn`, marca `.brand-mark`, `luxo.gold_rounded()` nas imagens |
 | Botão | degradê dourado, texto `#1a1206` em caixa alta, peso 800, raio 14 px, sombra dourada suave; `.btn-ghost.btn-block` (frases longas) fica em caixa normal | `.btn` em `styles.css` |
 | Botão fantasma | fundo quase transparente, borda 1 px dourada, texto `#f3b662` | `.btn-ghost` |

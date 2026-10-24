@@ -159,6 +159,28 @@ def paste(img, im, xy, shadow=True, glow=0.0):
     img.alpha_composite(im, xy)
 
 
+# ------------------------------------------------------------------ fundo "veludo preto" (opcao 1 escolhida pelo usuario em 24/10/2026)
+
+def grain(W, H, amount=0.03, base=5):
+    n = Image.effect_noise((W, H), 60).filter(ImageFilter.GaussianBlur(0.8))
+    lum = n.point(lambda v: max(0, min(255, int(base + (v - 128) * amount * 1.6))))
+    return Image.merge("RGB", (lum, lum, lum)).convert("RGBA")
+
+
+def velvet_background(W, H, light=26, vignette=0.6):
+    """Preto profundo com grao finissimo e uma luz suave e neutra no alto. Sem dourado."""
+    img = grain(W, H)
+    lt = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+    ImageDraw.Draw(lt).ellipse((W * 0.1, -H * 0.55, W * 0.9, H * 0.45), fill=(255, 255, 255, light))
+    img = Image.alpha_composite(img, lt.filter(ImageFilter.GaussianBlur(W / 6)))
+    vg = Image.new("L", (W, H), 0)
+    ImageDraw.Draw(vg).ellipse((-W * 0.15, -H * 0.35, W * 1.15, H * 1.35), fill=255)
+    vg = vg.filter(ImageFilter.GaussianBlur(W / 7))
+    dark = Image.new("RGBA", (W, H), (0, 0, 0, 255))
+    dark.putalpha(ImageChops.invert(vg).point(lambda v: int(v * vignette)))
+    return Image.alpha_composite(img, dark)
+
+
 # ------------------------------------------------------------------ fundo "preto sofisticado"
 # Referencia do usuario: preto fosco com textura de reboco/concreto e barras douradas finas nas laterais.
 

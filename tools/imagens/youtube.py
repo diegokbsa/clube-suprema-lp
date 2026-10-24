@@ -82,7 +82,7 @@ SX1, SY1 = SX0 + SAFE_W, SY0 + SAFE_H            # 2053, 931
 
 
 def banner():
-    img = luxo.sophisticated_background(W, H, bars=False)
+    img = luxo.velvet_background(W, H)
 
     # decoracao fora da area segura (aparece no desktop e na TV)
     luxo.paste(img, chip(250), (120, SY0 + 70))
@@ -161,7 +161,7 @@ def banner():
 # ------------------------------------------------------------------ perfil
 def profile():
     S = 800
-    img = luxo.sophisticated_background(S, S, bars=False)
+    img = luxo.velvet_background(S, S, light=40)
     luxo.paste(img, luxo.gold_ring(S, 352, 341), (0, 0), shadow=False, glow=0.35)
     luxo.gold_text(img, (S / 2, S / 2 + 22), "\u2660", symbol(500), anchor="mm", glow=0.6)
     img.convert("RGB").save(os.path.join(OUT, "perfil-youtube-800x800.png"), optimize=True)
