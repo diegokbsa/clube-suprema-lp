@@ -165,7 +165,7 @@ entram capturas reais do app, com o nome de arquivo e o texto alternativo já de
 
 Os eventos já são enviados para `window.dataLayer`: `lp_view`, `signup_start`, `signup_submit`, `signup_complete`, `payer_complete`, `deposit_pix_created`, `pix_copy`, `deposit_paid`, `club_invite_click`, `app_download_click` e `whatsapp_click`. As origens (`utm_*`, `gclid`, `fbclid`) ficam salvas no cadastro e aparecem no painel.
 
-O Google Tag Manager (`GTM-N46659WQ`, conta "Clube Suprema", contêiner suprema.blog) e o Google tag do Google Ads (`AW-970454313`) estão fixos no `<head>` de `public/index.html`, como o Google pede; os eventos acima também chegam a ele via `gtag('event', …)`. O GA4 é a propriedade "Clube Suprema" (fluxo suprema.blog, `G-ZXS59RV8GR`), definida em `config.js` e em `GA4_ID` no `render.yaml`; o Pixel da Meta liga com `META_PIXEL_ID`. `public/sitemap.xml` e `public/robots.txt` atendem o Search Console.
+O Google Tag Manager (`GTM-N46659WQ`, conta "Clube Suprema", contêiner suprema.blog) e o Google tag do Google Ads (`AW-970454313`) estão fixos no `<head>` de `public/index.html`, como o Google pede; os eventos acima também chegam a ele via `gtag('event', …)`. O GA4 é a propriedade "Clube Suprema" (fluxo suprema.blog, `G-ZXS59RV8GR`), definida em `config.js` e em `GA4_ID` no `render.yaml`; o Pixel da Meta liga com `META_PIXEL_ID`. O Search Console tem duas propriedades (prefixo `https://suprema.blog/` e domínio `sc-domain:suprema.blog`, esta vinculada ao GA4), com `/sitemap.xml` e `/blog/feed.xml` enviados; o passo a passo e o que o Rich Results Test mostra estão em `docs/colocar-no-ar.md`.
 
 ## Antes de ir para produção
 
