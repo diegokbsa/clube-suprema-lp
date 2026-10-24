@@ -88,13 +88,13 @@ renders 3D do produto, e um tom de voz que fala de ação e suporte, não de pro
 ## Camada "luxo" (24/10/2026)
 
 Referência: peças oficiais da Suprema Poker (stories "Conheça o Rodeo" e "Suprema Poker Tour"). Aplicada na LP, no blog,
-nas capas dos posts, na imagem social e no kit do YouTube. Na LP o fundo luxo fica atrás dos brilhos animados e da ficha 3D; a grade sumiu.
+nas capas dos posts, na imagem social e no kit do YouTube. Na LP o fundo fica atrás da ficha 3D; os brilhos animados ficaram quase invisíveis (opacidade .1) e a grade sumiu.
 Os tokens (`--gold-grad`, `--gold-text`, `--gold-hi`, `--gold-border`, `--panel`, `--card-luxo`) e as regras de `.btn`, `.eyebrow`, `.accent`/`.gold`
 vivem em `public/styles.css`; os neutros ficaram quentes (`--bg-1 #15110a`, `--card #1b1610`).
 
 | Elemento | Regra | Onde |
 |---|---|---|
-| Fundo | preto `#050505` com brilho quente no centro, feixes de luz dourados curvos, partículas (algumas em estrela de 4 pontas) e bokeh; vinheta nas bordas | `public/img/bg-luxo.webp` (desktop) e `bg-luxo-m.webp` (celular): na LP em `.bg`, no blog via `body.page-blog::before` |
+| Fundo | "preto sofisticado" (24/10/2026, 2ª referência do usuário): preto fosco `#060606` com textura de reboco (ruído em 3 escalas, vinheta leve) e duas barras douradas finas nas laterais, com relevo escuro-claro-escuro e pontas que escurecem. Sem feixes, partículas ou brilhos | textura: `public/img/bg-luxo.webp` e `bg-luxo-m.webp` (`luxo.plaster_texture`), na LP em `.bg`, no blog via `body.page-blog::before`; barras em CSS (`.bg::after`, `body.page-blog::after`) com `--gold-bar`, `--bar-w`/`--bar-x` (5 px na borda no celular, 12 px a 16 px da borda no desktop); conteúdo recua `--side` (16 px / 44 px). Nas imagens, `luxo.gold_bars()` |
 | Degradê dourado | `linear-gradient(180deg, #f9cf7f 0%, #efa144 52%, #d4852a 100%)` com brilho fino no topo | `--gold-grad` em `blog.css`; botões `.btn`, marca `.brand-mark`, `luxo.gold_rounded()` nas imagens |
 | Botão | degradê dourado, texto `#1a1206` em caixa alta, peso 800, raio 14 px, sombra dourada suave; `.btn-ghost.btn-block` (frases longas) fica em caixa normal | `.btn` em `styles.css` |
 | Botão fantasma | fundo quase transparente, borda 1 px dourada, texto `#f3b662` | `.btn-ghost` |

@@ -159,7 +159,77 @@ def paste(img, im, xy, shadow=True, glow=0.0):
     img.alpha_composite(im, xy)
 
 
-# ------------------------------------------------------------------ fundo
+# ------------------------------------------------------------------ fundo "preto sofisticado"
+# Referencia do usuario: preto fosco com textura de reboco/concreto e barras douradas finas nas laterais.
+
+BAR_COLORS = [(74, 47, 10), (184, 122, 36), (243, 208, 127), (184, 122, 36), (74, 47, 10)]
+
+
+def plaster_texture(W, H, base=9, amplitude=0.11, warm=1):
+    """Textura preta fosca: ruido em tres escalas (grao, manchas medias e grandes), levemente mais claro no centro."""
+    n1 = Image.effect_noise((W, H), 60).filter(ImageFilter.GaussianBlur(1.1))
+    n2 = Image.effect_noise((max(2, W // 4), max(2, H // 4)), 60).resize((W, H), Image.BICUBIC).filter(ImageFilter.GaussianBlur(5))
+    n3 = Image.effect_noise((max(2, W // 14), max(2, H // 14)), 60).resize((W, H), Image.BICUBIC).filter(ImageFilter.GaussianBlur(16))
+    mix = Image.blend(Image.blend(n1, n2, 0.55), n3, 0.5)
+    lum = mix.point(lambda v: max(0, min(255, int(base + (v - 128) * amplitude * 1.6))))
+    img = Image.merge("RGB", (lum.point(lambda v: min(255, v + warm)), lum, lum.point(lambda v: max(0, v - warm)))).convert("RGBA")
+    # leve luz no centro e vinheta nas bordas
+    vg = Image.new("L", (W, H), 0)
+    ImageDraw.Draw(vg).ellipse((-W * 0.1, -H * 0.25, W * 1.1, H * 1.25), fill=255)
+    vg = vg.filter(ImageFilter.GaussianBlur(W / 6))
+    light = Image.new("RGBA", (W, H), (255, 255, 255, 255))
+    light.putalpha(vg.point(lambda v: int(v * 0.05)))
+    img = Image.alpha_composite(img, light)
+    dark = Image.new("RGBA", (W, H), (0, 0, 0, 255))
+    dark.putalpha(ImageChops.invert(vg).point(lambda v: int(v * 0.55)))
+    return Image.alpha_composite(img, dark)
+
+
+def gold_bar(width, height, fade=0.3, floor=0.22):
+    """Barra vertical dourada com relevo (escuro-claro-escuro) e pontas que escurecem."""
+    bar = Image.new("RGBA", (width, height), (0, 0, 0, 0))
+    d = ImageDraw.Draw(bar)
+    for x in range(width):
+        t = x / max(1, width - 1) * 4
+        i = min(3, int(t))
+        c = lerp(BAR_COLORS[i], BAR_COLORS[i + 1], t - i)
+        d.line((x, 0, x, height), fill=c + (255,))
+    if fade:
+        col = Image.new("L", (1, height))
+        for y in range(height):
+            t = y / max(1, height - 1)
+            k = min(1.0, min(t, 1 - t) / fade)
+            col.putpixel((0, y), int(255 * (floor + (1 - floor) * k)))
+        dark = Image.new("RGBA", (width, height), (0, 0, 0, 255))
+        dark.putalpha(ImageChops.invert(col.resize((width, height))))
+        bar = Image.alpha_composite(bar, dark)
+    return bar
+
+
+def gold_bars(img, inset, width, glow=70, fade=0.3):
+    """Desenha a barra dourada nas duas laterais de img, com um brilho suave para dentro."""
+    W, H = img.size
+    g = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+    gd = ImageDraw.Draw(g)
+    gd.rectangle((inset, 0, inset + width, H), fill=(243, 208, 127, glow))
+    gd.rectangle((W - inset - width, 0, W - inset, H), fill=(243, 208, 127, glow))
+    img.alpha_composite(g.filter(ImageFilter.GaussianBlur(max(6, width * 1.6))))
+    bar = gold_bar(width, H, fade=fade)
+    img.alpha_composite(bar, (inset, 0))
+    img.alpha_composite(bar, (W - inset - width, 0))
+    return img
+
+
+def sophisticated_background(W, H, bars=True, inset=None, width=None, seed=None):
+    img = plaster_texture(W, H)
+    if bars:
+        inset = int(W * 0.024) if inset is None else inset
+        width = max(6, int(W * 0.0085)) if width is None else width
+        gold_bars(img, inset, width)
+    return img
+
+
+# ------------------------------------------------------------------ fundo com feixes (versao anterior, mantida para referencia)
 
 def luxury_background(W, H, seed=7, streak_ids=None, sparkles=160, glows=None, streak_alpha=1.0, glow_scale=0.55):
     """Fundo quase preto: brilhos quentes discretos (glow_scale reduz o alfa de todos), feixes, particulas e bokeh."""

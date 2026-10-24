@@ -40,14 +40,7 @@ def overlay(img, fn):
 
 
 def background():
-    img = luxo.luxury_background(W, H, seed=11, streak_ids=luxo.RIGHT_STREAKS, sparkles=120,
-                                 glows=[(0.86, 0.1, 0.5, 80), (0.05, 0.9, 0.4, 40)])
-
-    def top_line(d):
-        for x in range(140, 1060):
-            t = abs((x - 600) / 460)
-            d.line((x, 48, x, 49), fill=GOLD + (int(255 * max(0.0, 1 - t)),))
-    return overlay(img, top_line)
+    return luxo.sophisticated_background(W, H, inset=26, width=10)
 
 def brand_mark(d, x, y, s):
     d.rounded_rectangle((x, y, x + s, y + s), radius=int(s * 0.28), fill=GOLD)

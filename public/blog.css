@@ -3,20 +3,13 @@
 /* Tokens da camada luxo (--gold-grad, --gold-hi, --panel…) vivem em styles.css. */
 
 /* Fundo: imagem com feixes dourados e partículas, fixa atrás de tudo */
-body.page-blog, body.page-post { background: #050505; }
+body.page-blog, body.page-post { background: #060606; }
 body.page-blog::before, body.page-post::before {
-  content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
-  background:
-    radial-gradient(55% 45% at 88% 0%, rgba(239, 161, 68, .07), transparent 70%),
-    radial-gradient(45% 40% at 0% 78%, rgba(239, 161, 68, .04), transparent 70%),
-    url("/img/bg-luxo.webp") center top / cover no-repeat,
-    #050505;
+  content: ""; position: fixed; inset: 0; z-index: -2; pointer-events: none;
+  background: url("/img/bg-luxo.webp") center / cover no-repeat #060606;
 }
-@media (max-width: 720px) {
-  body.page-blog::before, body.page-post::before { background-image:
-    radial-gradient(60% 30% at 90% 0%, rgba(239, 161, 68, .07), transparent 70%),
-    url("/img/bg-luxo-m.webp"); background-size: cover; background-position: center top; }
-}
+@media (max-width: 720px) { body.page-blog::before, body.page-post::before { background-image: url("/img/bg-luxo-m.webp"); } }
+/* as barras douradas laterais (::after) vêm de styles.css */
 
 /* Topo e marca */
 .page-blog .topbar, .page-post .topbar { background: rgba(5, 5, 5, .78); }
@@ -27,7 +20,7 @@ body.page-blog::before, body.page-post::before {
 .post-tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 0; }
 .post-tags span { font-size: .7rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--gold-hi); background: rgba(14, 10, 5, .6); border: 1px solid var(--gold-border); border-radius: var(--pill); padding: 4px 11px; }
 
-.blog { max-width: 1120px; margin: 0 auto; padding: 24px 16px 64px; }
+.blog { max-width: 1120px; margin: 0 auto; padding: 24px var(--side) 64px; }
 .crumbs { color: var(--muted); font-size: .85rem; margin: 8px 0 24px; }
 .crumbs a { color: var(--muted); text-decoration: none; }
 .crumbs a:hover { color: var(--text); }
