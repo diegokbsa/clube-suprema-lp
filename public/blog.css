@@ -7,14 +7,14 @@ body.page-blog, body.page-post { background: #050505; }
 body.page-blog::before, body.page-post::before {
   content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
   background:
-    radial-gradient(55% 45% at 88% 0%, rgba(239, 161, 68, .16), transparent 70%),
-    radial-gradient(45% 40% at 0% 78%, rgba(239, 161, 68, .10), transparent 70%),
+    radial-gradient(55% 45% at 88% 0%, rgba(239, 161, 68, .07), transparent 70%),
+    radial-gradient(45% 40% at 0% 78%, rgba(239, 161, 68, .04), transparent 70%),
     url("/img/bg-luxo.webp") center top / cover no-repeat,
     #050505;
 }
 @media (max-width: 720px) {
   body.page-blog::before, body.page-post::before { background-image:
-    radial-gradient(60% 30% at 90% 0%, rgba(239, 161, 68, .16), transparent 70%),
+    radial-gradient(60% 30% at 90% 0%, rgba(239, 161, 68, .07), transparent 70%),
     url("/img/bg-luxo-m.webp"); background-size: cover; background-position: center top; }
 }
 

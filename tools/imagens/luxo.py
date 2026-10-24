@@ -161,22 +161,23 @@ def paste(img, im, xy, shadow=True, glow=0.0):
 
 # ------------------------------------------------------------------ fundo
 
-def luxury_background(W, H, seed=7, streak_ids=None, sparkles=160, glows=None, streak_alpha=1.0):
+def luxury_background(W, H, seed=7, streak_ids=None, sparkles=160, glows=None, streak_alpha=1.0, glow_scale=0.55):
+    """Fundo quase preto: brilhos quentes discretos (glow_scale reduz o alfa de todos), feixes, particulas e bokeh."""
     rnd = random.Random(seed)
     scale = W / 1200
     img = Image.new("RGBA", (W, H), BLACK + (255,))
     grad = Image.new("RGBA", (1, H))
     for y in range(H):
         k = math.sin(y / max(1, H - 1) * math.pi)
-        grad.putpixel((0, y), lerp((5, 5, 5), (22, 15, 8), k) + (255,))
+        grad.putpixel((0, y), lerp((4, 4, 4), (12, 9, 5), k) + (255,))
     img.paste(grad.resize((W, H)))
 
-    # brilhos quentes
+    # brilhos quentes (so nos cantos; o centro fica escuro para o conteudo)
     glow = Image.new("RGBA", (W, H), (0, 0, 0, 0))
     gd = ImageDraw.Draw(glow)
-    for cx, cy, r, a in (glows or [(0.86, 0.08, 0.5, 90), (0.08, 0.85, 0.42, 55), (0.5, 0.55, 0.55, 30)]):
+    for cx, cy, r, a in (glows or [(0.9, 0.02, 0.45, 80), (0.04, 0.9, 0.38, 48)]):
         R = r * W / 2
-        gd.ellipse((cx * W - R, cy * H - R, cx * W + R, cy * H + R), fill=GOLD + (a,))
+        gd.ellipse((cx * W - R, cy * H - R, cx * W + R, cy * H + R), fill=GOLD + (int(a * glow_scale),))
     img = Image.alpha_composite(img, glow.filter(ImageFilter.GaussianBlur(W / 10)))
 
     # feixes de luz curvos
@@ -195,7 +196,9 @@ def luxury_background(W, H, seed=7, streak_ids=None, sparkles=160, glows=None, s
             ld.line([pts[j], pts[j + 1]], fill=GOLD_LIGHT + (int(alpha * fade),), width=width)
             ld.line([(pts[j][0], pts[j][1] + off), (pts[j + 1][0], pts[j + 1][1] + off)],
                     fill=GOLD + (int(alpha * 0.45 * fade),), width=max(1, width // 2))
-    img = Image.alpha_composite(img, lines.filter(ImageFilter.GaussianBlur(34 * scale)))
+    wide = lines.filter(ImageFilter.GaussianBlur(34 * scale))
+    wide.putalpha(wide.split()[3].point(lambda v: int(v * 0.45)))
+    img = Image.alpha_composite(img, wide)
     img = Image.alpha_composite(img, lines.filter(ImageFilter.GaussianBlur(14 * scale)))
     img = Image.alpha_composite(img, lines.filter(ImageFilter.GaussianBlur(1.2)))
 
@@ -219,8 +222,8 @@ def luxury_background(W, H, seed=7, streak_ids=None, sparkles=160, glows=None, s
     bd = ImageDraw.Draw(bk)
     for _ in range(max(6, sparkles // 10)):
         x, y = rnd.uniform(0, W), rnd.uniform(0, H)
-        r = rnd.uniform(8, 26) * scale
-        bd.ellipse((x - r, y - r, x + r, y + r), fill=GOLD + (rnd.randint(18, 50),))
+        r = rnd.uniform(6, 18) * scale
+        bd.ellipse((x - r, y - r, x + r, y + r), fill=GOLD + (rnd.randint(10, 26),))
     img = Image.alpha_composite(img, bk.filter(ImageFilter.GaussianBlur(6 * scale)))
 
     # vinheta
@@ -228,5 +231,5 @@ def luxury_background(W, H, seed=7, streak_ids=None, sparkles=160, glows=None, s
     ImageDraw.Draw(vg).ellipse((-W * 0.15, -H * 0.35, W * 1.15, H * 1.35), fill=255)
     vg = vg.filter(ImageFilter.GaussianBlur(W / 7))
     dark = Image.new("RGBA", (W, H), (0, 0, 0, 255))
-    dark.putalpha(ImageChops.invert(vg).point(lambda v: int(v * 0.6)))
+    dark.putalpha(ImageChops.invert(vg).point(lambda v: int(v * 0.72)))
     return Image.alpha_composite(img, dark)
