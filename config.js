@@ -39,6 +39,13 @@ export const config = {
     metaPixelId: process.env.META_PIXEL_ID || '',
   },
 
+  // Planilha do Google que recebe uma cópia de cada cadastro (Apps Script publicado como app da Web).
+  // Vazio = desligado. Código do script em tools/planilha/Code.gs.
+  sheets: {
+    // Planilha "Cadastros · Clube Suprema" (Drive de h2odiegokbsa), projeto Apps Script "Cadastros Clube Suprema".
+    webhookUrl: process.env.SHEETS_WEBHOOK_URL || 'https://script.google.com/macros/s/AKfycbyRFSDt6RJOU9RIh_MUB9KltHLC81yqyM13_38_iAVaR7vsB_H-OwRu0ENpL75yMUA3bw/exec',
+  },
+
 };
 
 export const testMode = config.flow === 'completo' && (config.modes.suprema === 'mock' || config.modes.fichas24h === 'mock');

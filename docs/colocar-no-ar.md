@@ -18,7 +18,7 @@ O servidor é Node puro, sem dependências. Qualquer hospedagem que rode `node s
 - **Publicar uma mudança:** `git add -A`, `git commit -m "..."` e `git push`. O Render reconstrói sozinho em cerca de 1 minuto.
 - **Painel:** https://suprema.blog/admin pede a senha (`ADMIN_TOKEN`).
 - **Versões para anúncios:** https://suprema.blog/fichas (ficha 3D) e https://suprema.blog/spin (tambor do Spin Suprema), as duas com motion sempre ligado; o lead guarda a rota de entrada.
-- **Limites do plano Free:** o serviço dorme após 15 min sem visitas (a primeira visita seguinte demora até 1 min) e a lista de leads zera a cada reinício ou novo deploy. Para guardar os leads: cartão na conta Render, plano `0.5c-512mb` e um disco em `/var/data` com `DATA_DIR=/var/data` (o `render.yaml` tem o comentário com o que mudar).
+- **Limites do plano Free:** o serviço dorme após 15 min sem visitas (a primeira visita seguinte demora até 1 min) e a lista de leads zera a cada reinício ou novo deploy. **Por isso cada cadastro também vai para a planilha do Google "Cadastros · Clube Suprema"** (Drive da conta h2odiegokbsa), que é o registro permanente: veja a seção Planilha de cadastros abaixo. Para guardar os leads: cartão na conta Render, plano `0.5c-512mb` e um disco em `/var/data` com `DATA_DIR=/var/data` (o `render.yaml` tem o comentário com o que mudar).
 - **Mudar DNS no GoDaddy:** cada alteração pede um código por SMS (proteção total do domínio).
 
 ## Medição (configurada em 23/10/2026, conta Google h2odiegokbsa)
@@ -33,6 +33,14 @@ O servidor é Node puro, sem dependências. Qualquer hospedagem que rode `node s
 Os eventos da página (`lp_view` com `variant`, `signup_start`, `whatsapp_click` etc.) vão para o `dataLayer` e para o `gtag`,
 então chegam ao GA4 e ao Google Ads e ficam disponíveis como acionadores no GTM. Para conferir: GA4 → Relatórios → Tempo real.
 Atenção: o Brave bloqueia os envios do Analytics por padrão; teste em outro navegador ou com os escudos desligados.
+
+### Planilha de cadastros
+
+- Cada e-mail novo do formulário vira uma linha na planilha **Cadastros · Clube Suprema** (Google Drive da conta h2odiegokbsa), com data/hora de Brasília, e-mail, utm_source, utm_medium, utm_campaign, utm_term, utm_content, gclid, fbclid, ref, página de entrada e ID do cadastro.
+- Quem grava é o projeto Apps Script **Cadastros Clube Suprema**, ligado à planilha e publicado como app da Web (executa como h2odiegokbsa, acesso "qualquer pessoa", limitado a esta planilha por `@OnlyCurrentDoc`). O código está em `tools/planilha/Code.gs`.
+- O site envia pelo `lib/sheets.js` logo depois de salvar no banco, em segundo plano e com até 2 novas tentativas; a URL do app fica em `config.js` (`sheets.webhookUrl`, ou a variável `SHEETS_WEBHOOK_URL`). Falhas aparecem nos logs do Render como `[planilha]`.
+- Para trocar o código do script: editar em Extensões → Apps Script, salvar e em Implantar → Gerenciar implantações → editar → Nova versão (a URL continua a mesma).
+- A linha `teste@suprema.blog` e as de `teste-local@`/`teste-producao@` com origem "TESTE" são de teste e podem ser apagadas.
 
 ### Search Console
 
