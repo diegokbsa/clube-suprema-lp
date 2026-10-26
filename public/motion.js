@@ -33,6 +33,7 @@ function initReveal() {
   const groups = new Map();
   $$('.reveal').forEach((el) => {
     if (el.closest('[hidden]')) { el.classList.add('in'); return; } // fluxo que não está ativo
+    if (el.closest('.hero')) { el.classList.add('in'); return; } // o topo entra por CSS (styles.css), sem esperar o JS
     const key = el.closest('section, footer') || document.body;
     if (!groups.has(key)) groups.set(key, []);
     groups.get(key).push(el);

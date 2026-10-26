@@ -24,6 +24,7 @@ const TYPES = {
   '.json': 'application/json; charset=utf-8',
   '.xml': 'application/xml; charset=utf-8',
   '.txt': 'text/plain; charset=utf-8',
+  '.woff2': 'font/woff2',
 };
 
 class HttpError extends Error {
@@ -262,7 +263,11 @@ function serveStatic(req, res, url) {
       res.writeHead(404, { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store' });
       return res.end(renderNotFound());
     }
-    res.writeHead(200, { 'Content-Type': TYPES[path.extname(file)] || 'application/octet-stream', 'Cache-Control': 'no-cache' });
+    // Fontes não mudam de nome; imagens podem ser refeitas com o mesmo nome (cache de 1 dia). HTML, CSS e JS sempre revalidam.
+    const cache = pathname.startsWith('/fonts/') ? 'public, max-age=31536000, immutable'
+      : pathname.startsWith('/img/') ? 'public, max-age=86400'
+        : 'no-cache';
+    res.writeHead(200, { 'Content-Type': TYPES[path.extname(file)] || 'application/octet-stream', 'Cache-Control': cache });
     res.end(buf);
   });
 }

@@ -29,7 +29,10 @@ Regra: uma cor de acento só. O dourado aparece em pequenas doses sobre o preto;
 ## 2. Tipografia
 
 A Suprema usa Termina (display) e Zeitung (corpo) pela Typekit, que não podem ser carregadas fora do domínio
-deles, e carrega Montserrat e Antonio pelo Google Fonts. A LP usa os pares livres com o mesmo caráter:
+deles, e carrega Montserrat e Antonio pelo Google Fonts. A LP usa os pares livres com o mesmo caráter, servidos pelo próprio
+site (26/10/2026) para não bloquear a primeira pintura: `public/fonts/montserrat-latin.woff2` (fonte variável, pesos 100 a 900)
+e `public/fonts/antonio-700-latin.woff2`, declaradas com `@font-face` no topo de `styles.css` e com preload da Montserrat no `<head>`.
+O subconjunto latin cobre todo o português; para trocar a versão, baixe de novo os .woff2 do Google Fonts com o mesmo nome:
 
 | Uso | Fonte | Peso | Tamanho |
 |---|---|---|---|

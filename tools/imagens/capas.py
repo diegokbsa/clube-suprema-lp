@@ -171,6 +171,31 @@ def illus_entrar(img):
     pill(img, "Convite pelo link", 865, 455, font(16, 700))
 
 
+def illus_clubes(img):
+    """Três cartões de clube empilhados; o da frente é o Clube Suprema (ID 10001)."""
+    def card_layer(x0, y0, alpha, fill_alpha):
+        def draw(d):
+            d.rounded_rectangle((x0 + 6, y0 + 10, x0 + 336, y0 + 186), radius=24, fill=(0, 0, 0, int(120 * alpha)))
+            d.rounded_rectangle((x0, y0, x0 + 330, y0 + 176), radius=24, fill=(26, 26, 29, fill_alpha), outline=GOLD + (int(255 * alpha),), width=2)
+        return draw
+
+    # cartões de trás (outros clubes, só o contorno e IDs ocultos)
+    for x0, y0, a, name, cid in ((830, 104, 0.35, "CLUBE", "ID ••••"), (790, 176, 0.6, "CLUBE", "ID ••••")):
+        img.alpha_composite(overlay(Image.new("RGBA", img.size, (0, 0, 0, 0)), card_layer(x0, y0, a, int(255 * (0.55 + a / 2)))))
+        d = ImageDraw.Draw(img)
+        d.text((x0 + 24, y0 + 24), f"{name}  ·  {cid}", font=font(15, 700), fill=tuple(int(c * a) for c in GOLD))
+    # cartão da frente
+    x0, y0 = 750, 250
+    img.alpha_composite(overlay(Image.new("RGBA", img.size, (0, 0, 0, 0)), card_layer(x0, y0, 1.0, 255)))
+    d = ImageDraw.Draw(img)
+    d.text((x0 + 26, y0 + 24), "CLUBE SUPREMA", font=font(16, 700), fill=GOLD)
+    d.text((x0 + 26, y0 + 52), "ID do clube", font=font(15, 500), fill=MUTED)
+    d.text((x0 + 26, y0 + 74), "10001", font=font(54, 800), fill=WHITE)
+    d.text((x0 + 26, y0 + 140), "Agente 1439098", font=font(16, 700), fill=GOLD)
+    logo_box(img, x0 + 330 - 84, y0 + 22, 56)
+    pill(img, "Entrar · Trocar · Sair", 915, 480, font(16, 700))
+
+
 def illus_torneios(img):
     cards = [("A", "\u2660", -22, (780, 185)), ("K", "\u2665", -4, (860, 160)), ("Q", "\u2666", 16, (948, 170))]
     for rank, suit, ang, pos in cards:
@@ -231,6 +256,7 @@ ILLUS = {
     "guia-do-app-suprema-poker": illus_guia,
     "perguntas-frequentes-suporte": illus_faq,
     "spin-suprema-como-funciona-e-primeiro-grande-ganhador": illus_spin,
+    "clubes-suprema-poker": illus_clubes,
     "og": illus_og,
 }
 
@@ -274,7 +300,8 @@ def cover(path, key, eyebrow, title, subtitle, badge=None):
 
 
 posts = [
-    ("como-instalar-app-suprema-poker", "Guia · App", "Como instalar o app Suprema Poker e configurar sua conta", "Android, iPhone e Windows · conta, e-mail e primeiros ajustes", "Passo a passo"),
+    ("como-instalar-app-suprema-poker", "Guia · App", "Como baixar o Suprema Poker no celular, PC e Mac", "Android, iPhone, Windows e notebook · conta, e-mail e o que fazer no Mac", "Passo a passo"),
+    ("clubes-suprema-poker", "Guia · Clubes", "Clubes do Suprema Poker: como funcionam, ID, como entrar e sair", "O que é um clube, ID do clube e do agente, jogar em vários clubes e escolher um confiável", "Guia completo"),
     ("como-entrar-no-clube-suprema", "Guia · Clube", "Como entrar no Clube Suprema pelo link ou com o ID", "Clube 10001 · Agente 1439098 · o que fazer se o link abrir a loja", "Clube 10001"),
     ("formatos-de-torneio-poker-online", "Guia · Torneios", "Modalidades e formatos de torneio no poker online", "NLH, PLO, freezeout, re-entry, turbo, knockout, satélite e Spin", "Para iniciantes"),
     ("guia-do-app-suprema-poker", "Guia · App", "Guia do app Suprema Poker: lobby, mesa, fichas e configurações", "Um tour pelas telas que importam, com imagens", "Tour pelo app"),

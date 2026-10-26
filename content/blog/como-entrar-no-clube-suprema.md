@@ -83,7 +83,7 @@ O passo a passo completo, com os erros mais comuns, está em [perguntas frequent
 
 ## Já tenho conta ou já jogo em outro clube
 
-Não precisa criar outra conta. O mesmo login serve para o Clube Suprema. Abra o nosso link com o app instalado ou entre com o ID: o clube 10001 passa a aparecer junto dos que você já tem.
+Não precisa criar outra conta. O mesmo login serve para o Clube Suprema. Abra o nosso link com o app instalado ou entre com o ID: o clube 10001 passa a aparecer junto dos que você já tem. O saldo de fichas é separado por clube; o [guia dos clubes do Suprema Poker](/blog/clubes-suprema-poker) explica como jogar em vários clubes e como sair de um.
 
 :::cta Pronto para entrar?
 Pelo celular, abra o [link oficial](/baixar) e aceite o convite. Pelo computador, use clube **10001** e agente **1439098**. Travou em algum passo? O suporte 24h no WhatsApp resolve com você, em português, inglês ou espanhol.
