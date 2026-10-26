@@ -2,11 +2,12 @@
 <html lang="pt-BR">
 <head>
   <meta charset="utf-8">
-  <!-- Google Tag Manager -->
+  <!-- Google Tag Manager (carrega logo depois da página; os eventos ficam na fila do dataLayer) -->
   <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  new Date().getTime(),event:'gtm.js'});function go(){var f=d.getElementsByTagName(s)[0],
   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);}
+  if(d.readyState==='complete')setTimeout(go,1);else w.addEventListener('load',function(){setTimeout(go,1)});
   })(window,document,'script','dataLayer','GTM-N46659WQ');</script>
   <!-- End Google Tag Manager -->
   <!-- Google tag (gtag.js) -->
@@ -76,7 +77,7 @@
 
   <header class="topbar">
     <a class="brand" href="#topo" aria-label="Clube Suprema, início">
-      <span class="brand-mark" aria-hidden="true"><img src="/img/logo-mark.svg" alt="" width="38" height="36"></span>
+      <span class="brand-mark" aria-hidden="true"><svg width="38" height="36" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="-172.7 -161.7 345.3 323.4"><defs><linearGradient id="lg-top" x1="0" y1="-161.7" x2="0" y2="161.7" gradientUnits="userSpaceOnUse"><stop offset="0.0" stop-color="#ffc24d"/><stop offset="0.5" stop-color="#ffa51f"/><stop offset="1.0" stop-color="#f5850c"/></linearGradient></defs><path fill="url(#lg-top)" d="M-61.13 -145.49A38 38 0 0 1 1.13 -145.49L67.08 -51.29A4 4 0 0 1 63.81 -45L8.57 -45A4 4 0 0 1 5.3 -46.71L-21.81 -85.42A10 10 0 0 0 -38.19 -85.42L-75.28 -32.44A6 6 0 0 0 -70.37 -23L165.66 -23A7 7 0 0 1 171.39 -11.98L61.13 145.49A38 38 0 0 1 -1.13 145.49L-67.08 51.29A4 4 0 0 1 -63.81 45L-8.57 45A4 4 0 0 1 -5.3 46.71L21.81 85.42A10 10 0 0 0 38.19 85.42L75.28 32.44A6 6 0 0 0 70.37 23L-165.66 23A7 7 0 0 1 -171.39 11.98Z"/></svg></span>
       <span class="brand-text"><strong>Clube Suprema</strong><small data-bind="club-line">ID 10001</small></span>
     </a>
     <nav class="topnav" aria-label="Seções">
