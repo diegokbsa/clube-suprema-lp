@@ -41,7 +41,7 @@ Atenção: o Brave bloqueia os envios do Analytics por padrão; teste em outro n
 - O script carrega já no `<head>`, sem esperar a página terminar, para gravar também quem sai em 2 ou 3 segundos (o caso dos anúncios).
 - Cada `track()` do `public/app.js` vira um evento personalizado do Clarity (`lp_view`, `signup_start`, `signup_complete`, `whatsapp_click`, `app_download_click` etc.), e a tag `variante` (`padrao`, `fichas`, `spin`) diz qual versão da LP o visitante viu. Use os dois em Filtros → Eventos personalizados / Tags e para montar funis.
 - Para ver só quem veio de anúncio: Filtros → Tráfego → Fonte/Campanha (o Clarity lê as UTMs da URL), ou Referenciador. Depois, Gravações para assistir as sessões curtas e Mapas de calor → Rolagem para ver até onde as pessoas descem.
-- Privacidade: o mascaramento padrão (Balanceado) esconde o que é digitado nos campos. Os textos com o e-mail do jogador e o QR Code do PIX também têm `data-clarity-mask="True"`. Ao criar telas novas que mostrem dados pessoais, ponha o mesmo atributo.
+- Privacidade: o mascaramento padrão (Equilibrado, conferido em Configurações → Mascarando) esconde o que é digitado nos campos. Os textos com o e-mail do jogador e o QR Code do PIX também têm `data-clarity-mask="True"`. Ao criar telas novas que mostrem dados pessoais, ponha o mesmo atributo.
 - Os dados aparecem no painel em até 2 horas depois das primeiras visitas.
 
 ### GEO: buscadores de IA e Bing
