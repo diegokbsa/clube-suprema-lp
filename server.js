@@ -9,7 +9,7 @@ import { store } from './lib/store.js';
 import * as flow from './lib/orchestrator.js';
 import { createLead, recordLeadEvent, leadsOverview } from './lib/leads.js';
 import { validateSignup, validateLead } from './public/shared/validate.js';
-import { renderBlogIndex, renderBlogPost, renderNotFound, renderSitemap, renderFeed, renderLlms, renderLlmsFull } from './lib/blog.js';
+import { renderBlogIndex, renderBlogPost, renderNotFound, renderSitemap, renderFeed, renderLlms, renderLlmsFull, renderAbout } from './lib/blog.js';
 
 const PUBLIC_DIR = fileURLToPath(new URL('./public/', import.meta.url));
 const TYPES = {
@@ -284,6 +284,7 @@ function servePage(req, res, url) {
   if (p === '/blog' || p === '/blog/') return html(renderBlogIndex());
   if (p === '/blog/feed.xml') return send(renderFeed(), 'application/rss+xml; charset=utf-8');
   if (p === '/sitemap.xml') return send(renderSitemap(), 'application/xml; charset=utf-8');
+  if (p === '/sobre' || p === '/sobre/') return html(renderAbout());
   if (p === '/llms.txt') return send(renderLlms(), 'text/plain; charset=utf-8');
   if (p === '/llms-full.txt') return send(renderLlmsFull(), 'text/plain; charset=utf-8');
   const post = p.match(/^[/]blog[/]([a-z0-9-]+)([/]?)$/);

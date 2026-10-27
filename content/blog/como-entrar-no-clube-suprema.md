@@ -2,10 +2,18 @@
 title: Como entrar no Clube Suprema pelo link ou com o ID do clube
 description: Duas formas de entrar no Clube Suprema no app Suprema Poker, com o ID do clube 10001 e do agente 1439098, o que fazer se o link abrir a loja e como confirmar que deu certo.
 date: 2026-10-23
-updated: 2026-10-23
+updated: 2026-10-26
 cover: /img/blog/como-entrar-no-clube-suprema/cover.jpg
 coverAlt: Ilustração com um celular abrindo o app e os números do clube 10001 e do agente 1439098
 tags: [clube, primeiros passos, app]
+resumo: Para entrar no Clube Suprema, abra o link oficial no celular com o app instalado. Ou, dentro do app, use a opção de entrar em um clube e digite o ID do clube 10001 e o ID do agente 1439098. Se o clube ficar pendente, aguarde alguns minutos ou chame o suporte 24h com o seu ID de jogador.
+passosTitulo: Como entrar no Clube Suprema com o ID
+passos:
+  - Abra o app Suprema Poker e entre na sua conta.
+  - Toque na opção de entrar em um clube.
+  - Digite o ID do clube 10001.
+  - Digite o ID do agente 1439098.
+  - Confirme e aguarde o Clube Suprema aparecer na sua lista de clubes.
 faq:
   - q: Qual é o ID do Clube Suprema?
     a: O clube é o 10001 e o agente é o 1439098. Pelo link oficial os dois já vão preenchidos; na entrada manual você digita os dois números.

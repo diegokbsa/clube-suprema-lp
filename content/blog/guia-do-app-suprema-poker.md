@@ -2,10 +2,11 @@
 title: "Guia do app Suprema Poker: lobby, mesa, fichas e configurações"
 description: Tour pelo app Suprema Poker com imagens: o que tem no lobby do clube, como ler a mesa, onde ficam as ações de aposta, como acompanhar as fichas e quais configurações valem ajustar.
 date: 2026-10-23
-updated: 2026-10-23
+updated: 2026-10-26
 cover: /img/blog/guia-do-app-suprema-poker/cover.jpg
 coverAlt: Celular inclinado mostrando uma mesa de poker do app Suprema Poker com cartas e fichas
 tags: [app, guia, mesa]
+resumo: O app Suprema Poker tem o lobby do clube com mesas de cash, torneios e Spin, a mesa com as ações de aposta na parte de baixo, a área de fichas e saldo do clube, o perfil com o seu ID de jogador e as configurações. O mesmo login funciona no celular e no Windows.
 faq:
   - q: Onde fica o meu ID da Suprema?
     a: No seu perfil dentro do app. É um número fixo da sua conta, pedido na primeira compra de fichas e sempre que você fala com o suporte.

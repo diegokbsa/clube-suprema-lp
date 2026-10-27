@@ -6,6 +6,7 @@ updated: 2026-10-26
 cover: /img/blog/id-clube-h2-suprema-poker-pool-liga-suprema/cover.jpg
 coverAlt: Diagrama do pool da Liga Suprema ligando vários clubes, com o Clube Suprema ID 10001 em destaque
 tags: [clube, ligas, guia]
+resumo: Não encontramos o ID do H2Club em fontes oficiais abertas. Nas séries oficiais, a entrada foi pela aba Clubes do app, depois de criar conta no H2poker. Para mesas cheias, o que importa é o pool, porque clubes da mesma liga dividem os jogadores. O Clube Suprema (ID 10001), do grupo SX, joga na Liga Suprema.
 faq:
   - q: Qual é o ID do clube H2 no Suprema Poker?
     a: Não encontramos o ID do H2Club publicado em fontes oficiais abertas. Nas séries oficiais, a orientação divulgada foi criar a conta no H2poker, entrar no app Suprema Poker com esses dados, abrir a aba Clubes e escolher o H2Club. Confirme o ID nos canais oficiais do H2 e desconfie de números tirados de grupos.

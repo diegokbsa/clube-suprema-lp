@@ -34,6 +34,15 @@ Os eventos da página (`lp_view` com `variant`, `signup_start`, `whatsapp_click`
 então chegam ao GA4 e ao Google Ads e ficam disponíveis como acionadores no GTM. Para conferir: GA4 → Relatórios → Tempo real.
 Atenção: o Brave bloqueia os envios do Analytics por padrão; teste em outro navegador ou com os escudos desligados.
 
+### GEO: buscadores de IA e Bing
+
+- **Resposta rápida:** cada post tem `resumo:` no cabeçalho do .md. Ele aparece no topo da página, vai como `abstract` nos dados estruturados e entra no `/llms.txt`. Ao escrever post novo, preencha o `resumo` com 2 ou 3 frases que respondem a pergunta principal, com o ID 10001.
+- **Tutoriais:** `passosTitulo:` e `passos:` (lista) viram dados estruturados HowTo.
+- **Entidades:** a Organization do clube traz o ID 10001 e `memberOf` SX Poker e Liga Suprema; os posts trazem `about` (app Suprema Poker) e `mentions` (SX e Liga) quando o texto fala deles. A página `/sobre` (content/sobre.md) explica quem somos e como produzimos o conteúdo; ao revisá-la, mude `ABOUT_UPDATED` em lib/blog.js.
+- **Robôs:** `public/robots.txt` libera Google, Bing e os robôs de IA (GPTBot, OAI-SearchBot, ChatGPT-User, ClaudeBot, Claude-SearchBot, PerplexityBot, Google-Extended, Applebot, Meta, Amazon, DuckAssist, Mistral, Common Crawl) e bloqueia só `/admin` e `/api/`.
+- **IndexNow (Bing, que alimenta a busca do ChatGPT e do Copilot):** depois de publicar conteúdo, rode `node tools/indexnow.mjs` (todas as URLs do sitemap) ou passe só as páginas novas. A chave pública fica em `public/<chave>.txt`; não apague.
+- **Bing Webmaster Tools:** ainda não configurado; dá para importar a propriedade do Search Console com a conta Google (precisa de autorização do dono da conta).
+
 ### Planilha de cadastros
 
 - Cada e-mail novo do formulário vira uma linha na planilha **Cadastros · Clube Suprema** (Google Drive da conta h2odiegokbsa), com data/hora de Brasília, e-mail, utm_source, utm_medium, utm_campaign, utm_term, utm_content, gclid, fbclid, ref, página de entrada e ID do cadastro.

@@ -6,6 +6,7 @@ updated: 2026-10-26
 cover: /img/blog/clubes-suprema-poker/cover.jpg
 coverAlt: Cartões de clubes do Suprema Poker empilhados, com o Clube Suprema ID 10001 em destaque
 tags: [clube, primeiros passos, guia]
+resumo: No Suprema Poker toda mesa pertence a um clube, identificado por um número, o ID. Você entra pelo link de convite ou digitando o ID do clube e do agente, pode estar em vários clubes com a mesma conta e cada clube tem saldo próprio. O Clube Suprema é o ID 10001, com o agente 1439098.
 faq:
   - q: O que é um clube no Suprema Poker?
     a: É a sala onde você joga dentro do app. Cada clube tem um número de identificação, as próprias mesas e torneios e o próprio saldo de fichas. Você entra no clube com o ID ou pelo link de convite e passa a ver o lobby dele.

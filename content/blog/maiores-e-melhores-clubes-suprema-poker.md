@@ -6,6 +6,7 @@ updated: 2026-10-26
 cover: /img/blog/maiores-e-melhores-clubes-suprema-poker/cover.jpg
 coverAlt: Pilhas de fichas crescentes com o logo do Clube Suprema no topo e o selo da SX
 tags: [clube, guia, ligas]
+resumo: Não existe ranking oficial de clubes do Suprema Poker. O tamanho real vem da liga, porque clubes da mesma liga dividem mesas e torneios. Avalie se o clube informa o ID, se o pagamento sai do seu CPF, se o saque é claro e se o suporte responde rápido. O Clube Suprema (ID 10001) é do grupo SX, com mais de 100 clubes parceiros, e joga na Liga Suprema.
 faq:
   - q: Qual é o maior clube do Suprema Poker?
     a: Não existe ranking oficial. O que deixa um clube "grande" é o pool de jogadores da liga ou união da qual ele faz parte, porque as mesas são compartilhadas entre os clubes. Clubes ligados a uniões fortes têm mesas cheias a qualquer hora.

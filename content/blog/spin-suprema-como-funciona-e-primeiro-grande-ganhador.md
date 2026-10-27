@@ -2,10 +2,11 @@
 title: "Spin Suprema: como funciona e o prêmio de 3.000× na primeira semana"
 description: O que é o Spin Suprema do app Suprema Poker, como a roleta do multiplicador funciona (até 50.000× o buy-in), mesas de 3 ou 6 jogadores, e a história do primeiro grande ganhador, que transformou um buy-in de R$ 100 em R$ 300 mil de premiação logo na primeira semana.
 date: 2026-10-24
-updated: 2026-10-24
+updated: 2026-10-26
 cover: /img/blog/spin-suprema-como-funciona-e-primeiro-grande-ganhador/cover.jpg
 coverAlt: Tela do app Suprema Poker com o multiplicador 3.000× do Spin e o título "Spin Suprema"
 tags: [spin, torneios, app, novidades]
+resumo: O Spin Suprema é o formato relâmpago do Suprema Poker, com mesas de 3 ou 6 jogadores e buy-in fixo. Uma roleta sorteia o multiplicador do prêmio antes da primeira mão, até 50.000 vezes o buy-in nas mesas de 6. Na primeira semana, um Spin de R$ 100 saiu em 3.000× e pagou R$ 300 mil, sendo R$ 150 mil para o campeão.
 faq:
   - q: O que é o Spin Suprema?
     a: É o formato rápido do app Suprema Poker, em mesas de 3 ou 6 jogadores, com buy-in fixo. Antes da primeira mão, uma roleta sorteia o multiplicador que define a premiação, que pode chegar a 50.000 vezes o buy-in nas mesas de 6.

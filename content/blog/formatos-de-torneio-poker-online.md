@@ -2,10 +2,11 @@
 title: Modalidades e formatos de torneio no poker online: guia completo
 description: Diferenças entre Texas Hold'em e Omaha, cash game, Sit & Go, torneio e Spin, e o que significam freezeout, re-entry, turbo, knockout, satélite e garantido na grade do app.
 date: 2026-10-23
-updated: 2026-10-23
+updated: 2026-10-26
 cover: /img/blog/formatos-de-torneio-poker-online/cover.jpg
 coverAlt: Cartas e fichas sobre feltro verde com o título "Modalidades e formatos de torneio"
 tags: [torneios, regras, iniciantes]
+resumo: No Suprema Poker há cash game, em que as fichas têm valor fixo e você entra e sai quando quiser, torneios com stack fixo e eliminação, Sit & Go, que começa quando a mesa enche, e Spin, um Sit & Go relâmpago com multiplicador. Freezeout não permite nova entrada, re-entry permite, e turbo acelera a subida dos blinds.
 faq:
   - q: Qual a diferença entre cash game e torneio?
     a: No cash game as fichas valem dinheiro na hora, você entra e sai quando quiser e os blinds não sobem. No torneio você paga um buy-in fixo, recebe um stack igual ao dos outros, os blinds sobem por níveis e só os primeiros colocados recebem prêmio.

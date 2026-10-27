@@ -6,6 +6,14 @@ updated: 2026-10-26
 cover: /img/blog/como-instalar-app-suprema-poker/cover.jpg
 coverAlt: Celular com a tela de abertura do app Suprema Poker e o texto "Como baixar o Suprema Poker no celular"
 tags: [app, instalação, primeiros passos]
+resumo: Baixe o Suprema Poker na Google Play, no Android, ou na App Store, no iPhone. Crie a conta com e-mail e senha e confirme o código enviado por e-mail. Depois, abra o link oficial do Clube Suprema ou entre com o clube 10001 e o agente 1439098. O app é gratuito.
+passosTitulo: Como baixar o Suprema Poker no celular
+passos:
+  - Abra a Google Play, no Android, ou a App Store, no iPhone.
+  - Procure Suprema Poker e toque em Instalar ou Obter.
+  - Abra o app e crie a conta com e-mail e senha.
+  - Confirme o código enviado para o seu e-mail.
+  - Abra o link oficial do Clube Suprema ou entre com o clube 10001 e o agente 1439098.
 faq:
   - q: O app Suprema Poker é gratuito?
     a: Sim. O download e a criação da conta não custam nada. Você só gasta quando decide comprar fichas para jogar.

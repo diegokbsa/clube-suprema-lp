@@ -2,10 +2,11 @@
 title: "Perguntas frequentes do suporte: fichas, PIX, saque e login"
 description: As dúvidas que mais chegam ao suporte 24h do Clube Suprema, respondidas de forma direta - compra de fichas por PIX no Fichas 24h, saque, ID da Suprema, login, clube pendente e problemas no app.
 date: 2026-10-23
-updated: 2026-10-23
+updated: 2026-10-26
 cover: /img/blog/perguntas-frequentes-suporte/cover.jpg
 coverAlt: Balão de conversa do WhatsApp com o texto "Perguntas frequentes do suporte" sobre fundo preto e dourado
 tags: [suporte, fichas, pix, saque]
+resumo: No Clube Suprema, as fichas são compradas por PIX no Fichas 24h, de uma conta no seu próprio CPF. Na primeira compra, informe o seu ID da Suprema, o clube 10001 e o agente 1439098. O saque vai para a chave PIX do seu CPF, e o ID de jogador fica no perfil do app.
 faq:
   - q: Como compro fichas no Clube Suprema?
     a: Pelo Fichas 24h, por PIX, a partir de uma conta no seu próprio CPF. Na primeira compra, informe o seu ID da Suprema, o clube 10001 e o agente 1439098, além de CPF, celular e data de nascimento.

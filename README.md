@@ -74,6 +74,7 @@ lib/orchestrator.js  etapas do cadastro, depósitos e dados do painel
 adapters/        integrações: *.mock.js (simulado) e *.real.js (a fazer)
 lib/store.js     dados em data/db.json (trocar por banco antes de produção)
 lib/sheets.js    copia cada cadastro para a planilha do Google (Apps Script em tools/planilha/Code.gs)
+tools/indexnow.mjs avisa o Bing (IndexNow) das páginas novas depois de publicar
 config.js        clube, agente, WhatsApp, valores de depósito, links
 ```
 
