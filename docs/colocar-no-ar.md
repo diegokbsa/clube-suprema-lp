@@ -28,11 +28,21 @@ O servidor é Node puro, sem dependências. Qualquer hospedagem que rode `node s
 | Google Tag Manager | conta "Clube Suprema", contêiner suprema.blog, `GTM-N46659WQ` (versão inicial publicada, sem tags) | snippet no `<head>` e `<noscript>` no `<body>` de `public/index.html` |
 | Google Analytics 4 | conta gamesbigpsn, propriedade "Clube Suprema" (560553417), fluxo web suprema.blog, `G-ZXS59RV8GR` | `config.js` (`tracking.ga4Id`) e `GA4_ID` no `render.yaml` |
 | Google Ads | tag `AW-970454313` | `<head>` de `public/index.html` |
+| Microsoft Clarity | projeto "Clube Suprema" (`z41gk7muip`), entrada com a conta Google h2odiegokbsa em 26/10/2026 | snippet no `<head>` de `public/index.html` e em `TRACKING_HEAD` de `lib/blog.js` |
 | Search Console | duas propriedades: prefixo https://suprema.blog/ (arquivo HTML + GTM) e domínio `sc-domain:suprema.blog` (registro TXT no GoDaddy); `sitemap.xml` e `blog/feed.xml` enviados nas duas | `public/googled0da7d61222a54ee.html` (não apagar), `/sitemap.xml` e `/blog/feed.xml` gerados por `lib/blog.js`, `public/robots.txt` |
 
 Os eventos da página (`lp_view` com `variant`, `signup_start`, `whatsapp_click` etc.) vão para o `dataLayer` e para o `gtag`,
 então chegam ao GA4 e ao Google Ads e ficam disponíveis como acionadores no GTM. Para conferir: GA4 → Relatórios → Tempo real.
 Atenção: o Brave bloqueia os envios do Analytics por padrão; teste em outro navegador ou com os escudos desligados.
+
+### Microsoft Clarity (gravações e mapas de calor)
+
+- Painel: https://clarity.microsoft.com, projeto **Clube Suprema** (`z41gk7muip`). A mesma conta tem também o projeto Batalha Esportiva; confira o nome no topo antes de olhar os dados.
+- O script carrega já no `<head>`, sem esperar a página terminar, para gravar também quem sai em 2 ou 3 segundos (o caso dos anúncios).
+- Cada `track()` do `public/app.js` vira um evento personalizado do Clarity (`lp_view`, `signup_start`, `signup_complete`, `whatsapp_click`, `app_download_click` etc.), e a tag `variante` (`padrao`, `fichas`, `spin`) diz qual versão da LP o visitante viu. Use os dois em Filtros → Eventos personalizados / Tags e para montar funis.
+- Para ver só quem veio de anúncio: Filtros → Tráfego → Fonte/Campanha (o Clarity lê as UTMs da URL), ou Referenciador. Depois, Gravações para assistir as sessões curtas e Mapas de calor → Rolagem para ver até onde as pessoas descem.
+- Privacidade: o mascaramento padrão (Balanceado) esconde o que é digitado nos campos. Os textos com o e-mail do jogador e o QR Code do PIX também têm `data-clarity-mask="True"`. Ao criar telas novas que mostrem dados pessoais, ponha o mesmo atributo.
+- Os dados aparecem no painel em até 2 horas depois das primeiras visitas.
 
 ### GEO: buscadores de IA e Bing
 

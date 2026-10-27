@@ -19,6 +19,11 @@
 
     gtag('config', 'AW-970454313');
   </script>
+  <!-- Microsoft Clarity (gravações e mapas de calor; projeto "Clube Suprema"). Carrega já, para pegar quem sai em segundos. -->
+  <script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+  t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+  y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+  })(window,document,"clarity","script","z41gk7muip");</script>
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Clube Suprema (ID 10001) no Suprema Poker · Entre em 2 minutos</title>
   <meta name="description" content="Entre no Clube Suprema (ID 10001) do Suprema Poker em 2 minutos: baixe o app pelo nosso link, compre fichas por PIX e jogue com suporte 24h.">
@@ -338,7 +343,7 @@
     <ol class="invite-steps">
       <li>
         <h3><span class="num">1</span> Baixe o app pelo nosso link</h3>
-        <p class="muted">Crie sua conta no app (pode usar <strong data-bind="lead-email"></strong>). No celular, o link já te coloca no clube com o nosso agente.</p>
+        <p class="muted">Crie sua conta no app (pode usar <strong data-bind="lead-email" data-clarity-mask="True"></strong>). No celular, o link já te coloca no clube com o nosso agente.</p>
         <a class="btn btn-lg btn-block" data-app-link target="_blank" rel="noopener">Baixar o app e entrar no clube</a>
         <p class="muted small center" id="invite-mobile-hint" hidden>Se você já tem o app, ele abre direto no convite do clube.</p>
         <div id="invite-desktop" hidden>
@@ -404,7 +409,7 @@
 
     <div class="card-inline" id="need-code" hidden>
       <h3>Confirme seu e-mail</h3>
-      <p class="muted">A Suprema enviou um código de 6 dígitos para <strong data-bind="email"></strong>.</p>
+      <p class="muted">A Suprema enviou um código de 6 dígitos para <strong data-bind="email" data-clarity-mask="True"></strong>.</p>
       <form id="code-form" class="inline-form">
         <input id="f-code" inputmode="numeric" maxlength="6" autocomplete="one-time-code" placeholder="000000" aria-label="Código de 6 dígitos">
         <button class="btn" type="submit">Confirmar</button>
@@ -416,7 +421,7 @@
 
     <div class="card-inline" id="need-id" hidden>
       <h3>Você já tem conta na Suprema</h3>
-      <p class="muted">Encontramos uma conta com <strong data-bind="email"></strong>. Informe o seu ID da Suprema (fica no seu perfil no app) para vincular ao clube.</p>
+      <p class="muted">Encontramos uma conta com <strong data-bind="email" data-clarity-mask="True"></strong>. Informe o seu ID da Suprema (fica no seu perfil no app) para vincular ao clube.</p>
       <form id="id-form" class="inline-form">
         <input id="f-sid" inputmode="numeric" maxlength="12" placeholder="Seu ID na Suprema" aria-label="ID da Suprema">
         <button class="btn" type="submit">Vincular</button>
@@ -480,7 +485,7 @@
     </div>
     <div id="deposit-pay" hidden>
       <div class="pix-amount">R$ <span id="pix-value"></span></div>
-      <div class="qr" id="qr" aria-label="QR Code do PIX"></div>
+      <div class="qr" id="qr" data-clarity-mask="True" aria-label="QR Code do PIX"></div>
       <div class="copy-row">
         <input id="pix-code" readonly aria-label="PIX copia e cola">
         <button class="btn" type="button" data-action="copy-pix">Copiar</button>
@@ -513,7 +518,7 @@
     </div>
 
     <div class="login-box">
-      <div><span class="muted small">Entre no app com o e-mail</span><strong data-bind="email"></strong></div>
+      <div><span class="muted small">Entre no app com o e-mail</span><strong data-bind="email" data-clarity-mask="True"></strong></div>
       <div><span class="muted small">Senha</span><strong>a mesma que você criou aqui</strong></div>
       <div><span class="muted small">Clube</span><strong data-bind="club-full"></strong></div>
     </div>

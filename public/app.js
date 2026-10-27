@@ -88,6 +88,8 @@ function track(event, params = {}) {
   window.dataLayer.push({ event, ...params });
   if (typeof window.gtag === 'function') window.gtag('event', event, params);
   if (typeof window.fbq === 'function' && META_EVENTS[event]) window.fbq('track', META_EVENTS[event], params);
+  // No Clarity o evento vira filtro de gravações e etapa de funil.
+  if (typeof window.clarity === 'function') window.clarity('event', event);
   console.debug('[track]', event, params);
 }
 
@@ -895,6 +897,7 @@ async function init() {
   loadTracking(state.config.tracking);
   bindDynamic();
   refreshResume();
+  if (typeof window.clarity === 'function') window.clarity('set', 'variante', lpVariant());
   track('lp_view', { variant: lpVariant() });
   // Avisa o motion.js que a página está pronta (fluxo certo visível) para animar as entradas.
   document.dispatchEvent(new CustomEvent('lp:ready'));
