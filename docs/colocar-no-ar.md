@@ -41,7 +41,7 @@ Atenção: o Brave bloqueia os envios do Analytics por padrão; teste em outro n
 - **Entidades:** a Organization do clube traz o ID 10001 e `memberOf` SX Poker e Liga Suprema; os posts trazem `about` (app Suprema Poker) e `mentions` (SX e Liga) quando o texto fala deles. A página `/sobre` (content/sobre.md) explica quem somos e como produzimos o conteúdo; ao revisá-la, mude `ABOUT_UPDATED` em lib/blog.js.
 - **Robôs:** `public/robots.txt` libera Google, Bing e os robôs de IA (GPTBot, OAI-SearchBot, ChatGPT-User, ClaudeBot, Claude-SearchBot, PerplexityBot, Google-Extended, Applebot, Meta, Amazon, DuckAssist, Mistral, Common Crawl) e bloqueia só `/admin` e `/api/`.
 - **IndexNow (Bing, que alimenta a busca do ChatGPT e do Copilot):** depois de publicar conteúdo, rode `node tools/indexnow.mjs` (todas as URLs do sitemap) ou passe só as páginas novas. A chave pública fica em `public/<chave>.txt`; não apague.
-- **Bing Webmaster Tools:** ainda não configurado; dá para importar a propriedade do Search Console com a conta Google (precisa de autorização do dono da conta).
+- **Bing Webmaster Tools:** configurado em 26/10/2026 na conta Google h2odiegokbsa, importando as duas propriedades do Search Console (o Bing tem acesso só de leitura ao Search Console). Sitemap enviado e as 14 URLs mandadas em URL Submission (cota de 100 por dia). Os relatórios, incluindo o de desempenho em IA (Copilot), começam a aparecer em até 48 h em https://www.bing.com/webmasters.
 
 ### Planilha de cadastros
 
