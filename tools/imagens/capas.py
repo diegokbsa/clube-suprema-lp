@@ -196,6 +196,89 @@ def illus_clubes(img):
     pill(img, "Entrar · Trocar · Sair", 915, 480, font(16, 700))
 
 
+def illus_maiores(img):
+    """Três pilhas de fichas crescentes; a maior tem a ficha com o logo no topo."""
+    base_y = 450
+    for i, (x, n) in enumerate(((790, 3), (900, 5), (1010, 8))):
+        for k in range(n):
+            col = GOLD if k % 2 == 0 else (70, 70, 76)
+            im = chip(120, col).resize((120, 46))
+            paste(img, im, (x, base_y - k * 22), with_shadow=(k == 0))
+        if i == 2:
+            paste(img, chip(120, GOLD), (x, base_y - n * 22 - 70), with_shadow=False)
+    d = ImageDraw.Draw(img)
+    d.text((1070, 172), "#1", font=font(40, 900), fill=GOLD, anchor="mm")
+    pill(img, "Grupo SX · Liga Suprema", 935, 548, font(16, 700))
+
+
+def illus_pool(img):
+    """Pool da liga: um anel central ligado a vários clubes; o Clube Suprema em destaque."""
+    import math as _m
+    cx, cy, R = 940, 300, 165
+    nodes = []
+    for k in range(6):
+        a = _m.radians(-90 + k * 60)
+        nodes.append((cx + R * _m.cos(a), cy + R * _m.sin(a)))
+
+    def lines(d):
+        for x, y in nodes:
+            d.line((cx, cy, x, y), fill=GOLD + (120,), width=3)
+    img.alpha_composite(overlay(Image.new("RGBA", img.size, (0, 0, 0, 0)), lines))
+    d = ImageDraw.Draw(img)
+    d.ellipse((cx - 70, cy - 70, cx + 70, cy + 70), fill=(26, 26, 29), outline=GOLD, width=4)
+    d.text((cx, cy - 12), "POOL", font=font(28, 900), fill=WHITE, anchor="mm")
+    d.text((cx, cy + 20), "Liga Suprema", font=font(14, 700), fill=GOLD, anchor="mm")
+    for k, (x, y) in enumerate(nodes):
+        if k == 2:
+            d.rounded_rectangle((x - 74, y - 34, x + 74, y + 34), radius=16, fill=(26, 26, 29), outline=GOLD, width=3)
+            logo_box(img, x - 66, y - 22, 44)
+            d = ImageDraw.Draw(img)
+            d.text((x - 16, y - 12), "Clube", font=font(13, 700), fill=MUTED)
+            d.text((x - 16, y + 2), "10001", font=font(20, 900), fill=WHITE)
+        else:
+            d.ellipse((x - 26, y - 26, x + 26, y + 26), fill=(36, 36, 40), outline=GOLD + (160,), width=2)
+            d.text((x, y), "clube", font=font(11, 700), fill=MUTED, anchor="mm")
+    pill(img, "Mesas compartilhadas", 940, 540, font(16, 700))
+
+
+def illus_pc(img):
+    """Notebook com o logo e o ID do clube na tela, selo de download e pílulas dos sistemas."""
+    d = ImageDraw.Draw(img)
+    x0, y0, x1, y1 = 730, 140, 1070, 365
+    d.rounded_rectangle((x0 - 14, y0 - 14, x1 + 14, y1 + 14), radius=22, fill=(48, 48, 54), outline=(90, 90, 96), width=2)
+    d.rounded_rectangle((x0, y0, x1, y1), radius=8, fill=(8, 8, 9))
+    d.polygon([(x0 - 60, y1 + 24), (x1 + 60, y1 + 24), (x1 + 90, y1 + 52), (x0 - 90, y1 + 52)], fill=(64, 64, 70))
+    d.rounded_rectangle((x0 + 120, y1 + 26, x1 - 120, y1 + 36), radius=5, fill=(40, 40, 44))
+    logo_box(img, (x0 + x1) // 2 - 40, y0 + 34, 80)
+    d = ImageDraw.Draw(img)
+    d.text(((x0 + x1) / 2, y0 + 140), "SUPREMA POKER", font=font(22, 900), fill=WHITE, anchor="mm")
+    d.text(((x0 + x1) / 2, y0 + 176), "Clube 10001 · Agente 1439098", font=font(15, 700), fill=GOLD, anchor="mm")
+    cx, cy = x1 + 10, y0 + 10
+    d.ellipse((cx - 42, cy - 42, cx + 42, cy + 42), fill=GOLD)
+    d.line((cx, cy - 20, cx, cy + 12), fill=INK, width=8)
+    d.polygon([(cx - 16, cy + 2), (cx + 16, cy + 2), (cx, cy + 20)], fill=INK)
+    d.line((cx - 18, cy + 27, cx + 18, cy + 27), fill=INK, width=6)
+    fs = font(16, 700)
+    for i, t in enumerate(["Windows", "Notebook", "MacBook"]):
+        pill(img, t, 815 + i * 125, 520, fs)
+
+
+def illus_naoabre(img):
+    """Celular com o app e um selo de recarregar; pílula 'Reinstalar e entrar no 10001'."""
+    import math as _m
+    ph = phone_from(os.path.join(ROOT, "public/img/app-abertura.webp"), (250, 90, 700, 836), 390)
+    x = 960 - ph.width // 2
+    paste(img, ph, (x, 95))
+    d = ImageDraw.Draw(img)
+    cx, cy, r = x + 20, 400, 48
+    d.ellipse((cx - r, cy - r, cx + r, cy + r), fill=GOLD)
+    d.arc((cx - 26, cy - 26, cx + 26, cy + 26), start=-60, end=250, fill=INK, width=8)
+    a = _m.radians(-60)
+    ax, ay = cx + 26 * _m.cos(a), cy + 26 * _m.sin(a)
+    d.polygon([(ax + 4, ay - 16), (ax + 16, ay + 6), (ax - 10, ay + 4)], fill=INK)
+    pill(img, "Reinstalar → Clube 10001", 960, 528, font(17, 700))
+
+
 def illus_torneios(img):
     cards = [("A", "\u2660", -22, (780, 185)), ("K", "\u2665", -4, (860, 160)), ("Q", "\u2666", 16, (948, 170))]
     for rank, suit, ang, pos in cards:
@@ -257,6 +340,10 @@ ILLUS = {
     "perguntas-frequentes-suporte": illus_faq,
     "spin-suprema-como-funciona-e-primeiro-grande-ganhador": illus_spin,
     "clubes-suprema-poker": illus_clubes,
+    "maiores-e-melhores-clubes-suprema-poker": illus_maiores,
+    "id-clube-h2-suprema-poker-pool-liga-suprema": illus_pool,
+    "como-baixar-suprema-poker-no-pc": illus_pc,
+    "app-suprema-poker-nao-abre": illus_naoabre,
     "og": illus_og,
 }
 
@@ -300,7 +387,11 @@ def cover(path, key, eyebrow, title, subtitle, badge=None):
 
 
 posts = [
-    ("como-instalar-app-suprema-poker", "Guia · App", "Como baixar o Suprema Poker no celular, PC e Mac", "Android, iPhone, Windows e notebook · conta, e-mail e o que fazer no Mac", "Passo a passo"),
+    ("como-instalar-app-suprema-poker", "Guia · App", "Como baixar o Suprema Poker no celular", "Android e iPhone · conta, e-mail e primeiros ajustes para entrar no clube", "Passo a passo"),
+    ("maiores-e-melhores-clubes-suprema-poker", "Guia · Clubes", "Maiores e melhores clubes do Suprema Poker", "Por que o tamanho vem da liga, o que avaliar antes de depositar e onde jogar", "Clube 10001"),
+    ("id-clube-h2-suprema-poker-pool-liga-suprema", "Guia · Ligas", "ID do clube H2 no Suprema Poker e o pool da Liga Suprema", "Como entrar no H2Club, o que é o pool e como jogar nas mesas compartilhadas da liga", "Liga Suprema"),
+    ("como-baixar-suprema-poker-no-pc", "Tutorial · PC", "Como baixar o Suprema Poker no PC, notebook e MacBook", "Instalador oficial, conta e entrada no Clube Suprema com o ID 10001", "Passo a passo"),
+    ("app-suprema-poker-nao-abre", "Suporte · App", "App Suprema Poker não abre? Como resolver e reinstalar", "Android, iPhone e PC, sem perder a conta, e de volta ao clube 10001", "Resolva já"),
     ("clubes-suprema-poker", "Guia · Clubes", "Clubes do Suprema Poker: como funcionam, ID, como entrar e sair", "O que é um clube, ID do clube e do agente, jogar em vários clubes e escolher um confiável", "Guia completo"),
     ("como-entrar-no-clube-suprema", "Guia · Clube", "Como entrar no Clube Suprema pelo link ou com o ID", "Clube 10001 · Agente 1439098 · o que fazer se o link abrir a loja", "Clube 10001"),
     ("formatos-de-torneio-poker-online", "Guia · Torneios", "Modalidades e formatos de torneio no poker online", "NLH, PLO, freezeout, re-entry, turbo, knockout, satélite e Spin", "Para iniciantes"),

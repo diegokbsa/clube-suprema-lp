@@ -42,7 +42,7 @@ O link traz embutidos o clube e o agente, então não há risco de errar número
 
 ## Jeito 2: com o ID do clube e do agente
 
-Use este caminho no computador, quando o link abrir no aparelho errado, ou se preferir fazer tudo dentro do app.
+Use este caminho no computador, quando o link abrir no aparelho errado, ou se preferir fazer tudo dentro do app. Se ainda não instalou no computador, veja [como baixar o Suprema Poker no PC, notebook e MacBook](/blog/como-baixar-suprema-poker-no-pc).
 
 1. Abra o app e entre na sua conta.
 2. Procure a opção de **entrar em um clube com ID** (no app ela aparece como "Entrar com ID" ou similar).

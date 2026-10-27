@@ -109,6 +109,10 @@ Não. Saques vão apenas para chave PIX vinculada ao **seu CPF**.
 
 Atualize pela loja (Google Play ou App Store). Em versões antigas, as mesas ficam bloqueadas até atualizar. No Windows, baixe o instalador novo no site oficial.
 
+### O app não abre ou fecha sozinho
+
+Reinicie o aparelho, atualize o app e libere espaço. Se não resolver, reinstale: a conta e as fichas ficam no servidor e voltam quando você entra de novo. O passo a passo para Android, iPhone e PC está em [app Suprema Poker não abre](/blog/app-suprema-poker-nao-abre).
+
 ### Caiu a conexão no meio da mão
 
 O app dá um tempo para reconectar. Se não der, a mão é dada como desistida, mas as suas fichas continuam na mesa. Reabra o app e volte à mesa. Em torneio, o stack segue pagando blinds até você voltar.

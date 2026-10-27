@@ -38,7 +38,7 @@ Na prática, cada clube tem:
 - o próprio **saldo de fichas**, que vale só dentro dele;
 - **agentes**, as pessoas que trazem jogadores, vendem fichas e fazem os saques.
 
-Alguns clubes se conectam a redes maiores, chamadas **uniões**, para dividir mesas e encher torneios. Por isso, um clube pequeno às vezes tem mesas cheias a qualquer hora.
+Alguns clubes se conectam a redes maiores, chamadas **uniões** ou ligas, para dividir mesas e encher torneios. Por isso, um clube pequeno às vezes tem mesas cheias a qualquer hora. Entenda o pool e a Liga Suprema em [ID do clube H2 no Suprema Poker e o pool da Liga Suprema](/blog/id-clube-h2-suprema-poker-pool-liga-suprema).
 
 ## ID do clube e ID do agente
 
@@ -95,7 +95,7 @@ Excluir a **conta inteira** é outra coisa. O pedido vai para o suporte da Supre
 
 ## Como escolher um bom clube
 
-Não existe uma lista oficial de "melhores clubes do Suprema Poker". O melhor clube é o que joga no seu horário, nos seus limites e com pagamento e suporte em que você confia. Use esta lista antes de comprar fichas:
+Não existe uma lista oficial de "melhores clubes do Suprema Poker". O melhor clube é o que joga no seu horário, nos seus limites e com pagamento e suporte em que você confia. Comparamos os critérios em detalhe em [maiores e melhores clubes do Suprema Poker](/blog/maiores-e-melhores-clubes-suprema-poker). Use esta lista antes de comprar fichas:
 
 | Pergunta | Sinal bom | Sinal de alerta |
 |---|---|---|
@@ -120,6 +120,7 @@ O Suprema Poker e os clubes são para **maiores de 18 anos**. Defina antes quant
 | ID do agente | **1439098** |
 | Fichas e saque | PIX no seu CPF, pelo Fichas 24h |
 | Suporte | 24h no WhatsApp, em português, inglês e espanhol |
+| Grupo e liga | Grupo SX e Liga Suprema, com mesas compartilhadas |
 | Modalidades | NLH, PLO, torneios, sit & go e [Spin Suprema](/blog/spin-suprema-como-funciona-e-primeiro-grande-ganhador) |
 
 Dúvidas de fichas, PIX e saque estão nas [perguntas frequentes do suporte](/blog/perguntas-frequentes-suporte). Para entender os formatos de jogo, veja [modalidades e formatos de torneio](/blog/formatos-de-torneio-poker-online).

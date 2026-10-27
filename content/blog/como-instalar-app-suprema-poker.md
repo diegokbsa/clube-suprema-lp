@@ -1,10 +1,10 @@
 ---
-title: "Como baixar o Suprema Poker no celular, PC e Mac e criar sua conta"
-description: Passo a passo para baixar o app Suprema Poker no Android, iPhone, PC e notebook com Windows, o que fazer no Mac, como criar a conta, confirmar o e-mail e resolver o app que não abre.
+title: "Como baixar o Suprema Poker no celular (Android e iPhone) e criar sua conta"
+description: Passo a passo para baixar o app Suprema Poker no Android e no iPhone, criar a conta, confirmar o e-mail e deixar o app pronto para entrar no Clube Suprema (ID 10001). Para PC, notebook e MacBook há um tutorial próprio.
 date: 2026-10-23
 updated: 2026-10-26
 cover: /img/blog/como-instalar-app-suprema-poker/cover.jpg
-coverAlt: Celular com a tela de abertura do app Suprema Poker e o texto "Como baixar o Suprema Poker"
+coverAlt: Celular com a tela de abertura do app Suprema Poker e o texto "Como baixar o Suprema Poker no celular"
 tags: [app, instalação, primeiros passos]
 faq:
   - q: O app Suprema Poker é gratuito?
@@ -12,11 +12,11 @@ faq:
   - q: Em quais aparelhos o Suprema Poker funciona?
     a: Em celulares e tablets Android, em iPhone e iPad e em PC ou notebook com Windows. O site oficial não oferece versão para Mac nem para Linux.
   - q: Como baixar o Suprema Poker no PC ou no notebook?
-    a: Baixe o instalador no endereço oficial para Windows, execute o arquivo e siga o assistente. Serve para PC de mesa e para notebook. No computador, a entrada no clube é feita com o ID do clube e do agente.
+    a: Baixe o instalador no endereço oficial para Windows, execute e siga o assistente. O tutorial de PC, notebook e MacBook do blog mostra cada passo. No computador, entre no Clube Suprema com o clube 10001 e o agente 1439098.
   - q: Tem Suprema Poker para Mac ou MacBook?
-    a: O site oficial não oferece instalador para macOS. No Mac, o caminho mais simples é jogar pelo celular. Também dá para usar o Windows em máquina virtual ou um emulador Android, mas confira antes com o suporte, porque alguns torneios restringem o tipo de aparelho.
+    a: O site oficial não oferece instalador para macOS. No Mac, o caminho mais simples é jogar pelo celular. As alternativas com máquina virtual e emulador estão no tutorial de PC, notebook e MacBook do blog.
   - q: O app Suprema Poker não abre. O que fazer?
-    a: Atualize o app pela loja, reinicie o aparelho e confira se há espaço livre. Se continuar fechando, desinstale e instale de novo pelo endereço oficial. Persistindo, chame o suporte 24h no WhatsApp.
+    a: Atualize o app pela loja, reinicie o aparelho e confira se há espaço livre. Se continuar, reinstale. Reinstalar não apaga a conta nem as fichas. O passo a passo completo está no guia do app que não abre.
   - q: Preciso de documento para criar a conta no app?
     a: Para criar a conta bastam e-mail e senha. O CPF entra depois, na hora de comprar fichas por PIX pelo Fichas 24h, que faz a validação do pagador.
   - q: Baixei pela loja e o app pede atualização toda hora. É normal?
@@ -25,7 +25,7 @@ faq:
     a: Pode, pelo site oficial da Suprema. Baixe só de lá e libere a instalação de fontes desconhecidas apenas para esse arquivo.
 ---
 
-O **Suprema Poker** é o aplicativo onde o Clube Suprema funciona. Antes de sentar em qualquer mesa, você precisa de três coisas: o app instalado no aparelho certo, uma conta criada com e-mail confirmado e o clube adicionado. Este guia mostra como baixar o Suprema Poker no **Android, iPhone, PC e notebook**, o que fazer no **Mac** e como criar a conta. Para a terceira parte, veja [como entrar no Clube Suprema pelo link ou com o ID](/blog/como-entrar-no-clube-suprema). Se ainda não sabe como os clubes funcionam, leia antes o [guia dos clubes do Suprema Poker](/blog/clubes-suprema-poker).
+O **Suprema Poker** é o aplicativo onde o Clube Suprema funciona. Antes de sentar em qualquer mesa, você precisa de três coisas: o app instalado no aparelho certo, uma conta criada com e-mail confirmado e o clube adicionado. Este guia mostra como baixar o Suprema Poker no **Android** e no **iPhone** e como criar a conta. Vai jogar no computador? Siga o [tutorial para baixar o Suprema Poker no PC, notebook e MacBook](/blog/como-baixar-suprema-poker-no-pc). Para a terceira parte, veja [como entrar no Clube Suprema pelo link ou com o ID](/blog/como-entrar-no-clube-suprema). Se ainda não sabe como os clubes funcionam, leia antes o [guia dos clubes do Suprema Poker](/blog/clubes-suprema-poker).
 
 :::nota Resumo rápido
 Baixe o app pela loja do seu aparelho (ou pelo nosso [link único](/baixar), que detecta o sistema), crie a conta com e-mail e senha, confirme o código que chega no e-mail e volte ao nosso link para cair direto no clube 10001.
@@ -40,7 +40,7 @@ Existe uma versão do Suprema Poker para cada sistema. Use sempre as fontes ofic
 | Android (celular ou tablet) | [Google Play](https://play.google.com/store/apps/details?id=com.opt.supremapoker&hl=pt_BR) | Atualiza sozinho pela loja |
 | iPhone e iPad | [App Store](https://apps.apple.com/br/app/suprema-poker/id1583176410) | Precisa de uma conta Apple com loja do Brasil ou região compatível |
 | PC ou notebook com Windows | [Download oficial para Windows](https://security.supremapoker.com.br/download) | Instalador para PC de mesa e notebook |
-| Mac (MacBook, iMac) | Sem versão oficial | Veja as alternativas abaixo |
+| Mac (MacBook, iMac) | Sem versão oficial | Alternativas no [tutorial de PC e MacBook](/blog/como-baixar-suprema-poker-no-pc) |
 | Android sem Play Store | [APK no site oficial](https://www.supremapoker.net/) | Libere a instalação só para esse arquivo |
 
 Se estiver no celular agora, o caminho mais curto é o nosso **[link único do app](/baixar)**: ele reconhece se você está no Android ou no iPhone, leva para a loja correta e, com o app instalado, já abre o convite do clube.
@@ -76,19 +76,7 @@ Se a App Store disser que o app não está disponível na sua região, a conta A
 2. Execute o arquivo. Se o Windows SmartScreen mostrar um aviso, clique em **Mais informações** e depois em **Executar assim mesmo**; o aviso aparece para qualquer instalador fora da Microsoft Store.
 3. Siga o assistente até o fim e abra o app pelo atalho criado.
 
-No computador, a entrada no clube é feita com o ID, porque o link de convite funciona no celular. Os números estão no [guia de entrada no clube](/blog/como-entrar-no-clube-suprema).
-
-## Suprema Poker no Mac (MacBook e iMac)
-
-O [site oficial](https://www.supremapoker.net/) oferece downloads para Android, iPhone e Windows, mas **não tem versão para macOS**. Quem usa Mac tem três caminhos:
-
-1. **Jogar pelo celular.** É o caminho mais simples e o que funciona em todos os clubes e torneios.
-2. **Usar o Windows no Mac**, em uma máquina virtual, e instalar a versão oficial para Windows.
-3. **Usar um emulador Android** e instalar o app pela Google Play dentro dele.
-
-:::nota Antes de usar máquina virtual ou emulador
-Alguns torneios do Suprema Poker aplicam restrição de aparelho, IP e GPS para evitar contas duplicadas. Nesses casos, o emulador pode ser recusado. Na dúvida, pergunte ao suporte do clube antes de comprar fichas para esses torneios.
-:::
+No computador, a entrada no clube é feita com o ID: clube **10001** e agente **1439098**. O passo a passo completo, com notebook e com as alternativas para **MacBook**, que não tem versão oficial, está no [tutorial para baixar o Suprema Poker no PC, notebook e MacBook](/blog/como-baixar-suprema-poker-no-pc).
 
 ## Criar a conta
 
@@ -125,7 +113,7 @@ Com a conta confirmada, vale gastar dois minutos em três pontos:
 |---|---|
 | A loja diz "incompatível com o aparelho" | Atualize o sistema do celular. Em aparelhos muito antigos, use um celular mais novo ou a versão para Windows. |
 | O download trava no meio | Libere espaço no aparelho, troque para Wi-Fi e tente de novo. |
-| O app abre e fecha ou não abre | Atualize o app, reinicie o aparelho e libere espaço. Se persistir, desinstale e instale novamente pela loja ou pelo endereço oficial. |
+| O app abre e fecha ou não abre | Atualize o app, reinicie o aparelho e libere espaço. Se persistir, reinstale: o passo a passo está em [app Suprema Poker não abre](/blog/app-suprema-poker-nao-abre). |
 | Não consigo instalar o APK | Permita "fontes desconhecidas" só para o navegador ou gerenciador de arquivos que abriu o arquivo. |
 | Antivírus do Windows bloqueou o instalador | Baixe de novo apenas do site oficial e libere a execução. |
 
