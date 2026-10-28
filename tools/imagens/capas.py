@@ -5,6 +5,7 @@ from PIL import Image, ImageDraw, ImageFont, ImageFilter
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import luxo
 import logo
+import capas_webp
 
 ROOT = sys.argv[1]
 FONT = sys.argv[2]
@@ -487,5 +488,6 @@ for slug, eyebrow, title, subtitle, badge in posts:
     if ONLY and slug != ONLY:
         continue
     cover(os.path.join(ROOT, "public", "img", "blog", slug, "cover.jpg"), slug, eyebrow, title, subtitle, badge)
+    capas_webp.variantes(os.path.join(ROOT, "public", "img", "blog", slug, "cover.jpg"))
 if not ONLY:
     cover(os.path.join(ROOT, "public", "img", "og-clube-suprema.jpg"), "og", "Suprema Poker · Clube 10001", "Entre no Clube Suprema em 2 minutos", "Ação a qualquer hora, fichas por PIX na hora e suporte 24h no WhatsApp", "Somente +18")
