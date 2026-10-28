@@ -3,6 +3,7 @@
 #
 # Plano free: o serviço dorme após 15 min sem visitas (a 1ª visita seguinte demora ~1 min)
 # e a lista de leads (data/db.json) zera a cada reinício ou novo deploy.
+# Para não dormir, o server.js visita RENDER_EXTERNAL_URL/healthz a cada 10 min.
 # Para guardar os leads: trocar para plan 0.5c-512mb e adicionar um disk em /var/data
 # com a variável DATA_DIR=/var/data (exige cartão na conta Render).
 services:

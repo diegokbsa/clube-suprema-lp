@@ -310,6 +310,10 @@ const server = http.createServer(async (req, res) => {
       res.writeHead(405);
       return res.end();
     }
+    if (url.pathname === '/healthz') {
+      res.writeHead(200, { 'Content-Type': 'text/plain; charset=utf-8', 'Cache-Control': 'no-store' });
+      return res.end(req.method === 'HEAD' ? undefined : 'ok');
+    }
     if (url.pathname === '/baixar') return redirectToApp(req, res, url);
     if (servePage(req, res, url)) return;
     return serveStatic(req, res, url);
@@ -347,3 +351,11 @@ server.listen(config.port, config.host, () => {
   }
   console.log('');
 });
+
+// Plano free do Render: o serviço dorme após 15 min sem visitas e a 1ª visita seguinte espera 20 s a 1 min.
+// O servidor visita o próprio endereço público a cada 10 min para não dormir. RENDER_EXTERNAL_URL vem do Render;
+// fora dele (localhost) fica desligado.
+const keepAliveUrl = process.env.KEEPALIVE_URL || process.env.RENDER_EXTERNAL_URL;
+if (keepAliveUrl) {
+  setInterval(() => fetch(new URL('/healthz', keepAliveUrl)).catch(() => {}), 10 * 60 * 1000).unref();
+}

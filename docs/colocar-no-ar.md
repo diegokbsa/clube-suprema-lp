@@ -98,6 +98,8 @@ Precisa do código num repositório do GitHub. No Render: **New → Web Service*
 
 Limites do plano Free: o serviço "dorme" depois de 15 minutos sem visitas e a primeira visita depois disso demora cerca de 1 minuto; ao dormir ou atualizar, o que foi gravado no disco se perde (a lista de leads zera). Serve para testar, não para rodar anúncios.
 
+Em 27/10/2026, com o site dormindo, a primeira visita levou 22,8 s para começar a carregar (0,25 s acordado), e quem chega do anúncio desiste na tela branca. Para evitar isso o `server.js` visita o próprio endereço público (`RENDER_EXTERNAL_URL`, posto pelo Render) em `/healthz` a cada 10 minutos. Ligado o tempo todo, o serviço gasta cerca de 744 das 750 horas grátis por mês do workspace; se houver outro serviço free no mesmo workspace, as horas acabam antes do fim do mês. O plano pago (sem sono) continua sendo o jeito garantido.
+
 ## Railway (para valer, pago)
 
 1. Crie uma conta em https://railway.app.
