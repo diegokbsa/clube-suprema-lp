@@ -279,6 +279,85 @@ def illus_naoabre(img):
     pill(img, "Reinstalar → Clube 10001", 960, 528, font(17, 700))
 
 
+def illus_sair(img):
+    """Cartão de um clube antigo (apagado, saldo zerado) com seta de saída; na frente, o Clube Suprema (ID 10001)."""
+    # cartão de trás: clube antigo
+    bx0, by0 = 830, 112
+
+    def back(d):
+        d.rounded_rectangle((bx0 + 6, by0 + 10, bx0 + 306, by0 + 166), radius=22, fill=(0, 0, 0, 70))
+        d.rounded_rectangle((bx0, by0, bx0 + 300, by0 + 156), radius=22, fill=(26, 26, 29, 170), outline=GOLD + (110,), width=2)
+    img.alpha_composite(overlay(Image.new("RGBA", img.size, (0, 0, 0, 0)), back))
+    d = ImageDraw.Draw(img)
+    dim = tuple(int(c * 0.55) for c in GOLD)
+    d.text((bx0 + 24, by0 + 22), "CLUBE  ·  ID ••••", font=font(15, 700), fill=dim)
+    d.text((bx0 + 24, by0 + 62), "Saldo", font=font(15, 500), fill=(120, 122, 126))
+    d.text((bx0 + 24, by0 + 84), "0,00", font=font(40, 800), fill=(150, 152, 156))
+    # selo de saída (seta para fora)
+    cx, cy, r = bx0 + 300, by0 + 20, 40
+    d.ellipse((cx - r, cy - r, cx + r, cy + r), fill=GOLD)
+    d.rectangle((cx - 20, cy - 16, cx - 4, cy + 16), outline=INK, width=5)
+    d.line((cx - 8, cy, cx + 16, cy), fill=INK, width=7)
+    d.polygon([(cx + 24, cy), (cx + 10, cy - 13), (cx + 10, cy + 13)], fill=INK)
+    # cartão da frente: Clube Suprema
+    x0, y0 = 750, 262
+
+    def front(dd):
+        dd.rounded_rectangle((x0 + 6, y0 + 10, x0 + 336, y0 + 186), radius=24, fill=(0, 0, 0, 130))
+        dd.rounded_rectangle((x0, y0, x0 + 330, y0 + 176), radius=24, fill=(26, 26, 29, 255), outline=GOLD, width=2)
+    img.alpha_composite(overlay(Image.new("RGBA", img.size, (0, 0, 0, 0)), front))
+    d = ImageDraw.Draw(img)
+    d.text((x0 + 26, y0 + 24), "CLUBE SUPREMA", font=font(16, 700), fill=GOLD)
+    d.text((x0 + 26, y0 + 52), "ID do clube", font=font(15, 500), fill=MUTED)
+    d.text((x0 + 26, y0 + 74), "10001", font=font(54, 800), fill=WHITE)
+    d.text((x0 + 26, y0 + 140), "Agente 1439098", font=font(16, 700), fill=GOLD)
+    logo_box(img, x0 + 330 - 84, y0 + 22, 56)
+    pill(img, "Sacar → Sair → Entrar", 915, 500, font(16, 700))
+
+
+def illus_fichas24(img):
+    """Celular com um QR Code PIX e uma pilha de fichas; pílula 'PIX no seu CPF'."""
+    import random as _r
+    d = ImageDraw.Draw(img)
+    # celular
+    px0, py0, px1, py1 = 770, 92, 1000, 500
+    d.rounded_rectangle((px0 + 8, py0 + 14, px1 + 8, py1 + 14), radius=36, fill=(0, 0, 0, 150))
+    d.rounded_rectangle((px0, py0, px1, py1), radius=36, fill=(48, 48, 54), outline=(90, 90, 96), width=2)
+    d.rounded_rectangle((px0 + 12, py0 + 12, px1 - 12, py1 - 12), radius=26, fill=(14, 14, 16))
+    d.rounded_rectangle(((px0 + px1) // 2 - 30, py0 + 22, (px0 + px1) // 2 + 30, py0 + 30), radius=4, fill=(48, 48, 54))
+    d.text(((px0 + px1) / 2, py0 + 62), "Comprar fichas", font=font(17, 800), fill=WHITE, anchor="mm")
+    # QR Code (padrão fixo, só ilustrativo)
+    n, cell = 21, 7
+    qx = (px0 + px1) // 2 - n * cell // 2
+    qy = py0 + 92
+    d.rounded_rectangle((qx - 12, qy - 12, qx + n * cell + 12, qy + n * cell + 12), radius=12, fill=WHITE)
+    rnd = _r.Random(24)
+    finder = [(0, 0), (n - 7, 0), (0, n - 7)]
+
+    def in_finder(i, j):
+        return any(fx <= i < fx + 7 and fy <= j < fy + 7 for fx, fy in finder)
+    for i in range(n):
+        for j in range(n):
+            if not in_finder(i, j) and rnd.random() < 0.48:
+                d.rectangle((qx + i * cell, qy + j * cell, qx + i * cell + cell - 1, qy + j * cell + cell - 1), fill=INK)
+    for fx, fy in finder:
+        x, y = qx + fx * cell, qy + fy * cell
+        d.rectangle((x, y, x + 7 * cell - 1, y + 7 * cell - 1), fill=INK)
+        d.rectangle((x + cell, y + cell, x + 6 * cell - 1, y + 6 * cell - 1), fill=WHITE)
+        d.rectangle((x + 2 * cell, y + 2 * cell, x + 5 * cell - 1, y + 5 * cell - 1), fill=INK)
+    # botão PIX
+    by = qy + n * cell + 34
+    d.rounded_rectangle((px0 + 34, by, px1 - 34, by + 46), radius=23, fill=GOLD)
+    d.text(((px0 + px1) / 2, by + 23), "Pagar com PIX", font=font(17, 800), fill=INK, anchor="mm")
+    d.text(((px0 + px1) / 2, by + 74), "Copia e cola", font=font(14, 600), fill=MUTED, anchor="mm")
+    # pilha de fichas ao lado
+    for k, col in enumerate([GOLD, (70, 70, 76), GOLD]):
+        im = chip(130, col).resize((130, 52))
+        paste(img, im, (1000, 420 - k * 20), with_shadow=(k == 0))
+    paste(img, chip(130, GOLD), (1000, 290), with_shadow=False)
+    pill(img, "PIX no seu CPF", 1065, 535, font(16, 700))
+
+
 def illus_torneios(img):
     cards = [("A", "\u2660", -22, (780, 185)), ("K", "\u2665", -4, (860, 160)), ("Q", "\u2666", 16, (948, 170))]
     for rank, suit, ang, pos in cards:
@@ -344,6 +423,8 @@ ILLUS = {
     "id-clube-h2-suprema-poker-pool-liga-suprema": illus_pool,
     "como-baixar-suprema-poker-no-pc": illus_pc,
     "app-suprema-poker-nao-abre": illus_naoabre,
+    "como-sair-do-clube-suprema-poker": illus_sair,
+    "fichas-24-horas-suprema-poker-pix": illus_fichas24,
     "og": illus_og,
 }
 
@@ -398,6 +479,8 @@ posts = [
     ("guia-do-app-suprema-poker", "Guia · App", "Guia do app Suprema Poker: lobby, mesa, fichas e configurações", "Um tour pelas telas que importam, com imagens", "Tour pelo app"),
     ("spin-suprema-como-funciona-e-primeiro-grande-ganhador", "Novidade · Spin", "Spin Suprema: como funciona e o prêmio de 3.000× na primeira semana", "Roleta de multiplicador até 50.000× · R$ 100 de buy-in viraram R$ 300 mil", "Primeira semana"),
     ("perguntas-frequentes-suporte", "Suporte 24h", "Perguntas frequentes do suporte: fichas, PIX, saque e login", "As respostas mais pedidas no WhatsApp, em um lugar só", "FAQ"),
+    ("como-sair-do-clube-suprema-poker", "Guia · Clubes", "Como sair do clube no Suprema Poker", "Saque o saldo antes, onde fica a opção, quem remove e como entrar no clube 10001", "Passo a passo"),
+    ("fichas-24-horas-suprema-poker-pix", "Guia · Fichas", "Fichas 24 Horas: como comprar fichas do Suprema Poker por PIX", "Conta, ID da Suprema, verificação, QR Code no seu CPF e saque", "Guia completo"),
 ]
 ONLY = os.environ.get("ONLY")
 for slug, eyebrow, title, subtitle, badge in posts:

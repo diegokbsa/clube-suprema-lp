@@ -76,7 +76,7 @@ Dentro do clube você joga com as fichas do clube. A compra é feita pelo **Fich
 - Na **primeira compra**, você informa o seu **ID da Suprema**, o **clube 10001** e o **agente 1439098**, além de CPF, celular e data de nascimento para a validação.
 - O **saque** vai para a chave PIX do seu CPF.
 
-O passo a passo completo, com os erros mais comuns, está em [perguntas frequentes do suporte](/blog/perguntas-frequentes-suporte).
+O passo a passo completo, com os erros mais comuns, está em [perguntas frequentes do suporte](/blog/perguntas-frequentes-suporte). Como criar a conta, cadastrar o seu ID e verificar no Fichas 24h está em [Fichas 24 Horas: como comprar fichas do Suprema Poker por PIX](/blog/fichas-24-horas-suprema-poker-pix).
 
 ## Problemas comuns ao entrar
 

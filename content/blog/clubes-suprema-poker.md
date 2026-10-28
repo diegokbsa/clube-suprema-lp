@@ -90,6 +90,8 @@ Sair de um clube não apaga a sua conta. Você só deixa de ver aquele lobby. An
 2. Abra o clube no app e procure a opção de **sair** nas configurações ou no menu do clube. O nome pode mudar entre versões do app.
 3. Se não achar a opção, peça ajuda ao suporte do clube informando o seu ID de jogador.
 
+O passo a passo completo, com o que fazer com o saldo e quem pode tirar você do clube, está em [como sair do clube no Suprema Poker](/blog/como-sair-do-clube-suprema-poker).
+
 Para **apagar um clube criado por engano**, o caminho é parecido: abra o clube que você criou e procure a opção de excluir nas configurações dele.
 
 Excluir a **conta inteira** é outra coisa. O pedido vai para o suporte da Suprema, e depois dele você não usa mais a plataforma em nenhum clube.

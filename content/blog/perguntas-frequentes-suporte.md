@@ -66,7 +66,7 @@ Aguarde alguns minutos e puxe a tela para atualizar. Se continuar pendente, mand
 
 ### Como compro fichas?
 
-Pelo **Fichas 24h**, por PIX. Na primeira compra, o Fichas 24h pede **CPF, celular e data de nascimento** para validar o pagador, mais o seu **ID da Suprema**, o **clube 10001** e o **agente 1439098**. Depois da primeira vez, as compras seguintes são mais rápidas.
+Pelo **Fichas 24h**, por PIX. Na primeira compra, o Fichas 24h pede **CPF, celular e data de nascimento** para validar o pagador, mais o seu **ID da Suprema**, o **clube 10001** e o **agente 1439098**. Depois da primeira vez, as compras seguintes são mais rápidas. O passo a passo, da criação da conta à verificação e ao QR Code, está em [Fichas 24 Horas: como comprar fichas do Suprema Poker por PIX](/blog/fichas-24-horas-suprema-poker-pix).
 
 ### Quem pode fazer o PIX?
 
