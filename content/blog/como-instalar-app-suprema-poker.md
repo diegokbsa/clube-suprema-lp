@@ -1,8 +1,8 @@
 ---
-title: "Como baixar o Suprema Poker no celular (Android e iPhone) e criar sua conta"
-description: Passo a passo para baixar o app Suprema Poker no Android e no iPhone, criar a conta, confirmar o e-mail e deixar o app pronto para entrar no Clube Suprema (ID 10001). Para PC, notebook e MacBook há um tutorial próprio.
+title: "Baixar Suprema Poker: download do app no Android e iPhone"
+description: Como baixar o Suprema Poker grátis no Android (Google Play) e no iPhone (App Store), criar a conta e confirmar o e-mail, passo a passo. Depois é só entrar no Clube Suprema (ID 10001). Para PC, notebook e MacBook há um tutorial próprio.
 date: 2026-10-23
-updated: 2026-10-26
+updated: 2026-10-27
 cover: /img/blog/como-instalar-app-suprema-poker/cover.jpg
 coverAlt: Celular com a tela de abertura do app Suprema Poker e o texto "Como baixar o Suprema Poker no celular"
 tags: [app, instalação, primeiros passos]

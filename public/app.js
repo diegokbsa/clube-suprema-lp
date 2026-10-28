@@ -113,7 +113,8 @@ function loadTracking({ ga4Id, metaPixelId }) {
       window.gtag = function gtag() { window.dataLayer.push(arguments); };
       window.gtag('js', new Date());
     }
-    window.gtag('config', ga4Id);
+    // A LP já configura o GA4 no <head>; configurar de novo contaria a visualização duas vezes.
+    if (!window.dataLayer.some((a) => a && a[0] === 'config' && a[1] === ga4Id)) window.gtag('config', ga4Id);
   }
   if (metaPixelId) {
     const fbq = function () { fbq.callMethod ? fbq.callMethod.apply(fbq, arguments) : fbq.queue.push(arguments); };
