@@ -205,12 +205,27 @@ main { max-width: 1120px; margin: 0 auto; padding: 0 var(--side); }
 .pill-text small { color: var(--muted); font-size: .72rem; }
 @keyframes pill-in { from { opacity: 0; transform: translateY(16px) scale(.95); } to { opacity: 1; transform: none; } }
 @keyframes bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+.hero-note { display: none; }
+/* Celular: quem vem do anúncio decide em ~1 s, então a primeira tela (≈620 px no navegador do Instagram)
+   mostra o app, a promessa e um botão só. */
 @media (max-width: 899px) {
-  .hero { padding-bottom: 36px; }
-  .hero-visual { margin-top: 8px; }
-  .phone-stage { width: min(72vw, 330px); }
-  .pill-pix { left: -8%; top: 18%; }
-  .pill-wa { right: -8%; bottom: 16%; }
+  .hero { padding: 12px 0 32px; }
+  .hero-grid { gap: 4px; }
+  .hero-visual { order: -1; margin: 0; }
+  .phone-stage { width: min(38vw, 148px); }
+  .pill-pix { left: -62%; top: 30%; }
+  .pill-pix .pill-inner { padding: 6px 10px 6px 6px; gap: 8px; }
+  .pill-pix .pill-ico { width: 26px; height: 26px; border-radius: 8px; font-size: .85rem; }
+  .pill-pix .pill-text strong { font-size: .76rem; }
+  .pill-pix .pill-text small { font-size: .64rem; }
+  .pill-wa { display: none; }
+  .hero .eyebrow { margin-bottom: 10px; padding: 5px 12px; font-size: .66rem; }
+  .hero h1 { font-size: 2rem; }
+  .hero .lead { font-size: 1rem; margin-top: 6px; }
+  .hero-cta { margin: 14px 0 8px; }
+  .hero-cta .btn-ghost { display: none; }
+  .hero-note { display: block; color: var(--muted); font-size: .82rem; margin: 0; }
+  .hero .trust { display: none; }
 }
 
 /* Letreiro */
@@ -372,6 +387,7 @@ main { max-width: 1120px; margin: 0 auto; padding: 0 var(--side); }
 .js.no-motion .hero .reveal { animation: none; }
 /* começa em .01 (invisível ao olho), não em 0: assim o navegador já conta o título e o celular como LCP na 1ª pintura */
 @keyframes hero-in { from { opacity: .01; transform: translateY(30px); } to { opacity: 1; transform: none; } }
+@media (max-width: 899px) { .js .hero .reveal { animation-duration: .5s; } } /* no celular a decisão é em ~1 s */
 
 /* Fluxo de cadastro */
 .sheet {
@@ -533,7 +549,6 @@ input[aria-invalid="true"] { border-color: var(--danger); }
 .wa-float:hover .wa-float-icon { transform: scale(1.06); }
 html:not(.no-motion) .wa-float { animation: wa-in .4s ease .8s both; }
 @keyframes wa-in { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
-}
 /* Espaço para o balão não cobrir o fim da página nem do painel */
 .footer { padding-bottom: 100px; }
 .sheet-body { padding-bottom: 100px; }
