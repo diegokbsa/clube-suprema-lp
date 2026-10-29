@@ -25,14 +25,14 @@ O servidor é Node puro, sem dependências. Qualquer hospedagem que rode `node s
 
 | Ferramenta | Identificação | Onde está no site |
 |---|---|---|
-| Google Tag Manager | conta "Clube Suprema", contêiner suprema.blog, `GTM-N46659WQ` (versão inicial publicada, sem tags) | snippet no `<head>` e `<noscript>` no `<body>` de `public/index.html` |
+| Google Tag Manager | conta "Clube Suprema", contêiner suprema.blog, `GTM-N46659WQ` (versão inicial publicada, sem tags) | só no blog (`TRACKING_HEAD` de `lib/blog.js`); saiu da LP em 29/10/2026 por estar vazio (112 KB por visita). Para usar de novo na LP, copie o snippet de lá |
 | Google Analytics 4 | conta gamesbigpsn, propriedade "Clube Suprema" (560553417), fluxo web suprema.blog, `G-ZXS59RV8GR` | `config.js` (`tracking.ga4Id`) e `GA4_ID` no `render.yaml` |
 | Google Ads | tag `AW-970454313` | `<head>` de `public/index.html` |
 | Microsoft Clarity | projeto "Clube Suprema" (`z41gk7muip`), entrada com a conta Google h2odiegokbsa em 26/10/2026 | snippet no `<head>` de `public/index.html` e em `TRACKING_HEAD` de `lib/blog.js` |
 | Search Console | duas propriedades: prefixo https://suprema.blog/ (arquivo HTML + GTM) e domínio `sc-domain:suprema.blog` (registro TXT no GoDaddy); `sitemap.xml` e `blog/feed.xml` enviados nas duas | `public/googled0da7d61222a54ee.html` (não apagar), `/sitemap.xml` e `/blog/feed.xml` gerados por `lib/blog.js`, `public/robots.txt` |
 
 Os eventos da página (`lp_view` com `variant`, `signup_start`, `whatsapp_click` etc.) vão para o `dataLayer` e para o `gtag`,
-então chegam ao GA4 e ao Google Ads e ficam disponíveis como acionadores no GTM. Para conferir: GA4 → Relatórios → Tempo real.
+então chegam ao GA4 e ao Google Ads (e ao GTM, se ele voltar para a LP). Para conferir: GA4 → Relatórios → Tempo real.
 Atenção: o Brave bloqueia os envios do Analytics por padrão; teste em outro navegador ou com os escudos desligados.
 
 ### Microsoft Clarity (gravações e mapas de calor)
@@ -65,7 +65,7 @@ Atenção: o Brave bloqueia os envios do Analytics por padrão; teste em outro n
 ### Search Console
 
 - **Propriedade de domínio** `sc-domain:suprema.blog`: verificada pelo registro `TXT @ google-site-verification=r2zThPfQZwvwT8QjKLCvFZXuCv0WkqELxz-28j9gFDs` no DNS do GoDaddy. Não apague esse registro: ele cobre www, http e qualquer subdomínio futuro.
-- **Propriedade de prefixo** `https://suprema.blog/`: verificada pelo arquivo `public/googled0da7d61222a54ee.html` e pelo contêiner do GTM. Pode ser removida no futuro sem perda, mas hoje é ela que o Rich Results Test e a Inspeção de URL abrem por padrão.
+- **Propriedade de prefixo** `https://suprema.blog/`: verificada pelo arquivo `public/googled0da7d61222a54ee.html` (o GTM também verificava, mas saiu da página inicial em 29/10/2026; o arquivo basta). Pode ser removida no futuro sem perda, mas hoje é ela que o Rich Results Test e a Inspeção de URL abrem por padrão.
 - **Sitemaps** enviados nas duas propriedades: `https://suprema.blog/sitemap.xml` (8 páginas, com imagens) e `https://suprema.blog/blog/feed.xml` (RSS, ajuda a descobrir post novo mais rápido). Os dois são gerados pelo servidor; publicar um post novo já os atualiza.
 - **Indexação pedida** em 23/10/2026 para a home, /blog e os 6 posts (Inspeção de URL → Solicitar indexação). A cota é de cerca de 10 pedidos por dia por propriedade; use para post novo ou página alterada.
 - **GA4 vinculado** à propriedade de domínio (GA4 → Admin → Vinculações do Search Console). Os relatórios "Consultas" e "Páginas de destino" do GA4 aparecem em até 48 h.
