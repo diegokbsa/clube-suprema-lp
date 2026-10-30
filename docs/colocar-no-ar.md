@@ -71,7 +71,7 @@ Atenção: o Brave bloqueia os envios do Analytics por padrão; teste em outro n
 
 - Post novo do blog vai sozinho para o canal: 1 min depois do deploy, o servidor manda capa, título, resumo e link (com `utm_source=telegram`) de cada post com data nos últimos 3 dias que ainda não está na aba Telegram da planilha.
 - Para ligar (uma vez): no Telegram, falar com o @BotFather → `/newbot` → nome "Clube Suprema" e um usuário terminado em `bot` → copiar o token. No canal: Gerenciar canal → Administradores → Adicionar administrador → buscar o bot → deixar "Publicar mensagens". No Render: Environment → `TELEGRAM_BOT_TOKEN` = token → Save (faz um deploy). `TELEGRAM_CHAT_ID` é opcional (padrão `@supremapokerxx`).
-- Erros aparecem nos logs do Render como `[novos-posts]` (ex.: "chat not found" = o bot não é administrador do canal).
+- O resultado de cada envio fica na aba **Telegram** da planilha, coluna **Situação**: "enviado" ou "falhou: <motivo do Telegram>". Post que falhou é tentado de novo a cada 30 min e a cada deploy. "bot is not a member of the channel chat" = o bot ainda não é administrador do canal. Os erros também aparecem nos logs do Render como `[novos-posts]`.
 - O link do canal fica no rodapé da LP e do blog, no convite do fim de cada post e no e-mail de boas-vindas.
 
 ### Search Console
