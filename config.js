@@ -33,7 +33,7 @@ export const config = {
     buyChips: 'https://fichas24horas.com.br/auto-atendimento',
     responsibleGaming: 'https://supremapoker.com.br/jogo-consciente',
     // Canal do clube no Telegram: novos posts do blog entram sozinhos (.github/workflows/novos-posts.yml).
-    telegram: 'https://t.me/supremapokerxx',
+    telegram: 'https://t.me/clubsupremapokerxx',
   },
 
   tracking: {
