@@ -135,13 +135,25 @@ function lpVariant() {
   return m ? m[1] : 'padrao';
 }
 
+// Primeiro contato do visitante: UTMs, site de onde veio (google.com, instagram.com...) e página de entrada.
+// O blog grava o mesmo registro (TRACKING_HEAD em lib/blog.js), então quem lê um post e depois se cadastra
+// chega na planilha com o post de entrada. Um clique de campanha depois de uma visita sem campanha substitui o registro.
 function captureUtm() {
   const params = new URLSearchParams(location.search);
   const keys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'gclid', 'fbclid', 'ref'];
   const found = Object.fromEntries(keys.filter((k) => params.get(k)).map((k) => [k, params.get(k).slice(0, 200)]));
-  if ((Object.keys(found).length || lpVariant() !== 'padrao') && !storage.get(KEYS.utm)) {
-    storage.set(KEYS.utm, JSON.stringify({ ...found, landing: location.pathname, at: new Date().toISOString() }));
-  }
+  const saved = utm();
+  const campaign = (u) => keys.some((k) => u[k]);
+  if (saved.at && !(campaign(found) && !campaign(saved))) return;
+  let referrer = '';
+  try { referrer = new URL(document.referrer).hostname; } catch { /* acesso direto */ }
+  if (referrer === location.hostname) referrer = '';
+  storage.set(KEYS.utm, JSON.stringify({ ...found, referrer, landing: location.pathname, at: new Date().toISOString() }));
+}
+
+// Origem resumida para o GA4 e o Clarity: campanha, site de origem ou "direto".
+function leadOrigin(u = utm()) {
+  return u.utm_source || (u.gclid && 'google-ads') || (u.fbclid && 'facebook') || u.referrer || 'direto';
 }
 
 function utm() {
@@ -284,6 +296,7 @@ function initLead() {
   form.addEventListener('input', (e) => setFieldError(form, e.target.name, ''));
   form.addEventListener('change', (e) => setFieldError(form, e.target.name, ''));
   form.addEventListener('submit', submitLead);
+  form.elements.whatsapp?.addEventListener('input', (e) => { e.target.value = maskPhone(e.target.value); });
   if (hasFinePointer()) form.elements.email.focus();
   trackOnce('signup_start', 'signup_start');
 }
@@ -292,7 +305,8 @@ async function submitLead(e) {
   e.preventDefault();
   const form = e.currentTarget;
   const f = form.elements;
-  const input = { email: f.email.value, acceptedTerms: f.acceptedTerms.checked };
+  const whatsapp = f.whatsapp?.value || ''; // campo opcional (pode não existir numa versão antiga da página em cache)
+  const input = { email: f.email.value, whatsapp, acceptedTerms: f.acceptedTerms.checked };
   const { errors } = validateLead(input);
   showFormError('');
   if (Object.keys(errors).length) return showErrors(form, errors);
@@ -304,7 +318,8 @@ async function submitLead(e) {
     const lead = await api('/api/lead', { method: 'POST', body: { ...input, utm: utm() } });
     storage.set(KEYS.lead, lead.id);
     storage.set(KEYS.leadEmail, lead.email);
-    trackOnce(`lead:${lead.id}`, 'signup_complete');
+    const u = utm();
+    trackOnce(`lead:${lead.id}`, 'signup_complete', { origem: leadOrigin(u), pagina_entrada: u.landing || location.pathname, com_whatsapp: whatsapp ? 'sim' : 'nao' });
     render('invite');
   } catch (err) {
     if (err.data?.errors) showErrors(form, err.data.errors);

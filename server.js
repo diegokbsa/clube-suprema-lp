@@ -10,6 +10,7 @@ import * as flow from './lib/orchestrator.js';
 import { createLead, recordLeadEvent, leadsOverview } from './lib/leads.js';
 import { validateSignup, validateLead } from './public/shared/validate.js';
 import { renderBlogIndex, renderBlogPost, renderNotFound, renderSitemap, renderFeed, renderLlms, renderLlmsFull, renderAbout } from './lib/blog.js';
+import { announceNewPosts } from './lib/novos-posts.js';
 
 const PUBLIC_DIR = fileURLToPath(new URL('./public/', import.meta.url));
 const TYPES = {
@@ -122,7 +123,7 @@ const routes = [
   ['POST', /^\/api\/lead\/([\w-]+)\/event$/, async ({ req, params }) => {
     rateLimit(req, 'lead-event', 60);
     const { type } = await readJson(req);
-    if (!recordLeadEvent(params[0], type)) throw new HttpError(404, 'Não encontrado.');
+    if (!/^[\w-]{10,64}$/.test(params[0]) || !recordLeadEvent(params[0], type)) throw new HttpError(404, 'Não encontrado.');
     return { ok: true };
   }],
 
@@ -358,4 +359,10 @@ server.listen(config.port, config.host, () => {
 const keepAliveUrl = process.env.KEEPALIVE_URL || process.env.RENDER_EXTERNAL_URL;
 if (keepAliveUrl) {
   setInterval(() => fetch(new URL('/healthz', keepAliveUrl)).catch(() => {}), 10 * 60 * 1000).unref();
+}
+
+// Depois de cada deploy (só no Render): IndexNow dos posts novos/atualizados e post novo no canal do Telegram.
+// Espera 1 min para o endereço público já responder com a versão nova.
+if (process.env.RENDER) {
+  setTimeout(() => announceNewPosts().catch((err) => console.warn(`[novos-posts] ${err.message}`)), 60_000).unref();
 }

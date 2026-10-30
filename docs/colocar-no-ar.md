@@ -51,16 +51,27 @@ Atenção: o Brave bloqueia os envios do Analytics por padrão; teste em outro n
 - **Tutoriais:** `passosTitulo:` e `passos:` (lista) viram dados estruturados HowTo.
 - **Entidades:** a Organization do clube traz o ID 10001 e `memberOf` SX Poker e Liga Suprema; os posts trazem `about` (app Suprema Poker) e `mentions` (SX e Liga) quando o texto fala deles. A página `/sobre` (content/sobre.md) explica quem somos e como produzimos o conteúdo; ao revisá-la, mude `ABOUT_UPDATED` em lib/blog.js.
 - **Robôs:** `public/robots.txt` libera Google, Bing e os robôs de IA (GPTBot, OAI-SearchBot, ChatGPT-User, ClaudeBot, Claude-SearchBot, PerplexityBot, Google-Extended, Applebot, Meta, Amazon, DuckAssist, Mistral, Common Crawl) e bloqueia só `/admin` e `/api/`.
-- **IndexNow (Bing, que alimenta a busca do ChatGPT e do Copilot):** depois de publicar conteúdo, rode `node tools/indexnow.mjs` (todas as URLs do sitemap) ou passe só as páginas novas. A chave pública fica em `public/<chave>.txt`; não apague.
+- **IndexNow (Bing, que alimenta a busca do ChatGPT e do Copilot):** desde 30/10/2026 é automático: 1 min depois de cada deploy no Render o servidor avisa os posts com data ou atualização nos últimos 3 dias, mais /blog (`lib/novos-posts.js`, log `[novos-posts]`). Para mandar outras páginas na mão: `node tools/indexnow.mjs` (todas as URLs do sitemap) ou passe só as páginas. A chave pública fica em `public/<chave>.txt`; não apague.
 - **Bing Webmaster Tools:** configurado em 26/10/2026 na conta Google h2odiegokbsa, importando as duas propriedades do Search Console (o Bing tem acesso só de leitura ao Search Console). Sitemap enviado e as 14 URLs mandadas em URL Submission (cota de 100 por dia). Os relatórios, incluindo o de desempenho em IA (Copilot), começam a aparecer em até 48 h em https://www.bing.com/webmasters.
 
 ### Planilha de cadastros
 
 - Cada e-mail novo do formulário vira uma linha na planilha **Cadastros · Clube Suprema** (Google Drive da conta h2odiegokbsa), com data/hora de Brasília, e-mail, utm_source, utm_medium, utm_campaign, utm_term, utm_content, gclid, fbclid, ref, página de entrada e ID do cadastro.
+- Desde 30/10/2026 (versão 2 do script) a linha também traz **Veio de (site)** (google.com, instagram.com…; vazio = acesso direto) e **WhatsApp** (link wa.me, quando o jogador preenche). A página de entrada passa a ser o post do blog por onde a pessoa chegou: o blog e a LP gravam o primeiro contato em `clube.utm` no navegador.
+- Os passos de cada lead entram nas colunas **Abriu o link do app**, **Aparelho**, **Clicou em comprar fichas** e **Chamou o suporte** (data da 1ª vez), mesmo depois de um deploy, quando o painel /admin zera.
+- **E-mail de boas-vindas:** o script manda a cada cadastro novo (texto em `boasVindas_` no Code.gs), pela API do Gmail só com permissão de envio, com o nome "Clube Suprema", remetente e resposta em `supremaclubxx@gmail.com`. Liga e desliga em Apps Script → Configurações do projeto → Propriedades do script → `BOAS_VINDAS` = `sim` (sem nova implantação). Só ligue depois que `supremaclubxx@gmail.com` estiver confirmado em Gmail (h2odiegokbsa) → Configurações → Contas → "Enviar e-mail como"; antes disso o Gmail troca o remetente pelo h2odiegokbsa. `testeBoasVindas` manda um exemplo para a caixa do supremaclubxx; `enviarPendentes` manda para quem se cadastrou nos últimos 3 dias e ainda não recebeu. A coluna **Boas-vindas enviado** mostra a data ou o erro.
+- Aba **Telegram**: posts que o site já mandou ao canal (evita repetir depois de um novo deploy).
 - Quem grava é o projeto Apps Script **Cadastros Clube Suprema**, ligado à planilha e publicado como app da Web (executa como h2odiegokbsa, acesso "qualquer pessoa", limitado a esta planilha por `@OnlyCurrentDoc`). O código está em `tools/planilha/Code.gs`.
 - O site envia pelo `lib/sheets.js` logo depois de salvar no banco, em segundo plano e com até 2 novas tentativas; a URL do app fica em `config.js` (`sheets.webhookUrl`, ou a variável `SHEETS_WEBHOOK_URL`). Falhas aparecem nos logs do Render como `[planilha]`.
 - Para trocar o código do script: editar em Extensões → Apps Script, salvar e em Implantar → Gerenciar implantações → editar → Nova versão (a URL continua a mesma).
 - A linha `teste@suprema.blog` e as de `teste-local@`/`teste-producao@` com origem "TESTE" são de teste e podem ser apagadas.
+
+### Canal do Telegram (t.me/supremapokerxx)
+
+- Post novo do blog vai sozinho para o canal: 1 min depois do deploy, o servidor manda capa, título, resumo e link (com `utm_source=telegram`) de cada post com data nos últimos 3 dias que ainda não está na aba Telegram da planilha.
+- Para ligar (uma vez): no Telegram, falar com o @BotFather → `/newbot` → nome "Clube Suprema" e um usuário terminado em `bot` → copiar o token. No canal: Gerenciar canal → Administradores → Adicionar administrador → buscar o bot → deixar "Publicar mensagens". No Render: Environment → `TELEGRAM_BOT_TOKEN` = token → Save (faz um deploy). `TELEGRAM_CHAT_ID` é opcional (padrão `@supremapokerxx`).
+- Erros aparecem nos logs do Render como `[novos-posts]` (ex.: "chat not found" = o bot não é administrador do canal).
+- O link do canal fica no rodapé da LP e do blog, no convite do fim de cada post e no e-mail de boas-vindas.
 
 ### Search Console
 

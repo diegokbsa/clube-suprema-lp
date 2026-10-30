@@ -60,10 +60,12 @@ export function passwordError(password) {
 export function validateLead(input) {
   const data = {
     email: String(input.email ?? '').trim().toLowerCase(),
+    whatsapp: onlyDigits(input.whatsapp).slice(0, 11), // opcional: o suporte chama se o jogador travar
     acceptedTerms: input.acceptedTerms === true,
   };
   const errors = {};
   if (!EMAIL_RE.test(data.email)) errors.email = 'Confira o e-mail.';
+  if (data.whatsapp && !isValidPhone(data.whatsapp)) errors.whatsapp = 'WhatsApp com DDD, ex.: (11) 91234-5678. Ou deixe em branco.';
   if (!data.acceptedTerms) errors.acceptedTerms = 'Confirme que tem 18 anos ou mais e aceita os termos.';
   return { ok: Object.keys(errors).length === 0, errors, data };
 }

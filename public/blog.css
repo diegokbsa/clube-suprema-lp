@@ -121,3 +121,8 @@ body.page-blog, body.page-post { background: #000; } /* fundo 100% preto */
 .page-blog .footer a, .page-post .footer a { color: var(--gold-hi); }
 
 @media (prefers-reduced-motion: reduce) { .post-card-cover img { transition: none; } .post-card:hover { transform: none; } }
+
+/* Convite do fim do post: link do canal do Telegram */
+.post-cta .cta-telegram { margin: 16px 0 0; }
+.post-cta .cta-telegram a { color: var(--gold-hi); }
+

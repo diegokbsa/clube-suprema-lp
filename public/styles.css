@@ -422,6 +422,7 @@ main { max-width: 1120px; margin: 0 auto; padding: 0 var(--side); }
 /* Formulário */
 .field { margin-bottom: 14px; }
 .field label { display: block; font-size: .9rem; font-weight: 600; margin-bottom: 6px; }
+.field label .opt { font-weight: 400; color: var(--muted); }
 input[type="text"], input:not([type]), input[type="email"], input[type="tel"], input[type="date"], input[type="password"] {
   width: 100%; padding: 13px 14px; border-radius: 10px; border: 1px solid var(--border-2);
   background: var(--card); color: var(--text); font: 1rem var(--font); color-scheme: dark;
