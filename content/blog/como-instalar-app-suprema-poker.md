@@ -62,7 +62,7 @@ Se estiver no celular agora, o caminho mais curto é o nosso **[link único do a
 3. Toque em **Abrir**. Na primeira abertura o app pode baixar recursos extras, o que leva um ou dois minutos.
 4. Aceite as permissões pedidas. Elas servem para notificações de torneio e para o app funcionar com estabilidade.
 
-Se você baixou o **APK** pelo site oficial, o Android vai pedir para permitir a instalação de apps de "fontes desconhecidas" para o navegador ou gerenciador de arquivos. Libere só para esse arquivo, instale e volte a bloquear depois.
+Se você baixou o **APK** pelo site oficial, o Android vai pedir para permitir a instalação de apps de "fontes desconhecidas" para o navegador ou gerenciador de arquivos. Libere só para esse arquivo, instale e volte a bloquear depois. O passo a passo do APK, com atualização e erros comuns, está em [Suprema Poker APK: como baixar e instalar no Android](/blog/baixar-suprema-poker-apk).
 
 :::dica Atualizações automáticas
 Na Google Play, abra a página do app, toque nos três pontos no canto superior e marque **Atualização automática**. Muitas das mensagens "atualize para continuar" somem com isso.

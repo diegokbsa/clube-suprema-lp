@@ -146,11 +146,15 @@ Segundo as perguntas frequentes do Fichas 24h:
 | Esqueci a senha | Na tela de entrada, toque em "Esqueceu a senha?" e informe o e-mail ou o CPF |
 | O app da Suprema não abre para conferir o Caixa | Veja [app Suprema Poker não abre](/blog/app-suprema-poker-nao-abre); a conta e as fichas ficam no servidor |
 
+Se a compra não caiu, o passo a passo para conferir e o que mandar ao suporte estão em [depósito no Suprema Poker não caiu](/blog/deposito-suprema-poker-nao-caiu).
+
 ## Segurança
 
 - Use só o endereço **fichas24horas.com.br** e o app oficial nas lojas.
 - Ninguém do suporte pede a sua **senha** ou o **código** que chega no seu e-mail.
 - Não faça PIX para a conta de uma pessoa para "comprar fichas". No Fichas 24h, o pagamento é sempre pelo QR Code gerado na compra.
+
+O que conferir no app, no clube e no agente antes de depositar está em [Suprema Poker é confiável?](/blog/suprema-poker-e-confiavel).
 
 :::nota Jogo consciente
 O Fichas 24h e o Suprema Poker são só para **maiores de 18 anos**. Defina antes quanto vai colocar e respeite o limite. A Suprema mantém uma página sobre [jogo consciente](https://supremapoker.com.br/jogo-consciente).
