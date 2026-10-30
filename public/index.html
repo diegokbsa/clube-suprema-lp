@@ -321,6 +321,12 @@
         <input id="f-email" name="email" type="email" inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" required>
         <small class="error" data-error="email"></small>
       </div>
+      <div class="field">
+        <label for="f-whats">WhatsApp <span class="opt">(opcional)</span></label>
+        <input id="f-whats" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="(11) 91234-5678" maxlength="15">
+        <small class="hint">Se travar em algum passo, o suporte te chama por lá.</small>
+        <small class="error" data-error="whatsapp"></small>
+      </div>
       <label class="check">
         <input type="checkbox" name="acceptedTerms" id="f-terms">
         <span>Tenho 18 anos ou mais e aceito os termos de uso e a política de privacidade.</span>
@@ -328,7 +334,7 @@
       <small class="error" data-error="acceptedTerms"></small>
       <div class="form-error" id="form-error" role="alert" hidden></div>
       <button class="btn btn-lg btn-block" type="submit" id="lead-submit">Continuar</button>
-      <p class="muted small center">Usamos seu e-mail só para te ajudar no cadastro.</p>
+      <p class="muted small center">Usamos seus contatos só para te ajudar no cadastro.</p>
     </form>
   </template>
 

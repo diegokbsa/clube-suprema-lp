@@ -126,3 +126,22 @@ body.page-blog, body.page-post { background: #000; } /* fundo 100% preto */
 .post-cta .cta-telegram { margin: 16px 0 0; }
 .post-cta .cta-telegram a { color: var(--gold-hi); }
 
+/* Barra fixa no celular (posts e /sobre): "Quero jogar" + WhatsApp. Entra quando o título sai da tela
+   e sai quando o convite do fim ou o rodapé aparecem (script POST_DOCK em lib/blog.js). */
+.post-dock { display: none; }
+@media (max-width: 899px) {
+  .post-dock {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 61;
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px var(--side) calc(10px + env(safe-area-inset-bottom));
+    background: rgba(0, 0, 0, .92); border-top: 1px solid var(--gold-border-soft);
+    transform: translateY(110%); transition: transform .35s var(--ease);
+  }
+  .post-dock.is-on { transform: none; }
+  .post-dock-cta { flex: 1; padding: 13px 16px; }
+  .post-dock-wa { width: 48px; height: 48px; border-radius: 50%; background: #25d366; flex: none; display: grid; place-items: center; }
+  .post-dock-wa svg { width: 26px; height: 26px; fill: #fff; }
+  /* Com a barra na tela, o balão do WhatsApp sai do caminho (o atalho dele está na própria barra). */
+  body:has(.post-dock.is-on) .wa-float { display: none; }
+}
+@media (max-width: 899px) and (prefers-reduced-motion: reduce) { .post-dock { transition: none; } }
