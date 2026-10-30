@@ -10,7 +10,7 @@ import * as flow from './lib/orchestrator.js';
 import { createLead, recordLeadEvent, leadsOverview } from './lib/leads.js';
 import { validateSignup, validateLead } from './public/shared/validate.js';
 import { renderBlogIndex, renderBlogPost, renderNotFound, renderSitemap, renderFeed, renderLlms, renderLlmsFull, renderAbout } from './lib/blog.js';
-import { announceNewPosts, postNewToTelegram } from './lib/novos-posts.js';
+import { announceNewPosts, shareNewPosts } from './lib/novos-posts.js';
 
 const PUBLIC_DIR = fileURLToPath(new URL('./public/', import.meta.url));
 const TYPES = {
@@ -361,9 +361,9 @@ if (keepAliveUrl) {
   setInterval(() => fetch(new URL('/healthz', keepAliveUrl)).catch(() => {}), 10 * 60 * 1000).unref();
 }
 
-// Depois de cada deploy (só no Render): IndexNow dos posts novos/atualizados e post novo no canal do Telegram.
+// Depois de cada deploy (só no Render): IndexNow dos posts novos/atualizados e post novo no Telegram e no Bluesky.
 // Espera 1 min para o endereço público já responder com a versão nova.
 if (process.env.RENDER) {
   setTimeout(() => announceNewPosts().catch((err) => console.warn(`[novos-posts] ${err.message}`)), 60_000).unref();
-  setInterval(() => postNewToTelegram().catch((err) => console.warn(`[novos-posts] ${err.message}`)), 30 * 60_000).unref();
+  setInterval(() => shareNewPosts().catch((err) => console.warn(`[novos-posts] ${err.message}`)), 30 * 60_000).unref();
 }
