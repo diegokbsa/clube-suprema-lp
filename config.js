@@ -34,6 +34,8 @@ export const config = {
     responsibleGaming: 'https://supremapoker.com.br/jogo-consciente',
     // Canal do clube no Telegram: novos posts do blog entram sozinhos (.github/workflows/novos-posts.yml).
     telegram: 'https://t.me/clubsupremapokerxx',
+    // Perfil do clube no Bluesky: os posts novos também entram sozinhos (lib/novos-posts.js, com BLUESKY_APP_PASSWORD).
+    bluesky: 'https://bsky.app/profile/supremapoker.bsky.social',
   },
 
   tracking: {

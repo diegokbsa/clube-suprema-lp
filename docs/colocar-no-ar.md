@@ -74,11 +74,11 @@ Atenção: o Brave bloqueia os envios do Analytics por padrão; teste em outro n
 - O resultado de cada envio fica na aba **Telegram** da planilha, coluna **Situação**: "enviado" ou "falhou: <motivo do Telegram>". Post que falhou é tentado de novo a cada 30 min e a cada deploy. "bot is not a member of the channel chat" = o bot ainda não é administrador do canal. Os erros também aparecem nos logs do Render como `[novos-posts]`.
 - O link do canal fica no rodapé da LP e do blog, no convite do fim de cada post e no e-mail de boas-vindas.
 
-### Perfil no Bluesky
+### Perfil no Bluesky (bsky.app/profile/supremapoker.bsky.social, "Clube Suprema · Suprema Poker ID 10001")
 
 - Post novo do blog vai sozinho para o perfil, junto com o Telegram (1 min depois do deploy e a cada 30 min): título, resumo, "18+ · Jogue com responsabilidade." e o cartão do link com a capa (link com `utm_source=bluesky`), em português e com as tags poker, supremapoker e pokeronline. Vale para posts com data nos últimos 3 dias.
 - Não usa planilha: antes de postar, o servidor lê os últimos 50 posts do próprio perfil e pula o post do blog cujo link já está lá. Por isso, não apague do perfil um post que ainda está na janela de 3 dias, senão ele volta.
-- Para ligar (uma vez): criar a conta em bsky.app → Configurações → Privacidade e segurança → Senhas de app → Adicionar senha de app → copiar. No Render: Environment → `BLUESKY_HANDLE` = usuário (ex.: `clubesuprema.bsky.social`) e `BLUESKY_APP_PASSWORD` = a senha de app → Save (faz um deploy). Não use a senha da conta.
+- Para ligar (uma vez): criar a conta em bsky.app → Configurações → Privacidade e segurança → Senhas de app → Adicionar senha de app → copiar. No Render: Environment → `BLUESKY_APP_PASSWORD` = a senha de app → Save (faz um deploy). Não use a senha da conta. O usuário vem de `config.links.bluesky`; `BLUESKY_HANDLE` só é preciso para usar outra conta.
 - Erros aparecem nos logs do Render como `[novos-posts] Bluesky:`. Um erro no Bluesky não impede o Telegram, e vice-versa.
 
 ### Search Console
