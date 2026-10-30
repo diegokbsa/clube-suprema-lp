@@ -48,6 +48,7 @@ function doPost(e) {
     const d = JSON.parse((e && e.postData && e.postData.contents) || '{}');
     if (d.tipo === 'evento') return saida_(anotaEvento_(d));
     if (d.tipo === 'telegram') return saida_(marcaPostTelegram_(d));
+    if (d.tipo === 'telegram-resultado') return saida_(resultadoTelegram_(d));
     const email = String(d.email || '').trim().toLowerCase();
     if (email.length > 254 || !/^[^\s@]{1,64}@[^\s@]+\.[^\s@]{2,}$/.test(email)) return saida_({ ok: false, erro: 'email' });
     const aba = aba_();
@@ -101,22 +102,52 @@ function anotaEvento_(d) {
   return { ok: true };
 }
 
-// Posts já mandados ao canal do Telegram pelo site (lib/novos-posts.js): novo = true só na 1ª vez de cada post.
-function marcaPostTelegram_(d) {
-  const slug = String(d.slug || '');
-  if (!/^[a-z0-9-]{3,120}$/.test(slug)) return { ok: false, erro: 'slug' };
+// Posts do blog mandados ao canal do Telegram pelo site (lib/novos-posts.js), um por linha.
+// O site pede a vez (tipo telegram): novo = true se o post ainda não foi confirmado como "enviado".
+// Depois do envio ele manda o resultado (tipo telegram-resultado): "enviado" ou "falhou: <motivo do Telegram>".
+// Post que falhou é tentado de novo no próximo deploy.
+function abaTelegram_() {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
   let aba = ss.getSheetByName('Telegram');
   if (!aba) {
     aba = ss.insertSheet('Telegram');
     aba.appendRow(['Data/hora', 'Post enviado ao canal']);
-    aba.getRange(1, 1, 1, 2).setFontWeight('bold').setBackground('#000000').setFontColor('#ffa51f');
     aba.setFrozenRows(1);
   }
+  if (aba.getRange(1, 3).getValue() !== 'Situação') {
+    aba.getRange(1, 1, 1, 3).setValues([['Data/hora', 'Post enviado ao canal', 'Situação']])
+      .setFontWeight('bold').setBackground('#000000').setFontColor('#ffa51f');
+  }
+  return aba;
+}
+
+function linhaTelegram_(aba, slug) {
   const n = aba.getLastRow();
-  const ja = n > 1 && aba.getRange(2, 2, n - 1, 1).getValues().some((r) => r[0] === slug);
-  if (!ja) aba.appendRow([new Date(), slug]);
-  return { ok: true, novo: !ja };
+  if (n < 2) return 0;
+  const slugs = aba.getRange(2, 2, n - 1, 1).getValues();
+  for (let i = 0; i < slugs.length; i++) if (slugs[i][0] === slug) return i + 2;
+  return 0;
+}
+
+function marcaPostTelegram_(d) {
+  const slug = String(d.slug || '');
+  if (!/^[a-z0-9-]{3,120}$/.test(slug)) return { ok: false, erro: 'slug' };
+  const aba = abaTelegram_();
+  const linha = linhaTelegram_(aba, slug);
+  if (linha && String(aba.getRange(linha, 3).getValue()) === 'enviado') return { ok: true, novo: false };
+  if (linha) aba.getRange(linha, 1, 1, 3).setValues([[new Date(), slug, 'enviando']]);
+  else aba.appendRow([new Date(), slug, 'enviando']);
+  return { ok: true, novo: true };
+}
+
+function resultadoTelegram_(d) {
+  const slug = String(d.slug || '');
+  if (!/^[a-z0-9-]{3,120}$/.test(slug)) return { ok: false, erro: 'slug' };
+  const aba = abaTelegram_();
+  const linha = linhaTelegram_(aba, slug);
+  if (!linha) return { ok: true, semPost: true };
+  aba.getRange(linha, 1, 1, 3).setValues([[new Date(), slug, d.ok === true ? 'enviado' : limpa_('falhou: ' + String(d.erro || '?'))]]);
+  return { ok: true };
 }
 
 function aba_() {
