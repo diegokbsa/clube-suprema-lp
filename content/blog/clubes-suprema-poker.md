@@ -51,7 +51,7 @@ O ID do clube é o "endereço" dele dentro do app. Muitos clubes pedem também o
 | ID do agente | ligar a sua conta ao agente que te atende | 1439098 |
 | ID do jogador | identificar você na compra de fichas e no suporte | aparece no seu perfil no app |
 
-Quem te convida informa os números. Você também pode receber um **link de convite**, que abre o app com os IDs já preenchidos.
+Quem te convida informa os números. Você também pode receber um **link de convite**, que abre o app com os IDs já preenchidos. Quando alguém fala em "código promocional" ou "código de convite" do Suprema Poker, quase sempre são esses números: veja [o que é o código do clube e do agente](/blog/codigo-suprema-poker-clube-agente).
 
 :::dica Procurando o ID de um clube famoso?
 As séries oficiais da plataforma, como a Suprema Poker Series, costumam rodar dentro de um clube específico. Na [5ª edição](https://bnldata.com.br/suprema-poker-series-no-h2poker-tera-r-50-milhoes-garantidos-em-premiacao/), por exemplo, era preciso abrir a aba de clubes e escolher o H2 Club. Confirme o ID no app ou nos canais oficiais do clube. Evite IDs tirados de grupos e comentários.

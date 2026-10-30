@@ -359,6 +359,83 @@ def illus_fichas24(img):
     pill(img, "PIX no seu CPF", 1065, 535, font(16, 700))
 
 
+def illus_codigo(img):
+    """Cupom com o 'código' do clube: ID do clube 10001 e ID do agente 1439098, com picote e canhoto do convite."""
+    x0, y0, x1, y1 = 745, 150, 1135, 400
+    perf = 1012  # linha do picote
+
+    def body(d):
+        d.rounded_rectangle((x0 + 6, y0 + 10, x1 + 6, y1 + 10), radius=24, fill=(0, 0, 0, 130))
+        d.rounded_rectangle((x0, y0, x1, y1), radius=24, fill=(26, 26, 29, 255), outline=GOLD, width=2)
+    img.alpha_composite(overlay(Image.new("RGBA", img.size, (0, 0, 0, 0)), body))
+    d = ImageDraw.Draw(img)
+    # recortes do picote (meia-lua em cima e embaixo) e linha tracejada
+    r = 17
+    d.ellipse((perf - r, y0 - r, perf + r, y0 + r), fill=(0, 0, 0))
+    d.arc((perf - r, y0 - r, perf + r, y0 + r), start=0, end=180, fill=GOLD, width=2)
+    d.ellipse((perf - r, y1 - r, perf + r, y1 + r), fill=(0, 0, 0))
+    d.arc((perf - r, y1 - r, perf + r, y1 + r), start=180, end=360, fill=GOLD, width=2)
+    for yy in range(y0 + 28, y1 - 28, 16):
+        d.line((perf, yy, perf, yy + 8), fill=GOLD_DARK, width=2)
+    # lado do código
+    d.text((x0 + 28, y0 + 26), "CÓDIGO DO CLUBE", font=font(16, 700), fill=GOLD)
+    d.text((x0 + 28, y0 + 58), "ID do clube", font=font(15, 500), fill=MUTED)
+    d.text((x0 + 28, y0 + 80), "10001", font=font(58, 800), fill=WHITE)
+    d.text((x0 + 28, y0 + 158), "ID do agente", font=font(15, 500), fill=MUTED)
+    d.text((x0 + 28, y0 + 180), "1439098", font=font(38, 800), fill=GOLD)
+    # canhoto com o logo
+    cx = (perf + x1) // 2
+    logo_box(img, cx - 32, (y0 + y1) // 2 - 50, 64)
+    d = ImageDraw.Draw(img)
+    d.text((cx, (y0 + y1) // 2 + 34), "CONVITE", font=font(13, 800), fill=GOLD, anchor="mm")
+    # selo "#"
+    bx, by, br = x1 - 6, y0 + 4, 38
+    d.ellipse((bx - br, by - br, bx + br, by + br), fill=GOLD)
+    d.text((bx, by + 2), "#", font=font(42, 900), fill=INK, anchor="mm")
+    pill(img, "Código = ID do clube + agente", 940, 470, font(16, 700))
+
+
+def illus_id_jogador(img):
+    """Cartão de perfil com o campo 'ID do jogador' em destaque e, embaixo, as três etiquetas: seu ID, clube e agente."""
+    x0, y0, x1, y1 = 750, 120, 1130, 390
+
+    def body(d):
+        d.rounded_rectangle((x0 + 6, y0 + 10, x1 + 6, y1 + 10), radius=26, fill=(0, 0, 0, 130))
+        d.rounded_rectangle((x0, y0, x1, y1), radius=26, fill=(26, 26, 29, 255), outline=(90, 90, 96), width=2)
+    img.alpha_composite(overlay(Image.new("RGBA", img.size, (0, 0, 0, 0)), body))
+    d = ImageDraw.Draw(img)
+    # avatar
+    ax, ay, ar = x0 + 66, y0 + 70, 40
+    d.ellipse((ax - ar, ay - ar, ax + ar, ay + ar), fill=(48, 48, 54), outline=GOLD, width=3)
+    d.ellipse((ax - 13, ay - 24, ax + 13, ay + 2), fill=MUTED)
+    d.pieslice((ax - 25, ay + 6, ax + 25, ay + 50), start=180, end=360, fill=MUTED)
+    d.text((x0 + 124, y0 + 42), "PERFIL", font=font(15, 700), fill=GOLD)
+    d.text((x0 + 124, y0 + 66), "Seu apelido", font=font(24, 800), fill=WHITE)
+    logo_box(img, x1 - 78, y0 + 22, 52)
+    d = ImageDraw.Draw(img)
+    # campo do ID em destaque
+    fx0, fy0, fx1, fy1 = x0 + 24, y0 + 140, x1 - 24, y0 + 236
+    d.rounded_rectangle((fx0, fy0, fx1, fy1), radius=18, fill=(14, 10, 5), outline=GOLD, width=3)
+    d.text((fx0 + 22, fy0 + 14), "ID do jogador", font=font(16, 600), fill=MUTED)
+    d.text((fx0 + 22, fy0 + 40), "• • • • • • •", font=font(36, 800), fill=WHITE)
+    # ícone de copiar
+    cx, cy = fx1 - 46, (fy0 + fy1) // 2
+    d.rounded_rectangle((cx - 8, cy - 18, cx + 16, cy + 8), radius=5, outline=GOLD, width=3)
+    d.rounded_rectangle((cx - 16, cy - 8, cx + 8, cy + 18), radius=5, fill=(14, 10, 5), outline=GOLD, width=3)
+    # etiquetas: seu ID (destaque), clube e agente
+    f = font(15, 700)
+    labels = ["Seu ID", "Clube 10001", "Agente 1439098"]
+    pad, gap = 18, 12
+    widths = [d.textlength(t, font=f) + 2 * pad for t in labels]
+    x = 940 - (sum(widths) + gap * (len(labels) - 1)) / 2
+    for i, (t, w) in enumerate(zip(labels, widths)):
+        if i == 0:
+            pill(img, t, x + w / 2, 450, f, fill=GOLD + (255,), outline=GOLD, color=INK)
+        else:
+            pill(img, t, x + w / 2, 450, f)
+        x += w + gap
+
+
 def illus_torneios(img):
     cards = [("A", "\u2660", -22, (780, 185)), ("K", "\u2665", -4, (860, 160)), ("Q", "\u2666", 16, (948, 170))]
     for rank, suit, ang, pos in cards:
@@ -426,6 +503,8 @@ ILLUS = {
     "app-suprema-poker-nao-abre": illus_naoabre,
     "como-sair-do-clube-suprema-poker": illus_sair,
     "fichas-24-horas-suprema-poker-pix": illus_fichas24,
+    "codigo-suprema-poker-clube-agente": illus_codigo,
+    "id-do-jogador-suprema-poker": illus_id_jogador,
     "og": illus_og,
 }
 
@@ -482,6 +561,8 @@ posts = [
     ("perguntas-frequentes-suporte", "Suporte 24h", "Perguntas frequentes do suporte: fichas, PIX, saque e login", "As respostas mais pedidas no WhatsApp, em um lugar só", "FAQ"),
     ("como-sair-do-clube-suprema-poker", "Guia · Clubes", "Como sair do clube no Suprema Poker", "Saque o saldo antes, onde fica a opção, quem remove e como entrar no clube 10001", "Passo a passo"),
     ("fichas-24-horas-suprema-poker-pix", "Guia · Fichas", "Fichas 24 Horas: como comprar fichas do Suprema Poker por PIX", "Conta, ID da Suprema, verificação, QR Code no seu CPF e saque", "Guia completo"),
+    ("codigo-suprema-poker-clube-agente", "Guia · Clube", "Código promocional do Suprema Poker existe?", "O código é o ID do clube e do agente: como usar o 10001 e o 1439098 sem cair em golpe", "Clube 10001"),
+    ("id-do-jogador-suprema-poker", "Guia · App", "ID do jogador no Suprema Poker: onde encontrar", "Para que serve no Fichas 24h, no clube e no suporte, e a diferença para o ID do clube e do agente", "Passo a passo"),
 ]
 ONLY = os.environ.get("ONLY")
 for slug, eyebrow, title, subtitle, badge in posts:

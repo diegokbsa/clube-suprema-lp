@@ -69,7 +69,7 @@ Agora você liga o Fichas 24h à sua conta no app. Na área de contas, em **Cada
 | ID Player | o seu ID da Suprema, que está no seu perfil no app |
 | Apelido da conta | um nome para você reconhecer, como "Minha conta principal" |
 
-Se aparecer **ID do jogador inválido**, confira o número no seu perfil: é o ID numérico da conta, não o apelido. No Clube Suprema, se o suporte pedir, informe também o agente **1439098**.
+Se aparecer **ID do jogador inválido**, confira o número no seu perfil: é o ID numérico da conta, não o apelido. No Clube Suprema, se o suporte pedir, informe também o agente **1439098**. Onde achar esse número e como ele difere do ID do clube e do agente está em [ID do jogador no Suprema Poker](/blog/id-do-jogador-suprema-poker).
 
 <!-- CAPTURA SUGERIDA: formulário Adicionar Conta do Fichas 24h com Plataforma, Clube, ID Player e Apelido da conta (arquivo /img/blog/fichas-24-horas-suprema-poker-pix/cadastrar-id.webp, alt "Cadastro do ID da Suprema no Fichas 24h") -->
 
