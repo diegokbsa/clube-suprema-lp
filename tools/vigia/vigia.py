@@ -60,6 +60,22 @@ def main():
         except Exception as err:  # noqa: BLE001
             pend.append(f"site {caminho}: fora do ar ({err})")
 
+    # robô do Telegram dos grupos (lib/telegram-bot.js): ligado e lendo mensagens nos últimos 10 min
+    try:
+        robo = json.loads(baixa(SITE + "/api/robo")[1])
+        leitura = robo.get("ultimaLeitura")
+        atraso = (agora - dt.datetime.fromisoformat(leitura.replace("Z", "+00:00"))).total_seconds() / 60 if leitura else None
+        if not robo.get("ativo"):
+            pend.append("robô do Telegram: desligado (sem TELEGRAM_BOT_TOKEN ou getMe falhou)")
+        elif atraso is None or atraso > 10:
+            pend.append(f"robô do Telegram {robo.get('robo')}: não lê mensagens há {'?' if atraso is None else round(atraso)} min")
+        elif robo.get("entraEmGrupos") is False:
+            pend.append(f"robô do Telegram {robo.get('robo')}: não pode entrar em grupos (@BotFather → /setjoingroups → Enable)")
+        else:
+            ok.append(f"robô do Telegram {robo.get('robo')}: lendo mensagens")
+    except Exception as err:  # noqa: BLE001
+        pend.append(f"robô do Telegram: não consegui ler /api/robo ({err})")
+
     # posts do blog de hoje e pauta
     posts = []
     for f in sorted((ROOT / "content" / "blog").glob("*.md")):

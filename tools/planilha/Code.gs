@@ -3,8 +3,9 @@
  *
  * Planilha "Cadastros · Clube Suprema": recebe uma cópia de cada cadastro do suprema.blog,
  * manda o e-mail de boas-vindas e a sequência de 7 e-mails (1 por dia), anota os passos de cada lead (baixou o app,
- * comprou fichas, chamou o suporte), guarda na aba "Telegram" os posts que o site já mandou ao canal e na aba "Posts"
- * os posts novos do blog, que saem no e-mail semanal de novidades (enviarNovidades).
+ * comprou fichas, chamou o suporte), guarda na aba "Telegram" os posts que o site já mandou ao canal, na aba "Posts"
+ * os posts novos do blog, que saem no e-mail semanal de novidades (enviarNovidades), e na aba "Grupos" os grupos do
+ * Telegram que recebem a grade de torneios das 9h pelo robô do site.
  *
  * Como instalar (uma vez): na planilha, Extensões → Apps Script, colar este arquivo e o appsscript.json
  * (Configurações do projeto → "Mostrar o arquivo de manifesto"), salvar,
@@ -51,6 +52,9 @@ function doPost(e) {
     if (d.tipo === 'telegram') return saida_(marcaPostTelegram_(d));
     if (d.tipo === 'telegram-resultado') return saida_(resultadoTelegram_(d));
     if (d.tipo === 'post') return saida_(registraPost_(d));
+    if (d.tipo === 'grupo') return saida_(registraGrupo_(d));
+    if (d.tipo === 'grupos-grade') return saida_(gruposParaGrade_(d));
+    if (d.tipo === 'grupo-grade') return saida_(resultadoGrupo_(d));
     const email = String(d.email || '').trim().toLowerCase();
     if (email.length > 254 || !/^[^\s@]{1,64}@[^\s@]+\.[^\s@]{2,}$/.test(email)) return saida_({ ok: false, erro: 'email' });
     const aba = aba_();
@@ -175,6 +179,87 @@ function registraPost_(d) {
   const capa = /^\/img\/[\w\/.-]+$/.test(String(d.capa || '')) ? SITE + d.capa : '';
   aba.appendRow([new Date(), limpa_(d.data), slug, limpa_(d.titulo), limpa_(String(d.resumo || '').slice(0, 300)), capa]);
   return { ok: true, novo: true };
+}
+
+// Grupos do Telegram em que o robô do site está (lib/telegram-bot.js), um por linha pelo Chat ID.
+// Situação: ativo (recebe a grade das 9h), pausado (o admin mandou /pausar), saiu (tiraram o robô) ou migrou (o grupo
+// virou supergrupo e ganhou outro ID). Última grade: o dia da última grade enviada, "enviando <dia>" ou "falhou: <motivo>".
+const CABECALHO_GRUPOS = ['Desde', 'Chat ID', 'Grupo', 'Tipo', 'Situação', 'Última grade', 'Atualizado em'];
+const SITUACOES_GRUPO = ['ativo', 'pausado', 'saiu', 'migrou'];
+const idGrupo_ = (v) => (/^-\d{5,20}$/.test(String(v || '')) ? String(v) : '');
+const diaValido_ = (v) => /^\d{4}-\d{2}-\d{2}$/.test(String(v || ''));
+
+function abaGrupos_() {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  let aba = ss.getSheetByName('Grupos');
+  if (!aba) {
+    aba = ss.insertSheet('Grupos');
+    aba.appendRow(CABECALHO_GRUPOS);
+    aba.setFrozenRows(1);
+    aba.getRange(1, 1, 1, CABECALHO_GRUPOS.length).setFontWeight('bold').setBackground('#000000').setFontColor('#ffa51f');
+  }
+  return aba;
+}
+
+function linhaGrupo_(aba, id) {
+  const n = aba.getLastRow();
+  if (n < 2) return 0;
+  const ids = aba.getRange(2, 2, n - 1, 1).getValues();
+  for (let i = 0; i < ids.length; i++) if (String(ids[i][0]) === id) return i + 2;
+  return 0;
+}
+
+// O robô entrou, saiu, foi pausado ou reativado. O dia vai com apóstrofo para a planilha não virar data.
+function registraGrupo_(d) {
+  const id = idGrupo_(d.id);
+  const situacao = String(d.situacao || '');
+  if (!id || SITUACOES_GRUPO.indexOf(situacao) < 0) return { ok: false, erro: 'grupo' };
+  const ultima = diaValido_(d.ultima) ? "'" + d.ultima : '';
+  const aba = abaGrupos_();
+  const linha = linhaGrupo_(aba, id);
+  const agora = new Date();
+  if (!linha) {
+    aba.appendRow([agora, limpa_(id), limpa_(d.titulo), limpa_(d.tipoChat), situacao, ultima, agora]);
+    return { ok: true, novo: true };
+  }
+  if (d.titulo) aba.getRange(linha, 3).setValue(limpa_(d.titulo));
+  aba.getRange(linha, 5).setValue(situacao);
+  if (ultima) aba.getRange(linha, 6).setValue(ultima);
+  aba.getRange(linha, 7).setValue(agora);
+  return { ok: true, novo: false };
+}
+
+// A partir das 9h o site pede os grupos ativos que ainda não receberam a grade do dia, e eles ficam "enviando <dia>".
+// Um envio interrompido há mais de 20 min (deploy no meio) volta para a fila.
+function gruposParaGrade_(d) {
+  const dia = String(d.dia || '');
+  if (!diaValido_(dia)) return { ok: false, erro: 'dia' };
+  const aba = abaGrupos_();
+  const n = aba.getLastRow();
+  if (n < 2) return { ok: true, grupos: [] };
+  const linhas = aba.getRange(2, 1, n - 1, CABECALHO_GRUPOS.length).getValues();
+  const agora = new Date();
+  const grupos = [];
+  linhas.forEach((l, i) => {
+    const ultima = String(l[5]);
+    const enviando = ultima === 'enviando ' + dia && agora - new Date(l[6]) < 20 * 60000;
+    if (l[4] !== 'ativo' || ultima === dia || enviando) return;
+    grupos.push({ id: String(l[1]), titulo: String(l[2]) });
+    aba.getRange(i + 2, 6, 1, 2).setValues([['enviando ' + dia, agora]]);
+  });
+  return { ok: true, grupos: grupos };
+}
+
+// Resultado de cada envio: o dia, ou "falhou: <motivo>" (tentado de novo na próxima rodada). sair = o robô não está mais lá.
+function resultadoGrupo_(d) {
+  const id = idGrupo_(d.id);
+  if (!id || !diaValido_(d.dia)) return { ok: false, erro: 'grupo' };
+  const aba = abaGrupos_();
+  const linha = linhaGrupo_(aba, id);
+  if (!linha) return { ok: true, semGrupo: true };
+  aba.getRange(linha, 6, 1, 2).setValues([[d.ok === true ? "'" + d.dia : limpa_('falhou: ' + String(d.erro || '?')), new Date()]]);
+  if (d.sair === true) aba.getRange(linha, 5).setValue('saiu');
+  return { ok: true };
 }
 
 function aba_() {

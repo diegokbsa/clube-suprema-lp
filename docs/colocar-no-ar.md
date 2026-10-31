@@ -75,6 +75,16 @@ Atenção: o Brave bloqueia os envios do Analytics por padrão; teste em outro n
 - O resultado de cada envio fica na aba **Telegram** da planilha, coluna **Situação**: "enviado" ou "falhou: <motivo do Telegram>". Post que falhou é tentado de novo a cada 30 min e a cada deploy. "bot is not a member of the channel chat" = o bot ainda não é administrador do canal. Os erros também aparecem nos logs do Render como `[novos-posts]`.
 - O link do canal fica no rodapé da LP e do blog, no convite do fim de cada post e no e-mail de boas-vindas.
 
+### Robô do Telegram nos grupos (lib/telegram-bot.js, desde 31/10/2026)
+
+- O mesmo bot do canal responde a mensagens (long polling, só no Render): `/torneios` (os maiores do dia que ainda vão começar, com o link da grade), `/clube` (ID, agente, os 3 passos e o suporte) e `/ajuda`. No privado, qualquer mensagem recebe a ajuda, com o botão "Receber no meu grupo" (`t.me/<bot>?startgroup=grade`).
+- Qualquer grupo que adicionar o robô recebe a grade todo dia a partir das 9h, junto com o canal e o Bluesky (`shareDailyGrade`). Quem adiciona depois das 9h já recebe a do dia. O admin do grupo pausa com `/pausar` e volta com `/ativar`. A grade do canal leva a linha "Quer esta grade no seu grupo todo dia?" com o link de adicionar.
+- Os grupos ficam na aba **Grupos** da planilha (Apps Script v8): Situação = ativo, pausado, saiu ou migrou; Última grade = dia enviado, "enviando <dia>" ou "falhou: <motivo>". Grupo que tirou o robô vira "saiu" sozinho.
+- Os links levam `utm_source=telegram` com `utm_medium=grupo` (grupos) ou `bot` (privado), e `utm_campaign=torneios` ou `clube`.
+- Na 1ª vez que liga, o servidor registra os comandos no Telegram e põe a descrição do robô (só se estiver vazia no @BotFather).
+- `GET /api/robo` mostra se ele está lendo mensagens (o vigia das 22h confere). Se "entraEmGrupos" for false: @BotFather → `/setjoingroups` → Enable.
+- Para divulgar: cadastrar o robô e o canal no TGStat e no Telemetrio (login pelo Telegram, é o dono que faz).
+
 ### Perfil no Bluesky (bsky.app/profile/supremapoker.bsky.social, "Clube Suprema · Suprema Poker ID 10001")
 
 - Post novo do blog vai sozinho para o perfil, junto com o Telegram (1 min depois do deploy e a cada 30 min): título, resumo, "18+ · Jogue com responsabilidade." e o cartão do link com a capa (link com `utm_source=bluesky`), em português e com as tags poker, supremapoker e pokeronline. Vale para posts com data nos últimos 3 dias.

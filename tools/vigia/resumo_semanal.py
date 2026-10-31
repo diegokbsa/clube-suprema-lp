@@ -127,6 +127,7 @@ def main():
     except Exception as err:  # noqa: BLE001
         linhas += ["## Bluesky", f"- não consegui ler o perfil ({err})"]
     linhas += ["", "## Cadastros (planilha)", "- (preenchido pela tarefa com os dados da planilha)", "",
+               "## Grupos do Telegram com o robô (aba Grupos da planilha)", "- (preenchido pela tarefa: ativos, pausados, entraram e saíram na semana)", "",
                "## Instagram", "- Visualizações: Insights do app (@supremaclub)", "", "## Conclusões", "- (preenchido pela tarefa)", ""]
 
     texto = "\n".join(linhas)

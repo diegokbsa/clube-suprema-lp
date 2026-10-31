@@ -12,6 +12,7 @@ import { validateSignup, validateLead } from './public/shared/validate.js';
 import { renderBlogIndex, renderBlogPost, renderNotFound, renderSitemap, renderFeed, renderLlms, renderLlmsFull, renderAbout, renderTorneios, renderTorneiosTxt } from './lib/blog.js';
 import { getGrade } from './lib/torneios.js';
 import { announceNewPosts, shareNewPosts, shareDailyGrade } from './lib/novos-posts.js';
+import { startBot, botStatus } from './lib/telegram-bot.js';
 
 const PUBLIC_DIR = fileURLToPath(new URL('./public/', import.meta.url));
 const TYPES = {
@@ -111,6 +112,7 @@ const publicConfig = () => ({
 
 const routes = [
   ['GET', /^\/api\/config$/, () => publicConfig()],
+  ['GET', /^\/api\/robo$/, () => botStatus()],
 
   ['POST', /^\/api\/lead$/, async ({ req }) => {
     rateLimit(req, 'lead', 10);
@@ -380,4 +382,6 @@ if (process.env.RENDER) {
   // Grade de torneios: a partir das 9h, 1 vez por dia (IndexNow, Telegram e Bluesky). Confere a cada 10 min.
   setTimeout(() => shareDailyGrade().catch((err) => console.warn(`[novos-posts] grade: ${err.message}`)), 90_000).unref();
   setInterval(() => shareDailyGrade().catch((err) => console.warn(`[novos-posts] grade: ${err.message}`)), 10 * 60_000).unref();
+  // Robô dos grupos: /torneios, /clube e a grade das 9h em quem adicionar (lib/telegram-bot.js).
+  startBot();
 }
