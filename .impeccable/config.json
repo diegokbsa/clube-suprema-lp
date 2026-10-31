@@ -1,0 +1,41 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "overused-font",
+        "value": "montserrat",
+        "createdAt": "2026-10-31T19:32:49.473Z",
+        "reason": "Agente: Montserrat é a fonte da identidade Suprema usada no site, nos e-mails e nas peças (tools/imagens)"
+      },
+      {
+        "rule": "buried-raster",
+        "value": "*",
+        "files": [
+          "public/index.html"
+        ],
+        "createdAt": "2026-10-31T19:32:49.676Z",
+        "reason": "Agente: a tela da mesa (.phone-mesa) começa invisível e aparece em 1,8 s na troca animada com a tela de abertura; no modo sem movimento ela já aparece"
+      },
+      {
+        "rule": "pulsing-dot",
+        "value": "*",
+        "files": [
+          "public/index.html"
+        ],
+        "createdAt": "2026-10-31T19:33:35.863Z",
+        "reason": "Agente: só sobrou o ponto do status do PIX (.dot), que pisca enquanto o pagamento está pendente e o app consulta o status; pago ou expirado, ele para"
+      },
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          "public/index.html"
+        ],
+        "createdAt": "2026-10-31T19:33:36.115Z",
+        "reason": "Agente: só sobrou o rolo do Spin (.m-reel-window); cada número ocupa a janela inteira de propósito, centrado, com 13 px de folga em cima e embaixo sob o degradê"
+      }
+    ]
+  }
+}
