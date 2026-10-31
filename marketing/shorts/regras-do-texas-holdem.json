@@ -1,0 +1,16 @@
+{
+  "id": "regras-do-texas-holdem",
+  "tipo": "Regras do poker",
+  "titulo": "Regras do Texas Hold'em em 50 segundos: blinds, apostas e showdown #shorts",
+  "descricao": "Como funciona uma mão de Texas Hold'em: blinds, as quatro rodadas de aposta e o showdown. No próximo vídeo: check, call, raise e fold.\n\n18+ · Jogue com responsabilidade.\n\n#poker #pokeronline #texasholdem #supremapoker",
+  "post": "regras-do-texas-holdem",
+  "cenas": [
+    { "tela": "Aprenda **Texas Hold'em** em 50 segundos", "fala": "Aprenda as regras do Texas Hold'em em cinquenta segundos.", "imagem": "public/img/app-mesa.webp" },
+    { "passo": 1, "tela": "**Small** e **big blind** pagam antes das cartas", "fala": "Antes das cartas, os dois jogadores à esquerda do botão pagam o small e o big blind." },
+    { "passo": 2, "tela": "**2 cartas** na mão e começa o **pré-flop**", "fala": "Cada um recebe duas cartas fechadas, e começa a primeira rodada de apostas, o pré-flop." },
+    { "passo": 3, "tela": "**Flop**, **turn** e **river**: 5 cartas na mesa", "fala": "Depois a mesa abre três cartas no flop, uma no turn e uma no river, com apostas em cada fase." },
+    { "passo": 4, "tela": "No **showdown** vence a melhor mão de **5 cartas**", "fala": "Quem sobrar mostra as cartas, e vence a melhor mão de cinco cartas entre as sete." },
+    { "tela": "Todos desistiram? Você leva **sem mostrar**", "fala": "E se todos desistirem antes, você leva o pote sem mostrar as cartas." },
+    { "tela": "No próximo: **check, call, raise e fold**. Segue o canal!", "fala": "No próximo vídeo, check, call, raise e fold: o que cada ação faz. Segue o canal!", "imagem": "public/img/app-mesa.webp" }
+  ]
+}
