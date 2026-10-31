@@ -1,20 +1,28 @@
 """Vídeo curto em pé (1080x1920, Shorts/Reels) a partir de um roteiro em JSON, no visual do site (preto e dourado).
 
-Cada cena vira uma tela com o texto grande (trechos entre **asteriscos** em dourado), uma imagem opcional embaixo
-e a narração da cena com voz neural pt-BR (edge-tts, a mesma do forge; reserva: voz do Windows). A tela fica o tempo da fala + uma pausa curta,
-com um zoom lento. No topo, a barra de progresso das cenas; no rodapé, "18+ · Jogue com responsabilidade."
+Cada cena tem o texto grande (trechos entre **asteriscos** em dourado), uma imagem opcional embaixo e a narração da
+cena com voz neural pt-BR (edge-tts, a mesma do forge; reserva: voz do Windows). A cena dura o tempo da fala + uma
+pausa curta. No topo, a barra de progresso das cenas; no rodapé, "18+ · Jogue com responsabilidade."
 O texto fica no terço de cima e no meio: embaixo e à direita o YouTube põe título e botões.
+
+Animado (tools/imagens/motion): palavras entrando uma a uma, horários que rolam como contador, cartões em 3D, feixes de
+luz e naipes ao fundo, troca de cena com faixa de luz e um "whoosh" baixinho. O Chrome sem janela fotografa cada quadro
+(30 por segundo) e o ffmpeg junta com as falas. Se o Chrome ou o Node falharem, sai o modelo parado (uma tela por cena
+com zoom lento), para a automação não ficar sem vídeo. SHORT_ANIMADO=1 liga o animado, SHORT_ANIMADO=0 força o parado.
 
 Roteiro (marketing/shorts/<id>.json):
   {"id": "...", "tipo": "Tutorial", "titulo": "...", "descricao": "...",
    "cenas": [{"tela": "Texto com **destaque**", "fala": "o que a voz diz", "imagem": "public/img/app-mesa.webp"}, ...]}
 "imagem" é opcional (caminho a partir da raiz do projeto). Regras do que pode ir para o YouTube: marketing/videos-curtos.md.
 
-Uso (na raiz do projeto): python tools/imagens/short_post.py marketing/shorts/<id>.json
-Saída: data/shorts/<id>.mp4 (data/ fica fora do git). Precisa do ffmpeg no PATH.
+Uso (na raiz do projeto): python tools/imagens/short_post.py marketing/shorts/<id>.json [pasta de saída]
+Saída: data/shorts/<id>.mp4 (data/ fica fora do git) e a prévia <id>.jpg. Precisa do ffmpeg no PATH (e, para o
+animado, do Node e do Chrome ou Edge).
 """
 import json
+import math
 import os
+import pathlib
 import re
 import shutil
 import subprocess
@@ -41,6 +49,9 @@ VELOCIDADE = "+8%"
 FORGE_PY = os.environ.get("FORGE_PY", r"C:\Users\Administrator\Documents\Codex\2026-10-16\vej\outputs\chile-football-viral-cl\forge\.venv\Scripts\python.exe")
 PAUSA = 0.55       # segundos de tela depois da fala
 MIN_CENA = 2.2
+MOTION = os.path.join(os.path.dirname(os.path.abspath(__file__)), "motion")
+ANIMADO = os.environ.get("SHORT_ANIMADO", "0") == "1"
+EXIT_PREVIA = 0.45  # a prévia (jpg) sai antes da saída da 1ª cena (0,32 s no cena.html)
 
 
 def fonte():
@@ -258,38 +269,95 @@ def segmento(png, wav, dur, mp4):
     ], check=True)
 
 
-def main(spec):
+def video_parado(roteiro, falas, pasta, out, jpg):
+    segs = []
+    for i, (wav, dur) in enumerate(falas):
+        png = os.path.join(pasta, f"c{i}.png")
+        mp4 = os.path.join(pasta, f"c{i}.mp4")
+        tela(roteiro, i).save(png)
+        segmento(png, wav, dur, mp4)
+        segs.append(mp4)
+    lista = os.path.join(pasta, "lista.txt")
+    with open(lista, "w", encoding="utf-8") as fh:
+        fh.write("".join(f"file '{s.replace(os.sep, '/')}'\n" for s in segs))
+    # a voz do SAPI sai baixa: normaliza para o volume de redes (-14 LUFS)
+    subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-f", "concat", "-safe", "0", "-i", lista,
+                    "-c:v", "copy", "-af", "loudnorm=I=-14:TP=-1.5:LRA=11", "-c:a", "aac", "-b:a", "128k", "-ar", "44100",
+                    "-movflags", "+faststart", out], check=True)
+    tela(roteiro, 0).save(jpg, quality=88)  # prévia da 1ª tela
+
+
+def video_animado(roteiro, falas, pasta, out, jpg):
+    """Cenas animadas: o motion/render.mjs fotografa o motion/cena.html quadro a quadro; aqui entram as falas, cada uma
+    no começo da sua cena, e um whoosh baixinho em cada troca de cena."""
+    cenas, ini = [], 0.0
+    for cena, (_, dur) in zip(roteiro["cenas"], falas):
+        c = {k: cena[k] for k in ("tela", "passo", "linhas", "destaque") if k in cena}
+        if cena.get("imagem"):
+            c["imagem"] = pathlib.Path(ROOT, cena["imagem"]).as_uri()
+        c.update(ini=round(ini, 4), dur=round(dur, 4))
+        cenas.append(c)
+        ini += dur
+    timeline = {"fps": FPS, "w": W, "h": H, "frames": math.ceil(ini * FPS), "fonte": pathlib.Path(fonte()).as_uri(),
+                "tipo": roteiro.get("tipo", "Suprema Poker"), "rodape": "18+ · Jogue com responsabilidade.", "cenas": cenas}
+    tl = os.path.join(pasta, "timeline.json")
+    with open(tl, "w", encoding="utf-8") as fh:
+        json.dump(timeline, fh, ensure_ascii=False)
+    mudo = os.path.join(pasta, "animado.mp4")
+    subprocess.run(["node", os.path.join(MOTION, "render.mjs"), tl, mudo], check=True, timeout=3600)
+
+    n = len(falas)
+    entradas, filtros = [], []
+    for i, (wav, dur) in enumerate(falas):
+        entradas += ["-i", wav]
+        filtros.append(f"[{i + 1}:a]aresample=44100,aformat=channel_layouts=mono,apad,atrim=0:{dur:.4f},asetpts=N/SR/TB[f{i}]")
+    filtros.append("".join(f"[f{i}]" for i in range(n)) + f"concat=n={n}:v=0:a=1[voz]")
+    trocas = [c["ini"] for c in cenas[1:]]
+    for k, t in enumerate(trocas):
+        ms = max(0, int((t - 0.3) * 1000))
+        filtros.append(f"anoisesrc=d=0.65:c=pink:r=44100:a=0.5:seed={k + 1},highpass=f=450,lowpass=f=4200,"
+                       f"afade=t=in:d=0.3,afade=t=out:st=0.3:d=0.35,volume=0.6,adelay={ms}:all=1[w{k}]")
+    filtros.append("[voz]" + "".join(f"[w{k}]" for k in range(len(trocas))) +
+                   f"amix=inputs={len(trocas) + 1}:normalize=0:duration=first,loudnorm=I=-14:TP=-1.5:LRA=11[a]")
+    subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", mudo, *entradas, "-filter_complex", ";".join(filtros),
+                    "-map", "0:v", "-map", "[a]", "-c:v", "copy", "-c:a", "aac", "-b:a", "128k", "-ar", "44100",
+                    "-shortest", "-movflags", "+faststart", out], check=True)
+    # prévia: a 1ª cena já montada
+    t = max(0.0, min(1.8, falas[0][1] - EXIT_PREVIA))
+    subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-ss", f"{t:.2f}", "-i", out, "-frames:v", "1", "-q:v", "3", jpg],
+                   check=True)
+
+
+def main(spec, saida=None):
     with open(spec, encoding="utf-8") as fh:
         roteiro = json.load(fh)
     rid = roteiro["id"]
-    out = os.path.join(ROOT, "data", "shorts", f"{rid}.mp4")
-    os.makedirs(os.path.dirname(out), exist_ok=True)
+    saida = saida or os.path.join(ROOT, "data", "shorts")
+    out = os.path.join(saida, f"{rid}.mp4")
+    jpg = os.path.join(saida, f"{rid}.jpg")
+    os.makedirs(saida, exist_ok=True)
     pasta = tempfile.mkdtemp(prefix="short-")
     try:
-        segs, total = [], 0.0
+        falas = []
         for i, cena in enumerate(roteiro["cenas"]):
-            png = os.path.join(pasta, f"c{i}.png")
             wav = os.path.join(pasta, f"c{i}.wav")
-            mp4 = os.path.join(pasta, f"c{i}.mp4")
-            tela(roteiro, i).save(png)
-            dur = max(MIN_CENA, narrar(cena["fala"], wav, pasta, roteiro.get("voz")) + PAUSA)
-            segmento(png, wav, dur, mp4)
-            segs.append(mp4)
-            total += dur
-        lista = os.path.join(pasta, "lista.txt")
-        with open(lista, "w", encoding="utf-8") as fh:
-            fh.write("".join(f"file '{s.replace(os.sep, '/')}'\n" for s in segs))
-        # a voz do SAPI sai baixa: normaliza para o volume de redes (-14 LUFS)
-        subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-f", "concat", "-safe", "0", "-i", lista,
-                        "-c:v", "copy", "-af", "loudnorm=I=-14:TP=-1.5:LRA=11", "-c:a", "aac", "-b:a", "128k", "-ar", "44100",
-                        "-movflags", "+faststart", out], check=True)
-        tela(roteiro, 0).save(os.path.join(ROOT, "data", "shorts", f"{rid}.jpg"), quality=88)  # prévia da 1ª tela
+            falas.append((wav, max(MIN_CENA, narrar(cena["fala"], wav, pasta, roteiro.get("voz")) + PAUSA)))
+        modo = "animado" if ANIMADO else "parado"
+        if ANIMADO:
+            try:
+                video_animado(roteiro, falas, pasta, out, jpg)
+            except (subprocess.SubprocessError, OSError, ValueError) as err:
+                print(f"animação falhou ({err}); usando as telas paradas")
+                modo = "parado"
+        if modo == "parado":
+            video_parado(roteiro, falas, pasta, out, jpg)
     finally:
         shutil.rmtree(pasta, ignore_errors=True)
+    total = sum(d for _, d in falas)
     if total > 59:
         print(f"atenção: {total:.0f} s, passa de 59 s (Shorts antigos aceitam até 60 s)")
-    print("ok", os.path.relpath(out, ROOT), f"{total:.1f} s", os.path.getsize(out) // 1024, "KB")
+    print("ok", modo, os.path.relpath(out, ROOT), f"{total:.1f} s", os.path.getsize(out) // 1024, "KB")
 
 
 if __name__ == "__main__":
-    main(sys.argv[1])
+    main(sys.argv[1], sys.argv[2] if len(sys.argv) > 2 else None)

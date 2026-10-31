@@ -1,0 +1,563 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<!--
+  Cenas animadas dos Shorts/Reels (1080x1920), no visual do clube: preto, dourado, feixes de luz e naipes ao fundo.
+  Cada elemento é uma conta do tempo: seek(n) põe tudo no instante n/fps, sem animação CSS, sem relógio e sem sorteio
+  (as partículas usam semente fixa), então o quadro 42 sai igual toda vez. Quem fotografa os quadros é o render.mjs.
+
+  init(timeline) monta as cenas: tela (texto com **destaques** em dourado), passo, imagem, linhas (grade) ou destaque
+  (um torneio). O texto fica no terço de cima e no meio; embaixo e à direita o YouTube põe título e botões.
+-->
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; background: #050505; }
+  #stage { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; overflow: hidden; color: #fff;
+    font-family: 'Montserrat', sans-serif; -webkit-font-smoothing: antialiased; }
+  .layer { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; }
+  .abs { position: absolute; }
+  #base { background: radial-gradient(ellipse 90% 60% at 50% 42%, #17110a 0%, #0a0806 45%, #040404 100%); }
+  .glow { position: absolute; border-radius: 50%; mix-blend-mode: screen; }
+  .dot { position: absolute; border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,226,160,1) 0%, rgba(239,161,68,.6) 38%, rgba(239,161,68,0) 70%); }
+  .bokeh { position: absolute; border-radius: 50%;
+    background: radial-gradient(circle, rgba(250,208,125,.55) 0%, rgba(239,161,68,.18) 45%, rgba(239,161,68,0) 70%); }
+  #suits { perspective: 1300px; }
+  .suit { position: absolute; left: 0; top: 0; line-height: 1; color: transparent;
+    font-family: 'Segoe UI Symbol', 'Segoe UI Emoji', serif; -webkit-text-stroke: 3px rgba(239,161,68,.7); }
+  #vignette { background: radial-gradient(ellipse 75% 62% at 50% 44%, rgba(0,0,0,0) 55%, rgba(0,0,0,.62) 100%); }
+  #grain { mix-blend-mode: overlay; opacity: .09; }
+  .txt { position: absolute; left: 80px; width: 920px; text-align: center; font-weight: 800; line-height: 1.18;
+    letter-spacing: -.01em; text-shadow: 0 6px 28px rgba(0,0,0,.55); }
+  .w { display: inline-block; white-space: nowrap; transform-origin: 50% 70%; }
+  .g { color: transparent; -webkit-background-clip: text; background-clip: text; text-shadow: none;
+    background-image: linear-gradient(100deg, rgba(255,247,222,0) 42%, rgba(255,247,222,.95) 50%, rgba(255,247,222,0) 58%),
+      linear-gradient(180deg, #fad07d 0%, #efa144 52%, #c97d25 100%);
+    background-size: 300% 100%, 100% 100%; background-repeat: no-repeat; }
+  .under { position: absolute; left: 430px; width: 220px; height: 7px; border-radius: 4px;
+    background: linear-gradient(90deg, rgba(239,161,68,0), #fad07d 50%, rgba(239,161,68,0)); }
+  .seg { position: absolute; top: 96px; height: 8px; border-radius: 4px; background: #46464a; overflow: hidden; }
+  .seg i { position: absolute; inset: 0; border-radius: 4px; background: linear-gradient(90deg, #c97d25, #fad07d);
+    transform-origin: 0 50%; }
+  #tipo { position: absolute; left: 0; top: 152px; width: 1080px; text-align: center; color: #efa144; font-size: 30px;
+    font-weight: 700; text-transform: uppercase; white-space: nowrap; }
+  #rodape { position: absolute; left: 0; top: 1521px; width: 1080px; text-align: center; color: #b9bbbe; font-size: 30px;
+    font-weight: 600; }
+  .badge { position: absolute; left: 488px; top: 238px; width: 104px; height: 104px; border-radius: 50%;
+    background: linear-gradient(180deg, #fad07d 0%, #efa144 55%, #c97d25 100%); color: #1c1408; font-size: 56px;
+    font-weight: 900; display: flex; align-items: center; justify-content: center; }
+  .ring { position: absolute; left: 488px; top: 238px; width: 104px; height: 104px; border-radius: 50%;
+    border: 3px solid #efa144; }
+  /* imagem do app com as bordas esfumadas, sem moldura: o fundo escuro da imagem some no fundo da cena */
+  .card { position: absolute; overflow: hidden;
+    -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 14%, #000 86%, transparent 100%),
+      linear-gradient(180deg, transparent 0%, #000 10%, #000 88%, transparent 100%);
+    -webkit-mask-composite: source-in; mask-composite: intersect; }
+  .card img { display: block; width: 100%; height: 100%; }
+  /* ficha de poker em 3D (cenas só de texto): camadas empilhadas dão a espessura */
+  .chip { position: absolute; left: 390px; top: 1080px; width: 300px; height: 300px; transform-style: preserve-3d; }
+  .chip .lay { position: absolute; inset: 0; border-radius: 50%; background: #7a4c17; }
+  .chip .top { position: absolute; inset: 0; border-radius: 50%;
+    background: radial-gradient(circle, #17110a 0 47%, #c97d25 47.5% 50%, transparent 50.5%),
+      repeating-conic-gradient(#efa144 0deg 15deg, #241a0d 15deg 30deg);
+    box-shadow: inset 0 0 0 9px #c97d25; display: flex; align-items: center; justify-content: center; }
+  .chip .dash { position: absolute; inset: 62px; border-radius: 50%; border: 4px dashed rgba(250,208,125,.75); }
+  .chip .top span { font-family: 'Segoe UI Symbol', serif; font-size: 96px; color: #efa144; line-height: 1; }
+  .shine { position: absolute; left: 0; top: 0; width: 100%; height: 100%;
+    background: linear-gradient(105deg, rgba(255,255,255,0) 38%, rgba(255,240,210,.32) 50%, rgba(255,255,255,0) 62%); }
+  .row { position: absolute; left: 80px; width: 920px; height: 214px; border-radius: 28px; overflow: hidden;
+    background: linear-gradient(180deg, #1b1712 0%, #110e0a 100%); border: 2px solid #5c421c; }
+  .row .bar { position: absolute; left: 0; top: 0; width: 8px; height: 100%; transform-origin: 50% 100%;
+    background: linear-gradient(180deg, #fad07d, #c97d25); }
+  .row .nome { position: absolute; left: 278px; top: 40px; width: 610px; font-size: 50px; font-weight: 800;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.25; }
+  .row .info { position: absolute; left: 278px; top: 124px; width: 610px; font-size: 30px; font-weight: 600; color: #b9bbbe;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.4; }
+  .odo { position: absolute; white-space: nowrap; line-height: 1; height: 1em; font-weight: 900; color: #efa144;
+    font-variant-numeric: tabular-nums; }
+  .odo .box { display: inline-block; height: 1em; overflow: hidden; vertical-align: top; }
+  .odo .col { display: block; }
+  .odo .col span { display: block; height: 1em; }
+  .selo { position: absolute; top: 896px; height: 68px; padding: 0 30px; border-radius: 34px; border: 3px solid #efa144;
+    background: rgba(14,10,5,.85); color: #efa144; font-size: 34px; font-weight: 800; letter-spacing: .04em;
+    display: flex; align-items: center; white-space: nowrap; overflow: hidden; }
+  .linha { position: absolute; left: 0; width: 1080px; text-align: center; font-size: 44px; font-weight: 600; color: #b9bbbe;
+    line-height: 1; }
+  #sweep { position: absolute; left: -400px; top: 0; width: 1880px; height: 300px; mix-blend-mode: screen;
+    background: linear-gradient(180deg, rgba(250,208,125,0) 0%, rgba(250,208,125,.16) 42%, rgba(255,240,205,.42) 50%,
+      rgba(250,208,125,.16) 58%, rgba(250,208,125,0) 100%); }
+</style>
+</head>
+<body>
+<div id="stage"></div>
+<script>
+const W = 1080, H = 1920;
+const EXIT = 0.32;                 // segundos de saída no fim de cada cena (menos a última)
+const stage = document.getElementById('stage');
+let TL, FPS;
+const BG = {}, HUD = {}, SCENES = [];
+
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const prog = (t, start, dur) => clamp((t - start) / dur);
+const outCubic = (x) => 1 - Math.pow(1 - x, 3);
+const inCubic = (x) => x * x * x;
+const inOutCubic = (x) => (x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2);
+const outBack = (x, s = 1.70158) => 1 + (s + 1) * Math.pow(x - 1, 3) + s * Math.pow(x - 1, 2);
+const spring = (x) => (x >= 1 ? 1 : 1 - Math.exp(-6.5 * x) * Math.cos(11 * x));
+// Semente fixa: as mesmas partículas em todo render.
+function rng(seed) {
+  return () => {
+    seed = (seed + 0x6d2b79f5) | 0;
+    let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+const hash = (n) => rng(n * 7919 + 13)();
+
+function el(tag, cls, parent, css) {
+  const e = document.createElement(tag);
+  if (cls) e.className = cls;
+  if (css) Object.assign(e.style, css);
+  (parent || stage).appendChild(e);
+  return e;
+}
+const px = (v) => `${v.toFixed(2)}px`;
+
+// ------------------------------------------------------------------ fundo: brilhos, feixes, naipes, partículas, grão
+
+const STREAKS = [   // mesmas curvas do luxo.py (fração da largura/altura), só as que deixam o centro livre
+  [[-0.10, 0.80], [0.12, 0.25], [0.40, 0.05], [0.62, -0.10]],
+  [[0.35, 1.12], [0.72, 0.92], [0.96, 0.72], [1.12, 0.28]],
+  [[0.58, 1.06], [0.86, 1.02], [1.00, 0.62], [1.06, 0.15]],
+  [[-0.10, 0.40], [0.14, 0.34], [0.28, 0.02], [0.42, -0.10]],
+  [[0.62, -0.10], [0.80, 0.18], [1.00, 0.30], [1.12, 0.52]],
+];
+
+function buildBg() {
+  el('div', 'layer', stage).id = 'base';
+  const world = el('div', 'layer', stage);
+  BG.world = world;
+  BG.glows = [
+    { size: 1500, cx: 540, cy: 760, ax: 160, ay: 120, w: 0.11, ph: 0, a: 0.20 },
+    { size: 1100, cx: 980, cy: 1500, ax: 120, ay: 160, w: 0.08, ph: 2, a: 0.16 },
+    { size: 900, cx: 80, cy: 260, ax: 140, ay: 90, w: 0.13, ph: 4, a: 0.14 },
+  ].map((g) => {
+    g.el = el('div', 'glow', world, {
+      width: `${g.size}px`, height: `${g.size}px`, left: `${-g.size / 2}px`, top: `${-g.size / 2}px`,
+      background: `radial-gradient(circle, rgba(239,161,68,${g.a}) 0%, rgba(239,161,68,${g.a * 0.35}) 38%, rgba(239,161,68,0) 70%)`,
+    });
+    return g;
+  });
+
+  const ns = 'http://www.w3.org/2000/svg';
+  const svg = document.createElementNS(ns, 'svg');
+  svg.setAttribute('width', W); svg.setAttribute('height', H); svg.setAttribute('class', 'layer');
+  svg.innerHTML = '<defs><linearGradient id="gold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fad07d"/>' +
+    '<stop offset=".55" stop-color="#efa144"/><stop offset="1" stop-color="#c97d25"/></linearGradient></defs>';
+  world.appendChild(svg);
+  BG.streaks = STREAKS.map((s, i) => {
+    const d = `M${s.map((p, k) => `${k === 1 ? 'C' : ''}${(p[0] * W).toFixed(1)} ${(p[1] * H).toFixed(1)}`).join(' ')}`;
+    const mk = (width, op) => {
+      const p = document.createElementNS(ns, 'path');
+      p.setAttribute('d', d); p.setAttribute('fill', 'none'); p.setAttribute('stroke', 'url(#gold)');
+      p.setAttribute('stroke-width', width); p.setAttribute('stroke-linecap', 'round'); p.setAttribute('opacity', op);
+      svg.appendChild(p);
+      return p;
+    };
+    mk(2.5, 0.2);
+    const halo = mk(16, 0.18), comet = mk(4, 0.95);
+    const len = comet.getTotalLength();
+    for (const p of [halo, comet]) p.setAttribute('stroke-dasharray', `${len * 0.2} ${len * 1.2}`);
+    return { halo, comet, len, period: 3.4 + i * 0.7, ph: i * 0.37 };
+  });
+
+  const suits = el('div', 'layer', world);
+  suits.id = 'suits';
+  BG.suits = [
+    { ch: '♠', size: 380, x: -120, y: 1080, ph: 0, a: 0.17 },
+    { ch: '♥', size: 300, x: 840, y: 420, ph: 1.6, a: 0.14 },
+    { ch: '♦', size: 230, x: 880, y: 1290, ph: 3.1, a: 0.13 },
+    { ch: '♣', size: 210, x: 40, y: 330, ph: 4.4, a: 0.12 },
+  ].map((s) => {
+    s.el = el('div', 'suit', suits, { fontSize: `${s.size}px`, opacity: s.a });
+    s.el.textContent = s.ch;
+    return s;
+  });
+
+  const r = rng(20261031);
+  BG.dots = [];
+  for (let i = 0; i < 46; i++) {
+    const bokeh = i < 9;
+    const size = bokeh ? 60 + r() * 110 : 4 + r() * 10;
+    BG.dots.push({
+      el: el('div', bokeh ? 'bokeh' : 'dot', world, { width: `${size}px`, height: `${size}px`, left: `${-size / 2}px`, top: `${-size / 2}px` }),
+      x: r() * W, y: r() * (H + 200), sp: bokeh ? 8 + r() * 14 : 18 + r() * 46, sway: 10 + r() * 30,
+      w: 0.3 + r() * 0.7, ph: r() * 6.28, tw: 0.8 + r() * 2.2, a: bokeh ? 0.25 + r() * 0.35 : 0.35 + r() * 0.6,
+    });
+  }
+
+  el('div', 'layer', stage).id = 'vignette';
+}
+
+function grain() {
+  const c = document.createElement('canvas');
+  c.width = c.height = 384;
+  const ctx = c.getContext('2d');
+  const img = ctx.createImageData(384, 384);
+  const r = rng(7);
+  for (let i = 0; i < img.data.length; i += 4) {
+    const v = Math.floor(r() * 255);
+    img.data[i] = img.data[i + 1] = img.data[i + 2] = v;
+    img.data[i + 3] = 255;
+  }
+  ctx.putImageData(img, 0, 0);
+  BG.grain = el('div', 'layer', stage, { backgroundImage: `url(${c.toDataURL()})` });
+  BG.grain.id = 'grain';
+}
+
+function updateBg(t, n) {
+  BG.world.style.transform = `scale(${1.06 + 0.012 * Math.sin(t * 0.21)}) rotate(${(0.8 * Math.sin(t * 0.13)).toFixed(3)}deg)`;
+  for (const g of BG.glows) {
+    const x = g.cx + g.ax * Math.sin(t * g.w * 6.28 + g.ph), y = g.cy + g.ay * Math.cos(t * g.w * 5.1 + g.ph);
+    g.el.style.transform = `translate(${px(x)}, ${px(y)}) scale(${1 + 0.06 * Math.sin(t * 0.7 + g.ph)})`;
+  }
+  for (const s of BG.streaks) {
+    const u = ((t + s.ph * s.period) / s.period) % 1;
+    const a = s.len * 0.2, off = a - (s.len + a) * u;
+    s.comet.setAttribute('stroke-dashoffset', off.toFixed(1));
+    s.halo.setAttribute('stroke-dashoffset', off.toFixed(1));
+  }
+  for (const s of BG.suits) {
+    s.el.style.transform = `translate3d(${px(s.x + 18 * Math.sin(t * 0.5 + s.ph))}, ${px(s.y + 26 * Math.sin(t * 0.37 + s.ph))}, 0) ` +
+      `rotateY(${(t * 24 + s.ph * 40).toFixed(2)}deg) rotateZ(${(8 * Math.sin(t * 0.4 + s.ph)).toFixed(2)}deg)`;
+  }
+  for (const d of BG.dots) {
+    const y = ((d.y - d.sp * t) % (H + 200) + H + 200) % (H + 200) - 100;
+    const x = d.x + d.sway * Math.sin(t * d.w + d.ph);
+    d.el.style.transform = `translate(${px(x)}, ${px(y)})`;
+    d.el.style.opacity = (d.a * (0.55 + 0.45 * Math.sin(t * d.tw + d.ph))).toFixed(3);
+  }
+  const g = Math.floor(n / 3);   // o grão muda a cada 3 quadros (grão em todo quadro dobra o tamanho do vídeo)
+  BG.grain.style.backgroundPosition = `${Math.floor(hash(g) * 384)}px ${Math.floor(hash(g + 999) * 384)}px`;
+}
+
+// ------------------------------------------------------------------ topo e rodapé
+
+function buildHud() {
+  const hud = el('div', 'layer', stage);
+  const n = TL.cenas.length, gap = 10, x0 = 70, x1 = W - 70;
+  const seg = (x1 - x0 - gap * (n - 1)) / n;
+  HUD.segs = TL.cenas.map((c, k) => {
+    const s = el('div', 'seg', hud, { left: `${x0 + k * (seg + gap)}px`, width: `${seg}px` });
+    return el('i', '', s);
+  });
+  HUD.tipo = el('div', '', hud);
+  HUD.tipo.id = 'tipo';
+  HUD.tipo.textContent = TL.tipo;
+  HUD.rodape = el('div', '', hud);
+  HUD.rodape.id = 'rodape';
+  HUD.rodape.textContent = TL.rodape;
+  HUD.sweep = el('div', '', stage);
+  HUD.sweep.id = 'sweep';
+}
+
+function updateHud(t) {
+  TL.cenas.forEach((c, k) => {
+    HUD.segs[k].style.transform = `scaleX(${clamp((t - c.ini) / c.dur).toFixed(4)})`;
+  });
+  const p = outCubic(prog(t, 0.05, 0.9));
+  HUD.tipo.style.opacity = p.toFixed(3);
+  HUD.tipo.style.letterSpacing = `${(4 + 16 * (1 - p)).toFixed(2)}px`;
+  HUD.rodape.style.opacity = prog(t, 0.2, 0.6).toFixed(3);
+  // faixa de luz que atravessa a tela em cada troca de cena
+  let s = -1;
+  for (let k = 1; k < TL.cenas.length; k++) {
+    const u = (t - (TL.cenas[k].ini - 0.2)) / 0.6;
+    if (u >= 0 && u <= 1) s = u;
+  }
+  HUD.sweep.style.display = s < 0 ? 'none' : '';
+  if (s >= 0) {
+    const y = -600 + (H + 900) * inOutCubic(s);
+    HUD.sweep.style.transform = `translateY(${px(y)}) rotate(-16deg)`;
+    HUD.sweep.style.opacity = Math.sin(Math.PI * s).toFixed(3);
+  }
+}
+
+// ------------------------------------------------------------------ peças das cenas
+
+// Texto com **destaques**: cada palavra entra sozinha (sobe, perde o desfoque); as douradas ganham brilho que passa.
+function textBlock(parent, text, o) {
+  const box = el('div', 'txt', parent);
+  const words = [];
+  let gold = false;
+  for (const chunk of String(text).split(/\s+/).filter(Boolean)) {
+    const w = el('span', 'w', box);
+    let golds = 0;
+    chunk.split('**').forEach((part, k) => {
+      if (k) gold = !gold;
+      if (!part) return;
+      const s = el('span', gold ? 'g' : '', w);
+      s.textContent = part;
+      if (gold) golds++;
+    });
+    if (!w.childNodes.length) { w.remove(); continue; }
+    words.push({ el: w, golds: [...w.querySelectorAll('.g')], gold: golds > 0 });
+    box.appendChild(document.createTextNode(' '));
+  }
+  let size = o.size;
+  const lines = () => { box.style.fontSize = `${size}px`; return new Set(words.map((x) => x.el.offsetTop)).size; };
+  while (lines() > o.maxLines && size > (o.min || 56)) size -= 4;
+  while (words.some((x) => x.el.offsetWidth > 920) && size > 28) { size -= 4; lines(); }
+  const height = box.offsetHeight;
+  box.style.top = `${o.y - height / 2}px`;
+  return { box, words, top: o.y - height / 2, bottom: o.y + height / 2, impact: !!o.impact, delay: o.delay || 0.04 };
+}
+
+function animText(tb, lt) {
+  const n = tb.words.length;
+  const step = n > 1 ? Math.min(0.06, 0.6 / (n - 1)) : 0;
+  tb.words.forEach((wd, k) => {
+    const d = tb.delay + k * step;
+    const p = prog(lt, d, tb.impact ? 0.55 : 0.5);
+    const e = outCubic(p);
+    let scale;
+    if (tb.impact) scale = 1.42 - 0.42 * outBack(p, 2.4);
+    else if (wd.gold) scale = 0.72 + 0.28 * outBack(p, 2.6);
+    else scale = 0.94 + 0.06 * e;
+    const y = tb.impact ? 0 : 48 * (1 - e);
+    wd.el.style.transform = `translateY(${px(y)}) scale(${scale.toFixed(4)})`;
+    wd.el.style.opacity = clamp(p * 1.7).toFixed(3);
+    const blur = 10 * (1 - e);
+    const glow = wd.gold ? ` drop-shadow(0 0 ${(18 + 6 * Math.sin(lt * 2.2 + k)).toFixed(1)}px rgba(239,161,68,${(0.42 * e).toFixed(3)}))` : '';
+    wd.el.style.filter = blur > 0.05 || glow ? `${blur > 0.05 ? `blur(${blur.toFixed(2)}px)` : ''}${glow}` : 'none';
+    if (wd.gold) {
+      // brilho: passa uma vez na entrada e de novo a cada 3,2 s
+      const since = lt - d - 0.3;
+      const s = since < 0 ? 0 : (since % 3.2) / 0.9;
+      const x = s >= 1 || since < 0 ? 100 : 100 - 100 * inOutCubic(s);
+      for (const g of wd.golds) g.style.backgroundPosition = `${x.toFixed(2)}% 0, 0 0`;
+    }
+  });
+}
+
+function underline(parent, y) { return el('div', 'under', parent, { top: `${y}px` }); }
+function animUnderline(u, lt, start) {
+  const p = outCubic(prog(lt, start, 0.6));
+  u.style.transform = `scaleX(${p.toFixed(4)})`;
+  u.style.opacity = (p * (0.75 + 0.25 * Math.sin(lt * 2))).toFixed(3);
+}
+
+// Horário que rola como um contador (cada dígito gira até o valor certo).
+function odometer(parent, text, size, css) {
+  const wrap = el('div', 'odo', parent, { fontSize: `${size}px`, ...css });
+  const cols = [];
+  for (const ch of String(text)) {
+    if (/\d/.test(ch)) {
+      const box = el('span', 'box', wrap);
+      const col = el('span', 'col', box);
+      for (let r = 0; r < 20; r++) el('span', '', col).textContent = r % 10;
+      cols.push({ col, target: 10 + Number(ch) });
+    } else {
+      el('span', '', wrap).textContent = ch;
+    }
+  }
+  return { wrap, cols };
+}
+function animOdometer(o, lt, start, dur) {
+  o.cols.forEach((c, j) => {
+    const q = outCubic(prog(lt, start + j * 0.08, dur));
+    c.col.style.transform = `translateY(${(-c.target * q).toFixed(4)}em)`;
+    c.col.style.filter = q < 0.98 ? `blur(${(3.5 * (1 - q)).toFixed(2)}px)` : 'none';
+  });
+}
+
+function badge(parent, num) {
+  const ring = el('div', 'ring', parent);
+  const b = el('div', 'badge', parent);
+  const span = el('span', '', b);
+  span.textContent = num;
+  return { ring, b, span };
+}
+function animBadge(o, lt) {
+  const p = prog(lt, 0, 0.65);
+  const flip = (1 - outBack(p, 1.5)) * 180;
+  o.b.style.transform = `perspective(700px) rotateY(${flip.toFixed(2)}deg) scale(${(0.35 + 0.65 * outCubic(p)).toFixed(4)})`;
+  o.b.style.opacity = clamp(p * 3).toFixed(3);
+  o.span.style.opacity = Math.abs(flip) < 90 ? 1 : 0;
+  o.b.style.boxShadow = `0 0 ${(26 + 12 * Math.sin(lt * 2.4)).toFixed(1)}px rgba(239,161,68,.55)`;
+  const q = prog(lt, 0.18, 0.9);
+  o.ring.style.transform = `scale(${(1 + 1.1 * outCubic(q)).toFixed(4)})`;
+  o.ring.style.opacity = (q > 0 && q < 1 ? 0.85 * (1 - q) : 0).toFixed(3);
+}
+
+async function card(parent, url, box) {
+  const [x0, y0, x1, y1] = box;
+  const c = el('div', 'card', parent);
+  const img = el('img', '', c);
+  img.src = url;
+  await img.decode();
+  const k = Math.min((x1 - x0) / img.naturalWidth, (y1 - y0) / img.naturalHeight);
+  const w = img.naturalWidth * k, h = img.naturalHeight * k;
+  Object.assign(c.style, { left: `${x0 + (x1 - x0 - w) / 2}px`, top: `${y0 + (y1 - y0 - h) / 2}px`, width: `${w}px`, height: `${h}px` });
+  return { c, shine: el('div', 'shine', c) };
+}
+function chip(parent, suit) {
+  const c = el('div', 'chip', parent);
+  for (let k = 7; k >= 1; k--) el('div', 'lay', c, { transform: `translateZ(${-k * 3.2}px)`, filter: `brightness(${1 - k * 0.07})` });
+  const top = el('div', 'top', c);
+  el('div', 'dash', top);
+  el('span', '', top).textContent = suit;
+  return c;
+}
+function animChip(c, lt, i) {
+  const p = prog(lt, 0.35, 0.9);
+  const drop = (1 - spring(p)) * -240;   // cai de perto, sem passar por cima do texto
+  const spin = lt * 38 + i * 70 + (1 - outCubic(p)) * -260;
+  c.style.transform = `perspective(1300px) translateY(${px(drop + 10 * Math.sin(lt * 1.5))}) ` +
+    `rotateX(${(58 + 5 * Math.sin(lt * 0.9)).toFixed(3)}deg) rotateZ(${spin.toFixed(2)}deg)`;
+  c.style.opacity = clamp(p * 4).toFixed(3);
+}
+
+function animCard(o, lt) {
+  const p = outCubic(prog(lt, 0.12, 0.85));
+  o.c.style.transform = `perspective(1600px) translateY(${px(220 * (1 - p) + 8 * Math.sin(lt * 1.7))}) ` +
+    `rotateX(${(36 * (1 - p) + 2.2 * Math.sin(lt * 1.2)).toFixed(3)}deg) rotateY(${(3.5 * Math.sin(lt * 0.9)).toFixed(3)}deg) ` +
+    `scale(${(0.84 + 0.16 * p).toFixed(4)})`;
+  o.c.style.opacity = clamp(p * 1.6).toFixed(3);
+  const q = prog(lt, 0.75, 0.95);
+  o.shine.style.transform = `translateX(${(-130 + 260 * inOutCubic(q)).toFixed(2)}%)`;
+}
+
+// ------------------------------------------------------------------ cenas
+
+async function buildScene(c, i) {
+  const root = el('div', 'layer', stage);
+  const sc = { ...c, i, root, last: i === TL.cenas.length - 1, parts: [] };
+  const add = (fn) => sc.parts.push(fn);
+
+  if (c.passo && !c.destaque) {
+    const b = badge(root, c.passo);
+    add((lt) => animBadge(b, lt));
+  }
+  if (c.destaque) {
+    const d = c.destaque;
+    const label = textBlock(root, c.tela, { y: 400, size: 46, maxLines: 1, min: 30 });
+    const hora = odometer(root, d.hora, 190, { left: '0px', width: `${W}px`, textAlign: 'center', top: '495px' });
+    hora.wrap.style.filter = 'drop-shadow(0 0 34px rgba(239,161,68,.45))';
+    const nome = textBlock(root, d.nome, { y: 800, size: 96, maxLines: 2, delay: 0.4 });
+    let y = 930, selo = null;
+    if (d.selo) {
+      selo = el('div', 'selo', root);
+      selo.textContent = String(d.selo).toUpperCase();
+      selo.style.left = `${(W - selo.offsetWidth) / 2}px`;
+      const sh = el('div', 'shine', selo);
+      selo.sh = sh;
+      y += 110;
+    }
+    const infos = (d.info || []).slice(0, 5).map((txt, k) => {
+      const l = el('div', 'linha', root, { top: `${y + k * 72 - 22}px` });
+      l.textContent = txt;
+      return l;
+    });
+    add((lt) => {
+      animText(label, lt);
+      const pop = outBack(prog(lt, 0.05, 0.55), 1.8);
+      hora.wrap.style.transform = `scale(${(0.8 + 0.2 * pop).toFixed(4)})`;
+      hora.wrap.style.opacity = clamp(prog(lt, 0.05, 0.25)).toFixed(3);
+      animOdometer(hora, lt, 0.1, 1.0);
+      animText(nome, lt);
+      if (selo) {
+        const q = prog(lt, 0.65, 0.6);
+        selo.style.transform = `scale(${spring(q).toFixed(4)})`;
+        selo.style.opacity = clamp(q * 3).toFixed(3);
+        selo.sh.style.transform = `translateX(${(-130 + 260 * inOutCubic(prog(lt, 1.1, 0.8))).toFixed(2)}%)`;
+      }
+      infos.forEach((l, k) => {
+        const q = outCubic(prog(lt, 0.8 + k * 0.09, 0.5));
+        l.style.transform = `translateY(${px(30 * (1 - q))})`;
+        l.style.opacity = q.toFixed(3);
+      });
+    });
+  } else if (c.linhas) {
+    const title = textBlock(root, c.tela, { y: 330, size: 56, maxLines: 2, min: 40 });
+    const rows = c.linhas.slice(0, 4).map((ln, k) => {
+      const r = el('div', 'row', root, { top: `${450 + k * 240}px` });
+      const bar = el('div', 'bar', r);
+      const hora = odometer(r, ln.hora, 64, { left: '40px', top: '75px' });
+      const nome = el('div', 'nome', r);
+      nome.textContent = ln.nome;
+      const info = el('div', 'info', r);
+      info.textContent = ln.info || '';
+      return { r, bar, hora, nome, info, d: 0.25 + k * 0.13 };
+    });
+    add((lt) => {
+      animText(title, lt);
+      for (const o of rows) {
+        const p = outCubic(prog(lt, o.d, 0.65));
+        o.r.style.transform = `perspective(1400px) translateX(${px(760 * (1 - p))}) rotateY(${(-34 * (1 - p)).toFixed(3)}deg)`;
+        o.r.style.opacity = clamp(p * 2).toFixed(3);
+        o.bar.style.transform = `scaleY(${outCubic(prog(lt, o.d + 0.25, 0.5)).toFixed(4)})`;
+        animOdometer(o.hora, lt, o.d + 0.1, 0.85);
+        const q = outCubic(prog(lt, o.d + 0.2, 0.5));
+        for (const e of [o.nome, o.info]) {
+          e.style.transform = `translateX(${px(40 * (1 - q))})`;
+          e.style.opacity = q.toFixed(3);
+        }
+      }
+    });
+  } else if (c.imagem) {
+    const tb = textBlock(root, c.tela, { y: 640, size: 84, maxLines: 5, impact: i === 0 });
+    const cd = await card(root, c.imagem, [150, 960, W - 150, 1480]);
+    add((lt) => { animText(tb, lt); animCard(cd, lt); });
+  } else {
+    const tb = textBlock(root, c.tela, { y: 800, size: 92, maxLines: 6, impact: i === 0 });
+    const u = underline(root, Math.min(tb.bottom + 46, 1440));
+    const ch = tb.bottom < 1020 ? chip(root, '♠♥♦♣'[i % 4]) : null;
+    add((lt) => { animText(tb, lt); animUnderline(u, lt, 0.45); if (ch) animChip(ch, lt, i); });
+  }
+  return sc;
+}
+
+function updateScene(sc, t) {
+  const lt = t - sc.ini;
+  if (lt < 0 || (lt > sc.dur && !sc.last)) { sc.root.style.display = 'none'; return; }
+  sc.root.style.display = '';
+  const e = sc.last ? 0 : inCubic(prog(lt, sc.dur - EXIT, EXIT));
+  const push = 1 + 0.03 * clamp(lt / sc.dur);
+  sc.root.style.transformOrigin = '50% 42%';
+  sc.root.style.transform = `translateY(${px(-70 * e)}) scale(${(push + 0.04 * e).toFixed(4)})`;
+  sc.root.style.opacity = (1 - e).toFixed(3);
+  sc.root.style.filter = e > 0.01 ? `blur(${(9 * e).toFixed(2)}px)` : 'none';
+  for (const fn of sc.parts) fn(lt);
+}
+
+// ------------------------------------------------------------------ entrada
+
+async function init(timeline) {
+  TL = timeline;
+  FPS = TL.fps;
+  const font = new FontFace('Montserrat', `url("${TL.fonte}")`, { weight: '100 900' });
+  await font.load();
+  document.fonts.add(font);
+  await document.fonts.load('900 40px Montserrat');
+  await document.fonts.load('100px "Segoe UI Symbol"', '♠♥♦♣');
+  buildBg();
+  for (let i = 0; i < TL.cenas.length; i++) SCENES.push(await buildScene(TL.cenas[i], i));
+  buildHud();
+  grain();
+  seek(0);
+  return { frames: TL.frames };
+}
+
+function seek(n) {
+  const t = n / FPS;
+  updateBg(t, n);
+  for (const sc of SCENES) updateScene(sc, t);
+  updateHud(t);
+  return true;
+}
+</script>
+</body>
+</html>
