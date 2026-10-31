@@ -1,0 +1,16 @@
+{
+  "id": "acoes-do-poker-check-call-raise-fold",
+  "tipo": "Regras do poker",
+  "titulo": "Check, bet, call, raise e fold: as ações do poker em 45 segundos #shorts",
+  "descricao": "O que fazem check, bet, call, raise e fold, e quando cada ação pode ser usada. No próximo vídeo: as fases da mão, do pré-flop ao river.\n\n18+ · Jogue com responsabilidade.\n\n#poker #pokeronline #texasholdem #supremapoker",
+  "post": "acoes-do-poker-check-call-raise-fold",
+  "cenas": [
+    { "tela": "As **5 ações** do poker em 45 segundos", "fala": "As cinco ações do poker em quarenta e cinco segundos.", "imagem": "public/img/app-mesa.webp" },
+    { "passo": 1, "tela": "**Check**: passa a vez sem pôr fichas", "fala": "Check é passar a vez sem colocar fichas. Só vale quando ninguém apostou na rodada." },
+    { "passo": 2, "tela": "**Bet**: a primeira aposta da rodada", "fala": "Bet é a primeira aposta da rodada." },
+    { "passo": 3, "tela": "**Call** iguala, **raise** aumenta", "fala": "Com aposta na sua frente, call iguala a aposta, e raise iguala e aumenta." },
+    { "passo": 4, "tela": "**Fold**: desiste e perde o que já apostou", "fala": "Fold é desistir. Você sai da mão e o que já apostou fica no pote." },
+    { "tela": "Ninguém apostou? Dê **check**, não fold", "fala": "Dica: se ninguém apostou, não desista. Passar é de graça." },
+    { "tela": "No próximo: **pré-flop, flop, turn e river**. Segue o canal!", "fala": "No próximo vídeo, as fases da mão, do pré-flop ao river. Segue o canal!", "imagem": "public/img/app-mesa.webp" }
+  ]
+}
