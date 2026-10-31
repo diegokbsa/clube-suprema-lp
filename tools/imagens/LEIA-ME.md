@@ -16,3 +16,12 @@ Requisitos: Python 3.11+, `pip install pillow`, a fonte variável Montserrat (`M
 da Google Fonts) e os naipes das cartas vêm de `C:\Windows\Fonts\seguisym.ttf` (ajuste `SYMBOL_FONT` em outro sistema).
 O fundo de todas as peças é preto puro (`luxo.black_background`); a marca é o "S" de `logo.py` (`logo.mark`, `logo.icon`).
 Para um post novo, acrescente a linha dele na lista `posts` de `capas.py` e uma função `illus_<tema>` com a ilustração.
+
+Peças da rotina de posts automáticos (`marketing/post-automatico.md`):
+
+| Script | Gera | Como rodar (na raiz do projeto) |
+|---|---|---|
+| `capa_post.py` | capa de um post novo a partir dos campos `capa*` do front matter, sem editar `capas.py` | `python tools/imagens/capa_post.py <slug>` |
+| `short_post.py` | vídeo em pé 1080x1920 (Shorts) com narração na voz pt-BR do Windows, a partir de `marketing/shorts/<id>.json`; sai em `data/shorts/<id>.mp4` | `python tools/imagens/short_post.py marketing/shorts/<id>.json` |
+
+Os dois baixam a Montserrat para `%TMP%\fonts` se ela não estiver lá. O `short_post.py` precisa do ffmpeg no PATH.

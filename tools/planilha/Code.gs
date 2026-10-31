@@ -3,7 +3,8 @@
  *
  * Planilha "Cadastros · Clube Suprema": recebe uma cópia de cada cadastro do suprema.blog,
  * manda o e-mail de boas-vindas e a sequência de 7 e-mails (1 por dia), anota os passos de cada lead (baixou o app,
- * comprou fichas, chamou o suporte) e guarda na aba "Telegram" os posts que o site já mandou ao canal.
+ * comprou fichas, chamou o suporte), guarda na aba "Telegram" os posts que o site já mandou ao canal e na aba "Posts"
+ * os posts novos do blog, que saem no e-mail semanal de novidades (enviarNovidades).
  *
  * Como instalar (uma vez): na planilha, Extensões → Apps Script, colar este arquivo e o appsscript.json
  * (Configurações do projeto → "Mostrar o arquivo de manifesto"), salvar,
@@ -49,6 +50,7 @@ function doPost(e) {
     if (d.tipo === 'evento') return saida_(anotaEvento_(d));
     if (d.tipo === 'telegram') return saida_(marcaPostTelegram_(d));
     if (d.tipo === 'telegram-resultado') return saida_(resultadoTelegram_(d));
+    if (d.tipo === 'post') return saida_(registraPost_(d));
     const email = String(d.email || '').trim().toLowerCase();
     if (email.length > 254 || !/^[^\s@]{1,64}@[^\s@]+\.[^\s@]{2,}$/.test(email)) return saida_({ ok: false, erro: 'email' });
     const aba = aba_();
@@ -148,6 +150,31 @@ function resultadoTelegram_(d) {
   if (!linha) return { ok: true, semPost: true };
   aba.getRange(linha, 1, 1, 3).setValues([[new Date(), slug, d.ok === true ? 'enviado' : limpa_('falhou: ' + String(d.erro || '?'))]]);
   return { ok: true };
+}
+
+// Posts novos do blog (o site manda depois de cada deploy, lib/novos-posts.js), um por linha, sem repetir o slug.
+function abaPosts_() {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  let aba = ss.getSheetByName('Posts');
+  if (!aba) {
+    aba = ss.insertSheet('Posts');
+    aba.appendRow(['Registrado em', 'Data do post', 'Slug', 'Título', 'Resumo', 'Capa']);
+    aba.setFrozenRows(1);
+    aba.getRange(1, 1, 1, 6).setFontWeight('bold').setBackground('#000000').setFontColor('#ffa51f');
+  }
+  return aba;
+}
+
+function registraPost_(d) {
+  const slug = String(d.slug || '');
+  if (!/^[a-z0-9-]{3,120}$/.test(slug)) return { ok: false, erro: 'slug' };
+  const aba = abaPosts_();
+  const n = aba.getLastRow();
+  const slugs = n > 1 ? aba.getRange(2, 3, n - 1, 1).getValues() : [];
+  if (slugs.some((s) => s[0] === slug)) return { ok: true, novo: false };
+  const capa = /^\/img\/[\w\/.-]+$/.test(String(d.capa || '')) ? SITE + d.capa : '';
+  aba.appendRow([new Date(), limpa_(d.data), slug, limpa_(d.titulo), limpa_(String(d.resumo || '').slice(0, 300)), capa]);
+  return { ok: true, novo: true };
 }
 
 function aba_() {
@@ -335,6 +362,15 @@ function enviaModelo_(para, id, m, prefixo) {
       + m.lista.map((s) => '<tr><td width="20" valign="top" style="padding:3px 0 9px;color:#efa144;font-size:14px">&#9670;</td>'
         + '<td valign="top" style="padding:0 0 9px;' + fonte + 'font-size:15px;line-height:1.6;color:#c9c4bc">' + forte(s) + '</td></tr>').join('') + '</table>';
   }
+  // cartões de posts (e-mail de novidades): capa, título com link e resumo
+  (m.posts || []).forEach((ps) => {
+    corpo += '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:0 0 22px"><tr><td>'
+      + (ps.capa ? '<a href="' + esc(ps.link) + '"><img src="' + esc(ps.capa) + '" width="510" alt="" style="display:block;width:100%;max-width:510px;height:auto;border:1px solid #3d2c15;border-radius:12px;margin:0 0 12px"></a>' : '')
+      + '<p style="margin:0 0 6px;' + fonte + 'font-size:17px;line-height:1.35;font-weight:800"><a href="' + esc(ps.link) + '" style="color:#ffffff;text-decoration:none">' + esc(ps.titulo) + '</a></p>'
+      + '<p style="margin:0 0 8px;' + fonte + 'font-size:14px;line-height:1.6;color:#c9c4bc">' + esc(ps.resumo) + '</p>'
+      + '<p style="margin:0;' + fonte + 'font-size:14px"><a href="' + esc(ps.link) + '" style="color:#f3b662;text-decoration:underline">Ler o post</a></p>'
+      + '</td></tr></table>';
+  });
   if (m.ids) corpo += ids;
   if (m.destaque) corpo += destaque(m.destaque);
   if (m.botao) corpo += botao(m.botao);
@@ -379,6 +415,7 @@ function enviaModelo_(para, id, m, prefixo) {
   });
   (m.lista || []).forEach((s) => linhas.push('- ' + limpo(s)));
   if (m.lista) linhas.push('');
+  (m.posts || []).forEach((ps) => linhas.push(ps.titulo, ps.resumo, ps.link, ''));
   if (m.ids) linhas.push('ID do clube: ' + CLUBE + ' · ID do agente: ' + AGENTE, '');
   if (m.destaque) linhas.push(limpo(m.destaque), '');
   if (m.botao) linhas.push(m.botao[0] + ': ' + troca(m.botao[1]));
@@ -448,6 +485,70 @@ function enviarSequencia() {
       console.error('sequência, linha ' + (i + 2) + ': ' + err); // tenta de novo amanhã
     }
   });
+}
+
+// ---------- Novidades do blog: 1 e-mail por semana ----------
+// Acionador semanal (Acionadores → enviarNovidades, semanal, domingo, 18h–19h). Liga com a propriedade NOVIDADES = sim.
+// Manda os posts registrados na aba "Posts" desde o último envio (até 6, os mais novos) para quem recebeu as boas-vindas,
+// não saiu da lista e já terminou a sequência de 7 dias (quem está na sequência continua só com ela).
+const MAX_NOVIDADES = 6;
+
+function novidades_(desde) {
+  const aba = abaPosts_();
+  const n = aba.getLastRow();
+  if (n < 2) return [];
+  const campanha = 'novidades-' + Utilities.formatDate(new Date(), 'America/Sao_Paulo', 'yyyy-MM-dd');
+  return aba.getRange(2, 1, n - 1, 6).getValues()
+    .filter((r) => r[0] instanceof Date && r[0] > desde)
+    .sort((a, b) => b[0] - a[0])
+    .slice(0, MAX_NOVIDADES)
+    .map((r) => ({
+      titulo: String(r[3]), resumo: String(r[4]), capa: String(r[5]),
+      link: SITE + '/blog/' + r[2] + '?utm_source=email&utm_medium=novidades&utm_campaign=' + campanha,
+    }));
+}
+
+function modeloNovidades_(posts) {
+  return {
+    assunto: posts.length === 1 ? 'Novo no blog: ' + posts[0].titulo : posts.length + ' guias novos no blog do Clube Suprema',
+    preheader: posts.map((p) => p.titulo).join(' · ').slice(0, 140),
+    selo: 'Novidades da semana', titulo: 'O que saiu no blog',
+    paragrafos: ['Os guias novos da semana, para jogar melhor e tirar as dúvidas do app:'],
+    posts: posts,
+    botao: ['Ver todos os posts', SITE + '/blog?utm_source=email&utm_medium=novidades'],
+  };
+}
+
+function enviarNovidades() {
+  const props = PropertiesService.getScriptProperties();
+  if (props.getProperty('NOVIDADES') !== 'sim') return;
+  const desde = props.getProperty('NOVIDADES_DESDE') ? new Date(props.getProperty('NOVIDADES_DESDE')) : new Date(Date.now() - 7 * 86400000);
+  const posts = novidades_(desde);
+  if (!posts.length) return;
+  const m = modeloNovidades_(posts);
+  const aba = aba_();
+  const n = aba.getLastRow();
+  const linhas = n > 1 ? aba.getRange(2, 1, n - 1, CABECALHO.length).getValues() : [];
+  let enviados = 0;
+  linhas.forEach((r, i) => {
+    if (!(r[COL('Boas-vindas enviado') - 1] instanceof Date) || r[COL('Saiu da lista') - 1] !== '') return;
+    if ((Number(r[COL('Sequência (e-mails)') - 1]) || 0) < SEQUENCIA.length) return;
+    try {
+      enviaModelo_(String(r[COL('E-mail') - 1]), String(r[COL('ID do cadastro') - 1]), m, '');
+      enviados++;
+    } catch (err) {
+      console.error('novidades, linha ' + (i + 2) + ': ' + err);
+    }
+  });
+  props.setProperty('NOVIDADES_DESDE', new Date().toISOString());
+  console.log('novidades: ' + posts.length + ' posts para ' + enviados + ' pessoas');
+}
+
+// Rode pelo editor para receber na caixa do REMETENTE o e-mail de novidades com os posts dos últimos 7 dias.
+function testeNovidades() {
+  const posts = novidades_(new Date(Date.now() - 7 * 86400000));
+  if (!posts.length) throw new Error('A aba Posts não tem post dos últimos 7 dias.');
+  enviaModelo_(REMETENTE, '', modeloNovidades_(posts), '[Prévia] ');
 }
 
 // Link "Sair da lista" do rodapé (e cabeçalho List-Unsubscribe): marca a data e para a sequência.

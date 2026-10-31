@@ -1,0 +1,15 @@
+{
+  "id": "como-baixar-suprema-poker",
+  "tipo": "Tutorial · App",
+  "titulo": "Como baixar o Suprema Poker no celular (grátis) #shorts",
+  "descricao": "Passo a passo para baixar o Suprema Poker no Android e no iPhone pela loja oficial e criar a conta com e-mail. No próximo vídeo: como entrar num clube.\n\n18+ · Jogue com responsabilidade.\n\n#supremapoker #poker #pokeronline",
+  "post": "como-instalar-app-suprema-poker",
+  "cenas": [
+    { "tela": "Baixar o **Suprema Poker**: o jeito certo", "fala": "Quer baixar o Suprema Poker? É grátis e leva um minuto.", "imagem": "public/img/app-abertura.webp" },
+    { "passo": 1, "tela": "Abra a **loja oficial** do seu celular", "fala": "Abra a Google Play, no Android, ou a App Store, no iPhone." },
+    { "passo": 2, "tela": "Procure **Suprema Poker** e toque em **Instalar**", "fala": "Procure por Suprema Poker e toque em instalar." },
+    { "passo": 3, "tela": "Crie a conta com **e-mail** e senha", "fala": "Abra o app e crie a sua conta com e-mail e senha." },
+    { "passo": 4, "tela": "Confirme o **código** que chega no e-mail", "fala": "Confirme o código que chega no seu e-mail. Pronto, o app está pronto para jogar." },
+    { "tela": "No próximo: como **entrar num clube**. Segue o canal!", "fala": "No próximo vídeo, eu mostro como entrar num clube. Segue o canal!", "imagem": "public/img/app-mesa.webp" }
+  ]
+}
