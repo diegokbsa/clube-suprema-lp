@@ -9,9 +9,9 @@ import { store } from './lib/store.js';
 import * as flow from './lib/orchestrator.js';
 import { createLead, recordLeadEvent, leadsOverview } from './lib/leads.js';
 import { validateSignup, validateLead } from './public/shared/validate.js';
-import { renderBlogIndex, renderBlogPost, renderNotFound, renderSitemap, renderFeed, renderLlms, renderLlmsFull, renderAbout, renderTorneios } from './lib/blog.js';
+import { renderBlogIndex, renderBlogPost, renderNotFound, renderSitemap, renderFeed, renderLlms, renderLlmsFull, renderAbout, renderTorneios, renderTorneiosTxt } from './lib/blog.js';
 import { getGrade } from './lib/torneios.js';
-import { announceNewPosts, shareNewPosts } from './lib/novos-posts.js';
+import { announceNewPosts, shareNewPosts, shareDailyGrade } from './lib/novos-posts.js';
 
 const PUBLIC_DIR = fileURLToPath(new URL('./public/', import.meta.url));
 const TYPES = {
@@ -303,9 +303,10 @@ function servePage(req, res, url) {
 }
 
 // Grade de torneios da Liga Suprema (lib/torneios.js guarda 10 min em memória); cache curto porque o "late aberto" muda.
-async function serveTorneios(req, res) {
-  const page = renderTorneios(await getGrade());
-  res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'public, max-age=120' });
+async function serveTorneios(req, res, txt = false) {
+  const grade = await getGrade();
+  const page = txt ? renderTorneiosTxt(grade) : renderTorneios(grade);
+  res.writeHead(200, { 'Content-Type': txt ? 'text/plain; charset=utf-8' : 'text/html; charset=utf-8', 'Cache-Control': 'public, max-age=120' });
   res.end(req.method === 'HEAD' ? undefined : page);
 }
 
@@ -325,6 +326,7 @@ const server = http.createServer(async (req, res) => {
     }
     if (url.pathname === '/baixar') return redirectToApp(req, res, url);
     if (url.pathname === '/torneios' || url.pathname === '/torneios/') return serveTorneios(req, res);
+    if (url.pathname === '/torneios.txt') return serveTorneios(req, res, true);
     if (servePage(req, res, url)) return;
     return serveStatic(req, res, url);
   }
@@ -375,4 +377,7 @@ if (keepAliveUrl) {
 if (process.env.RENDER) {
   setTimeout(() => announceNewPosts().catch((err) => console.warn(`[novos-posts] ${err.message}`)), 60_000).unref();
   setInterval(() => shareNewPosts().catch((err) => console.warn(`[novos-posts] ${err.message}`)), 30 * 60_000).unref();
+  // Grade de torneios: a partir das 9h, 1 vez por dia (IndexNow, Telegram e Bluesky). Confere a cada 10 min.
+  setTimeout(() => shareDailyGrade().catch((err) => console.warn(`[novos-posts] grade: ${err.message}`)), 90_000).unref();
+  setInterval(() => shareDailyGrade().catch((err) => console.warn(`[novos-posts] grade: ${err.message}`)), 10 * 60_000).unref();
 }

@@ -114,7 +114,7 @@ Com esses números você estima a duração: um torneio com stack de 60K, blinds
 Seja qual for a escolha, defina antes quanto vai investir na sessão e não ultrapasse. Uma regra comum entre jogadores recreativos é não colocar em um único torneio mais do que uma pequena fração da banca reservada ao poker.
 
 :::cta Quer ver a grade de hoje?
-Entre no Clube Suprema e abra o lobby: os torneios do dia ficam listados com buy-in, stack, late reg e blinds. [Entrar no clube pelo link](/baixar) ou [ver como entrar com o ID](/blog/como-entrar-no-clube-suprema).
+A [grade de torneios de hoje da Liga Suprema](/torneios) mostra todos os torneios do dia com horário, buy-in, garantido, stack, blinds e late, atualizada ao longo do dia. Para jogar, [entre no clube pelo link](/baixar) ou [veja como entrar com o ID](/blog/como-entrar-no-clube-suprema).
 :::
 
 ## Perguntas que o suporte mais recebe sobre torneios

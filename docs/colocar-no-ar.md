@@ -88,7 +88,13 @@ Atenção: o Brave bloqueia os envios do Analytics por padrão; teste em outro n
 - Short: roteiro em `marketing/shorts/<id>.json`, vídeo gerado por `tools/imagens/short_post.py` (1080x1920, voz pt-BR do Windows) em `data/shorts/`, e publicado por `tools/youtube/postar_short.py` com o app do YouTube no celular (ADB pelo Wi-Fi, mesmo esquema do Liora-Cuts/forge, que posta TikTok pelo mesmo aparelho). Registro em `data/shorts/publicados.json`, prints em `data/shorts/telas/`.
 - O celular precisa ficar ligado, no Wi-Fi, desbloqueado sem senha de tela e com o YouTube logado no canal. O YouTube não ganha acesso às fotos: o vídeo é escolhido pelo seletor do Android.
 - No YouTube vale a versão segura de `marketing/videos-curtos.md`: sem link do site, ID do clube, PIX, Fichas 24h ou valores em reais.
-- **Grade de torneios do dia (9h):** tarefa agendada própria. `tools/grade/grade_do_dia.py` busca a grade da Liga Suprema na API pública da PokerByte (a mesma de sx-co.com/torneios), escolhe os 8 maiores garantidos que ainda vão começar e monta o Short em `data/shorts/grade-<data>.json`; o vídeo mostra horário, nome, modalidade, stack e blinds, sem buy-in nem garantido.
+- **Grade e principais torneios do dia (9h):** tarefa agendada própria, que publica 2 Shorts. `tools/grade/grade_do_dia.py` busca a grade da Liga Suprema na API pública da PokerByte (a mesma de sx-co.com/torneios): sem opção, escolhe os 8 maiores garantidos que ainda vão começar (`data/shorts/grade-<data>.json`); com `--principais`, os Main Events do dia, um por tela (`data/shorts/principais-<data>.json`). Os vídeos mostram horário, nome, modalidade, stack, blinds e late, sem buy-in nem garantido.
+
+### Página /torneios (grade do dia no site)
+
+- https://suprema.blog/torneios mostra todos os torneios do dia de poker (7h às 7h) da Liga Suprema, com buy-in, garantido, stack, blinds, late e o selo "Late aberto"; `lib/torneios.js` busca a mesma API e guarda 10 min em memória. Versão em texto para assistentes de IA: `/torneios.txt` (citada no `llms.txt`).
+- Para buscadores e IAs: título com a data, resumo do dia em texto, perguntas e respostas montadas com os dados do dia (FAQPage) e os 10 maiores torneios como `Event` (schema.org). Está no sitemap com a data do dia.
+- Todo dia a partir das 9h o servidor (`shareDailyGrade` em `lib/novos-posts.js`) avisa o IndexNow de `/torneios` e `/torneios.txt` e posta os maiores torneios que ainda vão começar no canal do Telegram e no Bluesky, com o link da grade. O Telegram não repete graças à aba Telegram da planilha (`grade-<data>`); o Bluesky confere o próprio perfil.
 
 ### Search Console
 

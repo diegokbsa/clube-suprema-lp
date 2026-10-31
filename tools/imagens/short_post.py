@@ -151,6 +151,29 @@ def tabela(img, cena):
         y += 240
 
 
+def destaque(img, cena):
+    """Cena de um torneio só (Short dos principais do dia): horário enorme, nome, selo e os detalhes em linhas."""
+    t = cena["destaque"]
+    texto_central(img, cena["tela"], 400, size=46, max_linhas=1)
+    d = ImageDraw.Draw(img)
+    d.text((W // 2, 590), t["hora"], font=font(190, 900), fill=GOLD, anchor="mm")
+    texto_central(img, t["nome"], 800, size=96, max_linhas=2)
+    y = 930
+    if t.get("selo"):
+        f = font(34, 800)
+        tw = d.textlength(t["selo"].upper(), font=f)
+        layer = Image.new("RGBA", img.size, (0, 0, 0, 0))
+        ImageDraw.Draw(layer).rounded_rectangle((W / 2 - tw / 2 - 30, y - 34, W / 2 + tw / 2 + 30, y + 34), radius=34,
+                                               fill=(14, 10, 5, 200), outline=GOLD, width=3)
+        img.alpha_composite(layer)
+        d = ImageDraw.Draw(img)
+        d.text((W // 2, y), t["selo"].upper(), font=f, fill=GOLD, anchor="mm")
+        y += 110
+    for ln in t.get("info", [])[:5]:
+        d.text((W // 2, y), ln, font=font(44, 600), fill=MUTED, anchor="mm")
+        y += 72
+
+
 def tela(roteiro, i):
     cena = roteiro["cenas"][i]
     n = len(roteiro["cenas"])
@@ -163,11 +186,13 @@ def tela(roteiro, i):
         a = x0 + k * (seg + gap)
         d.rounded_rectangle((a, 96, a + seg, 104), radius=4, fill=GOLD if k <= i else DIM)
     luxo.spaced(d, (W // 2, 170), roteiro.get("tipo", "Suprema Poker").upper(), font(30, 700), GOLD, spacing=4, anchor="mm")
-    if cena.get("passo"):
+    if cena.get("passo") and not cena.get("destaque"):
         cx, cy, r = W // 2, 290, 52
         d.ellipse((cx - r, cy - r, cx + r, cy + r), fill=GOLD)
         d.text((cx, cy + 2), str(cena["passo"]), font=font(56, 900), fill=(28, 20, 8), anchor="mm")
-    if cena.get("linhas"):
+    if cena.get("destaque"):
+        destaque(img, cena)
+    elif cena.get("linhas"):
         tabela(img, cena)
     elif cena.get("imagem"):
         texto_central(img, cena["tela"], 640, size=84, max_linhas=5)
