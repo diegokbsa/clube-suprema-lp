@@ -1,7 +1,7 @@
 """Vídeo curto em pé (1080x1920, Shorts/Reels) a partir de um roteiro em JSON, no visual do site (preto e dourado).
 
 Cada cena vira uma tela com o texto grande (trechos entre **asteriscos** em dourado), uma imagem opcional embaixo
-e a narração da cena na voz pt-BR do Windows (Microsoft Maria). A tela fica o tempo da fala + uma pausa curta,
+e a narração da cena com voz neural pt-BR (edge-tts, a mesma do forge; reserva: voz do Windows). A tela fica o tempo da fala + uma pausa curta,
 com um zoom lento. No topo, a barra de progresso das cenas; no rodapé, "18+ · Jogue com responsabilidade."
 O texto fica no terço de cima e no meio: embaixo e à direita o YouTube põe título e botões.
 
@@ -35,7 +35,10 @@ MUTED = (185, 187, 190)
 DIM = (70, 70, 74)
 FONT_URL = "https://github.com/google/fonts/raw/main/ofl/montserrat/Montserrat%5Bwght%5D.ttf"
 FONT = os.path.join(tempfile.gettempdir(), "fonts", "Montserrat.ttf")
-VOZ = "Microsoft Maria Desktop"
+VOZ = "Microsoft Maria Desktop"          # reserva (SAPI do Windows)
+VOZ_NEURAL = "pt-BR-AntonioNeural"        # edge-tts; o roteiro pode trocar com "voz" (ex.: pt-BR-FranciscaNeural)
+VELOCIDADE = "+8%"
+FORGE_PY = os.environ.get("FORGE_PY", r"C:\Users\Administrator\Documents\Codex\2026-10-16\vej\outputs\chile-football-viral-cl\forge\.venv\Scripts\python.exe")
 PAUSA = 0.55       # segundos de tela depois da fala
 MIN_CENA = 2.2
 
@@ -204,8 +207,24 @@ def tela(roteiro, i):
     return img.convert("RGB")
 
 
-def narrar(texto, wav, pasta):
-    """Fala da cena em WAV com a voz pt-BR do Windows (SAPI). O texto vai por arquivo para não brigar com aspas."""
+def narrar(texto, wav, pasta, voz=None):
+    """Fala da cena em WAV. Primeiro a voz neural pt-BR do edge-tts (a mesma do Liora-Cuts/forge, que já tem o pacote);
+    se falhar (sem internet, API fora), a voz pt-BR do Windows (SAPI)."""
+    mp3 = os.path.join(pasta, os.path.basename(wav) + ".mp3")
+    if os.path.exists(FORGE_PY):
+        try:
+            subprocess.run([FORGE_PY, "-m", "edge_tts", "--voice", voz or VOZ_NEURAL, f"--rate={VELOCIDADE}", "--text", texto,
+                            "--write-media", mp3], check=True, capture_output=True, timeout=60)
+            subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", mp3, "-ar", "44100", "-ac", "1", wav], check=True)
+            with wave.open(wav) as w:
+                return w.getnframes() / w.getframerate()
+        except (subprocess.SubprocessError, OSError, wave.Error) as err:
+            print(f"edge-tts falhou ({err}); usando a voz do Windows")
+    return narrar_sapi(texto, wav, pasta)
+
+
+def narrar_sapi(texto, wav, pasta):
+    """Fala da cena com a voz pt-BR do Windows (SAPI). O texto vai por arquivo para não brigar com aspas."""
     txt = os.path.join(pasta, os.path.basename(wav) + ".txt")
     ps1 = os.path.join(pasta, "voz.ps1")
     with open(txt, "w", encoding="utf-8") as fh:
@@ -253,7 +272,7 @@ def main(spec):
             wav = os.path.join(pasta, f"c{i}.wav")
             mp4 = os.path.join(pasta, f"c{i}.mp4")
             tela(roteiro, i).save(png)
-            dur = max(MIN_CENA, narrar(cena["fala"], wav, pasta) + PAUSA)
+            dur = max(MIN_CENA, narrar(cena["fala"], wav, pasta, roteiro.get("voz")) + PAUSA)
             segmento(png, wav, dur, mp4)
             segs.append(mp4)
             total += dur

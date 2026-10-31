@@ -23,7 +23,7 @@ const ABA = 'Cadastros';
 const CABECALHO = ['Data/hora', 'E-mail', 'Origem (utm_source)', 'Mídia (utm_medium)', 'Campanha (utm_campaign)',
   'Termo (utm_term)', 'Conteúdo (utm_content)', 'gclid', 'fbclid', 'Indicação (ref)', 'Página de entrada', 'ID do cadastro',
   'Veio de (site)', 'WhatsApp', 'Boas-vindas enviado', 'Abriu o link do app', 'Aparelho', 'Clicou em comprar fichas',
-  'Chamou o suporte', 'Sequência (e-mails)', 'Saiu da lista'];
+  'Chamou o suporte', 'Sequência (e-mails)', 'Saiu da lista', 'Lembrete (não abriu o app)'];
 const COL = (nome) => CABECALHO.indexOf(nome) + 1;
 
 const SITE = 'https://suprema.blog';
@@ -199,7 +199,7 @@ function aba_() {
   }
   if (mudou) {
     aba.getRange(1, 1, 1, CABECALHO.length).setFontWeight('bold').setBackground('#000000').setFontColor('#ffa51f');
-    ['Boas-vindas enviado', 'Abriu o link do app', 'Clicou em comprar fichas', 'Chamou o suporte', 'Saiu da lista'].forEach((nome) => {
+    ['Boas-vindas enviado', 'Abriu o link do app', 'Clicou em comprar fichas', 'Chamou o suporte', 'Saiu da lista', 'Lembrete (não abriu o app)'].forEach((nome) => {
       aba.getRange(2, COL(nome), aba.getMaxRows() - 1, 1).setNumberFormat('dd/MM/yyyy HH:mm');
     });
   }
@@ -329,7 +329,7 @@ function boasVindas_(para, id) {
 
 // Monta o HTML e o texto simples de um e-mail a partir dos dados (BOAS_VINDAS ou um item de SEQUENCIA).
 function enviaModelo_(para, id, m, prefixo) {
-  const troca = (url) => (url === '{app}' ? linkApp_(id) : url);
+  const troca = (url) => (url === '{app}' ? linkApp_(id) : url === '{suporte}' ? linkSuporte_(para) : url);
   const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
   const forte = (s) => esc(s).replace(/\*\*(.+?)\*\*/g, '<b style="color:#ffffff;font-weight:700">$1</b>');
   const limpo = (s) => String(s).replace(/\*\*(.+?)\*\*/g, '$1');
@@ -461,6 +461,21 @@ function diaBr_(d) {
   return Date.UTC(Number(s[0]), Number(s[1]) - 1, Number(s[2])) / 86400000;
 }
 
+// Lembrete para quem se cadastrou e não abriu o app pelo nosso link: sai uma vez, 2 dias depois do cadastro, no lugar
+// do e-mail da sequência daquele dia (continua 1 e-mail por pessoa por dia). A coluna "Lembrete (não abriu o app)" guarda a data.
+const LEMBRETE_DIAS = 2;
+const LEMBRETE = {
+  assunto: 'Travou em algum passo? A gente resolve com você',
+  preheader: 'Baixar o app, entrar no clube ' + CLUBE + ' ou comprar fichas: o suporte 24h ajuda no WhatsApp.',
+  capa: capa_('como-entrar-no-clube-suprema'), selo: 'Precisa de ajuda?', titulo: 'Travou em algum passo?',
+  paragrafos: ['Você ainda não abriu o app pelo nosso link. Se alguma coisa travou, estes são os casos mais comuns e como resolver:'],
+  lista: ['**O link abriu a loja e não o clube:** instale o Suprema Poker e toque de novo no botão abaixo.',
+    '**O app pediu o clube:** use os dois números abaixo.',
+    '**O pedido ficou pendente:** aguarde alguns minutos ou chame o suporte com o seu ID de jogador, que fica no perfil do app.'],
+  ids: true,
+  botao: ['Abrir o app e entrar no clube', '{app}'], link: ['Chamar o suporte 24h no WhatsApp', '{suporte}'],
+};
+
 // Acionador diário (Acionadores → enviarSequencia, contador de dias, 18h–19h). Liga com a propriedade SEQUENCIA = sim.
 // Só entra quem recebeu as boas-vindas e não saiu da lista; manda no máximo 1 e-mail por pessoa por dia, na ordem.
 function enviarSequencia() {
@@ -473,10 +488,19 @@ function enviarSequencia() {
   linhas.forEach((r, i) => {
     const boasVindas = r[COL('Boas-vindas enviado') - 1];
     if (!(boasVindas instanceof Date) || r[COL('Saiu da lista') - 1] !== '') return;
+    const cadastro = r[0] instanceof Date ? r[0] : boasVindas;
+    if (r[COL('Abriu o link do app') - 1] === '' && r[COL('Lembrete (não abriu o app)') - 1] === '' && hoje - diaBr_(cadastro) >= LEMBRETE_DIAS) {
+      try {
+        enviaModelo_(String(r[COL('E-mail') - 1]), String(r[COL('ID do cadastro') - 1]), LEMBRETE, '');
+        aba.getRange(i + 2, COL('Lembrete (não abriu o app)')).setValue(new Date());
+      } catch (err) {
+        console.error('lembrete, linha ' + (i + 2) + ': ' + err);
+      }
+      return;
+    }
     const feitos = Number(r[COL('Sequência (e-mails)') - 1]) || 0;
     const proximo = SEQUENCIA[feitos];
     if (!proximo) return;
-    const cadastro = r[0] instanceof Date ? r[0] : boasVindas;
     if (hoje - diaBr_(cadastro) < proximo.dia) return;
     try {
       enviaModelo_(String(r[COL('E-mail') - 1]), String(r[COL('ID do cadastro') - 1]), proximo, '');
@@ -578,6 +602,11 @@ function paginaSair_(ok) {
 // Rode pelo editor (Executar → testeBoasVindas) para receber o e-mail na caixa do REMETENTE e conferir.
 function testeBoasVindas() {
   boasVindas_(REMETENTE, '');
+}
+
+// Rode pelo editor para receber o lembrete de quem não abriu o app na caixa do REMETENTE.
+function testeLembrete() {
+  enviaModelo_(REMETENTE, '', LEMBRETE, '[Prévia] ');
 }
 
 // Rode pelo editor para receber as boas-vindas e os 7 e-mails da sequência na caixa do REMETENTE, de uma vez.
