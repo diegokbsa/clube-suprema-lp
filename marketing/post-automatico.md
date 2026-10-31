@@ -62,6 +62,10 @@ não render um post bom, ou faltar fato confiável, **não publique post**: marq
    Se falhar, veja o print em `data/shorts/telas/` e tente uma vez de novo. Celular desconectado ou bloqueado: relate e
    siga (o Short fica pronto para a próxima rodada; antes de fazer outro, publique os que ficaram para trás, conferindo
    `data/shorts/publicados.json`).
+9b. **Publique o mesmo vídeo como Reels** no Instagram do clube (@supremaclub), com o mesmo Python do forge:
+   `& "C:\Users\Administrator\Documents\Codex\2026-10-16\vej\outputs\chile-football-viral-cl\forge\.venv\Scripts\python.exe" tools\instagram\postar_reel.py marketing\shorts\<id>.json`
+   A legenda sai sozinha do roteiro, com o Clube Suprema (ID 10001), "link na bio", 18+ e 5 hashtags. Registro em
+   `data/shorts/instagram.json`. Se falhar, veja o print em `data/shorts/telas/` e tente uma vez de novo.
 10. **Confira o site** uns 3 minutos depois do push: `curl -s -o /dev/null -w "%{http_code}" https://suprema.blog/blog/<slug>` = 200.
 11. **Relatório final** (em português): título e link do post, se o Short saiu, e qualquer falha.
 
