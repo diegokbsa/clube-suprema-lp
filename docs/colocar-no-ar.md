@@ -81,7 +81,7 @@ Atenção: o Brave bloqueia os envios do Analytics por padrão; teste em outro n
 - Qualquer grupo que adicionar o robô recebe a grade todo dia a partir das 9h, junto com o canal e o Bluesky (`shareDailyGrade`). Quem adiciona depois das 9h já recebe a do dia. O admin do grupo pausa com `/pausar` e volta com `/ativar`. A grade do canal leva a linha "Quer esta grade no seu grupo todo dia?" com o link de adicionar.
 - Os grupos ficam na aba **Grupos** da planilha (Apps Script v8): Situação = ativo, pausado, saiu ou migrou; Última grade = dia enviado, "enviando <dia>" ou "falhou: <motivo>". Grupo que tirou o robô vira "saiu" sozinho.
 - Os links levam `utm_source=telegram` com `utm_medium=grupo` (grupos) ou `bot` (privado), e `utm_campaign=torneios` ou `clube`.
-- Na 1ª vez que liga, o servidor registra os comandos no Telegram e põe a descrição do robô (só se estiver vazia no @BotFather).
+- Ao ligar, o servidor registra os comandos no Telegram, põe o nome de exibição "Torneios Suprema Poker · Clube Suprema" (para aparecer na busca; o @supremaclub_bot não muda) e a descrição do robô (só se estiver vazia no @BotFather).
 - `GET /api/robo` mostra se ele está lendo mensagens (o vigia das 22h confere). Se "entraEmGrupos" for false: @BotFather → `/setjoingroups` → Enable.
 - Para divulgar: cadastrar o robô e o canal no TGStat e no Telemetrio (login pelo Telegram, é o dono que faz).
 
