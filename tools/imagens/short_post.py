@@ -123,6 +123,34 @@ def imagem(img, caminho, box):
     luxo.paste(img, im, (x0 + (x1 - x0 - im.width) // 2, y0 + (y1 - y0 - im.height) // 2))
 
 
+def corta(d, texto, f, max_w):
+    if d.textlength(texto, font=f) <= max_w:
+        return texto
+    while texto and d.textlength(texto + "…", font=f) > max_w:
+        texto = texto[:-1]
+    return texto.rstrip() + "…"
+
+
+def tabela(img, cena):
+    """Cena de lista (grade de torneios): até 4 cartões com horário em dourado, nome e uma linha de detalhes."""
+    texto_central(img, cena["tela"], 330, size=56, max_linhas=2)
+    layer = Image.new("RGBA", img.size, (0, 0, 0, 0))
+    dl = ImageDraw.Draw(layer)
+    y = 450
+    for _ in cena["linhas"][:4]:
+        dl.rounded_rectangle((80, y, W - 80, y + 214), radius=28, fill=(20, 18, 15, 255), outline=(92, 66, 28, 255), width=2)
+        y += 240
+    img.alpha_composite(layer)
+    d = ImageDraw.Draw(img)
+    fh, fn, fi = font(64, 900), font(50, 800), font(30, 600)
+    y = 450
+    for ln in cena["linhas"][:4]:
+        d.text((120, y + 107), ln["hora"], font=fh, fill=GOLD, anchor="lm")
+        d.text((360, y + 72), corta(d, ln["nome"], fn, W - 80 - 360 - 30), font=fn, fill=WHITE, anchor="lm")
+        d.text((360, y + 146), corta(d, ln.get("info", ""), fi, W - 80 - 360 - 30), font=fi, fill=MUTED, anchor="lm")
+        y += 240
+
+
 def tela(roteiro, i):
     cena = roteiro["cenas"][i]
     n = len(roteiro["cenas"])
@@ -139,7 +167,9 @@ def tela(roteiro, i):
         cx, cy, r = W // 2, 290, 52
         d.ellipse((cx - r, cy - r, cx + r, cy + r), fill=GOLD)
         d.text((cx, cy + 2), str(cena["passo"]), font=font(56, 900), fill=(28, 20, 8), anchor="mm")
-    if cena.get("imagem"):
+    if cena.get("linhas"):
+        tabela(img, cena)
+    elif cena.get("imagem"):
         texto_central(img, cena["tela"], 640, size=84, max_linhas=5)
         imagem(img, cena["imagem"], (150, 960, W - 150, 1480))
     else:

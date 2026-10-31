@@ -65,8 +65,12 @@ não render um post bom, ou faltar fato confiável, **não publique post**: marq
 10. **Confira o site** uns 3 minutos depois do push: `curl -s -o /dev/null -w "%{http_code}" https://suprema.blog/blog/<slug>` = 200.
 11. **Relatório final** (em português): título e link do post, se o Short saiu, e qualquer falha.
 
-## Grade de torneios em vídeo
+## Grade de torneios em vídeo (todo dia às 9h, tarefa própria)
 
-Ainda sem fonte: falta definir de onde vem a grade do dia (print do lobby, imagem oficial da Suprema...). Até lá a
-rotina não faz vídeo de grade, para não inventar horários nem garantidos. No YouTube a grade não pode mostrar valores
-em reais.
+A tarefa agendada "Grade de torneios do dia (9h)" faz um Short por dia com os destaques da grade da Liga Suprema, a
+mesma de https://www.sx-co.com/torneios (API pública `api.pokerbyte.com.br/mtt/list/106/all/<data>/guaranteed/desc`,
+data em Brasília, horários em UTC). `tools/grade/grade_do_dia.py` escolhe os 8 maiores garantidos que ainda vão começar
+(até as 7h do dia seguinte, sem satélites) e grava o roteiro em `data/shorts/grade-<data>.json`; depois vêm
+`short_post.py` e `postar_short.py`, como nos outros Shorts. No vídeo aparecem horário, nome, modalidade, stack e tempo
+de blind; buy-in e garantido só servem para escolher os destaques (regra do YouTube: nada de valores em reais).
+Esta rotina das 12h, 15h e 18h não faz vídeo de grade.

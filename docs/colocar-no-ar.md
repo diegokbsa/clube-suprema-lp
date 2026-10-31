@@ -88,6 +88,7 @@ Atenção: o Brave bloqueia os envios do Analytics por padrão; teste em outro n
 - Short: roteiro em `marketing/shorts/<id>.json`, vídeo gerado por `tools/imagens/short_post.py` (1080x1920, voz pt-BR do Windows) em `data/shorts/`, e publicado por `tools/youtube/postar_short.py` com o app do YouTube no celular (ADB pelo Wi-Fi, mesmo esquema do Liora-Cuts/forge, que posta TikTok pelo mesmo aparelho). Registro em `data/shorts/publicados.json`, prints em `data/shorts/telas/`.
 - O celular precisa ficar ligado, no Wi-Fi, desbloqueado sem senha de tela e com o YouTube logado no canal. O YouTube não ganha acesso às fotos: o vídeo é escolhido pelo seletor do Android.
 - No YouTube vale a versão segura de `marketing/videos-curtos.md`: sem link do site, ID do clube, PIX, Fichas 24h ou valores em reais.
+- **Grade de torneios do dia (9h):** tarefa agendada própria. `tools/grade/grade_do_dia.py` busca a grade da Liga Suprema na API pública da PokerByte (a mesma de sx-co.com/torneios), escolhe os 8 maiores garantidos que ainda vão começar e monta o Short em `data/shorts/grade-<data>.json`; o vídeo mostra horário, nome, modalidade, stack e blinds, sem buy-in nem garantido.
 
 ### Search Console
 
