@@ -22,7 +22,7 @@ Peças da rotina de posts automáticos (`marketing/post-automatico.md`):
 | Script | Gera | Como rodar (na raiz do projeto) |
 |---|---|---|
 | `capa_post.py` | capa de um post novo a partir dos campos `capa*` do front matter, sem editar `capas.py` | `python tools/imagens/capa_post.py <slug>` |
-| `short_post.py` | vídeo em pé 1080x1920 (Shorts/Reels) com narração pt-BR (edge-tts), a partir de `marketing/shorts/<id>.json`; sai em `data/shorts/<id>.mp4`. Com `SHORT_ANIMADO=1`, as cenas são animadas por `motion/cena.html` e fotografadas quadro a quadro por `motion/render.mjs` (Chrome sem janela); se falhar, sai o modelo parado | `python tools/imagens/short_post.py marketing/shorts/<id>.json [pasta de saída]` |
+| `short_post.py` | vídeo em pé 1080x1920 (Shorts/Reels) com narração pt-BR (edge-tts), a partir de `marketing/shorts/<id>.json`; sai em `data/shorts/<id>.mp4`. As cenas são animadas por `motion/cena.html` e fotografadas quadro a quadro por `motion/render.mjs` (Chrome sem janela); se falhar, sai o modelo parado, que também dá para forçar com `SHORT_ANIMADO=0` | `python tools/imagens/short_post.py marketing/shorts/<id>.json [pasta de saída]` |
 
 Os dois baixam a Montserrat para `%TMP%\fonts` se ela não estiver lá. O `short_post.py` precisa do ffmpeg no PATH; o
 animado precisa também do Node e do Chrome (ou Edge) e leva uns 2 minutos por vídeo de 40 s.

@@ -52,7 +52,9 @@ não render um post bom, ou faltar fato confiável, **não publique post**: marq
    - `titulo` até 90 caracteres terminando em ` #shorts`; `descricao` com 2 ou 3 linhas, "18+ · Jogue com
      responsabilidade." e 3 a 5 hashtags (#poker #pokeronline #texasholdem #supremapoker...); `tipo` (ex.: "Regras do
      poker", "Dica rápida", "Tutorial · App").
-   - Gere: `python tools/imagens/short_post.py marketing/shorts/<id>.json` e confira `data/shorts/<id>.jpg`.
+   - Gere: `python tools/imagens/short_post.py marketing/shorts/<id>.json` e confira `data/shorts/<id>.jpg`. O vídeo
+     é animado quadro a quadro e leva uns 3 minutos: rode com timeout de 10 minutos e não interrompa ("ok animado" na
+     última linha; "ok parado" = saiu o modelo de reserva, siga e cite no relatório).
 8. **Publique o site**: marque o tema na pauta como `- [x] AAAA-MM-DD`, depois
    `git add content/blog/<slug>.md public/img/blog/<slug> marketing/shorts/<id>.json marketing/pauta-blog.md`,
    commit "Blog: <título curto> (post automático)" com a linha `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`

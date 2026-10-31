@@ -8,7 +8,7 @@ O texto fica no terço de cima e no meio: embaixo e à direita o YouTube põe t�
 Animado (tools/imagens/motion): palavras entrando uma a uma, horários que rolam como contador, cartões em 3D, feixes de
 luz e naipes ao fundo, troca de cena com faixa de luz e um "whoosh" baixinho. O Chrome sem janela fotografa cada quadro
 (30 por segundo) e o ffmpeg junta com as falas. Se o Chrome ou o Node falharem, sai o modelo parado (uma tela por cena
-com zoom lento), para a automação não ficar sem vídeo. SHORT_ANIMADO=1 liga o animado, SHORT_ANIMADO=0 força o parado.
+com zoom lento), para a automação não ficar sem vídeo. O animado é o padrão; SHORT_ANIMADO=0 força o parado.
 
 Roteiro (marketing/shorts/<id>.json):
   {"id": "...", "tipo": "Tutorial", "titulo": "...", "descricao": "...",
@@ -50,7 +50,7 @@ FORGE_PY = os.environ.get("FORGE_PY", r"C:\Users\Administrator\Documents\Codex\2
 PAUSA = 0.55       # segundos de tela depois da fala
 MIN_CENA = 2.2
 MOTION = os.path.join(os.path.dirname(os.path.abspath(__file__)), "motion")
-ANIMADO = os.environ.get("SHORT_ANIMADO", "0") == "1"
+ANIMADO = os.environ.get("SHORT_ANIMADO", "1") != "0"
 EXIT_PREVIA = 0.45  # a prévia (jpg) sai antes da saída da 1ª cena (0,32 s no cena.html)
 
 
