@@ -1,0 +1,15 @@
+{
+  "id": "ranking-de-maos-do-poker",
+  "tipo": "Regras do poker",
+  "titulo": "Ranking das mãos do poker: qual mão ganha de qual? #shorts",
+  "descricao": "A ordem das mãos do poker, da carta alta ao royal flush, e quem desempata quando duas mãos são iguais. No próximo vídeo: as regras do Texas Hold'em.\n\n18+ · Jogue com responsabilidade.\n\n#poker #pokeronline #texasholdem #supremapoker",
+  "post": "ranking-de-maos-do-poker",
+  "cenas": [
+    { "tela": "Flush ou sequência: **qual ganha?**", "fala": "Flush ou sequência: qual ganha? Olha a ordem das mãos do poker.", "imagem": "public/img/app-mesa.webp" },
+    { "passo": 1, "tela": "**Royal flush**, straight flush e **quadra**", "fala": "No topo, o royal flush, depois o straight flush e a quadra." },
+    { "passo": 2, "tela": "**Full house**, depois **flush**, depois **sequência**", "fala": "Em seguida vem o full house, o flush e só depois a sequência. Então o flush ganha." },
+    { "passo": 3, "tela": "**Trinca**, dois pares, um par e **carta alta**", "fala": "Depois vêm a trinca, os dois pares, um par e, por último, a carta alta." },
+    { "tela": "Empatou? Decide o **kicker**. Naipe **não** desempata", "fala": "Empatou na mesma mão? Decide a carta que sobra, o kicker. Naipe não desempata." },
+    { "tela": "No próximo: **regras do Texas Hold'em**. Segue o canal!", "fala": "No próximo vídeo, as regras do Texas Hold'em passo a passo. Segue o canal!", "imagem": "public/img/app-mesa.webp" }
+  ]
+}

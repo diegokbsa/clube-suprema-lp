@@ -9,7 +9,7 @@ maiores clubes, entrar no Clube Suprema, sair do clube, ID do clube H2 e Liga, c
 Fichas 24h por PIX, depósito não caiu, Suprema Poker é confiável, formatos de torneio, Spin Suprema, perguntas do suporte.
 
 ## Regras e fundamentos
-- [ ] ranking-de-maos-do-poker | Ranking das mãos do poker, da carta alta ao royal flush, com exemplos | ranking das mãos do poker
+- [x] 2026-10-30 ranking-de-maos-do-poker | Ranking das mãos do poker, da carta alta ao royal flush, com exemplos | ranking das mãos do poker
 - [ ] regras-do-texas-holdem | Regras do Texas Hold'em passo a passo: blinds, rodadas de aposta e showdown | regras do texas holdem
 - [ ] acoes-do-poker-check-call-raise-fold | Check, bet, call, raise e fold: o que cada ação faz e quando usar | o que é check no poker
 - [ ] flop-turn-river | Pré-flop, flop, turn e river: as fases de uma mão de poker | o que é flop turn e river
