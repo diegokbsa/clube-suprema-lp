@@ -1,0 +1,16 @@
+{
+  "id": "flop-turn-river",
+  "tipo": "Regras do poker",
+  "titulo": "Pré-flop, flop, turn e river: as 4 fases de uma mão de poker #shorts",
+  "descricao": "O que acontece em cada fase de uma mão de Texas Hold'em: quantas cartas abrem, quem fala primeiro e quando vem o showdown. No próximo vídeo: small blind, big blind e ante.\n\n18+ · Jogue com responsabilidade.\n\n#poker #pokeronline #texasholdem #supremapoker",
+  "post": "flop-turn-river",
+  "cenas": [
+    { "tela": "**Flop, turn e river**: o que é cada um?", "fala": "Flop, turn e river: o que é cada um? As quatro fases de uma mão de poker em menos de um minuto.", "imagem": "public/img/app-mesa.webp" },
+    { "passo": 1, "tela": "**Pré-flop**: 2 cartas fechadas para cada um", "fala": "Pré-flop: cada jogador recebe duas cartas fechadas e vem a primeira rodada de apostas." },
+    { "passo": 2, "tela": "**Flop**: 3 cartas abertas de uma vez", "fala": "Flop: a mesa abre três cartas comunitárias de uma vez. É aqui que a mão ganha forma." },
+    { "passo": 3, "tela": "**Turn**: a quarta carta", "fala": "Turn: sai a quarta carta, e as apostas costumam crescer." },
+    { "passo": 4, "tela": "**River**: a quinta e última carta", "fala": "River: a quinta e última carta. Depois dela, só o showdown." },
+    { "tela": "Do flop em diante, o **botão** fala por último", "fala": "Dica: do flop em diante, quem está no botão fala por último, e isso é uma vantagem enorme." },
+    { "tela": "No próximo: **small blind, big blind e ante**. Segue o canal!", "fala": "No próximo vídeo, small blind, big blind e ante. Segue o canal!", "imagem": "public/img/app-mesa.webp" }
+  ]
+}
