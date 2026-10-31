@@ -9,7 +9,8 @@ import { store } from './lib/store.js';
 import * as flow from './lib/orchestrator.js';
 import { createLead, recordLeadEvent, leadsOverview } from './lib/leads.js';
 import { validateSignup, validateLead } from './public/shared/validate.js';
-import { renderBlogIndex, renderBlogPost, renderNotFound, renderSitemap, renderFeed, renderLlms, renderLlmsFull, renderAbout } from './lib/blog.js';
+import { renderBlogIndex, renderBlogPost, renderNotFound, renderSitemap, renderFeed, renderLlms, renderLlmsFull, renderAbout, renderTorneios } from './lib/blog.js';
+import { getGrade } from './lib/torneios.js';
 import { announceNewPosts, shareNewPosts } from './lib/novos-posts.js';
 
 const PUBLIC_DIR = fileURLToPath(new URL('./public/', import.meta.url));
@@ -301,6 +302,13 @@ function servePage(req, res, url) {
   return false;
 }
 
+// Grade de torneios da Liga Suprema (lib/torneios.js guarda 10 min em memória); cache curto porque o "late aberto" muda.
+async function serveTorneios(req, res) {
+  const page = renderTorneios(await getGrade());
+  res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'public, max-age=120' });
+  res.end(req.method === 'HEAD' ? undefined : page);
+}
+
 const server = http.createServer(async (req, res) => {
   res.setHeader('X-Content-Type-Options', 'nosniff');
   res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
@@ -316,6 +324,7 @@ const server = http.createServer(async (req, res) => {
       return res.end(req.method === 'HEAD' ? undefined : 'ok');
     }
     if (url.pathname === '/baixar') return redirectToApp(req, res, url);
+    if (url.pathname === '/torneios' || url.pathname === '/torneios/') return serveTorneios(req, res);
     if (servePage(req, res, url)) return;
     return serveStatic(req, res, url);
   }

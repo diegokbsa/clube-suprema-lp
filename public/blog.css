@@ -145,3 +145,40 @@ body.page-blog, body.page-post { background: #000; } /* fundo 100% preto */
   body:has(.post-dock.is-on) .wa-float { display: none; }
 }
 @media (max-width: 899px) and (prefers-reduced-motion: reduce) { .post-dock { transition: none; } }
+
+/* Grade de torneios (/torneios): destaques no topo e lista por período, com horário em dourado. */
+.grade-date { margin: 14px 0 0; color: var(--gold-hi); font-weight: 700; }
+.grade-top { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr)); margin: 0 auto 40px; max-width: 900px; }
+.grade-destaque { background: var(--card-luxo); border: 1px solid var(--gold-border); border-radius: var(--radius); padding: 20px 22px; text-align: center; }
+.grade-destaque-hora { margin: 0; font: 700 2.2rem/1 var(--font-num); color: var(--gold-hi); letter-spacing: .02em; }
+.grade-destaque h2 { margin: 8px 0 4px; font-size: 1.2rem; font-weight: 900; text-transform: uppercase; }
+.grade-destaque-gtd { margin: 0 0 6px; font-weight: 800; background: var(--gold-text); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+.grade-destaque .small { margin: 0; }
+.grade { max-width: 900px; margin: 0 auto 28px; }
+.grade-period { font-size: 1.25rem; font-weight: 900; text-transform: uppercase; margin: 0 0 12px; display: flex; align-items: baseline; gap: 10px; }
+.grade-period small { font-size: .78rem; font-weight: 600; text-transform: none; color: var(--muted); }
+.mtt-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.mtt { display: flex; align-items: center; gap: 16px; padding: 14px 18px; background: var(--panel); border: 1px solid var(--gold-border-soft); border-radius: 14px; }
+.mtt.is-main { border-color: var(--gold-border); box-shadow: var(--glow-gold); }
+.mtt-hora { flex: none; width: 64px; font: 700 1.55rem/1 var(--font-num); color: var(--gold-hi); letter-spacing: .02em; }
+.mtt-main { flex: 1; min-width: 0; }
+.mtt-nome { margin: 0 0 4px; font-weight: 800; font-size: 1.02rem; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.mtt-tags { display: inline-flex; flex-wrap: wrap; gap: 5px; }
+.mtt-tags span { font-size: .64rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--gold-hi); border: 1px solid var(--gold-border-soft); border-radius: var(--pill); padding: 2px 8px; }
+.mtt-info { margin: 0; display: flex; flex-wrap: wrap; gap: 4px 14px; color: var(--muted); font-size: .86rem; }
+.mtt-info b { color: var(--text); font-weight: 700; }
+.mtt-status { flex: none; font-size: .7rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: #4ade80; border: 1px solid rgba(74, 222, 128, .45); border-radius: var(--pill); padding: 4px 10px; }
+.mtt-tags .mtt-tag-late { display: none; color: #4ade80; border-color: rgba(74, 222, 128, .45); }
+.grade-fonte { max-width: 900px; margin: 18px auto 0; text-align: center; }
+@media (max-width: 560px) {
+  /* destaques em fila deslizante, para a lista aparecer logo */
+  .grade-top { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 78%; overflow-x: auto; scroll-snap-type: x mandatory; margin-bottom: 28px; padding-bottom: 4px; }
+  .grade-destaque { scroll-snap-align: start; padding: 16px; }
+  .grade-destaque-hora { font-size: 1.8rem; }
+  .mtt { align-items: flex-start; gap: 12px; padding: 12px 14px; }
+  .mtt-hora { width: 50px; font-size: 1.3rem; padding-top: 2px; }
+  .mtt-nome { gap: 6px; }
+  .mtt-status { display: none; }                    /* no celular o "late aberto" vira etiqueta, junto das outras */
+  .mtt-tags .mtt-tag-late { display: inline; }
+  .mtt-info { font-size: .8rem; gap: 2px 10px; }
+}
