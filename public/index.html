@@ -4,16 +4,30 @@
   <meta charset="utf-8">
   <!-- Sem Google Tag Manager na LP desde 29/10/2026: o contêiner GTM-N46659WQ está vazio e custava 112 KB por visita.
        Para voltar a usar, copie o snippet do TRACKING_HEAD de lib/blog.js. -->
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-970454313"></script>
+  <!-- Google tag (gtag.js): Google Ads e GA4. Desde 31/10/2026 o script (~330 KB) só chega no primeiro toque ou
+       rolagem, ou 3 s depois da página carregar, para não disputar o celular com o topo da página (PageSpeed 69).
+       As chamadas ficam na fila do dataLayer até ele chegar; quem sai antes disso sem tocar na tela não é contado. -->
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
 
     gtag('config', 'AW-970454313');
-    // GA4 já no topo, para contar também quem sai em 1 s (antes ele só ligava depois do /api/config).
     gtag('config', 'G-ZXS59RV8GR');
+    (function (w, d) {
+      var ok = 0;
+      function go() {
+        if (ok) return;
+        ok = 1;
+        var s = d.createElement('script');
+        s.async = true;
+        s.src = 'https://www.googletagmanager.com/gtag/js?id=AW-970454313';
+        d.head.appendChild(s);
+      }
+      ['scroll', 'pointerdown', 'keydown', 'touchstart'].forEach(function (e) { w.addEventListener(e, go, { once: true, passive: true }); });
+      if (d.readyState === 'complete') setTimeout(go, 3000);
+      else w.addEventListener('load', function () { setTimeout(go, 3000); });
+    })(window, document);
   </script>
   <!-- Microsoft Clarity (gravações e mapas de calor; projeto "Clube Suprema"). Carrega já, para pegar quem sai em segundos. -->
   <script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};

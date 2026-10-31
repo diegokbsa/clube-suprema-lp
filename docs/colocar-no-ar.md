@@ -39,6 +39,7 @@ Atenção: o Brave bloqueia os envios do Analytics por padrão; teste em outro n
 
 - Painel: https://clarity.microsoft.com, projeto **Clube Suprema** (`z41gk7muip`). A mesma conta tem também o projeto Batalha Esportiva; confira o nome no topo antes de olhar os dados.
 - Na LP o script carrega já no `<head>`, sem esperar a página terminar, para gravar também quem sai em 2 ou 3 segundos (o caso dos anúncios).
+- Já o Google tag da LP (Google Ads + GA4) espera o primeiro toque/rolagem ou 3 s depois da página carregar, desde 31/10/2026: no topo ele derrubava a LP para 69 no PageSpeed celular. Quem sai antes disso sem tocar na tela não entra no GA4 (o Clarity ainda grava).
 - No blog (`TRACKING_HEAD` de `lib/blog.js`), Clarity, Google tag (Ads + GA4) e GTM entram no primeiro toque/rolagem ou 3 s depois da página carregar. Em 28/10/2026 isso levou o post do Fichas 24h de 55 para 93 no PageSpeed celular (LCP de 7,3 s para 1,4 s). Quem sai do blog antes disso sem tocar na tela não é contado.
 - Cada `track()` do `public/app.js` vira um evento personalizado do Clarity (`lp_view`, `signup_start`, `signup_complete`, `whatsapp_click`, `app_download_click` etc.), e a tag `variante` (`padrao`, `fichas`, `spin`) diz qual versão da LP o visitante viu. Use os dois em Filtros → Eventos personalizados / Tags e para montar funis.
 - Para ver só quem veio de anúncio: Filtros → Tráfego → Fonte/Campanha (o Clarity lê as UTMs da URL), ou Referenciador. Depois, Gravações para assistir as sessões curtas e Mapas de calor → Rolagem para ver até onde as pessoas descem.
