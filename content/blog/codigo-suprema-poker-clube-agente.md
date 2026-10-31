@@ -1,6 +1,7 @@
 ---
 title: "Código promocional do Suprema Poker existe? O que é o código do clube e do agente"
-description: Não encontramos código promocional oficial do Suprema Poker que dê bônus. O que os clubes chamam de código é o ID do clube e o ID do agente. Veja como usar o do Clube Suprema (10001 e 1439098) no app e na primeira compra de fichas por PIX, e como fugir de golpes.
+seoTitle: "Código promocional Suprema Poker existe? Clube e agente"
+description: Não há código promocional oficial do Suprema Poker com bônus. O que chamam de código é o ID do clube e do agente: veja como usar e fugir de golpes.
 date: 2026-10-30
 updated: 2026-10-30
 cover: /img/blog/codigo-suprema-poker-clube-agente/cover.jpg

@@ -1,6 +1,7 @@
 ---
 title: "Clubes do Suprema Poker: como funcionam, ID, como entrar e sair"
-description: Guia dos clubes do Suprema Poker. O que é um clube, onde achar o ID, como entrar pelo link ou com o ID, jogar em vários clubes, sair de um clube e escolher um clube confiável.
+seoTitle: "Clubes do Suprema Poker: como funcionam, ID, entrar e sair"
+description: Guia dos clubes do Suprema Poker: o que é um clube, onde achar o ID, como entrar pelo link ou ID, jogar em vários clubes e escolher um confiável.
 date: 2026-10-26
 updated: 2026-10-26
 cover: /img/blog/clubes-suprema-poker/cover.jpg

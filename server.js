@@ -256,7 +256,7 @@ function serveStatic(req, res, url) {
   if (pathname === '/') pathname = '/index.html';
   if (pathname === '/admin') pathname = '/admin.html';
   // Versões da LP com motion sempre ligado: /fichas (ficha 3D) e /spin (rolo do Spin Suprema)
-  if (/^[/](fichas|spin)[/]?$/.test(pathname)) pathname = '/index.html';
+  if (/^[/](fichas|spin)$/.test(pathname)) pathname = '/index.html';
   const file = path.join(PUBLIC_DIR, path.normalize(pathname));
   if (!file.startsWith(PUBLIC_DIR)) {
     res.writeHead(403);
@@ -267,9 +267,9 @@ function serveStatic(req, res, url) {
       res.writeHead(404, { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store' });
       return res.end(renderNotFound());
     }
-    // Fontes não mudam de nome; imagens podem ser refeitas com o mesmo nome (cache de 1 dia). HTML, CSS e JS sempre revalidam.
+    // Fontes não mudam de nome; imagens podem ser refeitas com o mesmo nome (cache de 30 dias). HTML, CSS e JS sempre revalidam.
     const cache = pathname.startsWith('/fonts/') ? 'public, max-age=31536000, immutable'
-      : pathname.startsWith('/img/') ? 'public, max-age=86400'
+      : pathname.startsWith('/img/') ? 'public, max-age=2592000, stale-while-revalidate=86400'
         : 'no-cache';
     res.writeHead(200, { 'Content-Type': TYPES[path.extname(file)] || 'application/octet-stream', 'Cache-Control': cache });
     res.end(buf);
@@ -285,19 +285,14 @@ function servePage(req, res, url) {
   };
   const html = (body, status) => send(body, 'text/html; charset=utf-8', status);
   const p = url.pathname;
-  if (p === '/blog' || p === '/blog/') return html(renderBlogIndex());
+  if (p === '/blog') return html(renderBlogIndex());
   if (p === '/blog/feed.xml') return send(renderFeed(), 'application/rss+xml; charset=utf-8');
   if (p === '/sitemap.xml') return send(renderSitemap(), 'application/xml; charset=utf-8');
-  if (p === '/sobre' || p === '/sobre/') return html(renderAbout());
+  if (p === '/sobre') return html(renderAbout());
   if (p === '/llms.txt') return send(renderLlms(), 'text/plain; charset=utf-8');
   if (p === '/llms-full.txt') return send(renderLlmsFull(), 'text/plain; charset=utf-8');
-  const post = p.match(/^[/]blog[/]([a-z0-9-]+)([/]?)$/);
+  const post = p.match(/^[/]blog[/]([a-z0-9-]+)$/);
   if (post) {
-    if (post[2]) { // barra final: um só endereço canônico
-      res.writeHead(301, { Location: '/blog/' + post[1], 'Cache-Control': 'public, max-age=86400' });
-      res.end();
-      return true;
-    }
     const page = renderBlogPost(post[1]);
     return page ? html(page) : html(renderNotFound(), 404);
   }
@@ -315,7 +310,14 @@ async function serveTorneios(req, res, txt = false) {
 const server = http.createServer(async (req, res) => {
   res.setHeader('X-Content-Type-Options', 'nosniff');
   res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
-  const url = new URL(req.url, `http://${req.headers.host || 'localhost'}`);
+  // Base fixa e uma barra só no começo: "//" ou um Host estranho faziam o new URL quebrar e derrubar o servidor.
+  let url;
+  try {
+    url = new URL(req.url.replace(/^[/]{2,}/, '/'), 'http://localhost');
+  } catch {
+    res.writeHead(400);
+    return res.end();
+  }
 
   if (!url.pathname.startsWith('/api/')) {
     if (req.method !== 'GET' && req.method !== 'HEAD') {
@@ -326,8 +328,15 @@ const server = http.createServer(async (req, res) => {
       res.writeHead(200, { 'Content-Type': 'text/plain; charset=utf-8', 'Cache-Control': 'no-store' });
       return res.end(req.method === 'HEAD' ? undefined : 'ok');
     }
+    // Um endereço só por página: sem barra no fim e sem /index.html (a busca e as UTMs vão junto).
+    const canonicalPath = url.pathname === '/index.html' ? '/'
+      : url.pathname.length > 1 && url.pathname.endsWith('/') ? url.pathname.replace(/[/]+$/, '') || '/' : null;
+    if (canonicalPath) {
+      res.writeHead(301, { Location: canonicalPath + url.search, 'Cache-Control': 'public, max-age=86400' });
+      return res.end();
+    }
     if (url.pathname === '/baixar') return redirectToApp(req, res, url);
-    if (url.pathname === '/torneios' || url.pathname === '/torneios/') return serveTorneios(req, res);
+    if (url.pathname === '/torneios') return serveTorneios(req, res);
     if (url.pathname === '/torneios.txt') return serveTorneios(req, res, true);
     if (servePage(req, res, url)) return;
     return serveStatic(req, res, url);

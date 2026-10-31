@@ -1,6 +1,7 @@
 ---
 title: Modalidades e formatos de torneio no poker online: guia completo
-description: Diferenças entre Texas Hold'em e Omaha, cash game, Sit & Go, torneio e Spin, e o que significam freezeout, re-entry, turbo, knockout, satélite e garantido na grade do app.
+seoTitle: "Modalidades e formatos de torneio no poker online"
+description: Diferenças entre Hold'em e Omaha, cash game, Sit & Go, torneio e Spin, e o que são freezeout, re-entry, turbo, knockout, satélite e garantido.
 date: 2026-10-23
 updated: 2026-10-26
 cover: /img/blog/formatos-de-torneio-poker-online/cover.jpg

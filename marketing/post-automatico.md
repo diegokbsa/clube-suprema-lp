@@ -25,7 +25,9 @@ não render um post bom, ou faltar fato confiável, **não publique post**: marq
    - Nada de copiar texto de outros sites.
 4. **Escreva** `content/blog/<slug>.md` no mesmo formato dos posts existentes (leia dois deles antes, por exemplo
    `formatos-de-torneio-poker-online.md` e `fichas-24-horas-suprema-poker-pix.md`):
-   - Front matter: `title` (até ~70 caracteres, com a busca alvo), `description` (140 a 200 caracteres), `date` e `updated`
+   - Front matter: `title` (até ~70 caracteres, com a busca alvo; é o título da página), `seoTitle` entre aspas quando o
+     `title` passar de 60 caracteres (até 60, busca alvo no começo; é o que aparece no Google), `description` (120 a
+     155 caracteres, o Google corta o resto), `date` e `updated`
      com a data de hoje em Brasília, `cover: /img/blog/<slug>/cover.jpg`, `coverAlt`, `tags` (2 a 4, das que já existem),
      `resumo` (resposta direta em 3 a 5 frases), `passosTitulo` e `passos` quando houver passo a passo, `faq` com 3 a 5
      perguntas reais, e os campos da capa: `capaTema` (cartas, mesa, app, clube, suporte ou torneio), `capaChamada`

@@ -1,6 +1,7 @@
 ---
 title: "Suprema Poker APK: como baixar e instalar no Android e o que fazer no iPhone"
-description: Como baixar o APK do Suprema Poker só no site oficial, liberar a instalação no Android, atualizar o app sem perder a conta e por que no iPhone o caminho é a App Store. No fim, entre no Clube Suprema com o clube 10001 e o agente 1439098.
+seoTitle: "Suprema Poker APK: como baixar e instalar no Android"
+description: Como baixar o APK do Suprema Poker no site oficial, liberar a instalação no Android, atualizar sem perder a conta e o caminho certo no iPhone.
 date: 2026-10-30
 updated: 2026-10-30
 cover: /img/blog/baixar-suprema-poker-apk/cover.jpg

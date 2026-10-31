@@ -1,6 +1,7 @@
 ---
 title: "Depósito no Suprema Poker não caiu? Quanto tempo leva e o que fazer"
-description: Quanto tempo as fichas levam para cair depois do PIX no Fichas 24h, onde conferir o saldo no Caixa do clube, por que um depósito é devolvido (CPF de outra pessoa, PIX sem QR Code) e o que mandar ao suporte 24h do Clube Suprema para resolver.
+seoTitle: "Depósito no Suprema Poker não caiu? Veja o que fazer"
+description: Quanto tempo as fichas levam para cair após o PIX no Fichas 24h, onde ver o saldo, por que um depósito volta e o que mandar ao suporte 24h.
 date: 2026-10-30
 updated: 2026-10-30
 cover: /img/blog/deposito-suprema-poker-nao-caiu/cover.jpg

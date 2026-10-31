@@ -1,6 +1,7 @@
 ---
 title: "Suprema Poker app: guia do lobby, mesa, fichas e configurações"
-description: Guia do app Suprema Poker com imagens: o que tem no lobby do clube, como ler a mesa, onde ficam as ações de aposta, as fichas e as configurações que valem ajustar. Ainda não tem o app? Veja como baixar no celular e no PC.
+seoTitle: "Suprema Poker app: guia do lobby, mesa e configurações"
+description: Guia do app Suprema Poker com imagens: o lobby do clube, como ler a mesa, onde ficam as ações de aposta, as fichas e as configurações úteis.
 date: 2026-10-23
 updated: 2026-10-27
 cover: /img/blog/guia-do-app-suprema-poker/cover.jpg

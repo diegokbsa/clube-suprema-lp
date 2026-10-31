@@ -1,6 +1,7 @@
 ---
 title: "Fichas 24 Horas: como comprar fichas do Suprema Poker por PIX"
-description: Passo a passo do Fichas 24h (fichas24horas.com.br) para comprar fichas do Suprema Poker por PIX, com criação da conta, cadastro do ID da Suprema e do clube, verificação, QR Code no seu CPF, saque e as regras do próprio Fichas 24h.
+seoTitle: "Fichas 24 Horas: comprar fichas do Suprema Poker por PIX"
+description: Passo a passo do Fichas 24h para comprar fichas do Suprema Poker por PIX: conta, ID da Suprema e do clube, verificação, QR Code no seu CPF e saque.
 date: 2026-10-27
 updated: 2026-10-27
 cover: /img/blog/fichas-24-horas-suprema-poker-pix/cover.jpg

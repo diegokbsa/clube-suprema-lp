@@ -1,6 +1,7 @@
 ---
 title: "Maiores e melhores clubes do Suprema Poker: como escolher onde jogar"
-description: Quais são os maiores e melhores clubes do Suprema Poker, por que o tamanho de um clube depende da liga, o que avaliar antes de depositar e por que o Clube Suprema (ID 10001), do grupo SX e da Liga Suprema, é uma boa escolha.
+seoTitle: "Maiores e melhores clubes do Suprema Poker: como escolher"
+description: Os maiores e melhores clubes do Suprema Poker, por que o tamanho depende da liga, o que avaliar antes de depositar e onde fica o Clube Suprema.
 date: 2026-10-26
 updated: 2026-10-26
 cover: /img/blog/maiores-e-melhores-clubes-suprema-poker/cover.jpg

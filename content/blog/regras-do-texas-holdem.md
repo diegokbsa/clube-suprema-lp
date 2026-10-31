@@ -1,6 +1,7 @@
 ---
 title: "Regras do Texas Hold'em passo a passo: blinds, apostas e showdown"
-description: Como funciona uma mão de Texas Hold'em do começo ao fim, com botão, small e big blind, as quatro rodadas de aposta, all-in, pote paralelo, showdown e os erros de quem está começando.
+seoTitle: "Regras do Texas Hold'em: blinds, apostas e showdown"
+description: Como funciona uma mão de Texas Hold'em do começo ao fim: botão, blinds, as quatro rodadas de aposta, all-in, pote paralelo e showdown.
 date: 2026-10-31
 updated: 2026-10-31
 cover: /img/blog/regras-do-texas-holdem/cover.jpg

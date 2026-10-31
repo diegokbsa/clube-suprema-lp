@@ -1,6 +1,7 @@
 ---
 title: "ID do clube H2 no Suprema Poker: como funciona o pool e a Liga Suprema"
-description: O que saber antes de procurar o ID do clube H2 no Suprema Poker, como entrar no H2Club, o que é o pool de jogadores, como funcionam as ligas e por que no Clube Suprema (ID 10001), da Liga Suprema e da SX, você joga em mesas compartilhadas.
+seoTitle: "ID do clube H2 no Suprema Poker: pool e Liga Suprema"
+description: Antes de procurar o ID do clube H2 no Suprema Poker: como entrar no H2Club, o que é o pool de jogadores e como as ligas dividem as mesas.
 date: 2026-10-26
 updated: 2026-10-26
 cover: /img/blog/id-clube-h2-suprema-poker-pool-liga-suprema/cover.jpg

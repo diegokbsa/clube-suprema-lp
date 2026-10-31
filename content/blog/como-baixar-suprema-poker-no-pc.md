@@ -1,6 +1,7 @@
 ---
 title: "Como baixar o Suprema Poker no PC, notebook e MacBook (passo a passo)"
-description: Tutorial completo para baixar e instalar o Suprema Poker no PC e no notebook com Windows, o que fazer no MacBook, como criar a conta e como entrar no Clube Suprema com o ID 10001 e o agente 1439098.
+seoTitle: "Como baixar o Suprema Poker no PC, notebook e MacBook"
+description: Como baixar e instalar o Suprema Poker no PC e no notebook com Windows, o que fazer no MacBook, criar a conta e entrar no Clube Suprema.
 date: 2026-10-26
 updated: 2026-10-26
 cover: /img/blog/como-baixar-suprema-poker-no-pc/cover.jpg

@@ -1,6 +1,7 @@
 ---
 title: "Suprema Poker é confiável? Como funcionam o app, o clube e o agente"
-description: "O que conferir antes de jogar no Suprema Poker: o app oficial nas lojas, quem vende e paga as fichas, como funcionam o clube e o agente, o PIX no seu CPF, os sinais de golpe, o jogo consciente e a regra dos 18 anos. Com o checklist aplicado ao Clube Suprema (ID 10001)."
+seoTitle: "Suprema Poker é confiável? App, clube e agente explicados"
+description: O que conferir antes de jogar no Suprema Poker: app oficial, quem vende as fichas, clube e agente, PIX no seu CPF, sinais de golpe e jogo consciente.
 date: 2026-10-30
 updated: 2026-10-30
 cover: /img/blog/suprema-poker-e-confiavel/cover.jpg

@@ -1,6 +1,6 @@
 ---
 title: "Perguntas frequentes do suporte: fichas, PIX, saque e login"
-description: As dúvidas que mais chegam ao suporte 24h do Clube Suprema, respondidas de forma direta - compra de fichas por PIX no Fichas 24h, saque, ID da Suprema, login, clube pendente e problemas no app.
+description: As dúvidas que mais chegam ao suporte 24h do Clube Suprema: compra de fichas por PIX no Fichas 24h, saque, ID da Suprema, login e clube pendente.
 date: 2026-10-23
 updated: 2026-10-26
 cover: /img/blog/perguntas-frequentes-suporte/cover.jpg

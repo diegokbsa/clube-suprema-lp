@@ -1,6 +1,7 @@
 ---
 title: "App Suprema Poker não abre? Como resolver, reinstalar e voltar ao clube"
-description: O que fazer quando o app Suprema Poker não abre, fecha sozinho ou trava na tela de carregamento no Android, iPhone e PC, como reinstalar sem perder a conta e como entrar no Clube Suprema com o ID 10001 depois.
+seoTitle: "App Suprema Poker não abre? Como resolver e reinstalar"
+description: O que fazer quando o app Suprema Poker não abre, fecha sozinho ou trava no Android, iPhone e PC, e como reinstalar sem perder a conta.
 date: 2026-10-26
 updated: 2026-10-26
 cover: /img/blog/app-suprema-poker-nao-abre/cover.jpg

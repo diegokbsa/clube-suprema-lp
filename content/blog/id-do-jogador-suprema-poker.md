@@ -1,6 +1,7 @@
 ---
 title: "ID do jogador no Suprema Poker: onde encontrar e para que serve"
-description: Onde fica o ID do jogador no app Suprema Poker, para que ele serve na compra de fichas no Fichas 24h, na entrada no clube e no suporte, e a diferença entre ID do jogador, ID do clube e ID do agente.
+seoTitle: "ID do jogador no Suprema Poker: onde achar e para que serve"
+description: Onde fica o ID do jogador no app Suprema Poker, para que serve na compra de fichas, no clube e no suporte, e a diferença para o ID do clube.
 date: 2026-10-30
 updated: 2026-10-30
 cover: /img/blog/id-do-jogador-suprema-poker/cover.jpg

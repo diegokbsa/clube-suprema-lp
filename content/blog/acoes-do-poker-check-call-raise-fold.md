@@ -1,6 +1,7 @@
 ---
 title: "Check, bet, call, raise e fold: as ações do poker e quando usar"
-description: O que é check no poker e o que fazem bet, call, raise, fold e all-in, quando cada ação está disponível, aumento mínimo, check-raise e os erros mais comuns de quem está começando.
+seoTitle: "Check, bet, call, raise e fold: as ações do poker"
+description: O que é check no poker e o que fazem bet, call, raise, fold e all-in, quando usar cada ação, aumento mínimo, check-raise e os erros de iniciante.
 date: 2026-10-31
 updated: 2026-10-31
 cover: /img/blog/acoes-do-poker-check-call-raise-fold/cover.jpg

@@ -1,6 +1,7 @@
 ---
 title: "Como sair do clube no Suprema Poker: saldo, passo a passo e como entrar em outro"
-description: Como sair de um clube no Suprema Poker sem perder fichas, sacando o saldo antes, onde procurar a opção no app, quando pedir ao agente ou ao dono do clube e como entrar em outro, como o Clube Suprema (ID 10001).
+seoTitle: "Como sair do clube no Suprema Poker sem perder o saldo"
+description: Como sair de um clube no Suprema Poker sem perder fichas: saque o saldo antes, ache a opção no app, fale com o agente e entre em outro clube.
 date: 2026-10-27
 updated: 2026-10-27
 cover: /img/blog/como-sair-do-clube-suprema-poker/cover.jpg

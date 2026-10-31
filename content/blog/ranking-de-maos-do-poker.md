@@ -1,6 +1,7 @@
 ---
 title: "Ranking das mãos do poker: da carta alta ao royal flush, com exemplos"
-description: A ordem das mãos do poker, da mais forte à mais fraca, com exemplo de cada uma, chance de sair, como funciona o desempate pelo kicker e os erros mais comuns de quem está começando.
+seoTitle: "Ranking das mãos do poker: da carta alta ao royal flush"
+description: A ordem das mãos do poker, da mais forte à mais fraca, com exemplos, chance de sair, desempate pelo kicker e os erros de quem está começando.
 date: 2026-10-30
 updated: 2026-10-30
 cover: /img/blog/ranking-de-maos-do-poker/cover.jpg
