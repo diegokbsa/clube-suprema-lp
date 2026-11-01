@@ -1,4 +1,4 @@
-# 4 carrosséis de poker para o Instagram (@supremaclub)
+# 4 carrosséis de poker para o Instagram (supremapokerxx)
 
 Gerados por `tools/imagens/carrosseis_poker.py` (01/11/2026) a partir dos 20 anúncios de `marketing/anuncios/poker-20`.
 Cada pasta tem as artes na ordem do carrossel (`01-capa-cta.jpg` primeiro) e a `legenda.txt`.

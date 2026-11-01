@@ -21,7 +21,7 @@ CARDS = os.path.join(base.ROOT, "marketing", "anuncios", "poker-20")
 OUT = os.path.join(base.ROOT, "marketing", "instagram", "carrosseis")
 LINK = base.SITE + "/?utm_source=instagram&utm_medium=boost&utm_campaign=carrossel-poker&utm_content="
 POR_ID = {a["id"]: a for a in poker.ANUNCIOS}
-FIM = ("\n\nJogue no Clube Suprema (ID 10001) pelo app oficial Suprema Poker. Cadastro pelo link da bio, em suprema.blog."
+FIM = ("\n\nJogue no Clube Suprema (ID 10001) pelo app oficial Suprema Poker. Cadastro em suprema.blog."
        "\n\n18+ · Jogue com responsabilidade.")
 TAGS = "\n\n#poker #pokerbrasil #texasholdem #pokeronline #supremapoker"
 
@@ -90,7 +90,7 @@ def card_quem_ganha(id_, destino, seed):
 
 
 def leia_me():
-    linhas = ["# 4 carrosséis de poker para o Instagram (@supremaclub)", "",
+    linhas = ["# 4 carrosséis de poker para o Instagram (supremapokerxx)", "",
               "Gerados por `tools/imagens/carrosseis_poker.py` (01/11/2026) a partir dos 20 anúncios de `marketing/anuncios/poker-20`.",
               "Cada pasta tem as artes na ordem do carrossel (`01-capa-cta.jpg` primeiro) e a `legenda.txt`.", "",
               "Ordem de postagem: 4, 3, 2 e 1, para o \"Quem ganha?\" ficar em primeiro no perfil.", "",
