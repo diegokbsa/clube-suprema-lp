@@ -1,0 +1,16 @@
+{
+  "id": "posicoes-na-mesa-de-poker",
+  "tipo": "Regras do poker",
+  "titulo": "Posições no poker: botão, blinds, UTG, hijack e cutoff #shorts",
+  "descricao": "Onde fica cada posição da mesa de poker, quem fala primeiro e por que o botão é a melhor cadeira. No próximo vídeo: o kicker, a carta que desempata.\n\n18+ · Jogue com responsabilidade.\n\n#poker #pokeronline #texasholdem #supremapoker",
+  "post": "posicoes-na-mesa-de-poker",
+  "cenas": [
+    { "tela": "Mesmas cartas, **decisões opostas**. Por quê?", "fala": "Mesmas cartas, decisões opostas. O segredo é a posição na mesa.", "imagem": "public/img/app-mesa.webp" },
+    { "passo": 1, "tela": "**Botão**: o dealer da mão, fala por último", "fala": "Tudo começa no botão, o dealer da mão. Do flop em diante, ele fala por último." },
+    { "passo": 2, "tela": "À esquerda: **small blind** e **big blind**", "fala": "À esquerda do botão ficam o small blind e o big blind. Eles pagam antes e falam primeiro depois do flop." },
+    { "passo": 3, "tela": "**UTG**: o primeiro a falar no pré-flop", "fala": "À esquerda do big blind está o UTG, o primeiro a decidir no pré-flop. Aqui, jogue só mãos fortes." },
+    { "passo": 4, "tela": "**Hijack** e **cutoff**: logo antes do botão", "fala": "Logo antes do botão ficam o hijack e o cutoff. Restam poucos para falar, então dá para jogar mais mãos." },
+    { "tela": "Quem fala por último **decide com mais informação**", "fala": "A regra é simples: quanto mais perto do botão, mais informação você tem para decidir." },
+    { "tela": "No próximo: **o kicker**. Segue o canal!", "fala": "No próximo vídeo, o kicker, a carta que desempata. Segue o canal!", "imagem": "public/img/app-mesa.webp" }
+  ]
+}
