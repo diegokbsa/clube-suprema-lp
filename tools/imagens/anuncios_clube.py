@@ -322,9 +322,12 @@ def textos_md():
 if __name__ == "__main__":
     sys.stdout.reconfigure(encoding="utf-8")
     so = sys.argv[1] if len(sys.argv) > 1 else ""
-    for i, a in enumerate(ANUNCIOS):
+    for a in ANUNCIOS:
         if so and not a["id"].startswith(so):
             continue
-        gerar(a, seed=11 + i * 7)
+        # O fundo sai do número do anúncio (01 a 10 com as sementes da primeira leva, que já está na campanha);
+        # as variações (05b, 05c…) ganham sementes próprias, para incluir anúncio novo sem mudar os outros.
+        n, letra = int(a["id"][:2]), a["id"][2]
+        gerar(a, seed=11 + (n - 1) * 7 + (1000 + (ord(letra) - 96) * 13 if letra.isalpha() else 0))
         print("ok", a["id"])
     print("ok", os.path.relpath(textos_md(), ROOT))
