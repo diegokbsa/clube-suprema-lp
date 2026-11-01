@@ -15,7 +15,7 @@ Fichas 24h por PIX, depósito não caiu, Suprema Poker é confiável, formatos d
 - [x] 2026-10-31 flop-turn-river | Pré-flop, flop, turn e river: as fases de uma mão de poker | o que é flop turn e river
 - [x] 2026-11-01 o-que-e-blind-e-ante | Small blind, big blind e ante: o que são e por que existem | o que é blind no poker
 - [x] 2026-11-01 posicoes-na-mesa-de-poker | Posições na mesa: botão, blinds, UTG, hijack e cutoff | posições no poker
-- [ ] kicker-no-poker | Kicker: a carta que desempata mãos iguais | o que é kicker no poker
+- [x] 2026-11-01 kicker-no-poker | Kicker: a carta que desempata mãos iguais | o que é kicker no poker
 - [ ] empate-no-poker-pote-dividido | Empate no poker: quando o pote é dividido (split pot) | empate no poker
 - [ ] all-in-e-side-pot | All-in e side pot: como funciona o pote paralelo | o que é side pot
 - [ ] showdown-quem-mostra-primeiro | Showdown: quem mostra as cartas primeiro e quando dá para esconder | showdown poker regras

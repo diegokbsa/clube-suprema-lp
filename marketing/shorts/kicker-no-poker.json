@@ -1,0 +1,16 @@
+{
+  "id": "kicker-no-poker",
+  "tipo": "Regras do poker",
+  "titulo": "Kicker no poker: a carta que desempata mãos iguais #shorts",
+  "descricao": "O que é kicker, como ele desempata dois jogadores com o mesmo par e quando a mesa joga. No próximo vídeo: empate e pote dividido.\n\n18+ · Jogue com responsabilidade.\n\n#poker #pokeronline #texasholdem #supremapoker",
+  "post": "kicker-no-poker",
+  "cenas": [
+    { "tela": "Mesmo par e você **perdeu**? Culpa do **kicker**", "fala": "Mesmo par que o adversário e você perdeu? A culpa é do kicker.", "imagem": "public/img/app-mesa.webp" },
+    { "tela": "Kicker = a carta que **sobra** e desempata", "fala": "Kicker é a carta que sobra fora da combinação e serve para desempatar." },
+    { "passo": 1, "tela": "**Ás-valete** contra **ás-oito**: par de ases", "fala": "A mesa abriu um ás. Você tem ás e valete, ele tem ás e oito. Os dois têm par de ases." },
+    { "passo": 2, "tela": "O **valete** ganha do 10 e do 8: pote **seu**", "fala": "Compara-se a próxima carta mais alta. O seu valete ganha, e o pote é seu." },
+    { "passo": 3, "tela": "Mesa mais alta que o kicker? **Pote dividido**", "fala": "Mas, se as cartas da mesa forem mais altas que o seu kicker, a mesa joga e o pote é dividido." },
+    { "tela": "Sequência e full house **não têm** kicker", "fala": "E atenção: sequência e full house não têm kicker. Naipe também não desempata." },
+    { "tela": "No próximo: **empate e pote dividido**. Segue o canal!", "fala": "No próximo vídeo, quando o pote é dividido no poker. Segue o canal!", "imagem": "public/img/app-mesa.webp" }
+  ]
+}
