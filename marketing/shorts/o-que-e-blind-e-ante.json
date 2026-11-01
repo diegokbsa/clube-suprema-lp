@@ -1,0 +1,16 @@
+{
+  "id": "o-que-e-blind-e-ante",
+  "tipo": "Regras do poker",
+  "titulo": "Small blind, big blind e ante: o que são no poker #shorts",
+  "descricao": "Quem paga o small blind, o big blind e o ante, quanto cada um vale e por que essas apostas obrigatórias existem. No próximo vídeo: as posições da mesa.\n\n18+ · Jogue com responsabilidade.\n\n#poker #pokeronline #texasholdem #supremapoker",
+  "post": "o-que-e-blind-e-ante",
+  "cenas": [
+    { "tela": "Por que tem fichas na mesa **antes das cartas**?", "fala": "Por que já tem fichas na mesa antes de alguém ver as cartas? São os blinds e o ante.", "imagem": "public/img/app-mesa.webp" },
+    { "passo": 1, "tela": "**Small blind**: à esquerda do botão, metade do big", "fala": "O small blind é pago pelo primeiro jogador à esquerda do botão. Em geral, é metade do big blind." },
+    { "passo": 2, "tela": "**Big blind**: a aposta mínima da mesa", "fala": "O big blind é pago pelo segundo jogador à esquerda do botão. Ele é a aposta mínima da mesa." },
+    { "passo": 3, "tela": "**Ante**: um pouco de todos, direto no pote", "fala": "O ante é uma aposta pequena que entra direto no pote. Aparece muito em torneio, e não conta como aposta de ninguém." },
+    { "tela": "Sem blinds, todo mundo **só esperaria ás-ás**", "fala": "Por que existem? Sem eles, todo mundo esperaria só as mãos perfeitas, e ninguém jogaria." },
+    { "tela": "No torneio, conte o stack em **big blinds**", "fala": "Dica: no torneio os blinds sobem por nível. Conte o seu stack em big blinds, não em fichas." },
+    { "tela": "No próximo: **as posições da mesa**. Segue o canal!", "fala": "No próximo vídeo, as posições da mesa. Segue o canal!", "imagem": "public/img/app-mesa.webp" }
+  ]
+}

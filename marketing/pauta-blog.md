@@ -13,7 +13,7 @@ Fichas 24h por PIX, depósito não caiu, Suprema Poker é confiável, formatos d
 - [x] 2026-10-31 regras-do-texas-holdem | Regras do Texas Hold'em passo a passo: blinds, rodadas de aposta e showdown | regras do texas holdem
 - [x] 2026-10-31 acoes-do-poker-check-call-raise-fold | Check, bet, call, raise e fold: o que cada ação faz e quando usar | o que é check no poker
 - [x] 2026-10-31 flop-turn-river | Pré-flop, flop, turn e river: as fases de uma mão de poker | o que é flop turn e river
-- [ ] o-que-e-blind-e-ante | Small blind, big blind e ante: o que são e por que existem | o que é blind no poker
+- [x] 2026-11-01 o-que-e-blind-e-ante | Small blind, big blind e ante: o que são e por que existem | o que é blind no poker
 - [ ] posicoes-na-mesa-de-poker | Posições na mesa: botão, blinds, UTG, hijack e cutoff | posições no poker
 - [ ] kicker-no-poker | Kicker: a carta que desempata mãos iguais | o que é kicker no poker
 - [ ] empate-no-poker-pote-dividido | Empate no poker: quando o pote é dividido (split pot) | empate no poker
