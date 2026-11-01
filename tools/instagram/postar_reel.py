@@ -17,6 +17,7 @@ Registro em data/shorts/instagram.json (o mesmo id não sai duas vezes); prints 
 import datetime as dt
 import json
 import re
+import subprocess
 import sys
 import time
 from pathlib import Path
@@ -41,6 +42,36 @@ def legenda(roteiro):
     corpo = roteiro.get("descricao", "").split("\n\n")[0].strip()
     tags = HASHTAGS["torneio" if re.search(r"grade|principais|torneio", roteiro["id"] + roteiro.get("tipo", ""), re.I) else "padrao"]
     return f"{titulo}\n\n{corpo}\n\n{CLUBE}\n18+ · Jogue com responsabilidade.\n\n{tags}"
+
+
+def rotulos_de(seg):
+    """Durações como o seletor do Android ("00:38") e a galeria do Reels ("0:38") mostram, truncando e arredondando."""
+    marcas = {f"{int(seg) // 60:02d}:{int(seg) % 60:02d}", f"{int(round(seg)) // 60:02d}:{int(round(seg)) % 60:02d}"}
+    return marcas, {f"{int(m[:2])}:{m[3:]}" for m in marcas}
+
+
+def video_unico(video, rid):
+    """O Instagram só mostra a duração na galeria, então dois vídeos de 0:38 se confundem (31/10: o Reel do ranking
+    saiu com o vídeo das ações). Se outro vídeo de data/shorts tiver a mesma duração, faz uma cópia com o último quadro
+    parado por mais 1, 2... segundos até a duração ficar única, e é essa cópia que vai para o celular."""
+    ocupadas = set()
+    for outro in (ROOT / "data" / "shorts").glob("*.mp4"):
+        if outro.stem != rid:
+            ocupadas |= rotulos_de(duracao(outro))[1]
+    seg = duracao(video)
+    extra = next((n for n in range(6) if not rotulos_de(seg + n)[1] & ocupadas), None)
+    if extra is None:
+        raise Falha(f"não achei uma duração livre para {rid} ({seg:.1f} s)")
+    if extra == 0:
+        return video
+    copia = ROOT / "data" / "shorts" / "instagram" / f"{rid}-ig.mp4"
+    copia.parent.mkdir(parents=True, exist_ok=True)
+    subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", str(video),
+                    "-vf", f"tpad=stop_mode=clone:stop_duration={extra}", "-af", f"apad=pad_dur={extra}",
+                    "-c:v", "libx264", "-crf", "20", "-pix_fmt", "yuv420p", "-c:a", "aac", "-b:a", "128k",
+                    "-movflags", "+faststart", str(copia)], check=True, timeout=900)
+    print(f"duração de {seg:.1f} s já usada por outro vídeo: vai uma cópia com {extra} s a mais")
+    return copia
 
 
 def tocar_xy(c, x, y, espera=2.0):
@@ -73,15 +104,14 @@ def publicar(spec, seco=False):
         if "isKeyguardShowing=true" in sh("dumpsys window", check=False):
             raise Falha("o celular está bloqueado com senha")
 
-    remoto = f"{REMOTE}/{rid}.mp4"
+    video = video_unico(video, rid)
+    remoto = f"{REMOTE}/{video.name}"
     sh(f"mkdir -p {REMOTE}", check=False)
     if str(video.stat().st_size) not in sh(f'stat -c %s "{remoto}" 2>/dev/null', check=False):
         adb("push", str(video), remoto, timeout=600)
     sh(f'touch "{remoto}"; am broadcast -a android.intent.action.MEDIA_SCANNER_SCAN_FILE -d "file://{remoto}"', check=False)
     time.sleep(3)
-    seg = duracao(video)
-    marcas = {f"{int(seg) // 60:02d}:{int(seg) % 60:02d}", f"{int(round(seg)) // 60:02d}:{int(round(seg)) % 60:02d}"}
-    rotulos = {f"{int(m[:2])}:{m[3:]}" for m in marcas}            # a galeria do Instagram mostra "0:47"
+    marcas, rotulos = rotulos_de(duracao(video))                    # a galeria do Instagram mostra "0:47"
 
     c.d.app_start(IG, stop=True)
     time.sleep(7)
@@ -95,11 +125,13 @@ def publicar(spec, seco=False):
 
     # acesso limitado: inclui o vídeo novo pela duração no seletor do Android (se ele ainda não estiver liberado)
     def na_galeria():
-        for m in re.finditer(r'text="(\d+:\d\d)"[^>]*?resource-id="[^"]*gallery_grid_item_label"[^>]*?bounds="\[(\d+),(\d+)\]\[(\d+),(\d+)\]"',
-                             c.d.dump_hierarchy()):
-            if m.group(1) in rotulos:
-                return int(m.group(4)) - 150, int(m.group(5)) - 280      # centro aproximado da miniatura
-        return None
+        achados = [(int(m.group(4)) - 150, int(m.group(5)) - 280)       # centro aproximado da miniatura
+                   for m in re.finditer(r'text="(\d+:\d\d)"[^>]*?resource-id="[^"]*gallery_grid_item_label"[^>]*?bounds="\[(\d+),(\d+)\]\[(\d+),(\d+)\]"',
+                                        c.d.dump_hierarchy()) if m.group(1) in rotulos]
+        if len(achados) > 1:                # nunca escolhe no chute: foi assim que o ranking saiu com o vídeo errado
+            c.tela("erro")
+            raise Falha(f"{len(achados)} vídeos de {sorted(rotulos)} na galeria do Reels; não dá para saber qual é")
+        return achados[0] if achados else None
     alvo = na_galeria()
     if alvo is None:
         b = c.d(resourceIdMatches=".*btn_manage")
@@ -109,7 +141,7 @@ def publicar(spec, seco=False):
         b.click()
         time.sleep(4)
         c.tocar(["Selecionar mais fotos"], timeout=10, depois=4)
-        c.tocar(["Permitir acesso limitado"], timeout=10, depois=5)
+        c.tocar(["Permitir acesso limitado"], timeout=10, depois=5, opcional=True)   # às vezes o seletor já abre direto
         escolha = None
         for m in re.finditer(r'content-desc="(Vídeo (?!selecionado)[^"]*)"[^>]*?bounds="\[(\d+),(\d+)\]\[(\d+),(\d+)\]"', c.d.dump_hierarchy()):
             if any(mk in m.group(1) for mk in marcas):
