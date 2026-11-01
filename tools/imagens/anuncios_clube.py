@@ -54,9 +54,40 @@ ANUNCIOS = [
          manchete="Entre no clube em 2 minutos", descricao="App oficial · PIX · suporte 24h"),
     dict(id="05-spin-suprema", destaque="50.000×", titulo="Spin Suprema: o prêmio pode multiplicar até 50.000×",
          apoio="Mesas de 3 ou 6 jogadores, partidas rápidas", visual="phone-mesa", pagina="/spin",
-         texto="O Spin Suprema chegou ao app: mesas de 3 ou 6, partidas rápidas e o prêmio sorteado no começo, de 2× até 50.000× o buy-in.\n\n"
-               "Jogue no Clube Suprema (ID 10001), com fichas por PIX e suporte 24h.\n\n18+ · Jogue com responsabilidade.",
+         texto="O Spin Suprema chegou ao app: mesas de 3 ou 6, partidas rápidas e o prêmio sorteado na roleta antes da primeira mão, "
+               "até 50.000× o buy-in nas mesas de 6.\n\nJogue no Clube Suprema (ID 10001), com fichas por PIX e suporte 24h.\n\n"
+               "18+ · Jogue com responsabilidade.",
          manchete="Spin Suprema: até 50.000×", descricao="Mesas de 3 ou 6 no app"),
+    # Variações do Spin (01/11/2026). Fatos do post content/blog/spin-suprema-...: buy-in fixo, roleta antes da primeira mão,
+    # teto de 50.000× nas mesas de 6 (nas de 3, 1.000× ou 10.000×), multiplicadores altos são raros.
+    dict(id="05b-spin-roleta", destaque="SPIN", titulo="A roleta sorteia o prêmio antes da primeira mão",
+         apoio="Buy-in fixo · até 50.000× nas mesas de 6", visual="roleta", pagina="/spin",
+         texto="No Spin Suprema a roleta gira antes da primeira mão e sorteia o multiplicador do prêmio: até 50.000× o buy-in nas mesas de 6.\n\n"
+               "Buy-in fixo, mesas de 3 ou 6 e partidas que duram minutos. Jogue no Clube Suprema (ID 10001).\n\n18+ · Jogue com responsabilidade.",
+         manchete="Spin Suprema: a roleta decide", descricao="Até 50.000× nas mesas de 6"),
+    dict(id="05c-spin-3-ou-6", destaque="3 ou 6", titulo="Spin Suprema: torneio relâmpago de 3 ou 6 jogadores",
+         apoio="Buy-in fixo e prêmio sorteado na roleta", visual="phone-mesa", pagina="/spin",
+         texto="Torneio relâmpago: 3 ou 6 jogadores, buy-in fixo e o prêmio sorteado na roleta antes da primeira carta.\n\n"
+               "O Spin Suprema está no app Suprema Poker. Entre no Clube Suprema (ID 10001), com fichas por PIX e suporte 24h.\n\n"
+               "18+ · Jogue com responsabilidade.",
+         manchete="Torneio relâmpago de 3 ou 6", descricao="Spin Suprema no app"),
+    dict(id="05d-spin-3-passos", destaque="COMO?", titulo="Spin Suprema em 3 passos",
+         apoio="", visual="passos-spin", pagina="/spin",
+         texto="Spin Suprema em 3 passos:\n1. Escolha o buy-in e sente numa mesa de 3 ou 6\n2. A roleta sorteia o multiplicador do prêmio\n"
+               "3. Quem vence a mesa leva o maior prêmio\n\nNo Clube Suprema (ID 10001), com fichas por PIX.\n\n18+ · Jogue com responsabilidade.",
+         manchete="Spin Suprema em 3 passos", descricao="Mesas de 3 ou 6 jogadores"),
+    dict(id="05e-spin-quanto-vale", destaque="QUANTO?", titulo="Quanto vale o seu buy-in hoje? A roleta decide.",
+         apoio="Até 50.000× nas mesas de 6 · multiplicadores altos são raros", visual="roleta", pagina="/spin",
+         texto="Quanto vale o seu buy-in hoje? No Spin Suprema quem decide é a roleta, que sorteia o multiplicador antes da primeira mão. "
+               "Nas mesas de 6, até 50.000×; os multiplicadores altos são raros e as chances ficam no app.\n\nClube Suprema · ID 10001.\n\n"
+               "18+ · Jogue com responsabilidade.",
+         manchete="Quanto vale seu buy-in hoje?", descricao="A roleta do Spin decide"),
+    dict(id="05f-spin-novo", destaque="NOVO", titulo="Spin Suprema chegou ao app Suprema Poker",
+         apoio="Mesas de 3 ou 6, partidas de minutos, até 50.000×", visual="phone-abertura", pagina="/spin",
+         texto="Novo no app Suprema Poker: o Spin Suprema. Mesas de 3 ou 6, buy-in fixo, partidas de poucos minutos e prêmio de até "
+               "50.000× o buy-in nas mesas de 6.\n\nJogue no Clube Suprema (ID 10001), com fichas por PIX e suporte 24h.\n\n"
+               "18+ · Jogue com responsabilidade.",
+         manchete="Spin Suprema chegou ao app", descricao="Até 50.000× o buy-in"),
     dict(id="06-torneios-todo-dia", destaque="TORNEIOS", titulo="Grade nova toda manhã na Liga Suprema",
          apoio="Garantidos, turbo, knockout e satélites o dia todo", visual="phone-abertura", pagina="/",
          texto="Todo dia tem grade nova de torneios na Liga Suprema: garantidos, turbo, knockout e satélites do começo da tarde à madrugada.\n\n"
@@ -115,7 +146,10 @@ def phone(nome, height):
 
 
 def passos(itens, w, size):
-    """Lista numerada em círculos dourados."""
+    """Lista numerada em círculos dourados; a letra diminui até o item mais longo caber na largura w."""
+    probe = ImageDraw.Draw(Image.new("L", (1, 1)))
+    while size > 24 and max(probe.textlength(t, font=font(size, 700)) for t in itens) + size * 2.4 > w:
+        size -= 2
     f, fn = font(size, 700), font(int(size * 0.95), 800)
     lh = int(size * 2.3)
     im = Image.new("RGBA", (w, lh * len(itens)), (0, 0, 0, 0))
@@ -155,13 +189,46 @@ def chat(w, size):
     return im
 
 
+def roleta(size):
+    """Janela do rolo do Spin (a mesma ideia do .m-reel-window da LP): 1.000× em cima e 100× embaixo apagados, 50.000× no centro
+    em dourado, com marcadores dos dois lados e as bordas esmaecidas."""
+    fc, fs = font(int(size * 1.15), 900), font(int(size * 0.62), 800)
+    probe = ImageDraw.Draw(Image.new("L", (1, 1)))
+    w = int(probe.textlength("50.000×", font=fc) + size * 2.6)
+    row = int(size * 1.5)
+    h = row * 3
+    im = Image.new("RGBA", (w + int(size * 1.6), h + 8), (0, 0, 0, 0))
+    x0 = int(size * 0.8)
+    win = Image.new("RGBA", (w, h), (0, 0, 0, 0))
+    d = ImageDraw.Draw(win)
+    d.rounded_rectangle((0, 0, w - 1, h - 1), radius=int(size * 0.45), fill=(12, 10, 8, 245), outline=GOLD + (255,), width=4)
+    for txt, cy in (("1.000×", row // 2), ("100×", row * 5 // 2)):
+        d.text((w / 2, cy), txt, font=fs, fill=(150, 132, 104, 255), anchor="mm")
+    luxo.gold_text(win, (w / 2, h / 2), "50.000×", fc, anchor="mm", glow=0.35)
+    fade = Image.new("L", (1, h))
+    for y in range(h):
+        t = min(y, h - 1 - y) / (h * 0.32)
+        fade.putpixel((0, y), int(255 * min(1.0, 0.25 + t)))
+    win.putalpha(Image.composite(win.split()[3], Image.new("L", (w, h), 0), fade.resize((w, h))))
+    im.alpha_composite(win, (x0, 4))
+    m = ImageDraw.Draw(im)
+    cy, s = 4 + h // 2, int(size * 0.32)
+    m.polygon([(x0 - s * 2, cy - s), (x0 - s * 2, cy + s), (x0 - 4, cy)], fill=GOLD)          # marcador da esquerda
+    xr = x0 + w
+    m.polygon([(xr + s * 2, cy - s), (xr + s * 2, cy + s), (xr + 4, cy)], fill=GOLD)          # marcador da direita
+    return im
+
+
 def visual(a, w, h, size=40):
     v = a["visual"]
     if v.startswith("phone"):
         return phone(v.split("-")[1], h)
     if v == "chat":
         return chat(w, int(size * 0.9))
+    if v == "roleta":
+        return roleta(int(size * 1.9))
     itens = {"passos": ["Baixe o app oficial", "Entre no clube 10001", "Fichas por PIX"],
+             "passos-spin": ["Buy-in fixo, mesa de 3 ou 6", "A roleta sorteia o prêmio", "Quem vence leva o maior prêmio"],
              "passos-pix": ["PIX no Fichas 24h", "Fichas no app, no clube", "Saque no PIX do seu CPF"],
              "passos-iniciante": ["Regras em 1 minuto", "Ranking das mãos", "Suporte até a 1ª mesa"]}[v]
     return passos(itens, w, size)
@@ -214,7 +281,8 @@ def gerar(a, seed):
         luxo.paste(sq, ph, (1080 - 60 - ph.width, fim - ph.height))
     else:
         v = visual(a, 936, 0, size=46)
-        luxo.paste(sq, v, (72, y + max(20, (fim - y - v.height) // 2)), shadow=False)
+        x = (1080 - v.width) // 2 if a["visual"] == "roleta" else 72
+        luxo.paste(sq, v, (x, y + max(20, (fim - y - v.height) // 2)), shadow=False)
     rodape(sq, 970)
     salvar(sq, f"{a['id']}-1080x1080.jpg")
 
@@ -228,7 +296,8 @@ def gerar(a, seed):
         luxo.paste(vt, ph, ((1080 - ph.width) // 2, y + (fim - y - ph.height) // 2))
     else:
         v = visual(a, 936, 0, size=58)
-        luxo.paste(vt, v, (72, y + (fim - y - v.height) // 2), shadow=False)
+        x = (1080 - v.width) // 2 if a["visual"] == "roleta" else 72
+        luxo.paste(vt, v, (x, y + (fim - y - v.height) // 2), shadow=False)
     rodape(vt, 1480)
     salvar(vt, f"{a['id']}-1080x1920.jpg")
 
