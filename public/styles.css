@@ -111,21 +111,33 @@ p { margin: 0 0 1em; }
   background: var(--ink-warm); color: var(--gold-hi); font-size: 1rem; transition: transform .4s var(--ease);
 }
 .btn:hover .btn-arrow { transform: translateX(3px); }
-/* Botão Torneios: mesa de poker verde com texto branco */
+/* Botão Torneios: mesa de poker verde com brilho branco deslizante */
 .btn-torneios {
+  position: relative; overflow: hidden;
   display: inline-flex; align-items: center; justify-content: center;
-  padding: 9px 18px; border-radius: 14px;
-  background: var(--felt); color: #fff;
-  font: 800 .9rem/1 var(--font); letter-spacing: .04em; text-transform: uppercase; text-decoration: none;
-  border: 1px solid rgba(255, 255, 255, .18);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .20), 0 4px 12px rgba(0, 0, 0, .35);
+  padding: 10px 22px; border-radius: 14px;
+  background: #1a8f52; color: #fff;
+  font: 800 .92rem/1 var(--font); letter-spacing: .05em; text-transform: uppercase; text-decoration: none;
+  border: 1px solid rgba(255, 255, 255, .22);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .22), 0 6px 18px rgba(0, 0, 0, .40);
   transition: transform .4s var(--ease), box-shadow .4s var(--ease), background .4s var(--ease);
 }
 .btn-torneios:hover {
-  background: #23915a; transform: translateY(-1px) scale(1.02);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .28), 0 8px 20px rgba(0, 0, 0, .45);
+  background: #22a85e; transform: translateY(-1px) scale(1.03);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .30), 0 10px 28px rgba(26, 143, 82, .35);
 }
 .btn-torneios:active { transform: translateY(1px); }
+.btn-torneios-shine {
+  position: absolute; top: 0; left: -75%; width: 50%; height: 100%;
+  background: linear-gradient(120deg, transparent 0%, rgba(255, 255, 255, .45) 50%, transparent 100%);
+  transform: skewX(-20deg); pointer-events: none;
+  animation: torneios-shine 3s ease-in-out infinite;
+}
+@keyframes torneios-shine {
+  0%, 100% { left: -75%; opacity: 0; }
+  40% { opacity: 1; }
+  60% { left: 125%; opacity: 0; }
+}
 .link {
   background: none; border: 0; padding: 0; cursor: pointer;
   color: var(--accent); font: inherit; text-decoration: underline; text-underline-offset: 3px;
