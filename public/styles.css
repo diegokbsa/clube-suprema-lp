@@ -111,6 +111,21 @@ p { margin: 0 0 1em; }
   background: var(--ink-warm); color: var(--gold-hi); font-size: 1rem; transition: transform .4s var(--ease);
 }
 .btn:hover .btn-arrow { transform: translateX(3px); }
+/* Botão Torneios: mesa de poker verde com texto branco */
+.btn-torneios {
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 9px 18px; border-radius: 14px;
+  background: var(--felt); color: #fff;
+  font: 800 .9rem/1 var(--font); letter-spacing: .04em; text-transform: uppercase; text-decoration: none;
+  border: 1px solid rgba(255, 255, 255, .18);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .20), 0 4px 12px rgba(0, 0, 0, .35);
+  transition: transform .4s var(--ease), box-shadow .4s var(--ease), background .4s var(--ease);
+}
+.btn-torneios:hover {
+  background: #23915a; transform: translateY(-1px) scale(1.02);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .28), 0 8px 20px rgba(0, 0, 0, .45);
+}
+.btn-torneios:active { transform: translateY(1px); }
 .link {
   background: none; border: 0; padding: 0; cursor: pointer;
   color: var(--accent); font: inherit; text-decoration: underline; text-underline-offset: 3px;
