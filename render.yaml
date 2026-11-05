@@ -19,7 +19,13 @@ services:
       - key: NODE_VERSION
         value: 22.12.0
       - key: FLOW
-        value: convite
+        value: completo
+      # Jornada guiada com teste A/B (docs/integracao-fichas24h.md): conta da Suprema pelo app (link do clube) e
+      # cadastro/compra no sistema oficial do Fichas 24h, com os dados prontos para copiar.
+      - key: SUPREMA_MODE
+        value: app
+      - key: F24H_MODE
+        value: guiado
       - key: GA4_ID
         value: G-ZXS59RV8GR
       - key: ADMIN_TOKEN
