@@ -8,7 +8,7 @@ body.page-blog, body.page-post { background: #000; } /* fundo 100% preto */
 /* Topo e marca */
 .page-blog .topbar, .page-post .topbar { background: rgba(0, 0, 0, .82); }
 .topnav-blog { display: flex; }
-@media (max-width: 899px) { .topnav-blog { display: none; } }
+@media (max-width: 1179px) { .topnav-blog { display: none; } }
 
 /* Botões, pílulas (.eyebrow) e marca seguem as regras globais de styles.css. */
 .post-tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 0; }

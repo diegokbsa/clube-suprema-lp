@@ -111,33 +111,58 @@ p { margin: 0 0 1em; }
   background: var(--ink-warm); color: var(--gold-hi); font-size: 1rem; transition: transform .4s var(--ease);
 }
 .btn:hover .btn-arrow { transform: translateX(3px); }
-/* Botão Torneios: mesa de poker verde com brilho branco deslizante */
-.btn-torneios {
-  position: relative; overflow: hidden;
-  display: inline-flex; align-items: center; justify-content: center;
-  padding: 10px 22px; border-radius: 14px;
-  background: #1a8f52; color: #fff;
-  font: 800 .92rem/1 var(--font); letter-spacing: .05em; text-transform: uppercase; text-decoration: none;
-  border: 1px solid rgba(255, 255, 255, .22);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .22), 0 6px 18px rgba(0, 0, 0, .40);
-  transition: transform .4s var(--ease), box-shadow .4s var(--ease), background .4s var(--ease);
+/* Botões do topo no formato mesa de poker (borda preta, feltro verde com linha dourada) com a fita laranja "SUPREMA" por cima.
+   .btn-mesa vale para os links do menu; .btn-torneios tem o ponto verde de "ao vivo" e aparece também no celular. */
+.btn-mesa {
+  position: relative; flex: none;
+  display: inline-flex; flex-direction: column; align-items: center;
+  padding-top: 8px; text-decoration: none;
+  transition: transform .3s var(--ease);
 }
-.btn-torneios:hover {
-  background: #22a85e; transform: translateY(-1px) scale(1.03);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .30), 0 10px 28px rgba(26, 143, 82, .35);
+.bt-mesa {
+  display: flex; align-items: center; gap: .4em;
+  justify-content: center; min-width: 118px; padding: 9px 14px 7px; border-radius: 999px;
+  background: radial-gradient(ellipse at 50% 35%, #5c9c70 0%, #468360 55%, #376b4c 100%);
+  border: 1.5px solid #d8a548;
+  box-shadow: 0 0 0 4px #262626, 0 0 0 5px rgba(255, 255, 255, .07), 0 8px 18px rgba(0, 0, 0, .55), inset 0 2px 6px rgba(0, 0, 0, .35);
+  color: #fff; font: 900 .7rem/1 var(--font); letter-spacing: .06em; text-transform: uppercase; white-space: nowrap;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, .45);
+  transition: filter .3s var(--ease);
 }
-.btn-torneios:active { transform: translateY(1px); }
-.btn-torneios-shine {
-  position: absolute; top: 0; left: -75%; width: 50%; height: 100%;
-  background: linear-gradient(120deg, transparent 0%, rgba(255, 255, 255, .45) 50%, transparent 100%);
-  transform: skewX(-20deg); pointer-events: none;
-  animation: torneios-shine 3s ease-in-out infinite;
+.bt-online { /* ponto verde de "ao vivo" no Torneios */
+  position: relative; flex: none; width: 7px; height: 7px; border-radius: 50%;
+  background: #3ddc84; box-shadow: 0 0 0 1.5px rgba(0, 0, 0, .35);
 }
-@keyframes torneios-shine {
-  0%, 100% { left: -75%; opacity: 0; }
-  40% { opacity: 1; }
-  60% { left: 125%; opacity: 0; }
+.bt-online::after {
+  content: ""; position: absolute; inset: 0; border-radius: 50%; background: #3ddc84;
+  animation: bt-online 1.6s ease-out infinite;
 }
+@keyframes bt-online { 0% { transform: scale(1); opacity: .8; } 100% { transform: scale(2.6); opacity: 0; } }
+@keyframes bt-pisca { 50% { opacity: .3; } }
+@media (prefers-reduced-motion: reduce) { /* sem a onda, mas o ponto continua piscando de leve */
+  .bt-online::after { animation: none; opacity: 0; }
+  .bt-online { animation: bt-pisca 1.6s ease-in-out infinite; }
+}
+.bt-fita {
+  position: absolute; top: 0; left: 50%; transform: translateX(-50%); z-index: 1;
+  padding: 3px 9px; border-radius: 4px 2px 2px 4px;
+  background: linear-gradient(#ffb64a, #f39a26); color: #141414;
+  font: 900 .44rem/1 var(--font); letter-spacing: .2em; text-indent: .2em;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, .45);
+}
+.bt-fita::after { /* a ponta dobrada da fita, como na arte */
+  content: ""; position: absolute; top: 0; right: -6px; width: 6px; height: 9px;
+  background: #b8661b; clip-path: polygon(0 0, 100% 0, 0 100%);
+}
+.btn-mesa:hover { transform: translateY(-1px); }
+.btn-mesa:hover .bt-mesa { filter: brightness(1.12); }
+.btn-mesa:active { transform: translateY(1px); }
+.btn-mesa:focus-visible { outline: none; }
+.btn-mesa:focus-visible .bt-mesa { box-shadow: 0 0 0 4px #262626, 0 0 0 6px var(--gold-hi), 0 8px 18px rgba(0, 0, 0, .55); }
+.topbar-acoes { display: flex; align-items: center; gap: 14px; }
+.topbar-acoes .btn-sm { white-space: nowrap; }
+@media (max-width: 479px) { .topbar-acoes { gap: 12px; } }
+@media (max-width: 419px) { .topbar .brand-text { display: none; } } /* no celular fica só o S, para caber Torneios e o botão */
 .link {
   background: none; border: 0; padding: 0; cursor: pointer;
   color: var(--accent); font: inherit; text-decoration: underline; text-underline-offset: 3px;
@@ -165,10 +190,10 @@ p { margin: 0 0 1em; }
 .brand-text { display: flex; flex-direction: column; line-height: 1.15; }
 .brand-text strong { font-weight: 800; letter-spacing: -.01em; }
 .brand-text small { color: var(--muted); font-size: .75rem; }
-.topnav { display: none; gap: 22px; }
+.topnav { display: none; gap: 14px; align-items: center; }
 .topnav a { color: var(--muted); text-decoration: none; font-size: .9rem; font-weight: 500; transition: color .3s; }
 .topnav a:hover { color: var(--text); }
-@media (min-width: 900px) { .topnav { display: flex; } }
+@media (min-width: 1180px) { .topnav { display: flex; } } /* os botões de mesa só cabem todos a partir daqui */
 
 /* Hero */
 main { max-width: 1120px; margin: 0 auto; padding: 0 var(--side); }
