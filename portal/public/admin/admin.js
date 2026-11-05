@@ -68,6 +68,7 @@ function navLinks(route) {
     const v = route.view;
     const add = (hash, label, perm, on, extra = '') => { if (!perm || can(perm)) items.push([`#/t/${t.slug}${hash}`, label, on, extra]); };
     add('', 'Painel', 'tenant.read', v === 'dash');
+    add('/ia', 'Conectar sua IA', 'ai.connect', v === 'ia');
     add('/site', 'Sites e páginas', 'site.read', v === 'site' || v === 'editor');
     add('/seo', 'SEO', 'site.read', v === 'seo');
     add('/leads', 'Leads e CRM', 'leads.read', v === 'leads');
@@ -105,7 +106,7 @@ function parseRoute() {
   if (parts[0] === 't') {
     const slug = parts[1];
     const sub = parts[2] || '';
-    const views = { '': 'dash', site: 'site', editor: 'editor', seo: 'seo', leads: 'leads', afiliados: 'afiliados', integracoes: 'integracoes', usuarios: 'usuarios', calendario: 'calendario', auditoria: 'auditoria', config: 'config', m: 'module' };
+    const views = { '': 'dash', site: 'site', editor: 'editor', seo: 'seo', ia: 'ia', leads: 'leads', afiliados: 'afiliados', integracoes: 'integracoes', usuarios: 'usuarios', calendario: 'calendario', auditoria: 'auditoria', config: 'config', m: 'module' };
     return { view: views[sub] || 'dash', slug, id: parts[3], module: sub === 'm' ? parts[3] : null };
   }
   return { view: 'central' };
@@ -120,7 +121,8 @@ async function route() {
   } else if (!S.me.user.isSuper) {
     if (S.me.tenants[0]) { location.hash = `#/t/${S.me.tenants[0].slug}`; return; }
   }
-  const views = { central: viewCentral, nova: viewNova, dash: viewDash, site: viewSite, editor: viewEditor, seo: viewSeo, leads: viewLeads, afiliados: viewAfiliados,
+  if (r.view === 'dash' && S.tenant && !can('tenant.read') && can('ai.connect')) { location.hash = `#/t/${S.tenant.slug}/ia`; return; } // afiliado
+  const views = { central: viewCentral, nova: viewNova, dash: viewDash, site: viewSite, editor: viewEditor, seo: viewSeo, ia: viewIa, leads: viewLeads, afiliados: viewAfiliados,
     integracoes: viewIntegracoes, usuarios: viewUsuarios, calendario: viewCalendario, auditoria: viewAuditoria, config: viewConfig, module: viewModule };
   try {
     await (views[r.view] || viewCentral)(r);
@@ -493,6 +495,57 @@ async function viewEditor(r) {
     $('#snap', dlg).addEventListener('click', async () => { await api('POST', `/api/t/${slug}/pages/${E.page.id}/snapshot`, { note: 'versão salva' }); dlg.close(); toast('Versão guardada.'); });
   });
   drawBlocks();
+}
+
+// ---------- Conectar sua IA ----------
+async function viewIa(r) {
+  const slug = S.tenant.slug;
+  const d = await api('GET', `/api/t/${slug}/ai`);
+  const url = d.mcpUrl;
+  const copy = (v) => `<div class="copy"><input readonly value="${esc(v)}"><button class="btn sm" type="button" data-copy="${esc(v)}">Copiar</button></div>`;
+  const clients = [
+    ['Claude (claude.ai, app e celular)', `Configurações → Conectores → Adicionar conector personalizado → cole o endereço abaixo → Conectar. Entre com a sua conta do portal e escolha a operação.`],
+    ['ChatGPT', `Configurações → Apps e conectores → Avançado: ative o modo desenvolvedor → Criar → cole o endereço, autenticação OAuth → entre com a sua conta do portal.`],
+    ['Kimi, Codex, Claude Code e outras linhas de comando', 'Gere um token pessoal aqui embaixo e use o comando da sua ferramenta (exemplos abaixo).'],
+  ];
+  const main = layout(r, `<div class="page-head"><div><h1>Conectar sua IA</h1><p>Use a IA que você já assina (Claude, ChatGPT, Kimi, Codex) para criar posts, criativos e agendamentos no portal. Ela trabalha com o seu login e o seu papel; tudo nasce como rascunho para você aprovar.</p></div></div>
+    <div class="card"><div class="card-head"><h2>1. Conector MCP</h2><span class="pill ok"><span class="dot"></span>Recomendado</span></div>
+      <p class="muted">MCP é o padrão que as IAs usam para falar com sistemas externos. Você adiciona o portal como conector na sua IA e entra com a sua conta daqui: não precisa de chave de API e usa a sua assinatura.</p>
+      <label class="field" style="max-width:560px">Endereço do conector${copy(url)}</label>
+      <div class="grid2" style="margin-top:12px">${clients.map(([n, how]) => `<div class="list-item"><strong>${esc(n)}</strong><span class="muted" style="font-size:13px">${esc(how)}</span></div>`).join('')}</div>
+      <details style="margin-top:12px"><summary><strong>Comandos para linha de comando</strong></summary>
+        <p class="muted" style="margin-top:8px">Claude Code:</p>${copy(`claude mcp add --transport http portal ${url} --header "Authorization: Bearer SEU_TOKEN"`)}
+        <p class="muted" style="margin-top:8px">Codex (arquivo ~/.codex/config.toml):</p>${copy(`[mcp_servers.portal]\nurl = "${url}"\nbearer_token_env_var = "PORTAL_TOKEN"`)}
+        <p class="muted" style="margin-top:8px">Kimi e outros clientes MCP: endereço ${esc(url)} com o cabeçalho Authorization: Bearer SEU_TOKEN.</p></details>
+      <div class="row" style="margin-top:14px"><input id="pat-name" placeholder="Nome do token (ex.: Kimi do notebook)" style="max-width:300px"><button class="btn primary" type="button" id="pat-new">Gerar token pessoal</button></div>
+      <p class="muted" style="font-size:12.5px">Vale 90 dias. Ele só aparece uma vez.</p></div>
+    <div class="card"><div class="card-head"><h2>Conexões ativas</h2></div>${d.connections.length ? `<div class="table-wrap"><table><thead><tr><th>Conexão</th><th>Tipo</th><th>Criada</th><th>Último uso</th><th></th></tr></thead><tbody>
+      ${d.connections.map((c) => `<tr><td><strong>${esc(c.name)}</strong></td><td>${esc(c.kind)}</td><td class="mono">${fmtDate(c.createdAt)}</td><td class="mono">${fmtDate(c.lastUsedAt)}</td><td class="row end"><button class="btn sm danger" type="button" data-revoke="${esc(c.family)}">Desconectar</button></td></tr>`).join('')}</tbody></table></div>`
+      : '<div class="empty">Nenhuma IA conectada ainda.</div>'}
+      <details style="margin-top:10px"><summary>O que a sua IA pode fazer com o seu papel (${d.tools.length} ferramentas)</summary><ul class="checks" style="margin-top:8px">${d.tools.map((t) => `<li class="ok"><span>✓</span> <span><strong>${esc(t.name)}</strong>: ${esc(t.description)}</span></li>`).join('')}</ul></details></div>
+    <div class="card"><div class="card-head"><h2>2. Serviços</h2></div><p class="muted">Ligue o que você quer. Pela IA conectada, você pede e ela faz na hora. Rodar sozinho nos horários (sem você conversando) exige uma chave de API no passo 3.</p>
+      <div class="table-wrap"><table><thead><tr><th>Serviço</th><th>Pela sua IA</th><th>Automático</th><th>Ligado</th></tr></thead><tbody>
+      ${d.services.map((s) => `<tr><td><strong>${esc(s.label)}</strong><div class="muted" style="font-size:12.5px">${esc(s.what)}</div></td>
+        <td><span class="pill ${s.status.pronto.pelaIa ? 'ok' : 'warn'}">${esc(s.status.pelaIa)}</span></td><td><span class="pill ${s.status.pronto.automatico ? 'ok' : 'warn'}">${esc(s.status.automatico)}</span></td>
+        <td><label class="check"><input type="checkbox" data-svc="${esc(s.id)}" ${s.enabled ? 'checked' : ''}> ${s.enabled ? 'Sim' : 'Não'}</label></td></tr>`).join('')}</tbody></table></div></div>
+    <div class="card"><div class="card-head"><h2>3. Chave de API (opcional, para rotinas automáticas)</h2></div>
+      <p class="muted">A chave fica cifrada no servidor e nunca volta para a tela. O uso é cobrado pelo provedor na sua conta dele.</p>
+      <div class="table-wrap"><table><tbody>${d.providers.map((p) => `<tr><td style="width:24%"><strong>${esc(p.label)}</strong><div><a class="muted" style="font-size:12px" href="${esc(p.consoleUrl)}" target="_blank" rel="noopener">onde pegar a chave ↗</a></div></td>
+        <td>${p.connected ? `<span class="pill ${p.status === 'valida' ? 'ok' : 'bad'}">${p.status === 'valida' ? 'Chave válida' : esc(p.lastError || 'Erro')}</span>` : '<span class="pill">Sem chave</span>'}</td>
+        <td><div class="row"><input type="password" autocomplete="off" placeholder="cole a chave" data-key="${esc(p.id)}" style="max-width:280px"><button class="btn sm" type="button" data-save-key="${esc(p.id)}">Salvar e testar</button>${p.connected ? `<button class="btn sm danger" type="button" data-del-key="${esc(p.id)}">Remover</button>` : ''}</div></td></tr>`).join('')}</tbody></table></div></div>`);
+  $$('[data-copy]', main).forEach((b) => b.addEventListener('click', async () => { await navigator.clipboard.writeText(b.dataset.copy); toast('Copiado.'); }));
+  $('#pat-new').addEventListener('click', async () => {
+    const res = await api('POST', `/api/t/${slug}/ai/tokens`, { name: $('#pat-name').value || 'Token pessoal' });
+    prompt('Seu token pessoal (copie agora; ele não aparece de novo):', res.token);
+    route();
+  });
+  $$('[data-revoke]', main).forEach((b) => b.addEventListener('click', async () => { if (confirm('Desconectar esta IA? Ela perde o acesso na hora.')) { await api('DELETE', `/api/t/${slug}/ai/tokens/${b.dataset.revoke}`); toast('Desconectada.'); route(); } }));
+  $$('[data-svc]', main).forEach((c) => c.addEventListener('change', async () => { await api('PUT', `/api/t/${slug}/ai/services/${c.dataset.svc}`, { enabled: c.checked }); toast(c.checked ? 'Serviço ligado.' : 'Serviço desligado.'); route(); }));
+  $$('[data-save-key]', main).forEach((b) => b.addEventListener('click', async () => {
+    const input = $(`[data-key="${b.dataset.saveKey}"]`, main);
+    try { const res = await api('PUT', `/api/t/${slug}/ai/keys/${b.dataset.saveKey}`, { key: input.value }); input.value = ''; toast(res.status === 'valida' ? 'Chave válida e guardada.' : (res.lastError || 'A chave não funcionou.'), res.status !== 'valida'); route(); } catch (e) { toast(e.message, true); }
+  }));
+  $$('[data-del-key]', main).forEach((b) => b.addEventListener('click', async () => { if (confirm('Remover esta chave?')) { await api('DELETE', `/api/t/${slug}/ai/keys/${b.dataset.delKey}`); route(); } }));
 }
 
 // ---------- SEO ----------

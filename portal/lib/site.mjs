@@ -67,9 +67,11 @@ ${needsConsent ? `<div class="consent" id="consent" hidden><p>Usamos cookies de 
 </html>`;
 }
 
-export function sitemapXml(origin, base, pages) {
+/** extras: entradas de módulos (posts do blog etc.): [{ path: '/blog/x', lastmod: ISO }] */
+export function sitemapXml(origin, base, pages, extras = []) {
   const urls = pages.filter((p) => p.published && !parse(p.seo, {}).noindex)
-    .map((p) => `<url><loc>${esc(`${origin}${base}/${p.slug}`.replace(/\/$/, '') || origin)}</loc><lastmod>${esc((p.published_at || '').slice(0, 10))}</lastmod></url>`);
+    .map((p) => `<url><loc>${esc(`${origin}${base}/${p.slug}`.replace(/\/$/, '') || origin)}</loc><lastmod>${esc((p.published_at || '').slice(0, 10))}</lastmod></url>`)
+    .concat(extras.filter((x) => x?.path).map((x) => `<url><loc>${esc(`${origin}${base}${x.path}`)}</loc>${x.lastmod ? `<lastmod>${esc(String(x.lastmod).slice(0, 10))}</lastmod>` : ''}</url>`));
   return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${urls.join('')}</urlset>\n`;
 }
 

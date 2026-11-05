@@ -15,6 +15,7 @@ import { audit as writeAudit, createTenant } from './lib/tenants.mjs';
 import { renderPage, sitemapXml, robotsTxt } from './lib/site.mjs';
 import { cookieName, recordClick, recordConversion, pickUtm, windowDaysOf } from './lib/attribution.mjs';
 import { createSeo } from './lib/seo.mjs';
+import { createMcp, aiRoutes } from './lib/mcp.mjs';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const PUBLIC = path.join(HERE, 'public');
@@ -30,11 +31,11 @@ export async function createApp({ db, origin = 'http://localhost:3400', secretKe
   const loginLimit = rateLimiter(10, 15 * 60_000);
   const formLimit = rateLimiter(20, 10 * 60_000);
   const hookLimit = rateLimiter(600, 60_000);
-  const app = { db, origin, vault: vault(secretKey), moduleNav: [], publicRoutes: [] };
+  const app = { db, origin, vault: vault(secretKey), moduleNav: [], publicRoutes: [], mcpTools: [], sitemapExtras: [], aiRoutines: {}, fetchImpl };
   app.seo = createSeo(app, { secretKey, fetchImpl });
 
   // ---------- módulos ----------
-  const routes = coreRoutes.map((r) => ({ ...r, match: compile(r.path) }));
+  const routes = [...coreRoutes, ...aiRoutes].map((r) => ({ ...r, match: compile(r.path) }));
   if (fs.existsSync(modulesDir)) {
     for (const f of fs.readdirSync(modulesDir).filter((n) => n.endsWith('.mjs')).sort()) {
       const mod = await import(pathToFileURL(path.join(modulesDir, f)).href);
@@ -42,9 +43,13 @@ export async function createApp({ db, origin = 'http://localhost:3400', secretKe
       for (const r of mod.routes || []) routes.push({ ...r, match: compile(r.path) });
       for (const r of mod.publicRoutes || []) app.publicRoutes.push({ ...r, match: compile(r.path) });
       if (mod.nav) app.moduleNav.push(...[].concat(mod.nav));
+      if (mod.mcpTools) app.mcpTools.push(...mod.mcpTools);          // ferramentas que a IA do usuário pode usar
+      if (mod.sitemapEntries) app.sitemapExtras.push(mod.sitemapEntries); // ({ site, tenant, repo }) => [{ path, lastmod }]
+      if (mod.aiRoutines) Object.assign(app.aiRoutines, mod.aiRoutines);  // rotinas automáticas por serviço (noticias_blog, instagram...)
       if (typeof mod.init === 'function') await mod.init(app);
     }
   }
+  const mcp = createMcp(app);
 
   // ---------- sessão ----------
   app.login = async ({ req, res, body }) => {
@@ -84,7 +89,7 @@ export async function createApp({ db, origin = 'http://localhost:3400', secretKe
     const repo = scoped(db, tenant.id);
     const pages = repo.all('pages', { site_id: site.id }, { order: 'position ASC' });
     const siteOrigin = site.domain && !base ? `https://${site.domain}` : origin;
-    if (rest === 'sitemap.xml') return send(res, 200, sitemapXml(siteOrigin, base, pages), { 'Content-Type': 'application/xml; charset=utf-8', 'Cache-Control': 'public, max-age=600' });
+    if (rest === 'sitemap.xml') return send(res, 200, sitemapXml(siteOrigin, base, pages, app.sitemapExtras.flatMap((fn) => { try { return fn({ site, tenant, repo }) || []; } catch { return []; } })), { 'Content-Type': 'application/xml; charset=utf-8', 'Cache-Control': 'public, max-age=600' });
     if (rest === 'robots.txt') return send(res, 200, robotsTxt(siteOrigin, base), { 'Cache-Control': 'public, max-age=3600' });
     if (rest === `${app.seo.key(site)}.txt`) return send(res, 200, app.seo.key(site), { 'Cache-Control': 'public, max-age=86400' }); // chave IndexNow
     for (const r of app.publicRoutes) {
@@ -211,6 +216,7 @@ export async function createApp({ db, origin = 'http://localhost:3400', secretKe
         const m = /^\/api\/hooks\/([^/]+)\/conversion\/?$/.exec(p);
         if (m) return await conversionHook(req, res, decodeURIComponent(m[1]));
       }
+      if (await mcp.handle(req, res, url)) return;
       if (p.startsWith('/api/')) return await handleApi(req, res, url);
       const hostSite = siteByHost(req.headers.host);
       if (hostSite) {
