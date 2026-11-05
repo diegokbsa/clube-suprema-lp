@@ -52,7 +52,7 @@ export const routes = [
     handler: ({ repo, db, tenant, params, body, user, audit }) => {
       const lead = repo.get('leads', params.id);
       need(lead, 404, 'Lead não encontrado.');
-      const ownerId = body.ownerId == null || body.ownerId === '' ? null : String(body.ownerId).trim();
+      const ownerId = body.ownerId == null ? null : String(body.ownerId).trim() || null;
       if (ownerId) {
         const member = db.prepare(`SELECT 1 FROM memberships
           WHERE user_id = ? AND tenant_id = ? AND role IN ('admin', 'marketing')`).get(ownerId, tenant.id);
@@ -79,7 +79,11 @@ export const routes = [
       const leads = repo.all('leads', where, { order: 'created_at DESC', limit: 5000 });
       const owners = new Map(db.prepare(`SELECT u.id, u.name FROM memberships m
         JOIN users u ON u.id = m.user_id WHERE m.tenant_id = ?`).all(tenant.id).map((u) => [u.id, u.name]));
-      const affiliates = new Map(repo.all('affiliates').map((a) => [a.id, a.name]));
+      const affiliateIds = [...new Set(leads.map((lead) => lead.affiliate_id).filter(Boolean))];
+      const affiliateFilter = affiliateIds.map(() => '?').join(',');
+      const affiliates = new Map((affiliateIds.length ? repo.all('affiliates', {}, {
+        extra: `id IN (${affiliateFilter})`, extraParams: affiliateIds, limit: affiliateIds.length,
+      }) : []).map((a) => [a.id, a.name]));
       const body = leadsCsv(leads, owners, affiliates);
       return { status: 200, body, headers: {
         'Content-Type': 'text/csv; charset=utf-8',

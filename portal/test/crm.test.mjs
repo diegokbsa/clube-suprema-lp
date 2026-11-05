@@ -84,7 +84,13 @@ test('responsável precisa pertencer à equipe da operação e cada troca entra 
   assert.ok(!lista.data.responsaveis.some((u) => u.id === users.afiliada), 'afiliados não são responsáveis internos do CRM');
   assert.ok(!lista.data.responsaveis.some((u) => u.id === users.donoLoja), 'a lista respeita a operação');
 
-  let r = await sup.req('PATCH', `/api/t/${clube.slug}/crm/leads/${leads.responsavel.id}/responsavel`, { ownerId: users.gestora });
+  let r = await sup.req('PATCH', `/api/t/${clube.slug}/crm/leads/${leads.responsavel.id}/responsavel`, { ownerId: '   ' });
+  assert.equal(r.status, 200);
+  assert.equal(r.data.changed, false, 'responsável em branco normaliza para sem responsável');
+  assert.equal(r.data.lead.owner_id, null);
+  assert.equal((await sup.req('GET', `/api/t/${clube.slug}/leads/${leads.responsavel.id}`)).data.events.length, 0);
+
+  r = await sup.req('PATCH', `/api/t/${clube.slug}/crm/leads/${leads.responsavel.id}/responsavel`, { ownerId: users.gestora });
   assert.equal(r.status, 200, JSON.stringify(r.data));
   assert.equal(r.data.lead.owner_id, users.gestora);
   assert.equal(r.data.changed, true);
@@ -110,6 +116,14 @@ test('responsável precisa pertencer à equipe da operação e cada troca entra 
 });
 
 test('CSV exporta só a operação, escapa dados e barra acesso de afiliado', async () => {
+  const crm = scoped(P.db, clube.id);
+  let afiliadoAntigo;
+  for (let i = 0; i < 501; i++) {
+    const afiliado = crm.insert('affiliates', { name: `Afiliado ${i}`, code: `afiliado-${i}`, status: 'ativo' });
+    if (i === 0) afiliadoAntigo = afiliado;
+  }
+  crm.update('leads', leads.csv.id, { affiliate_id: afiliadoAntigo.id });
+
   const respostaCsv = await fetch(`${P.origin}/api/t/${clube.slug}/leads.csv`, { headers: { Cookie: sup.cookie } });
   assert.equal(respostaCsv.status, 200);
   assert.match(respostaCsv.headers.get('content-type'), /text\/csv; charset=utf-8/i);
@@ -117,6 +131,7 @@ test('CSV exporta só a operação, escapa dados e barra acesso de afiliado', as
   const csv = Buffer.from(await respostaCsv.arrayBuffer()).toString('utf8');
   assert.equal(csv.charCodeAt(0), 0xFEFF, 'CSV inclui BOM para leitores de planilha');
   assert.match(csv, /csv@crm\.test/);
+  assert.match(csv, /Afiliado 0/, 'o CSV associa afiliados mesmo acima do limite padrão da listagem');
   assert.doesNotMatch(csv, /loja@crm\.test/, 'exportação não atravessa operações');
   assert.match(csv, /"'=2\+2, ""Teste"""/, 'campo com fórmula recebe prefixo seguro e aspas CSV');
 

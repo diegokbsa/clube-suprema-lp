@@ -26,6 +26,16 @@ export async function render(el, ctx) {
     return state.responsaveis.find((u) => u.id === id)?.name || 'Responsável indisponível';
   }
 
+  async function atualizarHistorico(id) {
+    state.historicos.delete(id);
+    if (state.aberto !== id) return;
+    try {
+      state.historicos.set(id, await api('GET', `/api/t/${slug}/leads/${id}`));
+    } catch {
+      state.aberto = null;
+    }
+  }
+
   function detalheEvento(evento) {
     const dado = evento.data || {};
     if (evento.kind === 'etapa') return `${nomeEtapa(dado.de)} → ${nomeEtapa(dado.para)}${dado.nota ? ` · ${dado.nota}` : ''}`;
@@ -88,6 +98,7 @@ export async function render(el, ctx) {
       select.disabled = true;
       try {
         await api('PATCH', `/api/t/${slug}/crm/leads/${id}/etapa`, { stage: select.value });
+        await atualizarHistorico(id);
         toast('Etapa atualizada e registrada no histórico.');
         await carregar();
       } catch (erro) {
@@ -101,6 +112,7 @@ export async function render(el, ctx) {
       select.disabled = true;
       try {
         await api('PATCH', `/api/t/${slug}/crm/leads/${id}/responsavel`, { ownerId: select.value || null });
+        await atualizarHistorico(id);
         toast('Responsável atualizado e registrado no histórico.');
         await carregar();
       } catch (erro) {
@@ -113,7 +125,7 @@ export async function render(el, ctx) {
       const id = button.dataset.historico;
       if (state.aberto === id) { state.aberto = null; desenhar(); return; }
       try {
-        if (!state.historicos.has(id)) state.historicos.set(id, await api('GET', `/api/t/${slug}/leads/${id}`));
+        state.historicos.set(id, await api('GET', `/api/t/${slug}/leads/${id}`));
         state.aberto = id;
         desenhar();
       } catch (erro) {
