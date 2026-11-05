@@ -28,6 +28,14 @@ test('painel serve o módulo de blog como JavaScript carregável', async () => {
   assert.match(await response.text(), /export async function render/);
 });
 
+test('horário inválido é recusado antes de qualquer persistência do painel', async () => {
+  const ui = await import('../public/admin/modules/blog.js');
+  assert.equal(typeof ui.scheduleWithValidatedTime, 'function');
+  let persisted = false;
+  await assert.rejects(ui.scheduleWithValidatedTime('', async () => { persisted = true; }), /Escolha data e horário/);
+  assert.equal(persisted, false);
+});
+
 function article(overrides = {}) {
   return {
     siteId: site.id,
@@ -79,6 +87,7 @@ test('rascunho não aparece; publicação usa cópia escapada e revisão não al
   page = await admin.req('GET', `/s/${site.slug}/blog/guia-revisado`, undefined, { raw: true });
   assert.equal(page.status, 200);
   assert.match(page.data, /&lt;script&gt;alert\(1\)&lt;\/script&gt;/, 'conteúdo é escapado no HTML público');
+  assert.match(page.headers.get('content-security-policy') || '', /style-src[^;]*'self'/, 'a CSP permite a folha de estilos local');
   page = await admin.req('GET', `/s/${site.slug}/blog/guia-de-regras`, undefined, { raw: true });
   assert.equal(page.status, 404, 'o slug anterior deixa de responder após publicar a revisão');
 });
@@ -87,7 +96,9 @@ test('agendamento publica após o horário e a atualização não duplica o post
   const created = await admin.req('POST', `/api/t/${tenant.slug}/posts`, article({ slug: 'guia-agendado', title: 'Guia agendado' }));
   assert.equal(created.status, 201);
   const scheduledAt = new Date(Date.now() + 300).toISOString();
-  let r = await admin.req('POST', `/api/t/${tenant.slug}/posts/${created.data.post.id}/schedule`, { scheduledAt });
+  let r = await admin.req('PUT', `/api/t/${tenant.slug}/posts/${created.data.post.id}/schedule`, article({
+    slug: 'guia-agendado', title: 'Guia agendado', content: 'Versão aprovada para a agenda.', scheduledAt,
+  }));
   assert.equal(r.status, 200, JSON.stringify(r.data));
   assert.equal(r.data.post.status, 'agendado');
   r = await admin.req('GET', `/s/${site.slug}/blog/guia-agendado`, undefined, { raw: true });
@@ -105,6 +116,30 @@ test('agendamento publica após o horário e a atualização não duplica o post
   post = list.data.posts.find((p) => p.id === created.data.post.id);
   assert.equal(post.publishedAt, publishedAt, 'as verificações seguintes não publicam duas vezes');
   assert.equal(list.data.posts.filter((p) => p.id === created.data.post.id).length, 1);
+});
+
+test('reagendamento inválido preserva agenda e conteúdo anteriores', async () => {
+  const created = await admin.req('POST', `/api/t/${tenant.slug}/posts`, article({ title: 'Agenda preservada', slug: 'agenda-preservada' }));
+  assert.equal(created.status, 201);
+  const scheduledAt = new Date(Date.now() + 120_000).toISOString();
+  let r = await admin.req('POST', `/api/t/${tenant.slug}/posts/${created.data.post.id}/schedule`, { scheduledAt });
+  assert.equal(r.status, 200);
+  r = await admin.req('PUT', `/api/t/${tenant.slug}/posts/${created.data.post.id}/schedule`, article({
+    title: 'Alteração inválida', slug: 'agenda-preservada', content: 'Não deve sobrescrever o conteúdo.', scheduledAt: 'horário-inválido',
+  }));
+  assert.equal(r.status, 400);
+  const posts = await admin.req('GET', `/api/t/${tenant.slug}/posts`);
+  const unchanged = posts.data.posts.find((post) => post.id === created.data.post.id);
+  assert.equal(unchanged.status, 'agendado');
+  assert.equal(unchanged.scheduledAt, scheduledAt);
+  assert.equal(unchanged.title, 'Agenda preservada');
+  assert.equal(unchanged.content, 'Primeiro parágrafo.\n\nSegundo parágrafo.');
+});
+
+test('capa externa usa HTTPS ou caminho local', async () => {
+  const r = await admin.req('POST', `/api/t/${tenant.slug}/posts`, article({ slug: 'capa-http', coverUrl: 'http://exemplo.test/capa.webp' }));
+  assert.equal(r.status, 400);
+  assert.match(r.data.error, /HTTPS|local/);
 });
 
 test('uma operação não lê o blog de outra e o site recebido precisa pertencer à operação', async () => {
@@ -141,5 +176,7 @@ test('editor pode editar, mas não publica nem agenda mesmo enviando estado no c
   let action = await editor.req('POST', `/api/t/${tenant.slug}/posts/${r.data.post.id}/publish`);
   assert.equal(action.status, 403);
   action = await editor.req('POST', `/api/t/${tenant.slug}/posts/${r.data.post.id}/schedule`, { scheduledAt: new Date(Date.now() + 60_000).toISOString() });
+  assert.equal(action.status, 403);
+  action = await editor.req('PUT', `/api/t/${tenant.slug}/posts/${r.data.post.id}/schedule`, article({ scheduledAt: new Date(Date.now() + 60_000).toISOString() }));
   assert.equal(action.status, 403);
 });

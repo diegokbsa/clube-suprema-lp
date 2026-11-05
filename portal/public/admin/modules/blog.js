@@ -1,4 +1,11 @@
 // Editor de artigos do blog. A autorização de publicação continua no servidor.
+export async function scheduleWithValidatedTime(localValue, schedule) {
+  if (!localValue) throw new Error('Escolha data e horário para agendar.');
+  const parsed = Date.parse(String(localValue));
+  if (!Number.isFinite(parsed) || parsed <= Date.now()) throw new Error('Escolha um horário futuro para publicar.');
+  return schedule(new Date(parsed).toISOString());
+}
+
 export async function render(el, { api, S, esc, toast, can, fmtDate }) {
   const tenantPath = `/api/t/${encodeURIComponent(S.tenant.slug)}/posts`;
   const mayEdit = can('blog.edit');
@@ -93,24 +100,35 @@ export async function render(el, { api, S, esc, toast, can, fmtDate }) {
     };
   }
 
+  async function persist() {
+    const body = payload();
+    const saved = await api(selectedId ? 'PUT' : 'POST', selectedId ? `${tenantPath}/${encodeURIComponent(selectedId)}` : tenantPath, body);
+    selectedId = saved.post.id;
+    return saved.post;
+  }
+
   async function act(action) {
     const error = el.querySelector('#blog-error');
     error.textContent = '';
     try {
       let post;
       if (action === 'unpublish') post = posts.find((item) => item.id === selectedId);
-      else {
-        const body = payload();
-        const saved = await api(selectedId ? 'PUT' : 'POST', selectedId ? `${tenantPath}/${encodeURIComponent(selectedId)}` : tenantPath, body);
-        post = saved.post;
-        selectedId = post.id;
-      }
-      if (action === 'review' || action === 'publish' || action === 'unpublish') await api('POST', `${tenantPath}/${encodeURIComponent(post.id)}/${action}`);
       if (action === 'schedule') {
         const local = el.querySelector('#blog-scheduled-at').value;
-        if (!local) throw new Error('Escolha data e horário para agendar.');
-        await api('POST', `${tenantPath}/${encodeURIComponent(post.id)}/schedule`, { scheduledAt: new Date(local).toISOString() });
-      }
+        post = await scheduleWithValidatedTime(local, async (scheduledAt) => {
+          if (!selectedId) {
+            const created = await persist();
+            await api('POST', `${tenantPath}/${encodeURIComponent(created.id)}/schedule`, { scheduledAt });
+            return created;
+          }
+          const saved = await api('PUT', `${tenantPath}/${encodeURIComponent(selectedId)}/schedule`, { ...payload(), scheduledAt });
+          return saved.post;
+        });
+        selectedId = post.id;
+      } else if (action !== 'unpublish') {
+        post = await persist();
+        if (action === 'review' || action === 'publish') await api('POST', `${tenantPath}/${encodeURIComponent(post.id)}/${action}`);
+      } else await api('POST', `${tenantPath}/${encodeURIComponent(post.id)}/${action}`);
       toast(({ save: 'Artigo salvo.', review: 'Artigo enviado para revisão.', publish: 'Artigo publicado.', schedule: 'Publicação agendada.', unpublish: 'Artigo despublicado.' })[action]);
       await load(post.id);
     } catch (error) { const target = el.querySelector('#blog-error'); if (target) target.textContent = error.message || 'Não foi possível salvar o artigo.'; }

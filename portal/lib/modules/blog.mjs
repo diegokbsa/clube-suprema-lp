@@ -1,5 +1,6 @@
 // Blog editorial por operação. A API e a agenda mantêm rascunhos separados da versão pública.
 import { HttpError } from '../http.mjs';
+import { can } from '../auth.mjs';
 import { esc } from '../blocks.mjs';
 import { now, parse, tx } from '../db.mjs';
 import { scoped } from '../repo.mjs';
@@ -9,8 +10,7 @@ import { themeCss } from '../site.mjs';
 export const tables = ['posts'];
 export const nav = { id: 'blog', label: 'Blog', perm: 'blog.read' };
 
-const STATUSES = new Set(['rascunho', 'revisao', 'agendado', 'publicado']);
-const PUBLIC_CSP = "default-src 'none'; img-src 'self' https:; style-src 'unsafe-inline'; font-src 'self'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'";
+const PUBLIC_CSP = "default-src 'none'; img-src 'self' https:; style-src 'self' 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com; base-uri 'none'; form-action 'none'; frame-ancestors 'none'";
 const text = (value, max) => String(value ?? '').trim().slice(0, max);
 
 function tagsOf(value) {
@@ -24,7 +24,7 @@ function safeCover(value) {
   if (cover.startsWith('/') && !cover.startsWith('//')) return cover;
   try {
     const url = new URL(cover);
-    return ['http:', 'https:'].includes(url.protocol) ? url.href : null;
+    return url.protocol === 'https:' ? url.href : null;
   } catch { return null; }
 }
 
@@ -45,7 +45,7 @@ function cleanArticle(input, current = null) {
   if (!slug) throw new HttpError(400, 'Informe um slug válido.');
   if (!content || content.length > 80_000) throw new HttpError(400, 'O conteúdo deve ter até 80.000 caracteres.');
   if (!author) throw new HttpError(400, 'Informe o autor do artigo.');
-  if (coverValue && !coverUrl) throw new HttpError(400, 'A capa deve usar um endereço HTTP, HTTPS ou um caminho local.');
+  if (coverValue && !coverUrl) throw new HttpError(400, 'A capa deve usar um endereço HTTPS ou um caminho local.');
   return { title, slug, excerpt, content, category, tags: JSON.stringify(tags), author, cover_url: coverUrl, seo_title: seoTitle, seo_description: seoDescription };
 }
 
@@ -214,6 +214,23 @@ export const routes = [
       if (slugTaken(repo, post.site_id, post.slug, post.id)) throw new HttpError(409, 'Já existe outro artigo com esse slug neste site.');
       const scheduledAt = new Date(parsed).toISOString();
       const updated = repo.update('posts', post.id, { status: 'agendado', scheduled_at: scheduledAt });
+      audit('blog.artigo.agendar', post.id, { slug: post.slug, scheduledAt });
+      return { post: postOut(updated) };
+    },
+  },
+  {
+    method: 'PUT', path: '/api/t/:tenant/posts/:id/schedule', perm: 'blog.publish', handler: ({ repo, params, body, audit, user, role }) => {
+      if (!can(user, role, 'blog.edit')) throw new HttpError(403, 'Seu papel nesta operação não permite editar artigos.');
+      const post = requirePost(repo, params.id);
+      if (body.siteId && String(body.siteId) !== post.site_id) throw new HttpError(400, 'O site do artigo não pode ser alterado.');
+      const parsed = Date.parse(String(body.scheduledAt || ''));
+      if (!Number.isFinite(parsed) || parsed <= Date.now()) throw new HttpError(400, 'Escolha um horário futuro para publicar.');
+      const article = cleanArticle(body, post);
+      if (slugTaken(repo, post.site_id, article.slug, post.id)) throw new HttpError(409, 'Já existe outro artigo com esse slug neste site.');
+      const scheduledAt = new Date(parsed).toISOString();
+      let updated;
+      try { updated = repo.update('posts', post.id, { ...article, status: 'agendado', scheduled_at: scheduledAt }); }
+      catch (error) { if (/UNIQUE constraint failed/.test(error.message)) throw new HttpError(409, 'Já existe outro artigo com esse slug neste site.'); throw error; }
       audit('blog.artigo.agendar', post.id, { slug: post.slug, scheduledAt });
       return { post: postOut(updated) };
     },
