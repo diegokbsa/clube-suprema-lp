@@ -27,8 +27,37 @@ from pathlib import Path
 import uiautomator2 as u2
 
 ROOT = Path(__file__).resolve().parents[2]
-SERIAL = os.environ.get("YT_SERIAL", "192.168.16.11:5555")      # POCO F5 (o forge chama de "POCO F5")
 ADB = os.environ.get("FORGE_ADB", r"C:\LDPlayer\LDPlayer9\adb.exe")
+WIFI = "192.168.16.11:5555"   # POCO F5 pelo Wi-Fi (o forge chama de "POCO F5")
+MODELO = "23049PCD8G"         # POCO F5, para achá-lo pelo cabo USB quando o Wi-Fi do celular está desligado
+
+
+def achar_celular():
+    """Serial do POCO F5: YT_SERIAL, se definido; senão o Wi-Fi; senão o aparelho desse modelo ligado no USB."""
+    if os.environ.get("YT_SERIAL"):
+        return os.environ["YT_SERIAL"]
+
+    def prontos():
+        out = subprocess.run([ADB, "devices", "-l"], capture_output=True, text=True, timeout=20).stdout
+        return [ln.split() for ln in out.splitlines() if len(ln.split()) > 1 and ln.split()[1] == "device"]
+
+    try:
+        devs = prontos()
+        if not any(d[0] == WIFI for d in devs):
+            try:
+                subprocess.run([ADB, "connect", WIFI], capture_output=True, timeout=25)
+            except subprocess.TimeoutExpired:  # Wi-Fi do celular desligado: o connect fica esperando
+                pass
+            devs = prontos()
+        if any(d[0] == WIFI for d in devs):
+            return WIFI
+        usb = [d[0] for d in devs if f"model:{MODELO}" in d]
+        return usb[0] if usb else WIFI
+    except Exception:  # noqa: BLE001
+        return WIFI
+
+
+SERIAL = achar_celular()
 FORGE = Path(os.environ.get("FORGE_DIR", r"C:\Users\Administrator\Documents\Codex\2026-10-16\vej\outputs\chile-football-viral-cl\forge"))
 YT = "com.google.android.youtube"
 REMOTE = "/sdcard/Movies/ClubeSuprema"

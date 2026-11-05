@@ -139,11 +139,19 @@ def main():
 
     # celular
     try:
-        devs = subprocess.run([ADB, "devices"], capture_output=True, text=True, timeout=20).stdout
-        if f"{SERIAL}\tdevice" not in devs:
-            subprocess.run([ADB, "connect", SERIAL], capture_output=True, timeout=20)
-            devs = subprocess.run([ADB, "devices"], capture_output=True, text=True, timeout=20).stdout
-        if f"{SERIAL}\tdevice" not in devs:
+        global SERIAL
+        devs = subprocess.run([ADB, "devices", "-l"], capture_output=True, text=True, timeout=20).stdout
+        if not re.search(rf"^{re.escape(SERIAL)}\s+device", devs, re.M):
+            try:
+                subprocess.run([ADB, "connect", SERIAL], capture_output=True, timeout=25)
+            except subprocess.TimeoutExpired:  # Wi-Fi do celular desligado: o connect fica esperando
+                pass
+            devs = subprocess.run([ADB, "devices", "-l"], capture_output=True, text=True, timeout=20).stdout
+        usb = re.search(r"^(\S+)\s+device\b.*model:23049PCD8G", devs, re.M)  # POCO F5 no cabo, com o Wi-Fi dele desligado
+        if not re.search(rf"^{re.escape(SERIAL)}\s+device", devs, re.M) and usb:
+            SERIAL = usb.group(1)
+            pend.append("celular: POCO F5 só pelo cabo USB (Wi-Fi do celular desligado); as postagens usam o cabo")
+        if not re.search(rf"^{re.escape(SERIAL)}\s+device", devs, re.M):
             pend.append("celular: POCO F5 desconectado do ADB (Wi-Fi ou depuração desligada)")
         else:
             bat = adb("shell", "dumpsys battery")
