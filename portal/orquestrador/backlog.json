@@ -4,164 +4,913 @@
   "branch_base": "portal-afiliacao",
   "contrato": "portal/docs/ARQUITETURA.md",
   "tarefas": [
-    {"id": "PA-001", "epico": "E01 Diagnóstico e preservação", "titulo": "Diagnóstico do projeto e decisões de arquitetura", "agente": "claude", "prioridade": "alta", "estimativa": "1h", "deps": [], "status": "concluida",
-     "objetivo": "Levantar stack, hospedagem, agentes e Planner; decidir onde e como o portal nasce sem quebrar o suprema.blog.",
-     "escopo": ["portal/docs/DIAGNOSTICO.md"], "entregaveis": ["portal/docs/DIAGNOSTICO.md"],
-     "aceite": ["Stack, banco, hospedagem e agentes registrados", "Decisões reversíveis documentadas", "Branch e worktree separadas do main"], "validacao": "test -f portal/docs/DIAGNOSTICO.md"},
-
-    {"id": "PA-002", "epico": "E02 Planner e orquestrador", "titulo": "Backlog no Plane e orquestrador com ciclos de 30 min", "agente": "claude", "prioridade": "alta", "estimativa": "2h", "deps": ["PA-001"], "status": "em_execucao",
-     "objetivo": "Fila persistente, ordens reais via ordens.py, sincronização com o Plane, ciclo a cada 30 min e relatório de hora em hora.",
-     "escopo": ["portal/orquestrador/"], "entregaveis": ["portal/orquestrador/orchestrator.py", "tarefa agendada 'Portal - Orquestrador'"],
-     "aceite": ["start/status/pause/resume/stop/dispatch/report/retry funcionam", "ciclo registrado em log estruturado", "tarefas no Plane com estado real", "lock impede ciclos concorrentes"], "validacao": "python -I portal/orquestrador/orchestrator.py status"},
-
-    {"id": "PA-003", "epico": "E03 Autenticação, operações e isolamento", "titulo": "Núcleo: banco, login, papéis, repositório com escopo e auditoria", "agente": "claude", "prioridade": "alta", "estimativa": "3h", "deps": ["PA-001"], "status": "em_execucao",
-     "objetivo": "Base multi-tenant do portal com permissões checadas no servidor.",
-     "escopo": ["portal/server.mjs", "portal/lib/", "portal/lib/schema/00-core.sql"], "entregaveis": ["login", "operações", "papéis", "auditoria"],
-     "aceite": ["Superadmin cria operação", "Usuário de uma operação não lê dados de outra", "Ação administrativa gera registro de auditoria"], "validacao": "npm run portal:test"},
-
-    {"id": "PA-004", "epico": "E04 Jornada Clube 10002", "titulo": "Clube 10002 de ponta a ponta com o modelo Clube de poker premium", "agente": "claude", "prioridade": "alta", "estimativa": "4h", "deps": ["PA-003"], "status": "em_execucao",
-     "objetivo": "Criar a operação pelo painel, escolher modelo, editar blocos, publicar, capturar lead com origem e atribuir link de afiliado.",
-     "escopo": ["portal/public/admin/", "portal/templates/clube-poker-premium.json", "portal/lib/blocks.mjs", "portal/lib/attribution.mjs"],
-     "entregaveis": ["assistente de nova operação", "construtor por blocos", "site público", "CRM básico", "afiliados e links"],
-     "aceite": ["Clube 10002 criado pelo painel", "Modelo escolhido, editado e publicado", "Lead entra no CRM com UTM e afiliado", "Conversão por webhook assinado é deduplicada"], "validacao": "npm run portal:test"},
-
-    {"id": "PA-010", "epico": "E05 Construtor, blog e mídia", "titulo": "Módulo de blog por operação", "agente": "codex", "prioridade": "alta", "estimativa": "4h", "deps": ["PA-004"], "status": "backlog",
-     "objetivo": "Editor de artigos com categorias, tags, autores, capa, SEO e slug editável, rascunho, revisão, agendamento e publicação no site da operação.",
-     "escopo": ["portal/lib/modules/blog.mjs", "portal/lib/schema/20-blog.sql", "portal/public/admin/modules/blog.js", "portal/test/blog.test.mjs"],
-     "entregaveis": ["rotas /api/t/:tenant/posts", "rotas públicas /s/:site/blog e /s/:site/blog/:slug", "tela do blog no painel", "posts no sitemap do site"],
-     "aceite": ["Post só aparece no site depois de publicado", "Post agendado publica na hora certa sem duplicar", "Post de uma operação não aparece em outra", "Editor sem blog.publish não publica"], "validacao": "npm run portal:test"},
-
-    {"id": "PA-011", "epico": "E05 Construtor, blog e mídia", "titulo": "Biblioteca de mídia isolada por operação", "agente": "codex", "prioridade": "media", "estimativa": "2h", "deps": ["PA-004"], "status": "backlog",
-     "objetivo": "Upload de imagens e logos por operação, com limite de tamanho e tipo, servidas por URL própria.",
-     "escopo": ["portal/lib/modules/media.mjs", "portal/lib/schema/21-media.sql", "portal/public/admin/modules/media.js", "portal/test/media.test.mjs"],
-     "entregaveis": ["upload", "listagem", "remoção com auditoria", "seletor de imagem para o construtor"],
-     "aceite": ["Arquivo de outra operação não é acessível", "Só PNG/JPG/WEBP/SVG sanitizado/GIF até o limite", "Remoção registrada na auditoria"], "validacao": "npm run portal:test"},
-
-    {"id": "PA-012", "epico": "E05 Construtor, blog e mídia", "titulo": "Domínios e subdomínios com verificação", "agente": "codex", "prioridade": "media", "estimativa": "2h", "deps": ["PA-004"], "status": "backlog",
-     "objetivo": "Ligar domínio próprio ou subdomínio ao site com instruções de DNS e verificação por TXT.",
-     "escopo": ["portal/lib/modules/domains.mjs", "portal/lib/schema/22-domains.sql", "portal/public/admin/modules/domains.js", "portal/test/domains.test.mjs"],
-     "entregaveis": ["instruções CNAME/TXT", "verificação", "site servido pelo Host verificado"],
-     "aceite": ["Domínio não verificado não serve o site", "Um domínio não pode ser ligado a duas operações"], "validacao": "npm run portal:test"},
-
-    {"id": "PA-013", "epico": "E05 Construtor, blog e mídia", "titulo": "Duplicar páginas e sites e aviso de nova versão de modelo", "agente": "codex", "prioridade": "baixa", "estimativa": "2h", "deps": ["PA-004"], "status": "backlog",
-     "objetivo": "Duplicar entre operações em que o usuário é admin e oferecer (sem aplicar sozinho) blocos novos de uma versão nova do modelo.",
-     "escopo": ["portal/lib/modules/clone.mjs", "portal/test/clone.test.mjs"],
-     "entregaveis": ["rota de duplicação", "comparação de versão do modelo"],
-     "aceite": ["Duplicar para operação sem permissão é recusado", "Atualização de modelo nunca altera página existente sem ação do usuário"], "validacao": "npm run portal:test"},
-
-    {"id": "PA-020", "epico": "E06 CRM e atribuição", "titulo": "CRM: funil, responsáveis, histórico e exportação", "agente": "codex", "prioridade": "alta", "estimativa": "3h", "deps": ["PA-004"], "status": "backlog",
-     "objetivo": "Funil por etapas com responsável, histórico de eventos e exportação CSV.",
-     "escopo": ["portal/lib/modules/crm.mjs", "portal/public/admin/modules/crm.js", "portal/test/crm.test.mjs"],
-     "entregaveis": ["mudança de etapa com histórico", "atribuição de responsável", "exportação CSV"],
-     "aceite": ["Toda mudança de etapa gera lead_event", "CSV só traz leads da operação", "Afiliado não vê leads de outros afiliados"], "validacao": "npm run portal:test"},
-
-    {"id": "PA-021", "epico": "E06 CRM e atribuição", "titulo": "Bateria de testes de atribuição e webhooks duplicados", "agente": "codex", "prioridade": "alta", "estimativa": "2h", "deps": ["PA-004"], "status": "backlog",
-     "objetivo": "Cobrir janela de atribuição, último clique, assinatura inválida, reenvio do mesmo evento e eventos fora de ordem.",
-     "escopo": ["portal/test/attribution.test.mjs"],
-     "entregaveis": ["testes"],
-     "aceite": ["Reenvio do mesmo external_id não cria segunda conversão", "Assinatura inválida é recusada com 401", "Clique fora da janela não credita afiliado"], "validacao": "npm run portal:test"},
-
-    {"id": "PA-030", "epico": "E07 Criativos e calendário", "titulo": "Central de criativos com modelos 1:1, 4:5 e 9:16", "agente": "claude-design", "prioridade": "media", "estimativa": "5h", "deps": ["PA-011"], "status": "backlog",
-     "objetivo": "Gerador de peças com identidade da operação, variações de título, texto e CTA, aprovação e exportação PNG.",
-     "escopo": ["portal/lib/modules/creatives.mjs", "portal/lib/schema/30-creatives.sql", "portal/public/admin/modules/creatives.js", "portal/creatives/"],
-     "entregaveis": ["6 modelos por formato", "editor", "histórico e aprovação", "exportação"],
-     "aceite": ["Texto legível em 1:1, 4:5 e 9:16", "Peça aprovada fica ligada a campanha ou publicação", "IA só aparece quando houver provedor configurado"], "validacao": "npm run portal:test"},
-
-    {"id": "PA-031", "epico": "E07 Criativos e calendário", "titulo": "Calendário editorial com 3 publicações por dia", "agente": "codex", "prioridade": "alta", "estimativa": "3h", "deps": ["PA-004"], "status": "backlog",
-     "objetivo": "Gerar e manter slots diários no fuso da operação, com estados rascunho, aguardando conexão, agendado, publicado e erro, sem duplicar em reexecução.",
-     "escopo": ["portal/lib/modules/calendar.mjs", "portal/public/admin/modules/calendar.js", "portal/test/calendar.test.mjs"],
-     "entregaveis": ["configuração de horários", "geração idempotente", "tela de calendário"],
-     "aceite": ["Rodar a geração duas vezes não duplica itens", "Sem conta conectada o item fica 'aguardando conexão'", "Horários respeitam o fuso da operação"], "validacao": "npm run portal:test"},
-
-    {"id": "PA-040", "epico": "E08 Telegram e redes", "titulo": "Integração Telegram com passo a passo", "agente": "codex", "prioridade": "media", "estimativa": "3h", "deps": ["PA-004"], "status": "backlog",
-     "objetivo": "Cadastro seguro do token do BotFather, validação do destino, mensagem de teste, notificações e logs.",
-     "escopo": ["portal/lib/modules/telegram.mjs", "portal/public/admin/modules/telegram.js", "portal/test/telegram.test.mjs"],
-     "entregaveis": ["página passo a passo", "token cifrado com a chave do servidor", "teste de envio", "log sem token"],
-     "aceite": ["Token nunca volta para o front nem aparece em log", "Destino inválido mostra erro compreensível", "Sem token a integração aparece 'pendente de configuração'"], "validacao": "npm run portal:test"},
-
-    {"id": "PA-041", "epico": "E08 Telegram e redes", "titulo": "Instagram pela Graph API oficial", "agente": "codex", "prioridade": "media", "estimativa": "4h", "deps": ["PA-031"], "status": "backlog",
-     "objetivo": "Conectar conta profissional pelo login oficial da Meta, publicar itens agendados do calendário, registrar status, erros e reprocessamento.",
-     "escopo": ["portal/lib/modules/instagram.mjs", "portal/public/admin/modules/instagram.js", "portal/test/instagram.test.mjs"],
-     "entregaveis": ["fluxo OAuth", "publicador idempotente", "alerta de token expirado"],
-     "aceite": ["Sem app Meta configurado tudo fica 'pendente de configuração'", "Reprocessar não publica duas vezes", "Nada publica sem aprovação da operação"], "validacao": "npm run portal:test"},
-
-    {"id": "PA-050", "epico": "E09 Analytics, Pixel e Meta Ads", "titulo": "Mensuração por site: GA4, GTM, Pixel, CAPI e consentimento", "agente": "codex", "prioridade": "alta", "estimativa": "4h", "deps": ["PA-004"], "status": "backlog",
-     "objetivo": "IDs por site, eventos padrão, Conversions API com event_id para deduplicar e tela de diagnóstico.",
-     "escopo": ["portal/lib/modules/tracking.mjs", "portal/public/admin/modules/tracking.js", "portal/test/tracking.test.mjs"],
-     "entregaveis": ["eventos visita, clique em CTA, lead, cadastro, compra", "CAPI quando houver token", "tela de validação"],
-     "aceite": ["Sem consentimento nenhum script de mensuração carrega", "Evento de navegador e servidor saem com o mesmo event_id", "Tela distingue 'ID instalado' de 'conta conectada'"], "validacao": "npm run portal:test"},
-
-    {"id": "PA-051", "epico": "E09 Analytics, Pixel e Meta Ads", "titulo": "Meta Ads: campanhas em rascunho e pausadas", "agente": "codex", "prioridade": "media", "estimativa": "4h", "deps": ["PA-050"], "status": "backlog",
-     "objetivo": "Preparar campanha, conjunto e anúncio com criativo, destino, orçamento e evento, sempre pausados; publicar só com orçamento e confirmação.",
-     "escopo": ["portal/lib/modules/ads.mjs", "portal/lib/schema/51-ads.sql", "portal/public/admin/modules/ads.js", "portal/test/ads.test.mjs"],
-     "entregaveis": ["rascunhos locais", "envio à API como PAUSED quando conectado", "estado real da conexão"],
-     "aceite": ["Nenhuma chamada cria anúncio ativo", "Sem orçamento definido não há botão de publicar", "Erros da API aparecem em português"], "validacao": "npm run portal:test"},
-
-    {"id": "PA-060", "epico": "E10 Catálogo de 25 modelos", "titulo": "Análise da SX (sx-co.com): estrutura, jornada, tons e lacunas", "agente": "kimi", "prioridade": "alta", "estimativa": "1h", "deps": [], "status": "pronta",
-     "objetivo": "Relatório para orientar os 5 modelos inspirados na SX, sem copiar marca, imagem ou depoimento.",
-     "escopo": ["portal/docs/referencia-sx.md"],
-     "entregaveis": ["portal/docs/referencia-sx.md"],
-     "aceite": ["Mapa de seções e jornada de cada página", "Paleta observada com hex", "Lista do que falta no site deles e que podemos fazer melhor", "Nada copiado literalmente"], "validacao": "test -f portal/docs/referencia-sx.md"},
-
-    {"id": "PA-061", "epico": "E10 Catálogo de 25 modelos", "titulo": "Modelos 2 a 10 (poker e afiliação) em JSON", "agente": "kimi", "prioridade": "alta", "estimativa": "4h", "deps": ["PA-004"], "status": "backlog",
-     "objetivo": "Modelos originais 2-10 usando só os blocos do catálogo, com páginas internas e conteúdo demonstrativo identificado.",
-     "escopo": ["portal/templates/"],
-     "entregaveis": ["9 arquivos JSON em portal/templates/"],
-     "aceite": ["Cada modelo passa em node portal/tools/validar-modelos.mjs", "Composição e navegação diferentes entre si (não só cores)", "Nenhuma métrica ou depoimento fictício apresentado como real"], "validacao": "node portal/tools/validar-modelos.mjs"},
-
-    {"id": "PA-062", "epico": "E10 Catálogo de 25 modelos", "titulo": "Modelos 11 a 20 (outros nichos) em JSON", "agente": "kimi", "prioridade": "media", "estimativa": "4h", "deps": ["PA-004"], "status": "backlog",
-     "objetivo": "Modelos originais 11-20 (diretório, cupons, SaaS, IA, cursos, eventos, local, membros, TCG, genérico).",
-     "escopo": ["portal/templates/"],
-     "entregaveis": ["10 arquivos JSON em portal/templates/"],
-     "aceite": ["Cada modelo passa em node portal/tools/validar-modelos.mjs", "Termos seguem o nicho do modelo", "Conteúdo demonstrativo identificado"], "validacao": "node portal/tools/validar-modelos.mjs"},
-
-    {"id": "PA-063", "epico": "E10 Catálogo de 25 modelos", "titulo": "Modelos 21 a 25 inspirados na jornada da SX", "agente": "kimi", "prioridade": "media", "estimativa": "3h", "deps": ["PA-060", "PA-004"], "status": "backlog",
-     "objetivo": "Grupo de clubes, benefícios e parceiros, atendimento e fichas, agenda de torneios, blog educativo, com identidade própria.",
-     "escopo": ["portal/templates/"],
-     "entregaveis": ["5 arquivos JSON em portal/templates/"],
-     "aceite": ["Cada modelo passa no validador", "Sem marca, imagem ou texto da SX"], "validacao": "node portal/tools/validar-modelos.mjs"},
-
-    {"id": "PA-064", "epico": "E10 Catálogo de 25 modelos", "titulo": "Revisão visual dos 25 modelos e blocos novos", "agente": "claude-design", "prioridade": "media", "estimativa": "5h", "deps": ["PA-061", "PA-062", "PA-063"], "status": "backlog",
-     "objetivo": "Garantir diferenças reais de composição, legibilidade e acabamento em desktop e mobile.",
-     "escopo": ["portal/templates/", "portal/lib/blocks.mjs", "portal/public/site.css"],
-     "entregaveis": ["capturas desktop e mobile de cada modelo", "ajustes"],
-     "aceite": ["25 modelos abrem no construtor", "Nenhuma rolagem horizontal a 375px", "Contraste AA nos textos"], "validacao": "node portal/tools/validar-modelos.mjs"},
-
-    {"id": "PA-070", "epico": "E11 Comissões e relatórios", "titulo": "Regras de comissão versionadas e extrato", "agente": "codex", "prioridade": "alta", "estimativa": "5h", "deps": ["PA-021"], "status": "backlog",
-     "objetivo": "CPA, participação em receita e híbrido com vigência; extrato, aprovação, estorno, conciliação e exportação. Sem pagamento automático.",
-     "escopo": ["portal/lib/modules/commissions.mjs", "portal/lib/schema/70-commissions.sql", "portal/public/admin/modules/commissions.js", "portal/test/commissions.test.mjs"],
-     "entregaveis": ["cálculo a partir de conversões verificadas", "regra vigente na data da conversão", "estorno"],
-     "aceite": ["Conversão não verificada não gera comissão", "Troca de regra não altera comissões passadas", "Estorno gera lançamento negativo com auditoria"], "validacao": "npm run portal:test"},
-
-    {"id": "PA-071", "epico": "E11 Comissões e relatórios", "titulo": "Portal do afiliado", "agente": "codex", "prioridade": "media", "estimativa": "3h", "deps": ["PA-070"], "status": "backlog",
-     "objetivo": "Área do afiliado com links, materiais, leads próprios e extrato.",
-     "escopo": ["portal/lib/modules/affiliate-portal.mjs", "portal/public/admin/modules/affiliate-portal.js", "portal/test/affiliate-portal.test.mjs"],
-     "entregaveis": ["painel do afiliado"],
-     "aceite": ["Afiliado só vê os próprios dados", "Links com UTM padronizada"], "validacao": "npm run portal:test"},
-
-    {"id": "PA-080", "epico": "E12 Outro nicho", "titulo": "Validar nicho SaaS/IA com a operação Parceiro 20001", "agente": "kimi", "prioridade": "media", "estimativa": "2h", "deps": ["PA-062"], "status": "backlog",
-     "objetivo": "Criar a operação de outro nicho pelo painel, publicar um modelo e registrar o passo a passo com capturas.",
-     "escopo": ["portal/docs/validacao-outro-nicho.md"],
-     "entregaveis": ["portal/docs/validacao-outro-nicho.md"],
-     "aceite": ["Termos do nicho aparecem no painel e no site", "Nenhum arquivo duplicado da aplicação"], "validacao": "test -f portal/docs/validacao-outro-nicho.md"},
-
-    {"id": "PA-090", "epico": "E13 Revisão", "titulo": "Revisão de segurança", "agente": "codex", "prioridade": "alta", "estimativa": "3h", "deps": ["PA-040", "PA-050", "PA-070"], "status": "backlog",
-     "objetivo": "Isolamento, permissões, XSS nos blocos, CSRF, segredos, limites de upload e taxa.",
-     "escopo": ["portal/docs/revisao-seguranca.md", "portal/test/security.test.mjs"],
-     "entregaveis": ["relatório", "testes", "correções pequenas"],
-     "aceite": ["Sem achado alto aberto", "Testes de segurança passando"], "validacao": "npm run portal:test"},
-
-    {"id": "PA-092", "epico": "E13 Revisão", "titulo": "Documentação de uso do portal", "agente": "kimi", "prioridade": "baixa", "estimativa": "2h", "deps": ["PA-010", "PA-020"], "status": "backlog",
-     "objetivo": "Guia para criar operação, editar site, blog, CRM, afiliados e integrações.",
-     "escopo": ["portal/docs/guia-de-uso.md"],
-     "entregaveis": ["portal/docs/guia-de-uso.md"],
-     "aceite": ["Cada tela do painel tem seção", "Sem prometer integração pendente"], "validacao": "test -f portal/docs/guia-de-uso.md"},
-
-    {"id": "PA-100", "epico": "E14 Implantação", "titulo": "Implantar em portal.kbsa.app no Bigue", "agente": "codex", "prioridade": "media", "estimativa": "2h", "deps": ["PA-090"], "status": "bloqueada",
-     "bloqueio": "Precisa do OK do Kbsa para publicar e da rota pública no túnel kbsa-bigue.",
-     "objetivo": "Rodar o portal no Bigue com Caddy e túnel, banco persistente e backup.",
-     "escopo": ["portal/deploy/"],
-     "entregaveis": ["serviço no ar", "backup diário do banco"],
-     "aceite": ["kbsa.app/portal e portal.kbsa.app respondem 200", "Reinício do serviço preserva os dados"], "validacao": "curl -fsS https://portal.kbsa.app/healthz"}
+    {
+      "id": "PA-001",
+      "epico": "E01 Diagnóstico e preservação",
+      "titulo": "Diagnóstico do projeto e decisões de arquitetura",
+      "agente": "claude",
+      "prioridade": "alta",
+      "estimativa": "1h",
+      "deps": [],
+      "status": "concluida",
+      "objetivo": "Levantar stack, hospedagem, agentes e Planner; decidir onde e como o portal nasce sem quebrar o suprema.blog.",
+      "escopo": [
+        "portal/docs/DIAGNOSTICO.md"
+      ],
+      "entregaveis": [
+        "portal/docs/DIAGNOSTICO.md"
+      ],
+      "aceite": [
+        "Stack, banco, hospedagem e agentes registrados",
+        "Decisões reversíveis documentadas",
+        "Branch e worktree separadas do main"
+      ],
+      "validacao": "test -f portal/docs/DIAGNOSTICO.md"
+    },
+    {
+      "id": "PA-002",
+      "epico": "E02 Planner e orquestrador",
+      "titulo": "Backlog no Plane e orquestrador com ciclos de 30 min",
+      "agente": "claude",
+      "prioridade": "alta",
+      "estimativa": "2h",
+      "deps": [
+        "PA-001"
+      ],
+      "status": "em_execucao",
+      "objetivo": "Fila persistente, ordens reais via ordens.py, sincronização com o Plane, ciclo a cada 30 min e relatório de hora em hora.",
+      "escopo": [
+        "portal/orquestrador/"
+      ],
+      "entregaveis": [
+        "portal/orquestrador/orchestrator.py",
+        "tarefa agendada 'Portal - Orquestrador'"
+      ],
+      "aceite": [
+        "start/status/pause/resume/stop/dispatch/report/retry funcionam",
+        "ciclo registrado em log estruturado",
+        "tarefas no Plane com estado real",
+        "lock impede ciclos concorrentes"
+      ],
+      "validacao": "python -I portal/orquestrador/orchestrator.py status"
+    },
+    {
+      "id": "PA-003",
+      "epico": "E03 Autenticação, operações e isolamento",
+      "titulo": "Núcleo: banco, login, papéis, repositório com escopo e auditoria",
+      "agente": "claude",
+      "prioridade": "alta",
+      "estimativa": "3h",
+      "deps": [
+        "PA-001"
+      ],
+      "status": "em_execucao",
+      "objetivo": "Base multi-tenant do portal com permissões checadas no servidor.",
+      "escopo": [
+        "portal/server.mjs",
+        "portal/lib/",
+        "portal/lib/schema/00-core.sql"
+      ],
+      "entregaveis": [
+        "login",
+        "operações",
+        "papéis",
+        "auditoria"
+      ],
+      "aceite": [
+        "Superadmin cria operação",
+        "Usuário de uma operação não lê dados de outra",
+        "Ação administrativa gera registro de auditoria"
+      ],
+      "validacao": "npm run portal:test"
+    },
+    {
+      "id": "PA-004",
+      "epico": "E04 Jornada Clube 10002",
+      "titulo": "Clube 10002 de ponta a ponta com o modelo Clube de poker premium",
+      "agente": "claude",
+      "prioridade": "alta",
+      "estimativa": "4h",
+      "deps": [
+        "PA-003"
+      ],
+      "status": "em_execucao",
+      "objetivo": "Criar a operação pelo painel, escolher modelo, editar blocos, publicar, capturar lead com origem e atribuir link de afiliado.",
+      "escopo": [
+        "portal/public/admin/",
+        "portal/templates/clube-poker-premium.json",
+        "portal/lib/blocks.mjs",
+        "portal/lib/attribution.mjs"
+      ],
+      "entregaveis": [
+        "assistente de nova operação",
+        "construtor por blocos",
+        "site público",
+        "CRM básico",
+        "afiliados e links"
+      ],
+      "aceite": [
+        "Clube 10002 criado pelo painel",
+        "Modelo escolhido, editado e publicado",
+        "Lead entra no CRM com UTM e afiliado",
+        "Conversão por webhook assinado é deduplicada"
+      ],
+      "validacao": "npm run portal:test"
+    },
+    {
+      "id": "PA-010",
+      "epico": "E05 Construtor, blog e mídia",
+      "titulo": "Módulo de blog por operação",
+      "agente": "codex",
+      "prioridade": "alta",
+      "estimativa": "4h",
+      "deps": [
+        "PA-004"
+      ],
+      "status": "backlog",
+      "objetivo": "Editor de artigos com categorias, tags, autores, capa, SEO e slug editável, rascunho, revisão, agendamento e publicação no site da operação.",
+      "escopo": [
+        "portal/lib/modules/blog.mjs",
+        "portal/lib/schema/20-blog.sql",
+        "portal/public/admin/modules/blog.js",
+        "portal/test/blog.test.mjs"
+      ],
+      "entregaveis": [
+        "rotas /api/t/:tenant/posts",
+        "rotas públicas /s/:site/blog e /s/:site/blog/:slug",
+        "tela do blog no painel",
+        "posts no sitemap do site"
+      ],
+      "aceite": [
+        "Post só aparece no site depois de publicado",
+        "Post agendado publica na hora certa sem duplicar",
+        "Post de uma operação não aparece em outra",
+        "Editor sem blog.publish não publica"
+      ],
+      "validacao": "npm run portal:test"
+    },
+    {
+      "id": "PA-011",
+      "epico": "E05 Construtor, blog e mídia",
+      "titulo": "Biblioteca de mídia isolada por operação",
+      "agente": "codex",
+      "prioridade": "media",
+      "estimativa": "2h",
+      "deps": [
+        "PA-004"
+      ],
+      "status": "backlog",
+      "objetivo": "Upload de imagens e logos por operação, com limite de tamanho e tipo, servidas por URL própria.",
+      "escopo": [
+        "portal/lib/modules/media.mjs",
+        "portal/lib/schema/21-media.sql",
+        "portal/public/admin/modules/media.js",
+        "portal/test/media.test.mjs"
+      ],
+      "entregaveis": [
+        "upload",
+        "listagem",
+        "remoção com auditoria",
+        "seletor de imagem para o construtor"
+      ],
+      "aceite": [
+        "Arquivo de outra operação não é acessível",
+        "Só PNG/JPG/WEBP/SVG sanitizado/GIF até o limite",
+        "Remoção registrada na auditoria"
+      ],
+      "validacao": "npm run portal:test"
+    },
+    {
+      "id": "PA-012",
+      "epico": "E05 Construtor, blog e mídia",
+      "titulo": "Domínios e subdomínios com verificação",
+      "agente": "codex",
+      "prioridade": "media",
+      "estimativa": "2h",
+      "deps": [
+        "PA-004"
+      ],
+      "status": "backlog",
+      "objetivo": "Ligar domínio próprio ou subdomínio ao site com instruções de DNS e verificação por TXT.",
+      "escopo": [
+        "portal/lib/modules/domains.mjs",
+        "portal/lib/schema/22-domains.sql",
+        "portal/public/admin/modules/domains.js",
+        "portal/test/domains.test.mjs"
+      ],
+      "entregaveis": [
+        "instruções CNAME/TXT",
+        "verificação",
+        "site servido pelo Host verificado"
+      ],
+      "aceite": [
+        "Domínio não verificado não serve o site",
+        "Um domínio não pode ser ligado a duas operações"
+      ],
+      "validacao": "npm run portal:test"
+    },
+    {
+      "id": "PA-013",
+      "epico": "E05 Construtor, blog e mídia",
+      "titulo": "Duplicar páginas e sites e aviso de nova versão de modelo",
+      "agente": "codex",
+      "prioridade": "baixa",
+      "estimativa": "2h",
+      "deps": [
+        "PA-004"
+      ],
+      "status": "backlog",
+      "objetivo": "Duplicar entre operações em que o usuário é admin e oferecer (sem aplicar sozinho) blocos novos de uma versão nova do modelo.",
+      "escopo": [
+        "portal/lib/modules/clone.mjs",
+        "portal/test/clone.test.mjs"
+      ],
+      "entregaveis": [
+        "rota de duplicação",
+        "comparação de versão do modelo"
+      ],
+      "aceite": [
+        "Duplicar para operação sem permissão é recusado",
+        "Atualização de modelo nunca altera página existente sem ação do usuário"
+      ],
+      "validacao": "npm run portal:test"
+    },
+    {
+      "id": "PA-020",
+      "epico": "E06 CRM e atribuição",
+      "titulo": "CRM: funil, responsáveis, histórico e exportação",
+      "agente": "codex",
+      "prioridade": "alta",
+      "estimativa": "3h",
+      "deps": [
+        "PA-004"
+      ],
+      "status": "backlog",
+      "objetivo": "Funil por etapas com responsável, histórico de eventos e exportação CSV.",
+      "escopo": [
+        "portal/lib/modules/crm.mjs",
+        "portal/public/admin/modules/crm.js",
+        "portal/test/crm.test.mjs"
+      ],
+      "entregaveis": [
+        "mudança de etapa com histórico",
+        "atribuição de responsável",
+        "exportação CSV"
+      ],
+      "aceite": [
+        "Toda mudança de etapa gera lead_event",
+        "CSV só traz leads da operação",
+        "Afiliado não vê leads de outros afiliados"
+      ],
+      "validacao": "npm run portal:test"
+    },
+    {
+      "id": "PA-021",
+      "epico": "E06 CRM e atribuição",
+      "titulo": "Bateria de testes de atribuição e webhooks duplicados",
+      "agente": "codex",
+      "prioridade": "alta",
+      "estimativa": "2h",
+      "deps": [
+        "PA-004"
+      ],
+      "status": "backlog",
+      "objetivo": "Cobrir janela de atribuição, último clique, assinatura inválida, reenvio do mesmo evento e eventos fora de ordem.",
+      "escopo": [
+        "portal/test/attribution.test.mjs"
+      ],
+      "entregaveis": [
+        "testes"
+      ],
+      "aceite": [
+        "Reenvio do mesmo external_id não cria segunda conversão",
+        "Assinatura inválida é recusada com 401",
+        "Clique fora da janela não credita afiliado"
+      ],
+      "validacao": "npm run portal:test"
+    },
+    {
+      "id": "PA-030",
+      "epico": "E07 Criativos e calendário",
+      "titulo": "Central de criativos com modelos 1:1, 4:5 e 9:16",
+      "agente": "claude-design",
+      "prioridade": "media",
+      "estimativa": "5h",
+      "deps": [
+        "PA-011"
+      ],
+      "status": "backlog",
+      "objetivo": "Gerador de peças com identidade da operação, variações de título, texto e CTA, aprovação e exportação PNG.",
+      "escopo": [
+        "portal/lib/modules/creatives.mjs",
+        "portal/lib/schema/30-creatives.sql",
+        "portal/public/admin/modules/creatives.js",
+        "portal/creatives/"
+      ],
+      "entregaveis": [
+        "6 modelos por formato",
+        "editor",
+        "histórico e aprovação",
+        "exportação"
+      ],
+      "aceite": [
+        "Texto legível em 1:1, 4:5 e 9:16",
+        "Peça aprovada fica ligada a campanha ou publicação",
+        "IA só aparece quando houver provedor configurado"
+      ],
+      "validacao": "npm run portal:test"
+    },
+    {
+      "id": "PA-031",
+      "epico": "E07 Criativos e calendário",
+      "titulo": "Calendário editorial com 3 publicações por dia",
+      "agente": "codex",
+      "prioridade": "alta",
+      "estimativa": "3h",
+      "deps": [
+        "PA-004"
+      ],
+      "status": "backlog",
+      "objetivo": "Gerar e manter slots diários no fuso da operação, com estados rascunho, aguardando conexão, agendado, publicado e erro, sem duplicar em reexecução.",
+      "escopo": [
+        "portal/lib/modules/calendar.mjs",
+        "portal/public/admin/modules/calendar.js",
+        "portal/test/calendar.test.mjs"
+      ],
+      "entregaveis": [
+        "configuração de horários",
+        "geração idempotente",
+        "tela de calendário"
+      ],
+      "aceite": [
+        "Rodar a geração duas vezes não duplica itens",
+        "Sem conta conectada o item fica 'aguardando conexão'",
+        "Horários respeitam o fuso da operação"
+      ],
+      "validacao": "npm run portal:test"
+    },
+    {
+      "id": "PA-040",
+      "epico": "E08 Telegram e redes",
+      "titulo": "Integração Telegram com passo a passo",
+      "agente": "codex",
+      "prioridade": "media",
+      "estimativa": "3h",
+      "deps": [
+        "PA-004"
+      ],
+      "status": "backlog",
+      "objetivo": "Cadastro seguro do token do BotFather, validação do destino, mensagem de teste, notificações e logs.",
+      "escopo": [
+        "portal/lib/modules/telegram.mjs",
+        "portal/public/admin/modules/telegram.js",
+        "portal/test/telegram.test.mjs"
+      ],
+      "entregaveis": [
+        "página passo a passo",
+        "token cifrado com a chave do servidor",
+        "teste de envio",
+        "log sem token"
+      ],
+      "aceite": [
+        "Token nunca volta para o front nem aparece em log",
+        "Destino inválido mostra erro compreensível",
+        "Sem token a integração aparece 'pendente de configuração'"
+      ],
+      "validacao": "npm run portal:test"
+    },
+    {
+      "id": "PA-041",
+      "epico": "E08 Telegram e redes",
+      "titulo": "Instagram pela Graph API oficial",
+      "agente": "codex",
+      "prioridade": "media",
+      "estimativa": "4h",
+      "deps": [
+        "PA-031"
+      ],
+      "status": "backlog",
+      "objetivo": "Conectar conta profissional pelo login oficial da Meta, publicar itens agendados do calendário, registrar status, erros e reprocessamento.",
+      "escopo": [
+        "portal/lib/modules/instagram.mjs",
+        "portal/public/admin/modules/instagram.js",
+        "portal/test/instagram.test.mjs"
+      ],
+      "entregaveis": [
+        "fluxo OAuth",
+        "publicador idempotente",
+        "alerta de token expirado"
+      ],
+      "aceite": [
+        "Sem app Meta configurado tudo fica 'pendente de configuração'",
+        "Reprocessar não publica duas vezes",
+        "Nada publica sem aprovação da operação"
+      ],
+      "validacao": "npm run portal:test"
+    },
+    {
+      "id": "PA-050",
+      "epico": "E09 Analytics, Pixel e Meta Ads",
+      "titulo": "Mensuração por site: GA4, GTM, Pixel, CAPI e consentimento",
+      "agente": "codex",
+      "prioridade": "alta",
+      "estimativa": "4h",
+      "deps": [
+        "PA-004"
+      ],
+      "status": "backlog",
+      "objetivo": "IDs por site, eventos padrão, Conversions API com event_id para deduplicar e tela de diagnóstico.",
+      "escopo": [
+        "portal/lib/modules/tracking.mjs",
+        "portal/public/admin/modules/tracking.js",
+        "portal/test/tracking.test.mjs"
+      ],
+      "entregaveis": [
+        "eventos visita, clique em CTA, lead, cadastro, compra",
+        "CAPI quando houver token",
+        "tela de validação"
+      ],
+      "aceite": [
+        "Sem consentimento nenhum script de mensuração carrega",
+        "Evento de navegador e servidor saem com o mesmo event_id",
+        "Tela distingue 'ID instalado' de 'conta conectada'"
+      ],
+      "validacao": "npm run portal:test"
+    },
+    {
+      "id": "PA-051",
+      "epico": "E09 Analytics, Pixel e Meta Ads",
+      "titulo": "Meta Ads: campanhas em rascunho e pausadas",
+      "agente": "codex",
+      "prioridade": "media",
+      "estimativa": "4h",
+      "deps": [
+        "PA-050"
+      ],
+      "status": "backlog",
+      "objetivo": "Preparar campanha, conjunto e anúncio com criativo, destino, orçamento e evento, sempre pausados; publicar só com orçamento e confirmação.",
+      "escopo": [
+        "portal/lib/modules/ads.mjs",
+        "portal/lib/schema/51-ads.sql",
+        "portal/public/admin/modules/ads.js",
+        "portal/test/ads.test.mjs"
+      ],
+      "entregaveis": [
+        "rascunhos locais",
+        "envio à API como PAUSED quando conectado",
+        "estado real da conexão"
+      ],
+      "aceite": [
+        "Nenhuma chamada cria anúncio ativo",
+        "Sem orçamento definido não há botão de publicar",
+        "Erros da API aparecem em português"
+      ],
+      "validacao": "npm run portal:test"
+    },
+    {
+      "id": "PA-060",
+      "epico": "E10 Catálogo de 25 modelos",
+      "titulo": "Análise da SX (sx-co.com): estrutura, jornada, tons e lacunas",
+      "agente": "kimi",
+      "prioridade": "alta",
+      "estimativa": "1h",
+      "deps": [],
+      "status": "pronta",
+      "objetivo": "Relatório para orientar os 5 modelos inspirados na SX, sem copiar marca, imagem ou depoimento.",
+      "escopo": [
+        "portal/docs/referencia-sx.md"
+      ],
+      "entregaveis": [
+        "portal/docs/referencia-sx.md"
+      ],
+      "aceite": [
+        "Mapa de seções e jornada de cada página",
+        "Paleta observada com hex",
+        "Lista do que falta no site deles e que podemos fazer melhor",
+        "Nada copiado literalmente"
+      ],
+      "validacao": "test -f portal/docs/referencia-sx.md"
+    },
+    {
+      "id": "PA-061",
+      "epico": "E10 Catálogo de 25 modelos",
+      "titulo": "Modelos 2 a 10 (poker e afiliação) em JSON",
+      "agente": "kimi",
+      "prioridade": "alta",
+      "estimativa": "4h",
+      "deps": [
+        "PA-004"
+      ],
+      "status": "backlog",
+      "objetivo": "Modelos originais 2-10 usando só os blocos do catálogo, com páginas internas e conteúdo demonstrativo identificado.",
+      "escopo": [
+        "portal/templates/"
+      ],
+      "entregaveis": [
+        "9 arquivos JSON em portal/templates/"
+      ],
+      "aceite": [
+        "Cada modelo passa em node portal/tools/validar-modelos.mjs",
+        "Composição e navegação diferentes entre si (não só cores)",
+        "Nenhuma métrica ou depoimento fictício apresentado como real"
+      ],
+      "validacao": "node portal/tools/validar-modelos.mjs"
+    },
+    {
+      "id": "PA-062",
+      "epico": "E10 Catálogo de 25 modelos",
+      "titulo": "Modelos 11 a 20 (outros nichos) em JSON",
+      "agente": "kimi",
+      "prioridade": "media",
+      "estimativa": "4h",
+      "deps": [
+        "PA-004"
+      ],
+      "status": "backlog",
+      "objetivo": "Modelos originais 11-20 (diretório, cupons, SaaS, IA, cursos, eventos, local, membros, TCG, genérico).",
+      "escopo": [
+        "portal/templates/"
+      ],
+      "entregaveis": [
+        "10 arquivos JSON em portal/templates/"
+      ],
+      "aceite": [
+        "Cada modelo passa em node portal/tools/validar-modelos.mjs",
+        "Termos seguem o nicho do modelo",
+        "Conteúdo demonstrativo identificado"
+      ],
+      "validacao": "node portal/tools/validar-modelos.mjs"
+    },
+    {
+      "id": "PA-063",
+      "epico": "E10 Catálogo de 25 modelos",
+      "titulo": "Modelos 21 a 25 inspirados na jornada da SX",
+      "agente": "kimi",
+      "prioridade": "media",
+      "estimativa": "3h",
+      "deps": [
+        "PA-060",
+        "PA-004"
+      ],
+      "status": "backlog",
+      "objetivo": "Grupo de clubes, benefícios e parceiros, atendimento e fichas, agenda de torneios, blog educativo, com identidade própria.",
+      "escopo": [
+        "portal/templates/"
+      ],
+      "entregaveis": [
+        "5 arquivos JSON em portal/templates/"
+      ],
+      "aceite": [
+        "Cada modelo passa no validador",
+        "Sem marca, imagem ou texto da SX"
+      ],
+      "validacao": "node portal/tools/validar-modelos.mjs"
+    },
+    {
+      "id": "PA-064",
+      "epico": "E10 Catálogo de 25 modelos",
+      "titulo": "Revisão visual dos 25 modelos e blocos novos",
+      "agente": "claude-design",
+      "prioridade": "media",
+      "estimativa": "5h",
+      "deps": [
+        "PA-061",
+        "PA-062",
+        "PA-063"
+      ],
+      "status": "backlog",
+      "objetivo": "Garantir diferenças reais de composição, legibilidade e acabamento em desktop e mobile.",
+      "escopo": [
+        "portal/templates/",
+        "portal/lib/blocks.mjs",
+        "portal/public/site.css"
+      ],
+      "entregaveis": [
+        "capturas desktop e mobile de cada modelo",
+        "ajustes"
+      ],
+      "aceite": [
+        "25 modelos abrem no construtor",
+        "Nenhuma rolagem horizontal a 375px",
+        "Contraste AA nos textos"
+      ],
+      "validacao": "node portal/tools/validar-modelos.mjs"
+    },
+    {
+      "id": "PA-070",
+      "epico": "E11 Comissões e relatórios",
+      "titulo": "Regras de comissão versionadas e extrato",
+      "agente": "codex",
+      "prioridade": "alta",
+      "estimativa": "5h",
+      "deps": [
+        "PA-021"
+      ],
+      "status": "backlog",
+      "objetivo": "CPA, participação em receita e híbrido com vigência; extrato, aprovação, estorno, conciliação e exportação. Sem pagamento automático.",
+      "escopo": [
+        "portal/lib/modules/commissions.mjs",
+        "portal/lib/schema/70-commissions.sql",
+        "portal/public/admin/modules/commissions.js",
+        "portal/test/commissions.test.mjs"
+      ],
+      "entregaveis": [
+        "cálculo a partir de conversões verificadas",
+        "regra vigente na data da conversão",
+        "estorno"
+      ],
+      "aceite": [
+        "Conversão não verificada não gera comissão",
+        "Troca de regra não altera comissões passadas",
+        "Estorno gera lançamento negativo com auditoria"
+      ],
+      "validacao": "npm run portal:test"
+    },
+    {
+      "id": "PA-071",
+      "epico": "E11 Comissões e relatórios",
+      "titulo": "Portal do afiliado",
+      "agente": "codex",
+      "prioridade": "media",
+      "estimativa": "3h",
+      "deps": [
+        "PA-070"
+      ],
+      "status": "backlog",
+      "objetivo": "Área do afiliado com links, materiais, leads próprios e extrato.",
+      "escopo": [
+        "portal/lib/modules/affiliate-portal.mjs",
+        "portal/public/admin/modules/affiliate-portal.js",
+        "portal/test/affiliate-portal.test.mjs"
+      ],
+      "entregaveis": [
+        "painel do afiliado"
+      ],
+      "aceite": [
+        "Afiliado só vê os próprios dados",
+        "Links com UTM padronizada"
+      ],
+      "validacao": "npm run portal:test"
+    },
+    {
+      "id": "PA-080",
+      "epico": "E12 Outro nicho",
+      "titulo": "Validar nicho SaaS/IA com a operação Parceiro 20001",
+      "agente": "kimi",
+      "prioridade": "media",
+      "estimativa": "2h",
+      "deps": [
+        "PA-062"
+      ],
+      "status": "backlog",
+      "objetivo": "Criar a operação de outro nicho pelo painel, publicar um modelo e registrar o passo a passo com capturas.",
+      "escopo": [
+        "portal/docs/validacao-outro-nicho.md"
+      ],
+      "entregaveis": [
+        "portal/docs/validacao-outro-nicho.md"
+      ],
+      "aceite": [
+        "Termos do nicho aparecem no painel e no site",
+        "Nenhum arquivo duplicado da aplicação"
+      ],
+      "validacao": "test -f portal/docs/validacao-outro-nicho.md"
+    },
+    {
+      "id": "PA-090",
+      "epico": "E13 Revisão",
+      "titulo": "Revisão de segurança",
+      "agente": "codex",
+      "prioridade": "alta",
+      "estimativa": "3h",
+      "deps": [
+        "PA-040",
+        "PA-050",
+        "PA-070"
+      ],
+      "status": "backlog",
+      "objetivo": "Isolamento, permissões, XSS nos blocos, CSRF, segredos, limites de upload e taxa.",
+      "escopo": [
+        "portal/docs/revisao-seguranca.md",
+        "portal/test/security.test.mjs"
+      ],
+      "entregaveis": [
+        "relatório",
+        "testes",
+        "correções pequenas"
+      ],
+      "aceite": [
+        "Sem achado alto aberto",
+        "Testes de segurança passando"
+      ],
+      "validacao": "npm run portal:test"
+    },
+    {
+      "id": "PA-092",
+      "epico": "E13 Revisão",
+      "titulo": "Documentação de uso do portal",
+      "agente": "kimi",
+      "prioridade": "baixa",
+      "estimativa": "2h",
+      "deps": [
+        "PA-010",
+        "PA-020"
+      ],
+      "status": "backlog",
+      "objetivo": "Guia para criar operação, editar site, blog, CRM, afiliados e integrações.",
+      "escopo": [
+        "portal/docs/guia-de-uso.md"
+      ],
+      "entregaveis": [
+        "portal/docs/guia-de-uso.md"
+      ],
+      "aceite": [
+        "Cada tela do painel tem seção",
+        "Sem prometer integração pendente"
+      ],
+      "validacao": "test -f portal/docs/guia-de-uso.md"
+    },
+    {
+      "id": "PA-100",
+      "epico": "E14 Implantação",
+      "titulo": "Implantar em portal.kbsa.app no Bigue",
+      "agente": "codex",
+      "prioridade": "media",
+      "estimativa": "2h",
+      "deps": [
+        "PA-110"
+      ],
+      "status": "bloqueada",
+      "bloqueio": "Pacote pronto em portal/deploy (branch portal-afiliacao no GitHub). Falta: acesso ao Bigue para rodar instalar-bigue.ps1 (deste PC o SMB dá acesso negado e WinRM/SSH estão fechados) e o hostname portal.kbsa.app no túnel kbsa-bigue (DNS ainda não existe).",
+      "objetivo": "Rodar o portal no Bigue (127.0.0.1:3400) atrás do túnel kbsa-bigue, com backup diário, em portal.kbsa.app e kbsa.app/portal.",
+      "escopo": [
+        "portal/deploy/"
+      ],
+      "entregaveis": [
+        "serviço no ar",
+        "backup diário do banco"
+      ],
+      "aceite": [
+        "kbsa.app/portal e portal.kbsa.app respondem 200",
+        "Reinício do serviço preserva os dados"
+      ],
+      "validacao": "curl -fsS https://portal.kbsa.app/healthz"
+    },
+    {
+      "id": "PA-014",
+      "epico": "E05 Construtor, blog e mídia",
+      "titulo": "SEO automático do blog a cada post",
+      "agente": "codex",
+      "prioridade": "alta",
+      "estimativa": "3h",
+      "deps": [
+        "PA-010"
+      ],
+      "status": "backlog",
+      "objetivo": "Todo post publicado (à mão, agendado ou pela rotina de IA) dispara o fluxo de SEO do núcleo e sai com tudo que o Google e o Bing leem.",
+      "escopo": [
+        "portal/lib/modules/blog.mjs",
+        "portal/test/blog-seo.test.mjs"
+      ],
+      "entregaveis": [
+        "app.seo.announce(tenant, site, ['/blog/<slug>', '/blog']) ao publicar e ao despublicar",
+        "export sitemapEntries com os posts e lastmod",
+        "JSON-LD Article (headline, datePublished, dateModified, author, image) e BreadcrumbList",
+        "feed RSS em /blog/feed.xml",
+        "checklist de SEO do post (título, descrição, H1, links internos, alt da capa, tamanho)",
+        "links internos sugeridos para posts relacionados"
+      ],
+      "aceite": [
+        "Publicar post gera evento IndexNow 'recebido' com fetch falso e Google 'pendente_conexao'",
+        "Post publicado aparece no sitemap com lastmod e some ao despublicar",
+        "Post agendado anuncia só quando publica, uma vez",
+        "Página do post tem canonical, Open Graph e JSON-LD Article válidos"
+      ],
+      "validacao": "npm run portal:test"
+    },
+    {
+      "id": "PA-015",
+      "epico": "E09 Analytics, Pixel e Meta Ads",
+      "titulo": "Google Search Console e Bing Webmaster conectados",
+      "agente": "codex",
+      "prioridade": "media",
+      "estimativa": "4h",
+      "deps": [
+        "PA-004"
+      ],
+      "status": "backlog",
+      "objetivo": "Conectar pelo login oficial e enviar o sitemap a cada publicação; mostrar cobertura e consultas quando a API devolver.",
+      "escopo": [
+        "portal/lib/modules/search-console.mjs",
+        "portal/public/admin/modules/search-console.js",
+        "portal/test/search-console.test.mjs"
+      ],
+      "entregaveis": [
+        "OAuth Google (escopo webmasters) com token no cofre",
+        "app.seo.submitSitemapGoogle(tenant, site, sitemap) usando sitemaps.submit",
+        "Bing Webmaster por chave de API (SubmitFeed) opcional",
+        "integração google_search_console/bing_webmaster com estado real"
+      ],
+      "aceite": [
+        "Sem credencial tudo fica 'pendente'",
+        "Com fetch falso, publicar chama sitemaps.submit uma vez",
+        "Token nunca volta ao front nem ao log"
+      ],
+      "validacao": "npm run portal:test"
+    },
+    {
+      "id": "PA-110",
+      "epico": "E08 Telegram e redes",
+      "titulo": "Conector MCP com login OAuth e tela Conectar sua IA",
+      "agente": "claude",
+      "prioridade": "alta",
+      "estimativa": "4h",
+      "deps": [
+        "PA-004"
+      ],
+      "status": "concluida",
+      "objetivo": "A IA do usuário (Claude, ChatGPT, Kimi, Codex) usa as ferramentas do portal com o login e o papel dele.",
+      "escopo": [
+        "portal/lib/mcp.mjs",
+        "portal/lib/schema/06-ai.sql",
+        "portal/public/admin/admin.js"
+      ],
+      "entregaveis": [
+        "/mcp",
+        "OAuth 2.1 com registro dinâmico e PKCE",
+        "tokens pessoais",
+        "chaves de API cifradas",
+        "serviços"
+      ],
+      "aceite": [
+        "Fluxo OAuth completo testado",
+        "Ferramentas respeitam o papel",
+        "Tirar o acesso derruba a IA",
+        "Segredos nunca voltam à tela"
+      ],
+      "validacao": "npm run portal:test"
+    },
+    {
+      "id": "PA-111",
+      "epico": "E07 Criativos e calendário",
+      "titulo": "Rotinas automáticas de IA (notícias no blog, Instagram, YouTube)",
+      "agente": "codex",
+      "prioridade": "alta",
+      "estimativa": "6h",
+      "deps": [
+        "PA-010",
+        "PA-031",
+        "PA-110"
+      ],
+      "status": "backlog",
+      "objetivo": "Com serviço ligado e chave válida, gerar rascunhos nos horários da operação usando a chave do próprio usuário, sem publicar sozinho.",
+      "escopo": [
+        "portal/lib/modules/ai-routines.mjs",
+        "portal/lib/schema/111-ai-runs.sql",
+        "portal/test/ai-routines.test.mjs"
+      ],
+      "entregaveis": [
+        "export aiRoutines { noticias_blog, instagram, youtube }",
+        "fontes de notícia por nicho (RSS configurável) e post em rascunho com fontes citadas",
+        "rascunhos no calendário até a meta diária (3) sem duplicar",
+        "limite diário de chamadas e custo estimado por usuário",
+        "histórico de execuções com erro legível"
+      ],
+      "aceite": [
+        "Rodar duas vezes no mesmo horário não duplica",
+        "Sem chave válida nada roda e o motivo aparece",
+        "Nada é publicado sem aprovação",
+        "Chave lida só do cofre no servidor; nunca em log"
+      ],
+      "validacao": "npm run portal:test"
+    },
+    {
+      "id": "PA-112",
+      "epico": "E07 Criativos e calendário",
+      "titulo": "Ferramentas MCP dos módulos (post do blog e criativo)",
+      "agente": "codex",
+      "prioridade": "media",
+      "estimativa": "2h",
+      "deps": [
+        "PA-010",
+        "PA-030"
+      ],
+      "status": "backlog",
+      "objetivo": "A IA conectada cria rascunho de post e de criativo pelas ferramentas do portal.",
+      "escopo": [
+        "portal/lib/modules/blog.mjs",
+        "portal/lib/modules/creatives.mjs",
+        "portal/test/mcp-modulos.test.mjs"
+      ],
+      "entregaveis": [
+        "mcpTools: criar_rascunho_de_post, listar_posts, gerar_criativo (rascunho)"
+      ],
+      "aceite": [
+        "Ferramentas aparecem só para quem tem a permissão",
+        "Tudo nasce como rascunho",
+        "Post criado pela IA dispara SEO só ao ser publicado por uma pessoa"
+      ],
+      "validacao": "npm run portal:test"
+    }
   ]
 }
