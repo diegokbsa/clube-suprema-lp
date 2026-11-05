@@ -948,6 +948,88 @@
         "Outra operação não enxerga"
       ],
       "validacao": "npm run portal:test"
+    },
+    {
+      "id": "PA-114",
+      "epico": "E12 Outro nicho",
+      "titulo": "Edições SX e Geral do mesmo código",
+      "agente": "claude",
+      "prioridade": "alta",
+      "estimativa": "3h",
+      "deps": [
+        "PA-004"
+      ],
+      "status": "concluida",
+      "objetivo": "Uma instalação 100% SX (só poker, clubes do grupo, paleta e modelos da SX) e outra para todos os produtos e afiliações, sem duplicar a aplicação.",
+      "escopo": [
+        "portal/lib/edition.mjs",
+        "portal/deploy/"
+      ],
+      "entregaveis": [
+        "PORTAL_EDITION sx|geral",
+        "instalador -Edicao",
+        "prévias 3400/3401"
+      ],
+      "aceite": [
+        "SX recusa outro nicho",
+        "Sites novos da SX nascem na paleta da SX",
+        "Geral aceita todos os nichos"
+      ],
+      "validacao": "npm run portal:test"
+    },
+    {
+      "id": "PA-115",
+      "epico": "E02 Planner e orquestrador",
+      "titulo": "Pesquisador de IA a cada 20 min com insights para os sistemas",
+      "agente": "claude",
+      "prioridade": "alta",
+      "estimativa": "3h",
+      "deps": [
+        "PA-002"
+      ],
+      "status": "concluida",
+      "objetivo": "Pesquisa na internet em rodízio de temas, insights com fonte e ação, distribuídos para painéis, Plane e vault, sem aplicar sozinho.",
+      "escopo": [
+        "portal/pesquisador/",
+        "portal/lib/insights.mjs"
+      ],
+      "entregaveis": [
+        "tarefa Portal - Pesquisador (20 min)",
+        "tela Insights de IA"
+      ],
+      "aceite": [
+        "Insight sem link real é recusado",
+        "Repetido não entra",
+        "Token de serviço obrigatório",
+        "Uma pesquisa por vez"
+      ],
+      "validacao": "npm run portal:test"
+    },
+    {
+      "id": "PA-065",
+      "epico": "E10 Catálogo de 25 modelos",
+      "titulo": "Modelos da edição SX (paleta e jornada de parceiro)",
+      "agente": "kimi",
+      "prioridade": "alta",
+      "estimativa": "3h",
+      "deps": [
+        "PA-060",
+        "PA-004"
+      ],
+      "status": "backlog",
+      "objetivo": "Modelos com inspiredBy: 'sx' para a edição SX: clube do grupo, seja parceiro, fichas 24h, agenda de torneios e blog, com a paleta SX (#0f0f0f, #171717, #39bcff, #6af8ff, #0f5561) e Montserrat; sem marca, imagem ou texto da SX.",
+      "escopo": [
+        "portal/templates/"
+      ],
+      "entregaveis": [
+        "5 arquivos JSON com inspiredBy 'sx'"
+      ],
+      "aceite": [
+        "Passam no validador",
+        "Aparecem primeiro no assistente da edição SX",
+        "Nada copiado do site da SX"
+      ],
+      "validacao": "node portal/tools/validar-modelos.mjs"
     }
   ]
 }
