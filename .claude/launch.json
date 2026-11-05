@@ -6,6 +6,13 @@
       "runtimeExecutable": "node",
       "runtimeArgs": ["server.js"],
       "port": 3000
+    },
+    {
+      "name": "lp-jornada-teste",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["server.js"],
+      "port": 3100,
+      "env": { "PORT": "3100", "FLOW": "completo", "SUPREMA_MODE": "app", "F24H_MODE": "mock", "DATA_DIR": "data/teste-jornada" }
     }
   ]
 }

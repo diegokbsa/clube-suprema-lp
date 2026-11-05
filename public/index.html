@@ -414,7 +414,7 @@
       <small class="error" data-error="acceptedTerms"></small>
       <div class="form-error" id="form-error" role="alert" hidden></div>
       <button class="btn btn-lg btn-block" type="submit" id="signup-submit">Criar minha conta</button>
-      <p class="muted small center">Use esse e-mail e senha para entrar no app da Suprema.</p>
+      <p class="muted small center">É o mesmo e-mail e a mesma senha do app da Suprema e das suas fichas: um acesso só.</p>
     </form>
   </template>
 
@@ -433,6 +433,27 @@
       <small class="error" id="code-error"></small>
       <p class="test-hint" id="code-hint" hidden></p>
       <button class="link" type="button" data-action="resend-code">Reenviar código</button>
+    </div>
+
+    <div class="card-inline" id="need-club" hidden>
+      <h3>Entre no clube pelo app</h3>
+      <ol class="club-steps">
+        <li>Toque no botão: o app da Suprema abre <strong>já no convite do Clube Suprema</strong>, com o nosso agente. Se ainda não tiver o app, ele vai para a loja e, depois de instalar, abre no convite.</li>
+        <li>Crie sua conta no app com <strong data-bind="email" data-clarity-mask="True"></strong> e a <strong>mesma senha</strong> que você acabou de criar aqui.</li>
+        <li>No app, abra o seu perfil, copie o seu <strong>ID de jogador</strong> e cole abaixo.</li>
+      </ol>
+      <a class="btn btn-lg btn-block" data-app-link target="_blank" rel="noopener">Abrir o app no Clube Suprema</a>
+      <div id="invite-desktop" hidden>
+        <p class="small center">Está no computador? <strong>Aponte a câmera do celular</strong> para abrir o mesmo convite:</p>
+        <div class="qr" id="invite-qr" aria-label="QR Code do convite do clube"></div>
+        <p class="muted small center">Vai jogar no computador? Depois de instalar, toque em "Entrar com ID" e use o clube <strong data-bind="club-id"></strong> e o agente <strong data-bind="agent-id"></strong>.</p>
+      </div>
+      <p class="muted small center" id="invite-mobile-hint" hidden>Já tem o app? Ele abre direto no convite do clube.</p>
+      <form id="club-form" class="inline-form">
+        <input id="f-club-sid" inputmode="numeric" maxlength="12" placeholder="Seu ID" aria-label="Seu ID de jogador na Suprema">
+        <button class="btn" type="submit">Continuar</button>
+      </form>
+      <small class="error" id="club-error"></small>
     </div>
 
     <div class="card-inline" id="need-id" hidden>
@@ -470,7 +491,12 @@
       </div>
       <form id="payer-form" class="payer" novalidate hidden>
         <h3>Seus dados para o PIX</h3>
-        <p class="muted small">O Fichas 24h, que processa o PIX, pede estes dados só no primeiro depósito.</p>
+        <p class="muted small">Só no primeiro depósito. O PIX sai no seu nome pelo Fichas 24h, e o saque volta para a chave do seu CPF.</p>
+        <div class="field">
+          <label for="f-name">Nome completo</label>
+          <input id="f-name" name="name" autocomplete="name" autocapitalize="words" placeholder="Como está no seu CPF" maxlength="80">
+          <small class="error" data-error="name"></small>
+        </div>
         <div class="field">
           <label for="f-cpf">CPF</label>
           <input id="f-cpf" name="cpf" inputmode="numeric" autocomplete="off" placeholder="000.000.000-00" maxlength="14">
@@ -495,6 +521,28 @@
           <small class="error" data-error="password"></small>
         </div>
       </form>
+      <div class="card-inline" id="need-f24h-code" hidden>
+        <h3>Confirme o e-mail das suas fichas</h3>
+        <p class="muted">O Fichas 24h, que processa o seu PIX, mandou um código para <strong data-bind="email" data-clarity-mask="True"></strong>.</p>
+        <form id="f24h-code-form" class="inline-form">
+          <input id="f-f24h-code" inputmode="numeric" maxlength="8" autocomplete="one-time-code" placeholder="000000" aria-label="Código do e-mail">
+          <button class="btn" type="submit">Confirmar</button>
+        </form>
+        <small class="error" id="f24h-code-error"></small>
+        <p class="test-hint" id="f24h-code-hint" hidden></p>
+        <button class="link" type="button" data-action="f24h-resend">Reenviar código</button>
+      </div>
+      <div class="card-inline" id="need-chips" hidden>
+        <h3>Confirme que a conta é sua</h3>
+        <p class="muted">Acabamos de mandar umas fichas para a sua conta no app. Abra o app da Suprema, veja <strong>quantas fichas chegaram</strong> e digite o valor aqui. É só uma vez.</p>
+        <form id="chips-form" class="inline-form">
+          <input id="f-chips" inputmode="decimal" maxlength="10" placeholder="Ex.: 3,5" aria-label="Valor das fichas que chegaram">
+          <button class="btn" type="submit">Confirmar</button>
+        </form>
+        <small class="error" id="chips-error"></small>
+        <p class="test-hint" id="chips-hint" hidden></p>
+        <a class="link" data-app-link target="_blank" rel="noopener">Abrir o app</a>
+      </div>
       <div class="form-error" id="deposit-error" role="alert" hidden></div>
       <button class="btn btn-lg btn-block" type="button" id="pix-generate">Gerar PIX</button>
       <button class="link center-block" type="button" data-action="skip-deposit">Depositar depois</button>
@@ -525,7 +573,7 @@
     <h2 id="sheet-title" class="center"></h2>
     <p class="muted center" id="app-sub"></p>
 
-    <a class="btn btn-lg btn-block" data-app-link target="_blank" rel="noopener">Baixar o app e entrar no clube</a>
+    <a class="btn btn-lg btn-block" data-app-link target="_blank" rel="noopener">Abrir o app no Clube Suprema</a>
     <p class="muted small center" id="invite-mobile-hint" hidden>Se você já tem o app, ele abre direto no convite do clube.</p>
     <div id="invite-desktop" hidden>
       <p class="small center">Vai jogar no celular? <strong>Aponte a câmera</strong> para o mesmo link:</p>

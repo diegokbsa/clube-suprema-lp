@@ -13,7 +13,7 @@ const KEYS = {
 };
 const FLOW_VIEWS = {
   convite: [['lead', 'Seu e-mail'], ['invite', 'Entrar no clube']],
-  completo: [['form', 'Cadastro'], ['confirm', 'Confirmação'], ['deposit', 'Depósito'], ['app', 'Jogar']],
+  completo: [['form', 'Cadastro'], ['confirm', 'Entrar no clube'], ['deposit', 'Fichas'], ['app', 'Jogar']],
 };
 const WA_LABELS = {
   geral: 'entrar no clube',
@@ -469,6 +469,8 @@ function initConfirm() {
   if (state.signup) renderSignup(state.signup);
   $('#code-form').addEventListener('submit', submitCode);
   $('#id-form').addEventListener('submit', submitSupremaId);
+  $('#club-form').addEventListener('submit', (e) => submitSupremaId(e, '#f-club-sid', '#club-error'));
+  setupInvite();
   poll(refreshSignup, 1200);
 }
 
@@ -499,9 +501,11 @@ function renderSignup(s) {
   const waiting = s.status === 'aguardando_jogador';
   const needCode = waiting && s.needs === 'codigo_email';
   const needId = waiting && s.needs === 'id_suprema';
+  const needClub = waiting && s.needs === 'entrar_clube';
   const failed = s.status === 'falhou' && !s.retrying && !s.accountReady;
   $('#need-code').hidden = !needCode;
   $('#need-id').hidden = !needId;
+  $('#need-club').hidden = !needClub;
   $('#failed').hidden = !failed;
 
   if (needCode) {
@@ -511,20 +515,22 @@ function renderSignup(s) {
   }
   if (failed) $('#failed-msg').textContent = s.error || 'Tente de novo em instantes.';
 
-  const need = needCode ? 'code' : needId ? 'id' : null;
+  const need = needCode ? 'code' : needId ? 'id' : needClub ? 'club' : null;
   if (need && state.shownNeed !== need) {
     state.shownNeed = need;
-    $(need === 'code' ? '#f-code' : '#f-sid').focus();
+    if (need !== 'club' || hasFinePointer()) $({ code: '#f-code', id: '#f-sid', club: '#f-club-sid' }[need]).focus();
   }
 
   $('#confirm-sub').textContent =
     s.status === 'falhou' && s.retrying ? 'Deu um problema rápido. Tentando de novo…'
       : needCode ? 'Falta só confirmar seu e-mail.'
         : needId ? 'Falta só vincular sua conta.'
+          : needClub ? 'Sua conta do site está criada. Agora, a do app, já dentro do clube.'
           : failed ? ''
             : s.accountReady ? 'Tudo certo! Indo para o depósito…'
               : 'Isso leva só alguns segundos.';
 
+  if (needClub) $('#sheet-title').textContent = 'Agora, entre no clube';
   if (s.accountReady) {
     $('#sheet-title').textContent = 'Conta criada!';
     trackOnce(`complete:${s.id}`, 'signup_complete');
@@ -565,13 +571,13 @@ async function resendCode() {
   }
 }
 
-async function submitSupremaId(e) {
+async function submitSupremaId(e, inputSel = '#f-sid', errorSel = '#id-error') {
   e.preventDefault();
-  const input = $('#f-sid');
-  const error = $('#id-error');
+  const input = $(inputSel);
+  const error = $(errorSel);
   const supremaId = onlyDigits(input.value);
   if (supremaId.length < 4) {
-    error.textContent = 'Digite o seu ID da Suprema (só números).';
+    error.textContent = 'Digite o seu ID de jogador da Suprema (só números, fica no seu perfil no app).';
     return;
   }
   error.textContent = '';
@@ -635,6 +641,10 @@ async function initDeposit() {
     syncAmounts();
   });
   $('#pix-generate').addEventListener('click', generatePix);
+  $('#f24h-code-form').addEventListener('submit', (e) => sendDepositNeed(e, 'f24h-code', '#f-f24h-code', '#f24h-code-error', 'code',
+    (v) => (/^\d{6,8}$/.test(onlyDigits(v)) ? '' : 'Digite os números do código que chegou no e-mail.')));
+  $('#chips-form').addEventListener('submit', (e) => sendDepositNeed(e, 'validation', '#f-chips', '#chips-error', 'value',
+    (v) => (/^\d+([.,]\d{1,2})?$/.test(String(v).trim()) ? '' : 'Digite o valor que chegou, como aparece no app (ex.: 3,5).')));
   $('#simulate-paid').addEventListener('click', simulatePaid);
 
   const payer = $('#payer-form');
@@ -666,7 +676,7 @@ function showDepositError(message) {
 async function submitPayer() {
   const form = $('#payer-form');
   const f = form.elements;
-  const input = { cpf: f.cpf.value, phone: f.phone.value, birth: f.birth.value };
+  const input = { name: f.name.value, cpf: f.cpf.value, phone: f.phone.value, birth: f.birth.value };
   const { errors } = validatePayer(input, { allowTestCpf: state.config.testMode });
   if (!$('#payer-password').hidden) {
     input.password = f.password.value;
@@ -690,13 +700,65 @@ async function submitPayer() {
   return true;
 }
 
+// Etapas do Fichas 24h que dependem do jogador, mostradas na própria tela do depósito.
+function showDepositNeed(s) {
+  const need = s.status === 'aguardando_jogador' ? s.needs : null;
+  const code = $('#need-f24h-code');
+  const chips = $('#need-chips');
+  if (!code || !chips) return null;
+  code.hidden = need !== 'codigo_f24h';
+  chips.hidden = need !== 'valor_fichas';
+  $$('[data-bind="email"]', code).forEach((el) => { el.textContent = s.player.email; });
+  const codeHint = $('#f24h-code-hint');
+  codeHint.hidden = !s.testHints?.f24hCode;
+  if (s.testHints?.f24hCode) codeHint.textContent = `Modo teste: o código é ${s.testHints.f24hCode}.`;
+  const chipsHint = $('#chips-hint');
+  chipsHint.hidden = !s.testHints?.validationValue;
+  if (s.testHints?.validationValue) chipsHint.textContent = `Modo teste: chegaram ${String(s.testHints.validationValue).replace('.', ',')} fichas.`;
+  if (need === 'codigo_f24h' || need === 'valor_fichas') {
+    if (state.shownNeed !== need) {
+      state.shownNeed = need;
+      $('#pix-generate').hidden = true;
+      $('#payer-form').hidden = true;
+      if (hasFinePointer()) $(need === 'codigo_f24h' ? '#f-f24h-code' : '#f-chips').focus();
+    }
+    return need;
+  }
+  return null;
+}
+
+async function sendDepositNeed(e, path, inputSel, errorSel, key, check) {
+  e.preventDefault();
+  const input = $(inputSel);
+  const error = $(errorSel);
+  const problem = check(input.value);
+  error.textContent = problem || '';
+  if (problem) return;
+  const button = e.currentTarget.querySelector('button');
+  button.disabled = true;
+  try {
+    await api(`/api/signup/${state.signup.id}/${path}`, { method: 'POST', body: { [key]: input.value } });
+    input.value = '';
+    input.closest('.card-inline').hidden = true;
+    state.shownNeed = null;
+  } catch (err) {
+    error.textContent = err.message;
+  } finally {
+    button.disabled = false;
+  }
+}
+
 async function waitForPixReady(timeoutMs = 45_000) {
-  const started = Date.now();
+  let started = Date.now();
   while (Date.now() - started < timeoutMs) {
     await new Promise((r) => setTimeout(r, 1000));
     if (state.view !== 'deposit') throw new Error('Cancelado.');
     const s = (state.signup = await api(`/api/signup/${state.signup.id}`));
-    if (s.status === 'pronto') return;
+    if (showDepositNeed(s)) { started = Date.now(); continue; } // esperando o jogador: sem prazo
+    if (s.status === 'pronto') {
+      $('#pix-generate').hidden = false;
+      return;
+    }
     if (s.status === 'falhou' && !s.retrying) throw new Error(s.error || 'Não conseguimos preparar seu PIX. Tente de novo.');
     if (s.status === 'aguardando_jogador' && s.needs === 'dados_pix') {
       $('#payer-password').hidden = !s.needsPassword;
@@ -855,6 +917,14 @@ const ACTIONS = {
   'fill-test': fillTest,
   'toggle-pwd': (el) => togglePassword(el),
   'resend-code': resendCode,
+  'f24h-resend': async () => {
+    try {
+      await api(`/api/signup/${state.signup.id}/f24h-resend`, { method: 'POST' });
+      toast('Código reenviado. Confira seu e-mail.');
+    } catch (err) {
+      toast(err.message);
+    }
+  },
   retry: retrySignup,
   restart: () => { forgetSignup(); render('form'); },
   'skip-deposit': () => { state.lastDeposited = null; render('app'); },

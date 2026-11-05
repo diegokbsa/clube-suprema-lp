@@ -167,6 +167,32 @@ const routes = [
     return result;
   }],
 
+  ['POST', /^\/api\/signup\/([\w-]+)\/f24h-code$/, async ({ req, params }) => {
+    rateLimit(req, 'f24h-code', 15);
+    signupOr404(params[0]);
+    const { code } = await readJson(req);
+    const result = await flow.submitF24hCode(params[0], code);
+    if (!result.ok) throw new HttpError(400, result.error);
+    return result;
+  }],
+
+  ['POST', /^\/api\/signup\/([\w-]+)\/f24h-resend$/, async ({ req, params }) => {
+    rateLimit(req, 'f24h-resend', 5);
+    signupOr404(params[0]);
+    const result = await flow.resendF24hCode(params[0]);
+    if (!result.ok) throw new HttpError(400, result.error);
+    return result;
+  }],
+
+  ['POST', /^\/api\/signup\/([\w-]+)\/validation$/, async ({ req, params }) => {
+    rateLimit(req, 'validation', 10);
+    signupOr404(params[0]);
+    const { value } = await readJson(req);
+    const result = await flow.submitValidationValue(params[0], value);
+    if (!result.ok) throw new HttpError(400, result.error);
+    return result;
+  }],
+
   ['POST', /^\/api\/signup\/([\w-]+)\/payer$/, async ({ req, params }) => {
     rateLimit(req, 'payer', 10);
     signupOr404(params[0]);

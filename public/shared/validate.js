@@ -90,12 +90,14 @@ export function validateSignup(input) {
 // Dados do pagador: o Fichas 24h exige estes dados para processar o PIX (pedidos só no 1º depósito).
 export function validatePayer(input, { allowTestCpf = false } = {}) {
   const data = {
+    name: String(input.name ?? '').trim().replace(/\s+/g, ' '),
     cpf: onlyDigits(input.cpf),
     phone: onlyDigits(input.phone),
     birth: String(input.birth ?? '').trim(),
   };
   const errors = {};
 
+  if (data.name.length < 5 || !data.name.includes(' ') || data.name.length > 80) errors.name = 'Seu nome completo, como no CPF.';
   if (!isValidCpf(data.cpf, { allowTestCpf })) errors.cpf = 'CPF inválido.';
   if (!isValidPhone(data.phone)) errors.phone = 'Celular com DDD, ex.: (11) 91234-5678.';
   const age = ageFrom(data.birth);

@@ -1,5 +1,6 @@
 // Configuração do clube, dos links e do modo de cada integração.
-// SUPREMA_MODE e F24H_MODE: "mock" (simulado) ou "real" (quando a camada real estiver pronta).
+// SUPREMA_MODE: "mock" (simulado), "app" (o jogador cria a conta no app pelo link do clube e informa o ID aqui)
+//   ou "real" (quando houver API da Suprema). F24H_MODE: "mock" ou "real" (só com o OK formal da Sayplus).
 export const config = {
   port: Number(process.env.PORT) || 3000,
   host: process.env.HOST || '0.0.0.0',
@@ -18,6 +19,17 @@ export const config = {
 
   deposit: { min: 20, max: 5000, presets: [20, 50, 100, 200], pixTtlMinutes: 15 },
 
+  // Fichas 24h (Sayplus/Asaas): endereços vistos no app web app.fichas24horas.com.br (docs/integracao-fichas24h.md).
+  // F24H_CLUB_ID é o id interno do clube 10001 no Fichas 24h; vazio = procurar na lista de clubes da Suprema.
+  fichas24h: {
+    apiBase: process.env.F24H_API || 'https://apis.fichas24horas.com.br',
+    supabaseUrl: process.env.F24H_SUPABASE_URL || 'https://lxaoltgkxlyvsdwburpq.supabase.co',
+    supabaseAnonKey: process.env.F24H_SUPABASE_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx4YW9sdGdreGx5dnNkd2J1cnBxIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODU2Mjk2ODMsImV4cCI6MjAwMTIwNTY4M30.fsNC1fQiXupe4FOdIf8_quPCuj0-gcHIKes2Qdj3noQ',
+    platformId: 10, // Suprema Poker em /platforms/public/list
+    clubId: process.env.F24H_CLUB_ID || '',
+    itemId: process.env.F24H_ITEM_ID || '', // item de fichas do auto-atendimento; vazio = o primeiro da lista
+  },
+
   // A senha do jogador fica só em memória, e só por este tempo.
   passwordTtlMinutes: 30,
   maxAutoRetries: 3,
@@ -25,7 +37,7 @@ export const config = {
   links: {
     // Link oficial de convite do clube (OneLink): abre o app, ou a loja, já com clube e agente.
     // Se parar de funcionar, gere um novo no app e cole aqui.
-    clubInvite: 'https://supremapoker.onelink.me/xDgV?deep_link_value=eyJsaW5rdHlwZSI6MSwiY2x1YmlkIjoxMDAwMSwiYWdlbnRpZCI6MTQzOTA5OCwicGxheWVyaWQiOjE0MzkwOTgsImNyZWF0ZXRpbWUiOiIxNzkyNzg0NzM0NjAzIn0',
+    clubInvite: 'https://supremapoker.onelink.me/xDgV?deep_link_value=eyJsaW5rdHlwZSI6MSwiY2x1YmlkIjoxMDAwMSwiYWdlbnRpZCI6MTQzOTA5OCwicGxheWVyaWQiOjE0MzkwOTgsImNyZWF0ZXRpbWUiOiIxNzkzOTEwNjkxODE4In0',
     android: 'https://play.google.com/store/apps/details?id=com.opt.supremapoker&hl=pt_BR',
     ios: 'https://apps.apple.com/br/app/suprema-poker/id1583176410',
     windows: 'https://security.supremapoker.com.br/download',

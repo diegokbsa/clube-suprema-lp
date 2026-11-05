@@ -122,7 +122,7 @@ p { margin: 0 0 1em; }
 .bt-mesa {
   display: flex; align-items: center; gap: .4em;
   justify-content: center; min-width: 118px; padding: 9px 14px 7px; border-radius: 999px;
-  background: radial-gradient(ellipse at 50% 35%, #5c9c70 0%, #468360 55%, #376b4c 100%);
+  background: radial-gradient(ellipse at 50% 35%, #3d7853 0%, #336a49 55%, #2a5a3d 100%); /* feltro escuro o bastante para o texto branco (≥ 4,5:1) */
   border: 1.5px solid #d8a548;
   box-shadow: 0 0 0 4px #262626, 0 0 0 5px rgba(255, 255, 255, .07), 0 8px 18px rgba(0, 0, 0, .55), inset 0 2px 6px rgba(0, 0, 0, .35);
   color: #fff; font: 900 .7rem/1 var(--font); letter-spacing: .06em; text-transform: uppercase; white-space: nowrap;
@@ -525,6 +525,11 @@ input[aria-invalid="true"] { border-color: var(--danger); }
 .card-inline { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; margin: 14px 0; }
 .card-inline h3 { font-size: 1.05rem; }
 .error-card { border-color: rgba(220, 53, 69, .45); }
+/* Passos de entrar no clube pelo app (link oficial do clube) */
+.club-steps { margin: 4px 0 14px; padding-left: 1.25em; display: grid; gap: 8px; color: var(--muted); font-size: .95rem; line-height: 1.5; }
+.club-steps strong { color: var(--text); }
+.club-steps li::marker { color: var(--accent); font-weight: 800; }
+.card-inline .btn-block + #invite-desktop, .card-inline .btn-block ~ .inline-form { margin-top: 14px; }
 .inline-form { display: flex; gap: 8px; }
 .inline-form input { flex: 1; min-width: 0; letter-spacing: .12em; }
 .test-hint { margin: 10px 0 6px; font-size: .85rem; color: #ffd98a; }

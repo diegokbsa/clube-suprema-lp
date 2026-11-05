@@ -92,3 +92,39 @@ Com (a) e (c), o jogador nunca digita clube nem agente e volta para o nosso site
    verdade.
 3. **Não** embutir o app (alternativa 1) como solução: ela não reduz nenhum passo e piora o celular. Fica só como plano
    B se a Sayplus negar a integração e liberar o uso da marca.
+
+## Jornada única implementada (05/11/2026)
+
+Feita a alternativa 2, com a conta da Suprema criada pelo próprio jogador no app, aberto pelo link oficial do clube
+(`config.links.clubInvite`, o OneLink com clube 10001 e agente 1439098):
+
+1. **Cadastro** no suprema.blog: e-mail e senha ("um acesso só": a mesma senha vale no app e nas fichas).
+2. **Entrar no clube:** botão "Abrir o app no Clube Suprema" (`/baixar` leva o celular ao OneLink; no computador
+   aparece o QR do mesmo convite). O jogador cria a conta no app com o mesmo e-mail e senha e cola o ID de jogador.
+3. **Fichas:** nome completo, CPF, celular e nascimento, uma vez só. O servidor:
+   - cria a conta no Fichas 24h com o mesmo e-mail e senha;
+   - pede na própria página o código que o Fichas 24h mandou por e-mail;
+   - vincula o ID ao clube;
+   - inicia a validação e pede, na página, o valor das fichas que chegaram no app.
+4. **PIX** na nossa página, confirmação sozinha e "Fichas na conta" com o botão para abrir o app no clube.
+
+**Arquivos:**
+- `adapters/suprema.app.js`;
+- `adapters/fichas24h.real.js`, com as chamadas reais e os pontos marcados CONFERIR;
+- `adapters/fichas24h.mock.js`;
+- `lib/orchestrator.js`, com as etapas `f24h_email` e `f24h_validacao`;
+- as rotas `/api/signup/:id/f24h-code`, `/f24h-resend` e `/validation` em `server.js`;
+- as telas `#need-club`, `#need-f24h-code` e `#need-chips` em `public/index.html` e `public/app.js`.
+
+**Testado de ponta a ponta em modo simulado** (prévia `lp-jornada-teste` em `.claude/launch.json`: `FLOW=completo`,
+`SUPREMA_MODE=app`, `F24H_MODE=mock`): as 6 etapas ficam "ok", o valor errado é recusado e o PIX credita.
+
+**Para ligar no site (no Render, variáveis de ambiente), só depois do OK formal da Sayplus e do IP liberado:**
+`FLOW=completo`, `SUPREMA_MODE=app`, `F24H_MODE=real` e, se a busca automática falhar, `F24H_CLUB_ID` (id interno do
+clube 10001 no Fichas 24h) e `F24H_ITEM_ID` (item de fichas do auto-atendimento).
+
+**Antes de abrir ao público:** fazer um cadastro real de ponta a ponta com um jogador de verdade e acertar os pontos
+CONFERIR do adaptador:
+- formato do nascimento;
+- texto de "já cadastrado";
+- campos do PIX e status das transações.
