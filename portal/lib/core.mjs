@@ -12,6 +12,7 @@ import { publicNiches, niche } from './niches.mjs';
 import { templateList, cleanTheme, FONTS, loadTemplates } from './templates.mjs';
 import { blockSchema, cleanBlocks } from './blocks.mjs';
 import { affiliateLink } from './attribution.mjs';
+import { seoChecklist, siteBase } from './seo.mjs';
 
 const need = (cond, status, msg) => { if (!cond) throw new HttpError(status, msg); };
 const STAGES = ['novo', 'contato', 'qualificado', 'convertido', 'perdido'];
@@ -225,7 +226,8 @@ export const coreRoutes = [
       const p = repo.get('pages', params.id);
       need(p, 404, 'Página não encontrada.');
       const versions = repo.all('page_versions', { page_id: p.id }, { order: 'created_at DESC', limit: 30 }).map((v) => ({ id: v.id, note: v.note, createdAt: v.created_at, blocks: parse(v.blocks, []).length }));
-      return { page: pageOut(p), site: siteOut(repo.get('sites', p.site_id)), versions };
+      const site = repo.get('sites', p.site_id);
+      return { page: pageOut(p), site: siteOut(site), versions, seo: seoChecklist({ page: p, blocks: parse(p.draft, []), site }) };
     },
   },
   {
@@ -243,11 +245,12 @@ export const coreRoutes = [
         need(!repo.all('pages', { site_id: p.site_id, slug }).some((x) => x.id !== p.id), 409, 'Já existe página com esse endereço.');
         patch.slug = slug;
       }
-      return { page: pageOut(repo.update('pages', p.id, patch)), savedAt: now() };
+      const saved = repo.update('pages', p.id, patch);
+      return { page: pageOut(saved), savedAt: now(), seo: seoChecklist({ page: saved, blocks, site: repo.get('sites', p.site_id) }) };
     },
   },
   {
-    method: 'POST', path: '/api/t/:tenant/pages/:id/publish', perm: 'site.publish', handler: ({ repo, params, user, audit }) => {
+    method: 'POST', path: '/api/t/:tenant/pages/:id/publish', perm: 'site.publish', handler: ({ repo, params, user, audit, app, tenant }) => {
       const p = repo.get('pages', params.id);
       need(p, 404, 'Página não encontrada.');
       const at = now();
@@ -255,15 +258,17 @@ export const coreRoutes = [
       repo.insert('page_versions', { page_id: p.id, blocks: p.draft, note: 'publicada', created_by: user.id });
       repo.update('sites', p.site_id, { status: 'publicado' });
       audit('pagina.publicar', p.id, { slug: p.slug });
+      if (!parse(p.seo, {}).noindex) app.seo.announce(tenant, repo.get('sites', p.site_id), [`/${p.slug}`], 'publicacao'); // fluxo de SEO, sem esperar
       return { page: pageOut(repo.get('pages', p.id)) };
     },
   },
   {
-    method: 'POST', path: '/api/t/:tenant/pages/:id/unpublish', perm: 'site.publish', handler: ({ repo, params, audit }) => {
+    method: 'POST', path: '/api/t/:tenant/pages/:id/unpublish', perm: 'site.publish', handler: ({ repo, params, audit, app, tenant }) => {
       const p = repo.get('pages', params.id);
       need(p, 404, 'Página não encontrada.');
       repo.update('pages', p.id, { published: null, published_at: null });
       audit('pagina.despublicar', p.id, { slug: p.slug });
+      app.seo.announce(tenant, repo.get('sites', p.site_id), [`/${p.slug}`], 'remocao'); // buscador revisita e vê o 404
       return { page: pageOut(repo.get('pages', p.id)) };
     },
   },
@@ -364,6 +369,27 @@ export const coreRoutes = [
     }),
   },
 
+  // ---------- SEO ----------
+  {
+    method: 'GET', path: '/api/t/:tenant/seo', perm: 'site.read', handler: ({ repo, app }) => {
+      const sites = repo.all('sites', {}, { order: 'created_at ASC' }).filter((s) => !s.external_url);
+      return {
+        engines: [
+          { id: 'indexnow', label: 'Bing, Yandex, Seznam, Naver e Yep (IndexNow)', how: 'Aviso automático a cada publicação, sem conta.', status: 'ativo' },
+          { id: 'google', label: 'Google', how: 'Sitemap com data de atualização, robots.txt, canonical e dados estruturados (JSON-LD) em toda página. Com o Search Console conectado, o sitemap é enviado a cada publicação.', status: repo.get('integrations', { kind: 'google_search_console' })?.status === 'conectado' ? 'conectado' : 'pendente' },
+          { id: 'bing_webmaster', label: 'Bing Webmaster Tools', how: 'Opcional: relatórios de indexação do Bing. O envio de URLs já sai pelo IndexNow.', status: repo.get('integrations', { kind: 'bing_webmaster' })?.status === 'conectado' ? 'conectado' : 'pendente' },
+        ],
+        sites: sites.map((s) => {
+          const { origin, base } = siteBase(app, s);
+          return { id: s.id, name: s.name, sitemap: `${origin}${base}/sitemap.xml`, robots: `${origin}${base}/robots.txt`, indexnowKey: `${origin}${base}/${app.seo.key(s)}.txt`,
+            pages: repo.all('pages', { site_id: s.id }, { order: 'position ASC' }).map((p) => ({ id: p.id, title: p.title, slug: p.slug, published: Boolean(p.published),
+              checks: seoChecklist({ page: p, blocks: parse(p.draft, []), site: s }) })) };
+        }),
+        events: repo.all('seo_events', {}, { order: 'created_at DESC', limit: 100 }).map((e) => ({ ...e, urls: parse(e.urls, []) })),
+      };
+    },
+  },
+
   // ---------- integrações ----------
   {
     method: 'GET', path: '/api/t/:tenant/integrations', perm: 'integrations.read', handler: ({ repo, tenant, app, user, role }) => {
@@ -374,7 +400,7 @@ export const coreRoutes = [
         const extra = i.kind === 'webhook_conversoes'
           ? { url: `${app.origin}/api/hooks/${tenant.slug}/conversion`, secret: showSecret ? mask(tenant.webhook_secret) : null, header: 'X-Portal-Signature: sha256=<hmac do corpo>' }
           : {};
-        return { ...i, status: r.status || 'pendente', config: parse(r.public_config, {}), lastCheck: r.last_check || null, lastError: r.last_error || null, ...extra };
+        return { ...i, status: r.status || (i.kind === 'indexnow' ? 'ativo' : 'pendente'), config: parse(r.public_config, {}), lastCheck: r.last_check || null, lastError: r.last_error || null, ...extra };
       }) };
     },
   },

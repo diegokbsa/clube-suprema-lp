@@ -69,6 +69,7 @@ function navLinks(route) {
     const add = (hash, label, perm, on, extra = '') => { if (!perm || can(perm)) items.push([`#/t/${t.slug}${hash}`, label, on, extra]); };
     add('', 'Painel', 'tenant.read', v === 'dash');
     add('/site', 'Sites e páginas', 'site.read', v === 'site' || v === 'editor');
+    add('/seo', 'SEO', 'site.read', v === 'seo');
     add('/leads', 'Leads e CRM', 'leads.read', v === 'leads');
     add('/afiliados', 'Afiliados', 'affiliates.read', v === 'afiliados');
     add('/calendario', 'Calendário editorial', 'calendar.read', v === 'calendario');
@@ -104,7 +105,7 @@ function parseRoute() {
   if (parts[0] === 't') {
     const slug = parts[1];
     const sub = parts[2] || '';
-    const views = { '': 'dash', site: 'site', editor: 'editor', leads: 'leads', afiliados: 'afiliados', integracoes: 'integracoes', usuarios: 'usuarios', calendario: 'calendario', auditoria: 'auditoria', config: 'config', m: 'module' };
+    const views = { '': 'dash', site: 'site', editor: 'editor', seo: 'seo', leads: 'leads', afiliados: 'afiliados', integracoes: 'integracoes', usuarios: 'usuarios', calendario: 'calendario', auditoria: 'auditoria', config: 'config', m: 'module' };
     return { view: views[sub] || 'dash', slug, id: parts[3], module: sub === 'm' ? parts[3] : null };
   }
   return { view: 'central' };
@@ -119,7 +120,7 @@ async function route() {
   } else if (!S.me.user.isSuper) {
     if (S.me.tenants[0]) { location.hash = `#/t/${S.me.tenants[0].slug}`; return; }
   }
-  const views = { central: viewCentral, nova: viewNova, dash: viewDash, site: viewSite, editor: viewEditor, leads: viewLeads, afiliados: viewAfiliados,
+  const views = { central: viewCentral, nova: viewNova, dash: viewDash, site: viewSite, editor: viewEditor, seo: viewSeo, leads: viewLeads, afiliados: viewAfiliados,
     integracoes: viewIntegracoes, usuarios: viewUsuarios, calendario: viewCalendario, auditoria: viewAuditoria, config: viewConfig, module: viewModule };
   try {
     await (views[r.view] || viewCentral)(r);
@@ -385,7 +386,9 @@ async function viewEditor(r) {
         <label class="field">Endereço<input id="p-slug" value="${esc(E.page.slug)}" ${E.page.slug === '' ? 'disabled title="A página inicial fica no endereço raiz"' : ''}></label></div>
         <label class="field" style="margin-top:8px">Título para o Google<input id="p-seo-t" maxlength="70" value="${esc(E.page.seo.title || '')}"></label>
         <label class="field">Descrição para o Google<textarea id="p-seo-d" maxlength="170">${esc(E.page.seo.description || '')}</textarea></label>
-        <label class="check"><input type="checkbox" id="p-noindex" ${E.page.seo.noindex ? 'checked' : ''}> Esconder dos buscadores</label></div>
+        <label class="check"><input type="checkbox" id="p-noindex" ${E.page.seo.noindex ? 'checked' : ''}> Esconder dos buscadores</label>
+        <h3 style="margin-top:12px">Checklist de SEO</h3><div id="seo-checks">${checksHtml(data.seo || [])}</div>
+        <p class="muted" style="font-size:12px">Ao publicar, o portal avisa o Bing e os outros buscadores do IndexNow e atualiza o sitemap que o Google lê.</p></div>
       <div class="card"><div class="card-head"><h3>Blocos</h3><span class="spacer"></span><select id="add-type" style="width:auto">${Object.entries(schema).map(([k, b]) => `<option value="${esc(k)}">${esc(b.label)}</option>`).join('')}</select><button class="btn sm" type="button" id="add-blk">Adicionar</button></div>
         <div class="blocks" id="blocks"></div></div>
     </div>
@@ -430,6 +433,7 @@ async function viewEditor(r) {
       const res = await api('PUT', `/api/t/${slug}/pages/${E.page.id}/draft`, { blocks: E.blocks, title: $('#p-title').value,
         slug: E.page.slug === '' ? undefined : $('#p-slug').value, seo: { title: $('#p-seo-t').value, description: $('#p-seo-d').value, noindex: $('#p-noindex').checked } });
       E.page = res.page;
+      if (res.seo) $('#seo-checks').innerHTML = checksHtml(res.seo);
       E.blocks = res.page.draft.map((b, i) => ({ ...b, props: E.blocks[i]?.type === b.type ? { ...b.props } : b.props }));
       $('#save-state').textContent = `Rascunho salvo às ${new Date(res.savedAt).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}`;
       $('#pv').contentWindow.location.reload();
@@ -491,6 +495,28 @@ async function viewEditor(r) {
   drawBlocks();
 }
 
+// ---------- SEO ----------
+const checksHtml = (checks) => `<ul class="checks">${checks.map((c) => `<li class="${c.ok ? 'ok' : `falta ${esc(c.nivel)}`}"><span aria-hidden="true">${c.ok ? '✓' : '•'}</span> ${esc(c.msg)}</li>`).join('')}</ul>`;
+
+async function viewSeo(r) {
+  const d = await api('GET', `/api/t/${S.tenant.slug}/seo`);
+  const st = { recebido: 'ok', enviado: 'ok', erro: 'bad', pendente_conexao: 'warn', ignorado_local: 'info' };
+  const label = { recebido: 'Recebido', enviado: 'Enviado', erro: 'Erro', pendente_conexao: 'Pendente de conexão', ignorado_local: 'Não enviado (endereço local)' };
+  layout(r, `<div class="page-head"><div><h1>SEO</h1><p>Cada publicação avisa os buscadores sozinha. Aqui você vê o que foi enviado, o que falta conectar e o checklist de cada página.</p></div></div>
+    <div class="card"><div class="card-head"><h2>Buscadores</h2></div><div class="table-wrap"><table><tbody>${d.engines.map((e) => `<tr><td style="width:32%"><strong>${esc(e.label)}</strong></td><td>${statusPill(e.status === 'ativo' || e.status === 'conectado' ? 'ativo' : 'pendente')}</td><td class="muted">${esc(e.how)}</td></tr>`).join('')}</tbody></table></div>
+      <p class="muted" style="margin-top:10px">O Google não aceita aviso por URL para páginas comuns. Ele descobre pelo sitemap e pelo robots.txt; conectando o Search Console, o portal também envia o sitemap a cada publicação.</p></div>
+    ${d.sites.map((s) => `<div class="card"><div class="card-head"><h2>${esc(s.name)}</h2></div>
+      <p class="muted">Sitemap: <a class="mono" href="${esc(s.sitemap)}" target="_blank" rel="noopener">${esc(s.sitemap)}</a> · robots: <a class="mono" href="${esc(s.robots)}" target="_blank" rel="noopener">${esc(s.robots)}</a> · chave IndexNow: <a class="mono" href="${esc(s.indexnowKey)}" target="_blank" rel="noopener">arquivo</a></p>
+      <div class="table-wrap"><table><thead><tr><th>Página</th><th>Situação</th><th>Checklist</th></tr></thead><tbody>${s.pages.map((p) => {
+        const falta = p.checks.filter((c) => !c.ok);
+        return `<tr><td><a href="#/t/${esc(S.tenant.slug)}/editor/${esc(p.id)}"><strong>${esc(p.title)}</strong></a> <span class="mono muted">/${esc(p.slug)}</span></td><td>${statusPill(p.published ? 'publicado' : 'rascunho')}</td>
+          <td>${falta.length ? `<details><summary>${p.checks.length - falta.length}/${p.checks.length} ok · ${falta.length} a melhorar</summary>${checksHtml(falta)}</details>` : `<span class="pill ok">${p.checks.length}/${p.checks.length} ok</span>`}</td></tr>`;
+      }).join('')}</tbody></table></div></div>`).join('')}
+    <div class="card"><div class="card-head"><h2>Envios aos buscadores</h2></div>${d.events.length ? `<div class="table-wrap"><table><thead><tr><th>Quando</th><th>Motivo</th><th>Buscador</th><th>Resultado</th><th>URLs</th><th>Detalhe</th></tr></thead><tbody>
+      ${d.events.map((e) => `<tr><td class="mono">${fmtDate(e.created_at)}</td><td>${esc(e.reason)}</td><td>${esc(e.engine)}</td><td><span class="pill ${st[e.status] || ''}">${esc(label[e.status] || e.status)}</span></td><td class="mono" style="font-size:12px">${e.urls.map(esc).join('<br>')}</td><td class="muted">${esc(e.detail || '')}</td></tr>`).join('')}</tbody></table></div>`
+      : '<div class="empty">Nenhum envio ainda. Publique uma página ou um post.</div>'}</div>`);
+}
+
 // ---------- leads ----------
 async function viewLeads(r) {
   const d = await api('GET', `/api/t/${S.tenant.slug}/leads`);
@@ -523,7 +549,7 @@ async function viewAfiliados(r) {
 // ---------- integrações ----------
 async function viewIntegracoes(r) {
   const d = await api('GET', `/api/t/${S.tenant.slug}/integrations`);
-  const groups = { mensuracao: 'Mensuração no site', relatorios: 'Relatórios', redes: 'Redes sociais', campanhas: 'Campanhas', afiliacao: 'Afiliação' };
+  const groups = { seo: 'SEO e buscadores', mensuracao: 'Mensuração no site', relatorios: 'Relatórios', redes: 'Redes sociais', campanhas: 'Campanhas', afiliacao: 'Afiliação' };
   const main = layout(r, `<div class="page-head"><div><h1>Integrações</h1><p>Estado real de cada conexão. Nada aparece como conectado sem estar.</p></div></div>
     ${Object.entries(groups).map(([g, label]) => {
       const items = d.integrations.filter((i) => i.group === g);

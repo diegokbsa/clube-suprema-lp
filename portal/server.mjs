@@ -14,6 +14,7 @@ import { coreRoutes } from './lib/core.mjs';
 import { audit as writeAudit, createTenant } from './lib/tenants.mjs';
 import { renderPage, sitemapXml, robotsTxt } from './lib/site.mjs';
 import { cookieName, recordClick, recordConversion, pickUtm, windowDaysOf } from './lib/attribution.mjs';
+import { createSeo } from './lib/seo.mjs';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const PUBLIC = path.join(HERE, 'public');
@@ -24,12 +25,13 @@ const SESSION_COOKIE = 'pa_sess';
 const ADMIN_CSP = "default-src 'self'; img-src 'self' data: https:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; frame-src 'self'; frame-ancestors 'none'; base-uri 'none'; form-action 'self'";
 const SITE_CSP = "default-src 'self'; img-src 'self' data: https:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self' https://www.googletagmanager.com https://connect.facebook.net; connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com https://www.facebook.com; frame-src https://www.googletagmanager.com; frame-ancestors 'self'; base-uri 'none'; form-action 'self'";
 
-export async function createApp({ db, origin = 'http://localhost:3400', secretKey = 'dev-only-change-me', modulesDir = path.join(HERE, 'lib', 'modules') } = {}) {
+export async function createApp({ db, origin = 'http://localhost:3400', secretKey = 'dev-only-change-me', modulesDir = path.join(HERE, 'lib', 'modules'), fetchImpl } = {}) {
   const secure = origin.startsWith('https://');
   const loginLimit = rateLimiter(10, 15 * 60_000);
   const formLimit = rateLimiter(20, 10 * 60_000);
   const hookLimit = rateLimiter(600, 60_000);
   const app = { db, origin, vault: vault(secretKey), moduleNav: [], publicRoutes: [] };
+  app.seo = createSeo(app, { secretKey, fetchImpl });
 
   // ---------- módulos ----------
   const routes = coreRoutes.map((r) => ({ ...r, match: compile(r.path) }));
@@ -84,6 +86,7 @@ export async function createApp({ db, origin = 'http://localhost:3400', secretKe
     const siteOrigin = site.domain && !base ? `https://${site.domain}` : origin;
     if (rest === 'sitemap.xml') return send(res, 200, sitemapXml(siteOrigin, base, pages), { 'Content-Type': 'application/xml; charset=utf-8', 'Cache-Control': 'public, max-age=600' });
     if (rest === 'robots.txt') return send(res, 200, robotsTxt(siteOrigin, base), { 'Cache-Control': 'public, max-age=3600' });
+    if (rest === `${app.seo.key(site)}.txt`) return send(res, 200, app.seo.key(site), { 'Cache-Control': 'public, max-age=86400' }); // chave IndexNow
     for (const r of app.publicRoutes) {
       const params = r.match(`/${rest}`);
       if (params) return r.handler({ req, res, db, app, site, tenant, repo, base, params, pages, origin: siteOrigin, send });

@@ -3,6 +3,7 @@ import { esc, renderBlocks } from './blocks.mjs';
 import { cleanTheme } from './templates.mjs';
 import { parse } from './db.mjs';
 import { niche } from './niches.mjs';
+import { jsonLd } from './seo.mjs';
 
 const fontsUrl = (t) => {
   const fam = [...new Set([t.fontHead, t.font])].map((f) => `family=${encodeURIComponent(f).replace(/%20/g, '+')}:wght@400;500;600;700;800`).join('&');
@@ -51,6 +52,7 @@ ${ogImage ? `<meta property="og:image" content="${esc(ogImage)}">` : ''}
 <link rel="stylesheet" href="${fontsUrl(theme)}">
 <link rel="stylesheet" href="/assets/site.css">
 <style>${themeCss(theme)}</style>
+${preview ? '' : `<script type="application/ld+json">${jsonLd({ site, page, tenant, canonical: canonical || `${origin}${base}/${page.slug}`, origin: origin || '', base, description, logo: parse(tenant.settings, {}).logo })}</script>`}
 </head>
 <body class="mode-${theme.mode}" data-site="${esc(site.id)}" data-page="${esc(page.slug)}" data-ga4="${esc(ga4)}" data-gtm="${esc(gtm)}" data-pixel="${esc(pixel)}">
 ${preview ? '<div class="preview-bar">Prévia do rascunho · não publicado</div>' : ''}

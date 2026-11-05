@@ -16,7 +16,11 @@ export const INTEGRATIONS = [
   { kind: 'telegram', label: 'Telegram (bot)', group: 'redes' },
   { kind: 'meta_ads', label: 'Meta Ads (conta de anúncios)', group: 'campanhas' },
   { kind: 'webhook_conversoes', label: 'Webhook de conversões', group: 'afiliacao' },
+  { kind: 'indexnow', label: 'IndexNow (Bing, Yandex, Seznam, Naver, Yep)', group: 'seo' },
+  { kind: 'google_search_console', label: 'Google Search Console', group: 'seo' },
+  { kind: 'bing_webmaster', label: 'Bing Webmaster Tools', group: 'seo' },
 ];
+const AUTO_ACTIVE = new Set(['webhook_conversoes', 'indexnow']); // funcionam sem credencial da operação
 
 export const slugify = (s) => String(s || '').normalize('NFKD').replace(/[̀-ͯ]/g, '').toLowerCase()
   .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 48);
@@ -75,7 +79,7 @@ export function createTenant(db, input, { userId } = {}) {
       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`).run(...Object.values(tenant));
     const repo = scoped(db, tenant.id);
     for (const i of INTEGRATIONS) {
-      repo.insert('integrations', { kind: i.kind, status: i.kind === 'webhook_conversoes' ? 'ativo' : 'pendente', public_config: '{}' });
+      repo.insert('integrations', { kind: i.kind, status: AUTO_ACTIVE.has(i.kind) ? 'ativo' : 'pendente', public_config: '{}' });
     }
     let site = null;
     if (template) site = createSiteFromTemplate(db, tenant, template, { theme: input.theme, domain: input.domain, userId });
