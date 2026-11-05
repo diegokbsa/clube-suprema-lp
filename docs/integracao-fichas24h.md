@@ -128,3 +128,15 @@ CONFERIR do adaptador:
 - formato do nascimento;
 - texto de "já cadastrado";
 - campos do PIX e status das transações.
+
+## Teste real de 05/11/2026 (conta do dono)
+
+- **O que passou:** cadastro no site, entrada no clube e ID 1822635 informado. A conta da Suprema já estava no clube,
+  que aparece no app como "SX | XX POKER".
+- **Onde parou:** no `POST /users_app/register` saindo do nosso servidor, o Fichas 24h respondeu **403 do firewall**
+  (resposta em texto, não JSON) nas 3 tentativas. Nada foi criado no Fichas 24h.
+- **Conclusão:** a API deles barra chamadas que não vêm do app oficial. Não vamos disfarçar o servidor de navegador
+  para passar do bloqueio. Pedir à Sayplus a liberação do IP do servidor (ou um acesso de parceiro) é condição para
+  ligar `F24H_MODE=real`.
+- **Mais de um ID na mesma conta:** sim. A conta do Fichas 24h aceita vários IDs ("Cadastrar ID"), inclusive o mesmo ID
+  em clubes diferentes, cada um com a própria validação.
