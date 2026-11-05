@@ -227,6 +227,54 @@ def criar_ordem(t: dict, estado: dict) -> Path | None:
     return Path(m.group(1).strip())
 
 
+def criar_ordem_revisao(t: dict, estado: dict) -> Path | None:
+    s = estado["tarefas"][t["id"]]
+    wt = WT_BASE / t["id"]
+    branch = f"portal/{t['id']}"
+    me = Path(__file__).resolve()
+    aceite = "\n".join(f"   - {a}" for a in t["aceite"])
+    validou = "passou" if (s.get("ultima_validacao") or {}).get("ok") else "não rodou ou falhou"
+    texto = f"""# O que fazer
+
+Revisar a entrega **{t['id']} · {t['titulo']}** feita por **{t['agente']}** e decidir: aceitar (merge) ou devolver com nota.
+Você é o coordenador técnico do Portal de Afiliação. Não aceite só porque o agente marcou como feita.
+
+- Ordem original e evidências do agente: `{s.get('ordem')}`
+- Branch: `{branch}` · worktree: `{wt}` · base: `portal-afiliacao` em `{REPO}`
+- Contrato: `{REPO / 'portal' / 'docs' / 'ARQUITETURA.md'}`
+- Validação automática do orquestrador: {validou}
+
+## Passos
+1. `git -C "{REPO}" diff portal-afiliacao...{branch} --stat` e leia o diff inteiro.
+2. Confira cada critério de aceite:
+{aceite}
+3. Confira as regras do contrato: tenant_id + repo com escopo, perm em toda rota, nenhum segredo exposto, estado real (pendente quando não configurado),
+   nada fora do escopo ({', '.join(t['escopo'])}), português, sem dependência nova.
+4. No worktree: `node --test "portal/test/*.test.mjs"` e `node portal/tools/validar-modelos.mjs`.
+5. Se tudo certo: `git -C "{REPO}" merge --no-ff {branch} -m "Merge {t['id']}: {t['titulo']}"`, rode os testes de novo em `{REPO}` e então
+   `python -I "{me}" review {t['id']} ok "resumo da revisão"`.
+   Se não: `python -I "{me}" review {t['id']} volta "o que falta, objetivo"` (a tarefa volta para o agente com a sua nota).
+
+## Regras
+Nunca mexa no `main`, nunca faça push, não publique nada, não gaste dinheiro. Conflito de merge que você não consiga resolver com segurança: aborte o merge e devolva com nota.
+
+# Critério de pronto
+
+Decisão tomada pelo comando review (ok ou volta), evidências escritas abaixo (RESULTADO · VALIDAÇÃO · STATUS · PRÓXIMA AÇÃO) e `status: feita`.
+"""
+    arq = ESTADO_DIR / f"revisao-{t['id']}.md"
+    arq.write_text(texto, encoding="utf-8")
+    cmd = [sys.executable, str(ORDENS), "nova", "big", f"Revisar {t['id']} {t['titulo']}", "--projeto", PROJETO,
+           "--de", "Claude (orquestrador do Portal de Afiliação)", "--arquivo", str(arq)]
+    r = subprocess.run(cmd, capture_output=True, text=True, encoding="utf-8", errors="replace", creationflags=SEM_JANELA, timeout=120)
+    m = re.search(r"ORDEM CRIADA: (.+\.md)", r.stdout)
+    if r.returncode != 0 or not m:
+        log("revisao.falhou", tarefa=t["id"], codigo=r.returncode, saida=(r.stdout + r.stderr)[-300:])
+        return None
+    log("revisao.criada", tarefa=t["id"], ordem=m.group(1).strip())
+    return Path(m.group(1).strip())
+
+
 def validar_entrega(t: dict) -> tuple[bool, str]:
     """Roda a validação da tarefa no worktree dela (ou no repo, se a tarefa não usou worktree)."""
     pasta = WT_BASE / t["id"]
@@ -321,6 +369,19 @@ def ciclo(origem: str = "agendador") -> int:
             ocupados.add(t["agente"])
             mudar(estado, t["id"], "em_execucao", f"ordem enviada para {t['agente']}", ordem=str(ordem), despachada=iso())
             resumo["despachadas"].append(t["id"])
+
+        # 5. revisão: entrega validada vai para o Big (Claude) revisar e fazer o merge; ele responde com o comando review
+        resumo["revisoes"] = []
+        for tid, s in estado["tarefas"].items():
+            if s["status"] != "em_revisao" or s.get("ordem_revisao") or tid not in tarefas:
+                continue
+            if estado["ordens_hoje"][hoje] >= LIMITES["ordens_por_dia"]:
+                break
+            ordem = criar_ordem_revisao(tarefas[tid], estado)
+            if ordem:
+                estado["ordens_hoje"][hoje] += 1
+                s["ordem_revisao"] = str(ordem)
+                resumo["revisoes"].append(tid)
 
         estado["ultimo_ciclo"] = {"em": iso(), "origem": origem, **resumo}
         gravar_json(ESTADO, estado)
@@ -568,9 +629,9 @@ def review(tid: str, decisao: str, nota: str) -> int:
         print(f"tarefa desconhecida: {tid}")
         return 2
     if decisao == "ok":
-        mudar(estado, tid, "concluida", f"revisado e aceito pelo coordenador: {nota}", nota_revisao=None)
+        mudar(estado, tid, "concluida", f"revisado e aceito pelo coordenador: {nota}", nota_revisao=None, ordem_revisao=None)
     else:
-        mudar(estado, tid, "pronta", f"revisão pediu ajuste: {nota}", nota_revisao=nota)
+        mudar(estado, tid, "pronta", f"revisão pediu ajuste: {nota}", nota_revisao=nota, ordem_revisao=None)
     gravar_json(ESTADO, estado)
     sincronizar_plane(backlog, estado)
     print(f"{tid}: {estado['tarefas'][tid]['status']}")
