@@ -1,0 +1,373 @@
+{
+  "id": "sx-blog-educativo",
+  "name": "Blog educativo (edição SX)",
+  "order": 25,
+  "version": 1,
+  "category": "Poker · edição SX",
+  "niches": [
+    "poker"
+  ],
+  "description": "Casa do conteúdo: blog educativo em destaque, trilhas por tema e ponte para o clube — o blog nunca fica parado nem sem chamada para ação. Conteúdo de exemplo identificado.",
+  "inspiredBy": "sx",
+  "theme": {
+    "mode": "escuro",
+    "bg": "#0f0f0f",
+    "surface": "#171717",
+    "text": "#f4f6f7",
+    "muted": "#a1a9ae",
+    "primary": "#00b7ff",
+    "primaryText": "#04141d",
+    "accent": "#6af8ff",
+    "border": "#262c30",
+    "font": "Manrope",
+    "fontHead": "Sora",
+    "radius": 12
+  },
+  "seo": {
+    "title": "{{name}} · Aprenda poker de verdade",
+    "description": "Blog educativo do {{name}}: guias, estratégia e notícias de poker, com caminho direto para o clube no app {{app}}. Somente +18."
+  },
+  "pages": [
+    {
+      "slug": "",
+      "title": "Início",
+      "blocks": [
+        {
+          "type": "navbar",
+          "props": {
+            "brand": "{{name}}",
+            "logo": "{{logo}}",
+            "links": [
+              {
+                "label": "Blog",
+                "href": "/blog"
+              },
+              {
+                "label": "Trilhas",
+                "href": "/trilhas"
+              },
+              {
+                "label": "Sobre",
+                "href": "/sobre"
+              }
+            ],
+            "cta": "Entrar no clube",
+            "ctaHref": "{{inviteLink}}",
+            "variant": "barra"
+          }
+        },
+        {
+          "type": "hero",
+          "props": {
+            "eyebrow": "Conteúdo do {{name}}",
+            "title": "Poker se aprende lendo — e se joga no clube.",
+            "subtitle": "Guias, estratégia e notícias do jogo, escritos para quem quer evoluir. Quando estiver pronto, o clube está a um clique.",
+            "cta": "Ler o blog",
+            "ctaHref": "/blog",
+            "secondary": "Entrar no clube",
+            "secondaryHref": "{{inviteLink}}",
+            "note": "Conteúdo educativo · somente +18 para jogar",
+            "variant": "painel"
+          }
+        },
+        {
+          "type": "cards",
+          "props": {
+            "title": "O que você encontra",
+            "subtitle": "Categorias de exemplo: o blog publica os artigos reais.",
+            "items": [
+              {
+                "title": "Tutoriais (exemplo)",
+                "text": "Do zero à primeira sessão: regras, app e primeiras decisões.",
+                "href": "/blog",
+                "tag": "Comece aqui"
+              },
+              {
+                "title": "Estratégia (exemplo)",
+                "text": "Posição, odds, gestão de banca e leitura de mesa.",
+                "href": "/blog",
+                "tag": "Evolução"
+              },
+              {
+                "title": "Torneios (exemplo)",
+                "text": "Como funcionam fases, bolha, satélites e mesas finais.",
+                "href": "/blog",
+                "tag": "MTT"
+              },
+              {
+                "title": "Clubes e comunidade (exemplo)",
+                "text": "Como escolher um clube sério e o que observar antes de entrar.",
+                "href": "/blog",
+                "tag": "Comunidade"
+              }
+            ],
+            "variant": "mosaico"
+          }
+        },
+        {
+          "type": "image_text",
+          "props": {
+            "eyebrow": "Do conteúdo ao jogo",
+            "title": "Leu, aprendeu, testou.",
+            "text": "Cada guia termina com um caminho prático: entrar no clube pelo link, comprar fichas com segurança e aplicar o aprendizado em mesas do seu limite.\n\nSem pressa e sem promessa de ganho: poker é estudo e decisão.",
+            "cta": "Entrar no clube",
+            "ctaHref": "{{inviteLink}}",
+            "variant": "imagem-esquerda"
+          }
+        },
+        {
+          "type": "faq",
+          "props": {
+            "title": "Dúvidas de quem está começando",
+            "items": [
+              {
+                "q": "Preciso pagar para ler?",
+                "a": "Não. O conteúdo do blog é gratuito."
+              },
+              {
+                "q": "O conteúdo ensina a ganhar?",
+                "a": "Ensina a jogar melhor. Nenhum conteúdo garante ganho — poker envolve risco."
+              },
+              {
+                "q": "Posso sugerir um tema?",
+                "a": "Pode: fale com a gente pelos canais de contato."
+              }
+            ]
+          }
+        },
+        {
+          "type": "cta",
+          "props": {
+            "title": "Teoria sem prática não ganha pote.",
+            "text": "Entre no clube e teste o que aprendeu, no seu limite.",
+            "cta": "Entrar no clube",
+            "ctaHref": "{{inviteLink}}",
+            "variant": "escuro"
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "text": "Conteúdo do {{unitLabel}}.",
+            "links": [
+              {
+                "label": "Blog",
+                "href": "/blog"
+              },
+              {
+                "label": "Trilhas",
+                "href": "/trilhas"
+              },
+              {
+                "label": "Sobre",
+                "href": "/sobre"
+              },
+              {
+                "label": "Privacidade",
+                "href": "/privacidade"
+              }
+            ],
+            "disclaimer": "{{disclaimer}}"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "trilhas",
+      "title": "Trilhas",
+      "seo": {
+        "description": "Trilhas de conteúdo do {{name}} para evoluir no poker."
+      },
+      "blocks": [
+        {
+          "type": "navbar",
+          "props": {
+            "brand": "{{name}}",
+            "logo": "{{logo}}",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Blog",
+                "href": "/blog"
+              },
+              {
+                "label": "Sobre",
+                "href": "/sobre"
+              }
+            ],
+            "cta": "Entrar no clube",
+            "ctaHref": "{{inviteLink}}",
+            "variant": "barra"
+          }
+        },
+        {
+          "type": "hero",
+          "props": {
+            "eyebrow": "Trilhas",
+            "title": "Estude por caminhos, não por acaso",
+            "subtitle": "Sugestões de ordem de leitura. Trilhas de exemplo: a operação monta as trilhas reais com os posts do blog.",
+            "variant": "centralizado"
+          }
+        },
+        {
+          "type": "cards",
+          "props": {
+            "items": [
+              {
+                "title": "Fundamentos (exemplo)",
+                "text": "Regras, posição, seleção de mãos e gestão de banca.",
+                "href": "/blog",
+                "tag": "Iniciante"
+              },
+              {
+                "title": "Torneios do dia a dia (exemplo)",
+                "text": "Estruturas, bolha e ajustes de stack.",
+                "href": "/blog",
+                "tag": "Intermediário"
+              },
+              {
+                "title": "Cash game essencial (exemplo)",
+                "text": "Escolha de mesa, limites e controle emocional.",
+                "href": "/blog",
+                "tag": "Intermediário"
+              }
+            ],
+            "variant": "grade"
+          }
+        },
+        {
+          "type": "cta",
+          "props": {
+            "title": "Pronto para aplicar?",
+            "text": "Entre no clube e jogue mesas do seu limite.",
+            "cta": "Entrar no clube",
+            "ctaHref": "{{inviteLink}}",
+            "variant": "faixa"
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Privacidade",
+                "href": "/privacidade"
+              }
+            ],
+            "disclaimer": "{{disclaimer}}"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "sobre",
+      "title": "Sobre",
+      "seo": {
+        "description": "Sobre o {{name}} e o seu conteúdo."
+      },
+      "blocks": [
+        {
+          "type": "navbar",
+          "props": {
+            "brand": "{{name}}",
+            "logo": "{{logo}}",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Blog",
+                "href": "/blog"
+              }
+            ],
+            "cta": "Entrar no clube",
+            "ctaHref": "{{inviteLink}}",
+            "variant": "barra"
+          }
+        },
+        {
+          "type": "text",
+          "props": {
+            "title": "Sobre este espaço",
+            "body": "Texto-base de exemplo: a operação conta a sua história aqui.\n\nEste é o canal de conteúdo do {{name}}. Publicamos guias, estratégia e notícias de poker, escritos por gente que joga e estuda o jogo.\n\nNada aqui é promessa de ganho. Poker envolve risco e é para maiores de 18 anos. Se o jogo deixou de ser diversão, procure ajuda e faça uma pausa.",
+            "variant": "largo"
+          }
+        },
+        {
+          "type": "contact",
+          "props": {
+            "title": "Fale com a redação",
+            "whatsapp": "{{whatsapp}}",
+            "telegram": "{{telegram}}",
+            "email": "{{email}}",
+            "hours": "Respondemos em horário comercial."
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Privacidade",
+                "href": "/privacidade"
+              }
+            ],
+            "disclaimer": "{{disclaimer}}"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "privacidade",
+      "title": "Privacidade",
+      "seo": {
+        "description": "Como o {{name}} trata seus dados."
+      },
+      "blocks": [
+        {
+          "type": "navbar",
+          "props": {
+            "brand": "{{name}}",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              }
+            ],
+            "variant": "barra"
+          }
+        },
+        {
+          "type": "text",
+          "props": {
+            "title": "Privacidade",
+            "body": "Texto-base para revisão jurídica da operação.\n\nColetamos nome, e-mail e telefone só quando você envia um formulário, para entrar em contato sobre o clube. Você pode pedir a exclusão a qualquer momento pelos canais de atendimento.\n\nCookies de medição (Google e Meta) só são ativados se você aceitar no aviso do site.",
+            "variant": "estreito"
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "disclaimer": "{{disclaimer}}"
+          }
+        }
+      ]
+    }
+  ]
+}
