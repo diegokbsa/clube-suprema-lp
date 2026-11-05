@@ -1,0 +1,33 @@
+{
+  // F5 (ou a aba "Executar e depurar"): escolha o que iniciar.
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Portal de Afiliação (painel em localhost:3400)",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/portal/server.mjs",
+      "env": { "PORTAL_PORT": "3400" },
+      "serverReadyAction": { "pattern": "no ar em (https?://\\S+)", "uriFormat": "%s/admin/", "action": "openExternally" },
+      "skipFiles": ["<node_internals>/**"]
+    },
+    {
+      "name": "LP Clube Suprema (suprema.blog local, localhost:3000)",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/server.js",
+      "skipFiles": ["<node_internals>/**"]
+    },
+    {
+      "name": "Testes do portal",
+      "type": "node",
+      "request": "launch",
+      "runtimeArgs": ["--test", "${workspaceFolder}/portal/test/*.test.mjs"],
+      "console": "integratedTerminal",
+      "skipFiles": ["<node_internals>/**"]
+    }
+  ],
+  "compounds": [
+    { "name": "Portal + LP juntos", "configurations": ["Portal de Afiliação (painel em localhost:3400)", "LP Clube Suprema (suprema.blog local, localhost:3000)"] }
+  ]
+}

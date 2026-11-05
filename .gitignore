@@ -1,3 +1,8 @@
 node_modules/
 data/
 __pycache__/
+
+# Portal de Afiliação: banco, chave do cofre, credenciais e estado do orquestrador ficam fora do git
+portal/data/
+portal/orquestrador/estado/
+portal/relatorios/

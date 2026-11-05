@@ -5,7 +5,10 @@
   "description": "LP com cadastro único (Suprema + Fichas 24h), PIX na página e link para o app.",
   "scripts": {
     "start": "node server.js",
-    "dev": "node --watch server.js"
+    "dev": "node --watch server.js",
+    "portal": "node portal/server.mjs",
+    "portal:test": "node --test \"portal/test/*.test.mjs\"",
+    "portal:modelos": "node portal/tools/validar-modelos.mjs"
   },
   "engines": {
     "node": "22.x"

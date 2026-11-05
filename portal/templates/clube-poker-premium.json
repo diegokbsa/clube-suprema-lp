@@ -1,0 +1,439 @@
+{
+  "id": "clube-poker-premium",
+  "name": "Clube de poker premium",
+  "order": 1,
+  "version": 1,
+  "category": "Poker · clube",
+  "niches": [
+    "poker"
+  ],
+  "description": "Página de entrada de clube com convite pelo app, compra de fichas guiada, grade de torneios e atendimento 24h. Baseada na jornada do suprema.blog.",
+  "theme": {
+    "mode": "escuro",
+    "bg": "#0e1311",
+    "surface": "#162019",
+    "text": "#f2efe6",
+    "muted": "#a9b3ac",
+    "primary": "#d8b25a",
+    "primaryText": "#17120a",
+    "accent": "#336a49",
+    "border": "#25332b",
+    "font": "Manrope",
+    "fontHead": "Sora",
+    "radius": 14
+  },
+  "seo": {
+    "title": "{{name}} ({{unitLabel}}) · Poker online 24h",
+    "description": "Entre no {{name}} pelo app {{app}}, compre fichas com suporte 24h e jogue torneios e mesas todos os dias. Somente +18."
+  },
+  "pages": [
+    {
+      "slug": "",
+      "title": "Início",
+      "blocks": [
+        {
+          "type": "navbar",
+          "props": {
+            "brand": "{{name}}",
+            "logo": "{{logo}}",
+            "links": [
+              {
+                "label": "Como entrar",
+                "href": "#como-entrar"
+              },
+              {
+                "label": "Torneios",
+                "href": "/torneios"
+              },
+              {
+                "label": "Fichas",
+                "href": "/fichas"
+              },
+              {
+                "label": "Dúvidas",
+                "href": "#duvidas"
+              }
+            ],
+            "cta": "Entrar no clube",
+            "ctaHref": "{{inviteLink}}",
+            "variant": "barra"
+          }
+        },
+        {
+          "type": "hero",
+          "props": {
+            "eyebrow": "{{app}} · {{unitLabel}}",
+            "title": "Poker online 24h, com mesa cheia e suporte de verdade.",
+            "subtitle": "Entre no {{name}} pelo nosso link, compre fichas por PIX com ajuda em cada passo e jogue quando quiser.",
+            "cta": "Entrar no clube",
+            "ctaHref": "{{inviteLink}}",
+            "secondary": "Ver torneios",
+            "secondaryHref": "/torneios",
+            "note": "Grátis para entrar · somente +18",
+            "variant": "dividido"
+          }
+        },
+        {
+          "type": "ticker",
+          "props": {
+            "items": [
+              {
+                "text": "Mesas a qualquer hora"
+              },
+              {
+                "text": "Fichas por PIX"
+              },
+              {
+                "text": "Suporte 24h"
+              },
+              {
+                "text": "{{unitLabel}}"
+              },
+              {
+                "text": "NLH · PLO"
+              },
+              {
+                "text": "Somente +18"
+              }
+            ]
+          }
+        },
+        {
+          "type": "steps",
+          "props": {
+            "eyebrow": "Passo a passo",
+            "title": "Como entrar no clube",
+            "subtitle": "Três passos e você está na mesa.",
+            "items": [
+              {
+                "title": "Abra o app pelo nosso link",
+                "text": "Instale o {{app}} e abra pelo link do clube. Você entra com o nosso agente ({{agentId}})."
+              },
+              {
+                "title": "Compre fichas",
+                "text": "Pelo canal oficial de fichas, por PIX. Se travar, o suporte resolve com você."
+              },
+              {
+                "title": "Sente na mesa",
+                "text": "Torneios e cash games todos os dias. As fichas caem na sua conta do app."
+              }
+            ],
+            "variant": "numerado",
+            "anchor": "como-entrar"
+          }
+        },
+        {
+          "type": "features",
+          "props": {
+            "eyebrow": "Por que jogar aqui",
+            "title": "Direto ao ponto",
+            "items": [
+              {
+                "icon": "24h",
+                "title": "Suporte humano",
+                "text": "Atendimento no WhatsApp a qualquer hora, inclusive na compra de fichas."
+              },
+              {
+                "icon": "PIX",
+                "title": "Fichas na hora",
+                "text": "Compra e saque pela chave PIX do seu CPF."
+              },
+              {
+                "icon": "♠",
+                "title": "Agenda cheia",
+                "text": "Torneios diários e mesas de cash em vários limites."
+              },
+              {
+                "icon": "+18",
+                "title": "Jogo consciente",
+                "text": "Só para maiores de 18 anos, com limites que você controla."
+              }
+            ],
+            "variant": "grade"
+          }
+        },
+        {
+          "type": "cta",
+          "props": {
+            "title": "A mesa está aberta.",
+            "text": "Leva dois minutos para entrar pelo link do clube.",
+            "cta": "Entrar no clube",
+            "ctaHref": "{{inviteLink}}",
+            "variant": "destaque"
+          }
+        },
+        {
+          "type": "faq",
+          "props": {
+            "title": "Perguntas frequentes",
+            "items": [
+              {
+                "q": "Como eu entro no clube?",
+                "a": "Abra o app {{app}} pelo nosso link. Se ainda não tiver o app, o link leva para a loja; depois de instalar, abra pelo mesmo link."
+              },
+              {
+                "q": "Já tenho conta no app. Posso usar?",
+                "a": "Pode. Abra o link com o app instalado e aceite o convite do clube."
+              },
+              {
+                "q": "Como compro fichas?",
+                "a": "Pelo canal de fichas indicado na página Fichas. Na primeira compra informe o seu ID do app, o clube {{number}} e o agente {{agentId}}."
+              },
+              {
+                "q": "Como saco?",
+                "a": "Pelo mesmo canal de fichas, direto na chave PIX do seu CPF."
+              }
+            ],
+            "anchor": "duvidas"
+          }
+        },
+        {
+          "type": "lead_form",
+          "props": {
+            "title": "Quer ajuda para entrar?",
+            "text": "Deixe seu contato e o suporte chama você.",
+            "fields": "email_nome_telefone",
+            "button": "Quero ajuda",
+            "success": "Recebemos! O suporte vai chamar você.",
+            "variant": "lateral"
+          }
+        },
+        {
+          "type": "contact",
+          "props": {
+            "title": "Fale com o suporte",
+            "whatsapp": "{{whatsapp}}",
+            "telegram": "{{telegram}}",
+            "instagram": "{{instagram}}",
+            "email": "{{email}}",
+            "hours": "Todos os dias, 24 horas."
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "text": "{{unitLabel}} no app {{app}}.",
+            "links": [
+              {
+                "label": "Torneios",
+                "href": "/torneios"
+              },
+              {
+                "label": "Fichas",
+                "href": "/fichas"
+              },
+              {
+                "label": "Privacidade",
+                "href": "/privacidade"
+              }
+            ],
+            "disclaimer": "{{disclaimer}}"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "torneios",
+      "title": "Torneios",
+      "seo": {
+        "description": "Agenda de torneios do {{name}} no app {{app}}."
+      },
+      "blocks": [
+        {
+          "type": "navbar",
+          "props": {
+            "brand": "{{name}}",
+            "logo": "{{logo}}",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Fichas",
+                "href": "/fichas"
+              }
+            ],
+            "cta": "Entrar no clube",
+            "ctaHref": "{{inviteLink}}",
+            "variant": "barra"
+          }
+        },
+        {
+          "type": "hero",
+          "props": {
+            "eyebrow": "Agenda",
+            "title": "Torneios da semana",
+            "subtitle": "Grade de exemplo: troque pelos torneios reais do clube antes de publicar.",
+            "variant": "centralizado"
+          }
+        },
+        {
+          "type": "schedule",
+          "props": {
+            "items": [
+              {
+                "day": "Todo dia",
+                "time": "20:00",
+                "name": "Torneio principal (exemplo)",
+                "detail": "NLH · buy-in a definir",
+                "prize": "Garantido a definir"
+              },
+              {
+                "day": "Sábado",
+                "time": "16:00",
+                "name": "PLO de fim de semana (exemplo)",
+                "detail": "PLO · buy-in a definir",
+                "prize": "—"
+              }
+            ],
+            "cta": "Entrar no clube",
+            "ctaHref": "{{inviteLink}}"
+          }
+        },
+        {
+          "type": "notice",
+          "props": {
+            "text": "Horários no fuso de Brasília. Valores e garantidos podem mudar; confira no app.",
+            "variant": "discreto"
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              }
+            ],
+            "disclaimer": "{{disclaimer}}"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "fichas",
+      "title": "Fichas",
+      "seo": {
+        "description": "Como comprar e sacar fichas no {{name}}."
+      },
+      "blocks": [
+        {
+          "type": "navbar",
+          "props": {
+            "brand": "{{name}}",
+            "logo": "{{logo}}",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Torneios",
+                "href": "/torneios"
+              }
+            ],
+            "cta": "Comprar fichas",
+            "ctaHref": "{{chipsUrl}}",
+            "variant": "barra"
+          }
+        },
+        {
+          "type": "hero",
+          "props": {
+            "eyebrow": "Fichas",
+            "title": "Comprar e sacar fichas",
+            "subtitle": "Tudo por PIX, no canal oficial de fichas, com suporte 24h.",
+            "cta": "Comprar fichas",
+            "ctaHref": "{{chipsUrl}}",
+            "variant": "centralizado"
+          }
+        },
+        {
+          "type": "steps",
+          "props": {
+            "title": "Primeira compra",
+            "items": [
+              {
+                "title": "Crie sua conta de fichas",
+                "text": "Com nome, CPF, telefone e e-mail."
+              },
+              {
+                "title": "Ligue o seu ID ao clube",
+                "text": "Informe o ID do app, o clube {{number}} e o agente {{agentId}}."
+              },
+              {
+                "title": "Pague por PIX",
+                "text": "As fichas caem na sua conta do app."
+              }
+            ],
+            "variant": "linha-do-tempo"
+          }
+        },
+        {
+          "type": "contact",
+          "props": {
+            "title": "Travou em algum passo?",
+            "whatsapp": "{{whatsapp}}",
+            "telegram": "{{telegram}}",
+            "hours": "Suporte 24 horas."
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              }
+            ],
+            "disclaimer": "{{disclaimer}}"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "privacidade",
+      "title": "Privacidade",
+      "seo": {
+        "noindex": false,
+        "description": "Como o {{name}} trata seus dados."
+      },
+      "blocks": [
+        {
+          "type": "navbar",
+          "props": {
+            "brand": "{{name}}",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              }
+            ],
+            "variant": "barra"
+          }
+        },
+        {
+          "type": "text",
+          "props": {
+            "title": "Privacidade",
+            "body": "Texto-base para revisão jurídica da operação.\n\nColetamos nome, e-mail e telefone só quando você envia um formulário, para entrar em contato sobre o clube. Você pode pedir a exclusão a qualquer momento pelos canais de atendimento.\n\nCookies de medição (Google e Meta) só são ativados se você aceitar no aviso do site.",
+            "variant": "estreito"
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "disclaimer": "{{disclaimer}}"
+          }
+        }
+      ]
+    }
+  ]
+}

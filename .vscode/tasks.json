@@ -1,0 +1,14 @@
+{
+  // Ctrl+Shift+P > "Tasks: Run Task" (ou Terminal > Executar Tarefa) e escolha.
+  "version": "2.0.0",
+  "tasks": [
+    { "label": "Portal: rodar testes", "type": "shell", "command": "npm run portal:test", "group": { "kind": "test", "isDefault": true }, "problemMatcher": [] },
+    { "label": "Portal: validar os modelos de site", "type": "shell", "command": "node portal/tools/validar-modelos.mjs", "problemMatcher": [] },
+    { "label": "Orquestrador: status", "type": "shell", "command": "python -I portal/orquestrador/orchestrator.py status", "problemMatcher": [] },
+    { "label": "Orquestrador: rodar um ciclo agora", "type": "shell", "command": "python -I portal/orquestrador/orchestrator.py dispatch", "problemMatcher": [] },
+    { "label": "Orquestrador: relatório", "type": "shell", "command": "python -I portal/orquestrador/orchestrator.py report", "problemMatcher": [] },
+    { "label": "Orquestrador: pausar", "type": "shell", "command": "python -I portal/orquestrador/orchestrator.py pause", "problemMatcher": [] },
+    { "label": "Orquestrador: retomar", "type": "shell", "command": "python -I portal/orquestrador/orchestrator.py resume", "problemMatcher": [] },
+    { "label": "Ordens dos agentes: listar", "type": "shell", "command": "python \"C:/Users/Administrator/Documents/Suprema-360/00-SYSTEM/scripts/ordens.py\" listar", "problemMatcher": [] }
+  ]
+}
