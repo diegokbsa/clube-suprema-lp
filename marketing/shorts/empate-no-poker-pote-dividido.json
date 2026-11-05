@@ -1,0 +1,16 @@
+{
+  "id": "empate-no-poker-pote-dividido",
+  "tipo": "Regras do poker",
+  "titulo": "Empate no poker: quando o pote é dividido (split pot) #shorts",
+  "descricao": "Quando existe empate de verdade no poker, por que o naipe não desempata e quando a mesa joga. No próximo vídeo: all-in e side pot.\n\n18+ · Jogue com responsabilidade.\n\n#poker #pokeronline #texasholdem #supremapoker",
+  "post": "empate-no-poker-pote-dividido",
+  "cenas": [
+    { "tela": "Mesma mão? Nem sempre é **empate**", "fala": "Mesma mão que o adversário? Nem sempre é empate.", "imagem": "public/img/app-mesa.webp" },
+    { "tela": "Empate = as **5 cartas** iguais em valor", "fala": "No poker, só há empate quando as cinco cartas das duas mãos têm o mesmo valor." },
+    { "passo": 1, "tela": "Compare o **tipo**, depois o **valor** da mão", "fala": "Primeiro compare o tipo da mão. Depois, o valor, como o par mais alto." },
+    { "passo": 2, "tela": "Ainda igual? Os **kickers** decidem", "fala": "Se ainda empatar, os kickers decidem, um por um." },
+    { "passo": 3, "tela": "Tudo igual: **pote dividido** em partes iguais", "fala": "Se as cinco cartas forem iguais, o pote é dividido em partes iguais." },
+    { "tela": "**Naipe não desempata.** Copas vale o mesmo que espadas", "fala": "E atenção: naipe não desempata. Copas vale o mesmo que espadas." },
+    { "tela": "No próximo: **all-in e side pot**. Segue o canal!", "fala": "No próximo vídeo, como funciona o side pot no all-in. Segue o canal!", "imagem": "public/img/app-mesa.webp" }
+  ]
+}
