@@ -10,6 +10,7 @@ const KEYS = {
   leadEmail: 'clube.leadEmail',
   utm: 'clube.utm',
   tracked: 'clube.tracked',
+  f24hData: 'clube.f24hDados', // dados para copiar no Fichas 24h (modo guiado): só neste aparelho
 };
 const FLOW_VIEWS = {
   convite: [['lead', 'Seu e-mail'], ['invite', 'Entrar no clube']],
@@ -252,10 +253,11 @@ function render(view) {
     .join('');
   bindDynamic(body);
   $('.sheet-panel').scrollTop = 0;
-  ({ lead: initLead, invite: initInvite, form: initForm, confirm: initConfirm, deposit: initDeposit, app: initApp })[view]();
+  ({ lead: initLead, invite: initInvite, form: initForm, confirm: initConfirm, deposit: initDeposit, fichas: initFichas, app: initApp })[view]();
 }
 
 const resumeKey = () => (state.config.flow === 'convite' ? KEYS.lead : KEYS.signup);
+const afterAccount = () => (state.config.f24h?.guided ? 'fichas' : 'deposit');
 
 function refreshResume() {
   $('#resume').hidden = !storage.get(resumeKey());
@@ -273,6 +275,7 @@ async function resume() {
     return openSheet('form');
   }
   if (!state.signup.accountReady) return openSheet('confirm');
+  if (state.config.f24h?.guided) return openSheet('fichas');
   try {
     const deposits = await api(`/api/signup/${id}/deposits`);
     const credited = deposits.find((d) => d.status === 'creditado');
@@ -535,7 +538,7 @@ function renderSignup(s) {
     $('#sheet-title').textContent = 'Conta criada!';
     trackOnce(`complete:${s.id}`, 'signup_complete');
     stopAll();
-    setTimeout(() => { if (state.view === 'confirm') render('deposit'); }, 900);
+    setTimeout(() => { if (state.view === 'confirm') render(afterAccount()); }, 900);
   }
 }
 
@@ -887,6 +890,74 @@ async function copyPix() {
   track('pix_copy');
 }
 
+// ---------- 3b. Fichas 24h guiado ----------
+// O cadastro do Fichas 24h não aceita dados por link: a página guarda os dados neste aparelho e mostra cada um,
+// na ordem do formulário deles, com Copiar; o botão abre o sistema oficial do Fichas 24h numa aba nova.
+
+function f24hData() {
+  try { return JSON.parse(storage.get(KEYS.f24hData) || 'null'); } catch { return null; }
+}
+
+const fmtBirth = (iso) => (/^\d{4}-\d{2}-\d{2}$/.test(iso) ? iso.split('-').reverse().join('/') : iso);
+
+function copyRows(rows) {
+  return rows.map(([label, value, copy = true]) => `
+    <div class="copy-item"><dt>${esc(label)}</dt><dd data-clarity-mask="True">${esc(value)}</dd>${copy
+      ? `<button class="btn btn-sm btn-ghost" type="button" data-action="copy-value" data-value="${esc(value)}">Copiar</button>` : ''}</div>`).join('');
+}
+
+function showFichasGuide(d) {
+  const s = state.signup;
+  $('#f24h-form').hidden = true;
+  $('#f24h-guide').hidden = false;
+  $('#fichas-sub').textContent = 'Seus dados estão prontos. Siga os 4 passos: em cada um, é só copiar e colar.';
+  $('#copy-cadastro').innerHTML = copyRows([
+    ['E-mail', s.player.email],
+    ['Senha', 'a mesma que você criou aqui', false],
+    ['Nome completo', d.name],
+    ['CPF', maskCpf(d.cpf)],
+    ['Nascimento', fmtBirth(d.birth)],
+    ['Celular', maskPhone(d.phone)],
+  ]);
+  $('#copy-id').innerHTML = copyRows([
+    ['Seu ID de jogador', s.supremaId || '(o ID do seu perfil no app)', Boolean(s.supremaId)],
+    ['Clube', `${state.config.club.id}`],
+    ['Agente', `${state.config.club.agentId}`],
+  ]);
+}
+
+function initFichas() {
+  // O formulário é ligado primeiro: sem o preventDefault, o navegador mandaria o CPF na barra de endereço.
+  const form = $('#f24h-form');
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const f = form.elements;
+    const { errors, data } = validatePayer({ name: f.name.value, cpf: f.cpf.value, phone: f.phone.value, birth: f.birth.value });
+    if (Object.keys(errors).length) return showErrors(form, errors);
+    storage.set(KEYS.f24hData, JSON.stringify(data));
+    track('payer_complete');
+    showFichasGuide(data);
+    $('.sheet-panel').scrollTop = 0;
+  });
+  const { f24h } = state.config;
+  $('#f24h-open').href = f24h.signupUrl;
+  $('#f24h-buy').href = f24h.homeUrl;
+  $$('[data-bind="f24h-club"]').forEach((el) => { el.textContent = f24h.clubName; });
+  $$('[data-app-link]').forEach((a) => { a.href = appLink(); });
+  setupPayerMasks(form);
+  const saved = f24hData();
+  if (saved) {
+    const f = form.elements;
+    f.name.value = saved.name;
+    f.cpf.value = maskCpf(saved.cpf);
+    f.phone.value = maskPhone(saved.phone);
+    f.birth.value = saved.birth;
+    showFichasGuide(saved);
+  }
+  $('#f24h-open').addEventListener('click', () => track('f24h_signup_open'));
+  $('#f24h-buy').addEventListener('click', () => track('buy_chips_click'));
+}
+
 // ---------- 4. Baixar e jogar ----------
 
 function detectOs() {
@@ -931,6 +1002,25 @@ const ACTIONS = {
   'go-deposit': () => render('deposit'),
   'new-amount': () => { storage.remove(KEYS.deposit); state.deposit = null; render('deposit'); },
   'copy-pix': copyPix,
+  'copy-value': async (el) => {
+    await copyText(el.dataset.value);
+    el.closest('.copy-item')?.classList.add('copied');
+    el.textContent = 'Copiado';
+    toast('Copiado!');
+  },
+  'f24h-edit': () => {
+    $('#f24h-guide').hidden = true;
+    $('#f24h-form').hidden = false;
+  },
+  'f24h-done': () => {
+    storage.remove(KEYS.f24hData);
+    track('deposit_paid_self_report');
+    state.lastDeposited = null;
+    render('app');
+    $('#sheet-title').textContent = 'Tudo pronto! Agora é só jogar';
+    $('#app-sub').textContent = `Suas fichas caem na sua conta do ${state.config.club.name}.`;
+    $('#app-deposit-link').hidden = true;
+  },
   copy: async (el) => {
     const { club } = state.config;
     await copyText(el.dataset.copyBind === 'agent-id' ? club.agentId : club.id);
@@ -979,6 +1069,9 @@ async function init() {
     return;
   }
   $('#test-banner').hidden = !state.config.testMode;
+  if (state.config.f24h?.guided) {
+    FLOW_VIEWS.completo = [['form', 'Cadastro'], ['confirm', 'Entrar no clube'], ['fichas', 'Fichas'], ['app', 'Jogar']];
+  }
   $$('[data-flow]').forEach((el) => { el.hidden = el.dataset.flow !== state.config.flow; });
   loadTracking(state.config.tracking);
   bindDynamic();

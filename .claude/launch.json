@@ -20,6 +20,13 @@
       "runtimeArgs": ["server.js"],
       "port": 3200,
       "env": { "PORT": "3200", "FLOW": "completo", "SUPREMA_MODE": "app", "F24H_MODE": "real", "F24H_DEBUG": "1", "DATA_DIR": "data/teste-real" }
+    },
+    {
+      "name": "lp-jornada-guiada",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["server.js"],
+      "port": 3300,
+      "env": { "PORT": "3300", "FLOW": "completo", "SUPREMA_MODE": "app", "F24H_MODE": "guiado", "DATA_DIR": "data/teste-guiada" }
     }
   ]
 }

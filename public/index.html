@@ -568,6 +568,68 @@
     </div>
   </template>
 
+  <template id="tpl-fichas">
+    <h2 id="sheet-title">Agora, suas fichas</h2>
+    <p class="muted" id="fichas-sub">As fichas do clube saem pelo Fichas 24h, por PIX no seu CPF. Preencha aqui uma vez só: a gente deixa tudo pronto para você copiar e colar lá.</p>
+    <form id="f24h-form" class="payer" method="post" action="#" novalidate>
+      <div class="field">
+        <label for="f-name">Nome completo</label>
+        <input id="f-name" name="name" autocomplete="name" autocapitalize="words" placeholder="Como está no seu CPF" maxlength="80">
+        <small class="error" data-error="name"></small>
+      </div>
+      <div class="field">
+        <label for="f-cpf">CPF</label>
+        <input id="f-cpf" name="cpf" inputmode="numeric" autocomplete="off" placeholder="000.000.000-00" maxlength="14">
+        <small class="error" data-error="cpf"></small>
+      </div>
+      <div class="row-2">
+        <div class="field">
+          <label for="f-phone">Celular com DDD</label>
+          <input id="f-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="(11) 91234-5678" maxlength="15">
+          <small class="error" data-error="phone"></small>
+        </div>
+        <div class="field">
+          <label for="f-birth">Nascimento</label>
+          <input id="f-birth" name="birth" type="date" autocomplete="bday">
+          <small class="error" data-error="birth"></small>
+        </div>
+      </div>
+      <p class="muted small">Esses dados ficam só neste aparelho, para você copiar no Fichas 24h. Não guardamos o seu CPF.</p>
+      <button class="btn btn-lg btn-block" type="submit">Continuar</button>
+    </form>
+
+    <div id="f24h-guide" hidden>
+      <ol class="f24h-steps">
+        <li class="card-inline">
+          <h3>Termine seu cadastro no Fichas 24h</h3>
+          <a class="btn btn-lg btn-block" id="f24h-open" target="_blank" rel="noopener">Clique aqui para terminar seu cadastro no Fichas 24h</a>
+          <p class="muted small">Abre o sistema oficial do Fichas 24h numa aba nova. Copie e cole nesta ordem:</p>
+          <dl class="copy-list" id="copy-cadastro"></dl>
+        </li>
+        <li class="card-inline">
+          <h3>Ligue o seu ID ao clube</h3>
+          <p class="muted">Lá dentro, toque em <strong>Cadastrar ID</strong>, escolha <strong>Suprema Poker</strong> e o clube <strong data-bind="f24h-club"></strong>, e cole:</p>
+          <dl class="copy-list" id="copy-id"></dl>
+        </li>
+        <li class="card-inline">
+          <h3>Confirme que a conta é sua</h3>
+          <p class="muted">O Fichas 24h manda umas fichas para a sua conta no app. Abra o app da Suprema, veja <strong>quantas fichas chegaram</strong> e digite o valor no Fichas 24h. É uma vez só.</p>
+          <a class="link" data-app-link target="_blank" rel="noopener">Abrir o app da Suprema</a>
+        </li>
+        <li class="card-inline">
+          <h3>Compre suas fichas por PIX</h3>
+          <p class="muted">No Fichas 24h, toque em depositar, escolha a sua conta do clube e o valor, e pague o QR Code no app do seu banco. As fichas caem na hora.</p>
+          <a class="btn btn-block" id="f24h-buy" target="_blank" rel="noopener">Comprar fichas no Fichas 24h</a>
+        </li>
+      </ol>
+      <button class="btn btn-ghost btn-block" type="button" data-action="f24h-done">Pronto, fichas na conta</button>
+      <div class="row-actions center">
+        <button class="link" type="button" data-action="f24h-edit">Corrigir meus dados</button>
+        <a class="link" data-wa="deposito" target="_blank" rel="noopener">Travou? Suporte 24h no WhatsApp</a>
+      </div>
+    </div>
+  </template>
+
   <template id="tpl-app">
     <div class="success-icon" aria-hidden="true">✓</div>
     <h2 id="sheet-title" class="center"></h2>

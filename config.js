@@ -1,6 +1,7 @@
 // Configuração do clube, dos links e do modo de cada integração.
 // SUPREMA_MODE: "mock" (simulado), "app" (o jogador cria a conta no app pelo link do clube e informa o ID aqui)
-//   ou "real" (quando houver API da Suprema). F24H_MODE: "mock" ou "real" (só com o OK formal da Sayplus).
+//   ou "real" (quando houver API da Suprema). F24H_MODE: "mock", "real" (só com o OK formal da Sayplus) ou
+//   "guiado" (sem chamar o Fichas 24h: o jogador termina o cadastro no sistema deles, com os dados prontos para copiar).
 export const config = {
   port: Number(process.env.PORT) || 3000,
   host: process.env.HOST || '0.0.0.0',
@@ -26,6 +27,9 @@ export const config = {
     supabaseUrl: process.env.F24H_SUPABASE_URL || 'https://lxaoltgkxlyvsdwburpq.supabase.co',
     supabaseAnonKey: process.env.F24H_SUPABASE_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx4YW9sdGdreGx5dnNkd2J1cnBxIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODU2Mjk2ODMsImV4cCI6MjAwMTIwNTY4M30.fsNC1fQiXupe4FOdIf8_quPCuj0-gcHIKes2Qdj3noQ',
     platformId: 10, // Suprema Poker em /platforms/public/list
+    clubName: process.env.F24H_CLUB_NAME || 'SX | XX POKER', // como o clube 10001 aparece no "Cadastrar ID" do Fichas 24h
+    signupUrl: 'https://app.fichas24horas.com.br/signup',
+    homeUrl: 'https://app.fichas24horas.com.br/home',
     clubId: process.env.F24H_CLUB_ID || '',
     itemId: process.env.F24H_ITEM_ID || '', // item de fichas do auto-atendimento; vazio = o primeiro da lista
   },

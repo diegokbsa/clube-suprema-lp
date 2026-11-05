@@ -106,6 +106,7 @@ const publicConfig = () => ({
   supportWhatsapp: config.supportWhatsapp,
   deposit: config.deposit,
   links: config.links,
+  f24h: { guided: config.modes.fichas24h === 'guiado', clubName: config.fichas24h.clubName, signupUrl: config.fichas24h.signupUrl, homeUrl: config.fichas24h.homeUrl },
   tracking: config.tracking,
   testMode,
 });

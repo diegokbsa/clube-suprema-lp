@@ -25,3 +25,13 @@
 ## Dados pessoais (LGPD)
 
 - CPF, celular e nascimento passam pelo nosso servidor a caminho do Fichas 24h; a senha não é guardada. Precisamos de um acordo de tratamento de dados entre as empresas e de saber qual razão social aparece nos termos da LP.
+
+## Pedido extra ao Fichas 24h (05/11/2026): cadastro já preenchido pelo link
+
+O suprema.blog guia o jogador até o cadastro do Fichas 24h com tudo pronto para copiar (modo `F24H_MODE=guiado`), sem
+chamar a API de vocês. Para o jogador não precisar copiar nada, pedimos que o app web aceite os dados pelo link:
+
+1. `https://app.fichas24horas.com.br/signup?email=...&name=...&phone=...&birthday=...` (o CPF pode ficar de fora se
+   preferirem que ele digite) e um parâmetro de retorno (`?voltar=https://suprema.blog/...`) ao terminar.
+2. No "Cadastrar ID": `?platform=10&club=<id do clube 10001>&player=<ID do jogador>` para já abrir preenchido.
+3. Se possível, um aviso (webhook ou redirecionamento) quando o primeiro depósito for pago.

@@ -140,3 +140,23 @@ CONFERIR do adaptador:
   ligar `F24H_MODE=real`.
 - **Mais de um ID na mesma conta:** sim. A conta do Fichas 24h aceita vários IDs ("Cadastrar ID"), inclusive o mesmo ID
   em clubes diferentes, cada um com a própria validação.
+
+## Modo guiado (F24H_MODE=guiado), 05/11/2026
+
+O cadastro do Fichas 24h não aceita dados por link:
+- `/signup` não lê parâmetros;
+- `/rd?cd=` só aceita um código de login que o próprio Fichas gera.
+
+Então o modo guiado faz assim:
+
+1. **Nossa página:** coleta nome, CPF, celular e nascimento uma vez só. Os dados ficam só no aparelho
+   (localStorage) e são apagados no fim; o servidor não recebe o CPF.
+2. **O botão:** "Clique aqui para terminar seu cadastro no Fichas 24h" abre o sistema oficial deles numa aba nova.
+3. **O painel:** mostra, na ordem do formulário deles, e-mail, nome, CPF, nascimento e celular, cada um com Copiar.
+   Em seguida mostra os dados do "Cadastrar ID": o ID do jogador, o clube 10001 e o agente 1439098, também com Copiar.
+4. **Validação e compra:** a explicação da validação por fichas e o botão "Comprar fichas no Fichas 24h".
+5. **Fim:** "Pronto, fichas na conta" leva à tela de jogar.
+
+Não usa a API do Fichas 24h nem passa pelo firewall deles. Testado na prévia `lp-jornada-guiada`.
+
+Para ligar no site: `FLOW=completo`, `SUPREMA_MODE=app`, `F24H_MODE=guiado` no Render.
