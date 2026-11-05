@@ -160,3 +160,28 @@ Então o modo guiado faz assim:
 Não usa a API do Fichas 24h nem passa pelo firewall deles. Testado na prévia `lp-jornada-guiada`.
 
 Para ligar no site: `FLOW=completo`, `SUPREMA_MODE=app`, `F24H_MODE=guiado` no Render.
+
+## Teste A/B da jornada guiada (05/11/2026)
+
+Com `F24H_MODE=guiado`, cada visitante cai, 50/50, numa de duas ordens. A variante fica guardada no aparelho e pode
+ser forçada com `?jornada=a` ou `?jornada=b`.
+
+- **Jornada A (Fichas em um bloco só):**
+  1. site (e-mail e senha);
+  2. app pelo link do clube (o jogador cola o ID);
+  3. Fichas 24h de uma vez: cadastro, Cadastrar ID, validação e PIX;
+  4. jogar.
+- **Jornada B (Fichas primeiro):**
+  1. site;
+  2. cadastro no Fichas 24h ("Pronto, criei minha conta de fichas");
+  3. app pelo link do clube (o jogador cola o ID);
+  4. volta ao Fichas 24h: Cadastrar ID, validação e PIX;
+  5. jogar.
+
+**Como medir:**
+- **GA4/Meta:** os eventos `signup_submit`, `f24h_signup_open`, `f24h_signup_done`, `buy_chips_click` e
+  `deposit_paid_self_report` levam o parâmetro `jornada`. O Clarity também recebe a tag `jornada`.
+- **Planilha:** cada cadastro do fluxo completo vai para a aba Cadastros (só no Render), com `jornada-a` ou
+  `jornada-b` na coluna "Indicação (ref)".
+- **O que comparar:** quantos cadastros chegam a "Pronto, fichas na conta" e, principalmente, quantos aparecem com
+  depósito no painel do clube.

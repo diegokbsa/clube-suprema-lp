@@ -600,29 +600,31 @@
 
     <div id="f24h-guide" hidden>
       <ol class="f24h-steps">
-        <li class="card-inline">
+        <li class="card-inline" data-step="cadastro">
           <h3>Termine seu cadastro no Fichas 24h</h3>
           <a class="btn btn-lg btn-block" id="f24h-open" target="_blank" rel="noopener">Clique aqui para terminar seu cadastro no Fichas 24h</a>
           <p class="muted small">Abre o sistema oficial do Fichas 24h numa aba nova. Copie e cole nesta ordem:</p>
           <dl class="copy-list" id="copy-cadastro"></dl>
         </li>
-        <li class="card-inline">
+        <li class="card-inline" data-step="id">
           <h3>Ligue o seu ID ao clube</h3>
           <p class="muted">Lá dentro, toque em <strong>Cadastrar ID</strong>, escolha <strong>Suprema Poker</strong> e o clube <strong data-bind="f24h-club"></strong>, e cole:</p>
           <dl class="copy-list" id="copy-id"></dl>
+          <a class="link" id="f24h-home" target="_blank" rel="noopener">Abrir o Fichas 24h</a>
         </li>
-        <li class="card-inline">
+        <li class="card-inline" data-step="validacao">
           <h3>Confirme que a conta é sua</h3>
           <p class="muted">O Fichas 24h manda umas fichas para a sua conta no app. Abra o app da Suprema, veja <strong>quantas fichas chegaram</strong> e digite o valor no Fichas 24h. É uma vez só.</p>
           <a class="link" data-app-link target="_blank" rel="noopener">Abrir o app da Suprema</a>
         </li>
-        <li class="card-inline">
+        <li class="card-inline" data-step="compra">
           <h3>Compre suas fichas por PIX</h3>
           <p class="muted">No Fichas 24h, toque em depositar, escolha a sua conta do clube e o valor, e pague o QR Code no app do seu banco. As fichas caem na hora.</p>
           <a class="btn btn-block" id="f24h-buy" target="_blank" rel="noopener">Comprar fichas no Fichas 24h</a>
         </li>
       </ol>
-      <button class="btn btn-ghost btn-block" type="button" data-action="f24h-done">Pronto, fichas na conta</button>
+      <button class="btn btn-lg btn-block" type="button" data-action="f24h-next" id="f24h-next" hidden>Pronto, criei minha conta de fichas</button>
+      <button class="btn btn-ghost btn-block" type="button" data-action="f24h-done" id="f24h-finish">Pronto, fichas na conta</button>
       <div class="row-actions center">
         <button class="link" type="button" data-action="f24h-edit">Corrigir meus dados</button>
         <a class="link" data-wa="deposito" target="_blank" rel="noopener">Travou? Suporte 24h no WhatsApp</a>

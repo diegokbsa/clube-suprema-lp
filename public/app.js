@@ -11,6 +11,8 @@ const KEYS = {
   utm: 'clube.utm',
   tracked: 'clube.tracked',
   f24hData: 'clube.f24hDados', // dados para copiar no Fichas 24h (modo guiado): só neste aparelho
+  f24hSignedUp: 'clube.f24hCadastro', // jornada B: já terminou o cadastro no Fichas 24h
+  jornada: 'clube.jornada', // teste A/B da jornada guiada: 'a' ou 'b'
 };
 const FLOW_VIEWS = {
   convite: [['lead', 'Seu e-mail'], ['invite', 'Entrar no clube']],
@@ -245,7 +247,7 @@ function render(view) {
   stopAll();
   state.view = view;
   const body = $('#sheet-body');
-  body.replaceChildren($(`#tpl-${view}`).content.cloneNode(true));
+  body.replaceChildren($(`#tpl-${view === 'compra' ? 'fichas' : view}`).content.cloneNode(true));
   const steps = FLOW_VIEWS[state.config.flow];
   const index = steps.findIndex(([key]) => key === view);
   $('#progress').innerHTML = steps
@@ -253,11 +255,27 @@ function render(view) {
     .join('');
   bindDynamic(body);
   $('.sheet-panel').scrollTop = 0;
-  ({ lead: initLead, invite: initInvite, form: initForm, confirm: initConfirm, deposit: initDeposit, fichas: initFichas, app: initApp })[view]();
+  ({ lead: initLead, invite: initInvite, form: initForm, confirm: initConfirm, deposit: initDeposit, fichas: initFichas, compra: initFichas, app: initApp })[view]();
 }
 
 const resumeKey = () => (state.config.flow === 'convite' ? KEYS.lead : KEYS.signup);
-const afterAccount = () => (state.config.f24h?.guided ? 'fichas' : 'deposit');
+
+// Teste A/B da jornada guiada (F24H_MODE=guiado). ?jornada=a|b força uma delas; senão sorteia 50/50 e guarda.
+//   a: site -> app pelo link do clube (ID) -> Fichas 24h de uma vez (cadastro, Cadastrar ID, validação e PIX)
+//   b: site -> cadastro no Fichas 24h -> app pelo link do clube (ID) -> volta ao Fichas 24h (Cadastrar ID, validação e PIX)
+function jornada() {
+  const forced = new URLSearchParams(location.search).get('jornada');
+  if (forced === 'a' || forced === 'b') storage.set(KEYS.jornada, forced);
+  let j = storage.get(KEYS.jornada);
+  if (j !== 'a' && j !== 'b') {
+    j = Math.random() < 0.5 ? 'a' : 'b';
+    storage.set(KEYS.jornada, j);
+  }
+  return j;
+}
+const isB = () => Boolean(state.config.f24h?.guided) && jornada() === 'b';
+const afterSignup = () => (isB() ? 'fichas' : 'confirm');
+const afterAccount = () => (state.config.f24h?.guided ? (isB() ? 'compra' : 'fichas') : 'deposit');
 
 function refreshResume() {
   $('#resume').hidden = !storage.get(resumeKey());
@@ -274,8 +292,8 @@ async function resume() {
     refreshResume();
     return openSheet('form');
   }
-  if (!state.signup.accountReady) return openSheet('confirm');
-  if (state.config.f24h?.guided) return openSheet('fichas');
+  if (!state.signup.accountReady) return openSheet(isB() && !storage.get(KEYS.f24hSignedUp) ? 'fichas' : 'confirm');
+  if (state.config.f24h?.guided) return openSheet(afterAccount());
   try {
     const deposits = await api(`/api/signup/${id}/deposits`);
     const credited = deposits.find((d) => d.status === 'creditado');
@@ -433,13 +451,14 @@ async function submitSignup(e) {
   button.disabled = true;
   button.textContent = 'Criando sua conta…';
   try {
-    const signup = await api('/api/signup', { method: 'POST', body: { ...input, utm: utm() } });
+    const extra = state.config.f24h?.guided ? { jornada: jornada() } : {}; // a variante vai junto, para o painel comparar
+    const signup = await api('/api/signup', { method: 'POST', body: { ...input, utm: { ...utm(), ...extra } } });
     state.signup = signup;
     state.shownNeed = null;
     storage.set(KEYS.signup, signup.id);
     storage.remove(KEYS.deposit);
-    track('signup_submit');
-    render('confirm');
+    track('signup_submit', state.config.f24h?.guided ? { jornada: jornada() } : {});
+    render(afterSignup());
   } catch (err) {
     if (err.data?.errors) showErrors(form, err.data.errors);
     showFormError(err.message);
@@ -906,11 +925,25 @@ function copyRows(rows) {
       ? `<button class="btn btn-sm btn-ghost" type="button" data-action="copy-value" data-value="${esc(value)}">Copiar</button>` : ''}</div>`).join('');
 }
 
+// Qual parte do Fichas 24h esta tela mostra: 'tudo' (jornada A), 'cadastro' ou 'compra' (jornada B).
+const fichasStage = () => (!isB() ? 'tudo' : state.view === 'compra' ? 'compra' : 'cadastro');
+const STAGE_STEPS = { tudo: ['cadastro', 'id', 'validacao', 'compra'], cadastro: ['cadastro'], compra: ['id', 'validacao', 'compra'] };
+
 function showFichasGuide(d) {
   const s = state.signup;
+  const stage = fichasStage();
+  const steps = STAGE_STEPS[stage];
   $('#f24h-form').hidden = true;
   $('#f24h-guide').hidden = false;
-  $('#fichas-sub').textContent = 'Seus dados estão prontos. Siga os 4 passos: em cada um, é só copiar e colar.';
+  $$('#f24h-guide [data-step]').forEach((li) => { li.hidden = !steps.includes(li.dataset.step); });
+  $('#fichas-sub').textContent = stage === 'cadastro'
+    ? 'Seus dados estão prontos. Crie sua conta de fichas copiando e colando, e volte aqui.'
+    : stage === 'compra'
+      ? 'Falta pouco: ligue o seu ID ao clube no Fichas 24h e compre suas fichas.'
+      : 'Seus dados estão prontos. Siga os 4 passos: em cada um, é só copiar e colar.';
+  $('#f24h-next').hidden = stage !== 'cadastro';
+  $('#f24h-finish').hidden = stage === 'cadastro';
+  if (stage === 'compra') $('#sheet-title').textContent = 'Agora, compre suas fichas';
   $('#copy-cadastro').innerHTML = copyRows([
     ['E-mail', s.player.email],
     ['Senha', 'a mesma que você criou aqui', false],
@@ -942,6 +975,7 @@ function initFichas() {
   const { f24h } = state.config;
   $('#f24h-open').href = f24h.signupUrl;
   $('#f24h-buy').href = f24h.homeUrl;
+  $('#f24h-home').href = f24h.homeUrl;
   $$('[data-bind="f24h-club"]').forEach((el) => { el.textContent = f24h.clubName; });
   $$('[data-app-link]').forEach((a) => { a.href = appLink(); });
   setupPayerMasks(form);
@@ -954,8 +988,12 @@ function initFichas() {
     f.birth.value = saved.birth;
     showFichasGuide(saved);
   }
-  $('#f24h-open').addEventListener('click', () => track('f24h_signup_open'));
-  $('#f24h-buy').addEventListener('click', () => track('buy_chips_click'));
+  if (!saved && fichasStage() === 'compra') {
+    $('#f24h-form').hidden = true;
+    showFichasGuide({ name: '', cpf: '', phone: '', birth: '' });
+  }
+  $('#f24h-open').addEventListener('click', () => track('f24h_signup_open', { jornada: jornada() }));
+  $('#f24h-buy').addEventListener('click', () => track('buy_chips_click', { jornada: jornada() }));
 }
 
 // ---------- 4. Baixar e jogar ----------
@@ -1012,9 +1050,15 @@ const ACTIONS = {
     $('#f24h-guide').hidden = true;
     $('#f24h-form').hidden = false;
   },
+  'f24h-next': () => {
+    storage.set(KEYS.f24hSignedUp, '1');
+    track('f24h_signup_done', { jornada: jornada() });
+    render('confirm');
+  },
   'f24h-done': () => {
     storage.remove(KEYS.f24hData);
-    track('deposit_paid_self_report');
+    storage.remove(KEYS.f24hSignedUp);
+    track('deposit_paid_self_report', { jornada: jornada() });
     state.lastDeposited = null;
     render('app');
     $('#sheet-title').textContent = 'Tudo pronto! Agora é só jogar';
@@ -1070,7 +1114,10 @@ async function init() {
   }
   $('#test-banner').hidden = !state.config.testMode;
   if (state.config.f24h?.guided) {
-    FLOW_VIEWS.completo = [['form', 'Cadastro'], ['confirm', 'Entrar no clube'], ['fichas', 'Fichas'], ['app', 'Jogar']];
+    FLOW_VIEWS.completo = jornada() === 'b'
+      ? [['form', 'Cadastro'], ['fichas', 'Fichas 24h'], ['confirm', 'Entrar no clube'], ['compra', 'Comprar'], ['app', 'Jogar']]
+      : [['form', 'Cadastro'], ['confirm', 'Entrar no clube'], ['fichas', 'Fichas'], ['app', 'Jogar']];
+    if (typeof window.clarity === 'function') window.clarity('set', 'jornada', jornada());
   }
   $$('[data-flow]').forEach((el) => { el.hidden = el.dataset.flow !== state.config.flow; });
   loadTracking(state.config.tracking);
