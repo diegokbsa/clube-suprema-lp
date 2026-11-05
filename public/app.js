@@ -1119,7 +1119,10 @@ async function init() {
       : [['form', 'Cadastro'], ['confirm', 'Entrar no clube'], ['fichas', 'Fichas'], ['app', 'Jogar']];
     if (typeof window.clarity === 'function') window.clarity('set', 'jornada', jornada());
   }
-  $$('[data-flow]').forEach((el) => { el.hidden = el.dataset.flow !== state.config.flow; });
+  // Textos da página: a jornada guiada (F24H_MODE=guiado) usa os do convite (app pelo link, fichas no Fichas 24h),
+  // não os do fluxo completo, que prometem conta criada por nós e PIX nesta página.
+  const copyFlow = state.config.f24h?.guided ? 'guiado' : state.config.flow;
+  $$('[data-flow]').forEach((el) => { el.hidden = !el.dataset.flow.split(' ').includes(copyFlow); });
   loadTracking(state.config.tracking);
   bindDynamic();
   refreshResume();
