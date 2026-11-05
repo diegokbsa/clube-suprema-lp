@@ -285,5 +285,6 @@ if (isMain) {
   seed(db, dataDir);
   const origin = process.env.PORTAL_ORIGIN || `http://localhost:${port}`;
   const { handle } = await createApp({ db, origin, secretKey });
-  http.createServer(handle).listen(port, () => console.log(`[portal] no ar em ${origin} (painel: ${origin}/admin/)`));
+  const host = process.env.PORTAL_HOST || undefined; // no servidor: 127.0.0.1 (só o túnel e o Caddy chegam)
+  http.createServer(handle).listen(port, host, () => console.log(`[portal] no ar em ${origin} (painel: ${origin}/admin/) · ouvindo ${host || 'todas as interfaces'}:${port}`));
 }

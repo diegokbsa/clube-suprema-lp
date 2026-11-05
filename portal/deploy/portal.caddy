@@ -1,0 +1,3 @@
+# kbsa.app/portal -> portal.kbsa.app (mesmo padrão das rotas dindin/biglinks/codiguin). Importado pelo site kbsa.app do Caddy.
+@portal path /portal /portal/*
+redir @portal https://portal.kbsa.app/ 302
