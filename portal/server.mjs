@@ -16,6 +16,8 @@ import { renderPage, sitemapXml, robotsTxt } from './lib/site.mjs';
 import { cookieName, recordClick, recordConversion, pickUtm, windowDaysOf } from './lib/attribution.mjs';
 import { createSeo } from './lib/seo.mjs';
 import { createMcp, aiRoutes } from './lib/mcp.mjs';
+import { edition } from './lib/edition.mjs';
+import { insightRoutes } from './lib/insights.mjs';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const PUBLIC = path.join(HERE, 'public');
@@ -26,16 +28,17 @@ const SESSION_COOKIE = 'pa_sess';
 const ADMIN_CSP = "default-src 'self'; img-src 'self' data: https:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; frame-src 'self'; frame-ancestors 'none'; base-uri 'none'; form-action 'self'";
 const SITE_CSP = "default-src 'self'; img-src 'self' data: https:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self' https://www.googletagmanager.com https://connect.facebook.net; connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com https://www.facebook.com; frame-src https://www.googletagmanager.com; frame-ancestors 'self'; base-uri 'none'; form-action 'self'";
 
-export async function createApp({ db, origin = 'http://localhost:3400', secretKey = 'dev-only-change-me', modulesDir = path.join(HERE, 'lib', 'modules'), fetchImpl } = {}) {
+export async function createApp({ db, origin = 'http://localhost:3400', secretKey = 'dev-only-change-me', modulesDir = path.join(HERE, 'lib', 'modules'), fetchImpl, editionId, serviceToken } = {}) {
   const secure = origin.startsWith('https://');
   const loginLimit = rateLimiter(10, 15 * 60_000);
   const formLimit = rateLimiter(20, 10 * 60_000);
   const hookLimit = rateLimiter(600, 60_000);
-  const app = { db, origin, vault: vault(secretKey), moduleNav: [], publicRoutes: [], mcpTools: [], sitemapExtras: [], aiRoutines: {}, fetchImpl };
+  const app = { db, origin, vault: vault(secretKey), moduleNav: [], publicRoutes: [], mcpTools: [], sitemapExtras: [], aiRoutines: {}, fetchImpl,
+    edition: edition(editionId), serviceToken: serviceToken || null };
   app.seo = createSeo(app, { secretKey, fetchImpl });
 
   // ---------- módulos ----------
-  const routes = [...coreRoutes, ...aiRoutes].map((r) => ({ ...r, match: compile(r.path) }));
+  const routes = [...coreRoutes, ...aiRoutes, ...insightRoutes].map((r) => ({ ...r, match: compile(r.path) }));
   if (fs.existsSync(modulesDir)) {
     for (const f of fs.readdirSync(modulesDir).filter((n) => n.endsWith('.mjs')).sort()) {
       const mod = await import(pathToFileURL(path.join(modulesDir, f)).href);
@@ -254,18 +257,18 @@ function renderNotFound(site) {
   return `<!doctype html><html lang="pt-BR"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Página não encontrada</title><link rel="stylesheet" href="/assets/site.css"><body class="mode-escuro"><main class="b b-text"><div class="wrap narrow"><h1>Página não encontrada</h1><p>Esta página de ${String(site.name).replace(/[<>&"]/g, '')} não existe ou ainda não foi publicada.</p></div></main></body></html>`;
 }
 
-/** Primeiro superadmin e a operação 10001 (Clube Suprema, site atual em suprema.blog). */
-export function seed(db, dataDir) {
+/** Primeiro superadmin e, na edição SX, o clube 10001 (Clube Suprema, site atual em suprema.blog). */
+export function seed(db, dataDir, ed = edition()) {
   if (db.prepare('SELECT COUNT(*) n FROM users').get().n) return null;
   const email = (process.env.PORTAL_ADMIN_EMAIL || 'admin@portal.local').toLowerCase();
   const password = process.env.PORTAL_ADMIN_PASSWORD || `${randomBytes(9).toString('base64url')}7k`;
   const u = createUser(db, { email, name: 'Superadministrador', password, isSuper: true });
   if (!process.env.PORTAL_ADMIN_PASSWORD) {
     const f = path.join(dataDir, 'credenciais-iniciais.txt');
-    fs.writeFileSync(f, `Portal de Afiliação — primeiro acesso\nE-mail: ${email}\nSenha: ${password}\nTroque a senha depois de entrar.\n`, { mode: 0o600 });
+    fs.writeFileSync(f, `${ed.name} — primeiro acesso\nE-mail: ${email}\nSenha: ${password}\nTroque a senha depois de entrar.\n`, { mode: 0o600 });
     console.log(`[portal] superadmin criado; credenciais em ${f}`);
   }
-  if (!db.prepare("SELECT 1 FROM tenants WHERE slug = 'clube-10001'").get()) {
+  if (ed.id === 'sx' && !db.prepare("SELECT 1 FROM tenants WHERE slug = 'clube-10001'").get()) {
     createTenant(db, { name: 'Clube Suprema', number: '10001', niche: 'poker', slug: 'clube-10001', externalUrl: 'https://suprema.blog',
       settings: { app: 'Suprema Poker', agentId: '1439098', whatsapp: '5511952138293', chipsUrl: 'https://app.fichas24horas.com.br/signup' } }, { userId: u.id });
   }
@@ -284,9 +287,15 @@ if (isMain) {
     secretKey = fs.readFileSync(kf, 'utf8').trim();
   }
   const db = openDb(path.join(dataDir, 'portal.db'));
-  seed(db, dataDir);
+  const ed = edition();
+  seed(db, dataDir, ed);
   const origin = process.env.PORTAL_ORIGIN || `http://localhost:${port}`;
-  const { handle } = await createApp({ db, origin, secretKey });
+  // token de serviço: o pesquisador de IA (outra máquina) manda insights com ele. Fica no arquivo da pasta de dados.
+  const tf = path.join(dataDir, 'token-servico.txt');
+  if (!process.env.PORTAL_SERVICE_TOKEN && !fs.existsSync(tf)) fs.writeFileSync(tf, `pa_svc_${randomBytes(32).toString('base64url')}`, { mode: 0o600 });
+  const serviceToken = process.env.PORTAL_SERVICE_TOKEN || fs.readFileSync(tf, 'utf8').trim();
+  console.log(`[portal] edição ${ed.id} (${ed.name})`);
+  const { handle } = await createApp({ db, origin, secretKey, editionId: ed.id, serviceToken });
   const host = process.env.PORTAL_HOST || undefined; // no servidor: 127.0.0.1 (só o túnel e o Caddy chegam)
   http.createServer(handle).listen(port, host, () => console.log(`[portal] no ar em ${origin} (painel: ${origin}/admin/) · ouvindo ${host || 'todas as interfaces'}:${port}`));
 }

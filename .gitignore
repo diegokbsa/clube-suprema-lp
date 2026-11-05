@@ -6,3 +6,7 @@ __pycache__/
 portal/data/
 portal/orquestrador/estado/
 portal/relatorios/
+portal/data-sx/
+portal/pesquisador/entrada/
+portal/pesquisador/processado/
+portal/pesquisador/estado/

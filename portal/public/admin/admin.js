@@ -4,7 +4,13 @@ const $ = (s, el = document) => el.querySelector(s);
 const $$ = (s, el = document) => [...el.querySelectorAll(s)];
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const fmtDate = (iso) => (iso ? new Date(iso).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' }) : '—');
-const S = { me: null, meta: null, csrf: '', tenant: null, tenantData: null };
+const S = { me: null, meta: null, csrf: '', tenant: null, tenantData: null, ed: { id: 'geral', name: 'Portal de Afiliação', tagline: '', terms: { operations: 'Operações', newOperation: 'Nova operação' } } };
+const logoMark = () => (S.ed.logo ? `<img class="logo-mark" src="${esc(S.ed.logo)}" alt="">` : `<span class="logo-mark">${esc(S.ed.name.slice(0, 1))}</span>`);
+function applyEdition(ed) {
+  S.ed = ed;
+  document.documentElement.dataset.edition = ed.id;
+  document.title = ed.name;
+}
 const app = $('#app');
 
 // ---------- API ----------
@@ -38,7 +44,7 @@ const statusPill = (s) => {
 function renderLogin() {
   app.className = '';
   app.innerHTML = `<div class="login"><form id="login-form">
-    <div class="logo"><span class="logo-mark">S</span><div>Portal de Afiliação<small>Painel de operações</small></div></div>
+    <div class="logo">${logoMark()}<div>${esc(S.ed.name)}<small>${esc(S.ed.tagline)}</small></div></div>
     <label class="field">E-mail<input name="email" type="email" autocomplete="username" required></label>
     <label class="field">Senha<input name="password" type="password" autocomplete="current-password" required></label>
     <p class="err" id="login-err"></p>
@@ -61,7 +67,8 @@ function navLinks(route) {
   if (S.me.user.isSuper) {
     items.push(['title', 'Administração central']);
     items.push(['#/', 'Visão geral', route.view === 'central']);
-    items.push(['#/nova', 'Nova operação', route.view === 'nova']);
+    items.push(['#/nova', S.ed.terms.newOperation, route.view === 'nova']);
+    items.push(['#/insights', 'Insights de IA', route.view === 'insights']);
   }
   if (t) {
     items.push(['title', t.label]);
@@ -87,7 +94,7 @@ function layout(route, inner) {
   app.className = '';
   const tenants = S.me.tenants;
   app.innerHTML = `<div class="shell" id="shell"><aside class="side">
-      <div class="logo"><span class="logo-mark">S</span><div>Portal de Afiliação<small>${esc(S.me.user.isSuper ? 'Superadministrador' : S.tenant?.role || '')}</small></div></div>
+      <div class="logo">${logoMark()}<div>${esc(S.ed.name)}<small>${esc(S.me.user.isSuper ? 'Superadministrador' : S.tenant?.role || '')}</small></div></div>
       ${tenants.length ? `<label class="tenant-pick field">Operação<select id="tenant-pick">${tenants.map((t) => `<option value="${esc(t.slug)}" ${S.tenant?.slug === t.slug ? 'selected' : ''}>${esc(t.label)} · ${esc(t.name)}${t.demo ? ' (demo)' : ''}</option>`).join('')}</select></label>` : ''}
       <nav class="nav">${navLinks(route)}</nav>
       <div class="side-foot"><div>${esc(S.me.user.name)}</div><div class="muted">${esc(S.me.user.email)}</div><div class="row" style="margin-top:8px"><button class="btn sm" id="logout" type="button">Sair</button></div></div>
@@ -103,6 +110,7 @@ function parseRoute() {
   const parts = location.hash.replace(/^#\/?/, '').split('?')[0].split('/').filter(Boolean);
   if (!parts.length) return { view: 'central' };
   if (parts[0] === 'nova') return { view: 'nova' };
+  if (parts[0] === 'insights') return { view: 'insights' };
   if (parts[0] === 't') {
     const slug = parts[1];
     const sub = parts[2] || '';
@@ -122,7 +130,7 @@ async function route() {
     if (S.me.tenants[0]) { location.hash = `#/t/${S.me.tenants[0].slug}`; return; }
   }
   if (r.view === 'dash' && S.tenant && !can('tenant.read') && can('ai.connect')) { location.hash = `#/t/${S.tenant.slug}/ia`; return; } // afiliado
-  const views = { central: viewCentral, nova: viewNova, dash: viewDash, site: viewSite, editor: viewEditor, seo: viewSeo, ia: viewIa, leads: viewLeads, afiliados: viewAfiliados,
+  const views = { central: viewCentral, nova: viewNova, insights: viewInsights, dash: viewDash, site: viewSite, editor: viewEditor, seo: viewSeo, ia: viewIa, leads: viewLeads, afiliados: viewAfiliados,
     integracoes: viewIntegracoes, usuarios: viewUsuarios, calendario: viewCalendario, auditoria: viewAuditoria, config: viewConfig, module: viewModule };
   try {
     await (views[r.view] || viewCentral)(r);
@@ -138,7 +146,7 @@ async function viewCentral(r) {
     return;
   }
   const d = await api('GET', '/api/admin/overview');
-  const main = layout(r, `<div class="page-head"><div><h1>Visão geral</h1><p>Todas as operações, sites, leads e integrações.</p></div><span class="spacer"></span><a class="btn primary" href="#/nova">Nova operação</a></div>
+  const main = layout(r, `<div class="page-head"><div><h1>Visão geral</h1><p>${esc(S.ed.terms.operations)}, sites, leads e integrações.</p></div><span class="spacer"></span><a class="btn primary" href="#/nova">${esc(S.ed.terms.newOperation)}</a></div>
     <div class="kpis">
       <div class="kpi"><b>${d.totals.tenants}</b><span>operações</span></div>
       <div class="kpi"><b>${d.totals.users}</b><span>usuários</span></div>
@@ -166,12 +174,40 @@ function auditTable(rows, withTenant = false) {
   return `<div class="table-wrap"><table><thead><tr><th>Quando</th><th>Ação</th>${withTenant ? '<th>Quem</th>' : ''}<th>Detalhe</th></tr></thead><tbody>${rows.map((a) => `<tr><td class="mono">${fmtDate(a.created_at)}</td><td>${esc(a.action)}</td>${withTenant ? `<td>${esc(a.email || '—')}</td>` : ''}<td class="muted">${esc(JSON.stringify(a.data)).slice(0, 120)}</td></tr>`).join('')}</tbody></table></div>`;
 }
 
+// ---------- insights do pesquisador de IA ----------
+async function viewInsights(r) {
+  if (!S.me.user.isSuper) { location.hash = '#/'; return; }
+  const st = new URLSearchParams(location.hash.split('?')[1] || '').get('status') || 'novo';
+  const d = await api('GET', `/api/admin/insights?status=${encodeURIComponent(st)}`);
+  const nivel = (n) => '●'.repeat(n) + '○'.repeat(5 - n);
+  const tabs = [['novo', 'Novos'], ['aceito', 'Aceitos'], ['aplicado', 'Aplicados'], ['descartado', 'Descartados']];
+  const main = layout(r, `<div class="page-head"><div><h1>Insights de IA</h1><p>O pesquisador procura na internet a cada 20 minutos e traz achados com fonte e ação sugerida. Nada é aplicado sozinho: você aceita (vira tarefa) ou descarta.</p></div></div>
+    <div class="row" style="margin-bottom:12px">${tabs.map(([k, l]) => `<a class="btn ${k === st ? 'primary' : ''}" href="#/insights?status=${k}">${l} · ${d.counts[k] || 0}</a>`).join('')}</div>
+    ${d.insights.length ? d.insights.map((i) => `<div class="card"><div class="card-head">${i.urgente ? '<span class="pill bad">urgente</span>' : ''}<span class="pill info">${esc(i.tipo)}</span><span class="pill">${esc(i.tema)}</span>
+        ${i.aplicavel.map((a) => `<span class="pill gold">${esc(a)}</span>`).join('')}<span class="spacer"></span><span class="muted mono" style="font-size:12px">${fmtDate(i.created_at)}</span></div>
+      <h2>${esc(i.titulo)}</h2><p style="margin-top:6px">${esc(i.resumo)}</p>
+      <p><strong>Ação sugerida:</strong> ${esc(i.acao)}</p>
+      <div class="row muted" style="font-size:12.5px"><span>Impacto <span class="mono">${nivel(i.impacto)}</span></span><span>Esforço <span class="mono">${nivel(i.esforco)}</span></span><span>Confiança <span class="mono">${nivel(i.confianca)}</span></span>
+        <a href="${esc(i.fonte_url)}" target="_blank" rel="noopener noreferrer">fonte${i.fonte_data ? ` (${esc(i.fonte_data)})` : ''} ↗</a></div>
+      ${i.nota ? `<p class="muted" style="margin-top:6px">Nota: ${esc(i.nota)}</p>` : ''}
+      <div class="row end" style="margin-top:10px">${st !== 'aceito' ? `<button class="btn sm primary" type="button" data-ins="${esc(i.id)}" data-st="aceito">Aceitar</button>` : `<button class="btn sm gold" type="button" data-ins="${esc(i.id)}" data-st="aplicado">Marcar como aplicado</button>`}
+        ${st !== 'descartado' ? `<button class="btn sm" type="button" data-ins="${esc(i.id)}" data-st="descartado">Descartar</button>` : ''}</div></div>`).join('')
+      : '<div class="empty">Nada aqui ainda. O primeiro ciclo do pesquisador traz os primeiros achados.</div>'}`);
+  $$('[data-ins]', main).forEach((b) => b.addEventListener('click', async () => {
+    const nota = b.dataset.st === 'descartado' ? (prompt('Motivo (opcional):') || '') : '';
+    await api('PATCH', `/api/admin/insights/${b.dataset.ins}`, { status: b.dataset.st, nota });
+    toast({ aceito: 'Aceito. O coordenador transforma em tarefa.', aplicado: 'Marcado como aplicado.', descartado: 'Descartado.' }[b.dataset.st]);
+    route();
+  }));
+}
+
 // ---------- nova operação (assistente) ----------
 async function viewNova(r) {
   if (!S.me.user.isSuper) { location.hash = '#/'; return; }
-  const W = { step: 0, niche: 'poker', template: null, theme: {}, data: { settings: {} }, modules: null };
+  const single = S.meta.niches.length === 1; // edição de um nicho só (SX): pula a escolha do nicho
+  const W = { step: single ? 1 : 0, niche: S.meta.edition?.defaultNiche || S.meta.niches[0]?.id || 'poker', template: null, theme: {}, data: { settings: {} }, modules: null };
   const STEPS = ['Nicho', 'Dados', 'Modelo', 'Aparência', 'Módulos', 'Revisar'];
-  const main = layout(r, `<div class="page-head"><div><h1>Nova operação</h1><p>Do cadastro ao site pronto para editar, em seis passos.</p></div></div>
+  const main = layout(r, `<div class="page-head"><div><h1>${esc(S.ed.terms.newOperation)}</h1><p>Do cadastro ao site pronto para editar, em ${single ? 'cinco' : 'seis'} passos.</p></div></div>
     <div class="wizard"><ol class="wiz-steps" id="wiz-steps"></ol><div class="card" id="wiz-body"></div></div>`);
   const body = $('#wiz-body', main);
   const niche = () => S.meta.niches.find((n) => n.id === W.niche);
@@ -210,7 +246,7 @@ async function viewNova(r) {
           : '<div class="empty">Ainda não há modelos para este nicho. A operação pode ser criada sem site e ganhar um depois.</div>'}`;
       $$('[data-tpl]', body).forEach((b) => b.addEventListener('click', () => {
         W.template = b.dataset.tpl;
-        W.theme = { ...(templates.find((t) => t.id === W.template)?.theme || {}) };
+        W.theme = { ...(templates.find((t) => t.id === W.template)?.theme || {}), ...(S.meta.edition?.siteTheme || {}) }; // edição SX: paleta da SX por padrão
         draw();
       }));
     }
@@ -245,7 +281,7 @@ async function viewNova(r) {
         <tr><th>Integrações</th><td>Começam como <span class="pill warn">pendente de configuração</span>; nada é conectado sem você.</td></tr>
       </tbody></table><p class="err" id="w-err"></p>`;
     }
-    body.insertAdjacentHTML('beforeend', `<div class="row end" style="margin-top:18px">${W.step ? '<button class="btn" type="button" id="w-back">Voltar</button>' : ''}
+    body.insertAdjacentHTML('beforeend', `<div class="row end" style="margin-top:18px">${W.step > (single ? 1 : 0) ? '<button class="btn" type="button" id="w-back">Voltar</button>' : ''}
       <button class="btn primary" type="button" id="w-next">${W.step === STEPS.length - 1 ? 'Criar operação' : 'Continuar'}</button></div>`);
     $('#w-back')?.addEventListener('click', () => { collect(); W.step--; draw(); });
     $('#w-next').addEventListener('click', next);
@@ -685,8 +721,10 @@ async function boot() {
     S.me = await api('GET', '/api/me');
     S.csrf = S.me.csrf;
     S.meta = await api('GET', '/api/meta');
+    applyEdition(S.meta.edition);
   } catch { return; }
   route();
 }
 window.addEventListener('hashchange', route);
-fetch('/api/me', { headers: { Accept: 'application/json' } }).then((r) => (r.ok ? boot() : renderLogin())).catch(renderLogin);
+fetch('/api/edition').then((r) => r.json()).then(applyEdition).catch(() => {})
+  .finally(() => fetch('/api/me', { headers: { Accept: 'application/json' } }).then((r) => (r.ok ? boot() : renderLogin())).catch(renderLogin));

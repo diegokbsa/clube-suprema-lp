@@ -108,8 +108,9 @@ function load(repo, id) {
 
 export const routes = [
   {
-    method: 'GET', path: '/api/t/:tenant/journeys', perm: 'site.read', handler: ({ repo, db, tenant }) => ({
-      presets: Object.entries(PRESETS).filter(([, p]) => p.niches.includes('*') || p.niches.includes(tenant.niche_id)).map(([id, p]) => ({ id, name: p.name, description: p.description })),
+    method: 'GET', path: '/api/t/:tenant/journeys', perm: 'site.read', handler: ({ repo, db, tenant, app }) => ({
+      presets: Object.entries(PRESETS).filter(([id, p]) => (p.niches.includes('*') || p.niches.includes(tenant.niche_id)) && (!app.edition?.presets || app.edition.presets.includes(id)))
+        .map(([id, p]) => ({ id, name: p.name, description: p.description })),
       journeys: repo.all('journeys', {}, { order: 'created_at DESC' }).map((j) => {
         const variants = repo.all('journey_variants', { journey_id: j.id }, { order: 'key ASC' });
         return { ...jOut(j), variants: results(db, j, variants).map(({ key, name, weight, visitors, conversion }) => ({ key, name, weight, visitors, conversion })) };

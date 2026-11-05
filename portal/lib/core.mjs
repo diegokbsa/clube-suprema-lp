@@ -13,6 +13,7 @@ import { templateList, cleanTheme, FONTS, loadTemplates } from './templates.mjs'
 import { blockSchema, cleanBlocks } from './blocks.mjs';
 import { affiliateLink } from './attribution.mjs';
 import { seoChecklist, siteBase } from './seo.mjs';
+import { publicEdition } from './edition.mjs';
 
 const need = (cond, status, msg) => { if (!cond) throw new HttpError(status, msg); };
 const STAGES = ['novo', 'contato', 'qualificado', 'convertido', 'perdido'];
@@ -67,9 +68,14 @@ export const coreRoutes = [
     },
   },
 
+  { method: 'GET', path: '/api/edition', auth: false, handler: ({ app }) => publicEdition(app.edition) },
+
   // ---------- catálogo ----------
   {
-    method: 'GET', path: '/api/meta', handler: ({ app, query }) => ({ niches: publicNiches(), templates: templateList(query.niche || ''), blocks: blockSchema(),
+    method: 'GET', path: '/api/meta', handler: ({ app, query }) => ({ edition: { ...publicEdition(app.edition), siteTheme: app.edition.siteTheme },
+      niches: publicNiches().filter((n) => app.edition.allowsNiche(n.id)),
+      templates: templateList(query.niche || '').filter((t) => t.niches.includes('*') || t.niches.some((n) => app.edition.allowsNiche(n)))
+        .sort((a, b) => app.edition.templateOrder(a) - app.edition.templateOrder(b)), blocks: blockSchema(),
       roles: ROLES, fonts: FONTS, stages: STAGES, integrations: INTEGRATIONS, modules: app.moduleNav }),
   },
 
@@ -96,7 +102,8 @@ export const coreRoutes = [
   },
   {
     method: 'POST', path: '/api/tenants', super: true, handler: ({ db, body, user, app }) => {
-      const { tenant, site } = createTenant(db, body, { userId: user.id });
+      need(app.edition.allowsNiche(body.niche || app.edition.defaultNiche), 400, `A edição ${app.edition.name} não trabalha com esse nicho.`);
+      const { tenant, site } = createTenant(db, { ...body, niche: body.niche || app.edition.defaultNiche, theme: { ...(app.edition.siteTheme || {}), ...(body.theme || {}) } }, { userId: user.id });
       return { status: 201, body: { tenant: publicTenant(tenant), site: site && siteOut(site), adminUrl: `/admin/#/t/${tenant.slug}`,
         siteUrl: site ? `${app.origin}/s/${site.slug}/` : null } };
     },

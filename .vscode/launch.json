@@ -7,8 +7,17 @@
       "type": "node",
       "request": "launch",
       "program": "${workspaceFolder}/portal/server.mjs",
-      "env": { "PORTAL_PORT": "3400" },
+      "env": { "PORTAL_PORT": "3400", "PORTAL_EDITION": "geral" },
       "serverReadyAction": { "pattern": "no ar em (https?://\\S+)", "uriFormat": "%s/admin/", "action": "openExternally" },
+      "skipFiles": ["<node_internals>/**"]
+    },
+    {
+      "name": "Portal SX (edição do grupo SX, localhost:3401)",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/portal/server.mjs",
+      "env": { "PORTAL_PORT": "3401", "PORTAL_EDITION": "sx", "PORTAL_DATA_DIR": "${workspaceFolder}/portal/data-sx" },
+      "serverReadyAction": { "pattern": "no ar em (https?://\S+)", "uriFormat": "%s/admin/", "action": "openExternally" },
       "skipFiles": ["<node_internals>/**"]
     },
     {
@@ -28,6 +37,7 @@
     }
   ],
   "compounds": [
+    { "name": "Portal SX + Geral juntos", "configurations": ["Portal SX (edição do grupo SX, localhost:3401)", "Portal de Afiliação (painel em localhost:3400)"] },
     { "name": "Portal + LP juntos", "configurations": ["Portal de Afiliação (painel em localhost:3400)", "LP Clube Suprema (suprema.blog local, localhost:3000)"] }
   ]
 }

@@ -1,65 +1,68 @@
-# Portal de Afiliação no Bigue: portal.kbsa.app
+# Portal no Bigue: duas edições, um código
 
-Padrão do servidor: `<projeto>.kbsa.app` + `kbsa.app/<projeto>`, túnel Cloudflare `kbsa-bigue`, Caddy em `E:\LioraServidor`.
+| | Edição SX | Edição Geral |
+|---|---|---|
+| Para quem | grupo SX: clubes de poker, agentes e afiliados | todos os produtos e programas de afiliação |
+| Endereço | `https://sx.kbsa.app` | `https://portal.kbsa.app` (atalho `kbsa.app/portal`) |
+| Porta local | `127.0.0.1:3401` | `127.0.0.1:3400` |
+| Dados | `E:\LioraServidor\dados\portal-sx` | `E:\LioraServidor\dados\portal` |
+| Tarefas | `Portal SX - Servidor`, `Portal SX - Backup` (03:50) | `Portal - Servidor`, `Portal - Backup` (03:45) |
 
-| Item | Valor |
-|---|---|
-| Código | `E:\LioraServidor\apps\portal-afiliacao` (branch `portal-afiliacao` do GitHub `diegokbsa/clube-suprema-lp`) |
-| Dados | `E:\LioraServidor\dados\portal` (banco `portal.db`, chave do cofre, log, backups) |
-| Porta | `127.0.0.1:3400` (livre: o Bigue usa 4301, 4311, 4312, 5432, 8082, 8083, 8084) |
-| Tarefas | `Portal - Servidor` (boot, reinicia se cair) e `Portal - Backup` (03:45, 14 dias) |
-| Público | `https://portal.kbsa.app` (painel em `/admin/`, conector MCP em `/mcp`) e `https://kbsa.app/portal` → 302 |
+Código das duas: `E:\LioraServidor\apps\portal-afiliacao` (branch `portal-afiliacao` do GitHub privado `diegokbsa/clube-suprema-lp`).
+Portas livres no Bigue: ele usa 4301, 4311, 4312, 5432, 8082, 8083, 8084.
 
-## 1. Instalar (no Bigue, PowerShell como Administrador)
+## 1. Instalar ou atualizar (PowerShell como Administrador)
 
-```powershell
-powershell -ExecutionPolicy Bypass -File E:\LioraServidor\apps\portal-afiliacao\portal\deploy\instalar-bigue.ps1
-```
-
-Primeira vez (a pasta ainda não existe): baixe só o script e rode.
+Primeira vez:
 
 ```powershell
 git clone --branch portal-afiliacao --single-branch https://github.com/diegokbsa/clube-suprema-lp.git E:\LioraServidor\apps\portal-afiliacao
-powershell -ExecutionPolicy Bypass -File E:\LioraServidor\apps\portal-afiliacao\portal\deploy\instalar-bigue.ps1
 ```
 
-Termina com `Portal no ar em http://127.0.0.1:3400`. A senha do primeiro acesso fica em `E:\LioraServidor\dados\portal\credenciais-iniciais.txt`.
+Depois, uma linha por edição (as mesmas linhas atualizam depois):
 
-## 2. Atualizar depois
+```powershell
+powershell -ExecutionPolicy Bypass -File E:\LioraServidor\apps\portal-afiliacao\portal\deploy\instalar-bigue.ps1
+powershell -ExecutionPolicy Bypass -File E:\LioraServidor\apps\portal-afiliacao\portal\deploy\instalar-bigue.ps1 -Edicao sx
+```
 
-Rodar o mesmo script: ele puxa a branch, reinicia e confere a saúde. Dados e chave do cofre ficam.
+Cada uma termina com `Portal (...) no ar em http://127.0.0.1:<porta>`. Primeiro acesso: `credenciais-iniciais.txt` na pasta de dados de cada edição.
 
-## 3. Túnel e DNS (Cloudflare Zero Trust)
+## 2. Túnel e DNS (Cloudflare Zero Trust → Networks → Tunnels → kbsa-bigue → Public Hostname → Add)
 
-O DNS de `portal.kbsa.app` não existia em 05/11 às 21h (Google e Cloudflare respondiam "domínio não existe").
+| Subdomínio | Domínio | Serviço |
+|---|---|---|
+| `portal` | `kbsa.app` | `HTTP` → `127.0.0.1:3400` |
+| `sx` | `kbsa.app` | `HTTP` → `127.0.0.1:3401` |
 
-- Túnel gerenciado pelo painel: **Zero Trust → Networks → Tunnels → kbsa-bigue → Public Hostname → Add**:
-  subdomínio `portal`, domínio `kbsa.app`, serviço `HTTP` → `127.0.0.1:3400`. O próprio painel cria o CNAME.
-- Túnel por arquivo (`config.yml` do cloudflared): acrescente antes da regra final `- service: http_status:404`
+O painel cria os registros de DNS. Túnel por arquivo: acrescente as duas regras `hostname`/`service` no `config.yml` antes da regra final e rode
+`cloudflared tunnel route dns kbsa-bigue portal.kbsa.app` e `... sx.kbsa.app`.
 
-  ```yaml
-  - hostname: portal.kbsa.app
-    service: http://127.0.0.1:3400
-  ```
+## 3. Atalho kbsa.app/portal (Caddy)
 
-  e crie o DNS: `cloudflared tunnel route dns kbsa-bigue portal.kbsa.app`. Reinicie o serviço Cloudflared.
+Copie `portal/deploy/portal.caddy` para `E:\LioraServidor\kbsa-deploy\caddy\rotas\portal.caddy` e recarregue o Caddy.
 
-## 4. Atalho kbsa.app/portal (Caddy)
+## 4. Pesquisador de IA (roda no PC GPT)
 
-Copie `portal/deploy/portal.caddy` para `E:\LioraServidor\kbsa-deploy\caddy\rotas\portal.caddy` e recarregue o Caddy
-(o mesmo jeito das rotas `dindin.caddy`, `biglinks`, `codiguin`).
+Para os insights chegarem às instalações do Bigue, copie o conteúdo de `token-servico.txt` de cada pasta de dados para
+`C:\AgentSetup\secrets\portal-servico.env` no PC GPT:
+
+```
+PORTAL_GERAL_TOKEN=<conteúdo de E:\LioraServidor\dados\portal\token-servico.txt>
+PORTAL_SX_TOKEN=<conteúdo de E:\LioraServidor\dados\portal-sx\token-servico.txt>
+```
 
 ## 5. Conferir
 
 ```powershell
-curl.exe -s https://portal.kbsa.app/healthz
-curl.exe -s https://portal.kbsa.app/.well-known/oauth-protected-resource
-curl.exe -sI https://kbsa.app/portal
+curl.exe -s https://portal.kbsa.app/api/edition
+curl.exe -s https://sx.kbsa.app/api/edition
+curl.exe -s https://sx.kbsa.app/.well-known/oauth-protected-resource
 ```
 
-Esperado: `{"ok":true,...}`, o JSON com `"resource":"https://portal.kbsa.app/mcp"` e `302` para `https://portal.kbsa.app/`.
+Esperado: `{"id":"geral",...}`, `{"id":"sx",...}` e o JSON com `"resource":"https://sx.kbsa.app/mcp"`.
 
 ## Voltar atrás
 
-`Stop-ScheduledTask 'Portal - Servidor'`, `Unregister-ScheduledTask 'Portal - Servidor','Portal - Backup' -Confirm:$false`,
-tirar o hostname do túnel e a rota do Caddy. A pasta de dados fica; o último backup está em `dados\portal\backups`.
+`Stop-ScheduledTask` e `Unregister-ScheduledTask` das tarefas da edição, tirar o hostname do túnel e a rota do Caddy.
+A pasta de dados fica; o último backup está em `backups\` dentro dela.
