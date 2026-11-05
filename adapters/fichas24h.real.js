@@ -24,6 +24,16 @@ class F24hError extends Error {
   }
 }
 
+// Formato da resposta sem os valores: { campo: tipo }, listas pelo 1º item. Mensagens de erro curtas aparecem inteiras.
+function shape(v, depth = 0) {
+  if (Array.isArray(v)) return `[${v.length}× ${v.length ? shape(v[0], depth + 1) : ''}]`;
+  if (v && typeof v === 'object') {
+    if (depth > 2) return '{…}';
+    return `{${Object.entries(v).map(([k, x]) => `${k}:${/message|msg|error|status|code|type|validated|situation/i.test(k) && typeof x !== 'object' ? JSON.stringify(x).slice(0, 80) : shape(x, depth + 1)}`).join(', ')}}`;
+  }
+  return typeof v;
+}
+
 function messageFrom(body, fallback) {
   if (!body || typeof body !== 'object') return fallback;
   return body.message || body.msg || body.error_description || body.error || fallback;
@@ -46,6 +56,12 @@ async function call(url, { method = 'GET', body, token, headers = {}, query } = 
   const text = await res.text();
   let data = null;
   try { data = text ? JSON.parse(text) : null; } catch { data = text; }
+  // F24H_DEBUG=1: registra o formato das respostas (só os nomes dos campos e o status, nunca token ou dados pessoais).
+  if (process.env.F24H_DEBUG) console.log(`[f24h] ${method} ${full.pathname} -> ${res.status} ${shape(data)}`);
+  // 403 em texto (não JSON) é o firewall do Fichas 24h barrando o nosso servidor: só a Sayplus libera (IP do servidor).
+  if (res.status === 403 && typeof data !== 'object') {
+    throw new F24hError('O Fichas 24h ainda não liberou o nosso servidor. Fale com o suporte 24h para terminar sua compra de fichas.', 403, data);
+  }
   if (!res.ok) throw new F24hError(messageFrom(data, `Fichas 24h respondeu ${res.status}.`), res.status, data);
   return data;
 }

@@ -13,6 +13,13 @@
       "runtimeArgs": ["server.js"],
       "port": 3100,
       "env": { "PORT": "3100", "FLOW": "completo", "SUPREMA_MODE": "app", "F24H_MODE": "mock", "DATA_DIR": "data/teste-jornada" }
+    },
+    {
+      "name": "lp-jornada-real",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["server.js"],
+      "port": 3200,
+      "env": { "PORT": "3200", "FLOW": "completo", "SUPREMA_MODE": "app", "F24H_MODE": "real", "F24H_DEBUG": "1", "DATA_DIR": "data/teste-real" }
     }
   ]
 }
