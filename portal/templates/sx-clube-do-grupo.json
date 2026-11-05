@@ -1,0 +1,407 @@
+{
+  "id": "sx-clube-do-grupo",
+  "name": "Clube do grupo (edição SX)",
+  "order": 21,
+  "version": 1,
+  "category": "Poker · edição SX",
+  "niches": [
+    "poker"
+  ],
+  "description": "Página de clube apoiado por um grupo: benefícios de estrutura (atendimento, fichas, liga), clubes parceiros e conversão pelo convite. Conteúdo de exemplo identificado.",
+  "inspiredBy": "sx",
+  "theme": {
+    "mode": "escuro",
+    "bg": "#0f0f0f",
+    "surface": "#171717",
+    "text": "#f4f6f7",
+    "muted": "#a1a9ae",
+    "primary": "#39bcff",
+    "primaryText": "#04141d",
+    "accent": "#6af8ff",
+    "border": "#262c30",
+    "font": "Manrope",
+    "fontHead": "Archivo",
+    "radius": 12
+  },
+  "seo": {
+    "title": "{{name}} · Clube com estrutura de grupo",
+    "description": "Jogue no {{name}} ({{app}}) com atendimento 24h, fichas por PIX e agenda de torneios. Somente +18."
+  },
+  "pages": [
+    {
+      "slug": "",
+      "title": "Início",
+      "blocks": [
+        {
+          "type": "navbar",
+          "props": {
+            "brand": "{{name}}",
+            "logo": "{{logo}}",
+            "links": [
+              {
+                "label": "Torneios",
+                "href": "/torneios"
+              },
+              {
+                "label": "Fichas",
+                "href": "/fichas"
+              },
+              {
+                "label": "Dúvidas",
+                "href": "#duvidas"
+              }
+            ],
+            "cta": "Entrar no clube",
+            "ctaHref": "{{inviteLink}}",
+            "variant": "barra"
+          }
+        },
+        {
+          "type": "hero",
+          "props": {
+            "eyebrow": "{{app}} · {{unitLabel}}",
+            "title": "O seu clube, com estrutura de grupo por trás.",
+            "subtitle": "Atendimento 24h, compra de fichas por PIX e agenda cheia de torneios — do cadastro à mesa sem fricção.",
+            "cta": "Entrar no clube",
+            "ctaHref": "{{inviteLink}}",
+            "secondary": "Ver torneios",
+            "secondaryHref": "/torneios",
+            "note": "Somente +18 · jogue com responsabilidade",
+            "variant": "dividido"
+          }
+        },
+        {
+          "type": "logos",
+          "props": {
+            "title": "Clubes que fazem parte do grupo (exemplos)",
+            "items": [
+              {
+                "name": "Clube parceiro A (exemplo)",
+                "href": "#"
+              },
+              {
+                "name": "Clube parceiro B (exemplo)",
+                "href": "#"
+              },
+              {
+                "name": "Clube parceiro C (exemplo)",
+                "href": "#"
+              },
+              {
+                "name": "Clube parceiro D (exemplo)",
+                "href": "#"
+              }
+            ]
+          }
+        },
+        {
+          "type": "features",
+          "props": {
+            "title": "O que a estrutura de grupo entrega",
+            "items": [
+              {
+                "icon": "24h",
+                "title": "Atendimento que não dorme",
+                "text": "Suporte humano todos os dias, a qualquer hora, no WhatsApp e no Telegram."
+              },
+              {
+                "icon": "PIX",
+                "title": "Fichas por PIX",
+                "text": "Compra e saque pelo canal oficial de fichas, com confirmação no chat."
+              },
+              {
+                "icon": "♠",
+                "title": "Agenda de torneios",
+                "text": "Grade diária no {{app}}, do micro ao high."
+              },
+              {
+                "icon": "✓",
+                "title": "Operação organizada",
+                "text": "Regras claras de clube, saque e conduta — publicadas e cumpridas."
+              }
+            ],
+            "variant": "grade"
+          }
+        },
+        {
+          "type": "stats",
+          "props": {
+            "items": [
+              {
+                "value": "24h",
+                "label": "atendimento todos os dias"
+              },
+              {
+                "value": "7",
+                "label": "dias por semana com torneios (exemplo)"
+              },
+              {
+                "value": "+18",
+                "label": "somente maiores de idade"
+              }
+            ],
+            "demo": true
+          }
+        },
+        {
+          "type": "cta",
+          "props": {
+            "title": "Pronto para sentar na mesa?",
+            "text": "Entre pelo link do clube e jogue ainda hoje.",
+            "cta": "Entrar no clube",
+            "ctaHref": "{{inviteLink}}",
+            "variant": "escuro"
+          }
+        },
+        {
+          "type": "faq",
+          "props": {
+            "title": "Perguntas frequentes",
+            "items": [
+              {
+                "q": "O que muda por o clube ter um grupo por trás?",
+                "a": "Estrutura: atendimento 24h, canal oficial de fichas e agenda organizada. O seu jogo continua no app {{app}}, no clube {{number}}."
+              },
+              {
+                "q": "Como entro?",
+                "a": "Pelo link de convite, com o app {{app}} instalado. O agente {{agentId}} aparece na entrada."
+              },
+              {
+                "q": "Como compro fichas?",
+                "a": "No canal oficial de fichas, por PIX, com suporte em cada passo. Detalhes na página Fichas."
+              }
+            ],
+            "anchor": "duvidas"
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "text": "{{unitLabel}} com estrutura de grupo, no app {{app}}.",
+            "links": [
+              {
+                "label": "Torneios",
+                "href": "/torneios"
+              },
+              {
+                "label": "Fichas",
+                "href": "/fichas"
+              },
+              {
+                "label": "Privacidade",
+                "href": "/privacidade"
+              }
+            ],
+            "disclaimer": "{{disclaimer}}"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "torneios",
+      "title": "Torneios",
+      "seo": {
+        "description": "Agenda de torneios do {{name}} no app {{app}}."
+      },
+      "blocks": [
+        {
+          "type": "navbar",
+          "props": {
+            "brand": "{{name}}",
+            "logo": "{{logo}}",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Fichas",
+                "href": "/fichas"
+              }
+            ],
+            "cta": "Entrar no clube",
+            "ctaHref": "{{inviteLink}}",
+            "variant": "barra"
+          }
+        },
+        {
+          "type": "hero",
+          "props": {
+            "eyebrow": "Agenda",
+            "title": "Torneios da semana",
+            "subtitle": "Grade de exemplo: a operação publica a agenda real do clube.",
+            "variant": "centralizado"
+          }
+        },
+        {
+          "type": "schedule",
+          "props": {
+            "items": [
+              {
+                "day": "Segunda",
+                "time": "20:00",
+                "name": "Segunda clássica (exemplo)",
+                "detail": "NLH · buy-in a definir",
+                "prize": "Garantido a definir"
+              },
+              {
+                "day": "Quinta",
+                "time": "21:00",
+                "name": "Quinta turbo (exemplo)",
+                "detail": "NLH turbo · buy-in a definir",
+                "prize": "—"
+              },
+              {
+                "day": "Domingo",
+                "time": "18:00",
+                "name": "Principal do domingo (exemplo)",
+                "detail": "NLH · buy-in a definir",
+                "prize": "Maior garantido da semana"
+              }
+            ],
+            "cta": "Quero jogar",
+            "ctaHref": "{{inviteLink}}"
+          }
+        },
+        {
+          "type": "notice",
+          "props": {
+            "text": "Horários no fuso de Brasília. Grade de exemplo: dias, buy-ins e garantidos são definidos pela operação.",
+            "variant": "discreto"
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Privacidade",
+                "href": "/privacidade"
+              }
+            ],
+            "disclaimer": "{{disclaimer}}"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "fichas",
+      "title": "Fichas",
+      "seo": {
+        "description": "Como comprar e sacar fichas no {{name}}."
+      },
+      "blocks": [
+        {
+          "type": "navbar",
+          "props": {
+            "brand": "{{name}}",
+            "logo": "{{logo}}",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Torneios",
+                "href": "/torneios"
+              }
+            ],
+            "cta": "Comprar fichas",
+            "ctaHref": "{{chipsUrl}}",
+            "variant": "barra"
+          }
+        },
+        {
+          "type": "steps",
+          "props": {
+            "title": "Compra e saque, sem mistério",
+            "items": [
+              {
+                "title": "Abra o canal oficial de fichas",
+                "text": "Pelo botão desta página. Informe o seu ID do {{app}}, o clube {{number}} e o agente {{agentId}}."
+              },
+              {
+                "title": "Pague por PIX",
+                "text": "Na chave informada pelo atendente, com comprovante no próprio chat."
+              },
+              {
+                "title": "Receba e jogue",
+                "text": "As fichas caem na sua conta do app. Para sacar, o caminho é o mesmo, com PIX no seu CPF."
+              }
+            ],
+            "variant": "linha-do-tempo"
+          }
+        },
+        {
+          "type": "contact",
+          "props": {
+            "title": "Suporte de fichas 24h",
+            "whatsapp": "{{whatsapp}}",
+            "telegram": "{{telegram}}",
+            "hours": "Todos os dias, 24 horas."
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Privacidade",
+                "href": "/privacidade"
+              }
+            ],
+            "disclaimer": "{{disclaimer}}"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "privacidade",
+      "title": "Privacidade",
+      "seo": {
+        "description": "Como o {{name}} trata seus dados."
+      },
+      "blocks": [
+        {
+          "type": "navbar",
+          "props": {
+            "brand": "{{name}}",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              }
+            ],
+            "variant": "barra"
+          }
+        },
+        {
+          "type": "text",
+          "props": {
+            "title": "Privacidade",
+            "body": "Texto-base para revisão jurídica da operação.\n\nColetamos nome, e-mail e telefone só quando você envia um formulário, para entrar em contato sobre o clube. Você pode pedir a exclusão a qualquer momento pelos canais de atendimento.\n\nCookies de medição (Google e Meta) só são ativados se você aceitar no aviso do site.",
+            "variant": "estreito"
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "disclaimer": "{{disclaimer}}"
+          }
+        }
+      ]
+    }
+  ]
+}
