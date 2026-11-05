@@ -54,7 +54,7 @@ ${ogImage ? `<meta property="og:image" content="${esc(ogImage)}">` : ''}
 <style>${themeCss(theme)}</style>
 ${preview ? '' : `<script type="application/ld+json">${jsonLd({ site, page, tenant, canonical: canonical || `${origin}${base}/${page.slug}`, origin: origin || '', base, description, logo: parse(tenant.settings, {}).logo })}</script>`}
 </head>
-<body class="mode-${theme.mode}" data-site="${esc(site.id)}" data-page="${esc(page.slug)}" data-ga4="${esc(ga4)}" data-gtm="${esc(gtm)}" data-pixel="${esc(pixel)}">
+<body class="mode-${theme.mode}" data-site="${esc(site.id)}" data-page="${esc(page.slug)}" data-base="${esc(base)}"${preview ? ' data-preview="1"' : ''} data-ga4="${esc(ga4)}" data-gtm="${esc(gtm)}" data-pixel="${esc(pixel)}">
 ${preview ? '<div class="preview-bar">Prévia do rascunho · não publicado</div>' : ''}
 ${tenant.demo ? '<div class="demo-bar">Site de demonstração: dados e textos de exemplo.</div>' : ''}
 <main>

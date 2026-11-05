@@ -177,6 +177,16 @@ export const BLOCKS = {
         ${p.hours ? `<p class="note">${esc(p.hours)}</p>` : ''}</div></section>`;
     },
   },
+  journey: {
+    label: 'Jornada guiada (teste A/B)',
+    fields: [F.text('title', 'Título'), F.area('text', 'Texto'), F.text('cta', 'Botão que abre a jornada'), F.text('journey', 'Jornada (escolha em Jornadas e teste A/B → Colocar no site)'),
+      F.select('variant', 'Composição', ['cartao', 'faixa', 'botao'])],
+    render: (p) => {
+      const id = /^[0-9a-f-]{36}$/.test(p.journey || '') ? p.journey : '';
+      const button = id ? `<button class="btn btn-lg" type="button" data-journey="${esc(id)}" data-cta="${esc(p.cta || 'Começar')}">${esc(p.cta || 'Começar')}</button>` : '<p class="note">Escolha a jornada deste bloco no painel.</p>';
+      return `<section class="b b-journey v-${variant(p, ['cartao', 'faixa', 'botao'], 'cartao')}"><div class="wrap"><div class="jx-box">${p.title ? `<h2>${esc(p.title)}</h2>` : ''}${para(p.text)}${button}</div></div></section>`;
+    },
+  },
   notice: {
     label: 'Aviso (legal, idade, demonstração)',
     fields: [F.area('text', 'Texto'), F.select('variant', 'Tom', ['discreto', 'alerta'])],

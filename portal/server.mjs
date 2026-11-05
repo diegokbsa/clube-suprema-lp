@@ -96,6 +96,7 @@ export async function createApp({ db, origin = 'http://localhost:3400', secretKe
       const params = r.match(`/${rest}`);
       if (params) return r.handler({ req, res, db, app, site, tenant, repo, base, params, pages, origin: siteOrigin, send });
     }
+    if (req.method !== 'GET') return send(res, 405, 'Método não permitido.');
     const slug = String(rest || '').replace(/\/$/, '');
     const page = pages.find((p) => p.slug === slug);
     if (!page || !page.published) return send(res, 404, renderNotFound(site), { 'Content-Type': 'text/html; charset=utf-8' });
@@ -123,6 +124,7 @@ export async function createApp({ db, origin = 'http://localhost:3400', secretKe
     const click = clickId ? repo.get('clicks', String(clickId)) : null;
     const fresh = click && (Date.now() - Date.parse(click.created_at)) / 864e5 <= windowDaysOf(tenant);
     const utm = { ...(click ? parse(click.utm, {}) : {}), ...pickUtm(body) };
+    if (/^[0-9a-f-]{36}$/.test(String(body.journey_id || '')) && /^[a-h]$/.test(String(body.variant || ''))) Object.assign(utm, { jornada_id: body.journey_id, variante: body.variant }); // teste A/B
     const lead = repo.insert('leads', { site_id: site.id, page_slug: String(body.page || '').slice(0, 60), email, name: String(body.name || '').trim().slice(0, 80) || null,
       phone: String(body.phone || '').replace(/[^\d+]/g, '').slice(0, 20) || null, utm: JSON.stringify(utm), click_id: fresh ? click.id : null,
       affiliate_id: fresh ? click.affiliate_id : null, consent: 1, stage: 'novo', demo: tenant.demo });
@@ -229,7 +231,7 @@ export async function createApp({ db, origin = 'http://localhost:3400', secretKe
       if (p.startsWith('/admin/')) return serveStatic(res, p === '/admin/' ? 'admin/index.html' : p.slice(1));
       if (p.startsWith('/assets/')) return serveStatic(res, p.slice(1));
       let m = /^\/s\/([a-z0-9-]+)(?:\/(.*))?$/.exec(p);
-      if (m && req.method === 'GET') {
+      if (m && (req.method === 'GET' || (req.method === 'POST' && app.publicRoutes.length))) { // POST só chega às rotas públicas de módulos (ex.: eventos da jornada)
         const site = siteBySlug(m[1]);
         if (!site) return send(res, 404, 'Site não encontrado.');
         if (m[2] === undefined) return send(res, 301, '', { Location: `/s/${m[1]}/${url.search}` });

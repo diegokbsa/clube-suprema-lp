@@ -88,6 +88,14 @@
     });
   });
 
+  // Jornada guiada (teste A/B): carrega o script só se a página tiver o bloco
+  if (document.querySelector('[data-journey]')) {
+    const s = document.createElement('script');
+    s.src = '/assets/journey.js';
+    s.defer = true;
+    document.body.appendChild(s);
+  }
+
   document.addEventListener('click', (e) => {
     const a = e.target.closest('[data-cta]');
     if (a) window.portalTrack('cta_click', { label: a.dataset.cta, page: body.dataset.page });

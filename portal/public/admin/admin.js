@@ -100,7 +100,7 @@ function layout(route, inner) {
 
 // ---------- rotas ----------
 function parseRoute() {
-  const parts = location.hash.replace(/^#\/?/, '').split('/').filter(Boolean);
+  const parts = location.hash.replace(/^#\/?/, '').split('?')[0].split('/').filter(Boolean);
   if (!parts.length) return { view: 'central' };
   if (parts[0] === 'nova') return { view: 'nova' };
   if (parts[0] === 't') {

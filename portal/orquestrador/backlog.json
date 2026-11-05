@@ -911,6 +911,43 @@
         "Post criado pela IA dispara SEO só ao ser publicado por uma pessoa"
       ],
       "validacao": "npm run portal:test"
+    },
+    {
+      "id": "PA-113",
+      "epico": "E04 Jornada Clube 10002",
+      "titulo": "Jornadas guiadas com teste A/B montáveis no painel",
+      "agente": "claude",
+      "prioridade": "alta",
+      "estimativa": "4h",
+      "deps": [
+        "PA-004"
+      ],
+      "status": "concluida",
+      "objetivo": "O usuário monta a jornada do visitante em passos (como a do suprema.blog), cria variantes, divide o tráfego, mede cada passo e declara a vencedora.",
+      "escopo": [
+        "portal/lib/modules/journeys.mjs",
+        "portal/lib/schema/30-journeys.sql",
+        "portal/public/assets/journey.js",
+        "portal/public/admin/modules/jornadas.js"
+      ],
+      "entregaveis": [
+        "7 tipos de passo",
+        "modelo pronto A/B do suprema.blog",
+        "bloco Jornada no construtor",
+        "eventos únicos por visitante",
+        "lead com a variante no CRM",
+        "funil e teste estatístico",
+        "vencedora"
+      ],
+      "aceite": [
+        "Jornada em rascunho não é pública",
+        "Evento repetido não conta duas vezes",
+        "Lead leva jornada e variante",
+        "Poucos dados não declaram vencedora",
+        "Editor não inicia teste",
+        "Outra operação não enxerga"
+      ],
+      "validacao": "npm run portal:test"
     }
   ]
 }
