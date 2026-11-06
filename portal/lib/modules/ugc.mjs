@@ -501,7 +501,9 @@ function limparPeca(obj = {}) {
   return out;
 }
 const opcoesPreflight = (tenant, persona) => ({ nicho: tenant.niche_id, edicao: tenant.edition, rede: persona?.rede, formato: persona?.formato });
-const preflightDe = (tenant, persona, peca) => checarPeca(peca, opcoesPreflight(tenant, persona));
+// a lista de proibições do briefing ("Nunca fale: bônus, ganho...") é regra para quem grava, não texto publicado
+const semListaDeRegras = (t) => String(t || '').split('\n').filter((l) => !/^\s*(nunca fale|n[ãa]o fale|regras|obrigat[óo]rio na legenda)\s*:/i.test(l)).join('\n');
+const preflightDe = (tenant, persona, peca) => checarPeca({ ...peca, briefing: semListaDeRegras(peca.briefing) }, opcoesPreflight(tenant, persona));
 
 /** Tudo o que impede aprovar a peça, com o motivo em português. */
 export function checarAprovacao(repo, tenant, peca) {

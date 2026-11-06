@@ -193,3 +193,11 @@ test('checarPeca junta as partes e completarRodape acrescenta o que falta', () =
   assert.equal(completarRodape('Torneio hoje', SX), `Torneio hoje\n\n${RODAPE_JOGO}`);
   assert.equal(completarRodape(`Torneio hoje\n\n${RODAPE_JOGO}`, SX), `Torneio hoje\n\n${RODAPE_JOGO}`);
 });
+
+test('instrução negativa (briefing, regras) não bloqueia: "nunca prometa ganho", "não fale com menor de idade"', () => {
+  for (const t of ['Nunca prometa ganho fácil.', 'Não ofereça bônus.', 'Não fale com menor de idade.', 'Evite cashback no texto.', 'Nunca fale de renda extra.']) {
+    assert.equal(checarTexto(t, { ...SX, parte: 'briefing' }).bloqueios.length, 0, t);
+  }
+  // mas a oferta continua bloqueada
+  assert.equal(checarTexto('Ofereça bônus para quem chegar', { ...SX, parte: 'briefing' }).bloqueios.length, 1);
+});

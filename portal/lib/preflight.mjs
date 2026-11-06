@@ -87,11 +87,11 @@ const W = (alts) => `${B}(?:${alts.map(L).join('|')})${E}`;
 const rx = (src) => new RegExp(src, 'g');
 
 // negação logo antes do trecho: "sem bônus", "nada de dinheiro fácil", "não é dinheiro fácil"
-const NEGA = /(?:^|[^a-z0-9])(?:sem|nada de|nenhum|nenhuma|zero|jamais|nunca|nao tem|nao ha|nao existe|nao e|nao sao|nao damos|nao da|nao oferecemos|nao oferece|nao prometemos|nao promete|nao vendemos|nao trabalhamos com|esqueca|fuja de|cuidado com)\s+(?:o |a |os |as |de |um |uma |com |em )?$/;
+const NEGA = /(?:^|[^a-z0-9])(?:sem|nada de|nenhum|nenhuma|zero|jamais|nunca|nao tem|nao ha|nao existe|nao e|nao sao|nao damos|nao da|nao oferecemos|nao oferece|nao prometemos|nao promete|nao vendemos|nao trabalhamos com|esqueca|fuja de|cuidado com|evite|proibido|proibida|(?:nao|nunca|jamais) (?:fale|fala|falar|diga|diz|use|usa|prometa|promete|prometer|ofereca|oferece|oferecer|cite|mencione|faca))\s+(?:o |a |os |as |de |do |da |um |uma |com |em |sobre )?$/; // "sem bônus", "nunca prometa ganho"
 const negado = (t, ini) => NEGA.test(t.norm.slice(Math.max(0, ini - 40), ini));
 
 // ressalva legítima antes de "menores": "proibido para menores", "não é permitido para menores de 18"
-const RESSALVA_MENOR = /(?:proibid|vedad|nao (?:e |sao )?permitid|nao (?:e |sao )?indicad|restrit|impedid|bloquead|exceto|nao aceitamos|nao atendemos|nao e para|nao sao aceit|longe d|fora d)[^.!?\n]{0,30}$/;
+const RESSALVA_MENOR = /(?:proibid|vedad|nao (?:e |sao )?permitid|nao (?:e |sao )?indicad|restrit|impedid|bloquead|exceto|nao aceitamos|nao atendemos|nao e para|nao sao aceit|longe d|fora d|(?:nao|nunca|jamais) (?:fale|fala|falar|mire|mira|use|usa))[^.!?\n]{0,30}$/;
 
 // ---------- regras ----------
 const NAO_FINANCEIRO = ['tempo', 'produtividade', 'agilidade', 'praticidade', 'foco', 'experiencia', 'confianca', 'clareza', 'controle', 'horas', 'minutos', 'espaco', 'seguidores', 'conhecimento', 'pratica', 'disciplina'];
