@@ -1,35 +1,29 @@
-﻿# Instala ou atualiza o Portal no servidor Bigue (Windows). Rodar como Administrador.
-#   Edição Geral (todos os produtos e afiliações):  powershell -ExecutionPolicy Bypass -File instalar-bigue.ps1
-#   Edição SX (grupo SX, só poker):                  powershell -ExecutionPolicy Bypass -File instalar-bigue.ps1 -Edicao sx
-# O que faz (pode rodar de novo sem estragar nada; cada edição tem dados, porta e tarefas próprios):
-#   1. baixa/atualiza o código (branch portal-afiliacao) em E:\LioraServidor\apps\portal-afiliacao (o mesmo para as duas edições)
-#   2. cria a pasta de dados da edição (banco, chave do cofre, credenciais iniciais, token de serviço) com acesso só do Administrador
-#   3. registra a tarefa do servidor (sobe no boot, reinicia se cair) ouvindo só em 127.0.0.1
-#   4. registra o backup diário (03:45 a Geral, 03:50 a SX; 14 dias guardados)
-#   5. confere /healthz
-# Não mexe em Caddy, túnel nem DNS: isso está no LEIA-ME.md.
+﻿# Instala ou atualiza o Portal no servidor Bigue (Windows). Rodar como Administrador:
+#   powershell -ExecutionPolicy Bypass -File instalar-bigue.ps1
+# Um servidor e um banco para as duas edições (base única de clientes):
+#   - um processo ouve 127.0.0.1:3400 (Geral, portal.kbsa.app) e 127.0.0.1:3401 (SX, sx.kbsa.app); o túnel não muda
+#   - dados em E:\LioraServidor\dados\portal; se existir a instalação antiga separada da SX (dados\portal-sx),
+#     o banco dela é juntado UMA vez (com backup dos dois antes) e as tarefas antigas da SX são removidas
+#   - tarefa "Portal - Servidor" (boot, reinicia se cair) e "Portal - Backup" (03:45, 14 dias)
+# Pode rodar de novo: só atualiza o código e reinicia.
 param(
-  [ValidateSet('geral', 'sx')][string]$Edicao = 'geral',
   [string]$Repo = 'https://github.com/diegokbsa/clube-suprema-lp.git',
   [string]$Branch = 'portal-afiliacao',
   [string]$App = 'E:\LioraServidor\apps\portal-afiliacao',
-  [string]$Dados = '',
-  [string]$Origem = '',
-  [int]$Porta = 0,
+  [string]$Dados = 'E:\LioraServidor\dados\portal',
+  [string]$DadosSxAntigo = 'E:\LioraServidor\dados\portal-sx',
+  [string]$OrigemGeral = 'https://portal.kbsa.app',
+  [string]$OrigemSx = 'https://sx.kbsa.app',
   [string]$AdminEmail = 'h2odiegokbsa@gmail.com'
 )
 $ErrorActionPreference = 'Stop'
 function Passo($t) { Write-Host "`n== $t" -ForegroundColor Cyan }
-
-$padrao = @{
-  geral = @{ Dados = 'E:\LioraServidor\dados\portal'; Origem = 'https://portal.kbsa.app'; Porta = 3400; Tarefa = 'Portal - Servidor'; Backup = 'Portal - Backup'; Hora = '03:45' }
-  sx    = @{ Dados = 'E:\LioraServidor\dados\portal-sx'; Origem = 'https://sx.kbsa.app'; Porta = 3401; Tarefa = 'Portal SX - Servidor'; Backup = 'Portal SX - Backup'; Hora = '03:50' }
-}[$Edicao]
-if (-not $Dados) { $Dados = $padrao.Dados }
-if (-not $Origem) { $Origem = $padrao.Origem }
-if (-not $Porta) { $Porta = $padrao.Porta }
-$Tarefa = $padrao.Tarefa
-Write-Host "Edição: $Edicao · $Origem · 127.0.0.1:$Porta · dados em $Dados"
+function PararPortal {
+  foreach ($t in 'Portal - Servidor', 'Portal SX - Servidor') { Stop-ScheduledTask -TaskName $t -ErrorAction SilentlyContinue }
+  Get-CimInstance Win32_Process -Filter "Name='node.exe'" | Where-Object { $_.CommandLine -like '*portal\server.mjs*' } | ForEach-Object { Stop-Process -Id $_.ProcessId -Force }
+  Get-CimInstance Win32_Process -Filter "Name='cmd.exe'" | Where-Object { $_.CommandLine -like '*iniciar-portal.cmd*' } | ForEach-Object { Stop-Process -Id $_.ProcessId -Force }
+  Start-Sleep -Seconds 2
+}
 
 Passo 'Conferindo Node e Git'
 $node = (Get-Command node -ErrorAction Stop).Source
@@ -37,10 +31,6 @@ $ver = (& $node --version)
 if ([int]($ver.TrimStart('v').Split('.')[0]) -lt 22) { throw "Node $ver é antigo: o portal precisa do Node 22.5+ (node:sqlite). Instale o Node 24 LTS." }
 $git = (Get-Command git -ErrorAction Stop).Source
 Write-Host "node $ver · git ok"
-
-Passo 'Porta livre'
-$ocupada = Get-NetTCPConnection -LocalPort $Porta -State Listen -ErrorAction SilentlyContinue
-if ($ocupada -and -not (Get-ScheduledTask -TaskName $Tarefa -ErrorAction SilentlyContinue)) { throw "A porta $Porta já está em uso por outro programa (PID $($ocupada.OwningProcess))." }
 
 Passo 'Código'
 if (Test-Path (Join-Path $App '.git')) {
@@ -58,44 +48,56 @@ New-Item -ItemType Directory -Force $Dados | Out-Null
 New-Item -ItemType Directory -Force (Join-Path $Dados 'backups') | Out-Null
 icacls $Dados /inheritance:r /grant:r 'Administrators:(OI)(CI)F' 'SYSTEM:(OI)(CI)F' | Out-Null
 
-Passo 'Tarefa do servidor'
+PararPortal
+
+$bancoSx = Join-Path $DadosSxAntigo 'portal.db'
+if ((Test-Path $bancoSx) -and -not (Test-Path (Join-Path $DadosSxAntigo 'UNIFICADO.txt'))) {
+  Passo 'Juntando o banco da SX no banco único (backup dos dois antes)'
+  if (-not (Test-Path (Join-Path $Dados 'portal.db'))) { throw "Não achei $Dados\portal.db para receber a SX. Rode a instalação da Geral antes." }
+  & $node "$App\portal\tools\unificar-bancos.mjs" $Dados $DadosSxAntigo
+  if ($LASTEXITCODE -ne 0) { throw 'A junção dos bancos falhou; nada foi gravado. Os servidores ficaram parados: veja a mensagem acima.' }
+  $tokSx = Join-Path $DadosSxAntigo 'token-servico.txt'
+  if (Test-Path $tokSx) { Get-Content $tokSx | Add-Content -Encoding ASCII (Join-Path $Dados 'token-servico-extra.txt') }  # o pesquisador segue mandando com o token antigo da SX
+}
+foreach ($t in 'Portal SX - Servidor', 'Portal SX - Backup') {
+  if (Get-ScheduledTask -TaskName $t -ErrorAction SilentlyContinue) { Unregister-ScheduledTask -TaskName $t -Confirm:$false; Write-Host "tarefa antiga removida: $t" }
+}
+
+Passo 'Tarefa do servidor (as duas edições)'
 $cmd = Join-Path $Dados 'iniciar-portal.cmd'
 @"
 @echo off
-set PORTAL_EDITION=$Edicao
-set PORTAL_PORT=$Porta
+set PORTAL_EDITION=geral
+set PORTAL_PORT=3400:geral,3401:sx
 set PORTAL_HOST=127.0.0.1
-set PORTAL_ORIGIN=$Origem
+set PORTAL_ORIGIN=$OrigemGeral
+set PORTAL_ORIGIN_GERAL=$OrigemGeral
+set PORTAL_ORIGIN_SX=$OrigemSx
 set PORTAL_DATA_DIR=$Dados
 set PORTAL_ADMIN_EMAIL=$AdminEmail
 cd /d "$App"
 :loop
-"$node" portal\server.mjs --edicao $Edicao >> "$Dados\portal.log" 2>&1
+"$node" portal\server.mjs --unificado >> "$Dados\portal.log" 2>&1
 timeout /t 5 /nobreak >nul
 goto loop
 "@ | Set-Content -Encoding ASCII $cmd
 $acao = New-ScheduledTaskAction -Execute 'cmd.exe' -Argument "/c `"$cmd`""
-$gatilho = New-ScheduledTaskTrigger -AtStartup
 $cfg = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries -ExecutionTimeLimit ([TimeSpan]::Zero) -RestartCount 999 -RestartInterval (New-TimeSpan -Minutes 1)
-Register-ScheduledTask -TaskName $Tarefa -Action $acao -Trigger $gatilho -Settings $cfg -User 'SYSTEM' -RunLevel Highest -Force | Out-Null
-Stop-ScheduledTask -TaskName $Tarefa -ErrorAction SilentlyContinue
-# derruba só o processo DESTA edição (a instalação antiga da Geral não tinha --edicao)
-Get-CimInstance Win32_Process -Filter "Name='node.exe'" | Where-Object {
-  $_.CommandLine -like '*portal\server.mjs*' -and ($_.CommandLine -like "*--edicao $Edicao*" -or ($Edicao -eq 'geral' -and $_.CommandLine -notlike '*--edicao*'))
-} | ForEach-Object { Stop-Process -Id $_.ProcessId -Force }
-Start-ScheduledTask -TaskName $Tarefa
+Register-ScheduledTask -TaskName 'Portal - Servidor' -Action $acao -Trigger (New-ScheduledTaskTrigger -AtStartup) -Settings $cfg -User 'SYSTEM' -RunLevel Highest -Force | Out-Null
+Start-ScheduledTask -TaskName 'Portal - Servidor'
 
 Passo 'Tarefa de backup'
 $acaoB = New-ScheduledTaskAction -Execute $node -Argument "`"$App\portal\tools\backup.mjs`" `"$Dados`"" -WorkingDirectory $App
-Register-ScheduledTask -TaskName $padrao.Backup -Action $acaoB -Trigger (New-ScheduledTaskTrigger -Daily -At $padrao.Hora) -User 'SYSTEM' -RunLevel Highest -Force | Out-Null
+Register-ScheduledTask -TaskName 'Portal - Backup' -Action $acaoB -Trigger (New-ScheduledTaskTrigger -Daily -At 03:45) -User 'SYSTEM' -RunLevel Highest -Force | Out-Null
 
-Passo 'Saúde'
-$ok = $false
-for ($i = 0; $i -lt 20 -and -not $ok; $i++) {
-  Start-Sleep -Seconds 1
-  try { $r = Invoke-WebRequest -UseBasicParsing "http://127.0.0.1:$Porta/healthz" -TimeoutSec 3; $ok = $r.StatusCode -eq 200 } catch { }
+Passo 'Saúde das duas edições'
+foreach ($par in @(@(3400, 'geral'), @(3401, 'sx'))) {
+  $ok = $false
+  for ($i = 0; $i -lt 25 -and -not $ok; $i++) {
+    Start-Sleep -Seconds 1
+    try { $r = Invoke-RestMethod "http://127.0.0.1:$($par[0])/api/edition" -TimeoutSec 3; $ok = $r.id -eq $par[1] } catch { }
+  }
+  if (-not $ok) { Get-Content "$Dados\portal.log" -Tail 30; throw "A porta $($par[0]) não respondeu como edição $($par[1])." }
+  Write-Host "127.0.0.1:$($par[0]) -> edição $($par[1]) ok" -ForegroundColor Green
 }
-if (-not $ok) { Get-Content "$Dados\portal.log" -Tail 30; throw 'O portal não respondeu em 127.0.0.1:' + $Porta }
-Write-Host "Portal ($Edicao) no ar em http://127.0.0.1:$Porta (público: $Origem depois do túnel)." -ForegroundColor Green
-if (Test-Path "$Dados\credenciais-iniciais.txt") { Write-Host "Primeiro acesso: $Dados\credenciais-iniciais.txt (troque a senha ao entrar)." -ForegroundColor Yellow }
-Write-Host "Token de serviço do pesquisador de IA: $Dados\token-servico.txt (copiar para C:\AgentSetup\secrets\portal-servico.env no PC GPT)." -ForegroundColor Yellow
+Write-Host "Portal no ar (um banco, duas edições): $OrigemGeral e $OrigemSx" -ForegroundColor Green

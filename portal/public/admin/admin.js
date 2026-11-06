@@ -68,6 +68,7 @@ function navLinks(route) {
     items.push(['title', 'Administração central']);
     items.push(['#/', 'Visão geral', route.view === 'central']);
     items.push(['#/nova', S.ed.terms.newOperation, route.view === 'nova']);
+    items.push(['#/clientes', 'Base de clientes', route.view === 'clientes']);
     items.push(['#/insights', 'Insights de IA', route.view === 'insights']);
   }
   if (t) {
@@ -111,6 +112,7 @@ function parseRoute() {
   if (!parts.length) return { view: 'central' };
   if (parts[0] === 'nova') return { view: 'nova' };
   if (parts[0] === 'insights') return { view: 'insights' };
+  if (parts[0] === 'clientes') return { view: 'clientes' };
   if (parts[0] === 't') {
     const slug = parts[1];
     const sub = parts[2] || '';
@@ -130,7 +132,7 @@ async function route() {
     if (S.me.tenants[0]) { location.hash = `#/t/${S.me.tenants[0].slug}`; return; }
   }
   if (r.view === 'dash' && S.tenant && !can('tenant.read') && can('ai.connect')) { location.hash = `#/t/${S.tenant.slug}/ia`; return; } // afiliado
-  const views = { central: viewCentral, nova: viewNova, insights: viewInsights, dash: viewDash, site: viewSite, editor: viewEditor, seo: viewSeo, ia: viewIa, leads: viewLeads, afiliados: viewAfiliados,
+  const views = { central: viewCentral, nova: viewNova, insights: viewInsights, clientes: viewBaseClientes, dash: viewDash, site: viewSite, editor: viewEditor, seo: viewSeo, ia: viewIa, leads: viewLeads, afiliados: viewAfiliados,
     integracoes: viewIntegracoes, usuarios: viewUsuarios, calendario: viewCalendario, auditoria: viewAuditoria, config: viewConfig, module: viewModule };
   try {
     await (views[r.view] || viewCentral)(r);
@@ -172,6 +174,31 @@ async function viewCentral(r) {
 function auditTable(rows, withTenant = false) {
   if (!rows.length) return '<div class="empty">Sem registros.</div>';
   return `<div class="table-wrap"><table><thead><tr><th>Quando</th><th>Ação</th>${withTenant ? '<th>Quem</th>' : ''}<th>Detalhe</th></tr></thead><tbody>${rows.map((a) => `<tr><td class="mono">${fmtDate(a.created_at)}</td><td>${esc(a.action)}</td>${withTenant ? `<td>${esc(a.email || '—')}</td>` : ''}<td class="muted">${esc(JSON.stringify(a.data)).slice(0, 120)}</td></tr>`).join('')}</tbody></table></div>`;
+}
+
+// ---------- base única de clientes (superadmin, só a edição em que entrou) ----------
+async function viewBaseClientes(r) {
+  if (!S.me.user.isSuper) { location.hash = '#/'; return; }
+  const qs = new URLSearchParams(location.hash.split('?')[1] || '');
+  const cid = qs.get('c');
+  if (cid) {
+    const d = await api('GET', `/api/admin/clientes/${encodeURIComponent(cid)}`);
+    layout(r, `<p><a href="#/clientes">← Base de clientes</a></p><div class="card"><h2>${esc(d.cliente.name || '(sem nome)')}</h2><p class="muted">${esc(d.cliente.email || '')}${d.cliente.phone ? ` · ${esc(d.cliente.phone)}` : ''}</p></div>
+      <div class="card"><div class="card-head"><h2>Por onde passou (${d.relacionamentos.length})</h2></div><div class="table-wrap"><table><thead><tr><th>Operação</th><th>Etapa</th><th>Origem</th><th>Quando</th></tr></thead><tbody>
+      ${d.relacionamentos.map((x) => `<tr><td><a href="#/t/${esc(x.slug)}/m/clientes?c=${esc(d.cliente.id)}">${esc(x.operacao)}</a></td><td><span class="pill">${esc(x.etapa)}</span></td><td>${esc(x.origem)}</td><td class="mono">${fmtDate(x.quando)}</td></tr>`).join('')}</tbody></table></div></div>`);
+    return;
+  }
+  const q = qs.get('q') || '';
+  const d = await api('GET', `/api/admin/clientes${q ? `?q=${encodeURIComponent(q)}` : ''}`);
+  const main = layout(r, `<div class="page-head"><div><h1>Base de clientes</h1><p>Uma pessoa existe uma vez só. Cada ${esc(S.ed.terms.newOperation.replace(/^Nov[oa] /, '').toLowerCase())} vê apenas quem chegou por ele; aqui você vê a base inteira de ${esc(S.ed.name)}.</p></div></div>
+    <div class="kpis"><div class="kpi"><b>${d.totais.pessoas}</b><span>pessoas na base</span></div><div class="kpi"><b>${d.totais.emMaisDeUma}</b><span>em mais de uma operação</span></div></div>
+    <div class="card"><div class="row"><input id="bq" placeholder="Buscar por nome, e-mail ou telefone" value="${esc(q)}" style="max-width:340px"><button class="btn" type="button" id="bbusca">Buscar</button></div></div>
+    <div class="card">${d.clientes.length ? `<div class="table-wrap"><table><thead><tr><th>Cliente</th><th>Contato</th><th>Operações</th><th>Entradas</th><th>Último contato</th></tr></thead><tbody>
+      ${d.clientes.map((c) => `<tr><td><a href="#/clientes?c=${esc(c.id)}"><strong>${esc(c.name || '(sem nome)')}</strong></a></td><td class="muted">${esc(c.email || '')}${c.phone ? `<br>${esc(c.phone)}` : ''}</td><td>${c.operacoes}</td><td>${c.leads}</td><td class="mono">${fmtDate(c.ultimo)}</td></tr>`).join('')}</tbody></table></div>`
+      : '<div class="empty">Nenhum cliente ainda.</div>'}</div>`);
+  const go = () => { location.hash = `#/clientes?q=${encodeURIComponent($('#bq').value)}`; };
+  $('#bbusca', main).addEventListener('click', go);
+  $('#bq', main).addEventListener('keydown', (e) => { if (e.key === 'Enter') go(); });
 }
 
 // ---------- insights do pesquisador de IA ----------

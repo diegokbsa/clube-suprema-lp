@@ -22,15 +22,15 @@ export function cleanInsight(i) {
 
 function serviceOk(app, header) {
   const m = /^Bearer\s+(\S+)$/i.exec(String(header || ''));
-  if (!m || !app.serviceToken) return false;
+  const tokens = [].concat(app.serviceToken || [], app.serviceTokensExtra || []).filter(Boolean);
+  if (!m || !tokens.length) return false;
   const a = createHash('sha256').update(m[1]).digest();
-  const b = createHash('sha256').update(app.serviceToken).digest();
-  return timingSafeEqual(a, b);
+  return tokens.some((t) => timingSafeEqual(a, createHash('sha256').update(t).digest()));
 }
 
-const visible = (app, row) => {
+const visible = (ed, row) => {
   const ap = parse(row.aplicavel, []);
-  return ap.includes('todos') || ap.includes(app.edition.id) || (app.edition.id === 'sx' && ap.includes('suprema.blog')) || ap.includes('orquestrador');
+  return ap.includes('todos') || ap.includes(ed.id) || (ed.id === 'sx' && ap.includes('suprema.blog')) || ap.includes('orquestrador');
 };
 const out = (r) => ({ ...r, aplicavel: parse(r.aplicavel, []), urgente: Boolean(r.urgente) });
 
@@ -53,9 +53,9 @@ export const insightRoutes = [
     },
   },
   {
-    method: 'GET', path: '/api/admin/insights', super: true, handler: ({ app, db, query }) => {
+    method: 'GET', path: '/api/admin/insights', super: true, handler: ({ edition, db, query }) => {
       const st = ['novo', 'aceito', 'descartado', 'aplicado'].includes(query.status) ? query.status : null;
-      const rows = db.prepare(`SELECT * FROM insights ${st ? 'WHERE status = ?' : ''} ORDER BY urgente DESC, created_at DESC LIMIT 300`).all(...(st ? [st] : [])).filter((r) => visible(app, r));
+      const rows = db.prepare(`SELECT * FROM insights ${st ? 'WHERE status = ?' : ''} ORDER BY urgente DESC, created_at DESC LIMIT 300`).all(...(st ? [st] : [])).filter((r) => visible(edition, r));
       const counts = Object.fromEntries(['novo', 'aceito', 'descartado', 'aplicado'].map((k) => [k, db.prepare('SELECT COUNT(*) n FROM insights WHERE status = ?').get(k).n]));
       return { insights: rows.map(out), counts, tipos: TIPOS };
     },

@@ -34,14 +34,37 @@ export const EDITIONS = {
   },
 };
 
-export function edition(id = process.env.PORTAL_EDITION) {
+export function edition(id = process.env.PORTAL_EDITION, origin) {
   const e = EDITIONS[id] || EDITIONS.geral;
   return {
     ...e,
+    origin: origin || e.origin,
     name: (e.id === 'sx' ? process.env.PORTAL_BRAND_NAME : process.env.PORTAL_BRAND_NAME_GERAL) || e.name,
     tagline: process.env.PORTAL_BRAND_TAGLINE || e.tagline,
     logo: process.env.PORTAL_BRAND_LOGO || '',   // URL de imagem fornecida pelo dono da marca; sem ela o painel usa a letra
     allowsNiche: (n) => e.niches.includes(n),
+  };
+}
+
+/**
+ * As duas edições num servidor só (mesmo banco). origins: { geral, sx }; sem origins, todas usam `fallbackOrigin` (dev/testes).
+ * portEditions: { 3401: 'sx' } escolhe pela porta local quando o Host não bate com nenhuma origem.
+ */
+export function buildEditions({ origins = {}, fallbackOrigin, defaultId = process.env.PORTAL_EDITION || 'geral', portEditions = {} } = {}) {
+  const editions = Object.fromEntries(Object.keys(EDITIONS).map((k) => [k, edition(k, origins[k] || fallbackOrigin)]));
+  const byHost = new Map();
+  for (const e of Object.values(editions)) if (origins[e.id]) byHost.set(new URL(e.origin).host.toLowerCase(), e);
+  const def = editions[defaultId] || editions.geral;
+  return {
+    editions,
+    default: def,
+    forRequest(req) {
+      const host = String(req.headers.host || '').toLowerCase();
+      if (byHost.has(host)) return byHost.get(host);
+      const port = req.socket?.localPort;
+      if (port && portEditions[port]) return editions[portEditions[port]];
+      return def;
+    },
   };
 }
 

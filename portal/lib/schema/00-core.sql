@@ -11,7 +11,8 @@ CREATE TABLE IF NOT EXISTS tenants (
   webhook_secret TEXT NOT NULL,
   status TEXT NOT NULL DEFAULT 'ativa',
   demo INTEGER NOT NULL DEFAULT 0,
-  created_at TEXT NOT NULL
+  created_at TEXT NOT NULL,
+  edition TEXT NOT NULL DEFAULT 'geral'   -- sx | geral: a cara e o endereço onde a operação aparece
 );
 
 CREATE TABLE IF NOT EXISTS users (
@@ -96,7 +97,8 @@ CREATE TABLE IF NOT EXISTS leads (
   owner_id TEXT,
   consent INTEGER NOT NULL DEFAULT 0,
   demo INTEGER NOT NULL DEFAULT 0,
-  created_at TEXT NOT NULL
+  created_at TEXT NOT NULL,
+  contact_id TEXT                         -- pessoa na base única de clientes (contacts)
 );
 CREATE INDEX IF NOT EXISTS leads_tenant ON leads (tenant_id, created_at);
 

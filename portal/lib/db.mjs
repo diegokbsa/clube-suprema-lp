@@ -5,6 +5,7 @@ import { randomUUID } from 'node:crypto';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { migrate } from './migrations.mjs';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 export const SCHEMA_DIR = path.join(HERE, 'schema');
@@ -25,6 +26,7 @@ export function openDb(file) {
   for (const f of fs.readdirSync(SCHEMA_DIR).filter((n) => n.endsWith('.sql')).sort()) {
     db.exec(fs.readFileSync(path.join(SCHEMA_DIR, f), 'utf8'));
   }
+  migrate(db);
   return db;
 }
 

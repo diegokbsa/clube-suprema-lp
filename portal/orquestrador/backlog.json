@@ -1030,6 +1030,210 @@
         "Nada copiado do site da SX"
       ],
       "validacao": "node portal/tools/validar-modelos.mjs"
+    },
+    {
+      "epico": "E06 CRM e atribuição",
+      "status": "concluida",
+      "validacao": "npm run portal:test",
+      "id": "PA-116",
+      "titulo": "Base única: um servidor e um banco para as duas edições",
+      "agente": "claude",
+      "prioridade": "alta",
+      "estimativa": "3h",
+      "deps": [
+        "PA-114"
+      ],
+      "objetivo": "Edição pelo endereço, operações com edition, pessoas únicas (contacts) ligadas aos leads; cada operação com CRM próprio.",
+      "escopo": [
+        "portal/lib/edition.mjs",
+        "portal/lib/migrations.mjs",
+        "portal/lib/modules/clientes.mjs",
+        "portal/tools/unificar-bancos.mjs"
+      ],
+      "entregaveis": [
+        "telas Clientes e Base de clientes",
+        "unificação dos bancos"
+      ],
+      "aceite": [
+        "Clube novo nasce com CRM próprio",
+        "Mesma pessoa uma vez só",
+        "Clube não vê cliente de outro",
+        "Edição pelo endereço"
+      ]
+    },
+    {
+      "epico": "E06 CRM e atribuição",
+      "status": "backlog",
+      "validacao": "npm run portal:test",
+      "id": "PA-120",
+      "titulo": "CRM de conversas: caixa de entrada por operação",
+      "agente": "codex",
+      "prioridade": "alta",
+      "estimativa": "6h",
+      "deps": [
+        "PA-116"
+      ],
+      "objetivo": "Conversas e mensagens por operação ligadas ao cliente (contacts) e ao lead, com atribuição a atendente, status (aberta, aguardando, resolvida), notas internas e histórico — inspirado no DeskcommCRM (MIT, citar a origem se copiar trecho).",
+      "escopo": [
+        "portal/lib/modules/conversas.mjs",
+        "portal/lib/schema/40-conversas.sql",
+        "portal/public/admin/modules/conversas.js",
+        "portal/test/conversas.test.mjs"
+      ],
+      "entregaveis": [
+        "tabelas conversations/messages com tenant_id",
+        "API da caixa de entrada",
+        "tela no padrão do painel (paleta da edição)"
+      ],
+      "aceite": [
+        "Conversa de uma operação não aparece em outra",
+        "Mensagem nova liga ao cliente certo pela base única",
+        "Idempotência por id externo da mensagem"
+      ]
+    },
+    {
+      "epico": "E06 CRM e atribuição",
+      "status": "backlog",
+      "validacao": "npm run portal:test",
+      "id": "PA-121",
+      "titulo": "Canal WhatsApp oficial (Cloud API da Meta) nas conversas",
+      "agente": "codex",
+      "prioridade": "alta",
+      "estimativa": "5h",
+      "deps": [
+        "PA-120"
+      ],
+      "objetivo": "Receber e enviar pelo WhatsApp Cloud API oficial (webhook assinado X-Hub-Signature-256, janela de 24 h, modelos aprovados). Sem WAHA/WhatsApp Web.",
+      "escopo": [
+        "portal/lib/modules/whatsapp.mjs",
+        "portal/public/admin/modules/whatsapp.js",
+        "portal/test/whatsapp.test.mjs"
+      ],
+      "entregaveis": [
+        "conexão por operação com token no cofre",
+        "webhook de entrada",
+        "envio respeitando janela e modelos",
+        "estado real da integração"
+      ],
+      "aceite": [
+        "Sem credencial fica 'pendente'",
+        "Assinatura inválida recusada",
+        "Fora da janela de 24 h só envia modelo aprovado",
+        "Token nunca no front nem no log"
+      ]
+    },
+    {
+      "epico": "E06 CRM e atribuição",
+      "status": "backlog",
+      "validacao": "npm run portal:test",
+      "id": "PA-122",
+      "titulo": "Canal Telegram nas conversas",
+      "agente": "codex",
+      "prioridade": "media",
+      "estimativa": "3h",
+      "deps": [
+        "PA-120",
+        "PA-040"
+      ],
+      "objetivo": "Mensagens do bot de cada operação entram e saem pela mesma caixa de entrada.",
+      "escopo": [
+        "portal/lib/modules/telegram.mjs"
+      ],
+      "entregaveis": [
+        "webhook do bot ligado às conversas"
+      ],
+      "aceite": [
+        "Cliente do Telegram ligado à base única quando houver telefone/e-mail",
+        "Isolamento por operação"
+      ]
+    },
+    {
+      "epico": "E06 CRM e atribuição",
+      "status": "backlog",
+      "validacao": "npm run portal:test",
+      "id": "PA-123",
+      "titulo": "Agente de IA de atendimento com base de conhecimento e passagem para humano",
+      "agente": "codex",
+      "prioridade": "alta",
+      "estimativa": "6h",
+      "deps": [
+        "PA-120",
+        "PA-110"
+      ],
+      "objetivo": "Responder e qualificar nas conversas com a chave de API da operação, base de conhecimento por operação, regras (não prometer ganho, +18, jogo responsável), limite de custo e passagem para atendente.",
+      "escopo": [
+        "portal/lib/modules/agente-atendimento.mjs",
+        "portal/lib/schema/41-conhecimento.sql",
+        "portal/public/admin/modules/agente-atendimento.js",
+        "portal/test/agente-atendimento.test.mjs"
+      ],
+      "entregaveis": [
+        "configuração do agente por operação",
+        "base de conhecimento",
+        "guardrails antes de enviar",
+        "passagem para humano",
+        "registro de custo"
+      ],
+      "aceite": [
+        "Sem chave válida o agente não roda e o motivo aparece",
+        "Mensagem que viola regra não é enviada",
+        "Atendente assume e o agente para naquela conversa"
+      ]
+    },
+    {
+      "epico": "E06 CRM e atribuição",
+      "status": "backlog",
+      "validacao": "npm run portal:test",
+      "id": "PA-124",
+      "titulo": "Automações QUANDO / SE / ENTÃO no CRM",
+      "agente": "codex",
+      "prioridade": "media",
+      "estimativa": "4h",
+      "deps": [
+        "PA-120"
+      ],
+      "objetivo": "Regras por operação (ex.: quando lead entra pela jornada B e não compra em 24 h, então criar tarefa e mandar mensagem modelo).",
+      "escopo": [
+        "portal/lib/modules/automacoes.mjs",
+        "portal/lib/schema/42-automacoes.sql",
+        "portal/public/admin/modules/automacoes.js",
+        "portal/test/automacoes.test.mjs"
+      ],
+      "entregaveis": [
+        "editor de regras",
+        "fila idempotente",
+        "histórico de execuções"
+      ],
+      "aceite": [
+        "Rodar duas vezes não duplica ação",
+        "Regra de uma operação não age em outra"
+      ]
+    },
+    {
+      "epico": "E06 CRM e atribuição",
+      "status": "backlog",
+      "validacao": "npm run portal:test",
+      "id": "PA-125",
+      "titulo": "Revisão visual do CRM de conversas (cara da SX e da Geral)",
+      "agente": "claude-design",
+      "prioridade": "media",
+      "estimativa": "3h",
+      "deps": [
+        "PA-120",
+        "PA-121"
+      ],
+      "objetivo": "Caixa de entrada, conversa e cliente 360 com a paleta de cada edição, desktop e celular.",
+      "escopo": [
+        "portal/public/admin/"
+      ],
+      "entregaveis": [
+        "ajustes de layout e estados"
+      ],
+      "aceite": [
+        "Sem rolagem horizontal a 375px",
+        "Contraste AA",
+        "Mesma tela com a cara de cada edição"
+      ]
     }
   ]
 }

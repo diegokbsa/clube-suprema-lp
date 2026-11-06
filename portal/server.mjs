@@ -16,7 +16,8 @@ import { renderPage, sitemapXml, robotsTxt } from './lib/site.mjs';
 import { cookieName, recordClick, recordConversion, pickUtm, windowDaysOf } from './lib/attribution.mjs';
 import { createSeo } from './lib/seo.mjs';
 import { createMcp, aiRoutes } from './lib/mcp.mjs';
-import { edition } from './lib/edition.mjs';
+import { edition, buildEditions } from './lib/edition.mjs';
+import { upsertContact } from './lib/migrations.mjs';
 import { insightRoutes } from './lib/insights.mjs';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
@@ -28,13 +29,19 @@ const SESSION_COOKIE = 'pa_sess';
 const ADMIN_CSP = "default-src 'self'; img-src 'self' data: https:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; frame-src 'self'; frame-ancestors 'none'; base-uri 'none'; form-action 'self'";
 const SITE_CSP = "default-src 'self'; img-src 'self' data: https:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self' https://www.googletagmanager.com https://connect.facebook.net; connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com https://www.facebook.com; frame-src https://www.googletagmanager.com; frame-ancestors 'self'; base-uri 'none'; form-action 'self'";
 
-export async function createApp({ db, origin = 'http://localhost:3400', secretKey = 'dev-only-change-me', modulesDir = path.join(HERE, 'lib', 'modules'), fetchImpl, editionId, serviceToken } = {}) {
+export async function createApp({ db, origin = 'http://localhost:3400', secretKey = 'dev-only-change-me', modulesDir = path.join(HERE, 'lib', 'modules'), fetchImpl, editionId, serviceToken,
+  origins = {}, portEditions = {} } = {}) {
+  // as duas edições no mesmo servidor e no mesmo banco: a edição vem do endereço (Host) ou da porta local
+  const eds = buildEditions({ origins, fallbackOrigin: origin, defaultId: editionId || process.env.PORTAL_EDITION || 'geral', portEditions });
+  origin = eds.default.origin;
   const secure = origin.startsWith('https://');
   const loginLimit = rateLimiter(10, 15 * 60_000);
   const formLimit = rateLimiter(20, 10 * 60_000);
   const hookLimit = rateLimiter(600, 60_000);
   const app = { db, origin, vault: vault(secretKey), moduleNav: [], publicRoutes: [], mcpTools: [], sitemapExtras: [], aiRoutines: {}, fetchImpl,
-    edition: edition(editionId), serviceToken: serviceToken || null };
+    edition: eds.default, editions: eds.editions, editionFor: (req) => eds.forRequest(req), serviceToken: serviceToken || null };
+  app.originOf = (editionId) => (eds.editions[editionId] || eds.default).origin;
+  app.tenantOrigin = (tenantId) => app.originOf(db.prepare('SELECT edition FROM tenants WHERE id = ?').get(tenantId)?.edition);
   app.seo = createSeo(app, { secretKey, fetchImpl });
 
   // ---------- módulos ----------
@@ -52,7 +59,7 @@ export async function createApp({ db, origin = 'http://localhost:3400', secretKe
       if (typeof mod.init === 'function') await mod.init(app);
     }
   }
-  const mcp = createMcp(app);
+  const mcps = Object.fromEntries(Object.values(eds.editions).map((e) => [e.id, createMcp(app, e)])); // OAuth e /mcp com o endereço de cada edição
 
   // ---------- sessão ----------
   app.login = async ({ req, res, body }) => {
@@ -75,7 +82,7 @@ export async function createApp({ db, origin = 'http://localhost:3400', secretKe
     const page = repo.get('pages', params.id);
     if (!page) throw new HttpError(404, 'Página não encontrada.');
     const site = repo.get('sites', page.site_id);
-    const html = renderPage({ site, page, blocks: parse(page.draft, []), tenant, base: `/s/${site.slug}`, origin, preview: true,
+    const html = renderPage({ site, page, blocks: parse(page.draft, []), tenant, base: `/s/${site.slug}`, origin: app.originOf(tenant.edition), preview: true,
       pages: repo.all('pages', { site_id: site.id }, { order: 'position ASC' }) });
     return { status: 200, body: html, headers: { 'Content-Type': 'text/html; charset=utf-8', 'Content-Security-Policy': SITE_CSP.replace("frame-ancestors 'self'", "frame-ancestors 'self'") } };
   };
@@ -91,7 +98,7 @@ export async function createApp({ db, origin = 'http://localhost:3400', secretKe
     if (site.external_url) return send(res, 302, '', { Location: site.external_url });
     const repo = scoped(db, tenant.id);
     const pages = repo.all('pages', { site_id: site.id }, { order: 'position ASC' });
-    const siteOrigin = site.domain && !base ? `https://${site.domain}` : origin;
+    const siteOrigin = site.domain && !base ? `https://${site.domain}` : app.originOf(tenant.edition);
     if (rest === 'sitemap.xml') return send(res, 200, sitemapXml(siteOrigin, base, pages, app.sitemapExtras.flatMap((fn) => { try { return fn({ site, tenant, repo }) || []; } catch { return []; } })), { 'Content-Type': 'application/xml; charset=utf-8', 'Cache-Control': 'public, max-age=600' });
     if (rest === 'robots.txt') return send(res, 200, robotsTxt(siteOrigin, base), { 'Cache-Control': 'public, max-age=3600' });
     if (rest === `${app.seo.key(site)}.txt`) return send(res, 200, app.seo.key(site), { 'Cache-Control': 'public, max-age=86400' }); // chave IndexNow
@@ -128,7 +135,8 @@ export async function createApp({ db, origin = 'http://localhost:3400', secretKe
     const fresh = click && (Date.now() - Date.parse(click.created_at)) / 864e5 <= windowDaysOf(tenant);
     const utm = { ...(click ? parse(click.utm, {}) : {}), ...pickUtm(body) };
     if (/^[0-9a-f-]{36}$/.test(String(body.journey_id || '')) && /^[a-h]$/.test(String(body.variant || ''))) Object.assign(utm, { jornada_id: body.journey_id, variante: body.variant }); // teste A/B
-    const lead = repo.insert('leads', { site_id: site.id, page_slug: String(body.page || '').slice(0, 60), email, name: String(body.name || '').trim().slice(0, 80) || null,
+    const contactId = upsertContact(db, { email, phone: body.phone, name: body.name }); // base única de clientes
+    const lead = repo.insert('leads', { contact_id: contactId, site_id: site.id, page_slug: String(body.page || '').slice(0, 60), email, name: String(body.name || '').trim().slice(0, 80) || null,
       phone: String(body.phone || '').replace(/[^\d+]/g, '').slice(0, 20) || null, utm: JSON.stringify(utm), click_id: fresh ? click.id : null,
       affiliate_id: fresh ? click.affiliate_id : null, consent: 1, stage: 'novo', demo: tenant.demo });
     repo.insert('lead_events', { lead_id: lead.id, kind: 'criado', data: JSON.stringify({ origem: utm.utm_source || (fresh ? 'afiliado' : 'direto'), pagina: lead.page_slug, referer: String(req.headers.referer || '').slice(0, 200) }) });
@@ -190,7 +198,8 @@ export async function createApp({ db, origin = 'http://localhost:3400', secretKe
     const body = decodeBody(raw, req.headers['content-type'] || '');
     const token = parseCookies(req.headers.cookie)[SESSION_COOKIE];
     const session = readSession(db, token);
-    const ctx = { req, res, url, params, query: Object.fromEntries(url.searchParams), body, raw, db, app, user: session?.user || null, csrf: session?.csrf || null };
+    const ed = app.editionFor(req);
+    const ctx = { req, res, url, params, query: Object.fromEntries(url.searchParams), body, raw, db, app, edition: ed, origin: ed.origin, user: session?.user || null, csrf: session?.csrf || null };
     if (route.auth !== false) {
       if (!ctx.user) throw new HttpError(401, 'Entre para continuar.');
       if (req.method !== 'GET' && req.headers['x-csrf'] !== session.csrf) throw new HttpError(403, 'Sessão expirada. Recarregue a página.');
@@ -199,7 +208,7 @@ export async function createApp({ db, origin = 'http://localhost:3400', secretKe
     if (params.tenant) {
       const t = db.prepare('SELECT * FROM tenants WHERE id = ? OR slug = ?').get(params.tenant, params.tenant);
       const role = t ? membership(db, ctx.user, t.id) : null;
-      if (!t || (!ctx.user.is_super && !role)) throw new HttpError(404, 'Operação não encontrada.'); // não revela operações de outros
+      if (!t || (!ctx.user.is_super && !role) || t.edition !== ed.id) throw new HttpError(404, 'Operação não encontrada.'); // não revela operações de outros nem da outra edição
       if (route.perm && !can(ctx.user, role, route.perm)) throw new HttpError(403, 'Seu papel nesta operação não permite isso.');
       ctx.tenant = t;
       ctx.role = role;
@@ -221,7 +230,7 @@ export async function createApp({ db, origin = 'http://localhost:3400', secretKe
         const m = /^\/api\/hooks\/([^/]+)\/conversion\/?$/.exec(p);
         if (m) return await conversionHook(req, res, decodeURIComponent(m[1]));
       }
-      if (await mcp.handle(req, res, url)) return;
+      if (await mcps[app.editionFor(req).id].handle(req, res, url)) return;
       if (p.startsWith('/api/')) return await handleApi(req, res, url);
       const hostSite = siteByHost(req.headers.host);
       if (hostSite) {
@@ -257,7 +266,7 @@ function renderNotFound(site) {
   return `<!doctype html><html lang="pt-BR"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Página não encontrada</title><link rel="stylesheet" href="/assets/site.css"><body class="mode-escuro"><main class="b b-text"><div class="wrap narrow"><h1>Página não encontrada</h1><p>Esta página de ${String(site.name).replace(/[<>&"]/g, '')} não existe ou ainda não foi publicada.</p></div></main></body></html>`;
 }
 
-/** Primeiro superadmin e, na edição SX, o clube 10001 (Clube Suprema, site atual em suprema.blog). */
+/** Primeiro superadmin e o clube 10001 da edição SX (Clube Suprema, site atual em suprema.blog). */
 export function seed(db, dataDir, ed = edition()) {
   if (db.prepare('SELECT COUNT(*) n FROM users').get().n) return null;
   const email = (process.env.PORTAL_ADMIN_EMAIL || 'admin@portal.local').toLowerCase();
@@ -268,8 +277,8 @@ export function seed(db, dataDir, ed = edition()) {
     fs.writeFileSync(f, `${ed.name} — primeiro acesso\nE-mail: ${email}\nSenha: ${password}\nTroque a senha depois de entrar.\n`, { mode: 0o600 });
     console.log(`[portal] superadmin criado; credenciais em ${f}`);
   }
-  if (ed.id === 'sx' && !db.prepare("SELECT 1 FROM tenants WHERE slug = 'clube-10001'").get()) {
-    createTenant(db, { name: 'Clube Suprema', number: '10001', niche: 'poker', slug: 'clube-10001', externalUrl: 'https://suprema.blog',
+  if (!db.prepare("SELECT 1 FROM tenants WHERE slug = 'clube-10001'").get()) {
+    createTenant(db, { name: 'Clube Suprema', number: '10001', niche: 'poker', slug: 'clube-10001', externalUrl: 'https://suprema.blog', edition: 'sx',
       settings: { app: 'Suprema Poker', agentId: '1439098', whatsapp: '5511952138293', chipsUrl: 'https://app.fichas24horas.com.br/signup' } }, { userId: u.id });
   }
   return u;
@@ -277,7 +286,11 @@ export function seed(db, dataDir, ed = edition()) {
 
 const isMain = process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url);
 if (isMain) {
-  const port = Number(process.env.PORTAL_PORT || process.env.PORT || 3400);
+  // PORTAL_PORT aceita várias portas com a edição de cada uma: "3400:geral,3401:sx" (um processo, um banco)
+  const portSpec = String(process.env.PORTAL_PORT || process.env.PORT || 3400).split(',').map((s) => s.trim()).filter(Boolean);
+  const ports = portSpec.map((s) => Number(s.split(':')[0]));
+  const portEditions = Object.fromEntries(portSpec.filter((s) => s.includes(':')).map((s) => [Number(s.split(':')[0]), s.split(':')[1]]));
+  const port = ports[0];
   const dataDir = process.env.PORTAL_DATA_DIR || path.join(HERE, 'data');
   fs.mkdirSync(dataDir, { recursive: true });
   let secretKey = process.env.PORTAL_SECRET_KEY;
@@ -290,12 +303,17 @@ if (isMain) {
   const ed = edition();
   seed(db, dataDir, ed);
   const origin = process.env.PORTAL_ORIGIN || `http://localhost:${port}`;
+  const origins = Object.fromEntries(['geral', 'sx'].map((k) => [k, process.env[`PORTAL_ORIGIN_${k.toUpperCase()}`]]).filter(([, v]) => v));
   // token de serviço: o pesquisador de IA (outra máquina) manda insights com ele. Fica no arquivo da pasta de dados.
   const tf = path.join(dataDir, 'token-servico.txt');
   if (!process.env.PORTAL_SERVICE_TOKEN && !fs.existsSync(tf)) fs.writeFileSync(tf, `pa_svc_${randomBytes(32).toString('base64url')}`, { mode: 0o600 });
   const serviceToken = process.env.PORTAL_SERVICE_TOKEN || fs.readFileSync(tf, 'utf8').trim();
-  console.log(`[portal] edição ${ed.id} (${ed.name})`);
-  const { handle } = await createApp({ db, origin, secretKey, editionId: ed.id, serviceToken });
+  // tokens antigos ainda aceitos (ex.: o da edição SX quando os bancos foram juntados), um por linha
+  const tfx = path.join(dataDir, 'token-servico-extra.txt');
+  const serviceTokensExtra = fs.existsSync(tfx) ? fs.readFileSync(tfx, 'utf8').split(/\s+/).filter(Boolean) : [];
+  console.log(`[portal] edição padrão ${ed.id}; origens ${JSON.stringify(origins)}; portas ${JSON.stringify(portEditions)}`);
+  const { handle, app } = await createApp({ db, origin, secretKey, editionId: ed.id, serviceToken, origins, portEditions });
+  app.serviceTokensExtra = serviceTokensExtra;
   const host = process.env.PORTAL_HOST || undefined; // no servidor: 127.0.0.1 (só o túnel e o Caddy chegam)
-  http.createServer(handle).listen(port, host, () => console.log(`[portal] no ar em ${origin} (painel: ${origin}/admin/) · ouvindo ${host || 'todas as interfaces'}:${port}`));
+  for (const p of ports) http.createServer(handle).listen(p, host, () => console.log(`[portal] no ar em ${origin} (painel: ${origin}/admin/) · ouvindo ${host || 'todas as interfaces'}:${p}${portEditions[p] ? ` (${portEditions[p]})` : ''}`));
 }

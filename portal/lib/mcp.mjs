@@ -173,7 +173,7 @@ export const CORE_TOOLS = [
     inputSchema: S({ canal: str('canal onde o link vai ser usado (padrão: link)'), campanha: str('nome da campanha (opcional)'), pagina: str('endereço da página de destino, ex.: torneios (opcional)') }),
     handler: ({ repo, args, user, tenant, app }) => {
       const a = myAffiliate(repo, user) || fail('Você ainda não tem cadastro de afiliado nesta operação. Peça ao administrador.');
-      return { codigo: a.code, link: affiliateLink(app.origin, tenant.slug, a.code, { to: String(args.pagina || '').replace(/[^a-z0-9-]/g, ''), medium: String(args.canal || 'link').toLowerCase().replace(/[^a-z0-9_-]/g, '') || 'link', campaign: String(args.campanha || '').slice(0, 60) }) };
+      return { codigo: a.code, link: affiliateLink(app.originOf ? app.originOf(tenant.edition) : app.origin, tenant.slug, a.code, { to: String(args.pagina || '').replace(/[^a-z0-9-]/g, ''), medium: String(args.canal || 'link').toLowerCase().replace(/[^a-z0-9_-]/g, '') || 'link', campaign: String(args.campanha || '').slice(0, 60) }) };
     },
   },
   {
@@ -208,20 +208,21 @@ const logo = '<div class="logo"><span class="logo-mark">S</span><div>Portal de A
 
 // ---------------------------------------------------------------- servidor
 
-export function createMcp(app) {
+export function createMcp(app, ed = app.edition) {
+  const ORIGIN = ed?.origin || ORIGIN;
   const { db } = app;
   const loginLimit = rateLimiter(10, 15 * 60_000);
   const regLimit = rateLimiter(30, 60 * 60_000);
-  const secure = app.origin.startsWith('https://');
-  const mcpUrl = `${app.origin}/mcp`;
+  const secure = ORIGIN.startsWith('https://');
+  const mcpUrl = `${ORIGIN}/mcp`;
   const tools = () => [...CORE_TOOLS, ...(app.mcpTools || [])];
   const cors = { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Headers': 'Authorization, Content-Type, Mcp-Protocol-Version, Mcp-Session-Id', 'Access-Control-Allow-Methods': 'GET, POST, OPTIONS', 'Access-Control-Expose-Headers': 'WWW-Authenticate, Mcp-Session-Id' };
   const unauthorized = (res) => send(res, 401, { error: 'invalid_token', error_description: 'Conecte pelo login do portal.' },
-    { ...cors, 'WWW-Authenticate': `Bearer resource_metadata="${app.origin}/.well-known/oauth-protected-resource"` });
+    { ...cors, 'WWW-Authenticate': `Bearer resource_metadata="${ORIGIN}/.well-known/oauth-protected-resource"` });
 
-  const protectedResource = { resource: mcpUrl, authorization_servers: [app.origin], bearer_methods_supported: ['header'], scopes_supported: ['portal'], resource_name: 'Portal de Afiliação' };
-  const authServer = { issuer: app.origin, authorization_endpoint: `${app.origin}/oauth/authorize`, token_endpoint: `${app.origin}/oauth/token`,
-    registration_endpoint: `${app.origin}/oauth/register`, response_types_supported: ['code'], grant_types_supported: ['authorization_code', 'refresh_token'],
+  const protectedResource = { resource: mcpUrl, authorization_servers: [ORIGIN], bearer_methods_supported: ['header'], scopes_supported: ['portal'], resource_name: 'Portal de Afiliação' };
+  const authServer = { issuer: ORIGIN, authorization_endpoint: `${ORIGIN}/oauth/authorize`, token_endpoint: `${ORIGIN}/oauth/token`,
+    registration_endpoint: `${ORIGIN}/oauth/register`, response_types_supported: ['code'], grant_types_supported: ['authorization_code', 'refresh_token'],
     code_challenge_methods_supported: ['S256'], token_endpoint_auth_methods_supported: ['none'], scopes_supported: ['portal'] };
 
   function validRedirect(u) {
@@ -269,8 +270,9 @@ export function createMcp(app) {
 
   function consentForm(res, q, client, session, extraHeaders = {}, msg = '') {
     const user = session.user;
-    const rows = user.is_super ? db.prepare('SELECT *, NULL role FROM tenants WHERE status = ? ORDER BY created_at').all('ativa')
-      : db.prepare("SELECT t.*, m.role FROM memberships m JOIN tenants t ON t.id = m.tenant_id WHERE m.user_id = ? AND t.status = 'ativa' ORDER BY t.created_at").all(user.id);
+    const edId = ed?.id || 'geral';
+    const rows = user.is_super ? db.prepare('SELECT *, NULL role FROM tenants WHERE status = ? AND edition = ? ORDER BY created_at').all('ativa', edId)
+      : db.prepare("SELECT t.*, m.role FROM memberships m JOIN tenants t ON t.id = m.tenant_id WHERE m.user_id = ? AND t.status = 'ativa' AND t.edition = ? ORDER BY t.created_at").all(user.id, edId);
     const options = rows.filter((t) => can(user, t.role, 'ai.connect'));
     if (!options.length) return send(res, 403, oauthPage('Sem operação', `${logo}<p>Sua conta não tem nenhuma operação onde possa conectar uma IA.</p>`), { 'Content-Type': 'text/html; charset=utf-8', 'Content-Security-Policy': PAGE_CSP, ...extraHeaders });
     return send(res, 200, oauthPage('Permitir acesso', `${logo}<h2>Permitir que <strong>${esc(client.name)}</strong> use o portal?</h2>
@@ -305,7 +307,7 @@ export function createMcp(app) {
     if (body.action === 'deny') return errorRedirect(res, q, 'access_denied', 'O usuário recusou.');
     const tenant = db.prepare('SELECT * FROM tenants WHERE id = ?').get(String(body.tenant || ''));
     const role = tenant ? membership(db, session.user, tenant.id) : null;
-    if (!tenant || (!session.user.is_super && !role) || !can(session.user, role, 'ai.connect')) return consentForm(res, q, chk.client, session, {}, 'Escolha uma operação sua.');
+    if (!tenant || tenant.edition !== (ed?.id || 'geral') || (!session.user.is_super && !role) || !can(session.user, role, 'ai.connect')) return consentForm(res, q, chk.client, session, {}, 'Escolha uma operação sua.');
     const code = randomBytes(32).toString('base64url');
     db.prepare('INSERT INTO oauth_codes (code_hash, client_id, user_id, tenant_id, redirect_uri, challenge, scope, expires_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)')
       .run(sha(code), chk.client.id, session.user.id, tenant.id, q.redirect_uri, q.code_challenge, 'portal', Date.now() + 10 * 60_000);
@@ -346,7 +348,7 @@ export function createMcp(app) {
     if (req.method === 'GET') return send(res, 405, { error: 'Este servidor responde em JSON por POST; não abre fluxo SSE.' }, { ...cors, Allow: 'POST' });
     if (req.method === 'DELETE') return send(res, 204, '', cors);
     const ctx = authBearer(db, req.headers.authorization);
-    if (!ctx) return unauthorized(res);
+    if (!ctx || (ed && ctx.tenant.edition && ctx.tenant.edition !== ed.id)) return unauthorized(res); // token da outra edição não vale aqui
     let msg;
     try { msg = JSON.parse((await readBody(req, 2_000_000)).toString('utf8')); } catch { return send(res, 400, { jsonrpc: '2.0', id: null, error: { code: -32700, message: 'JSON inválido' } }, cors); }
     if (Array.isArray(msg)) return send(res, 400, { jsonrpc: '2.0', id: null, error: { code: -32600, message: 'Lotes não são aceitos.' } }, cors);
@@ -427,7 +429,7 @@ function serviceStatus(app, svc, { hasConnection, key }) {
 
 export const aiRoutes = [
   {
-    method: 'GET', path: '/api/t/:tenant/ai', perm: 'ai.connect', handler: ({ db, repo, user, role, tenant, app }) => {
+    method: 'GET', path: '/api/t/:tenant/ai', perm: 'ai.connect', handler: ({ db, repo, user, role, tenant, app, origin }) => {
       const rows = db.prepare('SELECT family, kind, name, client_id, created_at, last_used_at, expires_at FROM oauth_tokens WHERE user_id = ? AND tenant_id = ? AND revoked = 0 ORDER BY created_at DESC').all(user.id, tenant.id);
       const fam = new Map();
       for (const r of rows) {
@@ -440,7 +442,7 @@ export const aiRoutes = [
       const services = repo.all('ai_services', { user_id: user.id });
       const conns = [...fam.values()];
       return {
-        mcpUrl: `${app.origin}/mcp`, connections: conns,
+        mcpUrl: `${origin}/mcp`, connections: conns,
         providers: Object.entries(AI_PROVIDERS).map(([id, p]) => { const k = keys.find((x) => x.provider === id); return { id, label: p.label, consoleUrl: p.consoleUrl, connected: Boolean(k), status: k?.status || null, model: k?.model || '', lastError: k?.last_error || null }; }),
         services: Object.entries(AI_SERVICES).map(([id, s]) => {
           const row = services.find((x) => x.service === id);

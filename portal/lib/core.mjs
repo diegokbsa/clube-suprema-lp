@@ -48,9 +48,9 @@ export const coreRoutes = [
   { method: 'POST', path: '/api/login', auth: false, handler: (ctx) => ctx.app.login(ctx) },
   { method: 'POST', path: '/api/logout', auth: false, handler: (ctx) => ctx.app.logout(ctx) },
   {
-    method: 'GET', path: '/api/me', handler: ({ db, user, csrf }) => {
-      const rows = user.is_super ? db.prepare('SELECT * FROM tenants ORDER BY created_at').all().map((t) => ({ t, role: 'super' }))
-        : db.prepare('SELECT t.*, m.role FROM memberships m JOIN tenants t ON t.id = m.tenant_id WHERE m.user_id = ? ORDER BY t.created_at').all(user.id)
+    method: 'GET', path: '/api/me', handler: ({ db, user, csrf, edition }) => {
+      const rows = user.is_super ? db.prepare('SELECT * FROM tenants WHERE edition = ? ORDER BY created_at').all(edition.id).map((t) => ({ t, role: 'super' }))
+        : db.prepare('SELECT t.*, m.role FROM memberships m JOIN tenants t ON t.id = m.tenant_id WHERE m.user_id = ? AND t.edition = ? ORDER BY t.created_at').all(user.id, edition.id)
           .map((t) => ({ t, role: t.role }));
       return { user: { id: user.id, email: user.email, name: user.name, isSuper: Boolean(user.is_super) }, csrf,
         tenants: rows.map(({ t, role }) => ({ ...publicTenant(t), role, perms: permsOf(user, role === 'super' ? null : role) })) };
@@ -68,21 +68,21 @@ export const coreRoutes = [
     },
   },
 
-  { method: 'GET', path: '/api/edition', auth: false, handler: ({ app }) => publicEdition(app.edition) },
+  { method: 'GET', path: '/api/edition', auth: false, handler: ({ edition }) => publicEdition(edition) },
 
   // ---------- catálogo ----------
   {
-    method: 'GET', path: '/api/meta', handler: ({ app, query }) => ({ edition: { ...publicEdition(app.edition), siteTheme: app.edition.siteTheme },
-      niches: publicNiches().filter((n) => app.edition.allowsNiche(n.id)),
-      templates: templateList(query.niche || '').filter((t) => t.niches.includes('*') || t.niches.some((n) => app.edition.allowsNiche(n)))
-        .sort((a, b) => app.edition.templateOrder(a) - app.edition.templateOrder(b)), blocks: blockSchema(),
+    method: 'GET', path: '/api/meta', handler: ({ app, edition, query }) => ({ edition: { ...publicEdition(edition), siteTheme: edition.siteTheme },
+      niches: publicNiches().filter((n) => edition.allowsNiche(n.id)),
+      templates: templateList(query.niche || '').filter((t) => t.niches.includes('*') || t.niches.some((n) => edition.allowsNiche(n)))
+        .sort((a, b) => edition.templateOrder(a) - edition.templateOrder(b)), blocks: blockSchema(),
       roles: ROLES, fonts: FONTS, stages: STAGES, integrations: INTEGRATIONS, modules: app.moduleNav }),
   },
 
   // ---------- administração central (superadmin) ----------
   {
-    method: 'GET', path: '/api/admin/overview', super: true, handler: ({ db }) => {
-      const tenants = db.prepare('SELECT * FROM tenants ORDER BY created_at').all();
+    method: 'GET', path: '/api/admin/overview', super: true, handler: ({ db, edition }) => {
+      const tenants = db.prepare('SELECT * FROM tenants WHERE edition = ? ORDER BY created_at').all(edition.id);
       const d30 = days(30);
       const per = tenants.map((t) => {
         const q = (sql, ...p) => db.prepare(sql).get(t.id, ...p).n;
@@ -101,11 +101,11 @@ export const coreRoutes = [
     },
   },
   {
-    method: 'POST', path: '/api/tenants', super: true, handler: ({ db, body, user, app }) => {
-      need(app.edition.allowsNiche(body.niche || app.edition.defaultNiche), 400, `A edição ${app.edition.name} não trabalha com esse nicho.`);
-      const { tenant, site } = createTenant(db, { ...body, niche: body.niche || app.edition.defaultNiche, theme: { ...(app.edition.siteTheme || {}), ...(body.theme || {}) } }, { userId: user.id });
+    method: 'POST', path: '/api/tenants', super: true, handler: ({ db, body, user, edition, origin }) => {
+      need(edition.allowsNiche(body.niche || edition.defaultNiche), 400, `A edição ${edition.name} não trabalha com esse nicho.`);
+      const { tenant, site } = createTenant(db, { ...body, edition: edition.id, niche: body.niche || edition.defaultNiche, theme: { ...(edition.siteTheme || {}), ...(body.theme || {}) } }, { userId: user.id });
       return { status: 201, body: { tenant: publicTenant(tenant), site: site && siteOut(site), adminUrl: `/admin/#/t/${tenant.slug}`,
-        siteUrl: site ? `${app.origin}/s/${site.slug}/` : null } };
+        siteUrl: site ? `${origin}/s/${site.slug}/` : null } };
     },
   },
 
@@ -163,7 +163,7 @@ export const coreRoutes = [
   { method: 'GET', path: '/api/t/:tenant/audit', perm: 'audit.read', handler: ({ repo }) => ({ audit: repo.all('audit', {}, { order: 'created_at DESC', limit: 200 }).map((a) => ({ ...a, data: parse(a.data, {}) })) }) },
 
   // ---------- sites e páginas ----------
-  { method: 'GET', path: '/api/t/:tenant/sites', perm: 'site.read', handler: ({ repo, app }) => ({ sites: repo.all('sites', {}, { order: 'created_at ASC' }).map((s) => ({ ...siteOut(s), url: s.external_url || `${app.origin}/s/${s.slug}/`, pages: repo.all('pages', { site_id: s.id }, { order: 'position ASC' }).map(pageOut) })) }) },
+  { method: 'GET', path: '/api/t/:tenant/sites', perm: 'site.read', handler: ({ repo, origin }) => ({ sites: repo.all('sites', {}, { order: 'created_at ASC' }).map((s) => ({ ...siteOut(s), url: s.external_url || `${origin}/s/${s.slug}/`, pages: repo.all('pages', { site_id: s.id }, { order: 'position ASC' }).map(pageOut) })) }) },
   {
     method: 'POST', path: '/api/t/:tenant/sites', perm: 'site.edit', handler: ({ db, tenant, body, user, audit, repo }) => {
       const limits = parse(tenant.limits, {});
@@ -342,12 +342,12 @@ export const coreRoutes = [
 
   // ---------- afiliados ----------
   {
-    method: 'GET', path: '/api/t/:tenant/affiliates', perm: 'affiliates.read', handler: ({ repo, tenant, app }) => {
+    method: 'GET', path: '/api/t/:tenant/affiliates', perm: 'affiliates.read', handler: ({ repo, tenant, origin }) => {
       const site = repo.all('sites', {}, { order: 'created_at ASC', limit: 1 })[0];
       return { affiliates: repo.all('affiliates', {}, { order: 'created_at DESC' }).map((a) => ({ id: a.id, name: a.name, email: a.email, code: a.code, status: a.status, createdAt: a.created_at,
         clicks: repo.count('clicks', { affiliate_id: a.id }), leads: repo.count('leads', { affiliate_id: a.id }),
         conversions: repo.count('conversions', { affiliate_id: a.id, verified: 1 }),
-        link: affiliateLink(app.origin, tenant.slug, a.code, { medium: 'link' }), siteSlug: site?.slug || null })) };
+        link: affiliateLink(origin, tenant.slug, a.code, { medium: 'link' }), siteSlug: site?.slug || null })) };
     },
   },
   {
@@ -399,13 +399,13 @@ export const coreRoutes = [
 
   // ---------- integrações ----------
   {
-    method: 'GET', path: '/api/t/:tenant/integrations', perm: 'integrations.read', handler: ({ repo, tenant, app, user, role }) => {
+    method: 'GET', path: '/api/t/:tenant/integrations', perm: 'integrations.read', handler: ({ repo, tenant, origin, user, role }) => {
       const rows = Object.fromEntries(repo.all('integrations').map((i) => [i.kind, i]));
       const showSecret = can(user, role, 'integrations.manage');
       return { integrations: INTEGRATIONS.map((i) => {
         const r = rows[i.kind] || {};
         const extra = i.kind === 'webhook_conversoes'
-          ? { url: `${app.origin}/api/hooks/${tenant.slug}/conversion`, secret: showSecret ? mask(tenant.webhook_secret) : null, header: 'X-Portal-Signature: sha256=<hmac do corpo>' }
+          ? { url: `${origin}/api/hooks/${tenant.slug}/conversion`, secret: showSecret ? mask(tenant.webhook_secret) : null, header: 'X-Portal-Signature: sha256=<hmac do corpo>' }
           : {};
         return { ...i, status: r.status || (i.kind === 'indexnow' ? 'ativo' : 'pendente'), config: parse(r.public_config, {}), lastCheck: r.last_check || null, lastError: r.last_error || null, ...extra };
       }) };

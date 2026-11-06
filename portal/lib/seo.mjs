@@ -19,7 +19,7 @@ export const indexNowKey = (secretKey, siteId) => createHmac('sha256', String(se
 /** Onde o site responde em público: domínio próprio ou /s/<slug> no portal. */
 export function siteBase(app, site) {
   if (site.domain) return { origin: `https://${site.domain}`, base: '' };
-  return { origin: app.origin, base: `/s/${site.slug}` };
+  return { origin: app.tenantOrigin ? app.tenantOrigin(site.tenant_id) : app.origin, base: `/s/${site.slug}` };
 }
 
 const isPublicOrigin = (origin) => /^https:\/\//.test(origin) && !/(localhost|127\.0\.0\.1|\[::1\]|\.local|\.test)(:|\/|$)/.test(origin);

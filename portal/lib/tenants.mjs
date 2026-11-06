@@ -74,9 +74,9 @@ export function createTenant(db, input, { userId } = {}) {
   return tx(db, () => {
     const tenant = { id: newId(), slug, name, number, niche_id: input.niche, settings: JSON.stringify(settings), modules: JSON.stringify(modules),
       limits: JSON.stringify({ sites: 5, pages: 60, usersMax: 25, ...(input.limits || {}) }), webhook_secret: randomBytes(24).toString('base64url'),
-      status: 'ativa', demo: input.demo ? 1 : 0, created_at: now() };
-    db.prepare(`INSERT INTO tenants (id, slug, name, number, niche_id, settings, modules, limits, webhook_secret, status, demo, created_at)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`).run(...Object.values(tenant));
+      status: 'ativa', demo: input.demo ? 1 : 0, created_at: now(), edition: input.edition === 'sx' ? 'sx' : 'geral' };
+    db.prepare(`INSERT INTO tenants (id, slug, name, number, niche_id, settings, modules, limits, webhook_secret, status, demo, created_at, edition)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`).run(...Object.values(tenant));
     const repo = scoped(db, tenant.id);
     for (const i of INTEGRATIONS) {
       repo.insert('integrations', { kind: i.kind, status: AUTO_ACTIVE.has(i.kind) ? 'ativo' : 'pendente', public_config: '{}' });
@@ -116,5 +116,5 @@ export function audit(db, { tenantId = null, userId = null, action, target = nul
     .run(newId(), tenantId, userId, action, target, JSON.stringify(data), now());
 }
 
-export const publicTenant = (t) => t && ({ id: t.id, slug: t.slug, name: t.name, number: t.number, niche: t.niche_id, label: unitLabel(t.niche_id, t.number),
+export const publicTenant = (t) => t && ({ id: t.id, slug: t.slug, name: t.name, number: t.number, niche: t.niche_id, edition: t.edition || 'geral', label: unitLabel(t.niche_id, t.number),
   settings: parse(t.settings, {}), modules: parse(t.modules, []), limits: parse(t.limits, {}), status: t.status, demo: Boolean(t.demo), createdAt: t.created_at });
