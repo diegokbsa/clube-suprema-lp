@@ -206,13 +206,43 @@ async function viewBaseClientes(r) {
 // ---------- insights do pesquisador de IA ----------
 async function viewInsights(r) {
   if (!S.me.user.isSuper) { location.hash = '#/'; return; }
-  const st = new URLSearchParams(location.hash.split('?')[1] || '').get('status') || 'novo';
+  const qs = new URLSearchParams(location.hash.split('?')[1] || '');
+  const st = qs.get('status') || 'novo';
   const d = await api('GET', `/api/admin/insights?status=${encodeURIComponent(st)}`);
   const nivel = (n) => '●'.repeat(n) + '○'.repeat(5 - n);
   const tabs = [['novo', 'Novos'], ['aceito', 'Aceitos'], ['aplicado', 'Aplicados'], ['descartado', 'Descartados']];
+  // filtros (ficam no endereço, para o link guardar a busca): impacto mínimo, esforço máximo, confiança mínima, tipo, tema, texto e ordem
+  const F = { imp: Number(qs.get('imp')) || 0, esf: Number(qs.get('esf')) || 0, conf: Number(qs.get('conf')) || 0,
+    tipo: qs.get('tipo') || '', tema: qs.get('tema') || '', q: (qs.get('q') || '').trim(), ord: qs.get('ord') || 'prioridade' };
+  const prioridade = (i) => (i.impacto * i.confianca) / Math.max(1, i.esforco) + (i.urgente ? 10 : 0);
+  const ORDENS = { prioridade: ['Prioridade (impacto × confiança ÷ esforço)', (a, b) => prioridade(b) - prioridade(a)],
+    impacto: ['Maior impacto', (a, b) => b.impacto - a.impacto || b.confianca - a.confianca],
+    confianca: ['Maior confiança', (a, b) => b.confianca - a.confianca || b.impacto - a.impacto],
+    esforco: ['Menor esforço', (a, b) => a.esforco - b.esforco || b.impacto - a.impacto],
+    recentes: ['Mais recentes', (a, b) => String(b.created_at).localeCompare(String(a.created_at))] };
+  const sem = (s) => String(s || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+  const lista = d.insights.filter((i) => (!F.imp || i.impacto >= F.imp) && (!F.esf || i.esforco <= F.esf) && (!F.conf || i.confianca >= F.conf)
+      && (!F.tipo || i.tipo === F.tipo) && (!F.tema || i.tema === F.tema)
+      && (!F.q || sem([i.titulo, i.resumo, i.acao, i.tema, i.tipo, ...(i.aplicavel || [])].join(' ')).includes(sem(F.q))))
+    .sort((ORDENS[F.ord] || ORDENS.prioridade)[1]);
+  const opcoes = (vals, atual) => vals.map((v) => `<option value="${esc(v)}" ${String(v) === String(atual) ? 'selected' : ''}>${esc(v)}</option>`).join('');
+  const niveis = (nome, rot, atual, ate) => `<label class="field" style="min-width:150px">${rot}<select data-f="${nome}"><option value="">Qualquer</option>${[1, 2, 3, 4, 5].map((n) => `<option value="${n}" ${n === atual ? 'selected' : ''}>${ate ? 'até' : 'a partir de'} ${n}</option>`).join('')}</select></label>`;
+  const tipos = [...new Set(d.insights.map((i) => i.tipo).filter(Boolean))].sort();
+  const temas = [...new Set(d.insights.map((i) => i.tema).filter(Boolean))].sort();
+  const filtrosAtivos = F.imp || F.esf || F.conf || F.tipo || F.tema || F.q;
   const main = layout(r, `<div class="page-head"><div><h1>Insights de IA</h1><p>O pesquisador procura na internet a cada 20 minutos e traz achados com fonte e ação sugerida. Nada é aplicado sozinho: você aceita (vira tarefa) ou descarta.</p></div></div>
     <div class="row" style="margin-bottom:12px">${tabs.map(([k, l]) => `<a class="btn ${k === st ? 'primary' : ''}" href="#/insights?status=${k}">${l} · ${d.counts[k] || 0}</a>`).join('')}</div>
-    ${d.insights.length ? d.insights.map((i) => `<div class="card"><div class="card-head">${i.urgente ? '<span class="pill bad">urgente</span>' : ''}<span class="pill info">${esc(i.tipo)}</span><span class="pill">${esc(i.tema)}</span>
+    <div class="card" id="ins-filtros"><div class="row" style="flex-wrap:wrap;gap:10px;align-items:flex-end">
+      <label class="field" style="flex:1 1 220px">Buscar<input data-f="q" type="search" value="${esc(F.q)}" placeholder="título, resumo, ação, tema…"></label>
+      ${niveis('imp', 'Impacto', F.imp, false)}${niveis('esf', 'Esforço', F.esf, true)}${niveis('conf', 'Confiança', F.conf, false)}
+      <label class="field" style="min-width:150px">Tipo<select data-f="tipo"><option value="">Todos</option>${opcoes(tipos, F.tipo)}</select></label>
+      <label class="field" style="min-width:150px">Tema<select data-f="tema"><option value="">Todos</option>${opcoes(temas, F.tema)}</select></label>
+      <label class="field" style="min-width:230px">Ordenar por<select data-f="ord">${Object.entries(ORDENS).map(([k, [l]]) => `<option value="${k}" ${k === F.ord ? 'selected' : ''}>${esc(l)}</option>`).join('')}</select></label>
+      ${filtrosAtivos ? '<button class="btn sm" type="button" id="ins-limpar">Limpar filtros</button>' : ''}
+    </div><p class="muted" style="margin:10px 0 0;font-size:13px">${lista.length} de ${d.insights.length} ${d.insights.length === 1 ? 'insight' : 'insights'} nesta aba.</p></div>
+    ${!d.insights.length ? '<div class="empty">Nada aqui ainda. O primeiro ciclo do pesquisador traz os primeiros achados.</div>'
+      : !lista.length ? '<div class="empty">Nenhum insight com esses filtros. Afrouxe um deles ou limpe os filtros.</div>'
+      : lista.map((i) => `<div class="card"><div class="card-head">${i.urgente ? '<span class="pill bad">urgente</span>' : ''}<span class="pill info">${esc(i.tipo)}</span><span class="pill">${esc(i.tema)}</span>
         ${i.aplicavel.map((a) => `<span class="pill gold">${esc(a)}</span>`).join('')}<span class="spacer"></span><span class="muted mono" style="font-size:12px">${fmtDate(i.created_at)}</span></div>
       <h2>${esc(i.titulo)}</h2><p style="margin-top:6px">${esc(i.resumo)}</p>
       <p><strong>Ação sugerida:</strong> ${esc(i.acao)}</p>
@@ -220,8 +250,17 @@ async function viewInsights(r) {
         <a href="${esc(i.fonte_url)}" target="_blank" rel="noopener noreferrer">fonte${i.fonte_data ? ` (${esc(i.fonte_data)})` : ''} ↗</a></div>
       ${i.nota ? `<p class="muted" style="margin-top:6px">Nota: ${esc(i.nota)}</p>` : ''}
       <div class="row end" style="margin-top:10px">${st !== 'aceito' ? `<button class="btn sm primary" type="button" data-ins="${esc(i.id)}" data-st="aceito">Aceitar</button>` : `<button class="btn sm gold" type="button" data-ins="${esc(i.id)}" data-st="aplicado">Marcar como aplicado</button>`}
-        ${st !== 'descartado' ? `<button class="btn sm" type="button" data-ins="${esc(i.id)}" data-st="descartado">Descartar</button>` : ''}</div></div>`).join('')
-      : '<div class="empty">Nada aqui ainda. O primeiro ciclo do pesquisador traz os primeiros achados.</div>'}`);
+        ${st !== 'descartado' ? `<button class="btn sm" type="button" data-ins="${esc(i.id)}" data-st="descartado">Descartar</button>` : ''}</div></div>`).join('')}`);
+  const aplicar = () => {
+    const p = new URLSearchParams({ status: st });
+    $$('[data-f]', main).forEach((el) => { const v = el.value.trim(); if (v && !(el.dataset.f === 'ord' && v === 'prioridade')) p.set(el.dataset.f, v); });
+    location.hash = `#/insights?${p}`;
+  };
+  $$('#ins-filtros select', main).forEach((el) => el.addEventListener('change', aplicar));
+  const busca = $('#ins-filtros input[data-f="q"]', main);
+  busca?.addEventListener('keydown', (e) => { if (e.key === 'Enter') aplicar(); });
+  busca?.addEventListener('search', aplicar);
+  $('#ins-limpar', main)?.addEventListener('click', () => { location.hash = `#/insights?status=${st}`; });
   $$('[data-ins]', main).forEach((b) => b.addEventListener('click', async () => {
     const nota = b.dataset.st === 'descartado' ? (prompt('Motivo (opcional):') || '') : '';
     await api('PATCH', `/api/admin/insights/${b.dataset.ins}`, { status: b.dataset.st, nota });
