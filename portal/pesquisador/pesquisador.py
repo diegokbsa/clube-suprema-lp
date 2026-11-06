@@ -52,7 +52,7 @@ PROJETO = "lp-clube-suprema"
 SEM_JANELA = getattr(subprocess, "CREATE_NO_WINDOW", 0)
 
 CONFIG = {
-    "agente": "codex",         # Kbsa, 06/11/2026: o Kimi toma a tela inteira; a pesquisa vai para o Codex (trabalha por trás)
+    "agente": "big",           # Kbsa, 06/11/2026: "remova o codex e kimi"; a pesquisa vai para o Claude (caixa do Big)
     "reserva": "big",
     "pegar_em_min": 40,        # ordem não pega nesse tempo -> próxima vai para a reserva
     "travada_min": 120,        # ordem em andamento há mais que isso -> desiste e segue

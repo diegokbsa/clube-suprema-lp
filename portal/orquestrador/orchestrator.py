@@ -10,8 +10,8 @@
   orchestrator.py ciclo            (uso do agendador) igual a dispatch
   orchestrator.py review PA-XXX ok|volta "nota"   resultado da revisão do coordenador: concluída ou de volta para pronta
 
-Agentes: codex e kimi recebem ordem pela caixa real (ordens.py nova); "claude-design" vai para a caixa do Big (Claude);
-"claude" é o próprio coordenador e não recebe ordem automática. Concorrência: 1 tarefa por agente. Limite diário de ordens em LIMITES.
+Agentes (Kbsa, 06/11/2026: "remova o codex e kimi, execute com mais agentes do claude"): toda tarefa vai para a caixa do Big,
+executada pelo Claude, até 4 ao mesmo tempo (LIMITES["paralelo"] aqui e FAIXAS_CLAUDE no ordens.py). Limite diário em LIMITES.
 O que o agente entrega vai para "em_revisao": só o coordenador marca "concluida" (comando review), nunca o agente.
 """
 from __future__ import annotations
@@ -45,16 +45,16 @@ SEM_JANELA = getattr(subprocess, "CREATE_NO_WINDOW", 0)
 
 LIMITES = {
     "ordens_por_dia": 30,          # teto de ordens novas por dia (custo/uso dos agentes); Kbsa subiu de 10 para 30 em 05/11/2026
-    "ordens_por_ciclo": 3,
+    "ordens_por_ciclo": 4,         # 4 Claudes em paralelo (Kbsa, 06/11/2026)
+    "paralelo": 4,                 # tarefas em execução ao mesmo tempo (igual a FAIXAS_CLAUDE do ordens.py)
     "tentativas": 3,               # tentativas por tarefa antes de ficar bloqueada de vez
     "atraso_min": [30, 90, 240],   # espera antes da 2ª, 3ª e 4ª tentativa (backoff)
     "travada_horas": 5,            # ordem em andamento há mais que isso = travada
     "trava_ciclo_min": 25,         # trava de ciclo mais velha que isso é considerada abandonada
 }
-# Kbsa, 06/11/2026: o Kimi toma a tela inteira do computador enquanto ele usa o PC; tarefa do Kimi vai para o Codex (trabalha por trás).
-# Para voltar ao Kimi, troque "kimi": "codex" por "kimi": "kimi".
-DESPACHA = {"codex": "codex", "kimi": "codex", "claude-design": "big"}
-PC_LIVRE = Path(r"C:\AgentSetup\pc-livre.txt")  # existe = Kbsa saiu do PC (ele avisa o Claude); tarefa do Kimi volta para o Kimi  # agente da tarefa → caixa do ordens.py
+# Kbsa, 06/11/2026: "remova o codex e kimi, execute com mais agentes do claude". Toda tarefa vai para a caixa do Big, executada pelo
+# Claude, até 4 ao mesmo tempo (ordens.py FAIXAS_CLAUDE). O campo "agente" do backlog fica só como histórico de quem desenhou a tarefa.
+DESPACHA = {"claude": "big", "codex": "big", "kimi": "big", "claude-design": "big"}  # agente da tarefa → caixa do ordens.py
 PRIORIDADE = {"alta": 0, "media": 1, "baixa": 2}
 ESTADOS = ["backlog", "pronta", "em_execucao", "em_revisao", "bloqueada", "concluida"]
 SEGREDO = re.compile(r"(?i)(token|senha|password|secret|api[_-]?key|authorization)[\"'\s:=]+[^\s\"',}]{6,}")
@@ -216,8 +216,6 @@ O coordenador revisa antes de dar como concluída.
 
 def criar_ordem(t: dict, estado: dict) -> Path | None:
     caixa = DESPACHA[t["agente"]]
-    if t["agente"] == "kimi" and PC_LIVRE.exists():
-        caixa = "kimi"   # Kbsa fora do PC: o Kimi pode usar a tela
     arq = ESTADO_DIR / f"ordem-{t['id']}.md"
     arq.write_text(texto_ordem(t, estado), encoding="utf-8")
     cmd = [sys.executable, str(ORDENS), "nova", caixa, f"{t['id']} {t['titulo']}", "--projeto", PROJETO,
@@ -356,23 +354,23 @@ def ciclo(origem: str = "agendador") -> int:
                 mudar(estado, t["id"], "pronta", "dependências concluídas")
                 resumo["promovidas"].append(t["id"])
 
-        # 4. despacho: 1 tarefa por agente, dentro do limite diário
+        # 4. despacho: até LIMITES["paralelo"] tarefas em execução ao mesmo tempo (todas com o Claude), dentro do limite diário
         hoje = agora().strftime("%Y-%m-%d")
         estado["ordens_hoje"] = {hoje: estado.get("ordens_hoje", {}).get(hoje, 0)}
-        ocupados = {tarefas[tid]["agente"] for tid, s in estado["tarefas"].items() if s["status"] == "em_execucao" and tid in tarefas}
+        rodando = sum(1 for tid, s in estado["tarefas"].items() if s["status"] == "em_execucao" and tid in tarefas)
         prontas = sorted((t for t in backlog["tarefas"] if estado["tarefas"][t["id"]]["status"] == "pronta" and t["agente"] in DESPACHA),
                          key=lambda t: (PRIORIDADE.get(t["prioridade"], 9), t["id"]))
         for t in prontas:
             if len(resumo["despachadas"]) >= LIMITES["ordens_por_ciclo"] or estado["ordens_hoje"][hoje] >= LIMITES["ordens_por_dia"]:
                 break
-            if t["agente"] in ocupados:
-                continue
+            if rodando >= LIMITES["paralelo"]:
+                break
             ordem = criar_ordem(t, estado)
             if not ordem:
                 resumo["falhas"].append(t["id"])
                 continue
             estado["ordens_hoje"][hoje] += 1
-            ocupados.add(t["agente"])
+            rodando += 1
             mudar(estado, t["id"], "em_execucao", f"ordem enviada para {t['agente']}", ordem=str(ordem), despachada=iso())
             resumo["despachadas"].append(t["id"])
 
@@ -516,7 +514,7 @@ def relatorio() -> Path:
           "## Concluídas e verificadas", *ou_nada([linha(t) for t in por["concluida"]]), "",
           "## Em revisão (entregues, validação passou, aguardam o coordenador)", *ou_nada([linha(t) for t in por["em_revisao"]]), "",
           "## Em execução por agente"]
-    for ag in ("codex", "kimi", "claude-design", "claude"):
+    for ag in ("claude", "claude-design", "codex", "kimi"):
         ids = [t for t in por["em_execucao"] if tarefas[t]["agente"] == ag]
         md.append(f"- **{ag}**: " + (", ".join(f"{t} ({tarefas[t]['titulo']})" for t in ids) if ids else "livre"))
     md += ["", "## Bloqueios e ação"]

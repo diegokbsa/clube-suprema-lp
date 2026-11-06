@@ -153,7 +153,7 @@
       "id": "PA-011",
       "epico": "E05 Construtor, blog e mídia",
       "titulo": "Biblioteca de mídia isolada por operação",
-      "agente": "codex",
+      "agente": "claude",
       "prioridade": "media",
       "estimativa": "2h",
       "deps": [
@@ -178,13 +178,14 @@
         "Só PNG/JPG/WEBP/SVG sanitizado/GIF até o limite",
         "Remoção registrada na auditoria"
       ],
-      "validacao": "npm run portal:test"
+      "validacao": "npm run portal:test",
+      "agente_original": "codex"
     },
     {
       "id": "PA-012",
       "epico": "E05 Construtor, blog e mídia",
       "titulo": "Domínios e subdomínios com verificação",
-      "agente": "codex",
+      "agente": "claude",
       "prioridade": "media",
       "estimativa": "2h",
       "deps": [
@@ -207,13 +208,14 @@
         "Domínio não verificado não serve o site",
         "Um domínio não pode ser ligado a duas operações"
       ],
-      "validacao": "npm run portal:test"
+      "validacao": "npm run portal:test",
+      "agente_original": "codex"
     },
     {
       "id": "PA-013",
       "epico": "E05 Construtor, blog e mídia",
       "titulo": "Duplicar páginas e sites e aviso de nova versão de modelo",
-      "agente": "codex",
+      "agente": "claude",
       "prioridade": "baixa",
       "estimativa": "2h",
       "deps": [
@@ -233,7 +235,8 @@
         "Duplicar para operação sem permissão é recusado",
         "Atualização de modelo nunca altera página existente sem ação do usuário"
       ],
-      "validacao": "npm run portal:test"
+      "validacao": "npm run portal:test",
+      "agente_original": "codex"
     },
     {
       "id": "PA-020",
@@ -353,7 +356,7 @@
       "id": "PA-040",
       "epico": "E08 Telegram e redes",
       "titulo": "Integração Telegram com passo a passo",
-      "agente": "codex",
+      "agente": "claude",
       "prioridade": "media",
       "estimativa": "3h",
       "deps": [
@@ -377,13 +380,14 @@
         "Destino inválido mostra erro compreensível",
         "Sem token a integração aparece 'pendente de configuração'"
       ],
-      "validacao": "npm run portal:test"
+      "validacao": "npm run portal:test",
+      "agente_original": "codex"
     },
     {
       "id": "PA-041",
       "epico": "E08 Telegram e redes",
       "titulo": "Instagram pela Graph API oficial",
-      "agente": "codex",
+      "agente": "claude",
       "prioridade": "media",
       "estimativa": "4h",
       "deps": [
@@ -406,13 +410,14 @@
         "Reprocessar não publica duas vezes",
         "Nada publica sem aprovação da operação"
       ],
-      "validacao": "npm run portal:test"
+      "validacao": "npm run portal:test",
+      "agente_original": "codex"
     },
     {
       "id": "PA-050",
       "epico": "E09 Analytics, Pixel e Meta Ads",
       "titulo": "Mensuração por site: GA4, GTM, Pixel, CAPI e consentimento",
-      "agente": "codex",
+      "agente": "claude",
       "prioridade": "alta",
       "estimativa": "4h",
       "deps": [
@@ -435,13 +440,14 @@
         "Evento de navegador e servidor saem com o mesmo event_id",
         "Tela distingue 'ID instalado' de 'conta conectada'"
       ],
-      "validacao": "npm run portal:test"
+      "validacao": "npm run portal:test",
+      "agente_original": "codex"
     },
     {
       "id": "PA-051",
       "epico": "E09 Analytics, Pixel e Meta Ads",
       "titulo": "Meta Ads: campanhas em rascunho e pausadas",
-      "agente": "codex",
+      "agente": "claude",
       "prioridade": "media",
       "estimativa": "4h",
       "deps": [
@@ -465,7 +471,8 @@
         "Sem orçamento definido não há botão de publicar",
         "Erros da API aparecem em português"
       ],
-      "validacao": "npm run portal:test"
+      "validacao": "npm run portal:test",
+      "agente_original": "codex"
     },
     {
       "id": "PA-060",
@@ -600,7 +607,7 @@
       "id": "PA-070",
       "epico": "E11 Comissões e relatórios",
       "titulo": "Regras de comissão versionadas e extrato",
-      "agente": "codex",
+      "agente": "claude",
       "prioridade": "alta",
       "estimativa": "5h",
       "deps": [
@@ -624,13 +631,14 @@
         "Troca de regra não altera comissões passadas",
         "Estorno gera lançamento negativo com auditoria"
       ],
-      "validacao": "npm run portal:test"
+      "validacao": "npm run portal:test",
+      "agente_original": "codex"
     },
     {
       "id": "PA-071",
       "epico": "E11 Comissões e relatórios",
       "titulo": "Portal do afiliado",
-      "agente": "codex",
+      "agente": "claude",
       "prioridade": "media",
       "estimativa": "3h",
       "deps": [
@@ -650,7 +658,8 @@
         "Afiliado só vê os próprios dados",
         "Links com UTM padronizada"
       ],
-      "validacao": "npm run portal:test"
+      "validacao": "npm run portal:test",
+      "agente_original": "codex"
     },
     {
       "id": "PA-080",
@@ -680,7 +689,7 @@
       "id": "PA-090",
       "epico": "E13 Revisão",
       "titulo": "Revisão de segurança",
-      "agente": "codex",
+      "agente": "claude",
       "prioridade": "alta",
       "estimativa": "3h",
       "deps": [
@@ -703,13 +712,14 @@
         "Sem achado alto aberto",
         "Testes de segurança passando"
       ],
-      "validacao": "npm run portal:test"
+      "validacao": "npm run portal:test",
+      "agente_original": "codex"
     },
     {
       "id": "PA-092",
       "epico": "E13 Revisão",
       "titulo": "Documentação de uso do portal",
-      "agente": "kimi",
+      "agente": "claude",
       "prioridade": "baixa",
       "estimativa": "2h",
       "deps": [
@@ -728,7 +738,8 @@
         "Cada tela do painel tem seção",
         "Sem prometer integração pendente"
       ],
-      "validacao": "test -f portal/docs/guia-de-uso.md"
+      "validacao": "test -f portal/docs/guia-de-uso.md",
+      "agente_original": "kimi"
     },
     {
       "id": "PA-100",
@@ -792,7 +803,7 @@
       "id": "PA-015",
       "epico": "E09 Analytics, Pixel e Meta Ads",
       "titulo": "Google Search Console e Bing Webmaster conectados",
-      "agente": "codex",
+      "agente": "claude",
       "prioridade": "media",
       "estimativa": "4h",
       "deps": [
@@ -816,7 +827,8 @@
         "Com fetch falso, publicar chama sitemaps.submit uma vez",
         "Token nunca volta ao front nem ao log"
       ],
-      "validacao": "npm run portal:test"
+      "validacao": "npm run portal:test",
+      "agente_original": "codex"
     },
     {
       "id": "PA-110",
@@ -854,7 +866,7 @@
       "id": "PA-111",
       "epico": "E07 Criativos e calendário",
       "titulo": "Rotinas automáticas de IA (notícias no blog, Instagram, YouTube)",
-      "agente": "codex",
+      "agente": "claude",
       "prioridade": "alta",
       "estimativa": "6h",
       "deps": [
@@ -882,13 +894,14 @@
         "Nada é publicado sem aprovação",
         "Chave lida só do cofre no servidor; nunca em log"
       ],
-      "validacao": "npm run portal:test"
+      "validacao": "npm run portal:test",
+      "agente_original": "codex"
     },
     {
       "id": "PA-112",
       "epico": "E07 Criativos e calendário",
       "titulo": "Ferramentas MCP dos módulos (post do blog e criativo)",
-      "agente": "codex",
+      "agente": "claude",
       "prioridade": "media",
       "estimativa": "2h",
       "deps": [
@@ -910,7 +923,8 @@
         "Tudo nasce como rascunho",
         "Post criado pela IA dispara SEO só ao ser publicado por uma pessoa"
       ],
-      "validacao": "npm run portal:test"
+      "validacao": "npm run portal:test",
+      "agente_original": "codex"
     },
     {
       "id": "PA-113",
@@ -1067,7 +1081,7 @@
       "validacao": "npm run portal:test",
       "id": "PA-120",
       "titulo": "CRM de conversas: caixa de entrada por operação",
-      "agente": "codex",
+      "agente": "claude",
       "prioridade": "alta",
       "estimativa": "6h",
       "deps": [
@@ -1089,7 +1103,8 @@
         "Conversa de uma operação não aparece em outra",
         "Mensagem nova liga ao cliente certo pela base única",
         "Idempotência por id externo da mensagem"
-      ]
+      ],
+      "agente_original": "codex"
     },
     {
       "epico": "E06 CRM e atribuição",
@@ -1097,7 +1112,7 @@
       "validacao": "npm run portal:test",
       "id": "PA-121",
       "titulo": "Canal WhatsApp oficial (Cloud API da Meta) nas conversas",
-      "agente": "codex",
+      "agente": "claude",
       "prioridade": "alta",
       "estimativa": "5h",
       "deps": [
@@ -1120,7 +1135,8 @@
         "Assinatura inválida recusada",
         "Fora da janela de 24 h só envia modelo aprovado",
         "Token nunca no front nem no log"
-      ]
+      ],
+      "agente_original": "codex"
     },
     {
       "epico": "E06 CRM e atribuição",
@@ -1128,7 +1144,7 @@
       "validacao": "npm run portal:test",
       "id": "PA-122",
       "titulo": "Canal Telegram nas conversas",
-      "agente": "codex",
+      "agente": "claude",
       "prioridade": "media",
       "estimativa": "3h",
       "deps": [
@@ -1145,7 +1161,8 @@
       "aceite": [
         "Cliente do Telegram ligado à base única quando houver telefone/e-mail",
         "Isolamento por operação"
-      ]
+      ],
+      "agente_original": "codex"
     },
     {
       "epico": "E06 CRM e atribuição",
@@ -1153,7 +1170,7 @@
       "validacao": "npm run portal:test",
       "id": "PA-123",
       "titulo": "Agente de IA de atendimento com base de conhecimento e passagem para humano",
-      "agente": "codex",
+      "agente": "claude",
       "prioridade": "alta",
       "estimativa": "6h",
       "deps": [
@@ -1178,7 +1195,8 @@
         "Sem chave válida o agente não roda e o motivo aparece",
         "Mensagem que viola regra não é enviada",
         "Atendente assume e o agente para naquela conversa"
-      ]
+      ],
+      "agente_original": "codex"
     },
     {
       "epico": "E06 CRM e atribuição",
@@ -1186,7 +1204,7 @@
       "validacao": "npm run portal:test",
       "id": "PA-124",
       "titulo": "Automações QUANDO / SE / ENTÃO no CRM",
-      "agente": "codex",
+      "agente": "claude",
       "prioridade": "media",
       "estimativa": "4h",
       "deps": [
@@ -1207,7 +1225,8 @@
       "aceite": [
         "Rodar duas vezes não duplica ação",
         "Regra de uma operação não age em outra"
-      ]
+      ],
+      "agente_original": "codex"
     },
     {
       "epico": "E06 CRM e atribuição",
