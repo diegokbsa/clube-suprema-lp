@@ -1,37 +1,10 @@
 // Catálogo de blocos do construtor. Cada bloco = { type, props }. O editor monta o formulário a partir de `fields`;
 // o site público é renderizado por `render`. Todo texto passa por esc(); todo link passa por safeHref().
 
-export const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+import { esc, safeHref, para, list, head, btn, img, variant, F, HEAD } from './block-kit.mjs';
+import { WORLD_BLOCKS } from './worlds/index.mjs';
 
-/** Só http(s), mailto, tel, âncora e caminho relativo. Caminho "/x" vira relativo à base do site. */
-export function safeHref(href, base = '') {
-  const h = String(href ?? '').trim();
-  if (!h) return '#';
-  if (h.startsWith('#')) return esc(h);
-  if (h.startsWith('/') && !h.startsWith('//')) return esc(base + h);
-  if (/^(https?:|mailto:|tel:)/i.test(h)) return esc(h);
-  return '#';
-}
-
-const para = (txt) => String(txt ?? '').split(/\n{2,}/).map((p) => p.trim()).filter(Boolean)
-  .map((p) => `<p>${esc(p).replace(/\n/g, '<br>')}</p>`).join('');
-const list = (v) => (Array.isArray(v) ? v : []);
-const head = (p, cls = '') => (p.title || p.subtitle || p.eyebrow
-  ? `<header class="b-head ${cls}">${p.eyebrow ? `<p class="eyebrow">${esc(p.eyebrow)}</p>` : ''}${p.title ? `<h2>${esc(p.title)}</h2>` : ''}${p.subtitle ? `<p class="sub">${esc(p.subtitle)}</p>` : ''}</header>`
-  : '');
-const btn = (label, href, ctx, cls = 'btn') => (label ? `<a class="${cls}" href="${safeHref(href, ctx.base)}" data-cta="${esc(label)}">${esc(label)}</a>` : '');
-const img = (src, alt = '', cls = '') => (src && /^(https?:\/\/|\/)/.test(src) ? `<img class="${cls}" src="${esc(src)}" alt="${esc(alt)}" loading="lazy" decoding="async">` : '');
-const variant = (p, allowed, fallback) => (allowed.includes(p.variant) ? p.variant : fallback);
-
-const F = {
-  text: (k, label, extra = {}) => ({ k, label, t: 'text', ...extra }),
-  area: (k, label, extra = {}) => ({ k, label, t: 'textarea', ...extra }),
-  url: (k, label, extra = {}) => ({ k, label, t: 'url', ...extra }),
-  select: (k, label, options) => ({ k, label, t: 'select', options }),
-  check: (k, label) => ({ k, label, t: 'checkbox' }),
-  list: (k, label, of) => ({ k, label, t: 'list', of }),
-};
-const HEAD = [F.text('eyebrow', 'Chamada pequena'), F.text('title', 'Título'), F.area('subtitle', 'Subtítulo')];
+export { esc, safeHref };
 
 export const BLOCKS = {
   navbar: {
@@ -200,6 +173,12 @@ export const BLOCKS = {
       ${p.disclaimer || ctx.disclaimer ? `<p class="disclaimer">${esc(p.disclaimer || ctx.disclaimer)}</p>` : ''}</div></footer>`,
   },
 };
+
+// Blocos-assinatura dos mundos visuais (lib/worlds/*.mjs). O nome do bloco começa pelo id do mundo (ex.: rack_hero).
+for (const [k, b] of Object.entries(WORLD_BLOCKS)) {
+  if (BLOCKS[k]) throw new Error(`bloco repetido nos mundos: ${k}`);
+  BLOCKS[k] = b;
+}
 
 // Todo bloco aceita uma âncora (id) para links "#ancora" do menu.
 for (const b of Object.values(BLOCKS)) b.fields.push(F.text('anchor', 'Âncora para links # (ex.: duvidas)'));

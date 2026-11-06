@@ -5,15 +5,21 @@ import { parse } from './db.mjs';
 import { niche } from './niches.mjs';
 import { jsonLd } from './seo.mjs';
 
+// Pesos que cada família tem no Google Fonts (pedir peso que não existe derruba o CSS inteiro da família).
+const W7 = '400;500;600;700';
+const PESOS = { Antonio: W7, 'Archivo Narrow': W7, 'Red Hat Mono': W7, 'Familjen Grotesk': W7, Oswald: W7, 'IBM Plex Sans': W7, 'Space Grotesk': W7,
+  Anton: '400', 'Bebas Neue': '400', Gloock: '400', 'Young Serif': '400', 'Instrument Serif': '400', 'Libre Caslon Text': '400;700' };
 const fontsUrl = (t) => {
-  const fam = [...new Set([t.fontHead, t.font])].map((f) => `family=${encodeURIComponent(f).replace(/%20/g, '+')}:wght@400;500;600;700;800`).join('&');
+  const fam = [...new Set([t.fontHead, t.font, t.fontMono].filter(Boolean))]
+    .map((f) => `family=${encodeURIComponent(f).replace(/%20/g, '+')}:wght@${PESOS[f] || '400;500;600;700;800'}`).join('&');
   return `https://fonts.googleapis.com/css2?${fam}&display=swap`;
 };
 
 export function themeCss(theme) {
   const t = cleanTheme(theme);
   return `:root{--bg:${t.bg};--surface:${t.surface};--text:${t.text};--muted:${t.muted};--primary:${t.primary};--primary-text:${t.primaryText};`
-    + `--accent:${t.accent};--border:${t.border};--radius:${t.radius}px;--font:'${t.font}',system-ui,sans-serif;--font-head:'${t.fontHead}',var(--font);color-scheme:${t.mode === 'claro' ? 'light' : 'dark'}}`;
+    + `--accent:${t.accent};--border:${t.border};--radius:${t.radius}px;--font:'${t.font}',system-ui,sans-serif;--font-head:'${t.fontHead}',var(--font);`
+    + `--font-mono:${t.fontMono ? `'${t.fontMono}',` : ''}ui-monospace,Consolas,monospace;color-scheme:${t.mode === 'claro' ? 'light' : 'dark'}}`;
 }
 
 /**
@@ -51,10 +57,11 @@ ${ogImage ? `<meta property="og:image" content="${esc(ogImage)}">` : ''}
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="${fontsUrl(theme)}">
 <link rel="stylesheet" href="/assets/site.css">
+${theme.world ? `<link rel="stylesheet" href="/assets/worlds/${esc(theme.world)}.css">` : ''}
 <style>${themeCss(theme)}</style>
 ${preview ? '' : `<script type="application/ld+json">${jsonLd({ site, page, tenant, canonical: canonical || `${origin}${base}/${page.slug}`, origin: origin || '', base, description, logo: parse(tenant.settings, {}).logo })}</script>`}
 </head>
-<body class="mode-${theme.mode}" data-site="${esc(site.id)}" data-page="${esc(page.slug)}" data-base="${esc(base)}"${preview ? ' data-preview="1"' : ''} data-ga4="${esc(ga4)}" data-gtm="${esc(gtm)}" data-pixel="${esc(pixel)}">
+<body class="mode-${theme.mode}"${theme.world ? ` data-world="${esc(theme.world)}"` : ''} data-site="${esc(site.id)}" data-page="${esc(page.slug)}" data-base="${esc(base)}"${preview ? ' data-preview="1"' : ''} data-ga4="${esc(ga4)}" data-gtm="${esc(gtm)}" data-pixel="${esc(pixel)}">
 ${preview ? '<div class="preview-bar">Prévia do rascunho · não publicado</div>' : ''}
 ${tenant.demo ? '<div class="demo-bar">Site de demonstração: dados e textos de exemplo.</div>' : ''}
 <main>
@@ -63,6 +70,7 @@ ${renderBlocks(blocks, ctx)}
 ${needsConsent ? `<div class="consent" id="consent" hidden><p>Usamos cookies de medição (Google e Meta) para entender o que funciona neste site. Você escolhe.</p>
 <div><button class="btn btn-sm" type="button" data-consent="sim">Aceitar</button><button class="btn btn-ghost btn-sm" type="button" data-consent="nao">Recusar</button></div></div>` : ''}
 <script src="/assets/site.js" defer></script>
+${theme.world ? `<script src="/assets/worlds/${esc(theme.world)}.js" defer></script>` : ''}
 </body>
 </html>`;
 }

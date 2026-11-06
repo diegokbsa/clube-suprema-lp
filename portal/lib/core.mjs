@@ -103,7 +103,10 @@ export const coreRoutes = [
   {
     method: 'POST', path: '/api/tenants', super: true, handler: ({ db, body, user, edition, origin }) => {
       need(edition.allowsNiche(body.niche || edition.defaultNiche), 400, `A edição ${edition.name} não trabalha com esse nicho.`);
-      const { tenant, site } = createTenant(db, { ...body, edition: edition.id, niche: body.niche || edition.defaultNiche, theme: { ...(edition.siteTheme || {}), ...(body.theme || {}) } }, { userId: user.id });
+      // Modelo com mundo visual próprio (theme.world) mantém a identidade dele; o tema da edição só entra nos modelos sem mundo.
+      const tpl = body.template ? loadTemplates().get(body.template) : null;
+      const base = tpl?.theme?.world ? {} : (edition.siteTheme || {});
+      const { tenant, site } = createTenant(db, { ...body, edition: edition.id, niche: body.niche || edition.defaultNiche, theme: { ...base, ...(body.theme || {}) } }, { userId: user.id });
       return { status: 201, body: { tenant: publicTenant(tenant), site: site && siteOut(site), adminUrl: `/admin/#/t/${tenant.slug}`,
         siteUrl: site ? `${origin}/s/${site.slug}/` : null } };
     },
