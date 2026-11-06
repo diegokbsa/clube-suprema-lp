@@ -1286,7 +1286,7 @@
       "prioridade": "alta",
       "estimativa": "6h",
       "deps": [],
-      "status": "pronta",
+      "status": "em_execucao",
       "area": "aff",
       "objetivo": "Criar o mundo visual 'encarte' (encarte de loja com etiquetas de preço, carimbos de oferta, grade de produtos desenhada em CSS/SVG, cupom recortável com o {{coupon}}) no mesmo nível dos 5 exemplos-régua, e reescrever neste mundo cupons-descontos, negocio-local, tcg-colecionaveis, vitrine-generica (mesmos ids e order, version + 1). Ler inteiros antes de começar: portal/docs/MUNDOS.md (contrato e régua), C:\\Users\\Administrator\\.claude\\skills\\impeccable\\reference\\craft-floor.md e os 5 exemplos-régua em C:\\Users\\Administrator\\Desktop\\match3-autoplayer-extensao-v1.1.0\\Nova pasta (2)\\Poker-crypto\\.impeccable\\mocks\\decision\\*.html (fotos em C:\\Users\\Administrator\\Desktop\\match3-autoplayer-extensao-v1.1.0\\Nova pasta (2)\\Poker-crypto\\data\\modelo-*.jpg). O Kbsa: 'não faça serviço porco só porque é serviço em volume'.",
       "escopo": [
@@ -1312,7 +1312,8 @@
         "Conteúdo honesto: nada de número, depoimento ou avaliação inventados; preços e produtos marcados como exemplo",
         "node portal/tools/validar-modelos.mjs com ✓ nos modelos da tarefa e npm run portal:test passando"
       ],
-      "validacao": "node portal/tools/validar-modelos.mjs"
+      "validacao": "node portal/tools/validar-modelos.mjs",
+      "nota_revisao": "06/11 10h32: reprovada na revisão do Claude por fotos; rodada 2 mandada ao Codex (ordens 20261106-1032-*)"
     },
     {
       "id": "PA-131",
@@ -1322,7 +1323,7 @@
       "prioridade": "alta",
       "estimativa": "6h",
       "deps": [],
-      "status": "pronta",
+      "status": "em_execucao",
       "area": "aff",
       "objetivo": "Criar o mundo visual 'editorial' (revista: capa com manchete, índice, colunas, chamadas, assinatura/newsletter, serifada com personalidade + grotesca) no mesmo nível dos 5 exemplos-régua, e reescrever neste mundo area-membros, cursos-treinamentos, eventos-inscricoes, diretorio-parceiros (mesmos ids e order, version + 1). Ler inteiros antes de começar: portal/docs/MUNDOS.md (contrato e régua), C:\\Users\\Administrator\\.claude\\skills\\impeccable\\reference\\craft-floor.md e os 5 exemplos-régua em C:\\Users\\Administrator\\Desktop\\match3-autoplayer-extensao-v1.1.0\\Nova pasta (2)\\Poker-crypto\\.impeccable\\mocks\\decision\\*.html (fotos em C:\\Users\\Administrator\\Desktop\\match3-autoplayer-extensao-v1.1.0\\Nova pasta (2)\\Poker-crypto\\data\\modelo-*.jpg). O Kbsa: 'não faça serviço porco só porque é serviço em volume'.",
       "escopo": [
@@ -1348,7 +1349,8 @@
         "Conteúdo honesto: nada de número, depoimento ou avaliação inventados; preços e produtos marcados como exemplo",
         "node portal/tools/validar-modelos.mjs com ✓ nos modelos da tarefa e npm run portal:test passando"
       ],
-      "validacao": "node portal/tools/validar-modelos.mjs"
+      "validacao": "node portal/tools/validar-modelos.mjs",
+      "nota_revisao": "06/11 10h32: reprovada na revisão do Claude por fotos; rodada 2 mandada ao Codex (ordens 20261106-1032-*)"
     },
     {
       "id": "PA-132",
@@ -1358,7 +1360,7 @@
       "prioridade": "alta",
       "estimativa": "5h",
       "deps": [],
-      "status": "pronta",
+      "status": "em_execucao",
       "area": "aff",
       "objetivo": "Criar o mundo visual 'produto' (a interface do próprio produto como prova: tela desenhada em HTML/CSS, changelog, tabela de planos honesta, teste grátis {{trialUrl}}) no mesmo nível dos 5 exemplos-régua, e reescrever neste mundo saas-trial-demo, ia-ferramentas (mesmos ids e order, version + 1). Ler inteiros antes de começar: portal/docs/MUNDOS.md (contrato e régua), C:\\Users\\Administrator\\.claude\\skills\\impeccable\\reference\\craft-floor.md e os 5 exemplos-régua em C:\\Users\\Administrator\\Desktop\\match3-autoplayer-extensao-v1.1.0\\Nova pasta (2)\\Poker-crypto\\.impeccable\\mocks\\decision\\*.html (fotos em C:\\Users\\Administrator\\Desktop\\match3-autoplayer-extensao-v1.1.0\\Nova pasta (2)\\Poker-crypto\\data\\modelo-*.jpg). O Kbsa: 'não faça serviço porco só porque é serviço em volume'.",
       "escopo": [
@@ -1382,7 +1384,8 @@
         "Conteúdo honesto: nada de número, depoimento ou avaliação inventados; preços e produtos marcados como exemplo",
         "node portal/tools/validar-modelos.mjs com ✓ nos modelos da tarefa e npm run portal:test passando"
       ],
-      "validacao": "node portal/tools/validar-modelos.mjs"
+      "validacao": "node portal/tools/validar-modelos.mjs",
+      "nota_revisao": "06/11 10h32: reprovada na revisão do Claude por fotos; rodada 2 mandada ao Codex (ordens 20261106-1032-*)"
     },
     {
       "id": "PA-133",
@@ -1392,7 +1395,7 @@
       "prioridade": "alta",
       "estimativa": "8h",
       "deps": [],
-      "status": "pronta",
+      "status": "em_execucao",
       "area": "aff",
       "objetivo": "Redesenhar o backoffice (portal/public/admin/) da edição de afiliados no nível de um produto profissional: hierarquia clara, navegação por operação, central do superadmin, construtor de páginas com prévia lado a lado, escolha de mundo visual e paleta ao criar o site e no tema (GET /api/meta já devolve worlds com palettes), estados vazios úteis, tabelas legíveis, formulários com validação, celular utilizável. Manter toda função que já existe e a edição SX funcionando com a cara dela (data-edition). Ler antes: portal/docs/ARQUITETURA.md, portal/docs/MUNDOS.md (a lista de proibidos vale aqui) e C:\\Users\\Administrator\\.claude\\skills\\impeccable\\reference\\craft-floor.md. Para fotografar o painel crie portal/tools/fotos-painel.mjs a partir de portal/tools/fotos.mjs, com portas livres (net.createServer listen 0) e banco temporário semeado; nunca use as portas 3400, 3401, 3490 ou 3491.",
       "escopo": [
@@ -1411,7 +1414,51 @@
         "Nada da lista de proibidos do MUNDOS.md",
         "npm run portal:test passando"
       ],
-      "validacao": "npm run portal:test"
+      "validacao": "npm run portal:test",
+      "nota_revisao": "06/11 10h32: reprovada na revisão do Claude por fotos; rodada 2 mandada ao Codex (ordens 20261106-1032-*)"
+    },
+    {
+      "id": "PA-140",
+      "titulo": "Trilha Migrar para o pôquer: afiliado de bet vira agente SX por candidatura aprovada",
+      "epico": "E05 Afiliados",
+      "area": "sx",
+      "agente": "claude",
+      "prioridade": "alta",
+      "estimativa": "8h",
+      "deps": [],
+      "objetivo": "Ideia 8dfafc2f6ef67928 dos olheiros, aprovada pelo Kbsa em 06/11 (\"faça o 1\"). Candidatura pública em 1 tela na SX, aprovação do superadmin, site de agente num modelo SX com o código dele, página de perguntas sobre a MP 1.394/2026 com fontes e data, placar de migração.",
+      "escopo": "lib/modules/migracao.mjs, schema, tela no painel, rota pública de candidatura, testes",
+      "entregaveis": [
+        "módulo",
+        "tela",
+        "testes",
+        "fotos"
+      ],
+      "aceite": "candidatura não publica nada sozinha; aprovar cria a operação do agente; FAQ sai como rascunho para o Kbsa revisar",
+      "validacao": "node --test",
+      "status": "em_execucao"
+    },
+    {
+      "id": "PA-141",
+      "titulo": "Estúdio de UGC: 3 influenciadores, 1 por rede, nos painéis SX e aff",
+      "epico": "E03 Conteúdo",
+      "area": "sx",
+      "agente": "claude",
+      "prioridade": "alta",
+      "estimativa": "12h",
+      "deps": [],
+      "objetivo": "Ideia do Kbsa aprovada em 06/11 (\"pode fazer ugc da melhor forma\", \"faça para os 2 painéis sx e aff\"). Modelo em portal/docs/ideias/UGC-INFLUENCIADORES.md. Inclui lib/preflight.mjs (bloqueio de promessa de ganho) usado também pela PA-140.",
+      "escopo": "lib/preflight.mjs, lib/modules/ugc.mjs, schema, tela, ferramentas MCP, testes",
+      "entregaveis": [
+        "módulo",
+        "tela",
+        "preflight",
+        "testes",
+        "fotos"
+      ],
+      "aceite": "nada publica sozinho; rótulo de IA; preflight bloqueia promessa; link rastreado por persona; funciona nas duas edições",
+      "validacao": "node --test",
+      "status": "em_execucao"
     }
   ]
 }
