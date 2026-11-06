@@ -1,0 +1,461 @@
+{
+  "id": "grupo-clubes",
+  "name": "Grupo de clubes",
+  "order": 21,
+  "version": 1,
+  "category": "Poker · clubes",
+  "niches": [
+    "poker"
+  ],
+  "description": "Clube apoiado por um grupo: rede de clubes parceiros, estrutura compartilhada (atendimento, fichas, agenda) e conversão pelo convite. Identidade própria; conteúdo de exemplo identificado.",
+  "inspiredBy": null,
+  "theme": {
+    "mode": "escuro",
+    "bg": "#10130f",
+    "surface": "#1a201a",
+    "text": "#f2f4ef",
+    "muted": "#a3ada0",
+    "primary": "#7fbf5a",
+    "primaryText": "#10160c",
+    "accent": "#d8b25a",
+    "border": "#2a332a",
+    "font": "Inter",
+    "fontHead": "Bricolage Grotesque",
+    "radius": 16
+  },
+  "seo": {
+    "title": "{{name}} · Um clube, a estrutura de um grupo inteiro",
+    "description": "Jogue no {{name}} ({{app}}): atendimento 24h, fichas por PIX e agenda de torneios com o suporte de um grupo de clubes. Somente +18."
+  },
+  "pages": [
+    {
+      "slug": "",
+      "title": "Início",
+      "blocks": [
+        {
+          "type": "navbar",
+          "props": {
+            "brand": "{{name}}",
+            "logo": "{{logo}}",
+            "links": [
+              {
+                "label": "Clubes",
+                "href": "/clubes"
+              },
+              {
+                "label": "Estrutura",
+                "href": "/estrutura"
+              },
+              {
+                "label": "Dúvidas",
+                "href": "#duvidas"
+              }
+            ],
+            "cta": "Entrar no clube",
+            "ctaHref": "{{inviteLink}}",
+            "variant": "barra"
+          }
+        },
+        {
+          "type": "hero",
+          "props": {
+            "eyebrow": "{{app}} · clube {{number}}",
+            "title": "Você joga em um clube. Por trás, um grupo inteiro trabalha.",
+            "subtitle": "Atendimento 24h, canal oficial de fichas e agenda organizada em todos os clubes do grupo — a mesma experiência em qualquer mesa.",
+            "cta": "Entrar no clube",
+            "ctaHref": "{{inviteLink}}",
+            "secondary": "Conhecer a estrutura",
+            "secondaryHref": "/estrutura",
+            "note": "Somente +18 · jogue com responsabilidade",
+            "variant": "dividido"
+          }
+        },
+        {
+          "type": "features",
+          "props": {
+            "title": "O que muda quando o clube tem um grupo por trás",
+            "items": [
+              {
+                "icon": "24h",
+                "title": "Atendimento em todos os clubes",
+                "text": "A mesma equipe responde em qualquer clube do grupo, no WhatsApp e no Telegram, todos os dias."
+              },
+              {
+                "icon": "PIX",
+                "title": "Fichas pelo canal oficial",
+                "text": "Compra e saque por PIX com confirmação no chat, em qualquer clube da rede."
+              },
+              {
+                "icon": "♠",
+                "title": "Agenda unificada",
+                "text": "Torneios dos clubes do grupo em uma grade só, publicada toda semana no {{app}}."
+              },
+              {
+                "icon": "✓",
+                "title": "Regras iguais para todos",
+                "text": "Conduta, saque e premiação seguem o mesmo padrão publicado — sem surpresa de mesa para mesa."
+              }
+            ],
+            "variant": "destaque-lateral"
+          }
+        },
+        {
+          "type": "logos",
+          "props": {
+            "title": "Clubes da rede (exemplos — a operação lista os clubes reais)",
+            "items": [
+              {
+                "name": "Clube Norte (exemplo)",
+                "href": "#"
+              },
+              {
+                "name": "Clube Sul (exemplo)",
+                "href": "#"
+              },
+              {
+                "name": "Clube Leste (exemplo)",
+                "href": "#"
+              },
+              {
+                "name": "Clube Oeste (exemplo)",
+                "href": "#"
+              }
+            ]
+          }
+        },
+        {
+          "type": "compare",
+          "props": {
+            "title": "Clube independente ou clube com grupo?",
+            "columns": "Clube independente;Clube do grupo",
+            "rows": [
+              {
+                "name": "Atendimento",
+                "values": "Horário limitado;24h, todos os dias"
+              },
+              {
+                "name": "Compra de fichas",
+                "values": "Depende de quem está online;Canal oficial com confirmação no chat"
+              },
+              {
+                "name": "Agenda de torneios",
+                "values": "Publicada quando dá;Grade semanal organizada"
+              },
+              {
+                "name": "Regras",
+                "values": "Mudam sem aviso;Publicadas e iguais em todos os clubes"
+              }
+            ]
+          }
+        },
+        {
+          "type": "stats",
+          "props": {
+            "items": [
+              {
+                "value": "24h",
+                "label": "atendimento todos os dias"
+              },
+              {
+                "value": "7",
+                "label": "dias por semana com torneios (exemplo)"
+              },
+              {
+                "value": "+18",
+                "label": "somente maiores de idade"
+              }
+            ],
+            "demo": true
+          }
+        },
+        {
+          "type": "cta",
+          "props": {
+            "title": "Entre pelo convite e jogue hoje",
+            "text": "O link leva direto para o clube {{number}} no app {{app}}.",
+            "cta": "Entrar no clube",
+            "ctaHref": "{{inviteLink}}",
+            "variant": "destaque"
+          }
+        },
+        {
+          "type": "faq",
+          "props": {
+            "title": "Perguntas frequentes",
+            "items": [
+              {
+                "q": "O que é um grupo de clubes?",
+                "a": "Vários clubes do {{app}} que dividem a mesma estrutura: atendimento, canal de fichas e agenda. Você joga no clube {{number}} e usa a estrutura de todos."
+              },
+              {
+                "q": "Como entro no clube?",
+                "a": "Pelo link de convite, com o app {{app}} instalado. Na entrada, informe o agente {{agentId}}."
+              },
+              {
+                "q": "Como compro fichas?",
+                "a": "No canal oficial de fichas, por PIX, com suporte em cada passo. Os detalhes estão na página Estrutura."
+              },
+              {
+                "q": "Posso jogar em mais de um clube do grupo?",
+                "a": "Sim. O atendimento e as regras são os mesmos em todos; cada clube tem a própria mesa e agenda."
+              }
+            ],
+            "anchor": "duvidas"
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "text": "{{unitLabel}} com estrutura de grupo, no app {{app}}.",
+            "links": [
+              {
+                "label": "Clubes",
+                "href": "/clubes"
+              },
+              {
+                "label": "Estrutura",
+                "href": "/estrutura"
+              },
+              {
+                "label": "Privacidade",
+                "href": "/privacidade"
+              }
+            ],
+            "disclaimer": "{{disclaimer}}"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "clubes",
+      "title": "Clubes da rede",
+      "seo": {
+        "description": "Clubes que fazem parte do grupo do {{name}} no app {{app}}."
+      },
+      "blocks": [
+        {
+          "type": "navbar",
+          "props": {
+            "brand": "{{name}}",
+            "logo": "{{logo}}",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Estrutura",
+                "href": "/estrutura"
+              }
+            ],
+            "cta": "Entrar no clube",
+            "ctaHref": "{{inviteLink}}",
+            "variant": "barra"
+          }
+        },
+        {
+          "type": "hero",
+          "props": {
+            "eyebrow": "A rede",
+            "title": "Clubes do grupo",
+            "subtitle": "Lista de exemplo: a operação publica os clubes reais da rede, cada um com mesa e agenda próprias.",
+            "variant": "centralizado"
+          }
+        },
+        {
+          "type": "cards",
+          "props": {
+            "items": [
+              {
+                "tag": "Sede (exemplo)",
+                "title": "Clube principal (exemplo)",
+                "text": "A mesa mais movimentada do grupo, com torneios todos os dias.",
+                "href": "{{inviteLink}}"
+              },
+              {
+                "tag": "Micro (exemplo)",
+                "title": "Clube dos iniciantes (exemplo)",
+                "text": "Buy-ins baixos e ritmo tranquilo para quem está começando.",
+                "href": "{{inviteLink}}"
+              },
+              {
+                "tag": "High (exemplo)",
+                "title": "Clube high rollers (exemplo)",
+                "text": "Buy-ins altos e field reduzido, para jogadores experientes.",
+                "href": "{{inviteLink}}"
+              }
+            ],
+            "variant": "grade"
+          }
+        },
+        {
+          "type": "notice",
+          "props": {
+            "text": "Clubes apresentados como exemplo: nomes e quantidades são definidos pela operação antes da publicação.",
+            "variant": "discreto"
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Privacidade",
+                "href": "/privacidade"
+              }
+            ],
+            "disclaimer": "{{disclaimer}}"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "estrutura",
+      "title": "Estrutura do grupo",
+      "seo": {
+        "description": "Atendimento, fichas e agenda: como o grupo por trás do {{name}} trabalha."
+      },
+      "blocks": [
+        {
+          "type": "navbar",
+          "props": {
+            "brand": "{{name}}",
+            "logo": "{{logo}}",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Clubes",
+                "href": "/clubes"
+              }
+            ],
+            "cta": "Falar com a equipe",
+            "ctaHref": "{{whatsappLink}}",
+            "variant": "barra"
+          }
+        },
+        {
+          "type": "steps",
+          "props": {
+            "title": "Do primeiro contato à mesa",
+            "items": [
+              {
+                "title": "Chame no canal oficial",
+                "text": "WhatsApp ou Telegram. Informe que quer entrar no clube {{number}} do {{app}} pelo agente {{agentId}}."
+              },
+              {
+                "title": "Receba o convite e instale o app",
+                "text": "A equipe envia o link de convite e orienta a instalação do {{app}} em poucos minutos."
+              },
+              {
+                "title": "Compre fichas por PIX",
+                "text": "No canal oficial de fichas, com confirmação no próprio chat antes de você jogar."
+              },
+              {
+                "title": "Sente e jogue",
+                "text": "Escolha a mesa ou o torneio na agenda. O atendimento continua disponível enquanto você joga."
+              }
+            ],
+            "variant": "linha-do-tempo"
+          }
+        },
+        {
+          "type": "features",
+          "props": {
+            "title": "O que a estrutura garante",
+            "items": [
+              {
+                "icon": "◷",
+                "title": "Resposta rápida",
+                "text": "Fila única de atendimento para todos os clubes do grupo, 24h por dia."
+              },
+              {
+                "icon": "✓",
+                "title": "Comprovante de tudo",
+                "text": "Cada compra e cada saque saem com comprovante no chat."
+              },
+              {
+                "icon": "♠",
+                "title": "Agenda publicada",
+                "text": "A grade da semana sai toda segunda, com buy-ins e garantidos de cada clube."
+              }
+            ],
+            "variant": "lista"
+          }
+        },
+        {
+          "type": "contact",
+          "props": {
+            "title": "Canais oficiais do grupo",
+            "whatsapp": "{{whatsapp}}",
+            "telegram": "{{telegram}}",
+            "email": "{{email}}",
+            "hours": "Todos os dias, 24 horas."
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Privacidade",
+                "href": "/privacidade"
+              }
+            ],
+            "disclaimer": "{{disclaimer}}"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "privacidade",
+      "title": "Privacidade",
+      "seo": {
+        "description": "Como o {{name}} trata seus dados."
+      },
+      "blocks": [
+        {
+          "type": "navbar",
+          "props": {
+            "brand": "{{name}}",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              }
+            ],
+            "variant": "barra"
+          }
+        },
+        {
+          "type": "text",
+          "props": {
+            "title": "Privacidade",
+            "body": "Texto-base para revisão jurídica da operação.\n\nColetamos nome, e-mail e telefone só quando você envia um formulário ou fala com o atendimento, para responder ao seu pedido. Você pode pedir a exclusão a qualquer momento pelos canais oficiais.\n\nCookies de medição (Google e Meta) só são ativados se você aceitar no aviso do site.",
+            "variant": "estreito"
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "disclaimer": "{{disclaimer}}"
+          }
+        }
+      ]
+    }
+  ]
+}
