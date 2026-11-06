@@ -1,0 +1,944 @@
+{
+  "id": "sx-comprovante-blog",
+  "name": "Blog educativo · Comprovante PIX (edição SX)",
+  "order": 25,
+  "version": 1,
+  "category": "Poker · edição SX",
+  "niches": [
+    "poker"
+  ],
+  "inspiredBy": "sx",
+  "description": "Blog educativo no mundo Comprovante PIX: abre com o \"orçamento do mês\" que muda com a banca escolhida, a regra de banca em linhas de recibo, guias em forma de extrato, glossário e jogo responsável.",
+  "theme": {
+    "world": "comprovante",
+    "mode": "escuro",
+    "bg": "#0f0c07",
+    "surface": "#16120b",
+    "text": "#f4ede1",
+    "muted": "#9a8d78",
+    "primary": "#efa144",
+    "primaryText": "#040404",
+    "accent": "#52c48e",
+    "border": "#2a2318",
+    "font": "Montserrat",
+    "fontHead": "Montserrat",
+    "fontMono": "Antonio",
+    "radius": 10
+  },
+  "seo": {
+    "title": "{{name}} · Guias de poker e gestão de banca",
+    "description": "Guias de poker para quem está começando: gestão de banca, glossário e jogo responsável. Somente maiores de 18 anos."
+  },
+  "pages": [
+    {
+      "slug": "",
+      "title": "Início",
+      "blocks": [
+        {
+          "type": "comprovante_topo",
+          "props": {
+            "faixa": "Somente maiores de 18 · Jogue com responsabilidade",
+            "brand": "{{name}}",
+            "sub": "ID {{number}}",
+            "logo": "{{logo}}",
+            "links": [
+              {
+                "label": "Comece aqui",
+                "href": "/comece-aqui",
+                "dot": false
+              },
+              {
+                "label": "Glossário",
+                "href": "/glossario",
+                "dot": false
+              },
+              {
+                "label": "Jogo responsável",
+                "href": "/jogo-responsavel",
+                "dot": false
+              }
+            ],
+            "cta": "Comece aqui",
+            "ctaHref": "/comece-aqui"
+          }
+        },
+        {
+          "type": "comprovante_recibo",
+          "props": {
+            "title": "Antes de sentar, defina a sua banca.",
+            "subtitle": "Guias curtos para jogar poker com a cabeça no lugar: **gestão de banca**, termos do jogo e **jogo responsável**. Comece pelo orçamento ao lado.",
+            "cta": "Ler o guia de banca",
+            "ctaHref": "/comece-aqui#banca",
+            "secondary": "Glossário",
+            "secondaryHref": "/glossario",
+            "legend": "Quanto você separou para jogar neste mês?",
+            "options": [
+              {
+                "label": "R$ 100",
+                "amount": "100",
+                "line": "Por sessão: até R$ 10",
+                "padrao": false
+              },
+              {
+                "label": "R$ 200",
+                "amount": "200",
+                "line": "Por sessão: até R$ 20",
+                "padrao": true
+              },
+              {
+                "label": "R$ 500",
+                "amount": "500",
+                "line": "Por sessão: até R$ 50",
+                "padrao": false
+              },
+              {
+                "label": "R$ 1.000",
+                "amount": "1.000",
+                "line": "Por sessão: até R$ 100",
+                "padrao": false
+              }
+            ],
+            "selectNote": "Valores só para ilustrar a regra. Toque e veja o orçamento mudar.",
+            "logo": "",
+            "receiptTitle": "Orçamento do mês",
+            "receiptSub": "Gestão de banca · exemplo",
+            "tag": "ILUSTRAÇÃO",
+            "amountLabel": "Banca do mês",
+            "currency": "R$",
+            "cents": ",00",
+            "status": "Separado das contas",
+            "when": "",
+            "rows": [
+              {
+                "label": "Regra da sessão",
+                "value": "Até 10% da banca",
+                "noteTitle": "Regra da sessão",
+                "note": "Dividir a banca em sessões evita perder tudo numa noite ruim."
+              },
+              {
+                "label": "Parar quando",
+                "value": "O valor da sessão acabar",
+                "noteTitle": "Parar quando",
+                "note": "Acabou o valor da sessão, acabou o jogo de hoje. Sem comprar mais para recuperar."
+              },
+              {
+                "label": "Fora da banca",
+                "value": "Contas, aluguel e comida",
+                "noteTitle": "",
+                "note": ""
+              },
+              {
+                "label": "Pausa",
+                "value": "A cada hora de jogo",
+                "noteTitle": "Pausa",
+                "note": "Levantar da mesa ajuda a decidir melhor e a lembrar do limite."
+              }
+            ],
+            "txidLabel": "",
+            "txid": "",
+            "ctaNoteTitle": "",
+            "ctaNote": "",
+            "share": "Compartilhar",
+            "shareText": "Uma regra simples de gestão de banca para jogar poker com limite.",
+            "footStrong": "É só uma ilustração.",
+            "foot": "A regra é um exemplo de limite, não uma recomendação financeira. Poker tem risco: jogue só o que pode perder.",
+            "variant": "espelho"
+          }
+        },
+        {
+          "type": "comprovante_extrato",
+          "props": {
+            "anchor": "guias",
+            "title": "Guias para começar",
+            "subtitle": "Leituras curtas, na ordem em que fazem sentido para quem nunca jogou.",
+            "headLeft": "Leituras",
+            "headRight": "5 guias",
+            "tag": "",
+            "items": [
+              {
+                "icon": "livro",
+                "title": "Do zero à primeira mesa",
+                "time": "6 min",
+                "text": "O app, o clube, as fichas e o caminho até a primeira mão, sem pular etapa.",
+                "pill": "Iniciante",
+                "tone": "ouro",
+                "href": "/comece-aqui"
+              },
+              {
+                "icon": "alvo",
+                "title": "Gestão de banca em uma regra",
+                "time": "4 min",
+                "text": "Quanto separar, como dividir em sessões e a hora de parar.",
+                "pill": "Banca",
+                "tone": "ouro",
+                "href": "/comece-aqui#banca"
+              },
+              {
+                "icon": "recibo",
+                "title": "Glossário do poker",
+                "time": "consulta",
+                "text": "Blind, stack, all-in, late e as siglas que aparecem na grade.",
+                "pill": "Referência",
+                "tone": "neutro",
+                "href": "/glossario"
+              },
+              {
+                "icon": "calendario",
+                "title": "Como ler uma grade de torneios",
+                "time": "3 min",
+                "text": "Horário, buy-in, KO e registro tardio, linha por linha.",
+                "pill": "Torneios",
+                "tone": "neutro",
+                "href": "/glossario#torneios"
+              },
+              {
+                "icon": "escudo",
+                "title": "Jogo responsável: limites que funcionam",
+                "time": "5 min",
+                "text": "Combinados simples antes de sentar e os sinais de que é hora de parar.",
+                "pill": "Essencial",
+                "tone": "ok",
+                "href": "/jogo-responsavel"
+              }
+            ],
+            "totalLabel": "",
+            "total": "",
+            "cta": "",
+            "ctaHref": "",
+            "variant": "guias"
+          }
+        },
+        {
+          "type": "comprovante_linhas",
+          "props": {
+            "title": "A banca em três linhas",
+            "subtitle": "Se você só ler uma coisa neste site, que seja esta.",
+            "leftTitle": "Regra de banca",
+            "leftRows": [
+              {
+                "label": "Separe",
+                "value": "Só o que pode perder",
+                "detail": "O valor do mês sai do lazer, não das contas."
+              },
+              {
+                "label": "Divida",
+                "value": "A banca em sessões",
+                "detail": "Por exemplo, dez sessões de 10% cada."
+              },
+              {
+                "label": "Pare",
+                "value": "Quando a sessão acabar",
+                "detail": "Ganhando ou perdendo, o limite de hoje é o de hoje."
+              }
+            ],
+            "rightTitle": "O que não fazer",
+            "rightRows": [
+              {
+                "label": "Recuperar",
+                "value": "Comprar fichas depois de perder",
+                "detail": "É o caminho mais curto para passar do limite."
+              },
+              {
+                "label": "Emprestar",
+                "value": "Jogar com dinheiro emprestado",
+                "detail": ""
+              },
+              {
+                "label": "Prometer",
+                "value": "Contar com o poker como renda",
+                "detail": "Poker é entretenimento com risco."
+              }
+            ],
+            "foot": "",
+            "variant": "duas"
+          }
+        },
+        {
+          "type": "lead_form",
+          "props": {
+            "anchor": "newsletter",
+            "title": "Um guia por semana no seu e-mail",
+            "text": "Conteúdo educativo, sem promoção e sem promessa de ganho. Sai quando quiser.",
+            "fields": "email",
+            "button": "Quero receber",
+            "success": "Pronto! O primeiro guia chega no seu e-mail.",
+            "consent": "Tenho 18 anos ou mais e aceito receber os guias por e-mail. Posso sair quando quiser.",
+            "variant": "faixa"
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "text": "Conteúdo educativo do {{name}} sobre poker no app {{app}}: gestão de banca, termos do jogo e jogo responsável.",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Comece aqui",
+                "href": "/comece-aqui"
+              },
+              {
+                "label": "Glossário",
+                "href": "/glossario"
+              },
+              {
+                "label": "Jogo responsável",
+                "href": "/jogo-responsavel"
+              }
+            ],
+            "disclaimer": "{{disclaimer}}"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "comece-aqui",
+      "title": "Comece aqui",
+      "seo": {
+        "description": "Guia para iniciantes: do zero à primeira mesa de poker no app {{app}}, com gestão de banca."
+      },
+      "blocks": [
+        {
+          "type": "comprovante_topo",
+          "props": {
+            "faixa": "Somente maiores de 18 · Jogue com responsabilidade",
+            "brand": "{{name}}",
+            "sub": "ID {{number}}",
+            "logo": "{{logo}}",
+            "links": [
+              {
+                "label": "Comece aqui",
+                "href": "/comece-aqui",
+                "dot": false
+              },
+              {
+                "label": "Glossário",
+                "href": "/glossario",
+                "dot": false
+              },
+              {
+                "label": "Jogo responsável",
+                "href": "/jogo-responsavel",
+                "dot": false
+              }
+            ],
+            "cta": "Glossário",
+            "ctaHref": "/glossario"
+          }
+        },
+        {
+          "type": "comprovante_cabecalho",
+          "props": {
+            "title": "Comece aqui: do zero à primeira mesa",
+            "subtitle": "O caminho inteiro para quem nunca jogou poker online: o app, o clube, as fichas e, antes de tudo, a banca.",
+            "cta": "",
+            "ctaHref": "",
+            "secondary": "",
+            "secondaryHref": "",
+            "stripTitle": "Neste guia",
+            "strip": [
+              {
+                "label": "Leitura",
+                "value": "6 minutos"
+              },
+              {
+                "label": "Para",
+                "value": "iniciantes"
+              },
+              {
+                "label": "Você vai precisar",
+                "value": "celular e e-mail"
+              }
+            ],
+            "tag": ""
+          }
+        },
+        {
+          "type": "text",
+          "props": {
+            "title": "O que é o app, o clube e as fichas",
+            "body": "O {{app}} é o aplicativo onde as mesas acontecem. Dentro dele existem clubes: o {{name}} é um deles, com o número {{number}}.\n\nVocê entra no clube pelo link de convite. A partir daí, as mesas e os torneios do clube aparecem no seu app.\n\nFichas são o que você usa na mesa. Elas são compradas por PIX no canal de fichas do clube e ficam na sua conta do app. O site nunca pede a sua senha.",
+            "variant": "estreito"
+          }
+        },
+        {
+          "type": "comprovante_extrato",
+          "props": {
+            "title": "O caminho, em quatro lançamentos",
+            "subtitle": "",
+            "headLeft": "Do zero à mesa",
+            "headRight": "4 lançamentos",
+            "tag": "",
+            "items": [
+              {
+                "icon": "phone",
+                "title": "Instale o app e crie a conta",
+                "time": "3 min",
+                "text": "O {{app}} é grátis nas lojas.",
+                "pill": "",
+                "tone": "ouro",
+                "href": ""
+              },
+              {
+                "icon": "link",
+                "title": "Entre no clube pelo link",
+                "time": "1 min",
+                "text": "O link coloca você dentro do clube certo, com o agente.",
+                "pill": "",
+                "tone": "ouro",
+                "href": ""
+              },
+              {
+                "icon": "alvo",
+                "title": "Defina a sua banca",
+                "time": "antes de pagar",
+                "text": "Quanto vai usar no mês e em cada sessão. Veja a regra abaixo.",
+                "pill": "O passo mais importante",
+                "tone": "ok",
+                "href": ""
+              },
+              {
+                "icon": "ficha",
+                "title": "Compre as fichas da sessão",
+                "time": "no canal",
+                "text": "Por PIX, no canal de fichas, só o valor da sessão.",
+                "pill": "",
+                "tone": "ouro",
+                "href": ""
+              }
+            ],
+            "totalLabel": "",
+            "total": "",
+            "cta": "",
+            "ctaHref": "",
+            "variant": "extrato"
+          }
+        },
+        {
+          "type": "comprovante_linhas",
+          "props": {
+            "anchor": "banca",
+            "title": "Gestão de banca em uma regra",
+            "subtitle": "Separe um valor para o mês, divida em sessões e pare quando a sessão acabar. O resto é detalhe.",
+            "leftTitle": "Exemplo com banca de R$ 200",
+            "leftRows": [
+              {
+                "label": "Banca do mês",
+                "value": "R$ 200",
+                "detail": "Dinheiro do lazer, não das contas."
+              },
+              {
+                "label": "Por sessão",
+                "value": "até R$ 20",
+                "detail": "10% da banca."
+              },
+              {
+                "label": "Sessões no mês",
+                "value": "cerca de 10",
+                "detail": "Se perder antes, o mês acabou."
+              },
+              {
+                "label": "Ganhou",
+                "value": "saque uma parte",
+                "detail": "E mantenha o mesmo limite por sessão."
+              }
+            ],
+            "rightTitle": "",
+            "rightRows": [],
+            "foot": "**Exemplo de limite, não recomendação financeira.** Poker tem risco e não é fonte de renda.",
+            "variant": "lado"
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "text": "Conteúdo educativo do {{name}} sobre poker no app {{app}}: gestão de banca, termos do jogo e jogo responsável.",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Comece aqui",
+                "href": "/comece-aqui"
+              },
+              {
+                "label": "Glossário",
+                "href": "/glossario"
+              },
+              {
+                "label": "Jogo responsável",
+                "href": "/jogo-responsavel"
+              }
+            ],
+            "disclaimer": "{{disclaimer}}"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "glossario",
+      "title": "Glossário",
+      "seo": {
+        "description": "Glossário de poker: termos do jogo, da grade de torneios e do app, em uma linha cada."
+      },
+      "blocks": [
+        {
+          "type": "comprovante_topo",
+          "props": {
+            "faixa": "Somente maiores de 18 · Jogue com responsabilidade",
+            "brand": "{{name}}",
+            "sub": "ID {{number}}",
+            "logo": "{{logo}}",
+            "links": [
+              {
+                "label": "Comece aqui",
+                "href": "/comece-aqui",
+                "dot": false
+              },
+              {
+                "label": "Glossário",
+                "href": "/glossario",
+                "dot": false
+              },
+              {
+                "label": "Jogo responsável",
+                "href": "/jogo-responsavel",
+                "dot": false
+              }
+            ],
+            "cta": "Comece aqui",
+            "ctaHref": "/comece-aqui"
+          }
+        },
+        {
+          "type": "comprovante_cabecalho",
+          "props": {
+            "title": "Glossário do poker",
+            "subtitle": "Cada termo em uma linha, como no comprovante. Do básico da mesa às siglas da grade de torneios.",
+            "cta": "",
+            "ctaHref": "",
+            "secondary": "",
+            "secondaryHref": "",
+            "stripTitle": "",
+            "strip": [],
+            "tag": ""
+          }
+        },
+        {
+          "type": "comprovante_linhas",
+          "props": {
+            "anchor": "mesa",
+            "title": "Na mesa",
+            "subtitle": "",
+            "leftTitle": "Termos do jogo",
+            "leftRows": [
+              {
+                "label": "Blind",
+                "value": "Aposta obrigatória",
+                "detail": "Small e big blind giram pela mesa a cada mão."
+              },
+              {
+                "label": "Stack",
+                "value": "Suas fichas na mesa",
+                "detail": ""
+              },
+              {
+                "label": "Pote",
+                "value": "Fichas apostadas na mão",
+                "detail": ""
+              },
+              {
+                "label": "Flop, turn, river",
+                "value": "As cartas comunitárias",
+                "detail": "Três, depois uma, depois mais uma."
+              },
+              {
+                "label": "All-in",
+                "value": "Apostar todas as fichas",
+                "detail": ""
+              },
+              {
+                "label": "Fold",
+                "value": "Desistir da mão",
+                "detail": ""
+              }
+            ],
+            "rightTitle": "Ações",
+            "rightRows": [
+              {
+                "label": "Check",
+                "value": "Passar sem apostar",
+                "detail": "Só quando ninguém apostou antes."
+              },
+              {
+                "label": "Call",
+                "value": "Pagar a aposta",
+                "detail": ""
+              },
+              {
+                "label": "Raise",
+                "value": "Aumentar a aposta",
+                "detail": ""
+              },
+              {
+                "label": "Showdown",
+                "value": "Mostrar as cartas",
+                "detail": "No fim da mão, para decidir quem leva o pote."
+              }
+            ],
+            "foot": "",
+            "variant": "duas"
+          }
+        },
+        {
+          "type": "comprovante_linhas",
+          "props": {
+            "anchor": "torneios",
+            "title": "Na grade de torneios",
+            "subtitle": "",
+            "leftTitle": "Siglas da grade",
+            "leftRows": [
+              {
+                "label": "Buy-in",
+                "value": "Valor da inscrição",
+                "detail": ""
+              },
+              {
+                "label": "Garantido",
+                "value": "Prêmio mínimo do torneio",
+                "detail": ""
+              },
+              {
+                "label": "KO / Bounty",
+                "value": "Recompensa por eliminação",
+                "detail": ""
+              },
+              {
+                "label": "Late",
+                "value": "Registro tardio",
+                "detail": "Até quando dá para entrar."
+              },
+              {
+                "label": "Re-entry",
+                "value": "Nova inscrição após cair",
+                "detail": ""
+              },
+              {
+                "label": "Turbo",
+                "value": "Blinds sobem rápido",
+                "detail": ""
+              }
+            ],
+            "rightTitle": "",
+            "rightRows": [],
+            "foot": "",
+            "variant": "lado"
+          }
+        },
+        {
+          "type": "comprovante_linhas",
+          "props": {
+            "anchor": "app",
+            "title": "No app e no clube",
+            "subtitle": "",
+            "leftTitle": "Termos da operação",
+            "leftRows": [
+              {
+                "label": "Clube",
+                "value": "Grupo de mesas dentro do app",
+                "detail": "O {{name}} tem o número {{number}}."
+              },
+              {
+                "label": "Agente",
+                "value": "Quem atende você no clube",
+                "detail": "Informado na primeira compra de fichas."
+              },
+              {
+                "label": "ID do jogador",
+                "value": "Seu número no app",
+                "detail": "Fica no seu perfil."
+              },
+              {
+                "label": "Canal de fichas",
+                "value": "Onde se compra e saca por PIX",
+                "detail": ""
+              }
+            ],
+            "rightTitle": "",
+            "rightRows": [],
+            "foot": "",
+            "variant": "duas"
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "text": "Conteúdo educativo do {{name}} sobre poker no app {{app}}: gestão de banca, termos do jogo e jogo responsável.",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Comece aqui",
+                "href": "/comece-aqui"
+              },
+              {
+                "label": "Glossário",
+                "href": "/glossario"
+              },
+              {
+                "label": "Jogo responsável",
+                "href": "/jogo-responsavel"
+              }
+            ],
+            "disclaimer": "{{disclaimer}}"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "jogo-responsavel",
+      "title": "Jogo responsável",
+      "seo": {
+        "description": "Jogo responsável: limites antes de sentar, sinais de alerta e onde pedir ajuda. Somente maiores de 18."
+      },
+      "blocks": [
+        {
+          "type": "comprovante_topo",
+          "props": {
+            "faixa": "Somente maiores de 18 · Jogue com responsabilidade",
+            "brand": "{{name}}",
+            "sub": "ID {{number}}",
+            "logo": "{{logo}}",
+            "links": [
+              {
+                "label": "Comece aqui",
+                "href": "/comece-aqui",
+                "dot": false
+              },
+              {
+                "label": "Glossário",
+                "href": "/glossario",
+                "dot": false
+              },
+              {
+                "label": "Jogo responsável",
+                "href": "/jogo-responsavel",
+                "dot": false
+              }
+            ],
+            "cta": "Comece aqui",
+            "ctaHref": "/comece-aqui"
+          }
+        },
+        {
+          "type": "comprovante_cabecalho",
+          "props": {
+            "title": "Jogo responsável: limites que funcionam",
+            "subtitle": "Somente maiores de 18 anos. Poker é entretenimento, não fonte de renda. Estes combinados ajudam a manter assim.",
+            "cta": "",
+            "ctaHref": "",
+            "secondary": "",
+            "secondaryHref": "",
+            "stripTitle": "Seu combinado",
+            "strip": [
+              {
+                "label": "Banca",
+                "value": "só o que pode perder"
+              },
+              {
+                "label": "Sessão",
+                "value": "valor e hora definidos"
+              },
+              {
+                "label": "Perdeu o limite",
+                "value": "pare por hoje"
+              }
+            ],
+            "tag": ""
+          }
+        },
+        {
+          "type": "comprovante_extrato",
+          "props": {
+            "title": "Cinco combinados antes de sentar",
+            "subtitle": "",
+            "headLeft": "Combinados",
+            "headRight": "5 itens",
+            "tag": "",
+            "items": [
+              {
+                "icon": "alvo",
+                "title": "Defina o valor da sessão",
+                "time": "antes",
+                "text": "E não compre mais fichas depois que ele acabar.",
+                "pill": "",
+                "tone": "neutro",
+                "href": ""
+              },
+              {
+                "icon": "relogio",
+                "title": "Defina a hora de parar",
+                "time": "antes",
+                "text": "Um alarme no celular resolve.",
+                "pill": "",
+                "tone": "neutro",
+                "href": ""
+              },
+              {
+                "icon": "pausa",
+                "title": "Faça pausas",
+                "time": "a cada hora",
+                "text": "Levante, beba água, olhe para outra coisa.",
+                "pill": "",
+                "tone": "neutro",
+                "href": ""
+              },
+              {
+                "icon": "escudo",
+                "title": "Não jogue para fugir de problema",
+                "time": "sempre",
+                "text": "Nem cansado, nem depois de beber.",
+                "pill": "",
+                "tone": "neutro",
+                "href": ""
+              },
+              {
+                "icon": "chat",
+                "title": "Fale sobre isso",
+                "time": "sempre",
+                "text": "Se o jogo está pesando, conte para alguém de confiança.",
+                "pill": "",
+                "tone": "neutro",
+                "href": ""
+              }
+            ],
+            "totalLabel": "",
+            "total": "",
+            "cta": "",
+            "ctaHref": "",
+            "variant": "lado"
+          }
+        },
+        {
+          "type": "comprovante_linhas",
+          "props": {
+            "title": "Sinais de alerta",
+            "subtitle": "Se dois ou mais destes aparecem com frequência, é hora de dar uma pausa longa.",
+            "leftTitle": "Comportamento",
+            "leftRows": [
+              {
+                "label": "Tempo",
+                "value": "Jogar mais do que planejou",
+                "detail": ""
+              },
+              {
+                "label": "Dinheiro",
+                "value": "Comprar fichas para recuperar",
+                "detail": ""
+              },
+              {
+                "label": "Segredo",
+                "value": "Esconder quanto joga",
+                "detail": ""
+              }
+            ],
+            "rightTitle": "Sentimento",
+            "rightRows": [
+              {
+                "label": "Humor",
+                "value": "Irritação quando não joga",
+                "detail": ""
+              },
+              {
+                "label": "Foco",
+                "value": "Pensar no jogo o dia todo",
+                "detail": ""
+              },
+              {
+                "label": "Culpa",
+                "value": "Arrependimento depois de jogar",
+                "detail": ""
+              }
+            ],
+            "foot": "",
+            "variant": "duas"
+          }
+        },
+        {
+          "type": "comprovante_painel",
+          "props": {
+            "title": "Onde pedir ajuda",
+            "subtitle": "Gratuito e sigiloso. Conversar é o primeiro passo.",
+            "cta": "",
+            "ctaHref": "",
+            "secondary": "",
+            "secondaryHref": "",
+            "points": [],
+            "logo": "",
+            "panelTitle": "Contatos de apoio",
+            "panelSub": "Gratuitos e sigilosos",
+            "tag": "APOIO",
+            "bigLabel": "",
+            "big": "",
+            "bigSub": "",
+            "rows": [
+              {
+                "label": "CVV",
+                "value": "Ligue 188",
+                "detail": "Apoio emocional, 24 horas, também pelo site cvv.org.br."
+              },
+              {
+                "label": "Jogadores Anônimos",
+                "value": "Grupos de apoio",
+                "detail": "Reuniões para quem quer parar de jogar."
+              },
+              {
+                "label": "No app",
+                "value": "Limite e pausa na conta",
+                "detail": "Peça ao suporte do clube para dar um tempo na sua conta."
+              }
+            ],
+            "totalLabel": "",
+            "total": "",
+            "panelFoot": "",
+            "variant": "secao"
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "text": "Conteúdo educativo do {{name}} sobre poker no app {{app}}: gestão de banca, termos do jogo e jogo responsável.",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Comece aqui",
+                "href": "/comece-aqui"
+              },
+              {
+                "label": "Glossário",
+                "href": "/glossario"
+              },
+              {
+                "label": "Jogo responsável",
+                "href": "/jogo-responsavel"
+              }
+            ],
+            "disclaimer": "{{disclaimer}}"
+          }
+        }
+      ]
+    }
+  ]
+}

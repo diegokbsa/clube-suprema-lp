@@ -1,0 +1,836 @@
+{
+  "id": "sx-comprovante-torneios",
+  "name": "Agenda de torneios · Comprovante PIX (edição SX)",
+  "order": 24,
+  "version": 1,
+  "category": "Poker · edição SX",
+  "niches": [
+    "poker"
+  ],
+  "inspiredBy": "sx",
+  "description": "Agenda de torneios no mundo Comprovante PIX: o visitante escolhe um torneio de exemplo e vê a inscrição como recibo. Grade da semana editável e marcada como exemplo, formatos e regras.",
+  "theme": {
+    "world": "comprovante",
+    "mode": "escuro",
+    "bg": "#0f0c07",
+    "surface": "#16120b",
+    "text": "#f4ede1",
+    "muted": "#9a8d78",
+    "primary": "#efa144",
+    "primaryText": "#040404",
+    "accent": "#52c48e",
+    "border": "#2a2318",
+    "font": "Montserrat",
+    "fontHead": "Montserrat",
+    "fontMono": "Antonio",
+    "radius": 10
+  },
+  "seo": {
+    "title": "{{name}} · Agenda de torneios",
+    "description": "Grade de torneios do {{name}} no app {{app}}: horários, formatos e como se inscrever. Grade de exemplo editável. Somente +18."
+  },
+  "pages": [
+    {
+      "slug": "",
+      "title": "Início",
+      "blocks": [
+        {
+          "type": "comprovante_topo",
+          "props": {
+            "faixa": "Somente maiores de 18 · Jogue com responsabilidade",
+            "brand": "{{name}}",
+            "sub": "ID {{number}}",
+            "logo": "{{logo}}",
+            "links": [
+              {
+                "label": "Grade",
+                "href": "/grade",
+                "dot": true
+              },
+              {
+                "label": "Formatos",
+                "href": "/formatos",
+                "dot": false
+              },
+              {
+                "label": "Regras",
+                "href": "/regras",
+                "dot": false
+              }
+            ],
+            "cta": "Ver no app",
+            "ctaHref": "{{inviteLink}}"
+          }
+        },
+        {
+          "type": "comprovante_recibo",
+          "props": {
+            "title": "Escolha o torneio. Veja a inscrição antes de abrir o app.",
+            "subtitle": "A grade do **{{name}}** como recibo: horário, formato e buy-in, do jeito que aparece no **{{app}}**. Torneios e valores de exemplo.",
+            "cta": "Ver no app",
+            "ctaHref": "{{inviteLink}}",
+            "secondary": "",
+            "secondaryHref": "",
+            "legend": "Torneios de exemplo de hoje",
+            "options": [
+              {
+                "label": "17:30 · Bounty da tarde",
+                "amount": "10",
+                "line": "NLH · KO · late até 20:00",
+                "padrao": false
+              },
+              {
+                "label": "19:00 · Battle",
+                "amount": "55",
+                "line": "NLH · KO · late até 22:20",
+                "padrao": true
+              },
+              {
+                "label": "20:00 · Deep Stack",
+                "amount": "100",
+                "line": "NLH · late até 23:20",
+                "padrao": false
+              },
+              {
+                "label": "21:30 · PLO da noite",
+                "amount": "30",
+                "line": "PLO 5 · late até 00:30",
+                "padrao": false
+              }
+            ],
+            "selectNote": "Torneios de exemplo. Toque e veja a inscrição mudar.",
+            "logo": "",
+            "receiptTitle": "Inscrição de exemplo",
+            "receiptSub": "{{name}} · {{app}}",
+            "tag": "ILUSTRAÇÃO",
+            "amountLabel": "Buy-in do torneio",
+            "currency": "R$",
+            "cents": ",00",
+            "status": "Inscrição feita no app",
+            "when": "Hoje · horário de Brasília",
+            "rows": [
+              {
+                "label": "Onde",
+                "value": "Lobby de torneios do app",
+                "noteTitle": "Onde se inscreve",
+                "note": "A inscrição é feita no app, na aba de torneios do clube. O site só mostra a grade."
+              },
+              {
+                "label": "Clube",
+                "value": "{{number}}",
+                "noteTitle": "",
+                "note": ""
+              },
+              {
+                "label": "Pago com",
+                "value": "Fichas da sua conta",
+                "noteTitle": "De onde sai o buy-in",
+                "note": "Das suas fichas no app. Sem fichas? Compre por PIX no canal de fichas antes do horário."
+              },
+              {
+                "label": "Late",
+                "value": "Até o horário informado",
+                "noteTitle": "Late",
+                "note": "Dá para entrar depois do início, até o fim do registro tardio."
+              }
+            ],
+            "txidLabel": "Código",
+            "txid": "INSCRICAO-{{number}}-",
+            "ctaNoteTitle": "Ver no app",
+            "ctaNote": "Abre o app pelo link do clube. Os torneios ficam na aba de torneios.",
+            "share": "Compartilhar",
+            "shareText": "Grade de torneios do {{name}} no app {{app}}.",
+            "footStrong": "É só uma ilustração.",
+            "foot": "A grade real e os valores de verdade ficam no lobby do app {{app}}.",
+            "variant": "lista"
+          }
+        },
+        {
+          "type": "comprovante_agenda",
+          "props": {
+            "anchor": "grade",
+            "title": "Agendados de hoje",
+            "subtitle": "Grade de exemplo, no formato dos agendados do app do banco. O dono do site troca pela grade do clube.",
+            "headLeft": "Hoje",
+            "live": true,
+            "headRight": "horário de Brasília",
+            "tag": "EXEMPLO",
+            "items": [
+              {
+                "day": "",
+                "time": "14:00",
+                "name": "Turbo da tarde",
+                "info": "NLH · turbo · late até 15:20",
+                "label": "buy-in",
+                "value": "R$ 5"
+              },
+              {
+                "day": "",
+                "time": "17:30",
+                "name": "Bounty da tarde",
+                "info": "NLH · KO · late até 20:00",
+                "label": "buy-in",
+                "value": "R$ 10"
+              },
+              {
+                "day": "",
+                "time": "19:00",
+                "name": "Battle",
+                "info": "NLH · KO · late até 22:20",
+                "label": "buy-in",
+                "value": "R$ 55"
+              },
+              {
+                "day": "",
+                "time": "20:00",
+                "name": "Deep Stack",
+                "info": "NLH · late até 23:20",
+                "label": "buy-in",
+                "value": "R$ 100"
+              },
+              {
+                "day": "",
+                "time": "21:30",
+                "name": "PLO da noite",
+                "info": "PLO 5 · late até 00:30",
+                "label": "buy-in",
+                "value": "R$ 30"
+              },
+              {
+                "day": "",
+                "time": "23:00",
+                "name": "Mystery da madrugada",
+                "info": "NLH · Mystery KO · late até 01:30",
+                "label": "buy-in",
+                "value": "R$ 25"
+              }
+            ],
+            "foot": "Grade de exemplo. A grade real fica no lobby do app.",
+            "linkLabel": "Ver a semana",
+            "linkHref": "/grade"
+          }
+        },
+        {
+          "type": "comprovante_extrato",
+          "props": {
+            "title": "Como se inscrever",
+            "subtitle": "Três lançamentos. A inscrição é sempre no app; o site serve para você se programar.",
+            "headLeft": "Sua inscrição",
+            "headRight": "3 lançamentos",
+            "tag": "",
+            "items": [
+              {
+                "icon": "link",
+                "title": "Entre no clube pelo link",
+                "time": "2 min",
+                "text": "Se ainda não está no **clube {{number}}**, abra o app pelo link do clube e aceite o convite.",
+                "pill": "Uma vez só",
+                "tone": "ouro",
+                "href": ""
+              },
+              {
+                "icon": "ficha",
+                "title": "Tenha fichas para o buy-in",
+                "time": "antes do horário",
+                "text": "Compre por PIX no canal de fichas, informando o seu ID do jogador, o clube e o agente.",
+                "pill": "",
+                "tone": "ouro",
+                "href": ""
+              },
+              {
+                "icon": "trofeu",
+                "title": "Inscreva-se na aba de torneios",
+                "time": "10 s",
+                "text": "Escolha o torneio no lobby e confirme. O buy-in sai das suas fichas.",
+                "pill": "Inscrito",
+                "tone": "ok",
+                "href": ""
+              }
+            ],
+            "totalLabel": "",
+            "total": "",
+            "cta": "",
+            "ctaHref": "",
+            "variant": "extrato"
+          }
+        },
+        {
+          "type": "faq",
+          "props": {
+            "eyebrow": "",
+            "title": "Dúvidas sobre torneios",
+            "subtitle": "",
+            "items": [
+              {
+                "q": "A grade desta página é a oficial?",
+                "a": "Não. Ela é um exemplo para você entender o formato. Horários, buy-ins e garantidos de verdade ficam no lobby do app {{app}}."
+              },
+              {
+                "q": "Posso entrar depois que o torneio começou?",
+                "a": "Pode, enquanto o registro tardio (late) estiver aberto. O horário do late aparece em cada torneio."
+              },
+              {
+                "q": "O que acontece se eu cair da conexão?",
+                "a": "Você continua inscrito e as suas fichas ficam na mesa. Volte ao app o quanto antes."
+              },
+              {
+                "q": "É só para maiores de 18?",
+                "a": "Sim. Somente maiores de 18 anos. Defina antes quanto vai usar em buy-ins no dia."
+              }
+            ]
+          }
+        },
+        {
+          "type": "comprovante_final",
+          "props": {
+            "title": "Sua próxima inscrição começa no link do clube.",
+            "text": "Entre no clube, tenha fichas para o buy-in e escolha o torneio no app.",
+            "label": "Buy-in escolhido",
+            "value": "R$ 55,00",
+            "dest": "Inscrição pelo app {{app}} · Clube {{number}} · buy-in das suas fichas",
+            "cta": "Ver torneios no app",
+            "ctaHref": "{{inviteLink}}",
+            "supportLabel": "Dúvida? Fale com o suporte",
+            "supportHref": "{{whatsappLink}}"
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "text": "Agenda de torneios do {{unitLabel}} no app {{app}}. Grades de exemplo: a grade real fica no lobby do app.",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Grade",
+                "href": "/grade"
+              },
+              {
+                "label": "Formatos",
+                "href": "/formatos"
+              },
+              {
+                "label": "Regras",
+                "href": "/regras"
+              }
+            ],
+            "disclaimer": "{{disclaimer}}"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "grade",
+      "title": "Grade da semana",
+      "seo": {
+        "description": "Grade de exemplo dos torneios da semana no {{name}}: horários, formatos e buy-ins."
+      },
+      "blocks": [
+        {
+          "type": "comprovante_topo",
+          "props": {
+            "faixa": "Somente maiores de 18 · Jogue com responsabilidade",
+            "brand": "{{name}}",
+            "sub": "ID {{number}}",
+            "logo": "{{logo}}",
+            "links": [
+              {
+                "label": "Grade",
+                "href": "/grade",
+                "dot": true
+              },
+              {
+                "label": "Formatos",
+                "href": "/formatos",
+                "dot": false
+              },
+              {
+                "label": "Regras",
+                "href": "/regras",
+                "dot": false
+              }
+            ],
+            "cta": "Ver no app",
+            "ctaHref": "{{inviteLink}}"
+          }
+        },
+        {
+          "type": "comprovante_cabecalho",
+          "props": {
+            "title": "Grade da semana",
+            "subtitle": "Os torneios fixos da semana, dia por dia. **Grade de exemplo**: o dono do site troca pela grade do clube, e a oficial é sempre a do lobby do app.",
+            "cta": "Ver no app",
+            "ctaHref": "{{inviteLink}}",
+            "secondary": "",
+            "secondaryHref": "",
+            "stripTitle": "Como ler a grade",
+            "strip": [
+              {
+                "label": "Hora",
+                "value": "horário de Brasília"
+              },
+              {
+                "label": "NLH / PLO",
+                "value": "modalidade"
+              },
+              {
+                "label": "KO",
+                "value": "torneio com recompensa"
+              },
+              {
+                "label": "Late",
+                "value": "fim do registro tardio"
+              }
+            ],
+            "tag": "EXEMPLO"
+          }
+        },
+        {
+          "type": "comprovante_agenda",
+          "props": {
+            "title": "",
+            "subtitle": "",
+            "headLeft": "Semana de exemplo",
+            "live": false,
+            "headRight": "horário de Brasília",
+            "tag": "EXEMPLO",
+            "items": [
+              {
+                "day": "Segunda",
+                "time": "19:00",
+                "name": "Battle",
+                "info": "NLH · KO · late até 22:20",
+                "label": "buy-in",
+                "value": "R$ 55"
+              },
+              {
+                "day": "Segunda",
+                "time": "21:30",
+                "name": "PLO da noite",
+                "info": "PLO 5 · late até 00:30",
+                "label": "buy-in",
+                "value": "R$ 30"
+              },
+              {
+                "day": "Terça",
+                "time": "17:30",
+                "name": "Bounty da tarde",
+                "info": "NLH · KO · late até 20:00",
+                "label": "buy-in",
+                "value": "R$ 10"
+              },
+              {
+                "day": "Terça",
+                "time": "20:00",
+                "name": "Deep Stack",
+                "info": "NLH · late até 23:20",
+                "label": "buy-in",
+                "value": "R$ 100"
+              },
+              {
+                "day": "Quarta",
+                "time": "20:00",
+                "name": "Turbo",
+                "info": "NLH · turbo · late até 21:20",
+                "label": "buy-in",
+                "value": "R$ 20"
+              },
+              {
+                "day": "Quinta",
+                "time": "19:00",
+                "name": "PLO 5 KO",
+                "info": "PLO 5 · KO · late até 22:00",
+                "label": "buy-in",
+                "value": "R$ 50"
+              },
+              {
+                "day": "Sexta",
+                "time": "21:00",
+                "name": "Mystery da sexta",
+                "info": "NLH · Mystery KO · late até 23:50",
+                "label": "buy-in",
+                "value": "R$ 25"
+              },
+              {
+                "day": "Sábado",
+                "time": "16:00",
+                "name": "Deep de sábado",
+                "info": "NLH · late até 19:20",
+                "label": "buy-in",
+                "value": "R$ 100"
+              },
+              {
+                "day": "Domingo",
+                "time": "15:00",
+                "name": "Principal de domingo",
+                "info": "NLH · late até 18:40",
+                "label": "buy-in",
+                "value": "R$ 150"
+              },
+              {
+                "day": "Domingo",
+                "time": "20:00",
+                "name": "Bounty de domingo",
+                "info": "NLH · KO · late até 23:20",
+                "label": "buy-in",
+                "value": "R$ 30"
+              }
+            ],
+            "foot": "Grade de exemplo. Troque pela grade do clube.",
+            "linkLabel": "Ver no app",
+            "linkHref": "{{inviteLink}}"
+          }
+        },
+        {
+          "type": "notice",
+          "props": {
+            "text": "Somente maiores de 18 anos. Defina antes quanto vai usar em buy-ins na semana e não passe desse valor.",
+            "variant": "alerta"
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "text": "Agenda de torneios do {{unitLabel}} no app {{app}}. Grades de exemplo: a grade real fica no lobby do app.",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Grade",
+                "href": "/grade"
+              },
+              {
+                "label": "Formatos",
+                "href": "/formatos"
+              },
+              {
+                "label": "Regras",
+                "href": "/regras"
+              }
+            ],
+            "disclaimer": "{{disclaimer}}"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "formatos",
+      "title": "Formatos",
+      "seo": {
+        "description": "Formatos de torneio explicados: NLH, PLO, KO, Mystery, turbo, deep e satélite."
+      },
+      "blocks": [
+        {
+          "type": "comprovante_topo",
+          "props": {
+            "faixa": "Somente maiores de 18 · Jogue com responsabilidade",
+            "brand": "{{name}}",
+            "sub": "ID {{number}}",
+            "logo": "{{logo}}",
+            "links": [
+              {
+                "label": "Grade",
+                "href": "/grade",
+                "dot": true
+              },
+              {
+                "label": "Formatos",
+                "href": "/formatos",
+                "dot": false
+              },
+              {
+                "label": "Regras",
+                "href": "/regras",
+                "dot": false
+              }
+            ],
+            "cta": "Ver no app",
+            "ctaHref": "{{inviteLink}}"
+          }
+        },
+        {
+          "type": "comprovante_cabecalho",
+          "props": {
+            "title": "Formatos de torneio",
+            "subtitle": "O que significa cada sigla da grade, em uma linha. Para escolher o torneio que combina com o seu tempo e o seu limite.",
+            "cta": "",
+            "ctaHref": "",
+            "secondary": "",
+            "secondaryHref": "",
+            "stripTitle": "",
+            "strip": [],
+            "tag": ""
+          }
+        },
+        {
+          "type": "comprovante_linhas",
+          "props": {
+            "title": "Modalidades",
+            "subtitle": "",
+            "leftTitle": "Jogo",
+            "leftRows": [
+              {
+                "label": "NLH",
+                "value": "Texas Hold'em sem limite",
+                "detail": "Duas cartas na mão, cinco na mesa. A modalidade mais jogada."
+              },
+              {
+                "label": "PLO",
+                "value": "Omaha pot-limit",
+                "detail": "Quatro cartas na mão (cinco no PLO 5), aposta limitada ao pote."
+              }
+            ],
+            "rightTitle": "Ritmo",
+            "rightRows": [
+              {
+                "label": "Turbo",
+                "value": "Blinds sobem rápido",
+                "detail": "Torneio curto, bom para quem tem pouco tempo."
+              },
+              {
+                "label": "Deep",
+                "value": "Fichas iniciais altas",
+                "detail": "Torneio longo, com mais espaço para jogar."
+              }
+            ],
+            "foot": "",
+            "variant": "duas"
+          }
+        },
+        {
+          "type": "comprovante_linhas",
+          "props": {
+            "title": "Tipos de premiação",
+            "subtitle": "Como o prêmio do torneio é dividido. O valor de cada torneio aparece no app.",
+            "leftTitle": "Formatos",
+            "leftRows": [
+              {
+                "label": "Tradicional",
+                "value": "Prêmio para os mais bem colocados",
+                "detail": "A tabela de pagamento aparece no lobby do torneio."
+              },
+              {
+                "label": "KO / Bounty",
+                "value": "Recompensa por eliminação",
+                "detail": "Parte do buy-in vira recompensa para quem elimina um jogador."
+              },
+              {
+                "label": "Mystery KO",
+                "value": "Recompensa sorteada",
+                "detail": "O valor da recompensa só aparece na hora da eliminação."
+              },
+              {
+                "label": "Satélite",
+                "value": "Vale vaga em outro torneio",
+                "detail": "O prêmio é a inscrição num torneio maior."
+              },
+              {
+                "label": "Garantido",
+                "value": "Prêmio mínimo do torneio",
+                "detail": "O total que o torneio paga mesmo com poucos inscritos."
+              }
+            ],
+            "rightTitle": "",
+            "rightRows": [],
+            "foot": "",
+            "variant": "lado"
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "text": "Agenda de torneios do {{unitLabel}} no app {{app}}. Grades de exemplo: a grade real fica no lobby do app.",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Grade",
+                "href": "/grade"
+              },
+              {
+                "label": "Formatos",
+                "href": "/formatos"
+              },
+              {
+                "label": "Regras",
+                "href": "/regras"
+              }
+            ],
+            "disclaimer": "{{disclaimer}}"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "regras",
+      "title": "Regras",
+      "seo": {
+        "description": "Regras de inscrição em torneios: late, rebuy, add-on, re-entry, cancelamento e conduta."
+      },
+      "blocks": [
+        {
+          "type": "comprovante_topo",
+          "props": {
+            "faixa": "Somente maiores de 18 · Jogue com responsabilidade",
+            "brand": "{{name}}",
+            "sub": "ID {{number}}",
+            "logo": "{{logo}}",
+            "links": [
+              {
+                "label": "Grade",
+                "href": "/grade",
+                "dot": true
+              },
+              {
+                "label": "Formatos",
+                "href": "/formatos",
+                "dot": false
+              },
+              {
+                "label": "Regras",
+                "href": "/regras",
+                "dot": false
+              }
+            ],
+            "cta": "Ver no app",
+            "ctaHref": "{{inviteLink}}"
+          }
+        },
+        {
+          "type": "comprovante_cabecalho",
+          "props": {
+            "title": "Regras de inscrição",
+            "subtitle": "Os termos que aparecem na hora de se inscrever, e o que vale para todo mundo na mesa.",
+            "cta": "",
+            "ctaHref": "",
+            "secondary": "",
+            "secondaryHref": "",
+            "stripTitle": "Vale para todos",
+            "strip": [
+              {
+                "label": "Idade",
+                "value": "18 anos ou mais"
+              },
+              {
+                "label": "Conta",
+                "value": "uma por pessoa"
+              },
+              {
+                "label": "Inscrição",
+                "value": "só pelo app"
+              }
+            ],
+            "tag": ""
+          }
+        },
+        {
+          "type": "comprovante_linhas",
+          "props": {
+            "title": "Termos da inscrição",
+            "subtitle": "",
+            "leftTitle": "Na hora de entrar",
+            "leftRows": [
+              {
+                "label": "Late",
+                "value": "Registro tardio",
+                "detail": "Dá para entrar depois do início, até o horário indicado."
+              },
+              {
+                "label": "Re-entry",
+                "value": "Nova entrada",
+                "detail": "Se for eliminado, pode se inscrever de novo, se o torneio permitir."
+              },
+              {
+                "label": "Rebuy",
+                "value": "Recompra de fichas",
+                "detail": "Comprar mais fichas no período permitido."
+              },
+              {
+                "label": "Add-on",
+                "value": "Fichas extras no intervalo",
+                "detail": "Uma compra opcional, uma vez só."
+              }
+            ],
+            "rightTitle": "Antes de começar",
+            "rightRows": [
+              {
+                "label": "Cancelar",
+                "value": "Antes do início",
+                "detail": "Na maioria dos torneios, o buy-in volta para a sua conta."
+              },
+              {
+                "label": "Horário",
+                "value": "De Brasília",
+                "detail": "Confira o fuso do app."
+              },
+              {
+                "label": "Conexão",
+                "value": "Internet estável",
+                "detail": "Se cair, você segue inscrito."
+              }
+            ],
+            "foot": "As regras de cada torneio aparecem no lobby do app e valem sobre esta página.",
+            "variant": "duas"
+          }
+        },
+        {
+          "type": "faq",
+          "props": {
+            "eyebrow": "",
+            "title": "Conduta na mesa",
+            "subtitle": "",
+            "items": [
+              {
+                "q": "Posso jogar com duas contas?",
+                "a": "Não. É uma conta por pessoa. Contas duplicadas podem ser bloqueadas pelo app."
+              },
+              {
+                "q": "Posso combinar jogada com outro jogador?",
+                "a": "Não. Conluio é proibido e pode levar ao bloqueio da conta."
+              },
+              {
+                "q": "O clube oferece bônus para inscrição?",
+                "a": "Não. O clube não oferece bônus nem fichas grátis."
+              }
+            ]
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "text": "Agenda de torneios do {{unitLabel}} no app {{app}}. Grades de exemplo: a grade real fica no lobby do app.",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Grade",
+                "href": "/grade"
+              },
+              {
+                "label": "Formatos",
+                "href": "/formatos"
+              },
+              {
+                "label": "Regras",
+                "href": "/regras"
+              }
+            ],
+            "disclaimer": "{{disclaimer}}"
+          }
+        }
+      ]
+    }
+  ]
+}

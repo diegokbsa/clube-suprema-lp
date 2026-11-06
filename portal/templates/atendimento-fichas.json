@@ -2,30 +2,32 @@
   "id": "atendimento-fichas",
   "name": "Atendimento e fichas 24h",
   "order": 23,
-  "version": 1,
+  "version": 2,
   "category": "Poker · fichas",
   "niches": [
     "poker"
   ],
-  "description": "Foco em atendimento e no fluxo de fichas: compra e saque por PIX em passos, canais oficiais e FAQ completo. Identidade própria; conteúdo de exemplo identificado.",
   "inspiredBy": null,
+  "description": "Atendimento e fichas no mundo Comprovante PIX, em papel claro: a primeira tela é um comprovante de atendimento, seguido dos dados para copiar, do extrato de compra e saque e dos canais oficiais. Conteúdo de exemplo identificado.",
   "theme": {
-    "mode": "escuro",
-    "bg": "#12101a",
-    "surface": "#1d1a2b",
-    "text": "#f5f3fb",
-    "muted": "#aaa3c2",
-    "primary": "#8b5cf6",
+    "world": "comprovante",
+    "mode": "claro",
+    "bg": "#f1eee6",
+    "surface": "#fffdf8",
+    "text": "#16171b",
+    "muted": "#5d5f63",
+    "primary": "#2340c8",
     "primaryText": "#ffffff",
-    "accent": "#22d3ee",
-    "border": "#2e2a45",
-    "font": "DM Sans",
-    "fontHead": "Space Grotesk",
-    "radius": 18
+    "accent": "#157a46",
+    "border": "#ddd7ca",
+    "font": "Onest",
+    "fontHead": "Onest",
+    "fontMono": "Red Hat Mono",
+    "radius": 8
   },
   "seo": {
-    "title": "{{name}} · Fichas por PIX e atendimento 24h",
-    "description": "Compre e saque fichas do {{name}} ({{app}}) por PIX, com atendimento humano 24h em cada passo. Somente +18."
+    "title": "{{name}} · Atendimento e fichas 24h",
+    "description": "Compra e saque de fichas por PIX no canal oficial do {{name}}, com atendimento 24h e registro de cada operação. Somente +18."
   },
   "pages": [
     {
@@ -33,158 +35,244 @@
       "title": "Início",
       "blocks": [
         {
-          "type": "navbar",
+          "type": "comprovante_topo",
           "props": {
+            "faixa": "Somente maiores de 18 · Jogue com responsabilidade",
             "brand": "{{name}}",
+            "sub": "ID {{number}}",
             "logo": "{{logo}}",
             "links": [
               {
                 "label": "Compra e saque",
-                "href": "/compra-e-saque"
+                "href": "/compra-e-saque",
+                "dot": false
               },
               {
                 "label": "Atendimento",
-                "href": "/atendimento"
+                "href": "/atendimento",
+                "dot": true
               },
               {
-                "label": "Dúvidas",
-                "href": "#duvidas"
+                "label": "Privacidade",
+                "href": "/privacidade",
+                "dot": false
               }
             ],
-            "cta": "Comprar fichas",
+            "cta": "Abrir o canal",
+            "ctaHref": "{{chipsUrl}}"
+          }
+        },
+        {
+          "type": "comprovante_painel",
+          "props": {
+            "title": "Fichas e saque por PIX, com gente de verdade do outro lado.",
+            "subtitle": "Compra e saque no canal oficial do **{{name}}**, no app **{{app}}**. Cada operação fica registrada por escrito, como um comprovante.",
+            "cta": "Abrir o canal de fichas",
             "ctaHref": "{{chipsUrl}}",
-            "variant": "flutuante"
-          }
-        },
-        {
-          "type": "hero",
-          "props": {
-            "eyebrow": "{{app}} · clube {{number}}",
-            "title": "Ficha na conta em minutos, gente de verdade do outro lado.",
-            "subtitle": "Compra e saque por PIX no canal oficial, com confirmação no chat e atendimento 24h — inclusive de madrugada e no fim de semana.",
-            "cta": "Comprar fichas",
-            "ctaHref": "{{chipsUrl}}",
-            "secondary": "Como funciona",
-            "secondaryHref": "/compra-e-saque",
-            "note": "Somente +18 · jogue com responsabilidade",
-            "variant": "dividido"
-          }
-        },
-        {
-          "type": "ticker",
-          "props": {
-            "items": [
-              {
-                "text": "Atendimento 24h, todos os dias"
-              },
-              {
-                "text": "Compra e saque por PIX"
-              },
-              {
-                "text": "Comprovante de cada operação no chat"
-              },
-              {
-                "text": "Somente +18"
-              }
-            ]
-          }
-        },
-        {
-          "type": "steps",
-          "props": {
-            "title": "Compra de fichas em 3 passos",
-            "items": [
-              {
-                "title": "Chame no canal oficial",
-                "text": "Pelo botão desta página. Informe o seu ID do {{app}}, o clube {{number}} e o agente {{agentId}}."
-              },
-              {
-                "title": "Pague por PIX",
-                "text": "Na chave informada pelo atendente, no valor combinado. Envie o comprovante no próprio chat."
-              },
-              {
-                "title": "Receba e jogue",
-                "text": "As fichas caem na sua conta do app e você confere antes de sentar na mesa."
-              }
-            ],
-            "variant": "numerado"
-          }
-        },
-        {
-          "type": "compare",
-          "props": {
-            "title": "Compra e saque, lado a lado",
-            "columns": "Compra de fichas;Saque de fichas",
+            "secondary": "Falar com o atendimento",
+            "secondaryHref": "{{whatsappLink}}",
+            "points": [],
+            "logo": "",
+            "panelTitle": "Atendimento de exemplo",
+            "panelSub": "Canal de fichas · {{name}}",
+            "tag": "ILUSTRAÇÃO",
+            "bigLabel": "Atendimento",
+            "big": "24h",
+            "bigSub": "Canal aberto agora",
             "rows": [
               {
-                "name": "Onde pedir",
-                "values": "Canal oficial de fichas;Mesmo canal oficial"
+                "label": "Pedido",
+                "value": "Compra de fichas",
+                "detail": ""
               },
               {
-                "name": "Como pagar / receber",
-                "values": "PIX na chave informada no chat;PIX no seu CPF"
+                "label": "Clube",
+                "value": "{{number}}",
+                "detail": ""
               },
               {
-                "name": "Confirmação",
-                "values": "Comprovante enviado no chat;Comprovante enviado no chat"
+                "label": "Agente",
+                "value": "{{agentId}}",
+                "detail": ""
               },
               {
-                "name": "Horário",
-                "values": "24h, todos os dias;24h, todos os dias"
+                "label": "Pagamento",
+                "value": "PIX no app do seu banco",
+                "detail": ""
+              },
+              {
+                "label": "Registro",
+                "value": "Confirmado por escrito no chat",
+                "detail": ""
               }
-            ]
+            ],
+            "totalLabel": "",
+            "total": "",
+            "panelFoot": "**É só uma ilustração.** O PIX de verdade é gerado no canal de fichas, com o seu ID do jogador.",
+            "variant": "cartaz"
           }
         },
         {
-          "type": "contact",
+          "type": "comprovante_dados",
           "props": {
+            "anchor": "dados",
+            "title": "Tenha isto à mão",
+            "subtitle": "O atendimento vai pedir três números. Dois estão aqui para copiar; o terceiro fica no seu perfil do app.",
+            "leftTitle": "Dados do clube",
+            "leftMeta": "copie e cole",
+            "fields": [
+              {
+                "label": "Clube",
+                "value": "{{number}}",
+                "help": "",
+                "copy": true
+              },
+              {
+                "label": "Agente",
+                "value": "{{agentId}}",
+                "help": "",
+                "copy": true
+              },
+              {
+                "label": "Seu ID do jogador",
+                "value": "",
+                "help": "No app {{app}}, toque no seu perfil.",
+                "copy": false
+              }
+            ],
+            "rightTitle": "Como o atendimento acontece",
+            "rightMeta": "no canal",
+            "steps": [
+              {
+                "text": "Abra o **canal de fichas** e diga se é compra ou saque."
+              },
+              {
+                "text": "Informe o **ID do jogador**, o **clube {{number}}** e o **agente {{agentId}}**."
+              },
+              {
+                "text": "Na compra, pague o PIX que o canal mostrar e envie o comprovante."
+              },
+              {
+                "text": "O atendimento **confirma por escrito** no chat."
+              }
+            ],
+            "noteTitle": "Saque",
+            "note": "Sempre na chave PIX do CPF do titular da conta do app.",
+            "noteIcon": "saque"
+          }
+        },
+        {
+          "type": "comprovante_extrato",
+          "props": {
+            "title": "Compra e saque no mesmo extrato",
+            "subtitle": "As duas operações passam pelo mesmo canal e ficam registradas do mesmo jeito.",
+            "headLeft": "Operações",
+            "headRight": "exemplo",
+            "tag": "",
+            "items": [
+              {
+                "icon": "ficha",
+                "title": "Compra de fichas",
+                "time": "entrada",
+                "text": "Você escolhe o valor, paga o PIX e as fichas caem na sua conta do app.",
+                "pill": "Fichas na conta",
+                "tone": "ok",
+                "href": ""
+              },
+              {
+                "icon": "saque",
+                "title": "Saque",
+                "time": "saída",
+                "text": "Você pede no canal, as fichas saem da conta e o PIX vai para a chave do seu CPF.",
+                "pill": "Na chave do seu CPF",
+                "tone": "ok",
+                "href": ""
+              },
+              {
+                "icon": "recibo",
+                "title": "Registro",
+                "time": "sempre",
+                "text": "Cada operação é confirmada por escrito no chat. Guarde também o comprovante do banco.",
+                "pill": "",
+                "tone": "neutro",
+                "href": ""
+              }
+            ],
+            "totalLabel": "Prazos e limites",
+            "total": "informados no canal",
+            "cta": "",
+            "ctaHref": "",
+            "variant": "lado"
+          }
+        },
+        {
+          "type": "comprovante_canais",
+          "props": {
+            "anchor": "canais",
             "title": "Canais oficiais",
-            "whatsapp": "{{whatsapp}}",
-            "telegram": "{{telegram}}",
-            "hours": "Todos os dias, 24 horas."
+            "subtitle": "Só estes. Qualquer contato fora daqui não fala pelo clube.",
+            "headLeft": "Atendimento agora",
+            "live": true,
+            "headRight": "todos os dias, 24 horas",
+            "items": [
+              {
+                "icon": "chat",
+                "label": "WhatsApp do clube",
+                "detail": "Suporte de gente de verdade, para conta, fichas e saque.",
+                "cta": "Abrir conversa",
+                "href": "{{whatsappLink}}"
+              },
+              {
+                "icon": "ficha",
+                "label": "Canal de fichas",
+                "detail": "Compra e saque por PIX, com registro por escrito.",
+                "cta": "Abrir o canal",
+                "href": "{{chipsUrl}}"
+              }
+            ],
+            "foot": "Só estes canais falam pelo clube. Ninguém daqui pede a sua senha ou pagamento para liberar saque."
           }
         },
         {
           "type": "faq",
           "props": {
+            "eyebrow": "",
             "title": "Perguntas frequentes",
+            "subtitle": "",
             "items": [
               {
-                "q": "Qual o valor mínimo de compra?",
-                "a": "O mínimo é informado pelo atendente no canal oficial e pode variar por mesa."
+                "q": "Qual o valor mínimo?",
+                "a": "O mínimo é definido pela operação e informado no atendimento, antes de qualquer pagamento."
               },
               {
-                "q": "Quanto tempo demora?",
-                "a": "A confirmação do PIX é na hora; as fichas caem logo em seguida, ainda no chat."
+                "q": "Demora quanto?",
+                "a": "Depois do comprovante, a confirmação costuma ser rápida; em pico de movimento pode haver fila, e o atendimento avisa."
               },
               {
-                "q": "Como saco minhas fichas?",
-                "a": "Pelo mesmo canal oficial: o saque volta por PIX no seu CPF, com comprovante."
+                "q": "Posso sacar para outra pessoa?",
+                "a": "Não. Saques só para a chave PIX do CPF do titular da conta do app."
               },
               {
-                "q": "E se der algum problema?",
-                "a": "O atendimento é 24h: cada operação tem comprovante e o histórico fica no chat."
+                "q": "E se eu mandar o valor errado?",
+                "a": "Avise no chat na hora, com o comprovante. O atendente regulariza a operação."
+              },
+              {
+                "q": "Vocês pedem senha?",
+                "a": "Nunca. Ninguém do atendimento pede a senha do app."
               }
-            ],
-            "anchor": "duvidas"
-          }
-        },
-        {
-          "type": "cta",
-          "props": {
-            "title": "Fale agora com o atendimento",
-            "text": "Compra, saque ou dúvida: o canal oficial responde a qualquer hora.",
-            "cta": "Chamar no WhatsApp",
-            "ctaHref": "{{whatsappLink}}",
-            "variant": "escuro"
+            ]
           }
         },
         {
           "type": "footer",
           "props": {
             "brand": "{{name}}",
-            "text": "Atendimento e fichas do {{name}}, no app {{app}}.",
+            "text": "Atendimento e canal de fichas do {{unitLabel}} no app {{app}}. Compra e saque por PIX, com registro de cada operação.",
             "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
               {
                 "label": "Compra e saque",
                 "href": "/compra-e-saque"
@@ -207,63 +295,165 @@
       "slug": "compra-e-saque",
       "title": "Compra e saque",
       "seo": {
-        "description": "Passo a passo de compra e saque de fichas do {{name}} por PIX."
+        "description": "Como comprar e sacar fichas do {{name}} por PIX, passo a passo."
       },
       "blocks": [
         {
-          "type": "navbar",
+          "type": "comprovante_topo",
           "props": {
+            "faixa": "Somente maiores de 18 · Jogue com responsabilidade",
             "brand": "{{name}}",
+            "sub": "ID {{number}}",
             "logo": "{{logo}}",
             "links": [
               {
-                "label": "Início",
-                "href": "/"
+                "label": "Compra e saque",
+                "href": "/compra-e-saque",
+                "dot": false
               },
               {
                 "label": "Atendimento",
-                "href": "/atendimento"
+                "href": "/atendimento",
+                "dot": true
+              },
+              {
+                "label": "Privacidade",
+                "href": "/privacidade",
+                "dot": false
               }
             ],
-            "cta": "Comprar fichas",
+            "cta": "Abrir o canal",
+            "ctaHref": "{{chipsUrl}}"
+          }
+        },
+        {
+          "type": "comprovante_cabecalho",
+          "props": {
+            "title": "Compra e saque, passo a passo",
+            "subtitle": "O fluxo completo, sem etapa escondida. Prazos e limites reais são informados no atendimento.",
+            "cta": "Abrir o canal de fichas",
             "ctaHref": "{{chipsUrl}}",
-            "variant": "barra"
+            "secondary": "",
+            "secondaryHref": "",
+            "stripTitle": "Dados da primeira vez",
+            "strip": [
+              {
+                "label": "Clube",
+                "value": "{{number}}"
+              },
+              {
+                "label": "Agente",
+                "value": "{{agentId}}"
+              },
+              {
+                "label": "ID do jogador",
+                "value": "no perfil do app"
+              }
+            ],
+            "tag": ""
           }
         },
         {
-          "type": "hero",
+          "type": "comprovante_extrato",
           "props": {
-            "eyebrow": "Guia",
-            "title": "Compra e saque, sem mistério",
-            "subtitle": "O fluxo completo, do primeiro PIX ao comprovante do saque.",
-            "variant": "centralizado"
-          }
-        },
-        {
-          "type": "steps",
-          "props": {
-            "title": "Saque de fichas em 3 passos",
+            "title": "Compra",
+            "subtitle": "",
+            "headLeft": "Compra de fichas",
+            "headRight": "4 lançamentos",
+            "tag": "",
             "items": [
               {
-                "title": "Peça o saque no canal oficial",
-                "text": "Informe o valor e o seu ID do {{app}}. O atendente confirma o saldo na hora."
+                "icon": "chat",
+                "title": "Abra o canal",
+                "time": "1 min",
+                "text": "Na primeira vez, informe o ID do jogador, o clube {{number}} e o agente {{agentId}}.",
+                "pill": "",
+                "tone": "ouro",
+                "href": ""
               },
               {
-                "title": "Confirme o CPF",
-                "text": "O PIX do saque vai para a chave do seu CPF — o mesmo titular da conta do app."
+                "icon": "ficha",
+                "title": "Combine o valor",
+                "time": "no chat",
+                "text": "O atendente confirma o valor e mostra o PIX.",
+                "pill": "",
+                "tone": "ouro",
+                "href": ""
               },
               {
-                "title": "Receba o comprovante",
-                "text": "O comprovante do PIX chega no chat. Qualquer divergência, o histórico está salvo."
+                "icon": "phone",
+                "title": "Pague e envie o comprovante",
+                "time": "no seu banco",
+                "text": "Confira valor e recebedor antes de confirmar.",
+                "pill": "",
+                "tone": "ouro",
+                "href": ""
+              },
+              {
+                "icon": "check",
+                "title": "Fichas na conta",
+                "time": "confirmado",
+                "text": "Com confirmação por escrito no chat.",
+                "pill": "Fichas na conta",
+                "tone": "ok",
+                "href": ""
               }
             ],
-            "variant": "linha-do-tempo"
+            "totalLabel": "",
+            "total": "",
+            "cta": "",
+            "ctaHref": "",
+            "variant": "extrato"
+          }
+        },
+        {
+          "type": "comprovante_extrato",
+          "props": {
+            "title": "Saque",
+            "subtitle": "",
+            "headLeft": "Saque de fichas",
+            "headRight": "3 lançamentos",
+            "tag": "",
+            "items": [
+              {
+                "icon": "chat",
+                "title": "Peça no canal",
+                "time": "1 min",
+                "text": "Informe o valor e a chave PIX do seu CPF.",
+                "pill": "",
+                "tone": "ouro",
+                "href": ""
+              },
+              {
+                "icon": "ficha",
+                "title": "As fichas saem da conta",
+                "time": "no app",
+                "text": "O atendimento confirma por escrito.",
+                "pill": "",
+                "tone": "ouro",
+                "href": ""
+              },
+              {
+                "icon": "saque",
+                "title": "O PIX cai na sua conta",
+                "time": "no prazo informado",
+                "text": "Só na chave do CPF do titular.",
+                "pill": "Na chave do seu CPF",
+                "tone": "ok",
+                "href": ""
+              }
+            ],
+            "totalLabel": "",
+            "total": "",
+            "cta": "",
+            "ctaHref": "",
+            "variant": "extrato"
           }
         },
         {
           "type": "notice",
           "props": {
-            "text": "Segurança: compre e saque só pelo canal oficial desta página. Nenhum atendente pede senha ou código do seu app.",
+            "text": "Nunca pague em chave passada fora do canal oficial. Desconfie de qualquer contato que não parta dos canais desta página.",
             "variant": "alerta"
           }
         },
@@ -271,10 +461,19 @@
           "type": "footer",
           "props": {
             "brand": "{{name}}",
+            "text": "Atendimento e canal de fichas do {{unitLabel}} no app {{app}}. Compra e saque por PIX, com registro de cada operação.",
             "links": [
               {
                 "label": "Início",
                 "href": "/"
+              },
+              {
+                "label": "Compra e saque",
+                "href": "/compra-e-saque"
+              },
+              {
+                "label": "Atendimento",
+                "href": "/atendimento"
               },
               {
                 "label": "Privacidade",
@@ -290,14 +489,149 @@
       "slug": "atendimento",
       "title": "Atendimento",
       "seo": {
-        "description": "Canais oficiais de atendimento do {{name}}: WhatsApp e Telegram, 24h."
+        "description": "Canais oficiais de atendimento do {{name}}: horários e o que ter à mão."
       },
       "blocks": [
         {
-          "type": "navbar",
+          "type": "comprovante_topo",
+          "props": {
+            "faixa": "Somente maiores de 18 · Jogue com responsabilidade",
+            "brand": "{{name}}",
+            "sub": "ID {{number}}",
+            "logo": "{{logo}}",
+            "links": [
+              {
+                "label": "Compra e saque",
+                "href": "/compra-e-saque",
+                "dot": false
+              },
+              {
+                "label": "Atendimento",
+                "href": "/atendimento",
+                "dot": true
+              },
+              {
+                "label": "Privacidade",
+                "href": "/privacidade",
+                "dot": false
+              }
+            ],
+            "cta": "Abrir o canal",
+            "ctaHref": "{{chipsUrl}}"
+          }
+        },
+        {
+          "type": "comprovante_cabecalho",
+          "props": {
+            "title": "Atendimento 24h",
+            "subtitle": "De madrugada, no feriado, no fim do torneio: tem gente de plantão. Fale só pelos canais desta página.",
+            "cta": "Falar no WhatsApp",
+            "ctaHref": "{{whatsappLink}}",
+            "secondary": "",
+            "secondaryHref": "",
+            "stripTitle": "Para agilizar",
+            "strip": [
+              {
+                "label": "ID do jogador",
+                "value": "no perfil do app"
+              },
+              {
+                "label": "Pagamento",
+                "value": "comprovante do banco"
+              },
+              {
+                "label": "Problema",
+                "value": "print da tela"
+              }
+            ],
+            "tag": ""
+          }
+        },
+        {
+          "type": "comprovante_canais",
+          "props": {
+            "anchor": "",
+            "title": "Canais oficiais",
+            "subtitle": "",
+            "headLeft": "Atendimento agora",
+            "live": true,
+            "headRight": "todos os dias, 24 horas",
+            "items": [
+              {
+                "icon": "chat",
+                "label": "WhatsApp do clube",
+                "detail": "Suporte de gente de verdade, para conta, fichas e saque.",
+                "cta": "Abrir conversa",
+                "href": "{{whatsappLink}}"
+              },
+              {
+                "icon": "ficha",
+                "label": "Canal de fichas",
+                "detail": "Compra e saque por PIX, com registro por escrito.",
+                "cta": "Abrir o canal",
+                "href": "{{chipsUrl}}"
+              },
+              {
+                "icon": "mail",
+                "label": "E-mail",
+                "detail": "Para assuntos que não são urgentes.",
+                "cta": "Escrever",
+                "href": "mailto:{{email}}"
+              }
+            ],
+            "foot": "Só estes canais falam pelo clube. Ninguém daqui pede a sua senha ou pagamento para liberar saque."
+          }
+        },
+        {
+          "type": "comprovante_linhas",
+          "props": {
+            "title": "O que o atendimento resolve",
+            "subtitle": "",
+            "leftTitle": "Pode chamar para",
+            "leftRows": [
+              {
+                "label": "Fichas",
+                "value": "Compra e saque",
+                "detail": ""
+              },
+              {
+                "label": "Conta",
+                "value": "Entrada no clube e convite",
+                "detail": ""
+              },
+              {
+                "label": "Pagamento",
+                "value": "PIX que não caiu",
+                "detail": "Com o comprovante do banco."
+              }
+            ],
+            "rightTitle": "Não pedimos",
+            "rightRows": [
+              {
+                "label": "Senha",
+                "value": "Do app ou do banco",
+                "detail": ""
+              },
+              {
+                "label": "Taxa",
+                "value": "Para liberar saque",
+                "detail": ""
+              },
+              {
+                "label": "Chave",
+                "value": "Fora do canal",
+                "detail": ""
+              }
+            ],
+            "foot": "",
+            "variant": "duas"
+          }
+        },
+        {
+          "type": "footer",
           "props": {
             "brand": "{{name}}",
-            "logo": "{{logo}}",
+            "text": "Atendimento e canal de fichas do {{unitLabel}} no app {{app}}. Compra e saque por PIX, com registro de cada operação.",
             "links": [
               {
                 "label": "Início",
@@ -306,61 +640,10 @@
               {
                 "label": "Compra e saque",
                 "href": "/compra-e-saque"
-              }
-            ],
-            "cta": "Chamar no WhatsApp",
-            "ctaHref": "{{whatsappLink}}",
-            "variant": "barra"
-          }
-        },
-        {
-          "type": "contact",
-          "props": {
-            "title": "Fale com a equipe",
-            "whatsapp": "{{whatsapp}}",
-            "telegram": "{{telegram}}",
-            "instagram": "{{instagram}}",
-            "email": "{{email}}",
-            "hours": "Todos os dias, 24 horas — inclusive feriados."
-          }
-        },
-        {
-          "type": "features",
-          "props": {
-            "title": "O que o atendimento resolve",
-            "items": [
-              {
-                "icon": "PIX",
-                "title": "Compra e saque",
-                "text": "Pedidos de fichas, confirmação de PIX e comprovantes."
               },
               {
-                "icon": "?",
-                "title": "Dúvidas de mesa",
-                "text": "Regras, buy-ins e agenda de torneios do clube {{number}}."
-              },
-              {
-                "icon": "✓",
-                "title": "Conta e cadastro",
-                "text": "Instalação do {{app}}, entrada pelo convite e dados do perfil."
-              },
-              {
-                "icon": "!",
-                "title": "Ocorrências",
-                "text": "Qualquer problema na mesa ou no pagamento, com registro no chat."
-              }
-            ],
-            "variant": "lista"
-          }
-        },
-        {
-          "type": "footer",
-          "props": {
-            "brand": "{{name}}",
-            "links": [
-              {
-                "label": "Início",
-                "href": "/"
+                "label": "Atendimento",
+                "href": "/atendimento"
               },
               {
                 "label": "Privacidade",
@@ -376,27 +659,69 @@
       "slug": "privacidade",
       "title": "Privacidade",
       "seo": {
-        "description": "Como o {{name}} trata seus dados."
+        "description": "Como o {{name}} trata os seus dados neste site."
       },
       "blocks": [
         {
-          "type": "navbar",
+          "type": "comprovante_topo",
           "props": {
+            "faixa": "Somente maiores de 18 · Jogue com responsabilidade",
             "brand": "{{name}}",
+            "sub": "ID {{number}}",
+            "logo": "{{logo}}",
             "links": [
               {
-                "label": "Início",
-                "href": "/"
+                "label": "Compra e saque",
+                "href": "/compra-e-saque",
+                "dot": false
+              },
+              {
+                "label": "Atendimento",
+                "href": "/atendimento",
+                "dot": true
+              },
+              {
+                "label": "Privacidade",
+                "href": "/privacidade",
+                "dot": false
               }
             ],
-            "variant": "barra"
+            "cta": "Abrir o canal",
+            "ctaHref": "{{chipsUrl}}"
+          }
+        },
+        {
+          "type": "comprovante_cabecalho",
+          "props": {
+            "title": "Privacidade",
+            "subtitle": "O que este site guarda, para quê, e como pedir para apagar.",
+            "cta": "",
+            "ctaHref": "",
+            "secondary": "",
+            "secondaryHref": "",
+            "stripTitle": "Em resumo",
+            "strip": [
+              {
+                "label": "Guardamos",
+                "value": "o que você envia"
+              },
+              {
+                "label": "Não pedimos",
+                "value": "senha nem documento"
+              },
+              {
+                "label": "Apagar",
+                "value": "é só pedir"
+              }
+            ],
+            "tag": ""
           }
         },
         {
           "type": "text",
           "props": {
-            "title": "Privacidade",
-            "body": "Texto-base para revisão jurídica da operação.\n\nAs conversas nos canais oficiais ficam registradas para garantir o histórico de compras e saques. Dados pessoais são usados só para atendimento e podem ser excluídos a pedido, pelos mesmos canais.\n\nCookies de medição (Google e Meta) só são ativados se você aceitar no aviso do site.",
+            "title": "Seus dados",
+            "body": "Este site guarda apenas os dados que você envia nos formulários (como nome, e-mail e telefone), para responder e enviar informações sobre o clube.\n\nNão pedimos senha do app, senha do banco nem documentos pelo site.\n\nVocê pode pedir a qualquer momento para ver, corrigir ou apagar os seus dados pelos canais de atendimento desta página.\n\nUsamos cookies de medição só com o seu consentimento.",
             "variant": "estreito"
           }
         },
@@ -404,6 +729,25 @@
           "type": "footer",
           "props": {
             "brand": "{{name}}",
+            "text": "Atendimento e canal de fichas do {{unitLabel}} no app {{app}}. Compra e saque por PIX, com registro de cada operação.",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Compra e saque",
+                "href": "/compra-e-saque"
+              },
+              {
+                "label": "Atendimento",
+                "href": "/atendimento"
+              },
+              {
+                "label": "Privacidade",
+                "href": "/privacidade"
+              }
+            ],
             "disclaimer": "{{disclaimer}}"
           }
         }
