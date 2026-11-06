@@ -1,0 +1,883 @@
+{
+  "id": "sx-transmissao-clube",
+  "name": "Clube ao vivo (Transmissão)",
+  "order": 6,
+  "version": 1,
+  "category": "Poker · edição SX",
+  "niches": [
+    "poker"
+  ],
+  "inspiredBy": "sx",
+  "description": "Site do clube para o jogador como uma transmissão de torneio: mão ao vivo com % de vitória calculadas, seletor de ruas, faixa de torneios correndo e o caminho até o PIX. Grade e mão marcadas como exemplo.",
+  "theme": {
+    "world": "transmissao",
+    "mode": "escuro",
+    "bg": "#15110a",
+    "surface": "#1e1810",
+    "text": "#f6eddc",
+    "muted": "#ad9a78",
+    "primary": "#efa144",
+    "primaryText": "#030303",
+    "accent": "#2bb673",
+    "border": "#3b2f1f",
+    "font": "Montserrat",
+    "fontHead": "Barlow Condensed",
+    "fontMono": "Antonio",
+    "radius": 0
+  },
+  "seo": {
+    "title": "{{name}} · Poker online 24h no {{app}}",
+    "description": "Entre no {{name}} pelo link do clube, compre fichas por PIX e jogue no app {{app}} com suporte 24h. Somente +18."
+  },
+  "pages": [
+    {
+      "slug": "",
+      "title": "Início",
+      "blocks": [
+        {
+          "type": "transmissao_topo",
+          "props": {
+            "brand": "{{name}}",
+            "sub": "ID {{number}}",
+            "logo": "{{logo}}",
+            "links": [
+              {
+                "label": "Como funciona",
+                "href": "/#como-funciona"
+              },
+              {
+                "label": "Ação 24h",
+                "href": "/#acao"
+              },
+              {
+                "label": "Como entrar",
+                "href": "/como-entrar"
+              },
+              {
+                "label": "Dúvidas",
+                "href": "/duvidas"
+              }
+            ],
+            "cta": "Quero jogar",
+            "ctaHref": "/#cadastro"
+          }
+        },
+        {
+          "type": "transmissao_abertura",
+          "props": {
+            "badge": "Ao vivo",
+            "live": true,
+            "league": "{{app}} · NLH · PLO · 24h",
+            "responsible": "Jogue com responsabilidade",
+            "title": "Poker online 24h,",
+            "titleAccent": "direto no celular.",
+            "lead": "**{{name}} no app {{app}}, com fichas por PIX.** Um cadastro só, o link do clube e você já entra na mesa.",
+            "variant": "tese"
+          }
+        },
+        {
+          "type": "transmissao_mao",
+          "props": {
+            "label": "Mão ao vivo · Hold'em",
+            "sample": "Mão de exemplo · % de vitória calculadas",
+            "cardsA": "As Kd",
+            "cardsB": "Qc 10h",
+            "board": "Qd 7s 2c Ks 4h",
+            "tagA": "Mão A",
+            "tagB": "Mão B",
+            "variant": "palco"
+          }
+        },
+        {
+          "type": "transmissao_chamada",
+          "props": {
+            "title": "Sua vez de sentar na mesa.",
+            "text": "Baixe o app {{app}} grátis, entre pelo link do clube e compre fichas por PIX, com suporte 24h.",
+            "cta": "Quero jogar",
+            "ctaHref": "#cadastro",
+            "note": "Cadastro grátis · somente +18",
+            "variant": "faixa"
+          }
+        },
+        {
+          "type": "transmissao_mesa_final",
+          "props": {
+            "anchor": "como-funciona",
+            "title": "Três passos até a mesa",
+            "intro": "Funciona para quem nunca jogou e para quem já tem o app. Você deixa o e-mail, abre o app pelo link do clube e compra as fichas por PIX.",
+            "colStep": "Passo",
+            "colText": "O que fazer",
+            "colValue": "Leva",
+            "items": [
+              {
+                "title": "Deixe seu e-mail",
+                "text": "É o único cadastro no site. Não pedimos senha do app nem documento.",
+                "value": "10 seg"
+              },
+              {
+                "title": "Abra o app pelo link do clube",
+                "text": "Você já entra no clube {{number}} com o nosso agente. Sem o app, o link leva à loja.",
+                "value": "2 min"
+              },
+              {
+                "title": "Compre fichas por PIX",
+                "text": "No canal de fichas. Confirmado o PIX, as fichas caem na sua conta do app.",
+                "value": "PIX",
+                "lead": true
+              }
+            ],
+            "note": "Já tem conta no {{app}}? Use o mesmo e-mail e aceite o convite do clube.",
+            "variant": "dupla"
+          }
+        },
+        {
+          "type": "transmissao_pix",
+          "props": {
+            "title": "Primeira compra no canal de fichas",
+            "text": "Informe estes três dados uma vez. Depois, cada PIX vira ficha na sua conta do app.",
+            "items": [
+              {
+                "label": "Seu ID de jogador",
+                "value": "No seu perfil",
+                "text": "Fica no perfil do app {{app}}, logo abaixo do seu apelido.",
+                "style": "texto"
+              },
+              {
+                "label": "Clube",
+                "value": "{{number}}",
+                "text": "{{name}}, dentro do app {{app}}.",
+                "style": "numero"
+              },
+              {
+                "label": "Agente",
+                "value": "{{agentId}}",
+                "text": "O nosso agente, o mesmo do link de entrada.",
+                "style": "numero"
+              }
+            ],
+            "flow": [
+              {
+                "icon": "pix",
+                "strong": "PIX pago,",
+                "text": "fichas na conta do app"
+              },
+              {
+                "icon": "saque",
+                "strong": "Saque",
+                "text": "no mesmo canal, na chave PIX do seu CPF"
+              },
+              {
+                "icon": "suporte",
+                "strong": "Travou?",
+                "text": "suporte humano 24h no WhatsApp"
+              }
+            ],
+            "link": "Abrir o canal de fichas",
+            "linkHref": "{{chipsUrl}}"
+          }
+        },
+        {
+          "type": "transmissao_canais",
+          "props": {
+            "anchor": "acao",
+            "title": "Ação 24h no {{app}}",
+            "intro": "Mesa rodando a qualquer hora, no app oficial. Escolha o jogo e sente.",
+            "items": [
+              {
+                "name": "NLH",
+                "text": "Texas Hold'em sem limite, em mesas de cash e torneios."
+              },
+              {
+                "name": "PLO",
+                "text": "Omaha de 4, 5 e 6 cartas, para quem gosta de pote grande."
+              },
+              {
+                "name": "Torneios",
+                "text": "Grade cheia o dia todo, do turbo da tarde ao main event da noite."
+              },
+              {
+                "name": "Spin",
+                "text": "Sit & go rápido de 3 jogadores, com o prêmio sorteado antes da primeira mão.",
+                "lead": true
+              }
+            ]
+          }
+        },
+        {
+          "type": "transmissao_grade",
+          "props": {
+            "heading": "Destaques da noite",
+            "source": "Troque pela grade do dia do clube",
+            "sample": true,
+            "items": [
+              {
+                "time": "18:00",
+                "name": "Abertura Turbo",
+                "game": "NLH",
+                "buyin": "R$ 10",
+                "prize": "R$ 5.000"
+              },
+              {
+                "time": "18:30",
+                "name": "Bounty da Noite",
+                "game": "NLH · KO",
+                "buyin": "R$ 55",
+                "prize": "R$ 10.000"
+              },
+              {
+                "time": "19:00",
+                "name": "Omaha 5 Night",
+                "game": "PLO 5",
+                "buyin": "R$ 75",
+                "prize": "R$ 8.000"
+              },
+              {
+                "time": "20:00",
+                "name": "Main Event Diário",
+                "game": "NLH",
+                "buyin": "R$ 110",
+                "prize": "R$ 30.000",
+                "lead": true
+              },
+              {
+                "time": "20:30",
+                "name": "Mystery KO",
+                "game": "NLH · KO",
+                "buyin": "R$ 50",
+                "prize": "R$ 12.000"
+              },
+              {
+                "time": "22:00",
+                "name": "Turbo das 22",
+                "game": "NLH · Turbo",
+                "buyin": "R$ 22",
+                "prize": "R$ 4.000"
+              }
+            ],
+            "foot": "Horários de Brasília. Nomes, buy-ins e garantidos de exemplo.",
+            "link": "Abrir o app do clube",
+            "linkHref": "{{inviteLink}}"
+          }
+        },
+        {
+          "type": "transmissao_confronto",
+          "props": {
+            "title": "Por que o {{name}}",
+            "items": [
+              {
+                "label": "Entrada",
+                "value": "2",
+                "unit": "min",
+                "text": "Para entrar pelo link do clube. **Você cai direto no clube {{number}},** sem procurar código."
+              },
+              {
+                "label": "Suporte",
+                "value": "24",
+                "unit": "h",
+                "text": "Gente de verdade no WhatsApp, todo dia, inclusive de madrugada."
+              },
+              {
+                "label": "Fichas",
+                "value": "PIX",
+                "text": "**Compra pelo canal de fichas.** Saque na chave PIX do seu CPF."
+              },
+              {
+                "label": "App",
+                "value": "+18",
+                "text": "App oficial {{app}}, nas lojas. Jogo consciente e somente para maiores de 18 anos."
+              }
+            ]
+          }
+        },
+        {
+          "type": "faq",
+          "props": {
+            "anchor": "duvidas",
+            "title": "Dúvidas",
+            "subtitle": "Não achou a sua? O suporte responde 24h no WhatsApp.",
+            "items": [
+              {
+                "q": "Como entro no clube?",
+                "a": "Abra o app {{app}} pelo link do clube. Se ainda não tiver o app, o link leva para a loja; depois de instalar, abra pelo mesmo link e você entra no clube {{number}} com o agente {{agentId}}."
+              },
+              {
+                "q": "Preciso pagar para criar a conta?",
+                "a": "Não. O app e o cadastro são grátis. Você só paga as fichas que quiser comprar."
+              },
+              {
+                "q": "Já tenho conta no {{app}}. Posso entrar?",
+                "a": "Pode. Use o mesmo e-mail, abra o link do clube com o app instalado e aceite o convite."
+              },
+              {
+                "q": "Como compro fichas?",
+                "a": "Pelo canal de fichas, por PIX. Na primeira compra, informe o seu ID de jogador (fica no perfil do app), o clube {{number}} e o agente {{agentId}}."
+              },
+              {
+                "q": "Como saco?",
+                "a": "Pelo mesmo canal, direto na chave PIX do seu CPF. Se precisar, o suporte 24h ajuda."
+              },
+              {
+                "q": "É para maiores de 18?",
+                "a": "Sim, somente maiores de 18 anos. Jogue com responsabilidade."
+              }
+            ]
+          }
+        },
+        {
+          "type": "transmissao_final",
+          "props": {
+            "anchor": "cadastro",
+            "title": "A mesa está rodando.",
+            "titleAccent": "Falta você.",
+            "text": "Deixe o e-mail, abra o app pelo link do clube e compre as fichas por PIX. Em poucos minutos você está sentado no {{name}}.",
+            "responsible": "Jogue com responsabilidade. Poker é entretenimento, não fonte de renda.",
+            "fields": "email",
+            "button": "Quero jogar",
+            "help": "Leva 10 segundos. Já tem conta no {{app}}? Use o mesmo e-mail.",
+            "success": "Pronto! O link do clube chegou no seu e-mail.",
+            "consent": "Concordo em receber o link do clube e avisos do {{name}} por e-mail. Posso sair quando quiser."
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "text": "ID {{number}} · agente {{agentId}}, no app oficial {{app}}.",
+            "links": [
+              {
+                "label": "Como entrar",
+                "href": "/como-entrar"
+              },
+              {
+                "label": "Dúvidas",
+                "href": "/duvidas"
+              },
+              {
+                "label": "Jogo responsável",
+                "href": "/jogo-responsavel"
+              },
+              {
+                "label": "Canal de fichas",
+                "href": "{{chipsUrl}}"
+              }
+            ],
+            "disclaimer": "{{disclaimer}} Proibido para menores de 18 anos. O site nunca pede a senha do app nem documento."
+          }
+        },
+        {
+          "type": "transmissao_letreiro",
+          "props": {
+            "label": "Hoje no clube",
+            "labelShort": "Hoje",
+            "href": "/#acao",
+            "sample": true,
+            "items": [
+              {
+                "time": "18:00",
+                "name": "Abertura Turbo",
+                "detail": "NLH · buy-in R$ 10 · garantido R$ 5.000"
+              },
+              {
+                "time": "18:30",
+                "name": "Bounty da Noite",
+                "detail": "NLH · KO · buy-in R$ 55 · garantido R$ 10.000"
+              },
+              {
+                "time": "19:00",
+                "name": "Omaha 5 Night",
+                "detail": "PLO 5 · buy-in R$ 75 · garantido R$ 8.000"
+              },
+              {
+                "time": "20:00",
+                "name": "Main Event Diário",
+                "detail": "NLH · buy-in R$ 110 · garantido R$ 30.000"
+              },
+              {
+                "time": "20:30",
+                "name": "Mystery KO",
+                "detail": "NLH · buy-in R$ 50 · garantido R$ 12.000"
+              },
+              {
+                "time": "21:00",
+                "name": "Deep Stack",
+                "detail": "NLH · buy-in R$ 33 · garantido R$ 6.000"
+              },
+              {
+                "time": "22:00",
+                "name": "Turbo das 22",
+                "detail": "NLH · buy-in R$ 22 · garantido R$ 4.000"
+              },
+              {
+                "time": "23:30",
+                "name": "Hyper da Madrugada",
+                "detail": "NLH · buy-in R$ 15 · garantido R$ 2.500"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "slug": "como-entrar",
+      "title": "Como entrar",
+      "seo": {
+        "description": "Passo a passo para entrar no {{name}} pelo app {{app}} e fazer a primeira compra de fichas por PIX."
+      },
+      "blocks": [
+        {
+          "type": "transmissao_topo",
+          "props": {
+            "brand": "{{name}}",
+            "sub": "ID {{number}}",
+            "logo": "{{logo}}",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Como entrar",
+                "href": "/como-entrar"
+              },
+              {
+                "label": "Dúvidas",
+                "href": "/duvidas"
+              },
+              {
+                "label": "Jogo responsável",
+                "href": "/jogo-responsavel"
+              }
+            ],
+            "cta": "Quero jogar",
+            "ctaHref": "/#cadastro"
+          }
+        },
+        {
+          "type": "transmissao_abertura",
+          "props": {
+            "responsible": "Jogue com responsabilidade",
+            "variant": "pagina",
+            "badge": "Passo a passo",
+            "league": "Do cadastro à primeira mão",
+            "title": "Como entrar no",
+            "titleAccent": "{{name}}",
+            "lead": "Cinco passos, do app instalado à primeira mão. **Quem já tem conta no {{app}} pula direto para o passo 3.**"
+          }
+        },
+        {
+          "type": "transmissao_mesa_final",
+          "props": {
+            "colStep": "Passo",
+            "colText": "O que fazer",
+            "colValue": "Onde",
+            "items": [
+              {
+                "title": "Baixe o app {{app}}",
+                "text": "Grátis, na loja do seu celular. Procure pelo app oficial e confira o nome do desenvolvedor antes de instalar.",
+                "value": "Loja"
+              },
+              {
+                "title": "Crie a sua conta no app",
+                "text": "Com o seu e-mail. Anote o apelido: ele aparece na mesa para os outros jogadores.",
+                "value": "App"
+              },
+              {
+                "title": "Abra o link do clube",
+                "text": "O link já leva ao clube **{{number}}** com o agente **{{agentId}}**. Se o app pedir, confirme o código do clube.",
+                "value": "Link"
+              },
+              {
+                "title": "Aceite o convite",
+                "text": "O pedido de entrada aparece para o clube e é aprovado pelo atendimento. Travou aqui? Chame o suporte.",
+                "value": "App"
+              },
+              {
+                "title": "Compre fichas por PIX",
+                "text": "No canal de fichas, com o seu ID de jogador, o clube e o agente. Confirmado o PIX, as fichas caem na conta.",
+                "value": "PIX",
+                "lead": true
+              }
+            ],
+            "note": "Seu ID de jogador fica no perfil do app, logo abaixo do apelido. É ele que você informa no canal de fichas.",
+            "variant": "larga"
+          }
+        },
+        {
+          "type": "transmissao_pix",
+          "props": {
+            "title": "Primeira compra no canal de fichas",
+            "text": "Informe estes três dados uma vez. Depois, cada PIX vira ficha na sua conta do app.",
+            "items": [
+              {
+                "label": "Seu ID de jogador",
+                "value": "No seu perfil",
+                "text": "Fica no perfil do app {{app}}, logo abaixo do seu apelido.",
+                "style": "texto"
+              },
+              {
+                "label": "Clube",
+                "value": "{{number}}",
+                "text": "{{name}}, dentro do app {{app}}.",
+                "style": "numero"
+              },
+              {
+                "label": "Agente",
+                "value": "{{agentId}}",
+                "text": "O nosso agente, o mesmo do link de entrada.",
+                "style": "numero"
+              }
+            ],
+            "flow": [
+              {
+                "icon": "pix",
+                "strong": "PIX pago,",
+                "text": "fichas na conta do app"
+              },
+              {
+                "icon": "saque",
+                "strong": "Saque",
+                "text": "no mesmo canal, na chave PIX do seu CPF"
+              },
+              {
+                "icon": "suporte",
+                "strong": "Travou?",
+                "text": "suporte humano 24h no WhatsApp"
+              }
+            ],
+            "link": "Abrir o canal de fichas",
+            "linkHref": "{{chipsUrl}}"
+          }
+        },
+        {
+          "type": "notice",
+          "props": {
+            "text": "O site e o atendimento nunca pedem a senha do app nem foto de documento. Se alguém pedir, não envie e avise o suporte.",
+            "variant": "alerta"
+          }
+        },
+        {
+          "type": "transmissao_chamada",
+          "props": {
+            "title": "Pronto para a primeira mão?",
+            "text": "Abra o link do clube com o app instalado e aceite o convite.",
+            "cta": "Abrir o link do clube",
+            "ctaHref": "{{inviteLink}}",
+            "note": "Somente +18",
+            "variant": "faixa"
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "text": "ID {{number}} · agente {{agentId}}, no app oficial {{app}}.",
+            "links": [
+              {
+                "label": "Como entrar",
+                "href": "/como-entrar"
+              },
+              {
+                "label": "Dúvidas",
+                "href": "/duvidas"
+              },
+              {
+                "label": "Jogo responsável",
+                "href": "/jogo-responsavel"
+              },
+              {
+                "label": "Canal de fichas",
+                "href": "{{chipsUrl}}"
+              }
+            ],
+            "disclaimer": "{{disclaimer}} Proibido para menores de 18 anos. O site nunca pede a senha do app nem documento."
+          }
+        }
+      ]
+    },
+    {
+      "slug": "duvidas",
+      "title": "Dúvidas",
+      "seo": {
+        "description": "Perguntas frequentes sobre entrar no {{name}}, comprar fichas por PIX e sacar."
+      },
+      "blocks": [
+        {
+          "type": "transmissao_topo",
+          "props": {
+            "brand": "{{name}}",
+            "sub": "ID {{number}}",
+            "logo": "{{logo}}",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Como entrar",
+                "href": "/como-entrar"
+              },
+              {
+                "label": "Dúvidas",
+                "href": "/duvidas"
+              },
+              {
+                "label": "Jogo responsável",
+                "href": "/jogo-responsavel"
+              }
+            ],
+            "cta": "Quero jogar",
+            "ctaHref": "/#cadastro"
+          }
+        },
+        {
+          "type": "transmissao_abertura",
+          "props": {
+            "responsible": "Jogue com responsabilidade",
+            "variant": "pagina",
+            "badge": "Dúvidas",
+            "league": "Clube {{number}} · {{app}}",
+            "title": "Perguntas de",
+            "titleAccent": "quem vai sentar.",
+            "lead": "As respostas para as dúvidas que mais chegam no suporte. **Não achou a sua? Fale com a gente no WhatsApp, 24h.**"
+          }
+        },
+        {
+          "type": "faq",
+          "props": {
+            "title": "Entrar no clube",
+            "subtitle": "Do app instalado à primeira mesa.",
+            "items": [
+              {
+                "q": "Preciso pagar para entrar no clube?",
+                "a": "Não. O app {{app}} e a entrada no clube são grátis. Você só paga as fichas que quiser comprar."
+              },
+              {
+                "q": "Abri o link e não entrei no clube. E agora?",
+                "a": "Confira se o app está instalado e abra o link de novo pelo celular. Se o app pedir um código, use o clube {{number}}. Persistindo, chame o suporte com o seu ID de jogador."
+              },
+              {
+                "q": "Já jogo em outro clube no {{app}}. Posso entrar?",
+                "a": "Pode. A mesma conta participa de mais de um clube; as fichas de cada clube ficam separadas."
+              },
+              {
+                "q": "Quanto tempo leva a aprovação?",
+                "a": "A aprovação é feita pelo atendimento do clube. Se demorar, chame o suporte e informe o seu ID de jogador."
+              },
+              {
+                "q": "É seguro?",
+                "a": "O app é o oficial, baixado da loja do seu celular. O site nunca pede senha nem documento, e o saque vai só para a chave PIX do seu CPF."
+              }
+            ]
+          }
+        },
+        {
+          "type": "faq",
+          "props": {
+            "title": "Fichas e saque",
+            "subtitle": "Tudo pelo canal de fichas, por PIX.",
+            "items": [
+              {
+                "q": "Qual o valor mínimo de compra?",
+                "a": "O mínimo é informado no canal de fichas antes de qualquer pagamento."
+              },
+              {
+                "q": "Paguei o PIX e a ficha não caiu.",
+                "a": "Envie o comprovante no chat do canal de fichas com o seu ID de jogador. O atendente confere e regulariza."
+              },
+              {
+                "q": "Como saco?",
+                "a": "Pelo mesmo canal, na chave PIX do CPF do titular da conta. O prazo é informado no atendimento."
+              },
+              {
+                "q": "Posso sacar para outra pessoa?",
+                "a": "Não. O saque vai só para a chave PIX do CPF do titular da conta do app."
+              },
+              {
+                "q": "O clube oferece bônus ou fichas grátis?",
+                "a": "Não. Você joga com as fichas que comprar. Desconfie de quem prometer bônus em nome do clube."
+              }
+            ]
+          }
+        },
+        {
+          "type": "contact",
+          "props": {
+            "title": "Fale com o suporte",
+            "subtitle": "Gente de verdade, todos os dias.",
+            "whatsapp": "{{whatsapp}}",
+            "telegram": "{{telegram}}",
+            "email": "{{email}}",
+            "hours": "Atendimento todos os dias, 24 horas."
+          }
+        },
+        {
+          "type": "transmissao_chamada",
+          "props": {
+            "title": "Tirou a dúvida? A mesa está rodando.",
+            "text": "Deixe o e-mail e receba o link do clube.",
+            "cta": "Quero jogar",
+            "ctaHref": "/#cadastro",
+            "note": "Somente +18",
+            "variant": "larga"
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "text": "ID {{number}} · agente {{agentId}}, no app oficial {{app}}.",
+            "links": [
+              {
+                "label": "Como entrar",
+                "href": "/como-entrar"
+              },
+              {
+                "label": "Dúvidas",
+                "href": "/duvidas"
+              },
+              {
+                "label": "Jogo responsável",
+                "href": "/jogo-responsavel"
+              },
+              {
+                "label": "Canal de fichas",
+                "href": "{{chipsUrl}}"
+              }
+            ],
+            "disclaimer": "{{disclaimer}} Proibido para menores de 18 anos. O site nunca pede a senha do app nem documento."
+          }
+        }
+      ]
+    },
+    {
+      "slug": "jogo-responsavel",
+      "title": "Jogo responsável",
+      "seo": {
+        "description": "Como o {{name}} trata o jogo responsável: somente +18, limites de orçamento e tempo e onde pedir ajuda."
+      },
+      "blocks": [
+        {
+          "type": "transmissao_topo",
+          "props": {
+            "brand": "{{name}}",
+            "sub": "ID {{number}}",
+            "logo": "{{logo}}",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Como entrar",
+                "href": "/como-entrar"
+              },
+              {
+                "label": "Dúvidas",
+                "href": "/duvidas"
+              },
+              {
+                "label": "Jogo responsável",
+                "href": "/jogo-responsavel"
+              }
+            ],
+            "cta": "Quero jogar",
+            "ctaHref": "/#cadastro"
+          }
+        },
+        {
+          "type": "transmissao_abertura",
+          "props": {
+            "responsible": "Jogue com responsabilidade",
+            "variant": "pagina",
+            "badge": "Jogo responsável",
+            "league": "Somente maiores de 18 anos",
+            "title": "Poker é",
+            "titleAccent": "entretenimento.",
+            "lead": "Jogar bem também é saber parar. **Poker não é fonte de renda** e ninguém deve jogar com dinheiro que faz falta."
+          }
+        },
+        {
+          "type": "transmissao_confronto",
+          "props": {
+            "title": "As regras da casa",
+            "intro": "Valem para todo jogador do clube, do primeiro dia em diante.",
+            "items": [
+              {
+                "label": "Idade",
+                "value": "+18",
+                "text": "**Somente maiores de 18 anos.** Contas de menores são encerradas quando identificadas."
+              },
+              {
+                "label": "Orçamento",
+                "value": "Teto",
+                "text": "Defina antes de sentar quanto pode gastar no mês e pare quando chegar nele. **Não compre fichas para recuperar perda.**"
+              },
+              {
+                "label": "Tempo",
+                "value": "Pausa",
+                "text": "Faça pausas. Sessão longa cansa e cansaço vira decisão ruim na mesa."
+              },
+              {
+                "label": "Ajuda",
+                "value": "188",
+                "text": "Se o jogo deixou de ser diversão, fale com o suporte do clube e procure apoio. **CVV: ligue 188, grátis, 24h.**"
+              }
+            ]
+          }
+        },
+        {
+          "type": "text",
+          "props": {
+            "title": "Sinais de alerta",
+            "body": "Você pensa no jogo o tempo todo, aumenta as compras para sentir a mesma emoção, esconde de quem mora com você quanto joga ou compra fichas para recuperar o que perdeu.\n\nSe algum desses sinais aparecer, pare. Converse com alguém de confiança e procure ajuda especializada. O suporte do clube também atende quem quer dar um tempo.\n\nJogue só com dinheiro que não faz falta. Nunca jogue sob efeito de álcool, cansado ou para resolver um problema de dinheiro.",
+            "variant": "estreito"
+          }
+        },
+        {
+          "type": "notice",
+          "props": {
+            "text": "Somente maiores de 18 anos. Jogue com responsabilidade. Poker é entretenimento, não fonte de renda.",
+            "variant": "alerta"
+          }
+        },
+        {
+          "type": "contact",
+          "props": {
+            "title": "Quer dar um tempo?",
+            "subtitle": "Fale com o suporte do clube.",
+            "whatsapp": "{{whatsapp}}",
+            "telegram": "{{telegram}}",
+            "email": "{{email}}",
+            "hours": "Atendimento todos os dias, 24 horas."
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "text": "ID {{number}} · agente {{agentId}}, no app oficial {{app}}.",
+            "links": [
+              {
+                "label": "Como entrar",
+                "href": "/como-entrar"
+              },
+              {
+                "label": "Dúvidas",
+                "href": "/duvidas"
+              },
+              {
+                "label": "Jogo responsável",
+                "href": "/jogo-responsavel"
+              },
+              {
+                "label": "Canal de fichas",
+                "href": "{{chipsUrl}}"
+              }
+            ],
+            "disclaimer": "{{disclaimer}} Proibido para menores de 18 anos. O site nunca pede a senha do app nem documento."
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -2,30 +2,32 @@
   "id": "blog-educativo",
   "name": "Blog educativo",
   "order": 25,
-  "version": 1,
+  "version": 2,
   "category": "Poker · conteúdo",
   "niches": [
     "poker"
   ],
-  "description": "Blog de estratégia para atrair e educar jogadores: destaques, trilhas de estudo e newsletter que cai no CRM, com conversão para o clube. Identidade própria; conteúdo de exemplo identificado.",
   "inspiredBy": null,
+  "description": "Blog de estudo de poker no formato de transmissão: mão da semana com as chances calculadas rua por rua, pauta de conteúdos, trilhas de estudo e newsletter que cai no CRM, com conversão para o clube. Paleta própria azul-noite e lima.",
   "theme": {
-    "mode": "claro",
-    "bg": "#faf7f0",
-    "surface": "#ffffff",
-    "text": "#26221c",
-    "muted": "#6f6a5e",
-    "primary": "#2f6f4f",
-    "primaryText": "#ffffff",
-    "accent": "#c2862c",
-    "border": "#e7e0d2",
-    "font": "IBM Plex Sans",
-    "fontHead": "Playfair Display",
-    "radius": 6
+    "world": "transmissao",
+    "mode": "escuro",
+    "bg": "#0b1220",
+    "surface": "#121b2d",
+    "text": "#eef1f6",
+    "muted": "#9fabc2",
+    "primary": "#d4f24a",
+    "primaryText": "#0b1220",
+    "accent": "#ff5a4a",
+    "border": "#243149",
+    "font": "Barlow",
+    "fontHead": "Saira Condensed",
+    "fontMono": "Antonio",
+    "radius": 0
   },
   "seo": {
-    "title": "{{name}} · Aprenda poker de graça",
-    "description": "Guias e artigos de estratégia do {{name}}: do básico ao avançado, com trilhas de estudo e newsletter. Somente +18."
+    "title": "{{name}} · Aprenda poker rua por rua",
+    "description": "Mão da semana comentada com as chances calculadas, trilhas de estudo e newsletter do {{name}}. Somente +18."
   },
   "pages": [
     {
@@ -33,134 +35,181 @@
       "title": "Início",
       "blocks": [
         {
-          "type": "navbar",
+          "type": "transmissao_topo",
           "props": {
             "brand": "{{name}}",
+            "sub": "Escola de poker",
             "logo": "{{logo}}",
             "links": [
-              {
-                "label": "Artigos",
-                "href": "/blog"
-              },
               {
                 "label": "Trilhas",
                 "href": "/trilhas"
               },
               {
-                "label": "Dúvidas",
-                "href": "#duvidas"
+                "label": "Mão comentada",
+                "href": "/artigo"
+              },
+              {
+                "label": "Newsletter",
+                "href": "/#newsletter"
               }
             ],
-            "cta": "Receber novidades",
-            "ctaHref": "#contato",
-            "variant": "flutuante"
+            "cta": "Jogar no clube",
+            "ctaHref": "{{inviteLink}}"
           }
         },
         {
-          "type": "hero",
+          "type": "transmissao_abertura",
           "props": {
-            "eyebrow": "Estratégia de poker, em português",
-            "title": "Estude de graça. Jogue melhor amanhã.",
-            "subtitle": "Guias diretos ao ponto: regras, posição, gestão de banca e leitura de mesa — escritos para quem quer evoluir no {{app}}.",
-            "cta": "Ler os artigos",
-            "ctaHref": "/blog",
-            "secondary": "Ver trilhas de estudo",
-            "secondaryHref": "/trilhas",
-            "note": "Conteúdo educativo · somente +18",
-            "variant": "painel"
+            "badge": "Mão da semana",
+            "league": "Estudo de poker · Hold'em",
+            "responsible": "Jogue com responsabilidade",
+            "title": "Aprenda poker",
+            "titleAccent": "assistindo à mão.",
+            "lead": "**Uma mão por semana, carta a carta, com as chances calculadas.** Trilhas para quem começa e para quem já joga, sem promessa de ganho.",
+            "variant": "tese"
           }
         },
         {
-          "type": "cards",
+          "type": "transmissao_mao",
           "props": {
-            "title": "Comece por aqui (artigos de exemplo)",
+            "label": "Mão da semana · Hold'em",
+            "sample": "Mão de exemplo · % calculadas",
+            "cardsA": "Jh Jd",
+            "cardsB": "Ah Kh",
+            "board": "2h 9h Jc 3s Kd",
+            "tagA": "Jogador 1",
+            "tagB": "Jogador 2 · copas",
+            "variant": "palco"
+          }
+        },
+        {
+          "type": "transmissao_pauta",
+          "props": {
+            "title": "No ar esta semana",
+            "intro": "Conteúdos de exemplo: troque pelos seus posts.",
             "items": [
               {
-                "tag": "Básico",
-                "title": "Posição: por que ela vale fichas (exemplo)",
-                "text": "O conceito que mais muda o resultado de quem está começando.",
+                "slot": "Replay",
+                "title": "Trinca de valetes contra o flush que não veio",
+                "text": "Por que Ás-Rei de copas ainda tinha 26% no flop e o que o turn mudou.",
+                "meta": "Ler a análise",
                 "href": "/artigo"
               },
               {
-                "tag": "Banca",
-                "title": "Gestão de banca em 5 regras (exemplo)",
-                "text": "Como não quebrar a banca na primeira sequência ruim.",
-                "href": "/artigo"
+                "slot": "Iniciante",
+                "title": "As quatro rodadas de aposta",
+                "text": "Pré-flop, flop, turn e river, com o que muda em cada uma.",
+                "meta": "5 min",
+                "href": "/trilhas"
               },
               {
-                "tag": "Leitura",
-                "title": "Contando uma história com apostas (exemplo)",
-                "text": "O que o tamanho das apostas diz sobre a mão do adversário.",
-                "href": "/artigo"
+                "slot": "Conta",
+                "title": "Outs: contando as cartas que salvam",
+                "text": "Do flush draw à sequência aberta, em números.",
+                "meta": "6 min",
+                "href": "/trilhas"
+              },
+              {
+                "slot": "Banca",
+                "title": "Quanto levar para a mesa",
+                "text": "Banca, limite e a regra do teto mensal.",
+                "meta": "4 min",
+                "href": "/trilhas"
               }
             ],
-            "variant": "grade"
+            "variant": "lista"
           }
         },
         {
-          "type": "image_text",
+          "type": "transmissao_mesa_final",
           "props": {
-            "eyebrow": "Sobre o blog",
-            "title": "Conteúdo feito por quem joga",
-            "text": "Cada artigo nasce de mãos reais jogadas no clube {{number}} e é revisado antes de publicar. Sem promessa de ganho: o objetivo é estudo e jogo responsável.",
-            "cta": "Conhecer as trilhas",
-            "ctaHref": "/trilhas",
-            "variant": "imagem-direita"
-          }
-        },
-        {
-          "type": "lead_form",
-          "props": {
-            "title": "Newsletter da semana",
-            "text": "Um e-mail por semana com o artigo novo e a grade de torneios. Sem spam.",
-            "fields": "email_nome",
-            "button": "Quero receber",
-            "success": "Inscrição confirmada! O próximo e-mail chega na segunda.",
-            "consent": "Concordo em receber a newsletter. Posso sair quando quiser.",
-            "variant": "cartao"
+            "title": "Três trilhas de estudo",
+            "intro": "Escolha pelo seu momento. Cada trilha tem leituras curtas, em ordem.",
+            "colStep": "Trilha",
+            "colText": "Para quem é",
+            "colValue": "Leituras",
+            "items": [
+              {
+                "title": "Primeira mesa",
+                "text": "Nunca jogou: regras, ranking das mãos e as rodadas de aposta.",
+                "value": "6"
+              },
+              {
+                "title": "Jogo sólido",
+                "text": "Já joga: posição, tamanho de aposta, outs e pot odds.",
+                "value": "8"
+              },
+              {
+                "title": "Cabeça no lugar",
+                "text": "Para todos: banca, tilt e limites de tempo e de gasto.",
+                "value": "4",
+                "lead": true
+              }
+            ],
+            "note": "Conteúdo educativo. Poker envolve sorte no curto prazo e nenhum estudo garante resultado.",
+            "variant": "dupla"
           }
         },
         {
           "type": "faq",
           "props": {
-            "title": "Perguntas frequentes",
+            "title": "Sobre o blog",
             "items": [
               {
-                "q": "O conteúdo é pago?",
-                "a": "Não. Os artigos e as trilhas são gratuitos; a newsletter também."
+                "q": "As porcentagens são reais?",
+                "a": "Sim. A placa calcula as chances de cada mão por todas as cartas que ainda podem sair. As mãos são exemplos escolhidos para ensinar."
               },
               {
-                "q": "Sou iniciante, por onde começo?",
-                "a": "Pela trilha Básico: regras, posição e gestão de banca, nessa ordem."
+                "q": "Preciso jogar para ler?",
+                "a": "Não. O conteúdo serve para entender o jogo, jogando ou não."
               },
               {
-                "q": "O blog garante lucro?",
-                "a": "Não. Poker envolve risco; o conteúdo é educativo e o jogo é para maiores de 18 anos."
+                "q": "Vocês dão dica de aposta?",
+                "a": "Não. Explicamos como o jogo funciona. Nenhum conteúdo daqui é recomendação de aposta ou promessa de ganho."
+              },
+              {
+                "q": "É para maiores de 18?",
+                "a": "Sim. Jogar valendo dinheiro é somente para maiores de 18 anos."
               }
-            ],
-            "anchor": "duvidas"
+            ]
+          }
+        },
+        {
+          "type": "transmissao_final",
+          "props": {
+            "anchor": "newsletter",
+            "title": "Receba a",
+            "titleAccent": "mão da semana.",
+            "text": "Toda semana uma mão comentada e um guia novo, direto no e-mail.",
+            "responsible": "Conteúdo para maiores de 18 anos. Jogue com responsabilidade.",
+            "fields": "email_nome",
+            "button": "Quero receber",
+            "help": "Um e-mail por semana. Sai quando quiser.",
+            "success": "Pronto! A próxima mão chega no seu e-mail.",
+            "consent": "Concordo em receber o conteúdo do {{name}} por e-mail. Posso sair quando quiser."
           }
         },
         {
           "type": "footer",
           "props": {
             "brand": "{{name}}",
-            "text": "Blog educativo do {{name}} — estude e jogue com responsabilidade.",
+            "text": "Blog educativo do {{name}}. Conteúdo para aprender poker, não recomendação de aposta.",
             "links": [
-              {
-                "label": "Artigos",
-                "href": "/blog"
-              },
               {
                 "label": "Trilhas",
                 "href": "/trilhas"
+              },
+              {
+                "label": "Mão comentada",
+                "href": "/artigo"
               },
               {
                 "label": "Privacidade",
                 "href": "/privacidade"
               }
             ],
-            "disclaimer": "{{disclaimer}}"
+            "disclaimer": "{{disclaimer}} Proibido para menores de 18 anos. O site nunca pede a senha do app nem documento."
           }
         }
       ]
@@ -169,13 +218,14 @@
       "slug": "trilhas",
       "title": "Trilhas de estudo",
       "seo": {
-        "description": "Trilhas de estudo de poker do {{name}}: básico, intermediário e avançado."
+        "description": "Trilhas de estudo de poker em ordem: do iniciante ao jogo sólido, com gestão de banca."
       },
       "blocks": [
         {
-          "type": "navbar",
+          "type": "transmissao_topo",
           "props": {
             "brand": "{{name}}",
+            "sub": "Escola de poker",
             "logo": "{{logo}}",
             "links": [
               {
@@ -183,70 +233,110 @@
                 "href": "/"
               },
               {
-                "label": "Artigos",
-                "href": "/blog"
+                "label": "Trilhas",
+                "href": "/trilhas"
+              },
+              {
+                "label": "Mão comentada",
+                "href": "/artigo"
+              },
+              {
+                "label": "Newsletter",
+                "href": "/#newsletter"
               }
             ],
-            "cta": "Receber novidades",
-            "ctaHref": "/#contato",
-            "variant": "barra"
+            "cta": "Jogar no clube",
+            "ctaHref": "{{inviteLink}}"
           }
         },
         {
-          "type": "steps",
+          "type": "transmissao_abertura",
           "props": {
-            "title": "A ordem certa de estudo",
+            "responsible": "Jogue com responsabilidade",
+            "variant": "pagina",
+            "badge": "Trilhas",
+            "league": "Leituras curtas, em ordem",
+            "title": "Estude",
+            "titleAccent": "na ordem certa.",
+            "lead": "Cada trilha é uma sequência de leituras curtas. **Comece pela primeira mesa se nunca jogou.**"
+          }
+        },
+        {
+          "type": "transmissao_mesa_final",
+          "props": {
+            "title": "Primeira mesa",
+            "intro": "Para quem nunca jogou.",
+            "colStep": "Ordem",
+            "colText": "Leitura",
+            "colValue": "Tempo",
             "items": [
               {
-                "title": "Trilha 1 · Básico",
-                "text": "Regras do NLH, ranking de mãos, posição e gestão de banca. Meta: jogar o primeiro torneio com critério."
+                "title": "Como funciona uma mão",
+                "text": "Cartas, blinds e as quatro rodadas.",
+                "value": "5 min"
               },
               {
-                "title": "Trilha 2 · Intermediário",
-                "text": "Intervalos de mãos, agressividade seletiva e leitura de apostas. Meta: chegar mais vezes à mesa final."
+                "title": "Ranking das mãos",
+                "text": "O que ganha de quê.",
+                "value": "5 min"
               },
               {
-                "title": "Trilha 3 · Avançado",
-                "text": "Jogo exploratório vs. equilibrado, ICM e revisão de mãos. Meta: consistência no longo prazo."
+                "title": "Fold, call e raise",
+                "text": "As três decisões, e quando cada uma faz sentido.",
+                "value": "4 min"
+              },
+              {
+                "title": "Sua primeira sessão",
+                "text": "Mesa pequena, tempo definido, banca separada.",
+                "value": "3 min",
+                "lead": true
               }
             ],
-            "variant": "linha-do-tempo"
+            "variant": "dupla"
           }
         },
         {
-          "type": "cards",
+          "type": "transmissao_mesa_final",
           "props": {
-            "title": "Artigos por trilha (exemplos)",
+            "title": "Jogo sólido",
+            "intro": "Para quem já joga e quer decidir melhor.",
+            "colStep": "Ordem",
+            "colText": "Leitura",
+            "colValue": "Tempo",
             "items": [
               {
-                "tag": "Trilha 1",
-                "title": "Ranking de mãos sem decorar (exemplo)",
-                "text": "Um jeito prático de lembrar a força das mãos.",
-                "href": "/artigo"
+                "title": "Posição",
+                "text": "Botão, blinds e por que agir por último vale ficha.",
+                "value": "6 min"
               },
               {
-                "tag": "Trilha 2",
-                "title": "Quando dar 3-bet (exemplo)",
-                "text": "Os cenários em que a re-entraça cresce o seu pote.",
-                "href": "/artigo"
+                "title": "Tamanho de aposta",
+                "text": "Apostar em relação ao pote.",
+                "value": "6 min"
               },
               {
-                "tag": "Trilha 3",
-                "title": "ICM na bolha (exemplo)",
-                "text": "Por que pagar menos na bolha costuma ser certo.",
-                "href": "/artigo"
+                "title": "Outs e equidade",
+                "text": "Contar as cartas que salvam a sua mão.",
+                "value": "6 min"
+              },
+              {
+                "title": "Pot odds",
+                "text": "Quando vale pagar para ver.",
+                "value": "7 min",
+                "lead": true
               }
             ],
-            "variant": "grade"
+            "variant": "dupla"
           }
         },
         {
-          "type": "cta",
+          "type": "transmissao_chamada",
           "props": {
-            "title": "Estudou? Vá testar na mesa.",
-            "text": "Entre no clube {{number}} pelo convite e aplique o que aprendeu.",
-            "cta": "Entrar no clube",
-            "ctaHref": "{{inviteLink}}",
+            "title": "Veja a teoria na prática.",
+            "text": "A mão comentada mostra outs e equidade carta a carta.",
+            "cta": "Ler a mão comentada",
+            "ctaHref": "/artigo",
+            "note": "Conteúdo educativo",
             "variant": "faixa"
           }
         },
@@ -254,65 +344,138 @@
           "type": "footer",
           "props": {
             "brand": "{{name}}",
+            "text": "Blog educativo do {{name}}. Conteúdo para aprender poker, não recomendação de aposta.",
             "links": [
               {
-                "label": "Início",
-                "href": "/"
+                "label": "Trilhas",
+                "href": "/trilhas"
+              },
+              {
+                "label": "Mão comentada",
+                "href": "/artigo"
               },
               {
                 "label": "Privacidade",
                 "href": "/privacidade"
               }
             ],
-            "disclaimer": "{{disclaimer}}"
+            "disclaimer": "{{disclaimer}} Proibido para menores de 18 anos. O site nunca pede a senha do app nem documento."
           }
         }
       ]
     },
     {
       "slug": "artigo",
-      "title": "Artigo de exemplo",
+      "title": "Mão comentada",
       "seo": {
-        "description": "Exemplo de artigo educativo do {{name}}: posição na mesa de poker."
+        "description": "Mão comentada: trinca de valetes contra ás-rei de copas, rua por rua, com as chances calculadas."
       },
       "blocks": [
         {
-          "type": "navbar",
+          "type": "transmissao_topo",
           "props": {
             "brand": "{{name}}",
+            "sub": "Escola de poker",
+            "logo": "{{logo}}",
             "links": [
               {
                 "label": "Início",
                 "href": "/"
               },
               {
-                "label": "Artigos",
-                "href": "/blog"
+                "label": "Trilhas",
+                "href": "/trilhas"
+              },
+              {
+                "label": "Mão comentada",
+                "href": "/artigo"
+              },
+              {
+                "label": "Newsletter",
+                "href": "/#newsletter"
               }
             ],
-            "variant": "barra"
+            "cta": "Jogar no clube",
+            "ctaHref": "{{inviteLink}}"
+          }
+        },
+        {
+          "type": "transmissao_abertura",
+          "props": {
+            "responsible": "Jogue com responsabilidade",
+            "variant": "pagina",
+            "badge": "Replay",
+            "league": "Mão comentada · exemplo",
+            "title": "Trinca de valetes",
+            "titleAccent": "contra o flush que não veio.",
+            "lead": "Par de valetes contra Ás-Rei de copas. **O flop dá trinca para um e projeto de flush para o outro.** Veja como as chances andam."
+          }
+        },
+        {
+          "type": "transmissao_mao",
+          "props": {
+            "label": "Replay · Hold'em",
+            "sample": "Mão de exemplo · % calculadas",
+            "cardsA": "Jh Jd",
+            "cardsB": "Ah Kh",
+            "board": "2h 9h Jc 3s Kd",
+            "tagA": "Jogador 1",
+            "tagB": "Jogador 2 · copas",
+            "nameA": "Valetes",
+            "nameB": "Ás-Rei",
+            "legPre": "Pré-flop: par contra duas cartas altas do mesmo naipe é quase moeda: 54% contra 46%.",
+            "legFlop": "Flop 2, 9, valete com duas copas: trinca de valetes, mas Ás-Rei tem 8 copas para o flush e ainda 26%.",
+            "legTurn": "Turn 3 de espadas: falta só uma carta para o flush vir. Valetes vão a 84%.",
+            "legRiver": "River rei: Ás-Rei faz par de reis, que não basta. Trinca de valetes leva o pote.",
+            "variant": "comentada"
           }
         },
         {
           "type": "text",
           "props": {
-            "title": "Posição: por que ela vale fichas (artigo de exemplo)",
-            "body": "Este é um artigo de exemplo para mostrar o formato: os posts reais são publicados pelo módulo de blog da operação.\n\nJogar por último em uma mão é a maior vantagem silenciosa do poker. Quem age por último vê o que todos fizeram antes de decidir — e informação vale fichas.\n\nNa prática: abra mais mãos no botão, menos nas primeiras posições. A mesma mão que é descarte no início da mesa pode ser aposta no fim.\n\nExercício: na próxima sessão, anote quantas mãos você jogou de cada posição e compare o resultado. Ajuste na sessão seguinte.",
+            "title": "O que esta mão ensina",
+            "body": "Trinca no flop é uma mão forte, mas não fechada: com duas cartas do mesmo naipe na mesa, o adversário pode ter projeto de flush. Ás-Rei de copas tinha 8 outs: as copas que sobraram no baralho. O ás e o rei não ajudam, porque um par não vence trinca.\n\nNo flop, a conta rápida dos outs (multiplicar por 4 com duas cartas para vir) dá perto de 32% para o flush. A % da placa é menor, 26%, porque mesmo quando o flush vem a trinca ainda vira full house se a mesa formar par.\n\nNo turn, com uma carta só para vir, as chances de Ás-Rei caem de 26% para 16%. É o momento em que a aposta da trinca cobra mais caro de quem quer ver o river.",
             "variant": "estreito"
           }
         },
         {
           "type": "notice",
           "props": {
-            "text": "Conteúdo educativo, sem promessa de ganho. Poker envolve risco e é para maiores de 18 anos.",
+            "text": "Mão de exemplo, escolhida para ensinar. As porcentagens são calculadas por todas as cartas que ainda podem sair. Conteúdo educativo, não recomendação de aposta. Somente +18.",
             "variant": "discreto"
+          }
+        },
+        {
+          "type": "transmissao_chamada",
+          "props": {
+            "title": "Receba a próxima mão.",
+            "text": "Uma mão comentada por semana no seu e-mail.",
+            "cta": "Quero receber",
+            "ctaHref": "/#newsletter",
+            "note": "Sai quando quiser",
+            "variant": "faixa"
           }
         },
         {
           "type": "footer",
           "props": {
             "brand": "{{name}}",
-            "disclaimer": "{{disclaimer}}"
+            "text": "Blog educativo do {{name}}. Conteúdo para aprender poker, não recomendação de aposta.",
+            "links": [
+              {
+                "label": "Trilhas",
+                "href": "/trilhas"
+              },
+              {
+                "label": "Mão comentada",
+                "href": "/artigo"
+              },
+              {
+                "label": "Privacidade",
+                "href": "/privacidade"
+              }
+            ],
+            "disclaimer": "{{disclaimer}} Proibido para menores de 18 anos. O site nunca pede a senha do app nem documento."
           }
         }
       ]
@@ -321,27 +484,70 @@
       "slug": "privacidade",
       "title": "Privacidade",
       "seo": {
-        "description": "Como o {{name}} trata seus dados."
+        "description": "Como o {{name}} trata os dados de quem assina a newsletter."
       },
       "blocks": [
         {
-          "type": "navbar",
+          "type": "transmissao_topo",
           "props": {
             "brand": "{{name}}",
+            "sub": "Escola de poker",
+            "logo": "{{logo}}",
             "links": [
               {
                 "label": "Início",
                 "href": "/"
+              },
+              {
+                "label": "Trilhas",
+                "href": "/trilhas"
+              },
+              {
+                "label": "Mão comentada",
+                "href": "/artigo"
+              },
+              {
+                "label": "Newsletter",
+                "href": "/#newsletter"
               }
             ],
-            "variant": "barra"
+            "cta": "Jogar no clube",
+            "ctaHref": "{{inviteLink}}"
+          }
+        },
+        {
+          "type": "transmissao_abertura",
+          "props": {
+            "responsible": "Jogue com responsabilidade",
+            "variant": "pagina",
+            "badge": "Privacidade",
+            "league": "Seus dados",
+            "title": "Seus dados,",
+            "titleAccent": "em poucas linhas.",
+            "lead": "O que coletamos, para quê e como sair. **Sem letra miúda.**"
           }
         },
         {
           "type": "text",
           "props": {
-            "title": "Privacidade",
-            "body": "Texto-base para revisão jurídica da operação.\n\nColetamos nome e e-mail só quando você assina a newsletter, para enviar os conteúdos. Você pode cancelar a inscrição e pedir a exclusão a qualquer momento, pelo link do próprio e-mail.\n\nCookies de medição (Google e Meta) só são ativados se você aceitar no aviso do site.",
+            "title": "O que coletamos",
+            "body": "Nome e e-mail que você informa no formulário da newsletter, a página em que se cadastrou e, se você aceitar os cookies de medição, dados de navegação usados para entender o que funciona no site.\n\nNão pedimos senha de nenhum app, documento nem dados bancários.",
+            "variant": "estreito"
+          }
+        },
+        {
+          "type": "text",
+          "props": {
+            "title": "Para que usamos",
+            "body": "Para enviar a newsletter e avisos do {{name}} que você pediu para receber. Não vendemos nem repassamos os seus dados.",
+            "variant": "estreito"
+          }
+        },
+        {
+          "type": "text",
+          "props": {
+            "title": "Como sair",
+            "body": "Cada e-mail tem um link para cancelar. Se preferir, escreva para {{email}} pedindo a exclusão dos seus dados.",
             "variant": "estreito"
           }
         },
@@ -349,7 +555,22 @@
           "type": "footer",
           "props": {
             "brand": "{{name}}",
-            "disclaimer": "{{disclaimer}}"
+            "text": "Blog educativo do {{name}}. Conteúdo para aprender poker, não recomendação de aposta.",
+            "links": [
+              {
+                "label": "Trilhas",
+                "href": "/trilhas"
+              },
+              {
+                "label": "Mão comentada",
+                "href": "/artigo"
+              },
+              {
+                "label": "Privacidade",
+                "href": "/privacidade"
+              }
+            ],
+            "disclaimer": "{{disclaimer}} Proibido para menores de 18 anos. O site nunca pede a senha do app nem documento."
           }
         }
       ]
