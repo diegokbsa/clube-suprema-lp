@@ -49,21 +49,25 @@ function cleanArticle(input, current = null) {
   return { title, slug, excerpt, content, category, tags: JSON.stringify(tags), author, cover_url: coverUrl, seo_title: seoTitle, seo_description: seoDescription };
 }
 
-function postOut(row) {
+function postOut(row, suggestions = [], siteName = '') {
   return {
     id: row.id, siteId: row.site_id, title: row.title, slug: row.slug, excerpt: row.excerpt, content: row.content,
     category: row.category, tags: parse(row.tags, []), author: row.author, coverUrl: row.cover_url,
     seoTitle: row.seo_title, seoDescription: row.seo_description, status: row.status,
     scheduledAt: row.scheduled_at, publishedAt: row.published_at, publishedSlug: row.published_slug,
     hasPublishedVersion: Boolean(row.published_data), createdAt: row.created_at, updatedAt: row.updated_at,
+    seoChecklist: postSeoChecklist(row, suggestions, siteName), suggestedInternalLinks: suggestions,
   };
 }
 
-function publishedData(row) {
+function publishedData(row, dateModified = now()) {
+  const previous = parse(row.published_data, null);
   return {
     title: row.title, slug: row.slug, excerpt: row.excerpt, content: row.content, category: row.category,
     tags: parse(row.tags, []), author: row.author, coverUrl: row.cover_url,
     seoTitle: row.seo_title || row.title, seoDescription: row.seo_description || row.excerpt,
+    datePublished: previous?.datePublished || row.published_at || dateModified,
+    dateModified,
   };
 }
 
@@ -88,18 +92,111 @@ function requirePost(repo, id) {
 
 function publishedCopy(row) {
   const data = parse(row.published_data, null);
-  return data && row.published_slug ? { ...data, slug: row.published_slug, publishedAt: row.published_at } : null;
+  return data && row.published_slug ? { ...data, slug: row.published_slug,
+    publishedAt: data.datePublished || row.published_at, dateModified: data.dateModified || row.published_at } : null;
+}
+
+function suggestInternalLinks(rows, article, exceptId = null) {
+  const tags = new Set(tagsOf(article.tags || []));
+  const category = text(article.category, 80);
+  return rows.map((row) => {
+    if (row.id === exceptId) return null;
+    const post = publishedCopy(row);
+    if (!post) return null;
+    const matches = (Array.isArray(post.tags) ? post.tags : []).filter((tag) => tags.has(tag));
+    const sameCategory = Boolean(category && category !== 'Geral' && post.category === category);
+    const score = matches.length * 2 + Number(sameCategory);
+    if (!score) return null;
+    return {
+      title: post.title, slug: post.slug, excerpt: post.excerpt,
+      url: `/blog/${encodeURIComponent(post.slug)}`,
+      reason: sameCategory && matches.length ? 'Categoria e tags em comum' : sameCategory ? 'Categoria em comum' : `Tags em comum: ${matches.join(', ')}`,
+      score, publishedAt: post.publishedAt || '',
+    };
+  }).filter(Boolean)
+    .sort((a, b) => b.score - a.score || b.publishedAt.localeCompare(a.publishedAt))
+    .slice(0, 3)
+    .map(({ score, publishedAt, ...post }) => post);
+}
+
+function postSeoChecklist(row, suggestions = [], siteName = '') {
+  const title = String(row.seo_title || row.title || '').trim();
+  const pageTitle = `${title}${siteName ? ` · ${siteName}` : ''}`;
+  const description = String(row.seo_description || row.excerpt || '').trim();
+  const content = String(row.content || '');
+  const words = content.match(/[\p{L}\p{N}]+/gu)?.length || 0;
+  const hasCover = Boolean(row.cover_url);
+  return [
+    { id: 'titulo', ok: pageTitle.length >= 15 && pageTitle.length <= 70, nivel: 'alto', msg: `Título SEO publicado com ${pageTitle.length} caracteres, incluindo o nome do site (ideal: 15 a 70).` },
+    { id: 'descricao', ok: description.length >= 70 && description.length <= 170, nivel: 'alto', msg: description ? `Descrição SEO com ${description.length} caracteres (ideal: 70 a 170).` : 'Falta a descrição SEO do artigo.' },
+    { id: 'h1', ok: Boolean(row.title), nivel: 'alto', msg: row.title ? 'O título do artigo é exibido como H1.' : 'Informe o título do artigo para gerar o H1.' },
+    { id: 'linksInternos', ok: suggestions.length > 0, nivel: 'medio', msg: suggestions.length ? `${suggestions.length} sugestão(ões) de links internos para posts relacionados.` : 'Nenhum post relacionado publicado para sugerir links internos.' },
+    { id: 'altCapa', ok: hasCover, nivel: 'medio', msg: hasCover ? 'O texto alternativo da capa usa o título do artigo.' : 'Adicione uma capa; o título será usado como texto alternativo.' },
+    { id: 'tamanho', ok: words >= 150 && content.length <= 80_000, nivel: 'medio', msg: `${words} palavras e ${content.length} caracteres (referência editorial: ao menos 150 palavras).` },
+  ];
+}
+
+function postResponse(repo, row) {
+  const published = repo.all('posts', { site_id: row.site_id }, { order: 'published_at DESC', limit: 100, extra: 'published_data IS NOT NULL' });
+  const suggestions = suggestInternalLinks(published, { title: row.title, category: row.category, tags: parse(row.tags, []) }, row.id);
+  const site = repo.get('sites', row.site_id);
+  return postOut(row, suggestions, site?.name || '');
 }
 
 function htmlText(value) {
   return String(value || '').split(/\n{2,}/).map((part) => `<p>${esc(part.replace(/\n/g, ' '))}</p>`).join('');
 }
 
-function head({ site, origin, base, title, description, canonical, image }) {
+function absoluteSiteUrl(origin, base, path) {
+  if (/^https:\/\//i.test(String(path || ''))) return String(path);
+  return `${origin}${base}${String(path || '').startsWith('/') ? path : `/${path || ''}`}`;
+}
+
+function absoluteAssetUrl(origin, path) {
+  if (/^https:\/\//i.test(String(path || ''))) return String(path);
+  return `${origin}${String(path || '').startsWith('/') ? path : `/${path || ''}`}`;
+}
+
+function safeJsonLd(value) {
+  const escaped = { '<': '\\u003c', '>': '\\u003e', '&': '\\u0026', '\u2028': '\\u2028', '\u2029': '\\u2029' };
+  return JSON.stringify(value).replace(/[<>&\u2028\u2029]/g, (char) => escaped[char]);
+}
+
+function articleStructuredData({ site, post, origin, base }) {
+  const home = absoluteSiteUrl(origin, base, '/');
+  const blog = absoluteSiteUrl(origin, base, '/blog');
+  const canonical = absoluteSiteUrl(origin, base, `/blog/${encodeURIComponent(post.slug)}`);
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'Article', '@id': `${canonical}#article`,
+        headline: post.title, datePublished: post.publishedAt, dateModified: post.dateModified || post.publishedAt,
+        mainEntityOfPage: { '@type': 'WebPage', '@id': canonical },
+        author: { '@type': 'Person', name: post.author },
+        ...(post.coverUrl ? { image: absoluteAssetUrl(origin, post.coverUrl) } : {}),
+        publisher: { '@type': 'Organization', name: site.name, url: home },
+        ...(post.seoDescription || post.excerpt ? { description: post.seoDescription || post.excerpt } : {}),
+      },
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Início', item: home },
+          { '@type': 'ListItem', position: 2, name: 'Blog', item: blog },
+          { '@type': 'ListItem', position: 3, name: post.title, item: canonical },
+        ],
+      },
+    ],
+  };
+}
+
+function head({ site, origin, base, title, description, canonical, image, structuredData = null }) {
+  const canonicalUrl = absoluteSiteUrl(origin, base, canonical);
   return `<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>${esc(title)}</title><meta name="description" content="${esc(description)}"><link rel="canonical" href="${esc(`${origin}${base}${canonical}`)}">
-    <meta property="og:title" content="${esc(title)}"><meta property="og:description" content="${esc(description)}"><meta property="og:type" content="article">
+    <title>${esc(title)}</title><meta name="description" content="${esc(description)}"><link rel="canonical" href="${esc(canonicalUrl)}">
+    <meta property="og:url" content="${esc(canonicalUrl)}"><meta property="og:title" content="${esc(title)}"><meta property="og:description" content="${esc(description)}"><meta property="og:type" content="article">
     ${image ? `<meta property="og:image" content="${esc(image)}">` : ''}<link rel="stylesheet" href="/assets/site.css">
+    ${structuredData ? `<script type="application/ld+json">${safeJsonLd(structuredData)}</script>` : ''}
     <style>${themeCss(parse(site.theme, {}))}
       .blog-wrap{width:min(1080px,calc(100% - 32px));margin:0 auto;padding:44px 0 72px;color:var(--text);font:400 16px/1.65 var(--font,system-ui,sans-serif)}
       .blog-top{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-bottom:18px;border-bottom:1px solid var(--border)}
@@ -110,6 +207,7 @@ function head({ site, origin, base, title, description, canonical, image }) {
       .blog-card-body{padding:18px}.blog-card h2{font:650 1.3rem/1.25 var(--font-head,var(--font));margin:6px 0 8px}.blog-card h2 a{color:var(--text);text-decoration:none}.blog-card p{color:var(--muted);margin:0 0 12px}
       .blog-meta{font-size:.87rem}.blog-article{max-width:760px;margin:50px auto 0}.blog-cover{display:block;width:100%;max-height:440px;object-fit:cover;border-radius:var(--radius);margin:28px 0}
       .blog-content{font-size:1.08rem;line-height:1.85}.blog-content p{margin:0 0 1.3em}.blog-back{display:inline-block;margin-top:24px;color:var(--primary);font-weight:650;text-decoration:none}
+      .blog-related{margin:34px 0 0;padding-top:20px;border-top:1px solid var(--border)}.blog-related h2{font:650 1.3rem/1.25 var(--font-head,var(--font));margin:0 0 12px}.blog-related ul{padding-left:20px}.blog-related li{margin:10px 0}.blog-related a{color:var(--primary);font-weight:650}.blog-related p{margin:3px 0;color:var(--muted)}
       .blog-tags{display:flex;gap:7px;flex-wrap:wrap;margin:12px 0}.blog-tags span{border:1px solid var(--border);border-radius:999px;padding:2px 9px;color:var(--muted);font-size:.8rem}
       @media(max-width:600px){.blog-wrap{padding-top:26px}.blog-intro{margin:34px auto 22px}.blog-article{margin-top:34px}}
     </style></head>`;
@@ -141,13 +239,42 @@ function blogArticle({ res, send, site, repo, base, origin, params }) {
   const title = `${post.seoTitle || post.title} · ${site.name}`;
   const description = post.seoDescription || post.excerpt || '';
   const tags = post.tags.map((tag) => `<span>${esc(tag)}</span>`).join('');
-  const html = `${head({ site, origin, base, title, description, canonical: `/blog/${encodeURIComponent(post.slug)}`, image: post.coverUrl || '' })}<body><main class="blog-wrap">
+  const related = suggestInternalLinks(repo.all('posts', { site_id: site.id }, { order: 'published_at DESC', limit: 100, extra: 'published_data IS NOT NULL' }), post, rows[0].id);
+  const relatedHtml = related.length ? `<aside class="blog-related" aria-labelledby="blog-related-title"><h2 id="blog-related-title">Posts relacionados</h2><ul>${related.map((item) => `<li><a href="${esc(`${base}${item.url}`)}">${esc(item.title)}</a>${item.excerpt ? `<p>${esc(item.excerpt)}</p>` : ''}</li>`).join('')}</ul></aside>` : '';
+  const cover = post.coverUrl ? absoluteAssetUrl(origin, post.coverUrl) : '';
+  const html = `${head({ site, origin, base, title, description, canonical: `/blog/${encodeURIComponent(post.slug)}`, image: cover,
+    structuredData: articleStructuredData({ site, post, origin, base }) })}<body><main class="blog-wrap">
     <nav class="blog-top"><a class="blog-brand" href="${esc(`${base}/`)}">${esc(site.name)}</a><a href="${esc(`${base}/blog`)}">Todos os artigos</a></nav>
     <article class="blog-article"><p class="blog-meta">${esc(post.category)} · ${esc(post.author)} · <time datetime="${esc(post.publishedAt || '')}">${esc(post.publishedAt ? new Date(post.publishedAt).toLocaleDateString('pt-BR') : '')}</time></p>
     <h1>${esc(post.title)}</h1>${post.excerpt ? `<p class="blog-meta">${esc(post.excerpt)}</p>` : ''}${tags ? `<div class="blog-tags" aria-label="Tags">${tags}</div>` : ''}
     ${post.coverUrl ? `<img class="blog-cover" src="${esc(post.coverUrl)}" alt="${esc(post.title)}">` : ''}<div class="blog-content">${htmlText(post.content)}</div>
-    <a class="blog-back" href="${esc(`${base}/blog`)}">Voltar ao blog</a></article></main></body></html>`;
+    ${relatedHtml}<a class="blog-back" href="${esc(`${base}/blog`)}">Voltar ao blog</a></article></main></body></html>`;
   return sendHtml(send, res, html);
+}
+
+function xmlText(value) {
+  return String(value ?? '').replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\uFFFE\uFFFF]/g, '')
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&apos;');
+}
+
+function blogFeed({ res, send, site, repo, base, origin }) {
+  const posts = repo.all('posts', { site_id: site.id }, { order: 'published_at DESC', extra: 'published_data IS NOT NULL' })
+    .map((row) => publishedCopy(row)).filter(Boolean);
+  const blogUrl = absoluteSiteUrl(origin, base, '/blog');
+  const feedUrl = absoluteSiteUrl(origin, base, '/blog/feed.xml');
+  const items = posts.map((post) => {
+    const link = absoluteSiteUrl(origin, base, `/blog/${encodeURIComponent(post.slug)}`);
+    const timestamp = Date.parse(post.publishedAt || '');
+    const pubDate = Number.isFinite(timestamp) ? new Date(timestamp).toUTCString() : '';
+    return `<item><title>${xmlText(post.title)}</title><link>${xmlText(link)}</link><guid isPermaLink="true">${xmlText(link)}</guid>${pubDate ? `<pubDate>${xmlText(pubDate)}</pubDate>` : ''}
+      <description>${xmlText(post.seoDescription || post.excerpt || '')}</description><content:encoded>${xmlText(post.content)}</content:encoded></item>`;
+  }).join('');
+  const latest = Date.parse(posts[0]?.dateModified || posts[0]?.publishedAt || '');
+  const lastBuildDate = Number.isFinite(latest) ? `<lastBuildDate>${new Date(latest).toUTCString()}</lastBuildDate>` : '';
+  const xml = `<?xml version="1.0" encoding="UTF-8"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel>
+    <title>${xmlText(`Blog · ${site.name}`)}</title><link>${xmlText(blogUrl)}</link><description>${xmlText(`Artigos e informações de ${site.name}.`)}</description><language>pt-BR</language>
+    <atom:link href="${xmlText(feedUrl)}" rel="self" type="application/rss+xml"/>${lastBuildDate}${items}</channel></rss>`;
+  return send(res, 200, xml, { 'Content-Type': 'application/rss+xml; charset=utf-8', 'X-Content-Type-Options': 'nosniff', 'Cache-Control': 'public, max-age=300' });
 }
 
 export const routes = [
@@ -155,8 +282,18 @@ export const routes = [
     method: 'GET', path: '/api/t/:tenant/posts', perm: 'blog.read', handler: ({ repo, query }) => {
       if (query.siteId) requireSite(repo, query.siteId);
       const where = query.siteId ? { site_id: String(query.siteId) } : {};
-      return { posts: repo.all('posts', where, { order: 'updated_at DESC' }).map(postOut),
-        sites: repo.all('sites', {}, { order: 'created_at ASC' }).map((s) => ({ id: s.id, slug: s.slug, name: s.name })) };
+      const posts = repo.all('posts', where, { order: 'updated_at DESC' });
+      const sites = repo.all('sites', {}, { order: 'created_at ASC' });
+      const siteNames = new Map(sites.map((site) => [site.id, site.name]));
+      const publishedBySite = new Map();
+      return { posts: posts.map((post) => {
+        if (!publishedBySite.has(post.site_id)) publishedBySite.set(post.site_id,
+          repo.all('posts', { site_id: post.site_id }, { order: 'published_at DESC', limit: 100, extra: 'published_data IS NOT NULL' }));
+        const suggestions = suggestInternalLinks(publishedBySite.get(post.site_id),
+          { title: post.title, category: post.category, tags: parse(post.tags, []) }, post.id);
+        return postOut(post, suggestions, siteNames.get(post.site_id) || '');
+      }),
+        sites: sites.map((s) => ({ id: s.id, slug: s.slug, name: s.name })) };
     },
   },
   {
@@ -168,7 +305,7 @@ export const routes = [
       try { post = repo.insert('posts', { site_id: site.id, ...article, status: 'rascunho', scheduled_at: null, published_at: null, published_slug: null, published_data: null }); }
       catch (error) { if (/UNIQUE constraint failed/.test(error.message)) throw new HttpError(409, 'Já existe um artigo com esse slug neste site.'); throw error; }
       audit('blog.artigo.criar', post.id, { siteId: site.id, slug: post.slug });
-      return { status: 201, body: { post: postOut(post) } };
+      return { status: 201, body: { post: postResponse(repo, post) } };
     },
   },
   {
@@ -182,7 +319,7 @@ export const routes = [
       try { post = repo.update('posts', current.id, { ...article, status, scheduled_at: null }); }
       catch (error) { if (/UNIQUE constraint failed/.test(error.message)) throw new HttpError(409, 'Já existe um artigo com esse slug neste site.'); throw error; }
       audit('blog.artigo.editar', post.id, { slug: post.slug, estado: post.status });
-      return { post: postOut(post) };
+      return { post: postResponse(repo, post) };
     },
   },
   {
@@ -190,7 +327,7 @@ export const routes = [
       const post = requirePost(repo, params.id);
       const updated = repo.update('posts', post.id, { status: 'revisao', scheduled_at: null });
       audit('blog.artigo.enviar_revisao', post.id, { slug: post.slug });
-      return { post: postOut(updated) };
+      return { post: postResponse(repo, updated) };
     },
   },
   {
@@ -200,11 +337,11 @@ export const routes = [
       const at = now();
       let updated;
       try { updated = repo.update('posts', post.id, { status: 'publicado', scheduled_at: null, published_at: at,
-        published_slug: post.slug, published_data: JSON.stringify(publishedData(post)) }); }
+        published_slug: post.slug, published_data: JSON.stringify(publishedData(post, at)) }); }
       catch (error) { if (/UNIQUE constraint failed/.test(error.message)) throw new HttpError(409, 'Já existe outro artigo publicado com esse slug.'); throw error; }
       audit('blog.artigo.publicar', post.id, { slug: post.slug });
       announcePost(app, tenant, repo, updated); // fluxo de SEO do núcleo: IndexNow + sitemap (sem esperar)
-      return { post: postOut(updated) };
+      return { post: postResponse(repo, updated) };
     },
   },
   {
@@ -216,7 +353,7 @@ export const routes = [
       const scheduledAt = new Date(parsed).toISOString();
       const updated = repo.update('posts', post.id, { status: 'agendado', scheduled_at: scheduledAt });
       audit('blog.artigo.agendar', post.id, { slug: post.slug, scheduledAt });
-      return { post: postOut(updated) };
+      return { post: postResponse(repo, updated) };
     },
   },
   {
@@ -233,7 +370,7 @@ export const routes = [
       try { updated = repo.update('posts', post.id, { ...article, status: 'agendado', scheduled_at: scheduledAt }); }
       catch (error) { if (/UNIQUE constraint failed/.test(error.message)) throw new HttpError(409, 'Já existe outro artigo com esse slug neste site.'); throw error; }
       audit('blog.artigo.agendar', post.id, { slug: post.slug, scheduledAt });
-      return { post: postOut(updated) };
+      return { post: postResponse(repo, updated) };
     },
   },
   {
@@ -242,12 +379,13 @@ export const routes = [
       const updated = repo.update('posts', post.id, { status: 'rascunho', scheduled_at: null, published_at: null, published_slug: null, published_data: null });
       audit('blog.artigo.despublicar', post.id, { slug: post.slug });
       if (post.published_slug) announcePost(app, tenant, repo, { ...post, published_slug: post.published_slug }, 'remocao');
-      return { post: postOut(updated) };
+      return { post: postResponse(repo, updated) };
     },
   },
 ];
 
 export const publicRoutes = [
+  { path: '/blog/feed.xml', handler: blogFeed },
   { path: '/blog', handler: blogIndex },
   { path: '/blog/:slug', handler: blogArticle },
 ];
@@ -256,7 +394,8 @@ export const publicRoutes = [
 export const sitemapEntries = ({ site, repo }) => {
   const posts = repo.all('posts', { site_id: site.id }, { order: 'published_at DESC', extra: 'published_data IS NOT NULL' });
   if (!posts.length) return [];
-  return [{ path: '/blog', lastmod: posts[0].published_at }, ...posts.map((p) => ({ path: `/blog/${encodeURIComponent(p.published_slug)}`, lastmod: p.published_at }))];
+  const lastmod = (post) => parse(post.published_data, {})?.dateModified || post.published_at;
+  return [{ path: '/blog', lastmod: lastmod(posts[0]) }, ...posts.map((post) => ({ path: `/blog/${encodeURIComponent(post.published_slug)}`, lastmod: lastmod(post) }))];
 };
 
 /** Avisa os buscadores (IndexNow) do post e do índice do blog. Nunca derruba a publicação. */
@@ -282,7 +421,7 @@ export function publishDuePosts(db, at = now(), onPublished = null) {
         continue;
       }
       const stamp = now();
-      const result = update.run(stamp, post.slug, JSON.stringify(publishedData(post)), stamp, post.tenant_id, post.id, at);
+      const result = update.run(stamp, post.slug, JSON.stringify(publishedData(post, stamp)), stamp, post.tenant_id, post.id, at);
       count += result.changes;
       if (result.changes && onPublished) onPublished({ ...post, published_slug: post.slug, published_at: stamp });
     }
