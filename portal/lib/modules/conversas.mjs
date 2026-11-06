@@ -10,7 +10,7 @@
 import { scoped } from '../repo.mjs';
 import { HttpError, rateLimiter, clientIp } from '../http.mjs';
 import { hmac, safeEqualHex } from '../auth.mjs';
-import { upsertContact } from '../migrations.mjs';
+import { normEmail, normPhone, upsertContact } from '../migrations.mjs';
 import { audit as writeAudit } from '../tenants.mjs';
 import { now, parse } from '../db.mjs';
 
@@ -44,19 +44,14 @@ function validarAtendente(db, tenantId, ownerId) {
 }
 
 // ---------- leitura ----------
-const pessoasPorId = (db, ids) => {
-  const unicos = [...new Set(ids.filter(Boolean))];
-  if (!unicos.length) return new Map();
-  return new Map(db.prepare(`SELECT id, name, email, phone FROM contacts WHERE id IN (${unicos.map(() => '?').join(',')})`)
-    .all(...unicos).map((p) => [p.id, p]));
-};
+const verCliente = (lead) => (lead ? {
+  id: lead.contact_id, nome: lead.name, email: lead.email, telefone: lead.phone,
+} : null);
 
-const verCliente = (p) => (p ? { id: p.id, nome: p.name, email: p.email, telefone: p.phone } : null);
-
-const verConversa = (c, pessoa) => ({
+const verConversa = (c, lead) => ({
   id: c.id, canal: c.channel, assunto: c.subject, status: c.status, atendente: c.owner_id, leadId: c.lead_id,
   naoLidas: c.unread, mensagens: c.messages, ultimaEm: c.last_message_at, ultima: c.last_message_preview,
-  ultimaDirecao: c.last_direction, criadaEm: c.created_at, idExterno: c.external_id, cliente: verCliente(pessoa),
+  ultimaDirecao: c.last_direction, criadaEm: c.created_at, idExterno: c.external_id, cliente: verCliente(lead),
 });
 
 const verMensagem = (m) => ({
@@ -70,6 +65,44 @@ const verEvento = (e) => ({ id: e.id, tipo: e.kind, dados: parse(e.data, {}), po
 function leadDoContato(repo, contactId) {
   if (!contactId) return null;
   return repo.all('leads', { contact_id: contactId }, { order: 'created_at DESC', limit: 1 })[0] || null;
+}
+
+function leadDaConversa(repo, conversa) {
+  const lead = conversa.lead_id ? repo.get('leads', conversa.lead_id) : leadDoContato(repo, conversa.contact_id);
+  return lead && (!conversa.contact_id || lead.contact_id === conversa.contact_id) ? lead : null;
+}
+
+function contatoExistente(db, { email, phone }) {
+  const e = normEmail(email);
+  const telefone = normPhone(phone);
+  let contato = e ? db.prepare('SELECT id FROM contacts WHERE email = ?').get(e) : null;
+  if (!contato && telefone) {
+    contato = db.prepare('SELECT id FROM contacts WHERE phone = ? AND (email IS NULL OR ? IS NULL) LIMIT 1').get(telefone, e);
+  }
+  return contato || null;
+}
+
+function contatoDaOperacao(repo, db, { contactId, email, phone, name }) {
+  if (contactId) {
+    const lead = leadDoContato(repo, contactId);
+    need(lead, 404, 'Cliente não encontrado nesta operação.');
+    return contactId;
+  }
+
+  const dados = { email: normEmail(email), phone: normPhone(phone), name: String(name || '').trim().slice(0, 80) || null };
+  need(dados.email || dados.phone, 400, 'Informe o e-mail ou o telefone do cliente.');
+
+  const existente = contatoExistente(db, dados);
+  const id = existente?.id || upsertContact(db, dados);
+  need(id, 400, 'Informe o e-mail ou o telefone do cliente.');
+  if (!leadDoContato(repo, id)) {
+    repo.insert('leads', { contact_id: id, email: dados.email, name: dados.name, phone: dados.phone });
+  }
+  return id;
+}
+
+function leadsDasConversas(repo, conversas) {
+  return new Map(conversas.map((conversa) => [conversa.id, leadDaConversa(repo, conversa)]));
 }
 
 /**
@@ -169,16 +202,19 @@ export const routes = [
       let extraParams = [];
       if (busca) {
         const alvo = like(busca);
-        extra = `id IN (SELECT c.id FROM conversations c LEFT JOIN contacts p ON p.id = c.contact_id
-          WHERE c.tenant_id = ? AND (lower(COALESCE(c.subject, '')) LIKE ? OR lower(COALESCE(p.name, '')) LIKE ?
-            OR COALESCE(p.email, '') LIKE ? OR COALESCE(p.phone, '') LIKE ?))`;
+        extra = `id IN (SELECT c.id FROM conversations c
+          WHERE c.tenant_id = ? AND (lower(COALESCE(c.subject, '')) LIKE ? OR EXISTS (
+            SELECT 1 FROM leads l WHERE l.tenant_id = c.tenant_id AND l.contact_id = c.contact_id
+              AND (l.id = c.lead_id OR c.lead_id IS NULL)
+              AND (lower(COALESCE(l.name, '')) LIKE ? OR COALESCE(l.email, '') LIKE ? OR COALESCE(l.phone, '') LIKE ?)
+          )))`;
         extraParams = [tenant.id, alvo, alvo, alvo, alvo];
       }
       const rows = repo.all('conversations', where, { order: 'last_message_at DESC', limit: 200, extra, extraParams });
-      const pessoas = pessoasPorId(db, rows.map((c) => c.contact_id));
+      const leads = leadsDasConversas(repo, rows);
       const totais = Object.fromEntries(STATUS.map((s) => [s, repo.count('conversations', { status: s })]));
       return {
-        conversas: rows.map((c) => verConversa(c, pessoas.get(c.contact_id))),
+        conversas: rows.map((c) => verConversa(c, leads.get(c.id))),
         atendentes: atendentesDa(db, tenant.id),
         status: STATUS, canais: CHANNELS,
         totais: {
@@ -193,15 +229,11 @@ export const routes = [
     handler: ({ repo, db, tenant, body, user, audit }) => {
       const canal = String(body.canal || 'manual').trim();
       need(CHANNELS.includes(canal), 400, 'Canal inválido.');
-      let contactId = body.contactId ? String(body.contactId) : null;
-      if (contactId) {
-        const lead = repo.all('leads', { contact_id: contactId }, { limit: 1 })[0];
-        need(lead, 404, 'Cliente não encontrado nesta operação.'); // não revela pessoas de outras operações
-      } else {
-        contactId = upsertContact(db, { email: body.email, phone: body.telefone, name: body.nome });
-        need(contactId, 400, 'Informe o e-mail ou o telefone do cliente.');
-      }
       const ownerId = validarAtendente(db, tenant.id, body.atendente ? String(body.atendente) : null);
+      const contactId = contatoDaOperacao(repo, db, {
+        contactId: body.contactId ? String(body.contactId) : null,
+        email: body.email, phone: body.telefone, name: body.nome,
+      });
       const { conversa } = acharOuAbrirConversa(repo, { channel: canal, externalId: null, contactId, subject: body.assunto, ownerId });
       registrarEvento(repo, conversa, 'aberta', { canal, por: 'painel' }, user.id);
       const primeira = texto(body.texto);
@@ -211,8 +243,7 @@ export const routes = [
         atual = registrarMensagem(repo, conversa, { direction: direcao, channel: canal, body: primeira, authorUser: user.id, authorName: user.name }).conversa;
       }
       audit('conversas.abrir', conversa.id, { canal });
-      const pessoa = pessoasPorId(db, [contactId]).get(contactId);
-      return { status: 201, body: { conversa: verConversa(atual, pessoa) } };
+      return { status: 201, body: { conversa: verConversa(atual, leadDaConversa(repo, atual)) } };
     },
   },
   {
@@ -222,10 +253,9 @@ export const routes = [
       need(conversa, 404, 'Conversa não encontrada.');
       const mensagens = repo.all('messages', { conversation_id: conversa.id }, { order: 'occurred_at ASC', limit: 500 });
       const eventos = repo.all('conversation_events', { conversation_id: conversa.id }, { order: 'created_at DESC', limit: 100 });
-      const pessoa = pessoasPorId(db, [conversa.contact_id]).get(conversa.contact_id);
-      const lead = conversa.lead_id ? repo.get('leads', conversa.lead_id) : null;
+      const lead = leadDaConversa(repo, conversa);
       return {
-        conversa: verConversa(conversa, pessoa),
+        conversa: verConversa(conversa, lead),
         mensagens: mensagens.map(verMensagem),
         eventos: eventos.map(verEvento),
         lead: lead ? { id: lead.id, etapa: lead.stage, pagina: lead.page_slug, criado: lead.created_at } : null,
@@ -246,11 +276,10 @@ export const routes = [
         authorUser: user.id, authorName: user.name, occurredAt: body.quando,
       });
       audit('conversas.mensagem', conversa.id, { direcao, duplicada: !r.criada });
-      const pessoa = pessoasPorId(db, [r.conversa.contact_id]).get(r.conversa.contact_id);
       return {
         status: r.criada ? 201 : 200,
         body: {
-          duplicada: !r.criada, mensagem: verMensagem(r.mensagem), conversa: verConversa(r.conversa, pessoa),
+          duplicada: !r.criada, mensagem: verMensagem(r.mensagem), conversa: verConversa(r.conversa, leadDaConversa(repo, r.conversa)),
           aviso: r.criada && direcao === 'saida' ? 'Resposta registrada como pendente de envio: o canal ainda não tem integração configurada.' : null,
         },
       };
@@ -284,7 +313,7 @@ export const routes = [
       if (body.lida === true && conversa.unread) patch.unread = 0;
 
       if (!Object.keys(patch).length) {
-        return { conversa: verConversa(conversa, pessoasPorId(db, [conversa.contact_id]).get(conversa.contact_id)), mudou: false };
+        return { conversa: verConversa(conversa, leadDaConversa(repo, conversa)), mudou: false };
       }
       const atualizada = repo.update('conversations', conversa.id, patch);
       const nota = texto(body.nota, 500);
@@ -292,7 +321,7 @@ export const routes = [
         registrarEvento(repo, conversa, kind, { ...dados, ...(nota ? { nota } : {}) }, user.id);
         audit(`conversas.${kind}`, conversa.id, dados);
       }
-      return { conversa: verConversa(atualizada, pessoasPorId(db, [atualizada.contact_id]).get(atualizada.contact_id)), mudou: Boolean(mudancas.length) };
+      return { conversa: verConversa(atualizada, leadDaConversa(repo, atualizada)), mudou: Boolean(mudancas.length) };
     },
   },
   // Entrada de mensagens das integrações (WhatsApp, Telegram, e-mail). Assinada com o segredo da operação, como as conversões.
@@ -320,8 +349,10 @@ export const routes = [
 
       const repo = scoped(db, tenant.id);
       const conversaExterna = body.conversa_externa ? String(body.conversa_externa).slice(0, 160) : null;
-      const contactId = upsertContact(db, { email: body.email, phone: body.telefone, name: body.nome });
       const existente = conversaExterna ? repo.get('conversations', { channel: canal, external_id: conversaExterna }) : null;
+      const contactId = body.email || body.telefone
+        ? contatoDaOperacao(repo, db, { email: body.email, phone: body.telefone, name: body.nome })
+        : null;
       need(contactId || existente, 400, 'informe email ou telefone do cliente');
 
       const { conversa, criada } = existente ? { conversa: existente, criada: false }

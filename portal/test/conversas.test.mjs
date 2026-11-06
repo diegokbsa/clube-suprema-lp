@@ -96,14 +96,18 @@ test('mensagem que chega pelo webhook acha o cliente certo pelo telefone da base
   assert.equal(detalhe.conversa.naoLidas, 1);
   assert.equal(detalhe.mensagens[0].status, 'registrada');
 
-  // pessoa nova (sem lead ainda) entra na base única na hora
+  // pessoa nova entra na base única e ganha relacionamento com esta operação
   const nova = await hook(clube.slug, { canal: 'whatsapp', id_externo: 'wa-nova-1', texto: 'Quero saber dos torneios', telefone: '21 98888-7777', nome: 'Pessoa Nova' }, segredoDe(clube.id));
   assert.equal(nova.status, 201, JSON.stringify(nova.data));
   const pessoaNova = P.db.prepare('SELECT id, name FROM contacts WHERE phone = ?').get('5521988887777');
   assert.ok(pessoaNova, 'webhook criou a pessoa na base única');
   const conversaNova = P.db.prepare('SELECT contact_id, lead_id FROM conversations WHERE id = ?').get(nova.data.conversa);
   assert.equal(conversaNova.contact_id, pessoaNova.id);
-  assert.equal(conversaNova.lead_id, null, 'sem lead nesta operação a conversa fica só com a pessoa');
+  assert.ok(conversaNova.lead_id, 'a conversa cria relacionamento local com a pessoa');
+  const leadNovo = scoped(P.db, clube.id).get('leads', conversaNova.lead_id);
+  assert.equal(leadNovo.contact_id, pessoaNova.id);
+  assert.equal(leadNovo.name, 'Pessoa Nova');
+  assert.equal(leadNovo.email, null, 'a operação não herda e-mail da base global');
 });
 
 test('reenvio da mesma mensagem não duplica (idempotência por id externo)', async () => {
@@ -165,6 +169,54 @@ test('a conversa de uma operação não aparece em outra', async () => {
   const dona = client(P.origin);
   await dona.login('dona@loja-conversas.test', 'dona-senha-123');
   assert.equal((await dona.req('GET', `/api/t/${clube.slug}/conversas`)).status, 404, 'usuária de outra operação nem enxerga a caixa de entrada');
+});
+
+test('contato compartilhado só recebe na operação os dados informados nela', async () => {
+  const segredoEmail = upsertContact(P.db, {
+    email: 'email-segredo@clube.test', phone: '21 97777-1234', name: 'Pessoa Só Do Clube',
+  });
+  scoped(P.db, clube.id).insert('leads', {
+    contact_id: segredoEmail, email: 'email-segredo@clube.test', phone: '5521977771234', name: 'Pessoa Só Do Clube', stage: 'novo',
+  });
+  const segredoTelefone = upsertContact(P.db, {
+    email: 'email-informado-so-no-clube@clube.test', phone: '21 96666-4321', name: 'Pessoa Do Telefone',
+  });
+  scoped(P.db, clube.id).insert('leads', {
+    contact_id: segredoTelefone, email: 'email-informado-so-no-clube@clube.test', phone: '5521966664321', name: 'Pessoa Do Telefone', stage: 'novo',
+  });
+
+  const porEmail = await sup.req('POST', `/api/t/${loja.slug}/conversas`, {
+    canal: 'email', email: 'email-segredo@clube.test',
+  });
+  assert.equal(porEmail.status, 201, JSON.stringify(porEmail.data));
+  assert.equal(porEmail.data.conversa.cliente.email, 'email-segredo@clube.test', 'retorna o e-mail enviado pela própria operação');
+  assert.equal(porEmail.data.conversa.cliente.nome, null, 'não revela o nome guardado pelo clube');
+  assert.equal(porEmail.data.conversa.cliente.telefone, null, 'não revela o telefone guardado pelo clube');
+
+  const porTelefone = await sup.req('POST', `/api/t/${loja.slug}/conversas`, {
+    canal: 'whatsapp', telefone: '21966664321',
+  });
+  assert.equal(porTelefone.status, 201, JSON.stringify(porTelefone.data));
+  assert.equal(porTelefone.data.conversa.cliente.telefone, '5521966664321', 'retorna o telefone informado nesta operação');
+  assert.equal(porTelefone.data.conversa.cliente.nome, null, 'não revela o nome guardado pelo clube');
+  assert.equal(porTelefone.data.conversa.cliente.email, null, 'não revela o e-mail guardado pelo clube');
+
+  const detalheTelefone = await sup.req('GET', `/api/t/${loja.slug}/conversas/${porTelefone.data.conversa.id}`);
+  assert.equal(detalheTelefone.data.conversa.cliente.nome, null);
+  assert.equal(detalheTelefone.data.conversa.cliente.email, null);
+  const lista = await sup.req('GET', `/api/t/${loja.slug}/conversas`);
+  const conversaListada = lista.data.conversas.find((c) => c.id === porEmail.data.conversa.id);
+  assert.equal(conversaListada.cliente.nome, null, 'a lista também usa apenas os dados locais');
+  assert.equal(conversaListada.cliente.telefone, null);
+
+  const repoLoja = scoped(P.db, loja.id);
+  const leadEmail = repoLoja.all('leads', { contact_id: segredoEmail }, { limit: 1 })[0];
+  const leadTelefone = repoLoja.all('leads', { contact_id: segredoTelefone }, { limit: 1 })[0];
+  assert.equal(leadEmail.email, 'email-segredo@clube.test');
+  assert.equal(leadEmail.name, null);
+  assert.equal(leadTelefone.phone, '5521966664321');
+  assert.equal(leadTelefone.email, null);
+  assert.equal(leadTelefone.name, null);
 });
 
 test('status, atendente e notas internas entram no histórico', async () => {
