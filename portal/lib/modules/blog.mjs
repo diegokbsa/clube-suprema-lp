@@ -194,7 +194,7 @@ export const routes = [
     },
   },
   {
-    method: 'POST', path: '/api/t/:tenant/posts/:id/publish', perm: 'blog.publish', handler: ({ repo, params, audit }) => {
+    method: 'POST', path: '/api/t/:tenant/posts/:id/publish', perm: 'blog.publish', handler: ({ repo, params, audit, app, tenant }) => {
       const post = requirePost(repo, params.id);
       if (slugTaken(repo, post.site_id, post.slug, post.id)) throw new HttpError(409, 'Já existe outro artigo publicado com esse slug.');
       const at = now();
@@ -203,6 +203,7 @@ export const routes = [
         published_slug: post.slug, published_data: JSON.stringify(publishedData(post)) }); }
       catch (error) { if (/UNIQUE constraint failed/.test(error.message)) throw new HttpError(409, 'Já existe outro artigo publicado com esse slug.'); throw error; }
       audit('blog.artigo.publicar', post.id, { slug: post.slug });
+      announcePost(app, tenant, repo, updated); // fluxo de SEO do núcleo: IndexNow + sitemap (sem esperar)
       return { post: postOut(updated) };
     },
   },
@@ -236,10 +237,11 @@ export const routes = [
     },
   },
   {
-    method: 'POST', path: '/api/t/:tenant/posts/:id/unpublish', perm: 'blog.publish', handler: ({ repo, params, audit }) => {
+    method: 'POST', path: '/api/t/:tenant/posts/:id/unpublish', perm: 'blog.publish', handler: ({ repo, params, audit, app, tenant }) => {
       const post = requirePost(repo, params.id);
       const updated = repo.update('posts', post.id, { status: 'rascunho', scheduled_at: null, published_at: null, published_slug: null, published_data: null });
       audit('blog.artigo.despublicar', post.id, { slug: post.slug });
+      if (post.published_slug) announcePost(app, tenant, repo, { ...post, published_slug: post.published_slug }, 'remocao');
       return { post: postOut(updated) };
     },
   },
@@ -250,8 +252,23 @@ export const publicRoutes = [
   { path: '/blog/:slug', handler: blogArticle },
 ];
 
+/** Gancho do núcleo: posts publicados entram no sitemap do site com a data de publicação. */
+export const sitemapEntries = ({ site, repo }) => {
+  const posts = repo.all('posts', { site_id: site.id }, { order: 'published_at DESC', extra: 'published_data IS NOT NULL' });
+  if (!posts.length) return [];
+  return [{ path: '/blog', lastmod: posts[0].published_at }, ...posts.map((p) => ({ path: `/blog/${encodeURIComponent(p.published_slug)}`, lastmod: p.published_at }))];
+};
+
+/** Avisa os buscadores (IndexNow) do post e do índice do blog. Nunca derruba a publicação. */
+function announcePost(app, tenant, repo, post, reason = 'publicacao') {
+  try {
+    const site = repo.get('sites', post.site_id);
+    if (site && app?.seo) app.seo.announce(tenant, site, [`/blog/${encodeURIComponent(post.published_slug)}`, '/blog'], reason);
+  } catch (e) { console.error('[blog] aviso de SEO falhou:', e.message); }
+}
+
 /** Publica cada agendamento vencido uma única vez dentro de uma transação SQLite. */
-export function publishDuePosts(db, at = now()) {
+export function publishDuePosts(db, at = now(), onPublished = null) {
   return tx(db, () => {
     const due = db.prepare("SELECT * FROM posts WHERE status = 'agendado' AND scheduled_at IS NOT NULL AND scheduled_at <= ? ORDER BY scheduled_at ASC").all(at);
     const update = db.prepare(`UPDATE posts SET status = 'publicado', scheduled_at = NULL, published_at = ?, published_slug = ?, published_data = ?, updated_at = ?
@@ -267,15 +284,20 @@ export function publishDuePosts(db, at = now()) {
       const stamp = now();
       const result = update.run(stamp, post.slug, JSON.stringify(publishedData(post)), stamp, post.tenant_id, post.id, at);
       count += result.changes;
+      if (result.changes && onPublished) onPublished({ ...post, published_slug: post.slug, published_at: stamp });
     }
     return count;
   });
 }
 
 export function init(app) {
-  publishDuePosts(app.db);
+  const aoPublicar = (post) => {
+    const tenant = app.db.prepare('SELECT * FROM tenants WHERE id = ?').get(post.tenant_id);
+    if (tenant) setImmediate(() => announcePost(app, tenant, scoped(app.db, tenant.id), post));
+  };
+  publishDuePosts(app.db, now(), aoPublicar);
   const timer = setInterval(() => {
-    try { publishDuePosts(app.db); }
+    try { publishDuePosts(app.db, now(), aoPublicar); }
     catch { console.error('Falha ao verificar artigos agendados do blog.'); }
   }, 1000);
   timer.unref?.();
