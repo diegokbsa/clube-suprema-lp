@@ -1,0 +1,406 @@
+{
+  "id": "sx-seja-parceiro",
+  "name": "Seja parceiro (edição SX)",
+  "order": 22,
+  "version": 1,
+  "category": "Poker · edição SX",
+  "niches": [
+    "poker"
+  ],
+  "description": "Landing B2B para donos de clube e agentes: benefícios da parceria, jornada de entrada e formulário qualificador. Sem promessa de ganho; conteúdo de exemplo identificado.",
+  "inspiredBy": "sx",
+  "theme": {
+    "mode": "escuro",
+    "bg": "#0f0f0f",
+    "surface": "#171717",
+    "text": "#f4f6f7",
+    "muted": "#a1a9ae",
+    "primary": "#39bcff",
+    "primaryText": "#04141d",
+    "accent": "#0f5561",
+    "border": "#32abbb",
+    "font": "Manrope",
+    "fontHead": "Manrope",
+    "radius": 10
+  },
+  "seo": {
+    "title": "{{name}} · Seja um parceiro",
+    "description": "Traga o seu clube ou a sua operação para o grupo: atendimento 24h, plataforma de fichas e apoio de marketing. Fale com a gente."
+  },
+  "pages": [
+    {
+      "slug": "",
+      "title": "Início",
+      "blocks": [
+        {
+          "type": "navbar",
+          "props": {
+            "brand": "{{name}}",
+            "logo": "{{logo}}",
+            "links": [
+              {
+                "label": "Benefícios",
+                "href": "/beneficios"
+              },
+              {
+                "label": "Como funciona",
+                "href": "#como-funciona"
+              },
+              {
+                "label": "Contato",
+                "href": "/contato"
+              }
+            ],
+            "cta": "Quero ser parceiro",
+            "ctaHref": "/contato",
+            "variant": "barra"
+          }
+        },
+        {
+          "type": "hero",
+          "props": {
+            "eyebrow": "Parcerias",
+            "title": "Traga o seu clube para uma estrutura maior.",
+            "subtitle": "Atendimento 24h para os seus jogadores, plataforma de fichas e apoio de marketing — você foca na sua comunidade.",
+            "cta": "Quero ser parceiro",
+            "ctaHref": "/contato",
+            "secondary": "Ver benefícios",
+            "secondaryHref": "/beneficios",
+            "note": "Conversa sem compromisso · resposta humana, não robô",
+            "variant": "painel"
+          }
+        },
+        {
+          "type": "features",
+          "props": {
+            "title": "O que o parceiro recebe",
+            "items": [
+              {
+                "icon": "24h",
+                "title": "Central de atendimento 24h",
+                "text": "Os seus jogadores são atendidos a qualquer hora, inclusive na compra de fichas."
+              },
+              {
+                "icon": "PIX",
+                "title": "Plataforma de fichas",
+                "text": "Compra e saque por PIX com registro de cada operação."
+              },
+              {
+                "icon": "▲",
+                "title": "Apoio de marketing",
+                "text": "Materiais e orientação para divulgar o seu clube do jeito certo."
+              },
+              {
+                "icon": "☏",
+                "title": "Customer success",
+                "text": "Um contato direto para resolver o que travar a sua operação."
+              },
+              {
+                "icon": "♠",
+                "title": "Liga e agenda",
+                "text": "Torneios e temporadas que mantêm o seu clube ativo."
+              },
+              {
+                "icon": "✓",
+                "title": "Operação organizada",
+                "text": "Processos claros de entrada, repasse e suporte."
+              }
+            ],
+            "variant": "grade"
+          }
+        },
+        {
+          "type": "steps",
+          "props": {
+            "title": "Como funciona a parceria",
+            "items": [
+              {
+                "title": "Conversa inicial",
+                "text": "Você conta o seu momento: tamanho do clube, canais e objetivos."
+              },
+              {
+                "title": "Proposta e onboarding",
+                "text": "A operação apresenta as condições e, no sim, configura a sua estrutura."
+              },
+              {
+                "title": "Operação rodando",
+                "text": "Seu clube no ar com atendimento, fichas e agenda — e acompanhamento contínuo."
+              }
+            ],
+            "variant": "linha-do-tempo",
+            "anchor": "como-funciona"
+          }
+        },
+        {
+          "type": "stats",
+          "props": {
+            "items": [
+              {
+                "value": "24h",
+                "label": "atendimento para os seus jogadores"
+              },
+              {
+                "value": "1",
+                "label": "contato direto de customer success"
+              },
+              {
+                "value": "0",
+                "label": "custo para conversar com a gente"
+              }
+            ],
+            "demo": true
+          }
+        },
+        {
+          "type": "lead_form",
+          "props": {
+            "title": "Comece pela conversa",
+            "text": "Conte quem você é (dono de clube, agente ou afiliado) e onde quer chegar. A operação responde pessoalmente.",
+            "fields": "email_nome_telefone",
+            "button": "Quero conversar",
+            "success": "Recebemos! Vamos falar com você em breve.",
+            "consent": "Concordo em ser contatado sobre parceria. Posso sair quando quiser.",
+            "variant": "cartao",
+            "anchor": "contato"
+          }
+        },
+        {
+          "type": "contact",
+          "props": {
+            "title": "Prefere chamar direto?",
+            "whatsapp": "{{whatsapp}}",
+            "telegram": "{{telegram}}",
+            "email": "{{email}}",
+            "hours": "Atendimento comercial em horário de Brasília, todos os dias."
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "text": "{{unitLabel}} · parcerias.",
+            "links": [
+              {
+                "label": "Benefícios",
+                "href": "/beneficios"
+              },
+              {
+                "label": "Contato",
+                "href": "/contato"
+              },
+              {
+                "label": "Privacidade",
+                "href": "/privacidade"
+              }
+            ],
+            "disclaimer": "{{disclaimer}}"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "beneficios",
+      "title": "Benefícios",
+      "seo": {
+        "description": "Benefícios da parceria com o {{name}}."
+      },
+      "blocks": [
+        {
+          "type": "navbar",
+          "props": {
+            "brand": "{{name}}",
+            "logo": "{{logo}}",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Contato",
+                "href": "/contato"
+              }
+            ],
+            "cta": "Quero ser parceiro",
+            "ctaHref": "/contato",
+            "variant": "barra"
+          }
+        },
+        {
+          "type": "hero",
+          "props": {
+            "eyebrow": "Benefícios",
+            "title": "O que muda no dia a dia do seu clube",
+            "subtitle": "Os benefícios de exemplo abaixo mostram o formato; as condições reais são apresentadas na proposta.",
+            "variant": "centralizado"
+          }
+        },
+        {
+          "type": "features",
+          "props": {
+            "items": [
+              {
+                "icon": "24h",
+                "title": "Jogador atendido sempre",
+                "text": "Fila de fichas e dúvidas resolvidas pela central, sem pesar o seu time."
+              },
+              {
+                "icon": "PIX",
+                "title": "Fluxo de fichas profissional",
+                "text": "Compra e saque por PIX com registro e confirmação em cada operação."
+              },
+              {
+                "icon": "▲",
+                "title": "Marketing com lastro",
+                "text": "Materiais prontos e aprovados, em vez de peça improvisada."
+              },
+              {
+                "icon": "♠",
+                "title": "Agenda que segura jogador",
+                "text": "Torneios recorrentes e temporadas para manter o clube ativo."
+              }
+            ],
+            "variant": "lista"
+          }
+        },
+        {
+          "type": "cta",
+          "props": {
+            "title": "Faça parte disso.",
+            "text": "Uma conversa resolve todas as suas dúvidas.",
+            "cta": "Quero ser parceiro",
+            "ctaHref": "/contato",
+            "variant": "destaque"
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Privacidade",
+                "href": "/privacidade"
+              }
+            ],
+            "disclaimer": "{{disclaimer}}"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "contato",
+      "title": "Contato",
+      "seo": {
+        "description": "Fale com o {{name}} sobre parceria."
+      },
+      "blocks": [
+        {
+          "type": "navbar",
+          "props": {
+            "brand": "{{name}}",
+            "logo": "{{logo}}",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Benefícios",
+                "href": "/beneficios"
+              }
+            ],
+            "variant": "barra"
+          }
+        },
+        {
+          "type": "lead_form",
+          "props": {
+            "title": "Contato de parceria",
+            "text": "Preencha e conte no campo de WhatsApp o seu perfil: dono de clube, agente ou afiliado. Quanto mais contexto, melhor a conversa.",
+            "fields": "email_nome_telefone",
+            "button": "Enviar",
+            "success": "Recebemos! A operação vai falar com você.",
+            "consent": "Concordo em ser contatado sobre parceria e aceito a política de privacidade. Posso sair quando quiser.",
+            "variant": "cartao"
+          }
+        },
+        {
+          "type": "contact",
+          "props": {
+            "title": "Canais diretos",
+            "whatsapp": "{{whatsapp}}",
+            "telegram": "{{telegram}}",
+            "instagram": "{{instagram}}",
+            "email": "{{email}}",
+            "hours": "Atendimento comercial todos os dias, no horário de Brasília."
+          }
+        },
+        {
+          "type": "notice",
+          "props": {
+            "text": "Não prometemos ganho: parceria é trabalho. As condições são apresentadas na proposta, por escrito.",
+            "variant": "discreto"
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Privacidade",
+                "href": "/privacidade"
+              }
+            ],
+            "disclaimer": "{{disclaimer}}"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "privacidade",
+      "title": "Privacidade",
+      "seo": {
+        "description": "Como o {{name}} trata seus dados."
+      },
+      "blocks": [
+        {
+          "type": "navbar",
+          "props": {
+            "brand": "{{name}}",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              }
+            ],
+            "variant": "barra"
+          }
+        },
+        {
+          "type": "text",
+          "props": {
+            "title": "Privacidade",
+            "body": "Texto-base para revisão jurídica da operação.\n\nColetamos nome, e-mail e telefone só quando você envia um formulário, para conversar sobre parceria. Você pode pedir a exclusão a qualquer momento pelos canais de atendimento.\n\nCookies de medição (Google e Meta) só são ativados se você aceitar no aviso do site.",
+            "variant": "estreito"
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "disclaimer": "{{disclaimer}}"
+          }
+        }
+      ]
+    }
+  ]
+}
