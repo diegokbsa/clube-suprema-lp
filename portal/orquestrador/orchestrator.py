@@ -10,8 +10,8 @@
   orchestrator.py ciclo            (uso do agendador) igual a dispatch
   orchestrator.py review PA-XXX ok|volta "nota"   resultado da revisão do coordenador: concluída ou de volta para pronta
 
-Agentes (Kbsa, 06/11/2026: "remova o codex e kimi, execute com mais agentes do claude"): toda tarefa vai para a caixa do Big,
-executada pelo Claude, até 4 ao mesmo tempo (LIMITES["paralelo"] aqui e FAIXAS_CLAUDE no ordens.py). Limite diário em LIMITES.
+Agentes (Kbsa, 06/11/2026): "area": "sx" (poker) vai para o Claude, até 4 ao mesmo tempo; "area": "aff" (afiliados, padrão)
+vai para o Codex ou o Kimi conforme "agente". Até LIMITES["paralelo"] tarefas em execução. Limite diário em LIMITES.
 O que o agente entrega vai para "em_revisao": só o coordenador marca "concluida" (comando review), nunca o agente.
 """
 from __future__ import annotations
@@ -52,9 +52,10 @@ LIMITES = {
     "travada_horas": 5,            # ordem em andamento há mais que isso = travada
     "trava_ciclo_min": 25,         # trava de ciclo mais velha que isso é considerada abandonada
 }
-# Kbsa, 06/11/2026: "remova o codex e kimi, execute com mais agentes do claude". Toda tarefa vai para a caixa do Big, executada pelo
-# Claude, até 4 ao mesmo tempo (ordens.py FAIXAS_CLAUDE). O campo "agente" do backlog fica só como histórico de quem desenhou a tarefa.
-DESPACHA = {"claude": "big", "codex": "big", "kimi": "big", "claude-design": "big"}  # agente da tarefa → caixa do ordens.py
+# Kbsa, 06/11/2026: duas frentes. "area": "sx" = poker (sx.kbsa.app, modelos SX, suprema.blog) -> 100% Claude (caixa do Big,
+# até 4 em paralelo). "area": "aff" = afiliados (aff.kbsa.app: LPs, sistema, CRM etc.) -> Codex e Kimi (o ordens.py manda o Kimi
+# para o Codex enquanto o Kbsa está no PC). Tarefa sem "area" é "aff".
+DESPACHA = {"claude": "big", "claude-design": "big", "codex": "codex", "kimi": "kimi"}  # agente da tarefa → caixa do ordens.py
 PRIORIDADE = {"alta": 0, "media": 1, "baixa": 2}
 ESTADOS = ["backlog", "pronta", "em_execucao", "em_revisao", "bloqueada", "concluida"]
 SEGREDO = re.compile(r"(?i)(token|senha|password|secret|api[_-]?key|authorization)[\"'\s:=]+[^\s\"',}]{6,}")
@@ -215,11 +216,12 @@ O coordenador revisa antes de dar como concluída.
 
 
 def criar_ordem(t: dict, estado: dict) -> Path | None:
-    caixa = DESPACHA[t["agente"]]
+    area = t.get("area", "aff")
+    caixa = "big" if area == "sx" else DESPACHA[t["agente"]]
     arq = ESTADO_DIR / f"ordem-{t['id']}.md"
     arq.write_text(texto_ordem(t, estado), encoding="utf-8")
     cmd = [sys.executable, str(ORDENS), "nova", caixa, f"{t['id']} {t['titulo']}", "--projeto", PROJETO,
-           "--de", "Claude (orquestrador do Portal de Afiliação)", "--arquivo", str(arq)]
+           "--de", "Claude (orquestrador do Portal de Afiliação)", "--arquivo", str(arq), "--area", area]
     if t["prioridade"] == "alta":
         cmd += ["--prioridade", "alta"]
     r = subprocess.run(cmd, capture_output=True, text=True, encoding="utf-8", errors="replace", creationflags=SEM_JANELA, timeout=120)

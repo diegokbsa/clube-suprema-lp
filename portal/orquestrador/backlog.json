@@ -25,7 +25,8 @@
         "Decisões reversíveis documentadas",
         "Branch e worktree separadas do main"
       ],
-      "validacao": "test -f portal/docs/DIAGNOSTICO.md"
+      "validacao": "test -f portal/docs/DIAGNOSTICO.md",
+      "area": "aff"
     },
     {
       "id": "PA-002",
@@ -52,7 +53,8 @@
         "tarefas no Plane com estado real",
         "lock impede ciclos concorrentes"
       ],
-      "validacao": "python -I portal/orquestrador/orchestrator.py status"
+      "validacao": "python -I portal/orquestrador/orchestrator.py status",
+      "area": "aff"
     },
     {
       "id": "PA-003",
@@ -82,7 +84,8 @@
         "Usuário de uma operação não lê dados de outra",
         "Ação administrativa gera registro de auditoria"
       ],
-      "validacao": "npm run portal:test"
+      "validacao": "npm run portal:test",
+      "area": "aff"
     },
     {
       "id": "PA-004",
@@ -115,7 +118,8 @@
         "Lead entra no CRM com UTM e afiliado",
         "Conversão por webhook assinado é deduplicada"
       ],
-      "validacao": "npm run portal:test"
+      "validacao": "npm run portal:test",
+      "area": "aff"
     },
     {
       "id": "PA-010",
@@ -147,13 +151,14 @@
         "Post de uma operação não aparece em outra",
         "Editor sem blog.publish não publica"
       ],
-      "validacao": "npm run portal:test"
+      "validacao": "npm run portal:test",
+      "area": "aff"
     },
     {
       "id": "PA-011",
       "epico": "E05 Construtor, blog e mídia",
       "titulo": "Biblioteca de mídia isolada por operação",
-      "agente": "claude",
+      "agente": "codex",
       "prioridade": "media",
       "estimativa": "2h",
       "deps": [
@@ -179,13 +184,13 @@
         "Remoção registrada na auditoria"
       ],
       "validacao": "npm run portal:test",
-      "agente_original": "codex"
+      "area": "aff"
     },
     {
       "id": "PA-012",
       "epico": "E05 Construtor, blog e mídia",
       "titulo": "Domínios e subdomínios com verificação",
-      "agente": "claude",
+      "agente": "codex",
       "prioridade": "media",
       "estimativa": "2h",
       "deps": [
@@ -209,13 +214,13 @@
         "Um domínio não pode ser ligado a duas operações"
       ],
       "validacao": "npm run portal:test",
-      "agente_original": "codex"
+      "area": "aff"
     },
     {
       "id": "PA-013",
       "epico": "E05 Construtor, blog e mídia",
       "titulo": "Duplicar páginas e sites e aviso de nova versão de modelo",
-      "agente": "claude",
+      "agente": "codex",
       "prioridade": "baixa",
       "estimativa": "2h",
       "deps": [
@@ -236,7 +241,7 @@
         "Atualização de modelo nunca altera página existente sem ação do usuário"
       ],
       "validacao": "npm run portal:test",
-      "agente_original": "codex"
+      "area": "aff"
     },
     {
       "id": "PA-020",
@@ -265,7 +270,8 @@
         "CSV só traz leads da operação",
         "Afiliado não vê leads de outros afiliados"
       ],
-      "validacao": "npm run portal:test"
+      "validacao": "npm run portal:test",
+      "area": "aff"
     },
     {
       "id": "PA-021",
@@ -290,7 +296,8 @@
         "Assinatura inválida é recusada com 401",
         "Clique fora da janela não credita afiliado"
       ],
-      "validacao": "npm run portal:test"
+      "validacao": "npm run portal:test",
+      "area": "aff"
     },
     {
       "id": "PA-030",
@@ -321,7 +328,8 @@
         "Peça aprovada fica ligada a campanha ou publicação",
         "IA só aparece quando houver provedor configurado"
       ],
-      "validacao": "npm run portal:test"
+      "validacao": "npm run portal:test",
+      "area": "aff"
     },
     {
       "id": "PA-031",
@@ -350,13 +358,14 @@
         "Sem conta conectada o item fica 'aguardando conexão'",
         "Horários respeitam o fuso da operação"
       ],
-      "validacao": "npm run portal:test"
+      "validacao": "npm run portal:test",
+      "area": "aff"
     },
     {
       "id": "PA-040",
       "epico": "E08 Telegram e redes",
       "titulo": "Integração Telegram com passo a passo",
-      "agente": "claude",
+      "agente": "codex",
       "prioridade": "media",
       "estimativa": "3h",
       "deps": [
@@ -381,13 +390,13 @@
         "Sem token a integração aparece 'pendente de configuração'"
       ],
       "validacao": "npm run portal:test",
-      "agente_original": "codex"
+      "area": "aff"
     },
     {
       "id": "PA-041",
       "epico": "E08 Telegram e redes",
       "titulo": "Instagram pela Graph API oficial",
-      "agente": "claude",
+      "agente": "codex",
       "prioridade": "media",
       "estimativa": "4h",
       "deps": [
@@ -411,13 +420,13 @@
         "Nada publica sem aprovação da operação"
       ],
       "validacao": "npm run portal:test",
-      "agente_original": "codex"
+      "area": "aff"
     },
     {
       "id": "PA-050",
       "epico": "E09 Analytics, Pixel e Meta Ads",
       "titulo": "Mensuração por site: GA4, GTM, Pixel, CAPI e consentimento",
-      "agente": "claude",
+      "agente": "codex",
       "prioridade": "alta",
       "estimativa": "4h",
       "deps": [
@@ -441,13 +450,13 @@
         "Tela distingue 'ID instalado' de 'conta conectada'"
       ],
       "validacao": "npm run portal:test",
-      "agente_original": "codex"
+      "area": "aff"
     },
     {
       "id": "PA-051",
       "epico": "E09 Analytics, Pixel e Meta Ads",
       "titulo": "Meta Ads: campanhas em rascunho e pausadas",
-      "agente": "claude",
+      "agente": "codex",
       "prioridade": "media",
       "estimativa": "4h",
       "deps": [
@@ -472,7 +481,7 @@
         "Erros da API aparecem em português"
       ],
       "validacao": "npm run portal:test",
-      "agente_original": "codex"
+      "area": "aff"
     },
     {
       "id": "PA-060",
@@ -496,7 +505,8 @@
         "Lista do que falta no site deles e que podemos fazer melhor",
         "Nada copiado literalmente"
       ],
-      "validacao": "test -f portal/docs/referencia-sx.md"
+      "validacao": "test -f portal/docs/referencia-sx.md",
+      "area": "aff"
     },
     {
       "id": "PA-061",
@@ -521,7 +531,8 @@
         "Composição e navegação diferentes entre si (não só cores)",
         "Nenhuma métrica ou depoimento fictício apresentado como real"
       ],
-      "validacao": "node portal/tools/validar-modelos.mjs"
+      "validacao": "node portal/tools/validar-modelos.mjs",
+      "area": "aff"
     },
     {
       "id": "PA-062",
@@ -546,7 +557,8 @@
         "Termos seguem o nicho do modelo",
         "Conteúdo demonstrativo identificado"
       ],
-      "validacao": "node portal/tools/validar-modelos.mjs"
+      "validacao": "node portal/tools/validar-modelos.mjs",
+      "area": "aff"
     },
     {
       "id": "PA-063",
@@ -571,7 +583,8 @@
         "Cada modelo passa no validador",
         "Sem marca, imagem ou texto da SX"
       ],
-      "validacao": "node portal/tools/validar-modelos.mjs"
+      "validacao": "node portal/tools/validar-modelos.mjs",
+      "area": "aff"
     },
     {
       "id": "PA-064",
@@ -601,13 +614,14 @@
         "Nenhuma rolagem horizontal a 375px",
         "Contraste AA nos textos"
       ],
-      "validacao": "node portal/tools/validar-modelos.mjs"
+      "validacao": "node portal/tools/validar-modelos.mjs",
+      "area": "sx"
     },
     {
       "id": "PA-070",
       "epico": "E11 Comissões e relatórios",
       "titulo": "Regras de comissão versionadas e extrato",
-      "agente": "claude",
+      "agente": "codex",
       "prioridade": "alta",
       "estimativa": "5h",
       "deps": [
@@ -632,13 +646,13 @@
         "Estorno gera lançamento negativo com auditoria"
       ],
       "validacao": "npm run portal:test",
-      "agente_original": "codex"
+      "area": "aff"
     },
     {
       "id": "PA-071",
       "epico": "E11 Comissões e relatórios",
       "titulo": "Portal do afiliado",
-      "agente": "claude",
+      "agente": "codex",
       "prioridade": "media",
       "estimativa": "3h",
       "deps": [
@@ -659,7 +673,7 @@
         "Links com UTM padronizada"
       ],
       "validacao": "npm run portal:test",
-      "agente_original": "codex"
+      "area": "aff"
     },
     {
       "id": "PA-080",
@@ -683,13 +697,14 @@
         "Termos do nicho aparecem no painel e no site",
         "Nenhum arquivo duplicado da aplicação"
       ],
-      "validacao": "test -f portal/docs/validacao-outro-nicho.md"
+      "validacao": "test -f portal/docs/validacao-outro-nicho.md",
+      "area": "aff"
     },
     {
       "id": "PA-090",
       "epico": "E13 Revisão",
       "titulo": "Revisão de segurança",
-      "agente": "claude",
+      "agente": "codex",
       "prioridade": "alta",
       "estimativa": "3h",
       "deps": [
@@ -713,13 +728,13 @@
         "Testes de segurança passando"
       ],
       "validacao": "npm run portal:test",
-      "agente_original": "codex"
+      "area": "aff"
     },
     {
       "id": "PA-092",
       "epico": "E13 Revisão",
       "titulo": "Documentação de uso do portal",
-      "agente": "claude",
+      "agente": "kimi",
       "prioridade": "baixa",
       "estimativa": "2h",
       "deps": [
@@ -739,7 +754,7 @@
         "Sem prometer integração pendente"
       ],
       "validacao": "test -f portal/docs/guia-de-uso.md",
-      "agente_original": "kimi"
+      "area": "aff"
     },
     {
       "id": "PA-100",
@@ -765,7 +780,8 @@
         "kbsa.app/portal e portal.kbsa.app respondem 200",
         "Reinício do serviço preserva os dados"
       ],
-      "validacao": "curl -fsS https://portal.kbsa.app/healthz"
+      "validacao": "curl -fsS https://portal.kbsa.app/healthz",
+      "area": "aff"
     },
     {
       "id": "PA-014",
@@ -797,13 +813,14 @@
         "Post agendado anuncia só quando publica, uma vez",
         "Página do post tem canonical, Open Graph e JSON-LD Article válidos"
       ],
-      "validacao": "npm run portal:test"
+      "validacao": "npm run portal:test",
+      "area": "aff"
     },
     {
       "id": "PA-015",
       "epico": "E09 Analytics, Pixel e Meta Ads",
       "titulo": "Google Search Console e Bing Webmaster conectados",
-      "agente": "claude",
+      "agente": "codex",
       "prioridade": "media",
       "estimativa": "4h",
       "deps": [
@@ -828,7 +845,7 @@
         "Token nunca volta ao front nem ao log"
       ],
       "validacao": "npm run portal:test",
-      "agente_original": "codex"
+      "area": "aff"
     },
     {
       "id": "PA-110",
@@ -860,13 +877,14 @@
         "Tirar o acesso derruba a IA",
         "Segredos nunca voltam à tela"
       ],
-      "validacao": "npm run portal:test"
+      "validacao": "npm run portal:test",
+      "area": "aff"
     },
     {
       "id": "PA-111",
       "epico": "E07 Criativos e calendário",
       "titulo": "Rotinas automáticas de IA (notícias no blog, Instagram, YouTube)",
-      "agente": "claude",
+      "agente": "codex",
       "prioridade": "alta",
       "estimativa": "6h",
       "deps": [
@@ -895,13 +913,13 @@
         "Chave lida só do cofre no servidor; nunca em log"
       ],
       "validacao": "npm run portal:test",
-      "agente_original": "codex"
+      "area": "aff"
     },
     {
       "id": "PA-112",
       "epico": "E07 Criativos e calendário",
       "titulo": "Ferramentas MCP dos módulos (post do blog e criativo)",
-      "agente": "claude",
+      "agente": "codex",
       "prioridade": "media",
       "estimativa": "2h",
       "deps": [
@@ -924,7 +942,7 @@
         "Post criado pela IA dispara SEO só ao ser publicado por uma pessoa"
       ],
       "validacao": "npm run portal:test",
-      "agente_original": "codex"
+      "area": "aff"
     },
     {
       "id": "PA-113",
@@ -961,7 +979,8 @@
         "Editor não inicia teste",
         "Outra operação não enxerga"
       ],
-      "validacao": "npm run portal:test"
+      "validacao": "npm run portal:test",
+      "area": "aff"
     },
     {
       "id": "PA-114",
@@ -989,7 +1008,8 @@
         "Sites novos da SX nascem na paleta da SX",
         "Geral aceita todos os nichos"
       ],
-      "validacao": "npm run portal:test"
+      "validacao": "npm run portal:test",
+      "area": "aff"
     },
     {
       "id": "PA-115",
@@ -1017,7 +1037,8 @@
         "Token de serviço obrigatório",
         "Uma pesquisa por vez"
       ],
-      "validacao": "npm run portal:test"
+      "validacao": "npm run portal:test",
+      "area": "aff"
     },
     {
       "id": "PA-065",
@@ -1043,7 +1064,8 @@
         "Aparecem primeiro no assistente da edição SX",
         "Nada copiado do site da SX"
       ],
-      "validacao": "node portal/tools/validar-modelos.mjs"
+      "validacao": "node portal/tools/validar-modelos.mjs",
+      "area": "aff"
     },
     {
       "epico": "E06 CRM e atribuição",
@@ -1073,7 +1095,8 @@
         "Mesma pessoa uma vez só",
         "Clube não vê cliente de outro",
         "Edição pelo endereço"
-      ]
+      ],
+      "area": "aff"
     },
     {
       "epico": "E06 CRM e atribuição",
@@ -1081,7 +1104,7 @@
       "validacao": "npm run portal:test",
       "id": "PA-120",
       "titulo": "CRM de conversas: caixa de entrada por operação",
-      "agente": "claude",
+      "agente": "codex",
       "prioridade": "alta",
       "estimativa": "6h",
       "deps": [
@@ -1104,7 +1127,7 @@
         "Mensagem nova liga ao cliente certo pela base única",
         "Idempotência por id externo da mensagem"
       ],
-      "agente_original": "codex"
+      "area": "aff"
     },
     {
       "epico": "E06 CRM e atribuição",
@@ -1112,7 +1135,7 @@
       "validacao": "npm run portal:test",
       "id": "PA-121",
       "titulo": "Canal WhatsApp oficial (Cloud API da Meta) nas conversas",
-      "agente": "claude",
+      "agente": "codex",
       "prioridade": "alta",
       "estimativa": "5h",
       "deps": [
@@ -1136,7 +1159,7 @@
         "Fora da janela de 24 h só envia modelo aprovado",
         "Token nunca no front nem no log"
       ],
-      "agente_original": "codex"
+      "area": "aff"
     },
     {
       "epico": "E06 CRM e atribuição",
@@ -1144,7 +1167,7 @@
       "validacao": "npm run portal:test",
       "id": "PA-122",
       "titulo": "Canal Telegram nas conversas",
-      "agente": "claude",
+      "agente": "codex",
       "prioridade": "media",
       "estimativa": "3h",
       "deps": [
@@ -1162,7 +1185,7 @@
         "Cliente do Telegram ligado à base única quando houver telefone/e-mail",
         "Isolamento por operação"
       ],
-      "agente_original": "codex"
+      "area": "aff"
     },
     {
       "epico": "E06 CRM e atribuição",
@@ -1170,7 +1193,7 @@
       "validacao": "npm run portal:test",
       "id": "PA-123",
       "titulo": "Agente de IA de atendimento com base de conhecimento e passagem para humano",
-      "agente": "claude",
+      "agente": "codex",
       "prioridade": "alta",
       "estimativa": "6h",
       "deps": [
@@ -1196,7 +1219,7 @@
         "Mensagem que viola regra não é enviada",
         "Atendente assume e o agente para naquela conversa"
       ],
-      "agente_original": "codex"
+      "area": "aff"
     },
     {
       "epico": "E06 CRM e atribuição",
@@ -1204,7 +1227,7 @@
       "validacao": "npm run portal:test",
       "id": "PA-124",
       "titulo": "Automações QUANDO / SE / ENTÃO no CRM",
-      "agente": "claude",
+      "agente": "codex",
       "prioridade": "media",
       "estimativa": "4h",
       "deps": [
@@ -1226,7 +1249,7 @@
         "Rodar duas vezes não duplica ação",
         "Regra de uma operação não age em outra"
       ],
-      "agente_original": "codex"
+      "area": "aff"
     },
     {
       "epico": "E06 CRM e atribuição",
@@ -1252,7 +1275,143 @@
         "Sem rolagem horizontal a 375px",
         "Contraste AA",
         "Mesma tela com a cara de cada edição"
-      ]
+      ],
+      "area": "aff"
+    },
+    {
+      "id": "PA-130",
+      "epico": "E10 Catálogo de 25 modelos",
+      "titulo": "Mundo Encarte de ofertas e os modelos de cupons-descontos, negocio-local, tcg-colecionaveis, vitrine-generica (aff.kbsa.app)",
+      "agente": "codex",
+      "prioridade": "alta",
+      "estimativa": "6h",
+      "deps": [],
+      "status": "pronta",
+      "area": "aff",
+      "objetivo": "Criar o mundo visual 'encarte' (encarte de loja com etiquetas de preço, carimbos de oferta, grade de produtos desenhada em CSS/SVG, cupom recortável com o {{coupon}}) no mesmo nível dos 5 exemplos-régua, e reescrever neste mundo cupons-descontos, negocio-local, tcg-colecionaveis, vitrine-generica (mesmos ids e order, version + 1). Ler inteiros antes de começar: portal/docs/MUNDOS.md (contrato e régua), C:\\Users\\Administrator\\.claude\\skills\\impeccable\\reference\\craft-floor.md e os 5 exemplos-régua em C:\\Users\\Administrator\\Desktop\\match3-autoplayer-extensao-v1.1.0\\Nova pasta (2)\\Poker-crypto\\.impeccable\\mocks\\decision\\*.html (fotos em C:\\Users\\Administrator\\Desktop\\match3-autoplayer-extensao-v1.1.0\\Nova pasta (2)\\Poker-crypto\\data\\modelo-*.jpg). O Kbsa: 'não faça serviço porco só porque é serviço em volume'.",
+      "escopo": [
+        "portal/lib/worlds/encarte.mjs",
+        "portal/public/assets/worlds/encarte.css",
+        "portal/public/assets/worlds/encarte.js",
+        "portal/templates/cupons-descontos.json",
+        "portal/templates/negocio-local.json",
+        "portal/templates/tcg-colecionaveis.json",
+        "portal/templates/vitrine-generica.json"
+      ],
+      "entregaveis": [
+        "blocos encarte_* editáveis",
+        "pele encarte.css que veste também os blocos comuns",
+        "world.palettes com 3 paletas",
+        "modelos reescritos",
+        "fotos citadas"
+      ],
+      "aceite": [
+        "Cada modelo com página inicial + 3 páginas internas completas, composição diferente entre eles",
+        "Fotos de computador e celular (fotos-homes.mjs --celular --paginas) olhadas e citadas no RESULTADO, larguraCelular 390",
+        "Nada da lista de proibidos do MUNDOS.md (degradê em texto, brilho, vidro, cards iguais com ícone, emoji como ícone, fontes proibidas)",
+        "Conteúdo honesto: nada de número, depoimento ou avaliação inventados; preços e produtos marcados como exemplo",
+        "node portal/tools/validar-modelos.mjs com ✓ nos modelos da tarefa e npm run portal:test passando"
+      ],
+      "validacao": "node portal/tools/validar-modelos.mjs"
+    },
+    {
+      "id": "PA-131",
+      "epico": "E10 Catálogo de 25 modelos",
+      "titulo": "Mundo Revista do criador e os modelos de area-membros, cursos-treinamentos, eventos-inscricoes, diretorio-parceiros (aff.kbsa.app)",
+      "agente": "codex",
+      "prioridade": "alta",
+      "estimativa": "6h",
+      "deps": [],
+      "status": "pronta",
+      "area": "aff",
+      "objetivo": "Criar o mundo visual 'editorial' (revista: capa com manchete, índice, colunas, chamadas, assinatura/newsletter, serifada com personalidade + grotesca) no mesmo nível dos 5 exemplos-régua, e reescrever neste mundo area-membros, cursos-treinamentos, eventos-inscricoes, diretorio-parceiros (mesmos ids e order, version + 1). Ler inteiros antes de começar: portal/docs/MUNDOS.md (contrato e régua), C:\\Users\\Administrator\\.claude\\skills\\impeccable\\reference\\craft-floor.md e os 5 exemplos-régua em C:\\Users\\Administrator\\Desktop\\match3-autoplayer-extensao-v1.1.0\\Nova pasta (2)\\Poker-crypto\\.impeccable\\mocks\\decision\\*.html (fotos em C:\\Users\\Administrator\\Desktop\\match3-autoplayer-extensao-v1.1.0\\Nova pasta (2)\\Poker-crypto\\data\\modelo-*.jpg). O Kbsa: 'não faça serviço porco só porque é serviço em volume'.",
+      "escopo": [
+        "portal/lib/worlds/editorial.mjs",
+        "portal/public/assets/worlds/editorial.css",
+        "portal/public/assets/worlds/editorial.js",
+        "portal/templates/area-membros.json",
+        "portal/templates/cursos-treinamentos.json",
+        "portal/templates/eventos-inscricoes.json",
+        "portal/templates/diretorio-parceiros.json"
+      ],
+      "entregaveis": [
+        "blocos editorial_* editáveis",
+        "pele editorial.css que veste também os blocos comuns",
+        "world.palettes com 3 paletas",
+        "modelos reescritos",
+        "fotos citadas"
+      ],
+      "aceite": [
+        "Cada modelo com página inicial + 3 páginas internas completas, composição diferente entre eles",
+        "Fotos de computador e celular (fotos-homes.mjs --celular --paginas) olhadas e citadas no RESULTADO, larguraCelular 390",
+        "Nada da lista de proibidos do MUNDOS.md (degradê em texto, brilho, vidro, cards iguais com ícone, emoji como ícone, fontes proibidas)",
+        "Conteúdo honesto: nada de número, depoimento ou avaliação inventados; preços e produtos marcados como exemplo",
+        "node portal/tools/validar-modelos.mjs com ✓ nos modelos da tarefa e npm run portal:test passando"
+      ],
+      "validacao": "node portal/tools/validar-modelos.mjs"
+    },
+    {
+      "id": "PA-132",
+      "epico": "E10 Catálogo de 25 modelos",
+      "titulo": "Mundo Painel de produto e os modelos de saas-trial-demo, ia-ferramentas (aff.kbsa.app)",
+      "agente": "codex",
+      "prioridade": "alta",
+      "estimativa": "5h",
+      "deps": [],
+      "status": "pronta",
+      "area": "aff",
+      "objetivo": "Criar o mundo visual 'produto' (a interface do próprio produto como prova: tela desenhada em HTML/CSS, changelog, tabela de planos honesta, teste grátis {{trialUrl}}) no mesmo nível dos 5 exemplos-régua, e reescrever neste mundo saas-trial-demo, ia-ferramentas (mesmos ids e order, version + 1). Ler inteiros antes de começar: portal/docs/MUNDOS.md (contrato e régua), C:\\Users\\Administrator\\.claude\\skills\\impeccable\\reference\\craft-floor.md e os 5 exemplos-régua em C:\\Users\\Administrator\\Desktop\\match3-autoplayer-extensao-v1.1.0\\Nova pasta (2)\\Poker-crypto\\.impeccable\\mocks\\decision\\*.html (fotos em C:\\Users\\Administrator\\Desktop\\match3-autoplayer-extensao-v1.1.0\\Nova pasta (2)\\Poker-crypto\\data\\modelo-*.jpg). O Kbsa: 'não faça serviço porco só porque é serviço em volume'.",
+      "escopo": [
+        "portal/lib/worlds/produto.mjs",
+        "portal/public/assets/worlds/produto.css",
+        "portal/public/assets/worlds/produto.js",
+        "portal/templates/saas-trial-demo.json",
+        "portal/templates/ia-ferramentas.json"
+      ],
+      "entregaveis": [
+        "blocos produto_* editáveis",
+        "pele produto.css que veste também os blocos comuns",
+        "world.palettes com 3 paletas",
+        "modelos reescritos",
+        "fotos citadas"
+      ],
+      "aceite": [
+        "Cada modelo com página inicial + 3 páginas internas completas, composição diferente entre eles",
+        "Fotos de computador e celular (fotos-homes.mjs --celular --paginas) olhadas e citadas no RESULTADO, larguraCelular 390",
+        "Nada da lista de proibidos do MUNDOS.md (degradê em texto, brilho, vidro, cards iguais com ícone, emoji como ícone, fontes proibidas)",
+        "Conteúdo honesto: nada de número, depoimento ou avaliação inventados; preços e produtos marcados como exemplo",
+        "node portal/tools/validar-modelos.mjs com ✓ nos modelos da tarefa e npm run portal:test passando"
+      ],
+      "validacao": "node portal/tools/validar-modelos.mjs"
+    },
+    {
+      "id": "PA-133",
+      "epico": "E01 Fundação multi-tenant",
+      "titulo": "Painel de afiliação redesenhado do melhor jeito possível (aff.kbsa.app)",
+      "agente": "codex",
+      "prioridade": "alta",
+      "estimativa": "8h",
+      "deps": [],
+      "status": "pronta",
+      "area": "aff",
+      "objetivo": "Redesenhar o backoffice (portal/public/admin/) da edição de afiliados no nível de um produto profissional: hierarquia clara, navegação por operação, central do superadmin, construtor de páginas com prévia lado a lado, escolha de mundo visual e paleta ao criar o site e no tema (GET /api/meta já devolve worlds com palettes), estados vazios úteis, tabelas legíveis, formulários com validação, celular utilizável. Manter toda função que já existe e a edição SX funcionando com a cara dela (data-edition). Ler antes: portal/docs/ARQUITETURA.md, portal/docs/MUNDOS.md (a lista de proibidos vale aqui) e C:\\Users\\Administrator\\.claude\\skills\\impeccable\\reference\\craft-floor.md. Para fotografar o painel crie portal/tools/fotos-painel.mjs a partir de portal/tools/fotos.mjs, com portas livres (net.createServer listen 0) e banco temporário semeado; nunca use as portas 3400, 3401, 3490 ou 3491.",
+      "escopo": [
+        "portal/public/admin/",
+        "portal/tools/fotos-painel.mjs"
+      ],
+      "entregaveis": [
+        "painel redesenhado",
+        "seletor de mundo e paleta no criar site e no tema",
+        "fotos de 10 telas (computador e celular) citadas"
+      ],
+      "aceite": [
+        "Todas as telas atuais funcionam (central, nova operação, operação, site, editor, módulos, CRM, IA, SEO, insights)",
+        "Seletor de mundo e paleta funcionando no criar site e no tema",
+        "Fotos de computador e celular de 10 telas olhadas e citadas",
+        "Nada da lista de proibidos do MUNDOS.md",
+        "npm run portal:test passando"
+      ],
+      "validacao": "npm run portal:test"
     }
   ]
 }
