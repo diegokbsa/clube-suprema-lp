@@ -1,0 +1,124 @@
+"""Resumo de hora em hora do Portal no WhatsApp do Kbsa (pelo Hermes): texto curto + 1 foto do sistema + 1 foto do backoffice.
+
+Chamado pelo relatório horário do orquestrador (tarefa "Portal - Relatorio (1 h)"). Também dá para rodar à mão:
+  python -I portal/orquestrador/resumo_whatsapp.py            envia agora
+  python -I portal/orquestrador/resumo_whatsapp.py --seco     monta o texto e as fotos, mostra e não envia
+
+Destino: a conversa de WhatsApp mais recente do Kbsa com o Hermes (mesma regra do ordens.py: o id nunca é impresso).
+"""
+from __future__ import annotations
+
+import json
+import shutil
+import subprocess
+import sys
+import urllib.request
+from datetime import datetime, timedelta
+from pathlib import Path
+
+AQUI = Path(__file__).resolve().parent
+REPO = AQUI.parent.parent
+ESTADO = AQUI / "estado" / "estado.json"
+BACKLOG = AQUI / "backlog.json"
+PESQ = REPO / "portal" / "pesquisador" / "estado" / "estado.json"
+FOTOS = REPO / "portal" / "relatorios" / "fotos"
+SCRIPTS = Path(r"C:\Users\Administrator\Documents\Suprema-360\00-SYSTEM\scripts")
+SEM_JANELA = getattr(subprocess, "CREATE_NO_WINDOW", 0)
+AGENTES = {"codex": "Codex", "kimi": "Kimi", "claude-design": "Claude design", "claude": "Claude", "big": "Big"}
+
+
+def ler(p: Path, padrao):
+    try:
+        return json.loads(p.read_text(encoding="utf-8"))
+    except (FileNotFoundError, json.JSONDecodeError):
+        return padrao
+
+
+def no_ar(url: str) -> str:
+    try:
+        with urllib.request.urlopen(urllib.request.Request(url, headers={"User-Agent": "KBSA-Homelab/1.0"}), timeout=10) as r:
+            return "no ar" if r.status == 200 else f"HTTP {r.status}"
+    except Exception as e:
+        return f"fora ({type(e).__name__})"
+
+
+def texto(testes: str | None = None) -> str:
+    agora = datetime.now().astimezone()
+    estado = ler(ESTADO, {"tarefas": {}})
+    tarefas = {t["id"]: t for t in ler(BACKLOG, {"tarefas": []})["tarefas"]}
+    st = estado["tarefas"]
+    nome = lambda tid: f"{tid} {tarefas.get(tid, {}).get('titulo', '')}"[:70]  # noqa: E731
+    uma_hora = agora - timedelta(hours=1)
+    feitas = [tid for tid, s in st.items() for h in s.get("historico", [])[-5:]
+              if h.get("para") == "concluida" and datetime.fromisoformat(h["em"]) >= uma_hora]
+    andando = [tid for tid, s in st.items() if s["status"] == "em_execucao" and tid in tarefas]
+    revisao = [tid for tid, s in st.items() if s["status"] == "em_revisao" and tid in tarefas]
+    bloq = [tid for tid, s in st.items() if s["status"] == "bloqueada" and tid in tarefas]
+    concl = sum(1 for s in st.values() if s["status"] == "concluida")
+    hoje = agora.strftime("%Y-%m-%d")
+    pesq = ler(PESQ, {"totais": {}, "por_dia": {}})
+    linhas = [f"📊 *Portal · {agora:%d/%m %Hh}*", f"Tarefas concluídas: {concl} de {len(tarefas)}", ""]
+    linhas.append("✅ *Na última hora*" if feitas else "✅ Na última hora: nada concluído")
+    linhas += [f"• {nome(t)}" for t in dict.fromkeys(feitas)]
+    if andando:
+        linhas += ["", "🔧 *Em andamento*"] + [f"• {AGENTES.get(tarefas[t]['agente'], tarefas[t]['agente'])}: {nome(t)}" for t in andando]
+    if revisao:
+        linhas += ["", "🔎 *Em revisão*"] + [f"• {nome(t)}" for t in revisao]
+    if bloq:
+        linhas += ["", "⚠️ *Bloqueadas*"] + [f"• {nome(t)}: {str(st[t].get('bloqueio') or '')[:90]}" for t in bloq]
+    linhas += ["", f"🧪 Testes: {testes or 'não rodaram nesta hora'}",
+               f"💡 Insights hoje: {pesq.get('por_dia', {}).get(hoje, 0)} pesquisas · {pesq.get('totais', {}).get('insights', 0)} insights no total",
+               f"📦 Ordens hoje: {estado.get('ordens_hoje', {}).get(hoje, 0)}",
+               f"🌐 portal.kbsa.app {no_ar('https://portal.kbsa.app/healthz')} · sx.kbsa.app {no_ar('https://sx.kbsa.app/healthz')}",
+               "", "Fotos: site e painel na versão mais nova (ambiente de desenvolvimento)."]
+    return "\n".join(linhas)
+
+
+def fotos() -> dict:
+    node = shutil.which("node") or "node"
+    r = subprocess.run([node, str(REPO / "portal" / "tools" / "fotos.mjs"), str(FOTOS)], capture_output=True, text=True, encoding="utf-8", errors="replace",
+                       timeout=180, creationflags=SEM_JANELA, cwd=REPO)
+    try:
+        return json.loads((r.stdout.strip().splitlines() or ["{}"])[-1])
+    except json.JSONDecodeError:
+        return {"erro": (r.stdout + r.stderr)[-300:]}
+
+
+def destino() -> str | None:
+    sys.path.insert(0, str(SCRIPTS))
+    import ordens  # noqa: E402  (mesma regra de destino dos avisos das ordens)
+    return ordens.destino("whatsapp")
+
+
+def enviar(testes: str | None = None, seco: bool = False) -> dict:
+    corpo = texto(testes)
+    f = fotos()
+    if seco:
+        return {"texto": corpo, "fotos": f}
+    hermes = shutil.which("hermes")
+    alvo = destino()
+    if not hermes or not alvo:
+        return {"enviado": False, "motivo": "hermes fora do PATH" if not hermes else "sem conversa de WhatsApp do Kbsa no log do Hermes"}
+    res = []
+    msg1 = corpo + (f"\nMEDIA:{f['sistema']}" if f.get("sistema") else "")
+    msg2 = f"🖥️ Backoffice · {f.get('tela', '')}\nMEDIA:{f['backoffice']}" if f.get("backoffice") else None
+    for m in [msg1, msg2]:
+        if not m:
+            continue
+        r = subprocess.run([hermes, "-p", "codexlocal", "send", "-t", alvo, "-q", m], capture_output=True, text=True, encoding="utf-8", errors="replace",
+                           timeout=120, creationflags=SEM_JANELA)
+        res.append(r.returncode)
+    return {"enviado": all(c == 0 for c in res), "codigos": res, "fotos": {k: Path(v).name for k, v in f.items() if k in ("sistema", "backoffice")}, "erro_fotos": f.get("erro")}
+
+
+if __name__ == "__main__":
+    for s in (sys.stdout, sys.stderr):
+        try:
+            s.reconfigure(encoding="utf-8", errors="replace")
+        except (AttributeError, ValueError):
+            pass
+    seco = "--seco" in sys.argv
+    out = enviar(seco=seco)
+    print(out["texto"] if seco else json.dumps(out, ensure_ascii=False))
+    if seco:
+        print(json.dumps(out["fotos"], ensure_ascii=False))

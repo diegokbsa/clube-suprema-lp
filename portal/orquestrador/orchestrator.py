@@ -527,6 +527,15 @@ def relatorio() -> Path:
     gravar_json(ESTADO, estado)
     log("relatorio.gerado", arquivo=str(arq), testes_ok=ok)
     comentar_relatorio_plane(estado, "\n".join(md[:6]) + f"\n\nRelatório completo: {arq}")
+    # WhatsApp do Kbsa pelo Hermes: resumo + foto do sistema + foto do backoffice (pedido de 05/11/2026)
+    try:
+        sys.path.insert(0, str(AQUI))
+        import resumo_whatsapp  # noqa: E402
+        teste_txt = " · ".join(l.replace("ℹ ", "") for l in saida.splitlines() if any(w in l for w in ("pass", "fail"))) or ("passou" if ok else "FALHOU")
+        out = resumo_whatsapp.enviar(testes=("ok · " if ok else "FALHOU · ") + teste_txt)
+        log("whatsapp.resumo", enviado=out.get("enviado"), fotos=out.get("fotos"), erro=str(out.get("motivo") or out.get("erro_fotos") or ""))
+    except Exception as e:
+        log("whatsapp.erro", erro=repr(e)[:300])
     return arq
 
 
