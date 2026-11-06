@@ -14,6 +14,7 @@ export const INTEGRATIONS = [
   { kind: 'ga4_api', label: 'Google Analytics (relatórios)', group: 'relatorios' },
   { kind: 'instagram', label: 'Instagram (conta profissional)', group: 'redes' },
   { kind: 'telegram', label: 'Telegram (bot)', group: 'redes' },
+  { kind: 'email_smtp', label: 'E-mail do CRM (Gmail / SMTP)', group: 'crm' },
   { kind: 'meta_ads', label: 'Meta Ads (conta de anúncios)', group: 'campanhas' },
   { kind: 'webhook_conversoes', label: 'Webhook de conversões', group: 'afiliacao' },
   { kind: 'indexnow', label: 'IndexNow (Bing, Yandex, Seznam, Naver, Yep)', group: 'seo' },

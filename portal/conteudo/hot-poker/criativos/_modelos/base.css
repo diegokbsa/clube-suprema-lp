@@ -1,0 +1,167 @@
+/* Hot Poker — criativos "muro de lambe-lambe"
+   CSS comum dos três modelos (feed 1080×1350, story 1080×1920, quadrado 1080×1080).
+   Mesma linguagem da página 2-lambe-lambe.html: muro carvão, papel branco-frio, papel laranja chapado,
+   raio laranja, Anton enorme, Barlow / Barlow Condensed, letreiro HOT POKER em Archivo wdth125/900. */
+
+:root {
+  --muro: #19191b;
+  --giz: #d2d3ce;
+  --papel: #e6e7e3;
+  --papel-claro: #f3f4f0;
+  --laranja: #ef6b1b;
+  --tinta: #141414;
+  --tinta-laranja: #d4430f;
+  --laranja-escura: #a63a0c;
+
+  --rasgo-b: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='18'%3E%3Cfilter id='r' filterUnits='userSpaceOnUse' x='0' y='-30' width='320' height='80'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.03 .02' numOctaves='3' seed='4' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .5 0 1 0 0 0 0 0 0 0 0 0 0 0 0 1'/%3E%3CfeDisplacementMap in='SourceGraphic' scale='16' xChannelSelector='R' yChannelSelector='G'/%3E%3C/filter%3E%3Crect x='0' y='-30' width='320' height='39' filter='url(%23r)'/%3E%3C/svg%3E");
+  --rasgo-c: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='18'%3E%3Cfilter id='r' filterUnits='userSpaceOnUse' x='0' y='-30' width='320' height='80'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.034 .02' numOctaves='3' seed='11' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .5 0 1 0 0 0 0 0 0 0 0 0 0 0 0 1'/%3E%3CfeDisplacementMap in='SourceGraphic' scale='16' xChannelSelector='R' yChannelSelector='G'/%3E%3C/filter%3E%3Crect x='0' y='9' width='320' height='40' filter='url(%23r)'/%3E%3C/svg%3E");
+  --grao: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .5 -.2'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23g)'/%3E%3C/svg%3E");
+  --falha: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='f' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.65' numOctaves='3' seed='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1.6 -.95'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23f)'/%3E%3C/svg%3E");
+  --reboco: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='640' height='640'%3E%3Cfilter id='m' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.005' numOctaves='5' seed='9' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .32 -.13'/%3E%3C/filter%3E%3Crect width='640' height='640' filter='url(%23m)'/%3E%3C/svg%3E");
+  --areia: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='a' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' seed='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .9 -.3'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23a)'/%3E%3C/svg%3E");
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+* { margin: 0; padding: 0; }
+html, body { overflow: hidden; background: var(--muro); }
+body { -webkit-font-smoothing: antialiased; }
+
+.peca {
+  position: relative; width: 100%; height: 100%; overflow: hidden;
+  color: var(--tinta);
+  background-color: var(--muro);
+  background-image: var(--reboco), var(--areia), linear-gradient(180deg, #1c1c1f 0%, #171719 60%, #1b1b1d 100%);
+  background-size: 640px 640px, 200px 200px, 100% 100%;
+  font: 500 36px/1.28 "Barlow", sans-serif;
+}
+
+/* ---------- papéis ---------- */
+.cartaz {
+  position: absolute;
+  background-color: var(--papel);
+  background-image: var(--grao),
+    linear-gradient(103deg, transparent 0 37%, rgba(255,255,255,.28) 38.5%, transparent 40.5%),
+    linear-gradient(177deg, transparent 0 58%, rgba(0,0,0,.045) 60%, transparent 64%);
+  background-size: 180px 180px, 100% 100%, 100% 100%;
+  padding: 44px;
+  transform: rotate(var(--g, 0deg));
+}
+.cartaz.laranja {
+  background-color: var(--laranja);
+  background-image: var(--grao),
+    linear-gradient(98deg, transparent 0 55%, rgba(255,255,255,.16) 56.5%, transparent 58.5%),
+    linear-gradient(183deg, transparent 0 30%, rgba(0,0,0,.05) 32%, transparent 36%);
+  background-size: 180px 180px, 100% 100%, 100% 100%;
+}
+.cartaz.preto, .chapa {
+  background-color: var(--tinta);
+  background-image: var(--falha);
+  background-size: 220px 220px;
+  color: var(--papel);
+}
+.chapa { padding: 40px 44px; position: relative; }
+
+/* bordas rasgadas (a tira do site, ampliada para a escala do post) */
+.rb { -webkit-mask: var(--rasgo-b) var(--rx, 0px) 100% / 560px 30px repeat-x, linear-gradient(#000 0 0) 0 0 / 100% calc(100% - 27px) no-repeat; }
+.rc { -webkit-mask: var(--rasgo-c) var(--rx, 0px) 0 / 560px 30px repeat-x, linear-gradient(#000 0 0) 0 100% / 100% calc(100% - 27px) no-repeat; }
+.ra { -webkit-mask: var(--rasgo-c) var(--rx, 0px) 0 / 560px 30px repeat-x, var(--rasgo-b) var(--rx2, 200px) 100% / 560px 30px repeat-x, linear-gradient(#000 0 0) 0 50% / 100% calc(100% - 54px) no-repeat; }
+
+/* restos de cartazes velhos no muro */
+.resto { position: absolute; background: #29292c; opacity: .6; transform: rotate(var(--g, 0deg)); }
+
+/* raio impresso */
+.raio { position: absolute; pointer-events: none; }
+.em { position: relative; z-index: 2; }
+
+/* ---------- tipos ---------- */
+.an { font-family: "Anton", sans-serif; font-weight: 400; text-transform: uppercase; line-height: .92; letter-spacing: .005em; }
+.le { font-family: "Archivo", sans-serif; font-weight: 900; font-stretch: 125%; font-variation-settings: "wdth" 125; text-transform: uppercase; }
+.co { font-family: "Barlow Condensed", sans-serif; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; line-height: 1.05; }
+.tx { font: 500 36px/1.28 "Barlow", sans-serif; }
+.tx b { font-weight: 700; }
+.min { text-transform: none; }
+.lj { color: var(--tinta-laranja); }
+.lc { color: var(--laranja); }
+.pa { color: var(--papel); }
+.gz { color: var(--giz); }
+.ti { color: var(--tinta); }
+.nw { white-space: nowrap; }
+
+/* marca pequena: chama + HOT POKER */
+.marca { display: inline-flex; align-items: flex-end; gap: .28em; line-height: .8; white-space: nowrap; }
+.marca svg { width: .82em; height: 1.1em; flex: none; }
+/* trava grande: HOT + chama / POKER */
+.trava { display: grid; grid-template-columns: auto auto; grid-template-areas: "hot chama" "poker poker"; justify-content: start; align-items: end; line-height: .84; letter-spacing: -.005em; }
+.trava .t1 { grid-area: hot; }
+.trava .t2 { grid-area: poker; }
+.trava svg { grid-area: chama; width: .98em; height: 1.32em; margin-left: .42em; margin-bottom: .02em; }
+
+/* selo +18 */
+.selo18 { display: inline-grid; place-items: center; flex: none; border-radius: 50%; border: 4px solid currentColor; font: 400 30px/1 "Anton", sans-serif; width: 74px; height: 74px; }
+
+/* carimbo EXEMPLO */
+.carimbo {
+  position: absolute; transform: rotate(var(--g, -7deg));
+  border: 6px solid var(--tinta-laranja); color: var(--tinta-laranja);
+  padding: .1em .38em .04em; font: 400 64px/1 "Anton", sans-serif; text-transform: uppercase; letter-spacing: .08em;
+  -webkit-mask: var(--falha) 0 0 / 160px 160px, linear-gradient(#000 0 0); -webkit-mask-composite: xor;
+}
+
+/* ---------- cartas ---------- */
+.mao { display: inline-flex; gap: calc(var(--c, 100px) * .12); vertical-align: middle; }
+.carta {
+  display: inline-flex; flex-direction: column; align-items: center; justify-content: center; flex: none;
+  width: var(--c, 100px); height: calc(var(--c, 100px) * 1.38);
+  background: #f7f7f3; color: var(--tinta);
+  border: max(3px, calc(var(--c, 100px) * .045)) solid var(--tinta);
+  border-radius: calc(var(--c, 100px) * .11);
+  line-height: 1;
+}
+.carta b { font: 400 calc(var(--c, 100px) * .54)/1 "Anton", sans-serif; letter-spacing: -.02em; }
+.carta i { font-style: normal; font-family: "Segoe UI Symbol", "Segoe UI", sans-serif; font-size: calc(var(--c, 100px) * .42); margin-top: calc(var(--c, 100px) * .02); }
+.carta.v { color: var(--tinta-laranja); }
+.carta.costas { background: var(--laranja); background-image: repeating-linear-gradient(45deg, rgba(20,20,20,.28) 0 6px, transparent 6px 16px); }
+.carta.marcada { outline: calc(var(--c, 100px) * .07) solid var(--laranja); outline-offset: calc(var(--c, 100px) * .05); }
+
+/* lista com fios grossos (cartaz de serviço) */
+.lista { list-style: none; border-top: 5px solid currentColor; }
+.lista > li { border-bottom: 3px solid currentColor; }
+.lista > li:last-child { border-bottom-width: 5px; }
+
+/* regras com traço laranja */
+.regras { list-style: none; display: grid; gap: 26px; }
+.regras li { position: relative; padding-left: 52px; }
+.regras li::before { content: ""; position: absolute; left: 0; top: .6em; width: 30px; height: 8px; background: var(--laranja); }
+
+/* ícones de traço */
+.ico { fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+
+/* tirinhas de arrancar */
+.tiras { position: absolute; display: grid; gap: 4px; list-style: none; }
+.tiras li {
+  position: relative; display: flex; align-items: center; justify-content: center;
+  background-color: var(--papel); background-image: var(--grao); background-size: 180px 180px;
+}
+.tiras li span { writing-mode: vertical-rl; transform: rotate(180deg); white-space: nowrap; display: flex; flex-direction: column; align-items: center; gap: 6px; }
+
+/* ---------- rodapé (+18 · Jogue com responsabilidade · hotpoker.club) ---------- */
+.rod { isolation: isolate; position: absolute; left: 44px; right: 44px; display: grid; grid-template-columns: auto 1fr; align-items: end; gap: 10px 28px; }
+.rod .marca { font-size: 40px; }
+.rod .url { justify-self: end; font: 400 58px/.9 "Anton", sans-serif; letter-spacing: .01em; }
+.rod .linha18 { grid-column: 1 / -1; display: flex; align-items: center; gap: 16px; font: 700 31px/1.1 "Barlow Condensed", sans-serif; text-transform: uppercase; letter-spacing: .04em; }
+.rod .linha18 .selo18 { width: 58px; height: 58px; font-size: 23px; border-width: 3.5px; }
+.rod .linha18 .num { margin-left: auto; white-space: nowrap; }
+.rod-muro { color: var(--giz); }
+.rod-muro .url { color: var(--laranja); }
+.rod-muro .linha18 { border-top: 3px solid #4a4a4e; padding-top: 16px; }
+.rod-papel, .rod-laranja { padding: 46px 40px 30px; }
+.rod-papel { color: var(--tinta); }
+.rod-papel .url { color: var(--tinta-laranja); }
+.rod-papel .linha18, .rod-laranja .linha18 { border-top: 3px solid var(--tinta); padding-top: 14px; }
+.rod-laranja { color: var(--tinta); }
+.rod-fundo { position: absolute; inset: 0; z-index: -1; }
+
+/* carta com o valor no canto (para leques, onde as cartas se sobrepõem) */
+.carta.canto { justify-content: flex-start; align-items: flex-start; padding: calc(var(--c, 100px) * .06) calc(var(--c, 100px) * .1); }
+.carta.canto b { font-size: calc(var(--c, 100px) * .4); }
+.carta.canto i { font-size: calc(var(--c, 100px) * .32); margin-top: 0; }

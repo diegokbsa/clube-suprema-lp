@@ -665,10 +665,39 @@ async function viewAfiliados(r) {
 }
 
 // ---------- integrações ----------
+// E-mail do CRM (Gmail com senha de app) e Telegram (bot + canal): o dono liga e testa daqui. Segredos só entram; nunca voltam.
+function cartoesCrm(em, tg, podeGravar) {
+  const pill = (e, label) => `<span class="pill ${e === 'conectado' || e === 'ativo' ? 'ok' : e === 'erro' ? 'bad' : 'warn'}"><span class="dot"></span>${esc(label)}</span>`;
+  const dis = podeGravar ? '' : 'disabled';
+  const emCard = em ? `<div class="card" id="card-email"><div class="card-head"><h2>E-mail do CRM</h2>${pill(em.estado, em.estadoLabel)}</div>
+    <p class="muted">Manda o passo a passo para cada cadastro do site e os e-mails avulsos do CRM. ${esc(em.ajuda)}</p>
+    ${em.lastError ? `<p class="err">${esc(em.lastError)}</p>` : ''}
+    <div class="row" style="flex-wrap:wrap;gap:10px">
+      <label class="field" style="min-width:240px">E-mail da conta<input id="em-rem" type="email" value="${esc(em.config.remetente || '')}" placeholder="clube@gmail.com" ${dis}></label>
+      <label class="field" style="min-width:200px">Nome do remetente<input id="em-nome" value="${esc(em.config.nomeRemetente || '')}" placeholder="Hot Poker" ${dis}></label>
+      <label class="field" style="min-width:220px">Senha de app (16 letras)<input id="em-senha" type="password" autocomplete="new-password" placeholder="${em.temSenha ? 'gravada · deixe vazio para manter' : 'cole aqui'}" ${dis}></label>
+    </div>
+    <div class="row" style="gap:8px;margin-top:10px"><button class="btn primary" type="button" id="em-gravar" ${dis}>Gravar</button>
+      <input id="em-para" type="email" placeholder="mandar teste para…" style="max-width:240px" ${dis}><button class="btn" type="button" id="em-teste" ${dis}>Testar</button></div>
+    <details style="margin-top:12px"><summary>Prévia do e-mail de boas-vindas</summary><p><strong>${esc(em.boasVindas.previa.assunto)}</strong></p><pre style="white-space:pre-wrap;font:inherit" class="muted">${esc(em.boasVindas.previa.texto)}</pre></details></div>` : '';
+  const tgCard = tg ? `<div class="card" id="card-telegram"><div class="card-head"><h2>Telegram</h2>${pill(tg.estado, tg.estadoLabel)}</div>
+    <p class="muted">${esc(tg.ajuda)} O bot responde ${tg.comandos.map(esc).join(', ')} no privado, e o calendário publica no canal.</p>
+    ${tg.lastError ? `<p class="err">${esc(tg.lastError)}</p>` : ''}
+    <div class="row" style="flex-wrap:wrap;gap:10px">
+      <label class="field" style="min-width:220px">Canal<input id="tg-canal" value="${esc(tg.config.canal || '')}" placeholder="@hotpoker" ${dis}></label>
+      <label class="field" style="min-width:200px">Usuário do bot<input id="tg-bot" value="${esc(tg.config.botUsuario || '')}" placeholder="@hotpoker_bot" ${dis}></label>
+      <label class="field" style="min-width:260px">Token do bot<input id="tg-token" type="password" autocomplete="off" placeholder="${tg.temToken ? 'gravado · deixe vazio para manter' : 'cole o token do @BotFather'}" ${dis}></label>
+    </div>
+    <div class="row" style="gap:8px;margin-top:10px"><button class="btn primary" type="button" id="tg-gravar" ${dis}>Gravar</button><button class="btn" type="button" id="tg-teste" ${dis}>Testar</button></div></div>` : '';
+  return emCard + tgCard;
+}
+
 async function viewIntegracoes(r) {
   const d = await api('GET', `/api/t/${S.tenant.slug}/integrations`);
+  const [em, tg] = await Promise.all([api('GET', `/api/t/${S.tenant.slug}/email`).catch(() => null), api('GET', `/api/t/${S.tenant.slug}/telegram`).catch(() => null)]);
   const groups = { seo: 'SEO e buscadores', mensuracao: 'Mensuração no site', relatorios: 'Relatórios', redes: 'Redes sociais', campanhas: 'Campanhas', afiliacao: 'Afiliação' };
   const main = layout(r, `<div class="page-head"><div><h1>Integrações</h1><p>Estado real de cada conexão. Nada aparece como conectado sem estar.</p></div></div>
+    ${cartoesCrm(em, tg, can('integrations.manage'))}
     ${Object.entries(groups).map(([g, label]) => {
       const items = d.integrations.filter((i) => i.group === g);
       return items.length ? `<div class="card"><div class="card-head"><h2>${esc(label)}</h2></div><div class="table-wrap"><table><tbody>${items.map((i) => `<tr><td style="width:40%"><strong>${esc(i.label)}</strong>${i.lastError ? `<div class="err">${esc(i.lastError)}</div>` : ''}</td><td>${statusPill(i.status)}</td>
@@ -676,6 +705,25 @@ async function viewIntegracoes(r) {
           : i.status === 'pendente' ? (['ga4', 'gtm', 'meta_pixel'].includes(i.kind) ? 'Instale o ID em Sites → Aparência, SEO e mensuração.' : 'Aguardando o módulo desta integração e as credenciais da operação.') : esc(JSON.stringify(i.config))}</td></tr>`).join('')}</tbody></table></div></div>` : '';
     }).join('')}`);
   $$('[data-copy]', main).forEach((b) => b.addEventListener('click', async () => { await navigator.clipboard.writeText(b.dataset.copy); toast('Copiado.'); }));
+  const acao = (id, fn) => $(id)?.addEventListener('click', async (e) => {
+    const b = e.currentTarget; b.disabled = true;
+    try { await fn(); } catch (err) { toast(err.message, true); } finally { b.disabled = false; }
+  });
+  acao('#em-gravar', async () => {
+    const body = { remetente: $('#em-rem').value.trim(), nomeRemetente: $('#em-nome').value.trim() };
+    if ($('#em-senha').value) body.senha = $('#em-senha').value;
+    await api('PUT', `/api/t/${S.tenant.slug}/email`, body); toast('E-mail gravado. Agora use Testar.'); route();
+  });
+  acao('#em-teste', async () => {
+    const res = await api('POST', `/api/t/${S.tenant.slug}/email/teste`, { para: $('#em-para').value.trim() || $('#em-rem').value.trim() });
+    toast(res.mensagem || res.message || 'Teste enviado. Confira a caixa de entrada.'); route();
+  });
+  acao('#tg-gravar', async () => {
+    const body = { canal: $('#tg-canal').value.trim(), botUsuario: $('#tg-bot').value.trim() };
+    if ($('#tg-token').value) body.token = $('#tg-token').value.trim();
+    await api('PUT', `/api/t/${S.tenant.slug}/telegram`, body); toast('Telegram gravado. Agora use Testar.'); route();
+  });
+  acao('#tg-teste', async () => { const res = await api('POST', `/api/t/${S.tenant.slug}/telegram/teste`); toast(res.mensagem || res.message || 'Bot e canal conferidos.'); route(); });
   $('#rotate')?.addEventListener('click', async () => {
     if (!confirm('Gerar um novo segredo? O antigo para de valer na hora.')) return;
     const res = await api('POST', `/api/t/${S.tenant.slug}/webhook/rotate`);

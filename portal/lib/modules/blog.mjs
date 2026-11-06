@@ -60,7 +60,7 @@ function postOut(row, suggestions = [], siteName = '') {
   };
 }
 
-function publishedData(row, dateModified = now()) {
+export function publishedData(row, dateModified = now()) {
   const previous = parse(row.published_data, null);
   return {
     title: row.title, slug: row.slug, excerpt: row.excerpt, content: row.content, category: row.category,
@@ -143,8 +143,30 @@ function postResponse(repo, row) {
   return postOut(row, suggestions, site?.name || '');
 }
 
-function htmlText(value) {
-  return String(value || '').split(/\n{2,}/).map((part) => `<p>${esc(part.replace(/\n/g, ' '))}</p>`).join('');
+/** Texto do post em HTML seguro. Aceita um markdown curto: "## " e "### " (títulos), listas "- " e "1. ", **negrito**
+ *  e [texto](/caminho | https://...). Tudo o mais é escapado; post antigo sem markdown continua saindo em parágrafos. */
+export function htmlText(value) {
+  const inline = (s) => esc(s)
+    .replace(/\*\*([^*]+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\[([^\]]+?)\]\(([^)\s]+?)\)/g, (m, txt, href) => {
+      const h = href.replace(/&amp;/g, '&');
+      const ok = (h.startsWith('/') && !h.startsWith('//')) || h.startsWith('#') || /^https:\/\/[^\s"'<>]+$/i.test(h);
+      if (!ok) return txt;
+      const fora = /^https:/i.test(h);
+      return `<a href="${esc(h)}"${fora ? ' rel="noopener" target="_blank"' : ''}>${txt}</a>`;
+    });
+  const out = [];
+  for (const bloco of String(value || '').replace(/\r/g, '').split(/\n{2,}/)) {
+    const linhas = bloco.split('\n').map((l) => l.trimEnd()).filter((l) => l.trim());
+    if (!linhas.length) continue;
+    const t = /^(#{2,3})\s+(.+)$/.exec(linhas[0].trim());
+    if (t && linhas.length === 1) { const n = t[1].length; out.push(`<h${n}>${inline(t[2])}</h${n}>`); continue; }
+    if (linhas.every((l) => /^\s*[-*]\s+/.test(l))) { out.push(`<ul>${linhas.map((l) => `<li>${inline(l.replace(/^\s*[-*]\s+/, ''))}</li>`).join('')}</ul>`); continue; }
+    if (linhas.every((l) => /^\s*\d+[.)]\s+/.test(l))) { out.push(`<ol>${linhas.map((l) => `<li>${inline(l.replace(/^\s*\d+[.)]\s+/, ''))}</li>`).join('')}</ol>`); continue; }
+    if (t) { const n = t[1].length; out.push(`<h${n}>${inline(t[2])}</h${n}>`, `<p>${inline(linhas.slice(1).join(' '))}</p>`); continue; }
+    out.push(`<p>${inline(linhas.join(' '))}</p>`);
+  }
+  return out.join('');
 }
 
 function absoluteSiteUrl(origin, base, path) {
@@ -206,7 +228,10 @@ function head({ site, origin, base, title, description, canonical, image, struct
       .blog-card{overflow:hidden;border:1px solid var(--border);border-radius:var(--radius);background:var(--surface)}.blog-card img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover}
       .blog-card-body{padding:18px}.blog-card h2{font:650 1.3rem/1.25 var(--font-head,var(--font));margin:6px 0 8px}.blog-card h2 a{color:var(--text);text-decoration:none}.blog-card p{color:var(--muted);margin:0 0 12px}
       .blog-meta{font-size:.87rem}.blog-article{max-width:760px;margin:50px auto 0}.blog-cover{display:block;width:100%;max-height:440px;object-fit:cover;border-radius:var(--radius);margin:28px 0}
-      .blog-content{font-size:1.08rem;line-height:1.85}.blog-content p{margin:0 0 1.3em}.blog-back{display:inline-block;margin-top:24px;color:var(--primary);font-weight:650;text-decoration:none}
+      .blog-content{font-size:1.08rem;line-height:1.85}.blog-content p{margin:0 0 1.3em}
+      .blog-content h2{font:700 clamp(1.45rem,3vw,1.9rem)/1.2 var(--font-head,var(--font));margin:1.9em 0 .55em}.blog-content h3{font:650 1.2rem/1.3 var(--font-head,var(--font));margin:1.5em 0 .45em}
+      .blog-content ul,.blog-content ol{margin:0 0 1.3em;padding-left:1.3em}.blog-content li{margin:.3em 0}.blog-content a{color:var(--primary);text-underline-offset:.2em}
+      .blog-content strong{color:var(--text)}.blog-back{display:inline-block;margin-top:24px;color:var(--primary);font-weight:650;text-decoration:none}
       .blog-related{margin:34px 0 0;padding-top:20px;border-top:1px solid var(--border)}.blog-related h2{font:650 1.3rem/1.25 var(--font-head,var(--font));margin:0 0 12px}.blog-related ul{padding-left:20px}.blog-related li{margin:10px 0}.blog-related a{color:var(--primary);font-weight:650}.blog-related p{margin:3px 0;color:var(--muted)}
       .blog-tags{display:flex;gap:7px;flex-wrap:wrap;margin:12px 0}.blog-tags span{border:1px solid var(--border);border-radius:999px;padding:2px 9px;color:var(--muted);font-size:.8rem}
       @media(max-width:600px){.blog-wrap{padding-top:26px}.blog-intro{margin:34px auto 22px}.blog-article{margin-top:34px}}
