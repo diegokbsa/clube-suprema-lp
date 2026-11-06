@@ -259,7 +259,7 @@
           "props": {
             "variant": "papel",
             "title": "Um guia por vez, direto no seu e-mail.",
-            "text": "**+18** · Conteúdo educativo · Jogue com responsabilidade",
+            "text": "Conteúdo educativo, sem promessa de ganho. Para sair da lista, é só pedir.",
             "cta": "Receber os guias",
             "ctaHref": "#ingresso"
           }
@@ -330,7 +330,7 @@
           "type": "ingresso_cabecalho",
           "props": {
             "variant": "bilhete",
-            "serie": "Guia G-01 · leitura de 8 min",
+            "serie": "Comece aqui · guia para quem nunca jogou",
             "code": "G-01",
             "title": "Poker online do zero: o caminho até a primeira mesa.",
             "text": "Para quem nunca jogou online. No fim deste guia você sabe **o que baixar, como entrar no clube, como comprar fichas** e o mínimo de regra para sentar na mesa.",
@@ -460,7 +460,7 @@
           "props": {
             "variant": "contorno",
             "title": "Próxima leitura: o glossário.",
-            "text": "Os termos da mesa em uma linha cada. **+18** · Jogue com responsabilidade.",
+            "text": "Os termos da mesa em uma linha cada, em ordem alfabética.",
             "cta": "Abrir o glossário",
             "ctaHref": "/glossario",
             "secondary": "Jogo responsável",
@@ -687,7 +687,7 @@
           "props": {
             "variant": "contorno",
             "title": "Entendeu os termos? Hora do guia do zero.",
-            "text": "**+18** · Jogue com responsabilidade.",
+            "text": "O guia G-01 junta tudo: app, link do clube, ID e a primeira compra de fichas.",
             "cta": "Ler o guia do zero",
             "ctaHref": "/comece-aqui"
           }
@@ -758,7 +758,7 @@
           "type": "ingresso_cabecalho",
           "props": {
             "variant": "bilhete",
-            "serie": "Guia G-03 · leitura de 4 min",
+            "serie": "Jogo responsável · guia sem sermão",
             "code": "G-03",
             "title": "Jogo responsável, explicado sem sermão.",
             "text": "Poker pode ser um passatempo bom. Para continuar assim, vale combinar algumas coisas com você mesmo **antes** de sentar na mesa.",
@@ -768,8 +768,8 @@
                 "value": "4 min"
               },
               {
-                "label": "Idade mínima",
-                "value": "18 anos"
+                "label": "Sinais",
+                "value": "6 de alerta"
               },
               {
                 "label": "Ajuda",

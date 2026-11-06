@@ -365,7 +365,7 @@
           "props": {
             "variant": "papel",
             "title": "Um cadastro só. Você já entra no clube.",
-            "text": "**Clube {{number}} · Agente {{agentId}}** · +18 · Jogue com responsabilidade",
+            "text": "**Clube {{number}} · Agente {{agentId}}** já impressos no ingresso. Só falta o seu e-mail.",
             "cta": "Quero jogar",
             "ctaHref": "#ingresso"
           }
@@ -575,7 +575,7 @@
           "props": {
             "variant": "contorno",
             "title": "Pronto para o passo 1?",
-            "text": "Pegue o ingresso na página inicial: leva 10 segundos. **+18** · Jogue com responsabilidade.",
+            "text": "Pegue o ingresso na página inicial: leva 10 segundos e não pede senha nem documento.",
             "cta": "Pegar meu ingresso",
             "ctaHref": "/#ingresso",
             "secondary": "Ainda tenho dúvidas",
@@ -828,8 +828,8 @@
             "text": "Poker é jogo. Pode ser divertido, e pode sair do controle. Esta página fica aqui, e não escondida no rodapé, porque isso importa.",
             "campos": [
               {
-                "label": "Idade mínima",
-                "value": "18 anos"
+                "label": "Limite",
+                "value": "Antes de jogar"
               },
               {
                 "label": "Ajuda",

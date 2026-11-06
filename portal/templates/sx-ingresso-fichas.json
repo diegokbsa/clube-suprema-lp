@@ -57,7 +57,7 @@
                 "vivo": false
               }
             ],
-            "cta": "Abrir canal de fichas",
+            "cta": "Comprar fichas",
             "ctaHref": "{{chipsUrl}}"
           }
         },
@@ -279,7 +279,7 @@
           "props": {
             "variant": "papel",
             "title": "Precisa de fichas agora?",
-            "text": "Abra o canal oficial com o seu ID de jogador em mãos. **Clube {{number}} · Agente {{agentId}}** · +18",
+            "text": "Abra o canal oficial com o seu ID de jogador em mãos e informe **Clube {{number}} · Agente {{agentId}}**.",
             "cta": "Abrir o canal de fichas",
             "ctaHref": "{{chipsUrl}}"
           }
@@ -346,7 +346,7 @@
                 "vivo": false
               }
             ],
-            "cta": "Abrir canal de fichas",
+            "cta": "Comprar fichas",
             "ctaHref": "{{chipsUrl}}"
           }
         },
@@ -453,7 +453,7 @@
           "props": {
             "variant": "papel",
             "title": "ID copiado? Abra o canal.",
-            "text": "**Clube {{number}} · Agente {{agentId}}** · +18 · Jogue com responsabilidade",
+            "text": "Informe o seu ID, **Clube {{number}} · Agente {{agentId}}**, e pague só na chave passada dentro do canal.",
             "cta": "Abrir o canal de fichas",
             "ctaHref": "{{chipsUrl}}"
           }
@@ -520,7 +520,7 @@
                 "vivo": false
               }
             ],
-            "cta": "Abrir canal de fichas",
+            "cta": "Comprar fichas",
             "ctaHref": "{{chipsUrl}}"
           }
         },
@@ -713,7 +713,7 @@
                 "vivo": false
               }
             ],
-            "cta": "Abrir canal de fichas",
+            "cta": "Comprar fichas",
             "ctaHref": "{{chipsUrl}}"
           }
         },
@@ -784,7 +784,7 @@
             "whatsapp": "{{whatsapp}}",
             "telegram": "{{telegram}}",
             "email": "{{email}}",
-            "hours": "Atendimento todos os dias · +18"
+            "hours": "Atendimento todos os dias pelo canal oficial"
           }
         },
         {
@@ -792,7 +792,7 @@
           "props": {
             "variant": "contorno",
             "title": "Resolveu? Volte para a mesa.",
-            "text": "**+18** · Jogue com responsabilidade.",
+            "text": "Se a dúvida voltar, o suporte está no mesmo canal. Mande o seu **ID de jogador** na primeira mensagem.",
             "cta": "Abrir o canal de fichas",
             "ctaHref": "{{chipsUrl}}",
             "secondary": "Falar no WhatsApp",

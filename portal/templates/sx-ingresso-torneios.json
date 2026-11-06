@@ -297,7 +297,7 @@
           "props": {
             "variant": "contorno",
             "title": "Receba a grade e escolha o seu horário.",
-            "text": "**Clube {{number}} · Agente {{agentId}}** · +18 · Jogue com responsabilidade",
+            "text": "**Clube {{number}} · Agente {{agentId}}** já impressos no bilhete. Só falta o seu e-mail.",
             "cta": "Quero a grade",
             "ctaHref": "#ingresso",
             "secondary": "Regras dos torneios",
@@ -568,7 +568,7 @@
           "props": {
             "variant": "papel",
             "title": "Escolheu o torneio? Abra o app.",
-            "text": "Tenha fichas na conta antes do fim do registro. **+18** · Jogue com responsabilidade.",
+            "text": "Tenha fichas na conta antes do fim do registro: a inscrição é feita dentro do app.",
             "cta": "Abrir o app pelo link",
             "ctaHref": "{{inviteLink}}"
           }
@@ -766,7 +766,7 @@
           "props": {
             "variant": "contorno",
             "title": "Formato escolhido? Veja a grade.",
-            "text": "**+18** · Jogue com responsabilidade.",
+            "text": "A grade mostra o formato de cada torneio ao lado do horário.",
             "cta": "Ver a grade da semana",
             "ctaHref": "/grade",
             "secondary": "Regras dos torneios",
@@ -851,8 +851,8 @@
                 "value": "Brasília"
               },
               {
-                "label": "Idade mínima",
-                "value": "18 anos"
+                "label": "Registro",
+                "value": "Pelo app"
               },
               {
                 "label": "Contas",

@@ -271,7 +271,7 @@
           "props": {
             "variant": "contorno",
             "title": "Um convite, e você está na rede.",
-            "text": "**Clube {{number}} · Agente {{agentId}}** · +18 · Jogue com responsabilidade",
+            "text": "**Clube {{number}} · Agente {{agentId}}** já impressos no convite. Só falta o seu e-mail.",
             "cta": "Pegar meu convite",
             "ctaHref": "#ingresso",
             "secondary": "Ver os clubes da rede",
@@ -442,7 +442,7 @@
           "type": "notice",
           "props": {
             "variant": "discreto",
-            "text": "Nomes e descrições dos clubes desta página são exemplos: a rede publica a lista real com o ID de cada clube. Somente maiores de 18 anos. Jogue com responsabilidade."
+            "text": "Nomes e descrições dos clubes desta página são exemplos: a rede publica a lista real com o ID de cada clube."
           }
         },
         {
@@ -584,7 +584,7 @@
             "whatsapp": "{{whatsapp}}",
             "telegram": "{{telegram}}",
             "email": "{{email}}",
-            "hours": "Atendimento todos os dias · +18"
+            "hours": "Atendimento todos os dias, para todos os clubes da rede"
           }
         },
         {
@@ -592,7 +592,7 @@
           "props": {
             "variant": "papel",
             "title": "Estrutura de grupo, mesa de clube.",
-            "text": "**+18** · Jogue com responsabilidade.",
+            "text": "O convite leva você ao clube {{number}} com o atendimento e o canal de fichas da rede.",
             "cta": "Pegar meu convite",
             "ctaHref": "/#ingresso"
           }

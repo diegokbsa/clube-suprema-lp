@@ -139,8 +139,7 @@ export const blocks = {
           <button class="ing-btn" type="submit">${esc(p.button || 'Quero jogar')} ${SETA}</button></div>
           <label class="ing-aceite"><input type="checkbox" name="consent" value="1" required><span>${esc(consent)}</span></label>
           <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
-          <p class="form-msg" role="status" aria-live="polite"></p>
-          ${p.help ? `<p class="ing-ajuda" id="${u}-ajuda">${rich(p.help)}</p>` : ''}
+          <div class="ing-form-pe"><p class="form-msg" role="status" aria-live="polite"></p>${p.help ? `<p class="ing-ajuda" id="${u}-ajuda">${rich(p.help)}</p>` : ''}</div>
         </form>`;
       const proximo = `<div class="ing-proximo" data-proximo hidden>
           <h2 tabindex="-1">${rich(p.nextTitle || 'Canhoto destacado. Agora, o passo 2.')}</h2>
@@ -154,7 +153,7 @@ export const blocks = {
           ${list(p.stubFields).map((x) => `<div class="ing-cc"><span class="ing-rot">${esc(x.label)}</span>${val(x.value)}</div>`).join('')}
           <div class="ing-titular"><span class="ing-rot">${esc(p.holderLabel || 'Titular')}</span><span class="ing-val" data-titular data-vazio="${esc(p.holderEmpty || 'seu e-mail aqui')}">${esc(p.holderEmpty || 'seu e-mail aqui')}</span></div>
           <div class="ing-barras-box">${barras(p.code)}${p.code ? `<span class="ing-codigo" aria-hidden="true">${esc(p.code)}</span>` : ''}</div>
-          <div class="ing-tesoura">${TESOURA}<span data-tesoura data-antes="${esc(p.cut || 'Destaca no picote ao enviar')}" data-depois="${esc(p.cutDone || 'Destacado. Guarde o canhoto.')}">${esc(p.cut || 'Destaca no picote ao enviar')}</span></div>
+          <div class="ing-tesoura">${TESOURA}<span class="ing-tesoura-t"><span data-tesoura-antes>${esc(p.cut || 'Destaca no picote ao enviar')}</span><span data-tesoura-depois>${esc(p.cutDone || 'Destacado. Guarde o canhoto.')}</span></span></div>
           ${carimbo(p.stamp, p.stampSub)}
         </aside>`;
       return `<section class="b ing-palco v-${v}"><div class="wrap">

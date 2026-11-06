@@ -252,7 +252,7 @@
           "props": {
             "variant": "papel",
             "title": "Sua credencial está a um formulário.",
-            "text": "**+18** · Sem promessa de ganho · Condições por escrito",
+            "text": "Link próprio, materiais prontos e condições **por escrito**. Sem promessa de ganho.",
             "cta": "Quero meu link",
             "ctaHref": "#ingresso"
           }
@@ -345,7 +345,7 @@
                 "value": "Do clube"
               }
             ],
-            "miudas": "**+18** · Sem promessa de ganho"
+            "miudas": "**+18** · Sem promessa de ganho · **Jogue com responsabilidade**"
           }
         },
         {
@@ -418,7 +418,7 @@
           "props": {
             "variant": "contorno",
             "title": "Qual é o seu nível?",
-            "text": "A gente descobre junto, na conversa. **+18** · Sem promessa de ganho.",
+            "text": "A gente descobre junto, na conversa. Mudar de nível depois é só combinar.",
             "cta": "Quero meu link",
             "ctaHref": "/#ingresso",
             "secondary": "Ver as regras de divulgação",
@@ -610,7 +610,7 @@
             "telegram": "{{telegram}}",
             "instagram": "{{instagram}}",
             "email": "{{email}}",
-            "hours": "Resposta em horário comercial · +18"
+            "hours": "Resposta em horário comercial"
           }
         },
         {
@@ -683,8 +683,8 @@
             "text": "Valem para todo divulgador, em todo canal. Quem não segue perde a credencial. Elas também evitam que o seu perfil seja bloqueado nas redes.",
             "campos": [
               {
-                "label": "Público",
-                "value": "Só +18"
+                "label": "Regras",
+                "value": "8 no total"
               },
               {
                 "label": "Promessa",
@@ -768,7 +768,7 @@
           "props": {
             "variant": "contorno",
             "title": "Concorda com as regras?",
-            "text": "Então a credencial é sua. **+18** · Sem promessa de ganho.",
+            "text": "Então a credencial é sua. As regras valem do primeiro ao último post.",
             "cta": "Quero meu link",
             "ctaHref": "/#ingresso"
           }

@@ -75,7 +75,7 @@
             "fixos": [
               {
                 "label": "Perfil",
-                "value": "Agente/clube"
+                "value": "Agente ou dono"
               },
               {
                 "label": "Retorno",
@@ -252,7 +252,7 @@
           "props": {
             "variant": "contorno",
             "title": "Credencial na mão, conversa marcada.",
-            "text": "Deixe o contato na credencial e a gente chama. **+18** · Sem promessa de ganho.",
+            "text": "Deixe o contato na credencial e a gente chama. Sem promessa de ganho.",
             "cta": "Pedir credencial",
             "ctaHref": "#credencial",
             "secondary": "Ver os benefícios",
@@ -441,7 +441,7 @@
           "props": {
             "variant": "papel",
             "title": "Quer ver isso no seu caso?",
-            "text": "Peça a credencial: a conversa é sem compromisso. **+18** · Jogue com responsabilidade.",
+            "text": "Peça a credencial: a conversa é sem compromisso e o que valer para você fica **por escrito**.",
             "cta": "Pedir credencial",
             "ctaHref": "/#credencial"
           }
@@ -612,7 +612,7 @@
           "props": {
             "variant": "contorno",
             "title": "Comece pela etapa 1.",
-            "text": "Deixe o contato na credencial. **+18** · Sem promessa de ganho.",
+            "text": "Deixe o contato na credencial. A etapa 1 é só uma conversa.",
             "cta": "Pedir credencial",
             "ctaHref": "/#credencial",
             "secondary": "Falar com o grupo",
@@ -690,14 +690,18 @@
             "campos": [
               {
                 "label": "Resposta",
-                "value": "WhatsApp ou e-mail"
+                "value": "WhatsApp"
               },
               {
-                "label": "Custo",
-                "value": "Nenhum para conversar"
+                "label": "Ou por",
+                "value": "E-mail"
+              },
+              {
+                "label": "Custo para conversar",
+                "value": "Nenhum"
               }
             ],
-            "miudas": "**+18** · Operação só com maiores"
+            "miudas": "**+18** · Operação só com maiores · **Jogue com responsabilidade**"
           }
         },
         {
@@ -713,6 +717,64 @@
           }
         },
         {
+          "type": "ingresso_recibo",
+          "props": {
+            "variant": "recibo-esquerda",
+            "title": "O que levar para a primeira conversa.",
+            "intro": "Não precisa de apresentação pronta. Estes quatro pontos já bastam para a gente entender a sua operação.",
+            "steps": [
+              {
+                "icon": "perfil",
+                "title": "Quem é você na mesa",
+                "text": "Agente que indica jogadores ou dono de clube com mesa rodando."
+              },
+              {
+                "icon": "chat",
+                "title": "Como atende hoje",
+                "text": "Por onde os seus jogadores falam com você e o que mais perguntam."
+              },
+              {
+                "icon": "ficha",
+                "title": "Como as fichas chegam",
+                "text": "Se você já usa um canal de fichas ou se isso é o que falta."
+              },
+              {
+                "icon": "cadeado",
+                "title": "O que fica com você",
+                "text": "A relação com os seus jogadores continua sua. Senha nenhuma entra na conversa."
+              }
+            ],
+            "reciboTitulo": "Ficha da conversa",
+            "reciboSub": "Modelo · preenchida no papo",
+            "linhas": [
+              {
+                "dt": "Perfil",
+                "dd": "",
+                "nota": "agente ou dono de clube"
+              },
+              {
+                "dt": "Clube atual",
+                "dd": ""
+              },
+              {
+                "dt": "Canal de contato",
+                "dd": ""
+              },
+              {
+                "dt": "Canal de fichas",
+                "dd": ""
+              },
+              {
+                "dt": "Comissão",
+                "dd": "Por escrito",
+                "nota": "combinada na etapa 2"
+              }
+            ],
+            "rodape": "**Modelo de exemplo:** os campos em branco saem da conversa.\nNinguém do grupo pede senha do app ou do clube.",
+            "code": "CONVERSA {{number}}"
+          }
+        },
+        {
           "type": "contact",
           "props": {
             "title": "Prefere chamar direto?",
@@ -720,14 +782,14 @@
             "whatsapp": "{{whatsapp}}",
             "telegram": "{{telegram}}",
             "email": "{{email}}",
-            "hours": "Resposta em horário comercial · +18"
+            "hours": "Resposta em horário comercial"
           }
         },
         {
           "type": "notice",
           "props": {
             "variant": "alerta",
-            "text": "Somente maiores de 18 anos. Jogue com responsabilidade. Desconfie de qualquer pessoa que fale em nome do grupo e peça senha, pagamento para entrar ou promessa de ganho."
+            "text": "Desconfie de qualquer pessoa que fale em nome do grupo e peça senha, pagamento para entrar ou prometa ganho. O grupo só fala pelos canais desta página."
           }
         },
         {
