@@ -1,0 +1,16 @@
+{
+  "id": "all-in-e-side-pot",
+  "tipo": "Regras do poker",
+  "titulo": "All-in e side pot: como funciona o pote paralelo no poker #shorts",
+  "descricao": "Por que o pote se divide quando alguém vai all-in, quem pode ganhar cada pote e o que acontece com a aposta que ninguém pagou. No próximo vídeo: showdown, quem mostra primeiro.\n\n18+ · Jogue com responsabilidade.\n\n#poker #pokeronline #texasholdem #supremapoker",
+  "post": "all-in-e-side-pot",
+  "cenas": [
+    { "tela": "All-in com menos fichas? **Olha o side pot**", "fala": "Foi all-in com menos fichas? Então presta atenção no side pot.", "imagem": "public/img/app-mesa.webp" },
+    { "tela": "Você ganha de cada um **só o que colocou**", "fala": "Quem vai all-in só pode ganhar de cada adversário o mesmo tanto que colocou." },
+    { "passo": 1, "tela": "**Pote principal**: todos disputam", "fala": "O que cabe no seu all-in forma o pote principal, que todos disputam." },
+    { "passo": 2, "tela": "Apostas acima disso vão para o **side pot**", "fala": "O que os outros apostam acima disso vai para o side pot, o pote paralelo." },
+    { "passo": 3, "tela": "No side pot, **só quem continuou** apostando", "fala": "E o side pot só pode ser ganho por quem continuou apostando." },
+    { "tela": "Aposta que ninguém pagou **volta** para quem apostou", "fala": "E a aposta que ninguém consegue pagar volta para quem apostou." },
+    { "tela": "No próximo: **quem mostra as cartas primeiro**. Segue o canal!", "fala": "No próximo vídeo, quem mostra as cartas primeiro no showdown. Segue o canal!", "imagem": "public/img/app-mesa.webp" }
+  ]
+}
