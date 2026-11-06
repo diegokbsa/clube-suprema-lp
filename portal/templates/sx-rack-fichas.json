@@ -124,7 +124,7 @@
             "currency": "R$",
             "cta": "Comprar fichas",
             "ctaHref": "{{chipsUrl}}",
-            "note": "Saque pelo mesmo canal, na chave PIX do seu CPF."
+            "note": "Somente maiores de 18 anos · Jogue com responsabilidade"
           }
         },
         {
@@ -609,20 +609,56 @@
           }
         },
         {
-          "type": "cta",
+          "type": "rack_fatos",
           "props": {
-            "variant": "escuro",
-            "title": "Suporte 24h",
-            "text": "Não resolveu? Gente de verdade responde no WhatsApp, todos os dias. Tenha o comprovante e o seu ID de jogador à mão.",
-            "cta": "Chamar o suporte no WhatsApp",
-            "ctaHref": "{{whatsappLink}}"
+            "variant": "fatos",
+            "title": "Três sinais de golpe",
+            "subtitle": "Se aparecer qualquer um deles, não pague. Fale com o suporte pelo WhatsApp deste site.",
+            "items": [
+              {
+                "term": "Senha",
+                "title": "Pediram sua senha ou código.",
+                "text": "O canal **nunca** pede a senha do app nem código de verificação."
+              },
+              {
+                "term": "Chave",
+                "title": "A chave PIX mudou.",
+                "text": "Pague só para a chave informada no chat do canal oficial."
+              },
+              {
+                "term": "Pressa",
+                "title": "Pressão para pagar já.",
+                "text": "Atendente de verdade espera você conferir o valor e a chave."
+              }
+            ]
           }
         },
         {
-          "type": "notice",
+          "type": "rack_comanda",
           "props": {
-            "variant": "discreto",
-            "text": "Somente maiores de 18 anos. Jogue com responsabilidade. Ninguém do canal pede a senha do app nem documentos pelo site."
+            "variant": "cartao",
+            "title": "Antes de chamar o suporte",
+            "subtitle": "Não resolveu? Gente de verdade responde no WhatsApp. Com estes três itens, o atendimento começa pelo fim.",
+            "items": [
+              {
+                "label": "Comprovante",
+                "value": "do PIX",
+                "note": "print ou PDF do banco"
+              },
+              {
+                "label": "ID do jogador",
+                "value": "No perfil",
+                "note": "toque na sua foto no app"
+              },
+              {
+                "label": "Horário",
+                "value": "da compra",
+                "note": "como está no comprovante"
+              }
+            ],
+            "cta": "Chamar o suporte no WhatsApp",
+            "ctaHref": "{{whatsappLink}}",
+            "note": "Somente maiores de 18 anos"
           }
         },
         {

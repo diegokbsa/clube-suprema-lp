@@ -83,6 +83,11 @@
                 "size": "66"
               },
               {
+                "label": "Convite",
+                "color": "cobre",
+                "size": "84"
+              },
+              {
                 "label": "Suporte",
                 "color": "ouro",
                 "size": "72"
@@ -596,7 +601,7 @@
           "type": "rack_final",
           "props": {
             "anchor": "formulario",
-            "variant": "selo",
+            "variant": "torres",
             "title": "Conte sobre o seu clube",
             "text": "Nome, e-mail e WhatsApp bastam. O resto a gente conversa.",
             "fields": "email_nome_telefone",

@@ -569,14 +569,14 @@
             ],
             "cta": "Abrir canal de fichas",
             "ctaHref": "{{chipsUrl}}",
-            "note": "Saque pelo mesmo canal, na chave PIX do seu CPF."
+            "note": "Somente maiores de 18 anos · Jogue com responsabilidade"
           }
         },
         {
           "type": "notice",
           "props": {
             "variant": "alerta",
-            "text": "O atendente nunca pede a senha do seu app. Pague só para a chave PIX informada no canal oficial. Somente maiores de 18 anos."
+            "text": "O atendente nunca pede a senha do seu app. Pague só para a chave PIX informada no canal oficial; o saque sai pelo mesmo canal, na chave PIX do seu CPF."
           }
         },
         {
@@ -638,17 +638,20 @@
         {
           "type": "rack_pagina",
           "props": {
-            "variant": "faixa",
+            "variant": "selo",
             "back": "Início",
             "backHref": "/",
             "title": "Privacidade",
-            "text": "Texto-base para revisão jurídica da operação.",
+            "text": "Texto-base para revisão jurídica da operação: o que o site coleta, para quê, e como pedir a exclusão.",
             "stacks": [
               {
                 "color": "creme",
                 "size": "60"
               }
-            ]
+            ],
+            "title2": "dos seus dados",
+            "sealTop": "Clube",
+            "sealNumber": "{{number}}"
           }
         },
         {
@@ -656,7 +659,15 @@
           "props": {
             "variant": "estreito",
             "title": "O que coletamos",
-            "body": "Coletamos nome, e-mail e telefone só quando você envia um formulário, para entrar em contato sobre o clube.\n\nO site nunca pede a senha do app nem documentos."
+            "body": "Coletamos nome, e-mail e telefone só quando você envia um formulário deste site.\n\nO site nunca pede a senha do app nem documentos."
+          }
+        },
+        {
+          "type": "text",
+          "props": {
+            "variant": "estreito",
+            "title": "Para que usamos",
+            "body": "Para responder o seu contato e enviar o link do clube e os avisos que você aceitou receber.\n\nVocê pode sair da lista quando quiser, pelo link no próprio e-mail ou pedindo no atendimento."
           }
         },
         {
@@ -664,7 +675,7 @@
           "props": {
             "variant": "estreito",
             "title": "Cookies",
-            "body": "Cookies de medição (Google e Meta) só são ativados se você aceitar no aviso do site."
+            "body": "Cookies de medição (Google e Meta) só são ativados se você aceitar no aviso do site. Sem o aceite, o site funciona do mesmo jeito."
           }
         },
         {
@@ -672,7 +683,7 @@
           "props": {
             "variant": "estreito",
             "title": "Seus direitos",
-            "body": "Você pode pedir a exclusão dos seus dados a qualquer momento pelos canais de atendimento."
+            "body": "Você pode pedir acesso, correção ou exclusão dos seus dados a qualquer momento pelos canais de atendimento, como prevê a LGPD."
           }
         },
         {

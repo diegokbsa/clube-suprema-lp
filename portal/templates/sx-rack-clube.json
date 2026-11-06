@@ -156,7 +156,7 @@
             ],
             "cta": "Quero jogar",
             "ctaHref": "#quero-jogar",
-            "note": "Saque também pelo canal de fichas, na chave PIX do seu CPF."
+            "note": "Somente maiores de 18 anos · Jogue com responsabilidade"
           }
         },
         {
@@ -726,7 +726,7 @@
           "type": "notice",
           "props": {
             "variant": "alerta",
-            "text": "Somente maiores de 18 anos. Jogue com responsabilidade. O clube não oferece bônus, fichas grátis nem promessa de ganho."
+            "text": "O clube não oferece bônus, fichas grátis nem promessa de ganho. Se precisar de uma pausa, o suporte tira você das mesas pelo WhatsApp."
           }
         },
         {

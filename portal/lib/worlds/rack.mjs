@@ -35,6 +35,7 @@ const ICO = {
   volta: '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M14 8H3M7.5 3.5 3 8l4.5 4.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
   info: '<svg viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="9.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M11 9.5v6M11 6.2v.1" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>',
   rabisco: '<svg viewBox="0 0 34 22" aria-hidden="true"><path d="M2 4c6 10 16 14 28 12M24 10l6 6-7 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  sobe: '<svg viewBox="0 0 34 30" aria-hidden="true"><path d="M3 27C6 15 14 7 29 5M22 1.5 29.5 5 24 11" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>',
   desfaz: '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M6 3 2 7l4 4M2.5 7H10a4 4 0 0 1 0 8H8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>',
   zera: '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 3l10 10M13 3 3 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>',
 };
@@ -89,7 +90,7 @@ function rack(pilhas, aria, cls = '') {
   const rotulos = itens.map((s) => s.label).filter(Boolean).join(', ');
   return `<div class="rk-rack ${cls}" role="img" aria-label="${esc(aria + (rotulos ? `: ${rotulos}` : ''))}"><div class="rk-rack-in">${itens.map((s, i) => {
     const n = num(s.size, 80);
-    if (n === 0) return `<div class="rk-canal is-vaga"><span class="rk-vaga">${esc(s.label || '')}</span></div>`;
+    if (n === 0) return `<div class="rk-canal is-vaga"><span class="rk-fantasma">${s.label ? `<span class="rk-vaga">${esc(s.label)}</span>` : ''}</span></div>`;
     return `<div class="rk-canal"><span class="rk-fila rk-c-${cor(s.color, i)}" style="--n:${n}%"></span>${s.label ? `<span class="rk-rot">${esc(s.label)}</span>` : ''}</div>`;
   }).join('')}</div></div>`;
 }
@@ -177,8 +178,10 @@ export const blocks = {
         return `<section class="rk rk-abre v-torre"><div class="rk-wrap rk-abre-grade"><div class="rk-abre-txt">${h1}${texto}${acao}</div>
           <div class="rk-abre-arte">${torres(p.stacks)}${legenda}</div></div></section>`;
       }
+      // vaga: o rack do grupo com um canal vazio; a ficha-selo vem caindo no canal e a anotação à mão aponta a vaga
+      const nota = p.legend ? `<p class="rk-legenda rk-legenda-vaga">${ICO.sobe}<span>${rich(p.legend)}</span></p>` : '';
       return `<section class="rk rk-abre v-vaga"><div class="rk-wrap rk-abre-grade"><div class="rk-abre-txt">${h1}${texto}${acao}</div>
-        <div class="rk-abre-arte">${rack(p.stacks, 'Rack do grupo com um canal vazio', 'rk-rack-vaga')}${selo(p, ctx, 'rk-selo-vaga')}${legenda}</div></div></section>`;
+        <div class="rk-abre-arte"><div class="rk-vaga-palco">${rack(p.stacks, 'Rack do grupo com um canal vazio', 'rk-rack-vaga')}${selo(p, ctx, 'rk-selo-vaga')}</div>${nota}</div></div></section>`;
     },
   },
 
