@@ -53,7 +53,8 @@ LIMITES = {
 }
 # Kbsa, 06/11/2026: o Kimi toma a tela inteira do computador enquanto ele usa o PC; tarefa do Kimi vai para o Codex (trabalha por trás).
 # Para voltar ao Kimi, troque "kimi": "codex" por "kimi": "kimi".
-DESPACHA = {"codex": "codex", "kimi": "codex", "claude-design": "big"}  # agente da tarefa → caixa do ordens.py
+DESPACHA = {"codex": "codex", "kimi": "codex", "claude-design": "big"}
+PC_LIVRE = Path(r"C:\AgentSetup\pc-livre.txt")  # existe = Kbsa saiu do PC (ele avisa o Claude); tarefa do Kimi volta para o Kimi  # agente da tarefa → caixa do ordens.py
 PRIORIDADE = {"alta": 0, "media": 1, "baixa": 2}
 ESTADOS = ["backlog", "pronta", "em_execucao", "em_revisao", "bloqueada", "concluida"]
 SEGREDO = re.compile(r"(?i)(token|senha|password|secret|api[_-]?key|authorization)[\"'\s:=]+[^\s\"',}]{6,}")
@@ -215,6 +216,8 @@ O coordenador revisa antes de dar como concluída.
 
 def criar_ordem(t: dict, estado: dict) -> Path | None:
     caixa = DESPACHA[t["agente"]]
+    if t["agente"] == "kimi" and PC_LIVRE.exists():
+        caixa = "kimi"   # Kbsa fora do PC: o Kimi pode usar a tela
     arq = ESTADO_DIR / f"ordem-{t['id']}.md"
     arq.write_text(texto_ordem(t, estado), encoding="utf-8")
     cmd = [sys.executable, str(ORDENS), "nova", caixa, f"{t['id']} {t['titulo']}", "--projeto", PROJETO,
