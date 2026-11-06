@@ -264,15 +264,6 @@
           }
         },
         {
-          "type": "relogio_aviso",
-          "props": {
-            "badge": "+18",
-            "text": "**Somente maiores de 18 anos. Jogue com responsabilidade.**\n\nPoker é entretenimento, não fonte de renda. Defina antes quanto pode gastar e por quanto tempo vai jogar.",
-            "linkLabel": "Jogo responsável",
-            "href": "/jogo-responsavel"
-          }
-        },
-        {
           "type": "relogio_registro",
           "props": {
             "title": "Guias no e-mail",
@@ -281,8 +272,7 @@
             "button": "Quero receber",
             "success": "Pronto! O primeiro guia chega no seu e-mail.",
             "consent": "Tenho mais de 18 anos e aceito receber os guias por e-mail. Posso sair quando quiser.",
-            "note": "Não pedimos senha do app nem documento.",
-            "r18": "Conteúdo para maiores de 18 anos. Jogue com responsabilidade."
+            "note": "Não pedimos senha do app nem documento."
           }
         },
         {
@@ -355,8 +345,7 @@
                 "label": "Para",
                 "value": "iniciantes"
               }
-            ],
-            "r18": "Jogue com responsabilidade"
+            ]
           }
         },
         {
@@ -675,8 +664,7 @@
                 "label": "Limite",
                 "value": "antes de sentar"
               }
-            ],
-            "r18": "Jogue com responsabilidade"
+            ]
           }
         },
         {
@@ -713,12 +701,45 @@
           }
         },
         {
+          "type": "relogio_estrutura",
+          "props": {
+            "title": "Pausar ou encerrar a conta",
+            "subtitle": "Três passos, pelo chat do suporte. **Ninguém pergunta o motivo.**",
+            "colTime": "Onde",
+            "items": [
+              {
+                "level": "1",
+                "title": "Chame o suporte",
+                "text": "Pelo WhatsApp oficial do clube. Não precisa explicar nada além do pedido.",
+                "time": "chat",
+                "timeNote": "WhatsApp oficial"
+              },
+              {
+                "level": "2",
+                "title": "Diga o seu ID de jogador",
+                "text": "E se quer **pausa por um tempo** ou **encerramento** da conta no clube.",
+                "time": "chat",
+                "timeNote": "um dado só"
+              },
+              {
+                "level": "3",
+                "title": "Confirmação por escrito",
+                "text": "O suporte confirma no chat quando a pausa ou o encerramento estiver feito. Pausa pode ser pedida de novo quando quiser.",
+                "time": "por escrito",
+                "timeNote": "no mesmo chat"
+              }
+            ],
+            "cta": "Falar com o suporte",
+            "ctaHref": "{{whatsappLink}}"
+          }
+        },
+        {
           "type": "relogio_aviso",
           "props": {
             "badge": "+18",
-            "text": "**Conteúdo para maiores de 18 anos.**\n\nQuer pausar ou encerrar a sua conta? Fale com o suporte.",
-            "linkLabel": "Falar com o suporte",
-            "href": "{{whatsappLink}}"
+            "text": "**Conteúdo para maiores de 18 anos. Jogue com responsabilidade.**\n\nEstudar estrutura ajuda a jogar melhor, não a ganhar dinheiro. Se o jogo deixar de ser diversão, pare.",
+            "linkLabel": "Comece aqui",
+            "href": "/comece-aqui"
           }
         },
         {

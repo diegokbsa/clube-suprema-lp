@@ -158,6 +158,22 @@
     if (reduz.addEventListener) reduz.addEventListener('change', liga);
   }
 
+  /* menu: marca o link da página atual; no celular a faixa de links rola e some em degradê enquanto há link à direita */
+  const aqui = location.pathname.replace(/\/+$/, '');
+  $$('.b-navbar ul').forEach((ul) => {
+    // só link de página (sem #âncora) conta como página atual
+    const atual = $$('a', ul).find((a) => !a.hash && a.origin === location.origin && a.pathname.replace(/\/+$/, '') === aqui);
+    if (atual) {
+      atual.setAttribute('aria-current', 'page');
+      const ra = atual.getBoundingClientRect(), ru = ul.getBoundingClientRect();
+      if (ra.right > ru.right - 24) ul.scrollLeft += ra.right - ru.right + 40; // traz para a vista sem esconder o começo à toa
+    }
+    const marca = () => { ul.classList.toggle('rl-rola', ul.scrollLeft + ul.clientWidth < ul.scrollWidth - 4); ul.classList.toggle('rl-rola-e', ul.scrollLeft > 4); };
+    ul.addEventListener('scroll', marca, { passive: true });
+    window.addEventListener('resize', marca);
+    marca();
+  });
+
   /* copiar clube, agente e afins */
   document.addEventListener('click', (e) => {
     const b = e.target.closest('[data-rl-copiar]');

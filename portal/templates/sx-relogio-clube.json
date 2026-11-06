@@ -452,8 +452,7 @@
             "button": "Quero jogar",
             "success": "Pronto! O link do clube está a caminho do seu e-mail.",
             "consent": "Tenho mais de 18 anos e aceito receber o link do clube e avisos por e-mail. Posso sair quando quiser.",
-            "note": "Já tem conta no {{app}}? Use o mesmo e-mail. Não pedimos senha do app nem documento.",
-            "r18": "Proibido para menores de 18 anos. Jogue com responsabilidade."
+            "note": "Já tem conta no {{app}}? Use o mesmo e-mail. Não pedimos senha do app nem documento."
           }
         },
         {
@@ -540,8 +539,7 @@
               }
             ],
             "cta": "Começar pelo e-mail",
-            "ctaHref": "/como-entrar#registro",
-            "r18": "Jogue com responsabilidade"
+            "ctaHref": "/como-entrar#registro"
           }
         },
         {
@@ -661,8 +659,7 @@
             "button": "Quero jogar",
             "success": "Pronto! O link do clube está a caminho do seu e-mail.",
             "consent": "Tenho mais de 18 anos e aceito receber o link do clube e avisos por e-mail. Posso sair quando quiser.",
-            "note": "Já tem conta no {{app}}? Use o mesmo e-mail. Não pedimos senha do app nem documento.",
-            "r18": "Proibido para menores de 18 anos. Jogue com responsabilidade."
+            "note": "Já tem conta no {{app}}? Use o mesmo e-mail. Não pedimos senha do app nem documento."
           }
         },
         {
@@ -915,8 +912,7 @@
                 "label": "Pausa",
                 "value": "a qualquer hora"
               }
-            ],
-            "r18": "Jogue com responsabilidade"
+            ]
           }
         },
         {
@@ -966,7 +962,7 @@
           "type": "relogio_aviso",
           "props": {
             "badge": "+18",
-            "text": "**Proibido para menores de 18 anos.**\n\nQuer pausar ou encerrar a conta? Fale com o suporte: a gente faz sem perguntas.",
+            "text": "**Proibido para menores de 18 anos. Jogue com responsabilidade.**\n\nQuer pausar ou encerrar a conta? Fale com o suporte: a gente faz sem perguntas.",
             "linkLabel": "Falar com o suporte",
             "href": "{{whatsappLink}}"
           }

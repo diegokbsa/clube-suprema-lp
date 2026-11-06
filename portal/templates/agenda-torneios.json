@@ -408,8 +408,7 @@
             "button": "Quero a agenda",
             "success": "Pronto! O link do clube está a caminho do seu e-mail.",
             "consent": "Tenho mais de 18 anos e aceito receber a agenda e avisos por e-mail. Posso sair quando quiser.",
-            "note": "Não pedimos senha do app nem documento.",
-            "r18": "Proibido para menores de 18 anos. Jogue com responsabilidade."
+            "note": "Não pedimos senha do app nem documento."
           }
         },
         {
@@ -488,8 +487,7 @@
               }
             ],
             "cta": "Entrar no clube",
-            "ctaHref": "{{inviteLink}}",
-            "r18": "Jogue com responsabilidade"
+            "ctaHref": "{{inviteLink}}"
           }
         },
         {
@@ -962,6 +960,15 @@
           }
         },
         {
+          "type": "relogio_aviso",
+          "props": {
+            "badge": "+18",
+            "text": "**Somente maiores de 18 anos. Jogue com responsabilidade.**\n\nPoker é entretenimento, não fonte de renda. Defina antes quanto pode gastar e por quanto tempo vai jogar.",
+            "linkLabel": "Regras",
+            "href": "/regras"
+          }
+        },
+        {
           "type": "footer",
           "props": {
             "brand": "{{name}}",
@@ -1031,8 +1038,7 @@
                 "label": "Idade mínima",
                 "value": "18 anos"
               }
-            ],
-            "r18": "Jogue com responsabilidade"
+            ]
           }
         },
         {
@@ -1064,13 +1070,44 @@
               {
                 "term": "Conluio",
                 "text": "Jogo combinado ou troca de informação é proibido e leva a exclusão."
-              },
-              {
-                "term": "Idade",
-                "text": "**Somente maiores de 18 anos.** Jogue com responsabilidade."
               }
             ],
             "note": "Regras de exemplo: ajuste às da sua operação antes de publicar."
+          }
+        },
+        {
+          "type": "faq",
+          "props": {
+            "title": "Dúvidas de mesa",
+            "subtitle": "As que mais chegam no suporte durante a agenda.",
+            "items": [
+              {
+                "q": "Posso entrar depois que o torneio começou?",
+                "a": "Sim, até o horário de registro tardio marcado na agenda. Você entra com o stack inicial, nos blinds daquele nível."
+              },
+              {
+                "q": "Quantas vezes posso reentrar?",
+                "a": "Só nos torneios marcados como reentrada, durante o registro tardio. O limite de cada torneio aparece no app."
+              },
+              {
+                "q": "A conexão caiu no meio da mão. E agora?",
+                "a": "As suas fichas continuam na mesa e a mão segue com o tempo normal. Se o tempo acabar, o app desiste da mão por você. Reconecte o quanto antes."
+              },
+              {
+                "q": "Onde vejo o relógio do torneio?",
+                "a": "Dentro do app {{app}}, na mesa do torneio: nível, blinds e tempo até o próximo nível."
+              }
+            ]
+          }
+        },
+        {
+          "type": "cta",
+          "props": {
+            "title": "Veja o que roda hoje",
+            "text": "A agenda mostra horário, buy-in e registro tardio de cada torneio. Valores de exemplo neste modelo.",
+            "cta": "Ver a agenda",
+            "ctaHref": "/agenda",
+            "variant": "escuro"
           }
         },
         {

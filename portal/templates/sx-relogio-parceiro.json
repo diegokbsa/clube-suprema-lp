@@ -90,7 +90,7 @@
             "secondary": "Como funciona",
             "secondaryHref": "/como-funciona",
             "note": "Condições de exemplo: comissão e repasse dependem do acordo com cada parceiro.",
-            "r18": "Somente maiores de 18 anos"
+            "r18": "Somente maiores de 18 anos · Jogue com responsabilidade"
           }
         },
         {
@@ -317,8 +317,7 @@
             "button": "Quero conversar",
             "success": "Recebemos. Vamos chamar você no WhatsApp ou no e-mail.",
             "consent": "Tenho mais de 18 anos e aceito ser contatado sobre a parceria com o grupo. Posso sair quando quiser.",
-            "note": "Não pedimos senha do app nem dados dos seus jogadores neste formulário.",
-            "r18": "Parceria e jogo somente para maiores de 18 anos."
+            "note": "Não pedimos senha do app nem dados dos seus jogadores neste formulário."
           }
         },
         {
@@ -432,7 +431,7 @@
         {
           "type": "compare",
           "props": {
-            "title": "Mesa sozinha × mesa no grupo",
+            "title": "Mesa sozinha ou mesa no grupo",
             "subtitle": "Comparação do trabalho do dia a dia, não de resultado.",
             "columns": "Sozinho; No grupo",
             "rows": [
@@ -463,7 +462,7 @@
           "type": "relogio_aviso",
           "props": {
             "badge": "+18",
-            "text": "**A divulgação do grupo é só para maiores de 18 anos.**\n\nNada de bônus, fichas grátis ou promessa de ganho em anúncio, grupo ou rede social. Jogo responsável sempre visível.",
+            "text": "**A divulgação do grupo é só para maiores de 18 anos. Jogue com responsabilidade.**\n\nNada de bônus, fichas grátis ou promessa de ganho em anúncio, grupo ou rede social.",
             "linkLabel": "Como funciona",
             "href": "/como-funciona"
           }
@@ -477,8 +476,7 @@
             "button": "Quero conversar",
             "success": "Recebemos. Vamos chamar você no WhatsApp ou no e-mail.",
             "consent": "Tenho mais de 18 anos e aceito ser contatado sobre a parceria com o grupo. Posso sair quando quiser.",
-            "note": "Não pedimos senha do app nem dados dos seus jogadores neste formulário.",
-            "r18": "Parceria e jogo somente para maiores de 18 anos."
+            "note": "Não pedimos senha do app nem dados dos seus jogadores neste formulário."
           }
         },
         {
@@ -629,8 +627,8 @@
               },
               {
                 "label": "Agente",
-                "value": "o seu ID de agente",
-                "copy": true
+                "value": "O seu ID de agente, que vem no acordo.",
+                "copy": false
               },
               {
                 "label": "Seu ID de jogador",
@@ -662,6 +660,15 @@
                 "a": "Isso é combinado no acordo, caso a caso."
               }
             ]
+          }
+        },
+        {
+          "type": "relogio_aviso",
+          "props": {
+            "badge": "+18",
+            "text": "**Convite só para maiores de 18 anos. Jogue com responsabilidade.**\n\nNo link que você envia: nada de bônus, fichas grátis ou promessa de ganho.",
+            "linkLabel": "Benefícios",
+            "href": "/beneficios"
           }
         },
         {
@@ -741,13 +748,38 @@
           "type": "relogio_registro",
           "props": {
             "title": "Deixe seu contato",
-            "text": "Deixe seu contato. **Um responsável do grupo chama você** para conversar sobre a sua mesa e montar o acordo.",
+            "text": "Três campos e pronto. **O que vale levar para a conversa** está logo abaixo.",
             "fields": "email_nome_telefone",
             "button": "Quero conversar",
             "success": "Recebemos. Vamos chamar você no WhatsApp ou no e-mail.",
             "consent": "Tenho mais de 18 anos e aceito ser contatado sobre a parceria com o grupo. Posso sair quando quiser.",
-            "note": "Não pedimos senha do app nem dados dos seus jogadores neste formulário.",
-            "r18": "Parceria e jogo somente para maiores de 18 anos."
+            "note": "Não pedimos senha do app nem dados dos seus jogadores neste formulário."
+          }
+        },
+        {
+          "type": "relogio_termos",
+          "props": {
+            "title": "Leve para a conversa",
+            "subtitle": "Nada disso vai no formulário. É o que o responsável do grupo pergunta primeiro.",
+            "variant": "regras",
+            "items": [
+              {
+                "term": "Onde a mesa está hoje",
+                "text": "Em qual app e em qual clube os seus jogadores jogam agora."
+              },
+              {
+                "term": "Como você divulga",
+                "text": "Grupo, WhatsApp, Instagram. A divulgação segue as regras do grupo: **só para maiores de 18**, sem bônus e sem promessa de ganho."
+              },
+              {
+                "term": "O que você espera do acordo",
+                "text": "Comissão, data e forma de repasse. **Tudo vai por escrito** antes do primeiro jogador."
+              },
+              {
+                "term": "O que não precisa",
+                "text": "Senha do app, documento ou lista de jogadores. O grupo não pede nada disso."
+              }
+            ]
           }
         },
         {
@@ -764,7 +796,7 @@
           "type": "relogio_aviso",
           "props": {
             "badge": "+18",
-            "text": "**Parceria e jogo somente para maiores de 18 anos.**\n\nO grupo não oferece bônus, fichas grátis nem promessa de ganho, e pede o mesmo na divulgação dos parceiros."
+            "text": "**Parceria e jogo somente para maiores de 18 anos. Jogue com responsabilidade.**\n\nO grupo não oferece bônus, fichas grátis nem promessa de ganho, e pede o mesmo na divulgação dos parceiros."
           }
         },
         {

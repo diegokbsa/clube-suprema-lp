@@ -308,8 +308,7 @@
               }
             ],
             "cta": "Abrir o canal de fichas",
-            "ctaHref": "{{chipsUrl}}",
-            "r18": "Jogue com responsabilidade"
+            "ctaHref": "{{chipsUrl}}"
           }
         },
         {
@@ -675,6 +674,32 @@
               {
                 "q": "Quero pausar meus depósitos.",
                 "a": "Fale com o suporte. A pausa é feita sem perguntas."
+              }
+            ]
+          }
+        },
+        {
+          "type": "relogio_termos",
+          "props": {
+            "title": "Segurança do canal",
+            "subtitle": "Quatro regras que não mudam. **Se alguém fugir delas, não pague** e avise o suporte.",
+            "variant": "regras",
+            "items": [
+              {
+                "term": "Senha e documento",
+                "text": "O canal **nunca pede** a senha do app nem foto de documento. Nem por chat, nem por ligação."
+              },
+              {
+                "term": "Chave PIX",
+                "text": "Só vale a chave que o atendente passa no chat oficial, na hora da compra. Chave enviada por outro número ou perfil é golpe."
+              },
+              {
+                "term": "Comprovante",
+                "text": "Mande no mesmo chat da compra, junto com o seu ID de jogador. É ele que libera as fichas."
+              },
+              {
+                "term": "Saque",
+                "text": "Sai sempre para a chave PIX do CPF do titular da conta do app. Nunca para terceiros."
               }
             ]
           }

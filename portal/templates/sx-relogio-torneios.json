@@ -404,15 +404,6 @@
           }
         },
         {
-          "type": "relogio_aviso",
-          "props": {
-            "badge": "+18",
-            "text": "**Somente maiores de 18 anos. Jogue com responsabilidade.**\n\nPoker é entretenimento, não fonte de renda. Defina antes quanto pode gastar e por quanto tempo vai jogar.",
-            "linkLabel": "Regras dos torneios",
-            "href": "/regras"
-          }
-        },
-        {
           "type": "relogio_registro",
           "props": {
             "title": "Registro aberto",
@@ -421,8 +412,7 @@
             "button": "Quero o link",
             "success": "Pronto! O link do clube está a caminho do seu e-mail.",
             "consent": "Tenho mais de 18 anos e aceito receber o link do clube e a grade por e-mail. Posso sair quando quiser.",
-            "note": "Não pedimos senha do app nem documento.",
-            "r18": "Proibido para menores de 18 anos. Jogue com responsabilidade."
+            "note": "Não pedimos senha do app nem documento."
           }
         },
         {
@@ -505,8 +495,7 @@
               }
             ],
             "cta": "Entrar no clube",
-            "ctaHref": "{{inviteLink}}",
-            "r18": "Jogue com responsabilidade"
+            "ctaHref": "{{inviteLink}}"
           }
         },
         {
@@ -932,6 +921,15 @@
           }
         },
         {
+          "type": "relogio_aviso",
+          "props": {
+            "badge": "+18",
+            "text": "**Somente maiores de 18 anos. Jogue com responsabilidade.**\n\nPoker é entretenimento, não fonte de renda. Defina antes quanto pode gastar e por quanto tempo vai jogar.",
+            "linkLabel": "Regras dos torneios",
+            "href": "/regras"
+          }
+        },
+        {
           "type": "footer",
           "props": {
             "brand": "{{name}}",
@@ -1005,8 +1003,7 @@
                 "label": "Idade mínima",
                 "value": "18 anos"
               }
-            ],
-            "r18": "Jogue com responsabilidade"
+            ]
           }
         },
         {
@@ -1042,13 +1039,19 @@
               {
                 "term": "Conluio",
                 "text": "Combinar jogada, trocar informação de cartas ou jogar em dupla é proibido e leva a exclusão."
-              },
-              {
-                "term": "Idade",
-                "text": "**Somente maiores de 18 anos.** Jogue com responsabilidade."
               }
             ],
             "note": "Regras de exemplo: confira e ajuste às regras da sua operação antes de publicar."
+          }
+        },
+        {
+          "type": "cta",
+          "props": {
+            "title": "Escolha o próximo torneio",
+            "text": "A grade da semana mostra horário, buy-in, garantido e registro tardio de cada torneio do clube. Os valores do modelo são de exemplo.",
+            "cta": "Ver a grade da semana",
+            "ctaHref": "/grade",
+            "variant": "escuro"
           }
         },
         {
