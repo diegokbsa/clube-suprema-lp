@@ -3,7 +3,7 @@ import { test, before, after } from 'node:test';
 import assert from 'node:assert/strict';
 import { startPortal, client } from './helpers.mjs';
 import { scoped } from '../lib/repo.mjs';
-import { instanteLocal, diaLocal, somarDias, chaveDoEspaco, calendarConfig, ensureSlots, marcarPublicado, marcarErro } from '../lib/modules/calendar.mjs';
+import { instanteLocal, diaLocal, horaLocal, somarDias, chaveDoEspaco, calendarConfig, ensureSlots, marcarPublicado, marcarErro } from '../lib/modules/calendar.mjs';
 
 let P;
 let sup;
@@ -90,6 +90,40 @@ test('rodar a geração duas vezes não duplica itens', async () => {
   assert.equal(contar(clube.id), 30);
 });
 
+test('geração remove espaços abertos que saíram dos horários ou canais configurados', async () => {
+  const tenant = (await sup.req('POST', '/api/tenants', { name: 'Calendário Reconfigurado', number: '10033', niche: 'poker' })).data.tenant;
+  await sup.req('PUT', `/api/t/${tenant.slug}/calendar/config`, { postsPerDay: 1, postTimes: '12:00', channels: ['instagram'] });
+  let r = await sup.req('POST', `/api/t/${tenant.slug}/calendar/gerar`, { dias: 3 });
+  assert.equal(r.data.criados, 3);
+  assert.equal(contar(tenant.id), 3);
+
+  await sup.req('PUT', `/api/t/${tenant.slug}/calendar/config`, { postsPerDay: 1, postTimes: '20:00' });
+  r = await sup.req('POST', `/api/t/${tenant.slug}/calendar/gerar`, { dias: 3 });
+  assert.equal(r.data.criados, 3);
+  assert.equal(r.data.removidos, 3, 'o horário que saiu da configuração é removido');
+  assert.equal(contar(tenant.id), 3);
+  assert.ok(itensDe(tenant.id).every((item) => item.idem_key.endsWith('|20:00')));
+
+  await sup.req('PUT', `/api/t/${tenant.slug}/calendar/config`, { channels: ['blog'] });
+  r = await sup.req('POST', `/api/t/${tenant.slug}/calendar/gerar`, { dias: 3 });
+  assert.equal(r.data.criados, 3);
+  assert.equal(r.data.removidos, 3, 'o canal que saiu da configuração é removido');
+  assert.equal(contar(tenant.id), 3);
+  assert.ok(itensDe(tenant.id).every((item) => item.channel === 'blog'));
+});
+
+test('a lista comporta 2.880 espaços em 60 dias', async () => {
+  const tenant = (await sup.req('POST', '/api/tenants', { name: 'Calendário Amplo', number: '10034', niche: 'poker' })).data.tenant;
+  const horarios = Array.from({ length: 12 }, (_, i) => `${String(i * 2).padStart(2, '0')}:00`).join(',');
+  await sup.req('PUT', `/api/t/${tenant.slug}/calendar/config`, {
+    postsPerDay: 12, postTimes: horarios, channels: ['instagram', 'telegram', 'youtube', 'blog'],
+  });
+  const geracao = await sup.req('POST', `/api/t/${tenant.slug}/calendar/gerar`, { dias: 60 });
+  assert.equal(geracao.data.criados, 2880);
+  const lista = await sup.req('GET', `/api/t/${tenant.slug}/calendar?dias=60`);
+  assert.equal(lista.data.dias.reduce((n, dia) => n + dia.itens.length, 0), 2880, 'a tela não trunca no limite antigo de 2.000');
+});
+
 test('sem conta conectada o item fica aguardando conexão e volta a rascunho quando conecta', async () => {
   for (const item of itensDe(clube.id)) assert.equal(item.status, 'aguardando_conexao', 'Instagram ainda não conectado');
 
@@ -153,6 +187,11 @@ test('fuso com horário de verão: o espaço cai na hora certa do relógio local
   assert.equal(instanteLocal('Europe/Lisbon', '2026-03-28', '12:00').toISOString(), '2026-03-28T12:00:00.000Z');
   assert.equal(instanteLocal('Europe/Lisbon', '2026-03-30', '12:00').toISOString(), '2026-03-30T11:00:00.000Z');
   assert.equal(somarDias('2026-03-28', 2), '2026-03-30', 'o dia anda no calendário, não de 24 em 24 horas');
+
+  const meiaNoiteInexistente = instanteLocal('America/Santiago', '2026-09-06', '00:00');
+  assert.equal(meiaNoiteInexistente.toISOString(), '2026-09-06T04:00:00.000Z', 'avança para 01:00, o primeiro horário válido');
+  assert.equal(diaLocal('America/Santiago', meiaNoiteInexistente), '2026-09-06', 'o espaço não volta para o dia anterior');
+  assert.equal(horaLocal('America/Santiago', meiaNoiteInexistente), '01:00');
 });
 
 test('agendar exige legenda e conta conectada; publicado e erro ficam fora da geração', async () => {
@@ -186,10 +225,21 @@ test('agendar exige legenda e conta conectada; publicado e erro ficam fora da ge
   marcarPublicado(repo, outros[0].id);
   marcarErro(repo, outros[1].id, 'A conta recusou a publicação.');
 
-  const antes = itensDe(clube.id).map((c) => `${c.id}:${c.status}:${c.scheduled_at}`);
+  const fechadosAntes = [outros[0], outros[1]].map(({ id }) => {
+    const item = P.db.prepare('SELECT status, scheduled_at FROM calendar WHERE tenant_id = ? AND id = ?').get(clube.id, id);
+    return { id, ...item };
+  });
+  await sup.req('PUT', `/api/t/${clube.slug}/calendar/config`, { timezone: 'America/Manaus' });
+  conectar(clube.id, 'instagram', 'pendente');
   await sup.req('POST', `/api/t/${clube.slug}/calendar/gerar`, { dias: 7 });
-  const depois = itensDe(clube.id).map((c) => `${c.id}:${c.status}:${c.scheduled_at}`);
-  assert.deepEqual(depois, antes, 'reexecutar não mexe em agendado, publicado nem erro');
+  const fechadosDepois = fechadosAntes.map(({ id }) => {
+    const item = P.db.prepare('SELECT status, scheduled_at FROM calendar WHERE tenant_id = ? AND id = ?').get(clube.id, id);
+    return { id, ...item };
+  });
+  assert.deepEqual(fechadosDepois, fechadosAntes, 'publicado e erro preservam estado e horário após mudar o fuso e desconectar o canal');
+  await sup.req('PUT', `/api/t/${clube.slug}/calendar/config`, { timezone: 'America/Sao_Paulo' });
+  conectar(clube.id, 'instagram', 'ativo');
+  await sup.req('POST', `/api/t/${clube.slug}/calendar/gerar`, { dias: 7 });
 
   r = await sup.req('PATCH', `/api/t/${clube.slug}/calendar/${outros[0].id}`, { legenda: 'tentando reescrever' });
   assert.equal(r.status, 409, 'publicado não se altera');
@@ -262,8 +312,10 @@ test('ensureSlots e calendarConfig funcionam direto, para o módulo que publica 
   const repo = scoped(P.db, loja.id);
   const resumo = ensureSlots(repo, { niche_id: 'loja', settings: JSON.stringify({ timezone: 'UTC', postsPerDay: 1, postTimes: '23:30', postChannels: ['blog'] }) }, { days: 2 });
   assert.equal(resumo.criados, 2);
-  assert.equal(itensDe(loja.id).length, t + 2);
+  assert.equal(resumo.removidos, 2, 'a geração retira horários anteriores dentro da janela');
+  assert.equal(itensDe(loja.id).length, t + resumo.criados - resumo.removidos);
   const repetido = ensureSlots(repo, { niche_id: 'loja', settings: JSON.stringify({ timezone: 'UTC', postsPerDay: 1, postTimes: '23:30', postChannels: ['blog'] }) }, { days: 2 });
   assert.equal(repetido.criados, 0);
   assert.equal(repetido.mantidos, 2);
+  assert.equal(repetido.removidos, 0);
 });

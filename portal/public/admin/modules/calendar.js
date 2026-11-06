@@ -41,7 +41,7 @@ export async function render(el, ctx) {
           <span class="pill ${ch.conectado ? 'ok' : 'warn'}"><span class="dot"></span>${ch.conectado ? 'conectado' : 'sem conta'}</span></label>`).join('')}</div></div>
       <div class="row end" style="margin-top:12px"><button class="btn" type="button" id="cal-salvar">Salvar horários</button>
         <button class="btn primary" type="button" id="cal-gerar">Gerar espaços dos próximos ${esc(estado.dias)} dias</button></div>
-      <p class="muted" style="font-size:12.5px;margin-top:8px">Gerar duas vezes não duplica nada: cada espaço tem chave de canal, dia e horário. A geração nunca mexe em itens publicados ou com erro.</p></div>`;
+      <p class="muted" style="font-size:12.5px;margin-top:8px">Gerar duas vezes não duplica nada: cada espaço tem chave de canal, dia e horário. Rascunhos, itens aguardando conexão e agendados que saíram da configuração são removidos; publicados e erros ficam no histórico.</p></div>`;
   }
 
   function itemHtml(item) {
@@ -95,7 +95,7 @@ export async function render(el, ctx) {
     el.querySelector('#cal-gerar')?.addEventListener('click', async () => {
       try {
         const r = await api('POST', `/api/t/${slug}/calendar/gerar`, { dias: estado.dias });
-        toast(`${r.nota} Criados: ${r.criados} · já existiam: ${r.mantidos} · situação revista: ${r.reavaliados} · remarcados: ${r.remarcados}.`);
+        toast(`${r.nota} Criados: ${r.criados} · já existiam: ${r.mantidos} · situação revista: ${r.reavaliados} · remarcados: ${r.remarcados} · removidos: ${r.removidos || 0}.`);
         await carregar();
       } catch (e) { toast(e.message, true); }
     });

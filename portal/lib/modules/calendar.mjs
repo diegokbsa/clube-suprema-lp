@@ -1,7 +1,7 @@
 // Calendário editorial: horários da operação, geração idempotente dos espaços do dia e situação real de cada publicação.
 // Nada é publicado aqui. Sem conta conectada o espaço fica "aguardando conexão"; quem publica é o módulo do canal,
 // que marca "publicado" ou "erro" pelos ajudantes marcarPublicado/marcarErro.
-import { parse } from '../db.mjs';
+import { parse, tx } from '../db.mjs';
 import { HttpError } from '../http.mjs';
 import { cleanSettings } from '../tenants.mjs';
 
@@ -63,6 +63,11 @@ export function horaLocal(timezone, date) {
   return `${pad(p.hour)}:${pad(p.minute)}`;
 }
 
+function paredeLocalMs(timezone, date) {
+  const p = partesNoFuso(timezone, date);
+  return Date.UTC(p.year, p.month - 1, p.day, p.hour, p.minute, p.second);
+}
+
 /** Soma dias no calendário (não em 24 h), para o dia local não escorregar em mudança de horário de verão. */
 export function somarDias(dia, n) {
   const [y, m, d] = dia.split('-').map(Number);
@@ -70,14 +75,21 @@ export function somarDias(dia, n) {
   return `${t.getUTCFullYear()}-${pad(t.getUTCMonth() + 1)}-${pad(t.getUTCDate())}`;
 }
 
-/** Instante exato (UTC) de um horário escrito no relógio da operação. A segunda passada resolve horário de verão. */
+/** Converte o relógio local para UTC; se a hora não existir na virada, avança até a primeira válida. */
 export function instanteLocal(timezone, dia, hhmm) {
   const [y, m, d] = dia.split('-').map(Number);
   const [hh, mm] = hhmm.split(':').map(Number);
   const alvo = Date.UTC(y, m - 1, d, hh, mm, 0);
-  let ts = alvo - deslocamentoMs(timezone, new Date(alvo));
-  ts = alvo - deslocamentoMs(timezone, new Date(ts));
-  return new Date(ts);
+  const primeira = alvo - deslocamentoMs(timezone, new Date(alvo));
+  const segunda = alvo - deslocamentoMs(timezone, new Date(primeira));
+  const candidatos = [...new Set([primeira, segunda])].map((ts) => ({ ts, parede: paredeLocalMs(timezone, new Date(ts)) }));
+  const exato = candidatos.filter((c) => c.parede === alvo).sort((a, b) => a.ts - b.ts)[0];
+  if (exato) return new Date(exato.ts);
+
+  // Na lacuna do horário de verão, as duas passadas ficam uma antes e outra depois da hora pedida.
+  const seguinte = candidatos.filter((c) => c.parede > alvo).sort((a, b) => a.parede - b.parede || a.ts - b.ts)[0];
+  if (seguinte) return new Date(seguinte.ts);
+  return new Date(Math.max(primeira, segunda));
 }
 
 // ---------------------------------------------------------------- configuração de horários
@@ -145,15 +157,19 @@ export function ensureSlots(repo, tenant, { days = 14, from = new Date() } = {})
   const cfg = calendarConfig(tenant);
   const conexoes = conexoesDosCanais(repo);
   const dias = Math.max(1, Math.min(MAX_DIAS, Number(days) || 14));
-  const resumo = { criados: 0, mantidos: 0, reavaliados: 0, remarcados: 0, dias, horarios: cfg.postTimes.length, canais: cfg.canais.length };
-  if (!cfg.postTimes.length || !cfg.canais.length) return resumo;
+  const resumo = { criados: 0, mantidos: 0, reavaliados: 0, remarcados: 0, removidos: 0,
+    dias, horarios: cfg.postTimes.length, canais: cfg.canais.length };
 
   const hoje = diaLocal(cfg.timezone, from);
+  const datasGeradas = [];
+  const chavesConfiguradas = new Set();
   for (let i = 0; i < dias; i++) {
     const dia = somarDias(hoje, i);
+    datasGeradas.push(dia);
     for (const hora of cfg.postTimes) {
       for (const canal of cfg.canais) {
         const idemKey = chaveDoEspaco(canal, dia, hora);
+        chavesConfiguradas.add(idemKey);
         const quando = instanteLocal(cfg.timezone, dia, hora).toISOString();
         const atual = repo.get('calendar', { idem_key: idemKey });
         if (!atual) {
@@ -170,6 +186,20 @@ export function ensureSlots(repo, tenant, { days = 14, from = new Date() } = {})
         repo.update('calendar', atual.id, patch);
         if (patch.status) resumo.reavaliados++;
         if (patch.scheduled_at) resumo.remarcados++;
+      }
+    }
+  }
+
+  // A configuração nova passa a ser a fonte dos espaços abertos desta janela.
+  // Publicados e erros permanecem no histórico, mesmo quando o horário ou canal saiu da configuração.
+  for (const dia of datasGeradas) {
+    for (const canal of Object.keys(CHANNELS)) {
+      const anteriores = repo.all('calendar', {}, { order: 'scheduled_at ASC', limit: 5000,
+        extra: 'idem_key LIKE ?', extraParams: [`cal|${canal}|${dia}|%`] });
+      for (const item of anteriores) {
+        if (chavesConfiguradas.has(item.idem_key) || FECHADOS.includes(item.status)) continue;
+        repo.remove('calendar', item.id);
+        resumo.removidos++;
       }
     }
   }
@@ -213,7 +243,8 @@ export const routes = [
       const hoje = diaLocal(cfg.timezone);
       const desde = instanteLocal(cfg.timezone, hoje, '00:00').toISOString();
       const ate = instanteLocal(cfg.timezone, somarDias(hoje, dias), '00:00').toISOString();
-      const itens = repo.all('calendar', {}, { order: 'scheduled_at ASC', limit: 2000,
+      const total = repo.count('calendar', {}, 'scheduled_at >= ? AND scheduled_at < ?', [desde, ate]);
+      const itens = repo.all('calendar', {}, { order: 'scheduled_at ASC', limit: 5000,
         extra: 'scheduled_at >= ? AND scheduled_at < ?', extraParams: [desde, ate] }).map((c) => itemOut(c, cfg.timezone));
       const porDia = new Map([...Array(dias)].map((_, i) => [somarDias(hoje, i), []]));
       for (const it of itens) {
@@ -223,7 +254,8 @@ export const routes = [
       return {
         config: { ...cfg, postTimesTexto: cfg.postTimes.join(', ') },
         canais: Object.entries(CHANNELS).map(([id, c]) => ({ id, label: c.label, integracao: c.integration, conectado: conexoes[id] })),
-        situacoes: STATUSES, conexoes, avisos: avisosDaConfig(cfg, conexoes),
+        situacoes: STATUSES, conexoes, avisos: [...avisosDaConfig(cfg, conexoes),
+          ...(total > itens.length ? [`A lista mostra ${itens.length} de ${total} espaços neste período.`] : [])],
         dias: [...porDia].map(([dia, lista]) => ({ dia, itens: lista })),
       };
     },
@@ -256,10 +288,10 @@ export const routes = [
   },
   {
     method: 'POST', path: '/api/t/:tenant/calendar/gerar', perm: 'calendar.edit',
-    handler: ({ repo, tenant, body, audit }) => {
-      const resumo = ensureSlots(repo, tenant, { days: body.dias });
+    handler: ({ db, repo, tenant, body, audit }) => {
+      const resumo = tx(db, () => ensureSlots(repo, tenant, { days: body.dias }));
       audit('calendario.gerar', tenant.id, resumo);
-      return { ...resumo, nota: resumo.criados || resumo.reavaliados || resumo.remarcados
+      return { ...resumo, nota: resumo.criados || resumo.reavaliados || resumo.remarcados || resumo.removidos
         ? 'Espaços do calendário em dia. Nada foi publicado.'
         : 'Nada a fazer: os espaços destes dias já existiam.' };
     },
