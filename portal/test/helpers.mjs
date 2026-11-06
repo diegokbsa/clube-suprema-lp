@@ -4,15 +4,17 @@ import { openDb } from '../lib/db.mjs';
 import { createApp } from '../server.mjs';
 import { createUser, hmac } from '../lib/auth.mjs';
 
-export async function startPortal() {
+/** opts.origin: endereço público simulado (ex.: https://portal.exemplo.com); opts.fetchImpl: fetch falso para chamadas externas. */
+export async function startPortal(opts = {}) {
   const db = openDb(':memory:');
   const server = http.createServer();
   await new Promise((r) => server.listen(0, '127.0.0.1', r));
-  const origin = `http://127.0.0.1:${server.address().port}`;
-  const { handle, app } = await createApp({ db, origin, secretKey: 'teste' });
+  const url = `http://127.0.0.1:${server.address().port}`;
+  const origin = opts.origin || url;
+  const { handle, app } = await createApp({ db, origin, secretKey: 'teste', fetchImpl: opts.fetchImpl });
   server.on('request', handle);
   const superUser = createUser(db, { email: 'super@teste.local', name: 'Super', password: 'senha-forte-123', isSuper: true });
-  return { db, app, origin, superUser, close: () => new Promise((r) => server.close(r)) };
+  return { db, app, origin, url, superUser, close: () => new Promise((r) => server.close(r)) };
 }
 
 export function client(origin) {

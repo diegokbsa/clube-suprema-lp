@@ -4,7 +4,13 @@ const $ = (s, el = document) => el.querySelector(s);
 const $$ = (s, el = document) => [...el.querySelectorAll(s)];
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const fmtDate = (iso) => (iso ? new Date(iso).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' }) : '—');
-const S = { me: null, meta: null, csrf: '', tenant: null, tenantData: null };
+const S = { me: null, meta: null, csrf: '', tenant: null, tenantData: null, ed: { id: 'geral', name: 'Portal de Afiliação', tagline: '', terms: { operations: 'Operações', newOperation: 'Nova operação' } } };
+const logoMark = () => (S.ed.logo ? `<img class="logo-mark" src="${esc(S.ed.logo)}" alt="">` : `<span class="logo-mark">${esc(S.ed.name.slice(0, 1))}</span>`);
+function applyEdition(ed) {
+  S.ed = ed;
+  document.documentElement.dataset.edition = ed.id;
+  document.title = ed.name;
+}
 const app = $('#app');
 
 // ---------- API ----------
@@ -38,7 +44,7 @@ const statusPill = (s) => {
 function renderLogin() {
   app.className = '';
   app.innerHTML = `<div class="login"><form id="login-form">
-    <div class="logo"><span class="logo-mark">S</span><div>Portal de Afiliação<small>Painel de operações</small></div></div>
+    <div class="logo">${logoMark()}<div>${esc(S.ed.name)}<small>${esc(S.ed.tagline)}</small></div></div>
     <label class="field">E-mail<input name="email" type="email" autocomplete="username" required></label>
     <label class="field">Senha<input name="password" type="password" autocomplete="current-password" required></label>
     <p class="err" id="login-err"></p>
@@ -61,14 +67,18 @@ function navLinks(route) {
   if (S.me.user.isSuper) {
     items.push(['title', 'Administração central']);
     items.push(['#/', 'Visão geral', route.view === 'central']);
-    items.push(['#/nova', 'Nova operação', route.view === 'nova']);
+    items.push(['#/nova', S.ed.terms.newOperation, route.view === 'nova']);
+    items.push(['#/clientes', 'Base de clientes', route.view === 'clientes']);
+    items.push(['#/insights', 'Insights de IA', route.view === 'insights']);
   }
   if (t) {
     items.push(['title', t.label]);
     const v = route.view;
     const add = (hash, label, perm, on, extra = '') => { if (!perm || can(perm)) items.push([`#/t/${t.slug}${hash}`, label, on, extra]); };
     add('', 'Painel', 'tenant.read', v === 'dash');
+    add('/ia', 'Conectar sua IA', 'ai.connect', v === 'ia');
     add('/site', 'Sites e páginas', 'site.read', v === 'site' || v === 'editor');
+    add('/seo', 'SEO', 'site.read', v === 'seo');
     add('/leads', 'Leads e CRM', 'leads.read', v === 'leads');
     add('/afiliados', 'Afiliados', 'affiliates.read', v === 'afiliados');
     add('/calendario', 'Calendário editorial', 'calendar.read', v === 'calendario');
@@ -85,7 +95,7 @@ function layout(route, inner) {
   app.className = '';
   const tenants = S.me.tenants;
   app.innerHTML = `<div class="shell" id="shell"><aside class="side">
-      <div class="logo"><span class="logo-mark">S</span><div>Portal de Afiliação<small>${esc(S.me.user.isSuper ? 'Superadministrador' : S.tenant?.role || '')}</small></div></div>
+      <div class="logo">${logoMark()}<div>${esc(S.ed.name)}<small>${esc(S.me.user.isSuper ? 'Superadministrador' : S.tenant?.role || '')}</small></div></div>
       ${tenants.length ? `<label class="tenant-pick field">Operação<select id="tenant-pick">${tenants.map((t) => `<option value="${esc(t.slug)}" ${S.tenant?.slug === t.slug ? 'selected' : ''}>${esc(t.label)} · ${esc(t.name)}${t.demo ? ' (demo)' : ''}</option>`).join('')}</select></label>` : ''}
       <nav class="nav">${navLinks(route)}</nav>
       <div class="side-foot"><div>${esc(S.me.user.name)}</div><div class="muted">${esc(S.me.user.email)}</div><div class="row" style="margin-top:8px"><button class="btn sm" id="logout" type="button">Sair</button></div></div>
@@ -98,13 +108,15 @@ function layout(route, inner) {
 
 // ---------- rotas ----------
 function parseRoute() {
-  const parts = location.hash.replace(/^#\/?/, '').split('/').filter(Boolean);
+  const parts = location.hash.replace(/^#\/?/, '').split('?')[0].split('/').filter(Boolean);
   if (!parts.length) return { view: 'central' };
   if (parts[0] === 'nova') return { view: 'nova' };
+  if (parts[0] === 'insights') return { view: 'insights' };
+  if (parts[0] === 'clientes') return { view: 'clientes' };
   if (parts[0] === 't') {
     const slug = parts[1];
     const sub = parts[2] || '';
-    const views = { '': 'dash', site: 'site', editor: 'editor', leads: 'leads', afiliados: 'afiliados', integracoes: 'integracoes', usuarios: 'usuarios', calendario: 'calendario', auditoria: 'auditoria', config: 'config', m: 'module' };
+    const views = { '': 'dash', site: 'site', editor: 'editor', seo: 'seo', ia: 'ia', leads: 'leads', afiliados: 'afiliados', integracoes: 'integracoes', usuarios: 'usuarios', calendario: 'calendario', auditoria: 'auditoria', config: 'config', m: 'module' };
     return { view: views[sub] || 'dash', slug, id: parts[3], module: sub === 'm' ? parts[3] : null };
   }
   return { view: 'central' };
@@ -119,7 +131,8 @@ async function route() {
   } else if (!S.me.user.isSuper) {
     if (S.me.tenants[0]) { location.hash = `#/t/${S.me.tenants[0].slug}`; return; }
   }
-  const views = { central: viewCentral, nova: viewNova, dash: viewDash, site: viewSite, editor: viewEditor, leads: viewLeads, afiliados: viewAfiliados,
+  if (r.view === 'dash' && S.tenant && !can('tenant.read') && can('ai.connect')) { location.hash = `#/t/${S.tenant.slug}/ia`; return; } // afiliado
+  const views = { central: viewCentral, nova: viewNova, insights: viewInsights, clientes: viewBaseClientes, dash: viewDash, site: viewSite, editor: viewEditor, seo: viewSeo, ia: viewIa, leads: viewLeads, afiliados: viewAfiliados,
     integracoes: viewIntegracoes, usuarios: viewUsuarios, calendario: viewCalendario, auditoria: viewAuditoria, config: viewConfig, module: viewModule };
   try {
     await (views[r.view] || viewCentral)(r);
@@ -135,7 +148,7 @@ async function viewCentral(r) {
     return;
   }
   const d = await api('GET', '/api/admin/overview');
-  const main = layout(r, `<div class="page-head"><div><h1>Visão geral</h1><p>Todas as operações, sites, leads e integrações.</p></div><span class="spacer"></span><a class="btn primary" href="#/nova">Nova operação</a></div>
+  const main = layout(r, `<div class="page-head"><div><h1>Visão geral</h1><p>${esc(S.ed.terms.operations)}, sites, leads e integrações.</p></div><span class="spacer"></span><a class="btn primary" href="#/nova">${esc(S.ed.terms.newOperation)}</a></div>
     <div class="kpis">
       <div class="kpi"><b>${d.totals.tenants}</b><span>operações</span></div>
       <div class="kpi"><b>${d.totals.users}</b><span>usuários</span></div>
@@ -163,12 +176,65 @@ function auditTable(rows, withTenant = false) {
   return `<div class="table-wrap"><table><thead><tr><th>Quando</th><th>Ação</th>${withTenant ? '<th>Quem</th>' : ''}<th>Detalhe</th></tr></thead><tbody>${rows.map((a) => `<tr><td class="mono">${fmtDate(a.created_at)}</td><td>${esc(a.action)}</td>${withTenant ? `<td>${esc(a.email || '—')}</td>` : ''}<td class="muted">${esc(JSON.stringify(a.data)).slice(0, 120)}</td></tr>`).join('')}</tbody></table></div>`;
 }
 
+// ---------- base única de clientes (superadmin, só a edição em que entrou) ----------
+async function viewBaseClientes(r) {
+  if (!S.me.user.isSuper) { location.hash = '#/'; return; }
+  const qs = new URLSearchParams(location.hash.split('?')[1] || '');
+  const cid = qs.get('c');
+  if (cid) {
+    const d = await api('GET', `/api/admin/clientes/${encodeURIComponent(cid)}`);
+    layout(r, `<p><a href="#/clientes">← Base de clientes</a></p><div class="card"><h2>${esc(d.cliente.name || '(sem nome)')}</h2><p class="muted">${esc(d.cliente.email || '')}${d.cliente.phone ? ` · ${esc(d.cliente.phone)}` : ''}</p></div>
+      <div class="card"><div class="card-head"><h2>Por onde passou (${d.relacionamentos.length})</h2></div><div class="table-wrap"><table><thead><tr><th>Operação</th><th>Etapa</th><th>Origem</th><th>Quando</th></tr></thead><tbody>
+      ${d.relacionamentos.map((x) => `<tr><td><a href="#/t/${esc(x.slug)}/m/clientes?c=${esc(d.cliente.id)}">${esc(x.operacao)}</a></td><td><span class="pill">${esc(x.etapa)}</span></td><td>${esc(x.origem)}</td><td class="mono">${fmtDate(x.quando)}</td></tr>`).join('')}</tbody></table></div></div>`);
+    return;
+  }
+  const q = qs.get('q') || '';
+  const d = await api('GET', `/api/admin/clientes${q ? `?q=${encodeURIComponent(q)}` : ''}`);
+  const main = layout(r, `<div class="page-head"><div><h1>Base de clientes</h1><p>Uma pessoa existe uma vez só. Cada ${esc(S.ed.terms.newOperation.replace(/^Nov[oa] /, '').toLowerCase())} vê apenas quem chegou por ele; aqui você vê a base inteira de ${esc(S.ed.name)}.</p></div></div>
+    <div class="kpis"><div class="kpi"><b>${d.totais.pessoas}</b><span>pessoas na base</span></div><div class="kpi"><b>${d.totais.emMaisDeUma}</b><span>em mais de uma operação</span></div></div>
+    <div class="card"><div class="row"><input id="bq" placeholder="Buscar por nome, e-mail ou telefone" value="${esc(q)}" style="max-width:340px"><button class="btn" type="button" id="bbusca">Buscar</button></div></div>
+    <div class="card">${d.clientes.length ? `<div class="table-wrap"><table><thead><tr><th>Cliente</th><th>Contato</th><th>Operações</th><th>Entradas</th><th>Último contato</th></tr></thead><tbody>
+      ${d.clientes.map((c) => `<tr><td><a href="#/clientes?c=${esc(c.id)}"><strong>${esc(c.name || '(sem nome)')}</strong></a></td><td class="muted">${esc(c.email || '')}${c.phone ? `<br>${esc(c.phone)}` : ''}</td><td>${c.operacoes}</td><td>${c.leads}</td><td class="mono">${fmtDate(c.ultimo)}</td></tr>`).join('')}</tbody></table></div>`
+      : '<div class="empty">Nenhum cliente ainda.</div>'}</div>`);
+  const go = () => { location.hash = `#/clientes?q=${encodeURIComponent($('#bq').value)}`; };
+  $('#bbusca', main).addEventListener('click', go);
+  $('#bq', main).addEventListener('keydown', (e) => { if (e.key === 'Enter') go(); });
+}
+
+// ---------- insights do pesquisador de IA ----------
+async function viewInsights(r) {
+  if (!S.me.user.isSuper) { location.hash = '#/'; return; }
+  const st = new URLSearchParams(location.hash.split('?')[1] || '').get('status') || 'novo';
+  const d = await api('GET', `/api/admin/insights?status=${encodeURIComponent(st)}`);
+  const nivel = (n) => '●'.repeat(n) + '○'.repeat(5 - n);
+  const tabs = [['novo', 'Novos'], ['aceito', 'Aceitos'], ['aplicado', 'Aplicados'], ['descartado', 'Descartados']];
+  const main = layout(r, `<div class="page-head"><div><h1>Insights de IA</h1><p>O pesquisador procura na internet a cada 20 minutos e traz achados com fonte e ação sugerida. Nada é aplicado sozinho: você aceita (vira tarefa) ou descarta.</p></div></div>
+    <div class="row" style="margin-bottom:12px">${tabs.map(([k, l]) => `<a class="btn ${k === st ? 'primary' : ''}" href="#/insights?status=${k}">${l} · ${d.counts[k] || 0}</a>`).join('')}</div>
+    ${d.insights.length ? d.insights.map((i) => `<div class="card"><div class="card-head">${i.urgente ? '<span class="pill bad">urgente</span>' : ''}<span class="pill info">${esc(i.tipo)}</span><span class="pill">${esc(i.tema)}</span>
+        ${i.aplicavel.map((a) => `<span class="pill gold">${esc(a)}</span>`).join('')}<span class="spacer"></span><span class="muted mono" style="font-size:12px">${fmtDate(i.created_at)}</span></div>
+      <h2>${esc(i.titulo)}</h2><p style="margin-top:6px">${esc(i.resumo)}</p>
+      <p><strong>Ação sugerida:</strong> ${esc(i.acao)}</p>
+      <div class="row muted" style="font-size:12.5px"><span>Impacto <span class="mono">${nivel(i.impacto)}</span></span><span>Esforço <span class="mono">${nivel(i.esforco)}</span></span><span>Confiança <span class="mono">${nivel(i.confianca)}</span></span>
+        <a href="${esc(i.fonte_url)}" target="_blank" rel="noopener noreferrer">fonte${i.fonte_data ? ` (${esc(i.fonte_data)})` : ''} ↗</a></div>
+      ${i.nota ? `<p class="muted" style="margin-top:6px">Nota: ${esc(i.nota)}</p>` : ''}
+      <div class="row end" style="margin-top:10px">${st !== 'aceito' ? `<button class="btn sm primary" type="button" data-ins="${esc(i.id)}" data-st="aceito">Aceitar</button>` : `<button class="btn sm gold" type="button" data-ins="${esc(i.id)}" data-st="aplicado">Marcar como aplicado</button>`}
+        ${st !== 'descartado' ? `<button class="btn sm" type="button" data-ins="${esc(i.id)}" data-st="descartado">Descartar</button>` : ''}</div></div>`).join('')
+      : '<div class="empty">Nada aqui ainda. O primeiro ciclo do pesquisador traz os primeiros achados.</div>'}`);
+  $$('[data-ins]', main).forEach((b) => b.addEventListener('click', async () => {
+    const nota = b.dataset.st === 'descartado' ? (prompt('Motivo (opcional):') || '') : '';
+    await api('PATCH', `/api/admin/insights/${b.dataset.ins}`, { status: b.dataset.st, nota });
+    toast({ aceito: 'Aceito. O coordenador transforma em tarefa.', aplicado: 'Marcado como aplicado.', descartado: 'Descartado.' }[b.dataset.st]);
+    route();
+  }));
+}
+
 // ---------- nova operação (assistente) ----------
 async function viewNova(r) {
   if (!S.me.user.isSuper) { location.hash = '#/'; return; }
-  const W = { step: 0, niche: 'poker', template: null, theme: {}, data: { settings: {} }, modules: null };
+  const single = S.meta.niches.length === 1; // edição de um nicho só (SX): pula a escolha do nicho
+  const W = { step: single ? 1 : 0, niche: S.meta.edition?.defaultNiche || S.meta.niches[0]?.id || 'poker', template: null, theme: {}, data: { settings: {} }, modules: null };
   const STEPS = ['Nicho', 'Dados', 'Modelo', 'Aparência', 'Módulos', 'Revisar'];
-  const main = layout(r, `<div class="page-head"><div><h1>Nova operação</h1><p>Do cadastro ao site pronto para editar, em seis passos.</p></div></div>
+  const main = layout(r, `<div class="page-head"><div><h1>${esc(S.ed.terms.newOperation)}</h1><p>Do cadastro ao site pronto para editar, em ${single ? 'cinco' : 'seis'} passos.</p></div></div>
     <div class="wizard"><ol class="wiz-steps" id="wiz-steps"></ol><div class="card" id="wiz-body"></div></div>`);
   const body = $('#wiz-body', main);
   const niche = () => S.meta.niches.find((n) => n.id === W.niche);
@@ -207,7 +273,7 @@ async function viewNova(r) {
           : '<div class="empty">Ainda não há modelos para este nicho. A operação pode ser criada sem site e ganhar um depois.</div>'}`;
       $$('[data-tpl]', body).forEach((b) => b.addEventListener('click', () => {
         W.template = b.dataset.tpl;
-        W.theme = { ...(templates.find((t) => t.id === W.template)?.theme || {}) };
+        W.theme = { ...(templates.find((t) => t.id === W.template)?.theme || {}), ...(S.meta.edition?.siteTheme || {}) }; // edição SX: paleta da SX por padrão
         draw();
       }));
     }
@@ -242,7 +308,7 @@ async function viewNova(r) {
         <tr><th>Integrações</th><td>Começam como <span class="pill warn">pendente de configuração</span>; nada é conectado sem você.</td></tr>
       </tbody></table><p class="err" id="w-err"></p>`;
     }
-    body.insertAdjacentHTML('beforeend', `<div class="row end" style="margin-top:18px">${W.step ? '<button class="btn" type="button" id="w-back">Voltar</button>' : ''}
+    body.insertAdjacentHTML('beforeend', `<div class="row end" style="margin-top:18px">${W.step > (single ? 1 : 0) ? '<button class="btn" type="button" id="w-back">Voltar</button>' : ''}
       <button class="btn primary" type="button" id="w-next">${W.step === STEPS.length - 1 ? 'Criar operação' : 'Continuar'}</button></div>`);
     $('#w-back')?.addEventListener('click', () => { collect(); W.step--; draw(); });
     $('#w-next').addEventListener('click', next);
@@ -385,7 +451,9 @@ async function viewEditor(r) {
         <label class="field">Endereço<input id="p-slug" value="${esc(E.page.slug)}" ${E.page.slug === '' ? 'disabled title="A página inicial fica no endereço raiz"' : ''}></label></div>
         <label class="field" style="margin-top:8px">Título para o Google<input id="p-seo-t" maxlength="70" value="${esc(E.page.seo.title || '')}"></label>
         <label class="field">Descrição para o Google<textarea id="p-seo-d" maxlength="170">${esc(E.page.seo.description || '')}</textarea></label>
-        <label class="check"><input type="checkbox" id="p-noindex" ${E.page.seo.noindex ? 'checked' : ''}> Esconder dos buscadores</label></div>
+        <label class="check"><input type="checkbox" id="p-noindex" ${E.page.seo.noindex ? 'checked' : ''}> Esconder dos buscadores</label>
+        <h3 style="margin-top:12px">Checklist de SEO</h3><div id="seo-checks">${checksHtml(data.seo || [])}</div>
+        <p class="muted" style="font-size:12px">Ao publicar, o portal avisa o Bing e os outros buscadores do IndexNow e atualiza o sitemap que o Google lê.</p></div>
       <div class="card"><div class="card-head"><h3>Blocos</h3><span class="spacer"></span><select id="add-type" style="width:auto">${Object.entries(schema).map(([k, b]) => `<option value="${esc(k)}">${esc(b.label)}</option>`).join('')}</select><button class="btn sm" type="button" id="add-blk">Adicionar</button></div>
         <div class="blocks" id="blocks"></div></div>
     </div>
@@ -430,6 +498,7 @@ async function viewEditor(r) {
       const res = await api('PUT', `/api/t/${slug}/pages/${E.page.id}/draft`, { blocks: E.blocks, title: $('#p-title').value,
         slug: E.page.slug === '' ? undefined : $('#p-slug').value, seo: { title: $('#p-seo-t').value, description: $('#p-seo-d').value, noindex: $('#p-noindex').checked } });
       E.page = res.page;
+      if (res.seo) $('#seo-checks').innerHTML = checksHtml(res.seo);
       E.blocks = res.page.draft.map((b, i) => ({ ...b, props: E.blocks[i]?.type === b.type ? { ...b.props } : b.props }));
       $('#save-state').textContent = `Rascunho salvo às ${new Date(res.savedAt).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}`;
       $('#pv').contentWindow.location.reload();
@@ -491,6 +560,79 @@ async function viewEditor(r) {
   drawBlocks();
 }
 
+// ---------- Conectar sua IA ----------
+async function viewIa(r) {
+  const slug = S.tenant.slug;
+  const d = await api('GET', `/api/t/${slug}/ai`);
+  const url = d.mcpUrl;
+  const copy = (v) => `<div class="copy"><input readonly value="${esc(v)}"><button class="btn sm" type="button" data-copy="${esc(v)}">Copiar</button></div>`;
+  const clients = [
+    ['Claude (claude.ai, app e celular)', `Configurações → Conectores → Adicionar conector personalizado → cole o endereço abaixo → Conectar. Entre com a sua conta do portal e escolha a operação.`],
+    ['ChatGPT', `Configurações → Apps e conectores → Avançado: ative o modo desenvolvedor → Criar → cole o endereço, autenticação OAuth → entre com a sua conta do portal.`],
+    ['Kimi, Codex, Claude Code e outras linhas de comando', 'Gere um token pessoal aqui embaixo e use o comando da sua ferramenta (exemplos abaixo).'],
+  ];
+  const main = layout(r, `<div class="page-head"><div><h1>Conectar sua IA</h1><p>Use a IA que você já assina (Claude, ChatGPT, Kimi, Codex) para criar posts, criativos e agendamentos no portal. Ela trabalha com o seu login e o seu papel; tudo nasce como rascunho para você aprovar.</p></div></div>
+    <div class="card"><div class="card-head"><h2>1. Conector MCP</h2><span class="pill ok"><span class="dot"></span>Recomendado</span></div>
+      <p class="muted">MCP é o padrão que as IAs usam para falar com sistemas externos. Você adiciona o portal como conector na sua IA e entra com a sua conta daqui: não precisa de chave de API e usa a sua assinatura.</p>
+      <label class="field" style="max-width:560px">Endereço do conector${copy(url)}</label>
+      <div class="grid2" style="margin-top:12px">${clients.map(([n, how]) => `<div class="list-item"><strong>${esc(n)}</strong><span class="muted" style="font-size:13px">${esc(how)}</span></div>`).join('')}</div>
+      <details style="margin-top:12px"><summary><strong>Comandos para linha de comando</strong></summary>
+        <p class="muted" style="margin-top:8px">Claude Code:</p>${copy(`claude mcp add --transport http portal ${url} --header "Authorization: Bearer SEU_TOKEN"`)}
+        <p class="muted" style="margin-top:8px">Codex (arquivo ~/.codex/config.toml):</p>${copy(`[mcp_servers.portal]\nurl = "${url}"\nbearer_token_env_var = "PORTAL_TOKEN"`)}
+        <p class="muted" style="margin-top:8px">Kimi e outros clientes MCP: endereço ${esc(url)} com o cabeçalho Authorization: Bearer SEU_TOKEN.</p></details>
+      <div class="row" style="margin-top:14px"><input id="pat-name" placeholder="Nome do token (ex.: Kimi do notebook)" style="max-width:300px"><button class="btn primary" type="button" id="pat-new">Gerar token pessoal</button></div>
+      <p class="muted" style="font-size:12.5px">Vale 90 dias. Ele só aparece uma vez.</p></div>
+    <div class="card"><div class="card-head"><h2>Conexões ativas</h2></div>${d.connections.length ? `<div class="table-wrap"><table><thead><tr><th>Conexão</th><th>Tipo</th><th>Criada</th><th>Último uso</th><th></th></tr></thead><tbody>
+      ${d.connections.map((c) => `<tr><td><strong>${esc(c.name)}</strong></td><td>${esc(c.kind)}</td><td class="mono">${fmtDate(c.createdAt)}</td><td class="mono">${fmtDate(c.lastUsedAt)}</td><td class="row end"><button class="btn sm danger" type="button" data-revoke="${esc(c.family)}">Desconectar</button></td></tr>`).join('')}</tbody></table></div>`
+      : '<div class="empty">Nenhuma IA conectada ainda.</div>'}
+      <details style="margin-top:10px"><summary>O que a sua IA pode fazer com o seu papel (${d.tools.length} ferramentas)</summary><ul class="checks" style="margin-top:8px">${d.tools.map((t) => `<li class="ok"><span>✓</span> <span><strong>${esc(t.name)}</strong>: ${esc(t.description)}</span></li>`).join('')}</ul></details></div>
+    <div class="card"><div class="card-head"><h2>2. Serviços</h2></div><p class="muted">Ligue o que você quer. Pela IA conectada, você pede e ela faz na hora. Rodar sozinho nos horários (sem você conversando) exige uma chave de API no passo 3.</p>
+      <div class="table-wrap"><table><thead><tr><th>Serviço</th><th>Pela sua IA</th><th>Automático</th><th>Ligado</th></tr></thead><tbody>
+      ${d.services.map((s) => `<tr><td><strong>${esc(s.label)}</strong><div class="muted" style="font-size:12.5px">${esc(s.what)}</div></td>
+        <td><span class="pill ${s.status.pronto.pelaIa ? 'ok' : 'warn'}">${esc(s.status.pelaIa)}</span></td><td><span class="pill ${s.status.pronto.automatico ? 'ok' : 'warn'}">${esc(s.status.automatico)}</span></td>
+        <td><label class="check"><input type="checkbox" data-svc="${esc(s.id)}" ${s.enabled ? 'checked' : ''}> ${s.enabled ? 'Sim' : 'Não'}</label></td></tr>`).join('')}</tbody></table></div></div>
+    <div class="card"><div class="card-head"><h2>3. Chave de API (opcional, para rotinas automáticas)</h2></div>
+      <p class="muted">A chave fica cifrada no servidor e nunca volta para a tela. O uso é cobrado pelo provedor na sua conta dele.</p>
+      <div class="table-wrap"><table><tbody>${d.providers.map((p) => `<tr><td style="width:24%"><strong>${esc(p.label)}</strong><div><a class="muted" style="font-size:12px" href="${esc(p.consoleUrl)}" target="_blank" rel="noopener">onde pegar a chave ↗</a></div></td>
+        <td>${p.connected ? `<span class="pill ${p.status === 'valida' ? 'ok' : 'bad'}">${p.status === 'valida' ? 'Chave válida' : esc(p.lastError || 'Erro')}</span>` : '<span class="pill">Sem chave</span>'}</td>
+        <td><div class="row"><input type="password" autocomplete="off" placeholder="cole a chave" data-key="${esc(p.id)}" style="max-width:280px"><button class="btn sm" type="button" data-save-key="${esc(p.id)}">Salvar e testar</button>${p.connected ? `<button class="btn sm danger" type="button" data-del-key="${esc(p.id)}">Remover</button>` : ''}</div></td></tr>`).join('')}</tbody></table></div></div>`);
+  $$('[data-copy]', main).forEach((b) => b.addEventListener('click', async () => { await navigator.clipboard.writeText(b.dataset.copy); toast('Copiado.'); }));
+  $('#pat-new').addEventListener('click', async () => {
+    const res = await api('POST', `/api/t/${slug}/ai/tokens`, { name: $('#pat-name').value || 'Token pessoal' });
+    prompt('Seu token pessoal (copie agora; ele não aparece de novo):', res.token);
+    route();
+  });
+  $$('[data-revoke]', main).forEach((b) => b.addEventListener('click', async () => { if (confirm('Desconectar esta IA? Ela perde o acesso na hora.')) { await api('DELETE', `/api/t/${slug}/ai/tokens/${b.dataset.revoke}`); toast('Desconectada.'); route(); } }));
+  $$('[data-svc]', main).forEach((c) => c.addEventListener('change', async () => { await api('PUT', `/api/t/${slug}/ai/services/${c.dataset.svc}`, { enabled: c.checked }); toast(c.checked ? 'Serviço ligado.' : 'Serviço desligado.'); route(); }));
+  $$('[data-save-key]', main).forEach((b) => b.addEventListener('click', async () => {
+    const input = $(`[data-key="${b.dataset.saveKey}"]`, main);
+    try { const res = await api('PUT', `/api/t/${slug}/ai/keys/${b.dataset.saveKey}`, { key: input.value }); input.value = ''; toast(res.status === 'valida' ? 'Chave válida e guardada.' : (res.lastError || 'A chave não funcionou.'), res.status !== 'valida'); route(); } catch (e) { toast(e.message, true); }
+  }));
+  $$('[data-del-key]', main).forEach((b) => b.addEventListener('click', async () => { if (confirm('Remover esta chave?')) { await api('DELETE', `/api/t/${slug}/ai/keys/${b.dataset.delKey}`); route(); } }));
+}
+
+// ---------- SEO ----------
+const checksHtml = (checks) => `<ul class="checks">${checks.map((c) => `<li class="${c.ok ? 'ok' : `falta ${esc(c.nivel)}`}"><span aria-hidden="true">${c.ok ? '✓' : '•'}</span> ${esc(c.msg)}</li>`).join('')}</ul>`;
+
+async function viewSeo(r) {
+  const d = await api('GET', `/api/t/${S.tenant.slug}/seo`);
+  const st = { recebido: 'ok', enviado: 'ok', erro: 'bad', pendente_conexao: 'warn', ignorado_local: 'info' };
+  const label = { recebido: 'Recebido', enviado: 'Enviado', erro: 'Erro', pendente_conexao: 'Pendente de conexão', ignorado_local: 'Não enviado (endereço local)' };
+  layout(r, `<div class="page-head"><div><h1>SEO</h1><p>Cada publicação avisa os buscadores sozinha. Aqui você vê o que foi enviado, o que falta conectar e o checklist de cada página.</p></div></div>
+    <div class="card"><div class="card-head"><h2>Buscadores</h2></div><div class="table-wrap"><table><tbody>${d.engines.map((e) => `<tr><td style="width:32%"><strong>${esc(e.label)}</strong></td><td>${statusPill(e.status === 'ativo' || e.status === 'conectado' ? 'ativo' : 'pendente')}</td><td class="muted">${esc(e.how)}</td></tr>`).join('')}</tbody></table></div>
+      <p class="muted" style="margin-top:10px">O Google não aceita aviso por URL para páginas comuns. Ele descobre pelo sitemap e pelo robots.txt; conectando o Search Console, o portal também envia o sitemap a cada publicação.</p></div>
+    ${d.sites.map((s) => `<div class="card"><div class="card-head"><h2>${esc(s.name)}</h2></div>
+      <p class="muted">Sitemap: <a class="mono" href="${esc(s.sitemap)}" target="_blank" rel="noopener">${esc(s.sitemap)}</a> · robots: <a class="mono" href="${esc(s.robots)}" target="_blank" rel="noopener">${esc(s.robots)}</a> · chave IndexNow: <a class="mono" href="${esc(s.indexnowKey)}" target="_blank" rel="noopener">arquivo</a></p>
+      <div class="table-wrap"><table><thead><tr><th>Página</th><th>Situação</th><th>Checklist</th></tr></thead><tbody>${s.pages.map((p) => {
+        const falta = p.checks.filter((c) => !c.ok);
+        return `<tr><td><a href="#/t/${esc(S.tenant.slug)}/editor/${esc(p.id)}"><strong>${esc(p.title)}</strong></a> <span class="mono muted">/${esc(p.slug)}</span></td><td>${statusPill(p.published ? 'publicado' : 'rascunho')}</td>
+          <td>${falta.length ? `<details><summary>${p.checks.length - falta.length}/${p.checks.length} ok · ${falta.length} a melhorar</summary>${checksHtml(falta)}</details>` : `<span class="pill ok">${p.checks.length}/${p.checks.length} ok</span>`}</td></tr>`;
+      }).join('')}</tbody></table></div></div>`).join('')}
+    <div class="card"><div class="card-head"><h2>Envios aos buscadores</h2></div>${d.events.length ? `<div class="table-wrap"><table><thead><tr><th>Quando</th><th>Motivo</th><th>Buscador</th><th>Resultado</th><th>URLs</th><th>Detalhe</th></tr></thead><tbody>
+      ${d.events.map((e) => `<tr><td class="mono">${fmtDate(e.created_at)}</td><td>${esc(e.reason)}</td><td>${esc(e.engine)}</td><td><span class="pill ${st[e.status] || ''}">${esc(label[e.status] || e.status)}</span></td><td class="mono" style="font-size:12px">${e.urls.map(esc).join('<br>')}</td><td class="muted">${esc(e.detail || '')}</td></tr>`).join('')}</tbody></table></div>`
+      : '<div class="empty">Nenhum envio ainda. Publique uma página ou um post.</div>'}</div>`);
+}
+
 // ---------- leads ----------
 async function viewLeads(r) {
   const d = await api('GET', `/api/t/${S.tenant.slug}/leads`);
@@ -523,7 +665,7 @@ async function viewAfiliados(r) {
 // ---------- integrações ----------
 async function viewIntegracoes(r) {
   const d = await api('GET', `/api/t/${S.tenant.slug}/integrations`);
-  const groups = { mensuracao: 'Mensuração no site', relatorios: 'Relatórios', redes: 'Redes sociais', campanhas: 'Campanhas', afiliacao: 'Afiliação' };
+  const groups = { seo: 'SEO e buscadores', mensuracao: 'Mensuração no site', relatorios: 'Relatórios', redes: 'Redes sociais', campanhas: 'Campanhas', afiliacao: 'Afiliação' };
   const main = layout(r, `<div class="page-head"><div><h1>Integrações</h1><p>Estado real de cada conexão. Nada aparece como conectado sem estar.</p></div></div>
     ${Object.entries(groups).map(([g, label]) => {
       const items = d.integrations.filter((i) => i.group === g);
@@ -606,8 +748,10 @@ async function boot() {
     S.me = await api('GET', '/api/me');
     S.csrf = S.me.csrf;
     S.meta = await api('GET', '/api/meta');
+    applyEdition(S.meta.edition);
   } catch { return; }
   route();
 }
 window.addEventListener('hashchange', route);
-fetch('/api/me', { headers: { Accept: 'application/json' } }).then((r) => (r.ok ? boot() : renderLogin())).catch(renderLogin);
+fetch('/api/edition').then((r) => r.json()).then(applyEdition).catch(() => {})
+  .finally(() => fetch('/api/me', { headers: { Accept: 'application/json' } }).then((r) => (r.ok ? boot() : renderLogin())).catch(renderLogin));

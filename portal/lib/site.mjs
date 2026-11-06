@@ -3,6 +3,7 @@ import { esc, renderBlocks } from './blocks.mjs';
 import { cleanTheme } from './templates.mjs';
 import { parse } from './db.mjs';
 import { niche } from './niches.mjs';
+import { jsonLd } from './seo.mjs';
 
 const fontsUrl = (t) => {
   const fam = [...new Set([t.fontHead, t.font])].map((f) => `family=${encodeURIComponent(f).replace(/%20/g, '+')}:wght@400;500;600;700;800`).join('&');
@@ -51,8 +52,9 @@ ${ogImage ? `<meta property="og:image" content="${esc(ogImage)}">` : ''}
 <link rel="stylesheet" href="${fontsUrl(theme)}">
 <link rel="stylesheet" href="/assets/site.css">
 <style>${themeCss(theme)}</style>
+${preview ? '' : `<script type="application/ld+json">${jsonLd({ site, page, tenant, canonical: canonical || `${origin}${base}/${page.slug}`, origin: origin || '', base, description, logo: parse(tenant.settings, {}).logo })}</script>`}
 </head>
-<body class="mode-${theme.mode}" data-site="${esc(site.id)}" data-page="${esc(page.slug)}" data-ga4="${esc(ga4)}" data-gtm="${esc(gtm)}" data-pixel="${esc(pixel)}">
+<body class="mode-${theme.mode}" data-site="${esc(site.id)}" data-page="${esc(page.slug)}" data-base="${esc(base)}"${preview ? ' data-preview="1"' : ''} data-ga4="${esc(ga4)}" data-gtm="${esc(gtm)}" data-pixel="${esc(pixel)}">
 ${preview ? '<div class="preview-bar">Prévia do rascunho · não publicado</div>' : ''}
 ${tenant.demo ? '<div class="demo-bar">Site de demonstração: dados e textos de exemplo.</div>' : ''}
 <main>
@@ -65,9 +67,11 @@ ${needsConsent ? `<div class="consent" id="consent" hidden><p>Usamos cookies de 
 </html>`;
 }
 
-export function sitemapXml(origin, base, pages) {
+/** extras: entradas de módulos (posts do blog etc.): [{ path: '/blog/x', lastmod: ISO }] */
+export function sitemapXml(origin, base, pages, extras = []) {
   const urls = pages.filter((p) => p.published && !parse(p.seo, {}).noindex)
-    .map((p) => `<url><loc>${esc(`${origin}${base}/${p.slug}`.replace(/\/$/, '') || origin)}</loc><lastmod>${esc((p.published_at || '').slice(0, 10))}</lastmod></url>`);
+    .map((p) => `<url><loc>${esc(`${origin}${base}/${p.slug}`.replace(/\/$/, '') || origin)}</loc><lastmod>${esc((p.published_at || '').slice(0, 10))}</lastmod></url>`)
+    .concat(extras.filter((x) => x?.path).map((x) => `<url><loc>${esc(`${origin}${base}${x.path}`)}</loc>${x.lastmod ? `<lastmod>${esc(String(x.lastmod).slice(0, 10))}</lastmod>` : ''}</url>`));
   return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${urls.join('')}</urlset>\n`;
 }
 

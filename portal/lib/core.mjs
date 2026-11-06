@@ -12,6 +12,8 @@ import { publicNiches, niche } from './niches.mjs';
 import { templateList, cleanTheme, FONTS, loadTemplates } from './templates.mjs';
 import { blockSchema, cleanBlocks } from './blocks.mjs';
 import { affiliateLink } from './attribution.mjs';
+import { seoChecklist, siteBase } from './seo.mjs';
+import { publicEdition } from './edition.mjs';
 
 const need = (cond, status, msg) => { if (!cond) throw new HttpError(status, msg); };
 const STAGES = ['novo', 'contato', 'qualificado', 'convertido', 'perdido'];
@@ -46,9 +48,9 @@ export const coreRoutes = [
   { method: 'POST', path: '/api/login', auth: false, handler: (ctx) => ctx.app.login(ctx) },
   { method: 'POST', path: '/api/logout', auth: false, handler: (ctx) => ctx.app.logout(ctx) },
   {
-    method: 'GET', path: '/api/me', handler: ({ db, user, csrf }) => {
-      const rows = user.is_super ? db.prepare('SELECT * FROM tenants ORDER BY created_at').all().map((t) => ({ t, role: 'super' }))
-        : db.prepare('SELECT t.*, m.role FROM memberships m JOIN tenants t ON t.id = m.tenant_id WHERE m.user_id = ? ORDER BY t.created_at').all(user.id)
+    method: 'GET', path: '/api/me', handler: ({ db, user, csrf, edition }) => {
+      const rows = user.is_super ? db.prepare('SELECT * FROM tenants WHERE edition = ? ORDER BY created_at').all(edition.id).map((t) => ({ t, role: 'super' }))
+        : db.prepare('SELECT t.*, m.role FROM memberships m JOIN tenants t ON t.id = m.tenant_id WHERE m.user_id = ? AND t.edition = ? ORDER BY t.created_at').all(user.id, edition.id)
           .map((t) => ({ t, role: t.role }));
       return { user: { id: user.id, email: user.email, name: user.name, isSuper: Boolean(user.is_super) }, csrf,
         tenants: rows.map(({ t, role }) => ({ ...publicTenant(t), role, perms: permsOf(user, role === 'super' ? null : role) })) };
@@ -66,16 +68,21 @@ export const coreRoutes = [
     },
   },
 
+  { method: 'GET', path: '/api/edition', auth: false, handler: ({ edition }) => publicEdition(edition) },
+
   // ---------- catálogo ----------
   {
-    method: 'GET', path: '/api/meta', handler: ({ app, query }) => ({ niches: publicNiches(), templates: templateList(query.niche || ''), blocks: blockSchema(),
+    method: 'GET', path: '/api/meta', handler: ({ app, edition, query }) => ({ edition: { ...publicEdition(edition), siteTheme: edition.siteTheme },
+      niches: publicNiches().filter((n) => edition.allowsNiche(n.id)),
+      templates: templateList(query.niche || '').filter((t) => t.niches.includes('*') || t.niches.some((n) => edition.allowsNiche(n)))
+        .sort((a, b) => edition.templateOrder(a) - edition.templateOrder(b)), blocks: blockSchema(),
       roles: ROLES, fonts: FONTS, stages: STAGES, integrations: INTEGRATIONS, modules: app.moduleNav }),
   },
 
   // ---------- administração central (superadmin) ----------
   {
-    method: 'GET', path: '/api/admin/overview', super: true, handler: ({ db }) => {
-      const tenants = db.prepare('SELECT * FROM tenants ORDER BY created_at').all();
+    method: 'GET', path: '/api/admin/overview', super: true, handler: ({ db, edition }) => {
+      const tenants = db.prepare('SELECT * FROM tenants WHERE edition = ? ORDER BY created_at').all(edition.id);
       const d30 = days(30);
       const per = tenants.map((t) => {
         const q = (sql, ...p) => db.prepare(sql).get(t.id, ...p).n;
@@ -94,10 +101,11 @@ export const coreRoutes = [
     },
   },
   {
-    method: 'POST', path: '/api/tenants', super: true, handler: ({ db, body, user, app }) => {
-      const { tenant, site } = createTenant(db, body, { userId: user.id });
+    method: 'POST', path: '/api/tenants', super: true, handler: ({ db, body, user, edition, origin }) => {
+      need(edition.allowsNiche(body.niche || edition.defaultNiche), 400, `A edição ${edition.name} não trabalha com esse nicho.`);
+      const { tenant, site } = createTenant(db, { ...body, edition: edition.id, niche: body.niche || edition.defaultNiche, theme: { ...(edition.siteTheme || {}), ...(body.theme || {}) } }, { userId: user.id });
       return { status: 201, body: { tenant: publicTenant(tenant), site: site && siteOut(site), adminUrl: `/admin/#/t/${tenant.slug}`,
-        siteUrl: site ? `${app.origin}/s/${site.slug}/` : null } };
+        siteUrl: site ? `${origin}/s/${site.slug}/` : null } };
     },
   },
 
@@ -155,7 +163,7 @@ export const coreRoutes = [
   { method: 'GET', path: '/api/t/:tenant/audit', perm: 'audit.read', handler: ({ repo }) => ({ audit: repo.all('audit', {}, { order: 'created_at DESC', limit: 200 }).map((a) => ({ ...a, data: parse(a.data, {}) })) }) },
 
   // ---------- sites e páginas ----------
-  { method: 'GET', path: '/api/t/:tenant/sites', perm: 'site.read', handler: ({ repo, app }) => ({ sites: repo.all('sites', {}, { order: 'created_at ASC' }).map((s) => ({ ...siteOut(s), url: s.external_url || `${app.origin}/s/${s.slug}/`, pages: repo.all('pages', { site_id: s.id }, { order: 'position ASC' }).map(pageOut) })) }) },
+  { method: 'GET', path: '/api/t/:tenant/sites', perm: 'site.read', handler: ({ repo, origin }) => ({ sites: repo.all('sites', {}, { order: 'created_at ASC' }).map((s) => ({ ...siteOut(s), url: s.external_url || `${origin}/s/${s.slug}/`, pages: repo.all('pages', { site_id: s.id }, { order: 'position ASC' }).map(pageOut) })) }) },
   {
     method: 'POST', path: '/api/t/:tenant/sites', perm: 'site.edit', handler: ({ db, tenant, body, user, audit, repo }) => {
       const limits = parse(tenant.limits, {});
@@ -225,7 +233,8 @@ export const coreRoutes = [
       const p = repo.get('pages', params.id);
       need(p, 404, 'Página não encontrada.');
       const versions = repo.all('page_versions', { page_id: p.id }, { order: 'created_at DESC', limit: 30 }).map((v) => ({ id: v.id, note: v.note, createdAt: v.created_at, blocks: parse(v.blocks, []).length }));
-      return { page: pageOut(p), site: siteOut(repo.get('sites', p.site_id)), versions };
+      const site = repo.get('sites', p.site_id);
+      return { page: pageOut(p), site: siteOut(site), versions, seo: seoChecklist({ page: p, blocks: parse(p.draft, []), site }) };
     },
   },
   {
@@ -243,11 +252,12 @@ export const coreRoutes = [
         need(!repo.all('pages', { site_id: p.site_id, slug }).some((x) => x.id !== p.id), 409, 'Já existe página com esse endereço.');
         patch.slug = slug;
       }
-      return { page: pageOut(repo.update('pages', p.id, patch)), savedAt: now() };
+      const saved = repo.update('pages', p.id, patch);
+      return { page: pageOut(saved), savedAt: now(), seo: seoChecklist({ page: saved, blocks, site: repo.get('sites', p.site_id) }) };
     },
   },
   {
-    method: 'POST', path: '/api/t/:tenant/pages/:id/publish', perm: 'site.publish', handler: ({ repo, params, user, audit }) => {
+    method: 'POST', path: '/api/t/:tenant/pages/:id/publish', perm: 'site.publish', handler: ({ repo, params, user, audit, app, tenant }) => {
       const p = repo.get('pages', params.id);
       need(p, 404, 'Página não encontrada.');
       const at = now();
@@ -255,15 +265,17 @@ export const coreRoutes = [
       repo.insert('page_versions', { page_id: p.id, blocks: p.draft, note: 'publicada', created_by: user.id });
       repo.update('sites', p.site_id, { status: 'publicado' });
       audit('pagina.publicar', p.id, { slug: p.slug });
+      if (!parse(p.seo, {}).noindex) app.seo.announce(tenant, repo.get('sites', p.site_id), [`/${p.slug}`], 'publicacao'); // fluxo de SEO, sem esperar
       return { page: pageOut(repo.get('pages', p.id)) };
     },
   },
   {
-    method: 'POST', path: '/api/t/:tenant/pages/:id/unpublish', perm: 'site.publish', handler: ({ repo, params, audit }) => {
+    method: 'POST', path: '/api/t/:tenant/pages/:id/unpublish', perm: 'site.publish', handler: ({ repo, params, audit, app, tenant }) => {
       const p = repo.get('pages', params.id);
       need(p, 404, 'Página não encontrada.');
       repo.update('pages', p.id, { published: null, published_at: null });
       audit('pagina.despublicar', p.id, { slug: p.slug });
+      app.seo.announce(tenant, repo.get('sites', p.site_id), [`/${p.slug}`], 'remocao'); // buscador revisita e vê o 404
       return { page: pageOut(repo.get('pages', p.id)) };
     },
   },
@@ -330,12 +342,12 @@ export const coreRoutes = [
 
   // ---------- afiliados ----------
   {
-    method: 'GET', path: '/api/t/:tenant/affiliates', perm: 'affiliates.read', handler: ({ repo, tenant, app }) => {
+    method: 'GET', path: '/api/t/:tenant/affiliates', perm: 'affiliates.read', handler: ({ repo, tenant, origin }) => {
       const site = repo.all('sites', {}, { order: 'created_at ASC', limit: 1 })[0];
       return { affiliates: repo.all('affiliates', {}, { order: 'created_at DESC' }).map((a) => ({ id: a.id, name: a.name, email: a.email, code: a.code, status: a.status, createdAt: a.created_at,
         clicks: repo.count('clicks', { affiliate_id: a.id }), leads: repo.count('leads', { affiliate_id: a.id }),
         conversions: repo.count('conversions', { affiliate_id: a.id, verified: 1 }),
-        link: affiliateLink(app.origin, tenant.slug, a.code, { medium: 'link' }), siteSlug: site?.slug || null })) };
+        link: affiliateLink(origin, tenant.slug, a.code, { medium: 'link' }), siteSlug: site?.slug || null })) };
     },
   },
   {
@@ -364,17 +376,38 @@ export const coreRoutes = [
     }),
   },
 
+  // ---------- SEO ----------
+  {
+    method: 'GET', path: '/api/t/:tenant/seo', perm: 'site.read', handler: ({ repo, app }) => {
+      const sites = repo.all('sites', {}, { order: 'created_at ASC' }).filter((s) => !s.external_url);
+      return {
+        engines: [
+          { id: 'indexnow', label: 'Bing, Yandex, Seznam, Naver e Yep (IndexNow)', how: 'Aviso automático a cada publicação, sem conta.', status: 'ativo' },
+          { id: 'google', label: 'Google', how: 'Sitemap com data de atualização, robots.txt, canonical e dados estruturados (JSON-LD) em toda página. Com o Search Console conectado, o sitemap é enviado a cada publicação.', status: repo.get('integrations', { kind: 'google_search_console' })?.status === 'conectado' ? 'conectado' : 'pendente' },
+          { id: 'bing_webmaster', label: 'Bing Webmaster Tools', how: 'Opcional: relatórios de indexação do Bing. O envio de URLs já sai pelo IndexNow.', status: repo.get('integrations', { kind: 'bing_webmaster' })?.status === 'conectado' ? 'conectado' : 'pendente' },
+        ],
+        sites: sites.map((s) => {
+          const { origin, base } = siteBase(app, s);
+          return { id: s.id, name: s.name, sitemap: `${origin}${base}/sitemap.xml`, robots: `${origin}${base}/robots.txt`, indexnowKey: `${origin}${base}/${app.seo.key(s)}.txt`,
+            pages: repo.all('pages', { site_id: s.id }, { order: 'position ASC' }).map((p) => ({ id: p.id, title: p.title, slug: p.slug, published: Boolean(p.published),
+              checks: seoChecklist({ page: p, blocks: parse(p.draft, []), site: s }) })) };
+        }),
+        events: repo.all('seo_events', {}, { order: 'created_at DESC', limit: 100 }).map((e) => ({ ...e, urls: parse(e.urls, []) })),
+      };
+    },
+  },
+
   // ---------- integrações ----------
   {
-    method: 'GET', path: '/api/t/:tenant/integrations', perm: 'integrations.read', handler: ({ repo, tenant, app, user, role }) => {
+    method: 'GET', path: '/api/t/:tenant/integrations', perm: 'integrations.read', handler: ({ repo, tenant, origin, user, role }) => {
       const rows = Object.fromEntries(repo.all('integrations').map((i) => [i.kind, i]));
       const showSecret = can(user, role, 'integrations.manage');
       return { integrations: INTEGRATIONS.map((i) => {
         const r = rows[i.kind] || {};
         const extra = i.kind === 'webhook_conversoes'
-          ? { url: `${app.origin}/api/hooks/${tenant.slug}/conversion`, secret: showSecret ? mask(tenant.webhook_secret) : null, header: 'X-Portal-Signature: sha256=<hmac do corpo>' }
+          ? { url: `${origin}/api/hooks/${tenant.slug}/conversion`, secret: showSecret ? mask(tenant.webhook_secret) : null, header: 'X-Portal-Signature: sha256=<hmac do corpo>' }
           : {};
-        return { ...i, status: r.status || 'pendente', config: parse(r.public_config, {}), lastCheck: r.last_check || null, lastError: r.last_error || null, ...extra };
+        return { ...i, status: r.status || (i.kind === 'indexnow' ? 'ativo' : 'pendente'), config: parse(r.public_config, {}), lastCheck: r.last_check || null, lastError: r.last_error || null, ...extra };
       }) };
     },
   },

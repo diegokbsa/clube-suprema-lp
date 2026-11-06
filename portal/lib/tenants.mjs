@@ -16,7 +16,11 @@ export const INTEGRATIONS = [
   { kind: 'telegram', label: 'Telegram (bot)', group: 'redes' },
   { kind: 'meta_ads', label: 'Meta Ads (conta de anúncios)', group: 'campanhas' },
   { kind: 'webhook_conversoes', label: 'Webhook de conversões', group: 'afiliacao' },
+  { kind: 'indexnow', label: 'IndexNow (Bing, Yandex, Seznam, Naver, Yep)', group: 'seo' },
+  { kind: 'google_search_console', label: 'Google Search Console', group: 'seo' },
+  { kind: 'bing_webmaster', label: 'Bing Webmaster Tools', group: 'seo' },
 ];
+const AUTO_ACTIVE = new Set(['webhook_conversoes', 'indexnow']); // funcionam sem credencial da operação
 
 export const slugify = (s) => String(s || '').normalize('NFKD').replace(/[̀-ͯ]/g, '').toLowerCase()
   .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 48);
@@ -70,12 +74,12 @@ export function createTenant(db, input, { userId } = {}) {
   return tx(db, () => {
     const tenant = { id: newId(), slug, name, number, niche_id: input.niche, settings: JSON.stringify(settings), modules: JSON.stringify(modules),
       limits: JSON.stringify({ sites: 5, pages: 60, usersMax: 25, ...(input.limits || {}) }), webhook_secret: randomBytes(24).toString('base64url'),
-      status: 'ativa', demo: input.demo ? 1 : 0, created_at: now() };
-    db.prepare(`INSERT INTO tenants (id, slug, name, number, niche_id, settings, modules, limits, webhook_secret, status, demo, created_at)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`).run(...Object.values(tenant));
+      status: 'ativa', demo: input.demo ? 1 : 0, created_at: now(), edition: input.edition === 'sx' ? 'sx' : 'geral' };
+    db.prepare(`INSERT INTO tenants (id, slug, name, number, niche_id, settings, modules, limits, webhook_secret, status, demo, created_at, edition)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`).run(...Object.values(tenant));
     const repo = scoped(db, tenant.id);
     for (const i of INTEGRATIONS) {
-      repo.insert('integrations', { kind: i.kind, status: i.kind === 'webhook_conversoes' ? 'ativo' : 'pendente', public_config: '{}' });
+      repo.insert('integrations', { kind: i.kind, status: AUTO_ACTIVE.has(i.kind) ? 'ativo' : 'pendente', public_config: '{}' });
     }
     let site = null;
     if (template) site = createSiteFromTemplate(db, tenant, template, { theme: input.theme, domain: input.domain, userId });
@@ -112,5 +116,5 @@ export function audit(db, { tenantId = null, userId = null, action, target = nul
     .run(newId(), tenantId, userId, action, target, JSON.stringify(data), now());
 }
 
-export const publicTenant = (t) => t && ({ id: t.id, slug: t.slug, name: t.name, number: t.number, niche: t.niche_id, label: unitLabel(t.niche_id, t.number),
+export const publicTenant = (t) => t && ({ id: t.id, slug: t.slug, name: t.name, number: t.number, niche: t.niche_id, edition: t.edition || 'geral', label: unitLabel(t.niche_id, t.number),
   settings: parse(t.settings, {}), modules: parse(t.modules, []), limits: parse(t.limits, {}), status: t.status, demo: Boolean(t.demo), createdAt: t.created_at });
