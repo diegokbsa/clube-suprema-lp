@@ -284,7 +284,7 @@
               {
                 "label": "App",
                 "value": "+18",
-                "text": "App oficial {{app}}, nas lojas. Jogo consciente e somente para maiores de 18 anos."
+                "text": "App oficial {{app}}, nas lojas. Jogo consciente, sem bônus nem promessa de ganho."
               }
             ]
           }
@@ -790,7 +790,7 @@
             "responsible": "Jogue com responsabilidade",
             "variant": "pagina",
             "badge": "Jogo responsável",
-            "league": "Somente maiores de 18 anos",
+            "league": "Limite · pausa · ajuda",
             "title": "Poker é",
             "titleAccent": "entretenimento.",
             "lead": "Jogar bem também é saber parar. **Poker não é fonte de renda** e ninguém deve jogar com dinheiro que faz falta."
@@ -805,7 +805,7 @@
               {
                 "label": "Idade",
                 "value": "+18",
-                "text": "**Somente maiores de 18 anos.** Contas de menores são encerradas quando identificadas."
+                "text": "**Só para adultos.** Contas de menores são encerradas quando identificadas."
               },
               {
                 "label": "Orçamento",
@@ -836,7 +836,7 @@
         {
           "type": "notice",
           "props": {
-            "text": "Somente maiores de 18 anos. Jogue com responsabilidade. Poker é entretenimento, não fonte de renda.",
+            "text": "Poker é entretenimento, não fonte de renda. Se o jogo pesou, o suporte do clube atende quem quer dar um tempo.",
             "variant": "alerta"
           }
         },

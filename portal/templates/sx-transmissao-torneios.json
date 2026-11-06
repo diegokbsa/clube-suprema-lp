@@ -207,7 +207,7 @@
             "text": "Abra o app pelo link do clube, compre as fichas por PIX e registre a tempo.",
             "cta": "Jogar no clube",
             "ctaHref": "{{inviteLink}}",
-            "note": "Somente +18 · jogue com responsabilidade",
+            "note": "Somente +18 · confira o torneio no app antes de registrar",
             "variant": "larga"
           }
         },
@@ -755,6 +755,40 @@
           }
         },
         {
+          "type": "transmissao_mesa_final",
+          "props": {
+            "title": "Do registro à última mão",
+            "intro": "O caminho de um torneio no app, do jeito que ele acontece.",
+            "colStep": "Etapa",
+            "colText": "O que acontece",
+            "colValue": "Onde",
+            "items": [
+              {
+                "title": "Confira e registre",
+                "text": "Buy-in, formato, início e registro tardio aparecem na tela do torneio.",
+                "value": "App"
+              },
+              {
+                "title": "Sente na mesa",
+                "text": "O app sorteia mesa e assento. As blinds sobem no tempo de cada nível.",
+                "value": "Mesa"
+              },
+              {
+                "title": "Intervalos",
+                "text": "Os intervalos seguem o relógio do torneio. Use para levantar e dar uma pausa.",
+                "value": "Pausa"
+              },
+              {
+                "title": "Fim do torneio",
+                "text": "A premiação segue a tabela do torneio no app e vai para o saldo da sua conta.",
+                "value": "Saldo",
+                "lead": true
+              }
+            ],
+            "variant": "dupla"
+          }
+        },
+        {
           "type": "faq",
           "props": {
             "title": "Durante o torneio",
@@ -781,8 +815,19 @@
         {
           "type": "notice",
           "props": {
-            "text": "Somente maiores de 18 anos. Poker é entretenimento, não fonte de renda: defina um teto de gastos antes de registrar.",
+            "text": "Poker é entretenimento, não fonte de renda: defina um teto de gastos antes de registrar.",
             "variant": "alerta"
+          }
+        },
+        {
+          "type": "transmissao_chamada",
+          "props": {
+            "title": "Leu as regras?",
+            "text": "Escolha o torneio na grade e registre pelo app.",
+            "cta": "Ver a grade",
+            "ctaHref": "/grade",
+            "note": "Grade de exemplo · confira no app",
+            "variant": "faixa"
           }
         },
         {

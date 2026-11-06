@@ -189,6 +189,96 @@ function ruasDaMao(p) {
 const VERSO = '<svg viewBox="0 0 40 40" aria-hidden="true" focusable="false"><path d="M20 4l14 16-14 16L6 20z" fill="none" stroke="currentColor" stroke-width="2.4"/><path d="M20 12l7 8-7 8-7-8z" fill="currentColor"/></svg>';
 const carta = (c, { peq = false } = {}) => `<span class="tx-carta${NAIPES[c.s].v ? ' v' : ''}${peq ? ' peq' : ' aberta'}">${peq ? '' : `<span class="tx-verso">${VERSO}</span>`}<span class="tx-face"><b>${rotulo(c.r)}</b><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">${NAIPES[c.s].svg}</svg></span></span>`;
 
+/* ---------------------------------------------------------------- telas do multiview (SVG 16:9, cores pelas classes k-* da pele) */
+
+const TELAS = ['mesa', 'pix', 'grade', 'conversa', 'relogio', 'letreiro'];
+const FONTE = { mesa: 'Mesa', pix: 'Caixa', grade: 'Grade', conversa: 'Suporte', relogio: 'Relógio', letreiro: 'Letreiro' };
+const GUIAS = (w, h, d = 10, l = 14) => `<path class="k-guia" d="M${d} ${d + l}V${d}h${l}M${w - d - l} ${d}h${l}v${l}M${w - d} ${h - d - l}v${l}h-${l}M${d + l} ${h - d}H${d}v-${l}"/>`;
+const tv = (corpo, w = 320, h = 180) => `<svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="xMidYMid slice" focusable="false"><rect class="k-fundo" width="${w}" height="${h}"/>${corpo}${GUIAS(w, h, w / 32, w / 23)}</svg>`;
+const ret = (cls, x, y, w, h, rx = 0) => `<rect class="${cls}" x="${x}" y="${y}" width="${w}" height="${h}"${rx ? ` rx="${rx}"` : ''}/>`;
+
+// mesa vista de cima (câmera aérea): trilho, feltro, linha de aposta, assentos com placa, cartas comunitárias, fichas e botão do dealer
+function mesaCima({ cx, cy, rx, ry, carta: cw, abertas = 3, assentos = 6, ativo = 1, comCartas = true, naMao = [] }) {
+  const ch = cw * 1.4;
+  const cartas = !comCartas ? '' : [0, 1, 2, 3, 4].map((i) => {
+    const x = cx - (cw * 5 + 4 * cw * 0.18) / 2 + i * cw * 1.18, y = cy - ch / 2 - ry * 0.06;
+    return i < abertas
+      ? `${ret('k-carta', x, y, cw, ch, cw * 0.08)}${ret(i % 2 ? 'k-naipe-v' : 'k-naipe', x + cw * 0.16, y + cw * 0.16, cw * 0.26, cw * 0.36)}<circle class="${i % 2 ? 'k-naipe-v' : 'k-naipe'}" cx="${x + cw * 0.66}" cy="${y + ch * 0.72}" r="${cw * 0.17}"/>`
+      : `${ret('k-verso', x, y, cw, ch, cw * 0.08)}<path class="k-verso-m" d="M${x + cw / 2} ${y + ch * 0.25}l${cw * 0.24} ${ch * 0.25}-${cw * 0.24} ${ch * 0.25}-${cw * 0.24}-${ch * 0.25}z"/>`;
+  }).join('');
+  const pw = rx * 0.27, ph = ry * 0.2;
+  const lugares = Array.from({ length: assentos }, (_, i) => {
+    const a = (-90 + 360 / assentos * (i + 0.5)) * Math.PI / 180;
+    const x = cx + Math.cos(a) * (rx + pw * 0.08) - pw / 2, y = cy + Math.sin(a) * (ry + ph * 0.55) - ph / 2;
+    return `${ret(i === ativo ? 'k-placa-ouro' : 'k-placa', x.toFixed(1), y.toFixed(1), pw.toFixed(1), ph.toFixed(1))}${ret(i === ativo ? 'k-sobre-ouro' : 'k-barra-forte', (x + pw * 0.12).toFixed(1), (y + ph * 0.32).toFixed(1), (pw * 0.56).toFixed(1), (ph * 0.36).toFixed(1))}`;
+  }).join('');
+  // cartas fechadas na frente de quem está na mão
+  const fechadas = naMao.map((i) => {
+    const a = (-90 + 360 / assentos * (i + 0.5)) * Math.PI / 180, w = cw * 0.62, h = w * 1.4;
+    const x = cx + Math.cos(a) * rx * 0.7, y = cy + Math.sin(a) * ry * 0.62;
+    return [-0.32, 0.32].map((d) => ret('k-verso', (x + d * w * 1.1 - w / 2).toFixed(1), (y - h / 2).toFixed(1), w.toFixed(1), h.toFixed(1), (w * 0.1).toFixed(1))).join('');
+  }).join('');
+  const ficha = (x, y, n) => Array.from({ length: n }, (_, k) => `<ellipse class="${k === n - 1 ? 'k-ficha-topo' : 'k-ficha'}" cx="${x}" cy="${(y - k * cw * 0.13).toFixed(1)}" rx="${(cw * 0.36).toFixed(1)}" ry="${(cw * 0.2).toFixed(1)}"/>`).join('');
+  return `<ellipse class="k-trilho" cx="${cx}" cy="${cy}" rx="${rx}" ry="${ry}"/><ellipse class="k-feltro" cx="${cx}" cy="${cy}" rx="${rx * 0.9}" ry="${ry * 0.8}"/>
+    <ellipse class="k-risco" cx="${cx}" cy="${cy}" rx="${rx * 0.64}" ry="${ry * 0.52}"/>${lugares}${fechadas}${cartas}
+    ${ficha(cx - rx * 0.05, cy + ry * 0.46, 4)}${ficha(cx + rx * 0.09, cy + ry * 0.44, 3)}
+    <circle class="k-botao" cx="${cx + rx * 0.42}" cy="${cy - ry * 0.4}" r="${cw * 0.3}"/>`;
+}
+
+// "QR" desenhado (padrão fixo, não lê nada): só para a tela de pagamento parecer uma tela de pagamento
+const QR = (() => {
+  const n = 21, on = new Set();
+  let s = 7;
+  for (let y = 0; y < n; y++) for (let x = 0; x < n; x++) {
+    const canto = (x < 8 && y < 8) || (x > 12 && y < 8) || (x < 8 && y > 12);
+    s = (s * 1103515245 + 12345) % 2147483648;
+    if (!canto && (s >> 16) % 5 < 2) on.add(`${x},${y}`);
+  }
+  const mod = [...on].map((k) => { const [x, y] = k.split(','); return `M${x} ${y}h1v1h-1z`; }).join('');
+  const olho = (x, y) => `M${x} ${y}h7v7h-7zM${x + 1} ${y + 1}v5h5v-5zM${x + 2} ${y + 2}h3v3h-3z`;
+  return `<path class="k-naipe" fill-rule="evenodd" d="${olho(0, 0)}${olho(14, 0)}${olho(0, 14)}${mod}"/>`;
+})();
+
+const TELA_SVG = {
+  mesa: tv(mesaCima({ cx: 160, cy: 92, rx: 128, ry: 58, carta: 20 })),
+  conversa: tv(`${ret('k-tela', 92, 10, 136, 160, 12)}${ret('k-cab', 92, 10, 136, 28, 12)}${ret('k-cab', 92, 26, 136, 12)}
+    <circle class="k-barra-forte" cx="110" cy="24" r="7.5"/><circle class="k-vivo" cx="115.5" cy="29.5" r="3"/>${ret('k-texto', 124, 19, 52, 6)}${ret('k-barra', 124, 28, 32, 4)}
+    ${ret('k-balao', 102, 48, 86, 20, 3)}${ret('k-barra-forte', 109, 55, 62, 5)}
+    ${ret('k-ouro', 144, 74, 76, 20, 3)}${ret('k-sobre-ouro', 151, 81, 52, 5)}
+    ${ret('k-balao', 102, 100, 104, 30, 3)}${ret('k-barra-forte', 109, 107, 86, 5)}${ret('k-barra-forte', 109, 117, 58, 5)}
+    ${ret('k-ouro', 158, 136, 62, 16, 3)}${ret('k-sobre-ouro', 165, 141.5, 38, 5)}
+    ${ret('k-balao', 102, 154, 34, 10, 3)}<circle class="k-texto" cx="111" cy="159" r="1.8"/><circle class="k-barra-forte" cx="119" cy="159" r="1.8"/><circle class="k-barra" cx="127" cy="159" r="1.8"/>`),
+  pix: tv(`${ret('k-tela', 22, 20, 276, 140, 4)}${ret('k-carta', 38, 32, 116, 116, 3)}<g transform="translate(45.5 39.5) scale(4.857)">${QR}</g>
+    <circle class="k-vivo" cx="222" cy="64" r="21"/><path class="k-traco" d="M211.5 64.5l7 7 14-15"/>
+    ${ret('k-texto', 174, 98, 96, 8)}${ret('k-barra', 174, 112, 66, 5)}${ret('k-ouro', 174, 128, 84, 16)}${ret('k-sobre-ouro', 181, 134, 44, 4)}`),
+  grade: tv(`${ret('k-cab', 0, 0, 320, 30)}${ret('k-ouro', 0, 30, 320, 2)}<circle class="k-vivo" cx="22" cy="15" r="4"/>${ret('k-texto', 34, 11.5, 92, 7)}${ret('k-ouro', 262, 10, 44, 10)}
+    ${[110, 92, 124, 80, 102].map((w, i) => { const y = 36 + i * 28, d = i === 1; return `${ret(d ? 'k-destaque' : i % 2 ? 'k-tela' : 'k-fundo-2', 0, y, 320, 26)}${ret('k-ouro', 14, y + 8, 30, 10)}${ret('k-texto', 56, y + 6, w, 7)}${ret('k-barra', 56, y + 16, [52, 64, 40, 58, 46][i], 4)}${ret(d ? 'k-ouro' : 'k-barra-forte', 262, y + 9, 44, 8)}`; }).join('')}`),
+  relogio: tv(`<circle class="k-anel" cx="98" cy="92" r="56"/><circle class="k-anel-ouro" cx="98" cy="92" r="56" stroke-dasharray="236 352" transform="rotate(-90 98 92)"/>
+    ${Array.from({ length: 12 }, (_, i) => { const a = i * Math.PI / 6; return `<path class="k-tique" d="M${(98 + Math.sin(a) * 38).toFixed(1)} ${(92 - Math.cos(a) * 38).toFixed(1)}L${(98 + Math.sin(a) * 43).toFixed(1)} ${(92 - Math.cos(a) * 43).toFixed(1)}"/>`; }).join('')}
+    ${ret('k-texto', 72, 82, 52, 12)}${ret('k-barra', 82, 100, 32, 5)}
+    ${[[96, 'k-ouro'], [72, 'k-texto'], [108, 'k-texto']].map(([w, c], i) => `${ret('k-barra', 180, 38 + i * 42, 38, 5)}${ret(c, 180, 48 + i * 42, w, 13)}`).join('')}`),
+  letreiro: tv(`${mesaCima({ cx: 160, cy: 66, rx: 112, ry: 44, carta: 14, abertas: 5 })}
+    ${ret('k-cab', 20, 116, 176, 22)}${ret('k-ouro', 20, 114, 176, 2)}${ret('k-texto', 30, 122, 84, 6)}${ret('k-barra', 30, 131, 52, 3)}${ret('k-ouro', 196, 114, 34, 24)}
+    ${ret('k-tela', 0, 148, 320, 32)}${ret('k-ouro', 0, 146, 320, 2)}${ret('k-ouro', 0, 148, 56, 32)}<circle class="k-sobre-ouro" cx="14" cy="164" r="4"/>${ret('k-sobre-ouro', 23, 161, 24, 6)}
+    ${[66, 150, 234].map((x) => `${ret('k-ouro', x, 160, 20, 8)}${ret('k-texto', x + 26, 160, 40, 8)}${ret('k-barra', x + 74, 152, 1, 24)}`).join('')}`),
+};
+
+// tela principal do multiview: mesa ao vivo vista de cima, com as cartas do flop e as faixas das duas mãos (% calculadas de verdade)
+const MAO_PADRAO = { cardsA: 'As Kd', cardsB: 'Qc 10h', board: 'Qd 7s 2c Ks 4h' };
+function telaPrincipal(p, ctx) {
+  const m = ruasDaMao({ cardsA: p.cardsA || MAO_PADRAO.cardsA, cardsB: p.cardsB || MAO_PADRAO.cardsB, board: p.board || MAO_PADRAO.board }) || ruasDaMao(MAO_PADRAO);
+  const r = m.ruas[1];
+  const verso = `<span class="tx-carta peq tx-carta-fechada"><span class="tx-verso">${VERSO}</span></span>`;
+  const faixa = (h, nome, tag, pct, jg, lider) => `<div class="tx-tv-f${lider ? ' lider' : ''}"><span class="tx-tv-f-cartas">${h.map((c) => carta(c, { peq: true })).join('')}</span>
+    <span class="tx-tv-f-nome"><small>${esc(tag)}</small><strong>${esc(nome)}</strong><span>${esc(jg)}</span></span><span class="tx-tv-f-pct tx-num">${pct}<small>%</small></span></div>`;
+  return `<div class="tx-tv tx-tv-pgm" aria-hidden="true">${tv(mesaCima({ cx: 320, cy: 190, rx: 268, ry: 124, carta: 40, assentos: 8, ativo: 2, comCartas: false, naMao: [2, 6] }), 640, 360)}
+      <span class="tx-tv-bug">${MARCA}<b>${esc(ctx.site?.name || 'Seu clube')}</b></span><span class="tx-tv-rua">${esc(r.nome)}</span>
+      <div class="tx-tv-board">${m.bd.map((c, i) => (i < 3 ? carta(c, { peq: true }) : verso)).join('')}</div>
+      <span class="tx-tv-ex">${esc(p.sample || 'Mão de exemplo · % calculadas')}</span></div>
+    <div class="tx-tv-faixas" aria-hidden="true">${faixa(m.a, m.nA, 'Mão A', r.a, r.ja, r.a >= r.b)}${faixa(m.b, m.nB, 'Mão B', r.b, r.jb, r.b > r.a)}</div>
+    <p class="tx-sr">Tela principal: mão de exemplo no flop ${m.bd.slice(0, 3).map(falaCarta).join(', ')}. ${esc(m.nA)} com ${r.a}% e ${esc(m.nB)} com ${r.b}% de chance de vitória.</p>`;
+}
+
 /* ---------------------------------------------------------------- blocos */
 
 export const blocks = {
@@ -361,20 +451,18 @@ export const blocks = {
   transmissao_multiview: {
     label: 'Transmissão · multiview (tela principal + monitores)',
     fields: [...HEADF, F.list('items', 'Monitores (o primeiro é a tela principal)', [F.text('cam', 'Etiqueta (ex.: CAM 1)'), F.text('title', 'Título'), F.area('text', 'Texto'),
-      F.select('art', 'Grafismo', ['mesa', 'pix', 'grade', 'conversa', 'relogio', 'letreiro'])]), F.area('note', 'Nota abaixo')],
-    render: (p) => {
-      const arte = {
-        mesa: '<span class="tx-art tx-art-mesa" aria-hidden="true"><span class="c"><i></i><i></i><i></i><i></i><i></i></span><span class="f lider"><i></i><b></b></span><span class="f"><i></i><b></b></span><b class="d"></b></span>',
-        pix: '<span class="tx-art tx-art-pix" aria-hidden="true"><i></i><i></i><i></i></span>',
-        grade: '<span class="tx-art tx-art-grade" aria-hidden="true"><i></i><i></i><i></i><i></i></span>',
-        conversa: '<span class="tx-art tx-art-conversa" aria-hidden="true"><i></i><i></i><i></i></span>',
-        relogio: '<span class="tx-art tx-art-relogio" aria-hidden="true"><i></i></span>',
-        letreiro: '<span class="tx-art tx-art-letreiro" aria-hidden="true"><i></i><i></i><i></i><i></i></span>',
-      };
+      F.select('art', 'Grafismo', TELAS)]), F.area('note', 'Nota abaixo'),
+      F.text('cardsA', 'Tela principal · cartas da mão A (ex.: As Kd)'), F.text('cardsB', 'Tela principal · cartas da mão B (ex.: Qc 10h)'),
+      F.text('board', 'Tela principal · mesa, 5 cartas (mostra o flop)'), F.text('sample', 'Tela principal · aviso de exemplo')],
+    render: (p, ctx) => {
       const itens = list(p.items);
-      return `<section class="tx-secao tx-multiview"><div class="tx-caixa">${cabecalho(p)}<div class="tx-mv${itens.length < 2 ? ' so-um' : ''}">${itens.map((i, n) => `<article class="tx-mv-tela${n === 0 ? ' pgm' : ''}">
-        <header class="tx-mv-cab"><span class="tx-mv-cam">${n === 0 ? '<i class="tx-tally" aria-hidden="true"></i>' : ''}${esc(i.cam || `CAM ${n + 1}`)}</span>${n === 0 ? '<span class="tx-mv-noar">No ar</span>' : ''}</header>
-        <div class="tx-mv-corpo">${arte[i.art] || arte.mesa}<div class="tx-mv-faixa"><h3>${esc(i.title)}</h3>${i.text ? `<p>${rich(i.text)}</p>` : ''}</div></div></article>`).join('')}</div>${p.note ? `<p class="tx-mf-nota">${rich(p.note)}</p>` : ''}</div></section>`;
+      return `<section class="tx-secao tx-multiview"><div class="tx-caixa">${cabecalho(p)}<div class="tx-mv${itens.length < 2 ? ' so-um' : ''}">${itens.map((i, n) => {
+        const art = TELAS.includes(i.art) ? i.art : 'mesa';
+        const tela = n === 0 && art === 'mesa' ? telaPrincipal(p, ctx) : `<div class="tx-tv" aria-hidden="true">${TELA_SVG[art]}</div>`;
+        return `<article class="tx-mv-tela${n === 0 ? ' pgm' : ''}" data-tela="${art}">
+        <header class="tx-mv-cab"><span class="tx-mv-cam">${n === 0 ? '<i class="tx-tally" aria-hidden="true"></i>' : ''}${esc(i.cam || `CAM ${n + 1}`)}</span>${n === 0 ? '<span class="tx-mv-noar">No ar</span>' : `<span class="tx-mv-fonte">${esc(FONTE[art])}</span>`}</header>
+        <div class="tx-mv-corpo">${tela}<div class="tx-mv-faixa"><h3>${esc(i.title)}</h3>${i.text ? `<p>${rich(i.text)}</p>` : ''}</div></div></article>`;
+      }).join('')}</div>${p.note ? `<p class="tx-mf-nota">${rich(p.note)}</p>` : ''}</div></section>`;
     },
   },
 

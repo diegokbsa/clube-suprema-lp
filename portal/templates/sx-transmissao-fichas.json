@@ -212,7 +212,7 @@
             "text": "O canal está aberto. Tenha à mão o seu ID de jogador.",
             "cta": "Abrir o canal de fichas",
             "ctaHref": "{{chipsUrl}}",
-            "note": "Somente +18 · jogue com responsabilidade",
+            "note": "Somente +18 · PIX só na chave passada no chat oficial",
             "variant": "larga"
           }
         },
@@ -268,7 +268,7 @@
               {
                 "time": "+18",
                 "name": "Jogo responsável",
-                "detail": "somente maiores de 18 anos"
+                "detail": "teto de gasto e pausa"
               },
               {
                 "time": "ID",
@@ -671,6 +671,36 @@
           }
         },
         {
+          "type": "transmissao_mesa_final",
+          "props": {
+            "title": "Deu errado? Faça nesta ordem",
+            "intro": "Quase todo problema do canal se resolve com estes três passos, **sem pagar de novo**.",
+            "colStep": "Passo",
+            "colText": "O que fazer",
+            "colValue": "Onde",
+            "items": [
+              {
+                "title": "Guarde o comprovante",
+                "text": "Print ou PDF do PIX, com valor e horário. Não apague a conversa.",
+                "value": "Banco"
+              },
+              {
+                "title": "Chame no chat oficial",
+                "text": "Mande o comprovante, o seu ID de jogador e o clube {{number}}. Só no canal oficial, nunca no privado.",
+                "value": "Chat"
+              },
+              {
+                "title": "Confirme por escrito",
+                "text": "O atendente confere e responde no mesmo chat. Fichas na conta, comprovante guardado.",
+                "value": "App",
+                "lead": true
+              }
+            ],
+            "note": "Ninguém do suporte pede a senha do app nem foto de documento.",
+            "variant": "dupla"
+          }
+        },
+        {
           "type": "faq",
           "props": {
             "title": "Compra",
@@ -728,8 +758,19 @@
         {
           "type": "notice",
           "props": {
-            "text": "Somente maiores de 18 anos. Jogue com responsabilidade: defina um teto de gastos e não compre fichas para recuperar perda.",
+            "text": "Defina um teto de gastos antes de comprar e nunca compre fichas para recuperar perda.",
             "variant": "discreto"
+          }
+        },
+        {
+          "type": "transmissao_chamada",
+          "props": {
+            "title": "Ainda travado?",
+            "text": "Abra o canal com o seu ID de jogador à mão.",
+            "cta": "Abrir o canal de fichas",
+            "ctaHref": "{{chipsUrl}}",
+            "note": "Atendimento 24h",
+            "variant": "faixa"
           }
         },
         {

@@ -151,7 +151,7 @@
               {
                 "label": "Idade",
                 "value": "+18",
-                "text": "**Somente maiores de 18 anos.**"
+                "text": "**Só para adultos.** Jogar valendo dinheiro começa aos 18, sem exceção."
               },
               {
                 "label": "Orçamento",
@@ -178,7 +178,7 @@
             "title": "A mão da semana",
             "titleAccent": "no seu e-mail.",
             "text": "Uma mão comentada por semana, rua por rua, e os guias novos. Sem promessa de ganho, só poker explicado.",
-            "responsible": "Conteúdo para maiores de 18 anos. Jogue com responsabilidade.",
+            "responsible": "Conteúdo educativo, não dica de aposta. Jogue com responsabilidade.",
             "fields": "email",
             "button": "Quero receber",
             "help": "Um e-mail por semana. Sai quando quiser.",
@@ -595,7 +595,7 @@
             "responsible": "Jogue com responsabilidade",
             "variant": "pagina",
             "badge": "Jogo responsável",
-            "league": "Somente maiores de 18 anos",
+            "league": "Limite · pausa · ajuda",
             "title": "A melhor jogada",
             "titleAccent": "é saber parar.",
             "lead": "Nenhuma estratégia deste blog vale mais do que um limite bem definido. **Poker é entretenimento, não fonte de renda.**"
@@ -610,7 +610,7 @@
               {
                 "label": "Idade",
                 "value": "+18",
-                "text": "**Somente maiores de 18 anos.**"
+                "text": "**Só para adultos.** Jogar valendo dinheiro começa aos 18, sem exceção."
               },
               {
                 "label": "Orçamento",
