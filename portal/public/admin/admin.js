@@ -715,6 +715,7 @@ async function viewIntegracoes(r) {
     await api('PUT', `/api/t/${S.tenant.slug}/email`, body); toast('E-mail gravado. Agora use Testar.'); route();
   });
   acao('#em-teste', async () => {
+    if ($('#em-senha').value) await api('PUT', `/api/t/${S.tenant.slug}/email`, { remetente: $('#em-rem').value.trim(), nomeRemetente: $('#em-nome').value.trim(), senha: $('#em-senha').value });
     const res = await api('POST', `/api/t/${S.tenant.slug}/email/teste`, { para: $('#em-para').value.trim() || $('#em-rem').value.trim() });
     toast(res.mensagem || res.message || 'Teste enviado. Confira a caixa de entrada.'); route();
   });
@@ -723,7 +724,13 @@ async function viewIntegracoes(r) {
     if ($('#tg-token').value) body.token = $('#tg-token').value.trim();
     await api('PUT', `/api/t/${S.tenant.slug}/telegram`, body); toast('Telegram gravado. Agora use Testar.'); route();
   });
-  acao('#tg-teste', async () => { const res = await api('POST', `/api/t/${S.tenant.slug}/telegram/teste`); toast(res.mensagem || res.message || 'Bot e canal conferidos.'); route(); });
+  acao('#tg-teste', async () => {
+    if ($('#tg-token').value.trim()) { // token colado e ainda não gravado: grava antes de testar (senão o teste usaria o token antigo)
+      await api('PUT', `/api/t/${S.tenant.slug}/telegram`, { canal: $('#tg-canal').value.trim(), botUsuario: $('#tg-bot').value.trim(), token: $('#tg-token').value.trim() });
+    }
+    const res = await api('POST', `/api/t/${S.tenant.slug}/telegram/teste`);
+    toast(res.ok === false ? (res.detalhe || 'O teste falhou.') : (res.mensagem || res.detalhe || 'Bot e canal conferidos.'), res.ok === false); route();
+  });
   $('#rotate')?.addEventListener('click', async () => {
     if (!confirm('Gerar um novo segredo? O antigo para de valer na hora.')) return;
     const res = await api('POST', `/api/t/${S.tenant.slug}/webhook/rotate`);

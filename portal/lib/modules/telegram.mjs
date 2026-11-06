@@ -262,9 +262,11 @@ export const routes = [
     handler: ({ app, repo, body, audit }) => {
       const row = integracao(repo);
       const antes = configDe(row);
-      const canal = String(body?.canal ?? antes.canal).trim();
+      // aceita também o link (https://t.me/canal) que o dono copia do Telegram
+      const deLink = (v) => { const s = String(v ?? '').trim(); const m = /^(?:https?:\/\/)?(?:t|telegram)\.me\/([A-Za-z0-9_]{4,64})\/?$/i.exec(s); return m ? `@${m[1]}` : s; };
+      const canal = deLink(body?.canal ?? antes.canal);
       need(!canal || CANAL.test(canal), 400, 'Canal inválido: use @usuario_do_canal ou o id numérico (ex.: -1001234567890).');
-      let botUsuario = String(body?.botUsuario ?? antes.botUsuario).trim();
+      let botUsuario = deLink(body?.botUsuario ?? antes.botUsuario);
       need(!botUsuario || BOT.test(botUsuario), 400, 'Usuário do bot inválido (ex.: @meuclube_bot).');
       if (botUsuario && !botUsuario.startsWith('@')) botUsuario = `@${botUsuario}`;
       const token = String(body?.token ?? '').trim();
