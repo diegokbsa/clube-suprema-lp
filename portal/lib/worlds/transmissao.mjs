@@ -13,6 +13,7 @@ export const world = {
     { id: 'suprema', name: 'Preto e dourado', colors: { mode: 'escuro', bg: '#15110a', surface: '#1e1810', text: '#f6eddc', muted: '#ad9a78', primary: '#efa144', primaryText: '#030303', accent: '#2bb673', border: '#3b2f1f' } },
     { id: 'sx', name: 'Preto e azul SX', colors: { mode: 'escuro', bg: '#0c0f12', surface: '#141a20', text: '#eef3f6', muted: '#9aa8b3', primary: '#39bcff', primaryText: '#03121c', accent: '#2bd17e', border: '#26303a' } },
     { id: 'estudio', name: 'Estúdio azul-noite e lima', colors: { mode: 'escuro', bg: '#0b1220', surface: '#121b2d', text: '#eef1f6', muted: '#9fabc2', primary: '#d4f24a', primaryText: '#0b1220', accent: '#ff5a4a', border: '#243149' } },
+    { id: 'chama', name: 'Preto e laranja chama', colors: { mode: 'escuro', bg: '#0b0908', surface: '#17110d', text: '#f7f1ea', muted: '#bfb1a5', primary: '#f47b20', primaryText: '#150700', accent: '#ffc48a', border: '#3a2618' } },
   ],
 };
 

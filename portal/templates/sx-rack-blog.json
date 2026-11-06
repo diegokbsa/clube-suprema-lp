@@ -2,7 +2,7 @@
   "id": "sx-rack-blog",
   "name": "Rack · Blog educativo (edição SX)",
   "order": 5,
-  "version": 1,
+  "version": 2,
   "category": "Poker · edição SX",
   "niches": [
     "poker"
@@ -57,7 +57,8 @@
               }
             ],
             "cta": "Entrar no clube",
-            "ctaHref": "{{inviteLink}}"
+            "ctaHref": "{{inviteLink}}",
+            "logo": "{{logo}}"
           }
         },
         {
@@ -200,7 +201,8 @@
             "success": "Pronto! O próximo guia chega no seu e-mail.",
             "consent": "Concordo em receber guias e avisos do clube por e-mail. Posso sair quando quiser.",
             "note": "Sem spam. **Dá para sair quando quiser.**",
-            "aviso18": "Conteúdo para maiores de 18 · Jogue com responsabilidade"
+            "aviso18": "Conteúdo para maiores de 18 · Jogue com responsabilidade",
+            "logo": "{{logo}}"
           }
         },
         {
@@ -262,7 +264,8 @@
               }
             ],
             "cta": "Entrar no clube",
-            "ctaHref": "{{inviteLink}}"
+            "ctaHref": "{{inviteLink}}",
+            "logo": "{{logo}}"
           }
         },
         {
@@ -274,7 +277,8 @@
             "title": "Comece aqui",
             "text": "Tudo o que você precisa para jogar a primeira mão no **{{app}}**: as regras em cinco minutos e o caminho até o clube.",
             "sealTop": "Clube",
-            "sealNumber": "{{number}}"
+            "sealNumber": "{{number}}",
+            "logo": "{{logo}}"
           }
         },
         {
@@ -470,7 +474,8 @@
               }
             ],
             "cta": "Entrar no clube",
-            "ctaHref": "{{inviteLink}}"
+            "ctaHref": "{{inviteLink}}",
+            "logo": "{{logo}}"
           }
         },
         {
@@ -495,7 +500,8 @@
                 "color": "cobre",
                 "size": "50"
               }
-            ]
+            ],
+            "logo": "{{logo}}"
           }
         },
         {
@@ -694,7 +700,8 @@
               }
             ],
             "cta": "Entrar no clube",
-            "ctaHref": "{{inviteLink}}"
+            "ctaHref": "{{inviteLink}}",
+            "logo": "{{logo}}"
           }
         },
         {
@@ -719,7 +726,8 @@
                 "color": "preta",
                 "size": "40"
               }
-            ]
+            ],
+            "logo": "{{logo}}"
           }
         },
         {

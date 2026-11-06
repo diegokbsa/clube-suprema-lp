@@ -2,6 +2,7 @@
 // Monta um banco temporário do zero (não toca no banco de desenvolvimento), cria uma operação de exemplo por modelo,
 // publica as páginas, sobe um portal temporário em portas próprias e fotografa a home com o Edge/Chrome sem tela.
 //   node portal/tools/fotos-homes.mjs <pasta-de-saida> [--modelos id1,id2] [--celular] [--paginas]
+//     --exemplo arq.json  troca o exemplo do pôquer por uma marca de verdade ({ name, number, settings, paleta?: id da paleta do mundo, theme?, rodape: [{ label, href }] }) ·
 //     --modelos  só esses modelos · --celular  também foto em 390 px (arquivo ...-celular.jpg) · --paginas  também as páginas internas (com --celular, as internas também em 390 px: ...-<pagina>-celular.jpg)
 //   imprime JSON { homes: [{ modelo, nome, edicao, arquivo, celular?, paginas? }] }. Portas livres sorteadas: pode rodar vários ao mesmo tempo.
 import { spawn } from 'node:child_process';
@@ -13,6 +14,7 @@ import { fileURLToPath } from 'node:url';
 import { openDb } from '../lib/db.mjs';
 import { createTenant } from '../lib/tenants.mjs';
 import { loadTemplates } from '../lib/templates.mjs';
+import { WORLDS } from '../lib/worlds/index.mjs';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.join(HERE, '..');
@@ -22,6 +24,7 @@ const opt = (k) => { const i = ARGS.indexOf(k); return i >= 0 ? (ARGS[i + 1] && 
 const SO = typeof opt('--modelos') === 'string' ? new Set(opt('--modelos').split(',').map((x) => x.trim())) : null;
 const CELULAR = Boolean(opt('--celular'));
 const PAGINAS = Boolean(opt('--paginas'));
+const MARCA = typeof opt('--exemplo') === 'string' ? JSON.parse(fs.readFileSync(opt('--exemplo'), 'utf8')) : null;
 const livre = () => new Promise((r, j) => { const s = net.createServer(); s.unref(); s.on('error', j); s.listen(0, '127.0.0.1', () => { const { port } = s.address(); s.close(() => r(port)); }); });
 const [PG, PS, CDP] = [await livre(), await livre(), await livre()];
 const BROWSERS = ['C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe', 'C:/Program Files/Google/Chrome/Application/chrome.exe'];
@@ -69,9 +72,16 @@ try {
   const lista = [];
   for (const t of modelos) {
     const nicho = t.niches.includes('*') ? 'loja' : t.niches[0];
-    const ex = EXEMPLO[nicho] || EXEMPLO.loja;
+    const ex = (nicho === 'poker' && MARCA) || EXEMPLO[nicho] || EXEMPLO.loja;
     const edicao = t.id.startsWith('sx-') ? 'sx' : 'geral';
-    const { site } = createTenant(db, { ...ex, niche: nicho, slug: `ex-${t.id}`, template: t.id, demo: true, edition: edicao });
+    const { site } = createTenant(db, { name: ex.name, number: ex.number, settings: ex.settings, theme: ex.paleta ? WORLDS[t.theme?.world]?.palettes.find((pl) => pl.id === ex.paleta)?.colors : ex.theme, niche: nicho, slug: `ex-${t.id}`, template: t.id, demo: !(MARCA && nicho === 'poker'), edition: edicao });
+    if (ex.rodape?.length) { // links extras no rodapé (redes da marca)
+      for (const pgr of db.prepare('SELECT id, draft FROM pages WHERE site_id = ?').all(site.id)) {
+        const blocos = JSON.parse(pgr.draft || '[]');
+        for (const b of blocos) if (b.type === 'footer') b.props.links = [...(b.props.links || []), ...ex.rodape];
+        db.prepare('UPDATE pages SET draft = ? WHERE id = ?').run(JSON.stringify(blocos), pgr.id);
+      }
+    }
     lista.push({ modelo: t.id, nome: t.name, edicao, slug: site.slug, ordem: t.order, paginas: t.pages.map((pg) => pg.slug).filter(Boolean) });
   }
   const agora = new Date().toISOString();

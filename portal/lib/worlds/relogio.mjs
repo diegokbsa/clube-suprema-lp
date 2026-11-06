@@ -12,6 +12,7 @@ export const world = {
     { id: 'suprema', name: 'Preto e dourado', colors: { mode: 'escuro', bg: '#15110a', surface: '#040404', text: '#f2e8d6', muted: '#b3a386', primary: '#efa144', primaryText: '#040404', accent: '#f3b662', border: '#3a2f1f' } },
     { id: 'sx', name: 'Preto e azul SX', colors: { mode: 'escuro', bg: '#0b1014', surface: '#030507', text: '#e9f1f6', muted: '#97a9b5', primary: '#39bcff', primaryText: '#03121c', accent: '#8fd6ff', border: '#1f2c36' } },
     { id: 'led', name: 'Grafite e LED vermelho', colors: { mode: 'escuro', bg: '#111314', surface: '#050606', text: '#eef0ec', muted: '#a6aca8', primary: '#ff5b3a', primaryText: '#0c0504', accent: '#ffb199', border: '#2b2f31' } },
+    { id: 'chama', name: 'Preto e laranja chama', colors: { mode: 'escuro', bg: '#0b0908', surface: '#17110d', text: '#f7f1ea', muted: '#bfb1a5', primary: '#f47b20', primaryText: '#150700', accent: '#ffc48a', border: '#3a2618' } },
   ],
 };
 

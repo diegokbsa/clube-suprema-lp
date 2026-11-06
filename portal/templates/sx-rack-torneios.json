@@ -2,7 +2,7 @@
   "id": "sx-rack-torneios",
   "name": "Rack · Agenda de torneios (edição SX)",
   "order": 4,
-  "version": 1,
+  "version": 2,
   "category": "Poker · edição SX",
   "niches": [
     "poker"
@@ -54,7 +54,8 @@
               }
             ],
             "cta": "Quero jogar",
-            "ctaHref": "{{inviteLink}}"
+            "ctaHref": "{{inviteLink}}",
+            "logo": "{{logo}}"
           }
         },
         {
@@ -218,7 +219,8 @@
             "note": "**Não pedimos senha do app nem documentos.**",
             "aviso18": "Somente maiores de 18 anos · Jogue com responsabilidade",
             "sealTop": "Clube",
-            "sealNumber": "{{number}}"
+            "sealNumber": "{{number}}",
+            "logo": "{{logo}}"
           }
         },
         {
@@ -273,7 +275,8 @@
               }
             ],
             "cta": "Quero jogar",
-            "ctaHref": "{{inviteLink}}"
+            "ctaHref": "{{inviteLink}}",
+            "logo": "{{logo}}"
           }
         },
         {
@@ -302,7 +305,8 @@
                 "color": "cobre",
                 "size": "48"
               }
-            ]
+            ],
+            "logo": "{{logo}}"
           }
         },
         {
@@ -445,7 +449,8 @@
               }
             ],
             "cta": "Quero jogar",
-            "ctaHref": "{{inviteLink}}"
+            "ctaHref": "{{inviteLink}}",
+            "logo": "{{logo}}"
           }
         },
         {
@@ -458,7 +463,8 @@
             "title2": "de torneio",
             "text": "Freezeout, rebuy, KO, turbo: o que muda em cada um, sem jargão.",
             "sealTop": "Clube",
-            "sealNumber": "{{number}}"
+            "sealNumber": "{{number}}",
+            "logo": "{{logo}}"
           }
         },
         {
@@ -581,7 +587,8 @@
               }
             ],
             "cta": "Quero jogar",
-            "ctaHref": "{{inviteLink}}"
+            "ctaHref": "{{inviteLink}}",
+            "logo": "{{logo}}"
           }
         },
         {
@@ -606,7 +613,8 @@
                 "color": "ouro",
                 "size": "68"
               }
-            ]
+            ],
+            "logo": "{{logo}}"
           }
         },
         {
