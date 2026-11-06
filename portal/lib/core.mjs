@@ -10,6 +10,7 @@ import { createUser, checkPassword, passwordProblem, can, permsOf, ROLES, mask }
 import { createTenant, publicTenant, INTEGRATIONS, slugify, cleanSettings } from './tenants.mjs';
 import { publicNiches, niche } from './niches.mjs';
 import { templateList, cleanTheme, FONTS, loadTemplates } from './templates.mjs';
+import { WORLDS } from './worlds/index.mjs';
 import { blockSchema, cleanBlocks } from './blocks.mjs';
 import { affiliateLink } from './attribution.mjs';
 import { seoChecklist, siteBase } from './seo.mjs';
@@ -76,7 +77,8 @@ export const coreRoutes = [
       niches: publicNiches().filter((n) => edition.allowsNiche(n.id)),
       templates: templateList(query.niche || '').filter((t) => t.niches.includes('*') || t.niches.some((n) => edition.allowsNiche(n)))
         .sort((a, b) => edition.templateOrder(a) - edition.templateOrder(b)), blocks: blockSchema(),
-      roles: ROLES, fonts: FONTS, stages: STAGES, integrations: INTEGRATIONS, modules: app.moduleNav }),
+      roles: ROLES, fonts: FONTS, stages: STAGES, integrations: INTEGRATIONS, modules: app.moduleNav,
+      worlds: Object.values(WORLDS).map(({ id, name, description, palettes }) => ({ id, name, description, palettes: palettes || [] })) }),
   },
 
   // ---------- administração central (superadmin) ----------
