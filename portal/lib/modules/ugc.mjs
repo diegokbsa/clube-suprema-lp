@@ -311,8 +311,17 @@ function insightsDaEdicao(db, tenant) {
   } catch { return []; }
 }
 
+/** Kit de 7 dias gerado na aprovação da trilha de migração (tabela da PA-140; operação sem kit devolve vazio). */
+function kitDeMigracao(repo) {
+  try { return repo.all('migracao_kits', {}, { limit: 100 }); } catch { return []; }
+}
+
 /** Candidatos de pauta para uma rede: primeiro o que a operação já tem (agenda, blog, insights), depois os modelos do nicho. */
-function candidatos(rede, nicho, fontes) {
+function candidatos(rede, nicho, fontes, usarKit = false) {
+  // kit de 7 dias da trilha de migração (PA-140): na primeira semana do agente aprovado, as pautas dele vêm primeiro
+  const kit = usarKit ? fontes.kit.filter((k) => k.canal === rede).sort((a, b) => a.dia - b.dia)
+    .map((k) => ({ tema: txt(k.tema, 160), gancho: txt(k.gancho, 200), origem: 'migracao', ref: k.id })) : [];
+  if (kit.length) return [...kit, ...pautasModelo(nicho === 'poker' ? 'poker' : nicho, rede).map((x) => ({ ...x, origem: 'modelo', ref: null }))];
   const out = [];
   if (rede === 'instagram') for (const a of fontes.agenda) out.push({ tema: `${a.nome}${a.dia || a.hora ? ` · ${[a.dia, a.hora].filter(Boolean).join(' ')}` : ''}`, gancho: `Hoje tem ${a.nome}. Já separou o horário?`, origem: 'agenda', ref: a.ref });
   if (rede === 'youtube') for (const p of fontes.posts) out.push({ tema: `Explique em 45 s: ${txt(p.title, 90)}`, gancho: 'O resumo do post do blog, sem enrolação.', origem: 'blog', ref: p.id });
@@ -325,12 +334,14 @@ function candidatos(rede, nicho, fontes) {
 /** Propõe a pauta da semana. Idempotente: a mesma semana, rede e dia caem na mesma chave. */
 export function proporPauta(db, repo, tenant, semana) {
   const personas = repo.all('ugc_personas', {}, { limit: 10 }).filter((p) => p.status !== 'pausado');
-  const fontes = { agenda: agendaDaOperacao(repo), posts: postsDoBlog(repo), insights: insightsDaEdicao(db, tenant) };
+  const fontes = { agenda: agendaDaOperacao(repo), posts: postsDoBlog(repo), insights: insightsDaEdicao(db, tenant), kit: kitDeMigracao(repo) };
   const nicho = tenant.niche_id;
   const giro = Math.floor(Date.parse(`${semana}T00:00:00Z`) / (7 * 864e5)); // muda o ponto de partida a cada semana
   const res = { criadas: 0, mantidas: 0, fontes: { agenda: fontes.agenda.length, blog: fontes.posts.length, insights: fontes.insights.length } };
   for (const p of personas) {
-    const c = candidatos(p.rede, nicho, fontes);
+    // o kit entra uma vez só: na primeira semana em que a persona ainda não recebeu pauta dele
+    const usarKit = fontes.kit.length > 0 && !repo.get('ugc_pautas', { persona_id: p.id, origem: 'migracao' });
+    const c = candidatos(p.rede, nicho, fontes, usarKit);
     const reais = c.filter((x) => x.origem !== 'modelo').length;
     for (let i = 0; i < 7; i++) {
       const idem = `pauta|${semana}|${p.rede}|${i}`;

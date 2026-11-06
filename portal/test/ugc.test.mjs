@@ -381,3 +381,20 @@ test('apagar influenciador com peça publicada é recusado; sem publicação apa
   assert.equal((await dono.req('DELETE', `/api/t/${clube.slug}/ugc/personas/${tt.id}`)).status, 200);
   assert.equal(scoped(db, clube.id).get('affiliates', { code: tt.codigo }).status, 'pausado');
 });
+
+test('kit de 7 dias da trilha de migração entra na primeira pauta do influenciador, uma vez só', async () => {
+  const mkt = await entrar(X, 'mkt@clube.test');
+  const t = db.prepare('SELECT id FROM tenants WHERE slug = ?').get(clube.slug);
+  const agora = new Date().toISOString();
+  const ins = db.prepare('INSERT INTO migracao_kits (id, tenant_id, canal, dia, formato, gancho, tema, chamada, link, preflight, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
+  for (let d = 1; d <= 7; d++) ins.run(`kit-${d}`, t.id, 'instagram', d, 'video', `Gancho do kit ${d}`, `Tema do kit ${d}`, 'Link na bio', 'https://x.test/r/a/b', '{}', agora);
+  const prox = new Date(Date.now() + 14 * 864e5).toISOString().slice(0, 10);
+  const r = await mkt.req('POST', `/api/t/${clube.slug}/ugc/pauta/propor`, { semana: prox });
+  assert.equal(r.status, 200, JSON.stringify(r.data));
+  const doKit = db.prepare("SELECT tema FROM ugc_pautas WHERE tenant_id = ? AND origem = 'migracao' ORDER BY ordem").all(t.id);
+  assert.equal(doKit.length, 7, 'as 7 pautas do kit entram no influenciador do Instagram');
+  assert.equal(doKit[0].tema, 'Tema do kit 1');
+  const depois = new Date(Date.now() + 21 * 864e5).toISOString().slice(0, 10);
+  await mkt.req('POST', `/api/t/${clube.slug}/ugc/pauta/propor`, { semana: depois });
+  assert.equal(db.prepare("SELECT COUNT(*) n FROM ugc_pautas WHERE tenant_id = ? AND origem = 'migracao'").get(t.id).n, 7, 'na semana seguinte o kit não se repete');
+});
