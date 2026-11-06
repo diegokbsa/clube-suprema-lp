@@ -32,6 +32,7 @@ const SETTINGS = {
   instagram: '@hotpoker.agent', facebook: 'https://www.facebook.com/share/g/1KJNHrXUSF/', email: DONO,
   logo: '/assets/hot-poker/chama.svg', tagline: 'Clube de poker no app Suprema Poker: fichas por PIX e suporte humano 24h.',
   timezone: 'America/Sao_Paulo', postsPerDay: 1, postTimes: '09:00',
+  inviteLink: 'https://supremapoker.onelink.me/xDgV?deep_link_value=eyJsaW5rdHlwZSI6MSwiY2x1YmlkIjozMzU0OCwiYWdlbnRpZCI6NzY4Mjg2LCJwbGF5ZXJpZCI6NzY4Mjg2LCJjcmVhdGV0aW1lIjoiMTc5NDAwNzYxNTcyNSJ9',
 };
 const SITE_DIR = path.join(ROOT, 'conteudo', 'hot-poker', 'site');
 const BLOG_DIR = path.join(ROOT, 'conteudo', 'hot-poker', 'blog');
