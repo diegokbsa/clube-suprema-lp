@@ -1,0 +1,358 @@
+{
+  "id": "blog-educativo",
+  "name": "Blog educativo",
+  "order": 25,
+  "version": 1,
+  "category": "Poker · conteúdo",
+  "niches": [
+    "poker"
+  ],
+  "description": "Blog de estratégia para atrair e educar jogadores: destaques, trilhas de estudo e newsletter que cai no CRM, com conversão para o clube. Identidade própria; conteúdo de exemplo identificado.",
+  "inspiredBy": null,
+  "theme": {
+    "mode": "claro",
+    "bg": "#faf7f0",
+    "surface": "#ffffff",
+    "text": "#26221c",
+    "muted": "#6f6a5e",
+    "primary": "#2f6f4f",
+    "primaryText": "#ffffff",
+    "accent": "#c2862c",
+    "border": "#e7e0d2",
+    "font": "IBM Plex Sans",
+    "fontHead": "Playfair Display",
+    "radius": 6
+  },
+  "seo": {
+    "title": "{{name}} · Aprenda poker de graça",
+    "description": "Guias e artigos de estratégia do {{name}}: do básico ao avançado, com trilhas de estudo e newsletter. Somente +18."
+  },
+  "pages": [
+    {
+      "slug": "",
+      "title": "Início",
+      "blocks": [
+        {
+          "type": "navbar",
+          "props": {
+            "brand": "{{name}}",
+            "logo": "{{logo}}",
+            "links": [
+              {
+                "label": "Artigos",
+                "href": "/blog"
+              },
+              {
+                "label": "Trilhas",
+                "href": "/trilhas"
+              },
+              {
+                "label": "Dúvidas",
+                "href": "#duvidas"
+              }
+            ],
+            "cta": "Receber novidades",
+            "ctaHref": "#contato",
+            "variant": "flutuante"
+          }
+        },
+        {
+          "type": "hero",
+          "props": {
+            "eyebrow": "Estratégia de poker, em português",
+            "title": "Estude de graça. Jogue melhor amanhã.",
+            "subtitle": "Guias diretos ao ponto: regras, posição, gestão de banca e leitura de mesa — escritos para quem quer evoluir no {{app}}.",
+            "cta": "Ler os artigos",
+            "ctaHref": "/blog",
+            "secondary": "Ver trilhas de estudo",
+            "secondaryHref": "/trilhas",
+            "note": "Conteúdo educativo · somente +18",
+            "variant": "painel"
+          }
+        },
+        {
+          "type": "cards",
+          "props": {
+            "title": "Comece por aqui (artigos de exemplo)",
+            "items": [
+              {
+                "tag": "Básico",
+                "title": "Posição: por que ela vale fichas (exemplo)",
+                "text": "O conceito que mais muda o resultado de quem está começando.",
+                "href": "/artigo"
+              },
+              {
+                "tag": "Banca",
+                "title": "Gestão de banca em 5 regras (exemplo)",
+                "text": "Como não quebrar a banca na primeira sequência ruim.",
+                "href": "/artigo"
+              },
+              {
+                "tag": "Leitura",
+                "title": "Contando uma história com apostas (exemplo)",
+                "text": "O que o tamanho das apostas diz sobre a mão do adversário.",
+                "href": "/artigo"
+              }
+            ],
+            "variant": "grade"
+          }
+        },
+        {
+          "type": "image_text",
+          "props": {
+            "eyebrow": "Sobre o blog",
+            "title": "Conteúdo feito por quem joga",
+            "text": "Cada artigo nasce de mãos reais jogadas no clube {{number}} e é revisado antes de publicar. Sem promessa de ganho: o objetivo é estudo e jogo responsável.",
+            "cta": "Conhecer as trilhas",
+            "ctaHref": "/trilhas",
+            "variant": "imagem-direita"
+          }
+        },
+        {
+          "type": "lead_form",
+          "props": {
+            "title": "Newsletter da semana",
+            "text": "Um e-mail por semana com o artigo novo e a grade de torneios. Sem spam.",
+            "fields": "email_nome",
+            "button": "Quero receber",
+            "success": "Inscrição confirmada! O próximo e-mail chega na segunda.",
+            "consent": "Concordo em receber a newsletter. Posso sair quando quiser.",
+            "variant": "cartao"
+          }
+        },
+        {
+          "type": "faq",
+          "props": {
+            "title": "Perguntas frequentes",
+            "items": [
+              {
+                "q": "O conteúdo é pago?",
+                "a": "Não. Os artigos e as trilhas são gratuitos; a newsletter também."
+              },
+              {
+                "q": "Sou iniciante, por onde começo?",
+                "a": "Pela trilha Básico: regras, posição e gestão de banca, nessa ordem."
+              },
+              {
+                "q": "O blog garante lucro?",
+                "a": "Não. Poker envolve risco; o conteúdo é educativo e o jogo é para maiores de 18 anos."
+              }
+            ],
+            "anchor": "duvidas"
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "text": "Blog educativo do {{name}} — estude e jogue com responsabilidade.",
+            "links": [
+              {
+                "label": "Artigos",
+                "href": "/blog"
+              },
+              {
+                "label": "Trilhas",
+                "href": "/trilhas"
+              },
+              {
+                "label": "Privacidade",
+                "href": "/privacidade"
+              }
+            ],
+            "disclaimer": "{{disclaimer}}"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "trilhas",
+      "title": "Trilhas de estudo",
+      "seo": {
+        "description": "Trilhas de estudo de poker do {{name}}: básico, intermediário e avançado."
+      },
+      "blocks": [
+        {
+          "type": "navbar",
+          "props": {
+            "brand": "{{name}}",
+            "logo": "{{logo}}",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Artigos",
+                "href": "/blog"
+              }
+            ],
+            "cta": "Receber novidades",
+            "ctaHref": "/#contato",
+            "variant": "barra"
+          }
+        },
+        {
+          "type": "steps",
+          "props": {
+            "title": "A ordem certa de estudo",
+            "items": [
+              {
+                "title": "Trilha 1 · Básico",
+                "text": "Regras do NLH, ranking de mãos, posição e gestão de banca. Meta: jogar o primeiro torneio com critério."
+              },
+              {
+                "title": "Trilha 2 · Intermediário",
+                "text": "Intervalos de mãos, agressividade seletiva e leitura de apostas. Meta: chegar mais vezes à mesa final."
+              },
+              {
+                "title": "Trilha 3 · Avançado",
+                "text": "Jogo exploratório vs. equilibrado, ICM e revisão de mãos. Meta: consistência no longo prazo."
+              }
+            ],
+            "variant": "linha-do-tempo"
+          }
+        },
+        {
+          "type": "cards",
+          "props": {
+            "title": "Artigos por trilha (exemplos)",
+            "items": [
+              {
+                "tag": "Trilha 1",
+                "title": "Ranking de mãos sem decorar (exemplo)",
+                "text": "Um jeito prático de lembrar a força das mãos.",
+                "href": "/artigo"
+              },
+              {
+                "tag": "Trilha 2",
+                "title": "Quando dar 3-bet (exemplo)",
+                "text": "Os cenários em que a re-entraça cresce o seu pote.",
+                "href": "/artigo"
+              },
+              {
+                "tag": "Trilha 3",
+                "title": "ICM na bolha (exemplo)",
+                "text": "Por que pagar menos na bolha costuma ser certo.",
+                "href": "/artigo"
+              }
+            ],
+            "variant": "grade"
+          }
+        },
+        {
+          "type": "cta",
+          "props": {
+            "title": "Estudou? Vá testar na mesa.",
+            "text": "Entre no clube {{number}} pelo convite e aplique o que aprendeu.",
+            "cta": "Entrar no clube",
+            "ctaHref": "{{inviteLink}}",
+            "variant": "faixa"
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Privacidade",
+                "href": "/privacidade"
+              }
+            ],
+            "disclaimer": "{{disclaimer}}"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "artigo",
+      "title": "Artigo de exemplo",
+      "seo": {
+        "description": "Exemplo de artigo educativo do {{name}}: posição na mesa de poker."
+      },
+      "blocks": [
+        {
+          "type": "navbar",
+          "props": {
+            "brand": "{{name}}",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Artigos",
+                "href": "/blog"
+              }
+            ],
+            "variant": "barra"
+          }
+        },
+        {
+          "type": "text",
+          "props": {
+            "title": "Posição: por que ela vale fichas (artigo de exemplo)",
+            "body": "Este é um artigo de exemplo para mostrar o formato: os posts reais são publicados pelo módulo de blog da operação.\n\nJogar por último em uma mão é a maior vantagem silenciosa do poker. Quem age por último vê o que todos fizeram antes de decidir — e informação vale fichas.\n\nNa prática: abra mais mãos no botão, menos nas primeiras posições. A mesma mão que é descarte no início da mesa pode ser aposta no fim.\n\nExercício: na próxima sessão, anote quantas mãos você jogou de cada posição e compare o resultado. Ajuste na sessão seguinte.",
+            "variant": "estreito"
+          }
+        },
+        {
+          "type": "notice",
+          "props": {
+            "text": "Conteúdo educativo, sem promessa de ganho. Poker envolve risco e é para maiores de 18 anos.",
+            "variant": "discreto"
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "disclaimer": "{{disclaimer}}"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "privacidade",
+      "title": "Privacidade",
+      "seo": {
+        "description": "Como o {{name}} trata seus dados."
+      },
+      "blocks": [
+        {
+          "type": "navbar",
+          "props": {
+            "brand": "{{name}}",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              }
+            ],
+            "variant": "barra"
+          }
+        },
+        {
+          "type": "text",
+          "props": {
+            "title": "Privacidade",
+            "body": "Texto-base para revisão jurídica da operação.\n\nColetamos nome e e-mail só quando você assina a newsletter, para enviar os conteúdos. Você pode cancelar a inscrição e pedir a exclusão a qualquer momento, pelo link do próprio e-mail.\n\nCookies de medição (Google e Meta) só são ativados se você aceitar no aviso do site.",
+            "variant": "estreito"
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "disclaimer": "{{disclaimer}}"
+          }
+        }
+      ]
+    }
+  ]
+}
