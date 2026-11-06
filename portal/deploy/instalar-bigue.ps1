@@ -1,7 +1,7 @@
 ﻿# Instala ou atualiza o Portal no servidor Bigue (Windows). Rodar como Administrador:
 #   powershell -ExecutionPolicy Bypass -File instalar-bigue.ps1
 # Um servidor e um banco para as duas edições (base única de clientes):
-#   - um processo ouve 127.0.0.1:3400 (Geral, portal.kbsa.app) e 127.0.0.1:3401 (SX, sx.kbsa.app); o túnel não muda
+#   - um processo ouve 127.0.0.1:3400 (Geral, aff.kbsa.app; portal.kbsa.app segue apontando para cá) e 127.0.0.1:3401 (SX, sx.kbsa.app); o túnel não muda
 #   - dados em E:\LioraServidor\dados\portal; se existir a instalação antiga separada da SX (dados\portal-sx),
 #     o banco dela é juntado UMA vez (com backup dos dois antes) e as tarefas antigas da SX são removidas
 #   - tarefa "Portal - Servidor" (boot, reinicia se cair) e "Portal - Backup" (03:45, 14 dias)
@@ -12,7 +12,7 @@ param(
   [string]$App = 'E:\LioraServidor\apps\portal-afiliacao',
   [string]$Dados = 'E:\LioraServidor\dados\portal',
   [string]$DadosSxAntigo = 'E:\LioraServidor\dados\portal-sx',
-  [string]$OrigemGeral = 'https://portal.kbsa.app',
+  [string]$OrigemGeral = 'https://aff.kbsa.app',   # 06/11/2026: afiliados em aff.kbsa.app (portal.kbsa.app segue no túnel)
   [string]$OrigemSx = 'https://sx.kbsa.app',
   [string]$AdminEmail = 'h2odiegokbsa@gmail.com'
 )
