@@ -22,6 +22,7 @@ ESTADO = AQUI / "estado" / "estado.json"
 BACKLOG = AQUI / "backlog.json"
 PESQ = REPO / "portal" / "pesquisador" / "estado" / "estado.json"
 FOTOS = REPO / "portal" / "relatorios" / "fotos"
+HOMES_PENDENTE = AQUI / "estado" / "homes-pendente.txt"   # existe = no próximo envio manda a foto da home de cada modelo (uma vez só)
 SCRIPTS = Path(r"C:\Users\Administrator\Documents\Suprema-360\00-SYSTEM\scripts")
 SEM_JANELA = getattr(subprocess, "CREATE_NO_WINDOW", 0)
 AGENTES = {"codex": "Codex", "kimi": "Kimi", "claude-design": "Claude design", "claude": "Claude", "big": "Big"}
@@ -84,6 +85,16 @@ def fotos() -> dict:
         return {"erro": (r.stdout + r.stderr)[-300:]}
 
 
+def fotos_homes() -> dict:
+    node = shutil.which("node") or "node"
+    r = subprocess.run([node, str(REPO / "portal" / "tools" / "fotos-homes.mjs"), str(FOTOS)], capture_output=True, text=True, encoding="utf-8", errors="replace",
+                       timeout=420, creationflags=SEM_JANELA, cwd=REPO)
+    try:
+        return json.loads((r.stdout.strip().splitlines() or ["{}"])[-1])
+    except json.JSONDecodeError:
+        return {"erro": (r.stdout + r.stderr)[-300:]}
+
+
 def destino() -> str | None:
     sys.path.insert(0, str(SCRIPTS))
     import ordens  # noqa: E402  (mesma regra de destino dos avisos das ordens)
@@ -108,7 +119,27 @@ def enviar(testes: str | None = None, seco: bool = False) -> dict:
         r = subprocess.run([hermes, "-p", "codexlocal", "send", "-t", alvo, "-q", m], capture_output=True, text=True, encoding="utf-8", errors="replace",
                            timeout=120, creationflags=SEM_JANELA)
         res.append(r.returncode)
-    return {"enviado": all(c == 0 for c in res), "codigos": res, "fotos": {k: Path(v).name for k, v in f.items() if k in ("sistema", "backoffice")}, "erro_fotos": f.get("erro")}
+    homes = None
+    if HOMES_PENDENTE.exists():
+        h = fotos_homes()
+        lista = h.get("homes") or []
+        cods = []
+        if lista:
+            sx = sum(1 for x in lista if x["edicao"] == "sx")
+            cab = f"🏠 *Homes dos modelos* ({len(lista)}: {len(lista) - sx} da edição Geral e {sx} da SX)\nSites de exemplo montados com cada modelo, dados fictícios."
+            r = subprocess.run([hermes, "-p", "codexlocal", "send", "-t", alvo, "-q", cab], capture_output=True, text=True, encoding="utf-8", errors="replace",
+                               timeout=120, creationflags=SEM_JANELA)
+            cods.append(r.returncode)
+            for i, x in enumerate(lista, 1):
+                ed = "SX" if x["edicao"] == "sx" else "Geral"
+                m = f"🏠 {i}/{len(lista)} · {x['nome']} ({ed})\nMEDIA:{x['arquivo']}"
+                r = subprocess.run([hermes, "-p", "codexlocal", "send", "-t", alvo, "-q", m], capture_output=True, text=True, encoding="utf-8", errors="replace",
+                                   timeout=120, creationflags=SEM_JANELA)
+                cods.append(r.returncode)
+        homes = {"fotos": len(lista), "enviadas": sum(1 for c in cods[1:] if c == 0), "erro": h.get("erro")}
+        if lista and all(c == 0 for c in cods):
+            HOMES_PENDENTE.unlink(missing_ok=True)   # só some quando tudo chegou; se falhar, tenta de novo na hora seguinte
+    return {"homes": homes, "enviado": all(c == 0 for c in res), "codigos": res, "fotos": {k: Path(v).name for k, v in f.items() if k in ("sistema", "backoffice")}, "erro_fotos": f.get("erro")}
 
 
 if __name__ == "__main__":
