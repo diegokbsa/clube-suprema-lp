@@ -44,7 +44,7 @@ TAREFA_RELATORIO = "Portal - Relatorio (1 h)"
 SEM_JANELA = getattr(subprocess, "CREATE_NO_WINDOW", 0)
 
 LIMITES = {
-    "ordens_por_dia": 10,          # teto de ordens novas por dia (custo/uso dos agentes)
+    "ordens_por_dia": 30,          # teto de ordens novas por dia (custo/uso dos agentes); Kbsa subiu de 10 para 30 em 05/11/2026
     "ordens_por_ciclo": 3,
     "tentativas": 3,               # tentativas por tarefa antes de ficar bloqueada de vez
     "atraso_min": [30, 90, 240],   # espera antes da 2ª, 3ª e 4ª tentativa (backoff)
