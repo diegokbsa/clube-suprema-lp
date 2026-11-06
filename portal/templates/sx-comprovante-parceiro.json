@@ -58,7 +58,7 @@
                 "dot": false
               }
             ],
-            "cta": "Quero ser parceiro",
+            "cta": "Ser parceiro",
             "ctaHref": "/contato"
           }
         },
@@ -317,7 +317,7 @@
                 "dot": false
               }
             ],
-            "cta": "Quero ser parceiro",
+            "cta": "Ser parceiro",
             "ctaHref": "/contato"
           }
         },
@@ -396,11 +396,24 @@
           "props": {
             "title": "Exemplo do extrato semanal",
             "subtitle": "É assim que o relatório chega. Os números de verdade são os do seu clube.",
-            "cta": "",
-            "ctaHref": "",
+            "cta": "Quero conversar",
+            "ctaHref": "/contato",
             "secondary": "",
             "secondaryHref": "",
-            "points": [],
+            "points": [
+              {
+                "icon": "recibo",
+                "text": "**Linha por linha:** entradas pelo seu link, compras e saques de cada jogador."
+              },
+              {
+                "icon": "calendario",
+                "text": "**Toda semana,** no dia combinado no acordo."
+              },
+              {
+                "icon": "escudo",
+                "text": "**Sem previsão:** o extrato mostra o que já aconteceu, não promete ganho."
+              }
+            ],
             "logo": "",
             "panelTitle": "Extrato semanal",
             "panelSub": "Clube do parceiro · semana de exemplo",
@@ -495,7 +508,7 @@
                 "dot": false
               }
             ],
-            "cta": "Quero ser parceiro",
+            "cta": "Ser parceiro",
             "ctaHref": "/contato"
           }
         },
@@ -668,7 +681,7 @@
                 "dot": false
               }
             ],
-            "cta": "Quero ser parceiro",
+            "cta": "Ser parceiro",
             "ctaHref": "#contato"
           }
         },

@@ -600,7 +600,7 @@
           "props": {
             "anchor": "torneios",
             "title": "Na grade de torneios",
-            "subtitle": "",
+            "subtitle": "As siglas que aparecem ao lado do nome do torneio, na grade do lobby.",
             "leftTitle": "Siglas da grade",
             "leftRows": [
               {
@@ -636,7 +636,7 @@
             ],
             "rightTitle": "",
             "rightRows": [],
-            "foot": "",
+            "foot": "A grade e as regras de cada torneio são as do lobby do app {{app}}. Na dúvida, pergunte ao suporte antes de se inscrever.",
             "variant": "lado"
           }
         },
@@ -769,7 +769,7 @@
           "type": "comprovante_extrato",
           "props": {
             "title": "Cinco combinados antes de sentar",
-            "subtitle": "",
+            "subtitle": "Combinados que você faz com você mesmo, com a cabeça fria, antes da primeira mão.",
             "headLeft": "Combinados",
             "headRight": "5 itens",
             "tag": "",
@@ -820,8 +820,8 @@
                 "href": ""
               }
             ],
-            "totalLabel": "",
-            "total": "",
+            "totalLabel": "Combinado de hoje",
+            "total": "Valor, hora e pausa definidos antes",
             "cta": "",
             "ctaHref": "",
             "variant": "lado"
@@ -881,7 +881,20 @@
             "ctaHref": "",
             "secondary": "",
             "secondaryHref": "",
-            "points": [],
+            "points": [
+              {
+                "icon": "pausa",
+                "text": "**Pare antes de decidir.** Levante da mesa e só volte no dia seguinte."
+              },
+              {
+                "icon": "chat",
+                "text": "**Procure apoio.** Os serviços ao lado são gratuitos e sigilosos."
+              },
+              {
+                "icon": "escudo",
+                "text": "**Peça pausa na conta.** O suporte do clube pode travar o seu acesso por um tempo."
+              }
+            ],
             "logo": "",
             "panelTitle": "Contatos de apoio",
             "panelSub": "Gratuitos e sigilosos",

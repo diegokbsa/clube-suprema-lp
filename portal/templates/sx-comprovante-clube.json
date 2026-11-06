@@ -920,7 +920,20 @@
             "ctaHref": "",
             "secondary": "",
             "secondaryHref": "",
-            "points": [],
+            "points": [
+              {
+                "icon": "chat",
+                "text": "**Conte para alguém de confiança.** Falar em voz alta já ajuda a ver o tamanho da coisa."
+              },
+              {
+                "icon": "pausa",
+                "text": "**Peça uma pausa na conta.** O suporte do clube ajuda a dar um tempo, sem pergunta."
+              },
+              {
+                "icon": "escudo",
+                "text": "**Não compre fichas para recuperar.** Perdeu o limite, a sessão de hoje acabou."
+              }
+            ],
             "logo": "",
             "panelTitle": "Contatos de apoio",
             "panelSub": "Gratuitos e sigilosos",

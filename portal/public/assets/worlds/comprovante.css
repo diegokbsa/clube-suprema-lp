@@ -80,7 +80,7 @@ body[data-world="comprovante"] {
   & .btn:hover .cp-ico { transform: translateX(2px); }
   & .btn:active { background: var(--cp-gold-3); transform: translateY(1px); }
   & .btn:disabled { opacity: .55; cursor: progress; }
-  & .cp-sm, & .btn-sm { min-height: 40px; padding: 8px 14px; font-size: 14px; }
+  & .cp-sm, & .btn-sm { min-height: 44px; padding: 8px 14px; font-size: 14px; }
   & .btn-lg { min-height: 52px; font-size: 16.5px; }
   & .btn-ghost, & .cp-linha-btn { background: transparent; color: var(--text); border-color: var(--cp-line-2); padding: 12px 18px; font-size: 15px; }
   & .btn-ghost:hover, & .cp-linha-btn:hover { background: transparent; border-color: var(--primary); color: var(--primary); }
@@ -103,11 +103,13 @@ body[data-world="comprovante"] {
   & .cp-marca strong { display: block; white-space: nowrap; font-weight: 800; font-size: 15px; letter-spacing: -.01em; line-height: 1.15; font-family: var(--font-head); }
   & .cp-marca small { display: block; font-size: 12px; color: var(--cp-ink-3); font-weight: 600; white-space: nowrap; }
   & .cp-marca > span { min-width: 0; overflow: hidden; }
+  & .cp-marca strong, & .cp-marca small { overflow: hidden; text-overflow: ellipsis; }
+  & .cp-topo .cp-pagar { white-space: nowrap; flex: none; }
   & .cp-menu { display: none; }
   & .cp-menu a, & .cp-mmenu a { display: inline-flex; align-items: center; gap: 8px; color: var(--cp-ink-2); text-decoration: none; font-weight: 600; font-size: 14.5px; padding: 8px 12px; border-radius: 8px; }
   & .cp-menu a:hover { color: var(--text); background: var(--cp-panel); }
   & .cp-mmenu { flex: none; }
-  & .cp-mmenu summary { list-style: none; width: 42px; height: 42px; border: 1px solid var(--cp-line-2); border-radius: 9px; display: grid; place-items: center; cursor: pointer; color: var(--text); }
+  & .cp-mmenu summary { list-style: none; width: 44px; height: 44px; border: 1px solid var(--cp-line-2); border-radius: 9px; display: grid; place-items: center; cursor: pointer; color: var(--text); }
   & .cp-mmenu summary::-webkit-details-marker { display: none; }
   & .cp-mmenu summary:hover, & .cp-mmenu[open] summary { border-color: var(--primary); }
   & .cp-mmenu nav { position: absolute; left: 0; right: 0; top: 100%; background: var(--bg); border-bottom: 1px solid var(--cp-line); padding: 8px var(--cp-gutter) 14px; }
@@ -199,6 +201,7 @@ body[data-world="comprovante"] {
   & .cp-op input:checked + span i { border-color: var(--primary-text); background: radial-gradient(circle, var(--primary-text) 0 3px, transparent 3.5px); }
   & .cp-op input:focus-visible + span { outline: 2px solid var(--primary); outline-offset: 3px; }
   :root:not(.cp-js) & .cp-op { pointer-events: none; }
+  & .cp-op b { white-space: nowrap; }
   & .cp-sel-nota { font-size: 12.5px; color: var(--cp-ink-3); margin-top: 8px; }
   :root:not(.cp-js) & .cp-sel-nota { display: none; }
 
@@ -209,6 +212,12 @@ body[data-world="comprovante"] {
   & .cp-nota b { display: block; color: var(--text); margin-bottom: 2px; transition: color .2s; }
   & .cp-nota.is-alvo b { color: var(--primary); }
 
+  /* lado e espelho: no celular as colunas somem e a ordem é título, seletor, comprovante, anotações */
+  & .cp-recibo .cp-col { display: contents; }
+  & .cp-recibo .cp-col-txt > .cp-cab { order: 1; }
+  & .cp-recibo .cp-col-comp > .cp-sel { order: 2; }
+  & .cp-recibo .cp-col-comp > .cp-comp { order: 3; }
+  & .cp-recibo .cp-col-txt > .cp-notas { order: 4; }
   /* lado e espelho: texto alinhado à esquerda também no celular */
   & .cp-recibo.v-lado .cp-cab, & .cp-recibo.v-espelho .cp-cab, & .cp-recibo.v-lista .cp-cab { text-align: left; justify-self: stretch; }
   & .cp-recibo.v-lado .cp-lead, & .cp-recibo.v-espelho .cp-lead, & .cp-recibo.v-lista .cp-lead { margin-left: 0; }
@@ -260,14 +269,17 @@ body[data-world="comprovante"] {
     & .cp-recibo.v-lista .cp-cab { justify-self: start; max-width: 780px; }
     & .cp-recibo.v-lista .cp-sel { padding-top: 6px; }
 
-    /* lado: texto e anotações à esquerda; seletor e comprovante à direita */
-    & .cp-recibo.v-lado .cp-grade { grid-template-columns: minmax(0, 1fr) minmax(0, 480px); grid-template-rows: auto auto 1fr;
-      grid-template-areas: "cab sel" "cab comp" "notas comp"; gap: 18px 72px; align-items: start; }
-    & .cp-recibo.v-espelho .cp-grade { grid-template-columns: minmax(0, 480px) minmax(0, 1fr); grid-template-rows: auto auto 1fr;
-      grid-template-areas: "sel cab" "comp cab" "comp notas"; gap: 18px 72px; align-items: start; }
-    & .cp-recibo.v-lado .cp-cab, & .cp-recibo.v-espelho .cp-cab { justify-self: stretch; padding-top: 64px; max-width: 600px; }
+    /* lado: texto e anotações à esquerda; seletor e comprovante à direita. As duas colunas se centram uma na
+       outra, então a mais curta fica com folga igual em cima e embaixo, sem buraco. Espelho inverte os lados. */
+    & .cp-recibo.v-lado .cp-grade { grid-template-columns: minmax(0, 1fr) minmax(0, 480px); gap: 72px; align-items: center; }
+    & .cp-recibo.v-espelho .cp-grade { grid-template-columns: minmax(0, 480px) minmax(0, 1fr); gap: 72px; align-items: center; }
+    & .cp-recibo.v-espelho .cp-col-comp { order: -1; }
+    & .cp-recibo .cp-col { display: grid; gap: 18px; align-content: start; min-width: 0; }
+    & .cp-recibo .cp-col > * { grid-area: auto; order: 0; margin: 0; }
+    & .cp-recibo .cp-col-txt { gap: 34px; }
+    & .cp-recibo.v-lado .cp-cab, & .cp-recibo.v-espelho .cp-cab { justify-self: stretch; max-width: 600px; }
     & .cp-recibo.v-lado h1, & .cp-recibo.v-espelho h1 { font-size: 3.6rem; }
-    & .cp-recibo.v-lado .cp-notas, & .cp-recibo.v-espelho .cp-notas { max-width: 560px; grid-template-columns: 1fr 1fr; gap: 18px 28px; padding-top: 22px; border-top: 1px solid var(--cp-line); margin-top: 8px; }
+    & .cp-recibo.v-lado .cp-notas, & .cp-recibo.v-espelho .cp-notas { max-width: 560px; grid-template-columns: 1fr 1fr; gap: 18px 28px; padding-top: 24px; border-top: 1px solid var(--cp-line); }
   }
 
   /* =====================================================================
@@ -310,7 +322,7 @@ body[data-world="comprovante"] {
   & .cp-lanc.com-link > a:focus-visible { outline-offset: -2px; border-radius: var(--cp-r); }
   & .cp-lanc-ico { grid-area: ico; width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--cp-line-2); display: flex; align-items: center; justify-content: center; color: var(--primary); }
   & .cp-lanc-topo { grid-area: topo; display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: baseline; gap: 12px; }
-  & .cp-lanc h3 { font-size: 1.08rem; font-weight: 800; letter-spacing: -.015em; transition: color .18s; font-family: var(--font); }
+  & .cp-lanc h3 { font-size: 1.08rem; font-weight: 800; letter-spacing: -.015em; line-height: 1.22; transition: color .18s; font-family: var(--font); }
   & .cp-lanc-tempo { font-weight: 800; font-size: 15px; color: var(--text); white-space: nowrap; }
   & .cp-lanc-txt { grid-area: txt; }
   & .cp-lanc-txt p { color: var(--cp-ink-2); font-size: 15px; max-width: 64ch; }
@@ -337,7 +349,7 @@ body[data-world="comprovante"] {
   & .cp-campo-txt strong { display: block; font-size: 1.5rem; font-weight: 800; letter-spacing: .01em; line-height: 1.2; overflow-wrap: anywhere; }
   & .cp-campo-txt p { font-size: 14.5px; color: var(--cp-ink-2); margin-top: 2px; }
   & .cp-campo-txt b { color: var(--text); }
-  & .cp-copiar { background: transparent; border: 1px solid var(--cp-line-2); color: var(--text); border-radius: 9px; padding: 9px 12px; font: inherit; font-size: 13.5px; font-weight: 700; display: inline-flex; align-items: center; gap: 8px; cursor: pointer; min-width: 106px; min-height: 42px; justify-content: center; transition: border-color .18s, color .18s; }
+  & .cp-copiar { background: transparent; border: 1px solid var(--cp-line-2); color: var(--text); border-radius: 9px; padding: 9px 12px; font: inherit; font-size: 13.5px; font-weight: 700; display: inline-flex; align-items: center; gap: 8px; cursor: pointer; min-width: 106px; min-height: 44px; justify-content: center; transition: border-color .18s, color .18s; }
   & .cp-copiar .cp-ico { width: 16px; height: 16px; }
   & .cp-copiar:hover { border-color: var(--primary); color: var(--primary); }
   & .cp-copiar.ok { border-color: var(--cp-ok); color: var(--cp-ok); }
@@ -372,7 +384,7 @@ body[data-world="comprovante"] {
   & .cp-ag-dir span { display: block; font-size: 11.5px; color: var(--cp-ink-3); font-weight: 600; }
   & .cp-ag-dir strong { font-weight: 800; font-size: 15px; white-space: nowrap; }
   & .cp-ag-pe { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; padding: 14px 18px; border-top: 1px solid var(--cp-line-2); font-size: 13.5px; color: var(--cp-ink-3); }
-  & .cp-ag-link { font-weight: 700; display: inline-flex; align-items: center; gap: 6px; text-decoration: none; }
+  & .cp-ag-link { font-weight: 700; display: inline-flex; align-items: center; gap: 6px; text-decoration: none; min-height: 44px; }
   & .cp-ag-link .cp-ico { width: 16px; height: 16px; }
   & .cp-ao-vivo { display: inline-flex; align-items: center; gap: 8px; color: var(--text); font-weight: 700; }
   & .cp-ao-vivo:has(.cp-vivo) { color: var(--cp-ok); }
@@ -406,7 +418,8 @@ body[data-world="comprovante"] {
   & .cp-resumo-linha strong { font-family: var(--cp-num-font); font-size: 2.4rem; line-height: 1; font-weight: 700; white-space: nowrap; }
   & .cp-resumo-dest { padding: 12px 0 16px; font-size: 14px; color: var(--cp-ink-2); }
   & .cp-resumo .cp-pagar { width: 100%; font-size: 17px; padding: 16px; }
-  & .cp-resumo-pe { display: flex; align-items: center; gap: 6px 10px; flex-wrap: wrap; margin-top: 12px; font-size: 12.5px; color: var(--cp-ink-3); }
+  & .cp-resumo-pe { display: flex; align-items: center; gap: 0 10px; flex-wrap: wrap; margin-top: 8px; font-size: 12.5px; color: var(--cp-ink-3); }
+  & .cp-resumo-pe a { display: inline-flex; align-items: center; min-height: 44px; }
 
   /* ---------- cabeçalho de página interna ---------- */
   & .cp-cabecalho { padding-block: clamp(40px, 7vw, 76px) clamp(36px, 6vw, 64px); }
@@ -442,9 +455,32 @@ body[data-world="comprovante"] {
     & .cp-painel.v-cartaz .cp-num-caixa { font-size: 6rem; }
     & .cp-painel.v-cartaz .cp-dados { border-top: 0; align-self: center; }
     & .cp-painel.v-cartaz .cp-pe { border-top: 1px dashed var(--cp-line-2); padding-top: 14px; margin-top: 6px; }
-    & .cp-extrato.v-lado .cp-ext-grade, & .cp-linhas-sec.v-lado .cp-ext-grade { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: 64px; align-items: start; }
-    & .cp-extrato.v-lado .cp-sec-cab, & .cp-linhas-sec.v-lado .cp-sec-cab { position: sticky; top: 100px; margin: 0; }
-    & .cp-linhas-sec.v-lado .cp-duas { grid-template-columns: 1fr; }
+    /* lado: um extrato só. Coluna de resumo em preto de comprovante (título em cima, saldo ou nota embaixo) e
+       os lançamentos à direita no painel. A coluna da esquerda é parte do extrato, não sobra de espaço. */
+    & .cp-lado-caixa { display: grid; grid-template-columns: minmax(0, .78fr) minmax(0, 1.22fr); grid-template-rows: auto 1fr; grid-template-areas: "cab dir" "pe dir";
+      background: var(--cp-sheet); border: 1px solid var(--cp-line-2); border-radius: var(--cp-r-lg); overflow: hidden; }
+    & .cp-lado-caixa > .cp-sec-cab { grid-area: cab; margin: 0; padding: 40px 40px 28px; max-width: none; }
+    & .cp-lado-caixa > .cp-sec-cab h2 { font-size: 2.4rem; }
+    & .cp-lado-caixa > .cp-saldo, & .cp-lado-caixa > .cp-sec-pe { grid-area: pe; align-self: end; margin: 0; padding: 22px 40px 34px; border-top: 1px dashed var(--cp-line-2); max-width: none; }
+    & .cp-lado-caixa > .cp-saldo { display: grid; gap: 16px; justify-items: start; }
+    & .cp-lado-caixa > .cp-saldo > div { flex-direction: column; gap: 4px; justify-content: flex-start; flex: none; }
+    & .cp-lado-caixa > .cp-saldo strong { font-size: 1.3rem; line-height: 1.25; font-family: var(--font-head); letter-spacing: -.015em; }
+    & .cp-lado-caixa > .cp-lado-dir { grid-area: dir; display: block; max-width: none; margin: 0; background: var(--cp-panel); border: 0; border-left: 1px solid var(--cp-line); border-radius: 0; }
+    & .cp-lado-dir > .cp-tela { border: 0; border-radius: 0; background: transparent; }
+    & .cp-lado-dir > .cp-tela + .cp-tela { border-top: 1px solid var(--cp-line-2); }
+    & .cp-lado-dir .cp-lanc.com-link > a { border-radius: 0; }
+
+    /* canais com título: título e nota à esquerda, lista à direita */
+    & .cp-canais.com-cab .wrap { display: grid; grid-template-columns: minmax(0, .78fr) minmax(0, 1.22fr); grid-template-rows: auto 1fr; grid-template-areas: "cab tela" "pe tela"; column-gap: 64px; }
+    & .cp-canais.com-cab .cp-sec-cab { grid-area: cab; margin: 0; }
+    & .cp-canais.com-cab .cp-tela { grid-area: tela; max-width: none; align-self: start; }
+    & .cp-canais.com-cab .cp-sec-pe { grid-area: pe; margin-top: 20px; }
+
+    /* um painel só de linhas: ocupa a largura toda, com as linhas em duas colunas */
+    & .cp-linhas-sec.so-uma .cp-uma { max-width: none; }
+    & .cp-linhas-sec.so-uma .cp-linhas { display: grid; grid-template-columns: 1fr 1fr; }
+    & .cp-linhas-sec.so-uma .cp-linhas > div:nth-child(odd) { border-right: 1px solid var(--cp-line); }
+    & .cp-linhas-sec.so-uma .cp-linhas > div:nth-last-child(2):nth-child(odd) { border-bottom: 0; }
   }
 
   /* =====================================================================
@@ -543,20 +579,26 @@ body[data-world="comprovante"] {
   & .b-footer .wrap { grid-template-columns: 1fr; gap: 16px; }
   & .b-footer strong { font-weight: 800; color: var(--text); font-family: var(--font-head); }
   & .b-footer p { color: var(--cp-ink-2); font-size: 14px; margin-top: 4px; }
-  & .b-footer ul { justify-content: flex-start; gap: 6px 20px; }
-  & .b-footer ul a { color: var(--cp-ink-2); font-weight: 600; }
+  & .b-footer ul { justify-content: flex-start; gap: 0 20px; }
+  & .b-footer ul a { color: var(--cp-ink-2); font-weight: 600; display: inline-flex; align-items: center; min-height: 44px; }
   & .b-footer ul a:hover { color: var(--primary); }
-  & .b-footer .disclaimer { border-top: 1px solid var(--cp-line); padding-top: 16px; color: var(--cp-ink-3); font-size: 13px; display: flex; gap: 8px; align-items: center; }
-  & .b-footer .disclaimer::before { content: "+18"; flex: none; border: 1px solid var(--cp-gold-3); color: var(--primary); border-radius: 5px; padding: 0 5px; font-weight: 800; font-size: 11.5px; line-height: 18px; }
+  & .b-footer .disclaimer { border-top: 1px solid var(--cp-line); padding-top: 16px; color: var(--cp-ink-3); font-size: 13px; }
 
   /* barras do sistema e consentimento no tom do mundo */
   & .consent { background: var(--cp-sheet); border-color: var(--cp-line-2); box-shadow: 0 18px 50px -24px rgb(0 0 0 / .7); }
 
-  /* celular: o tempo do lançamento desce para baixo do título */
+  @media (max-width: 979px) {
+    & .cp-lado-caixa > .cp-sec-cab { margin-bottom: 28px; }
+    & .cp-extrato .cp-lado-caixa.com-pe > .cp-lado-dir { border-radius: var(--cp-r-lg) var(--cp-r-lg) 0 0; }
+    & .cp-extrato .cp-lado-caixa > .cp-saldo { background: var(--cp-panel); border: 1px solid var(--cp-line); border-top: 0; border-radius: 0 0 var(--cp-r-lg) var(--cp-r-lg); }
+  }
+  /* celular: o tempo do lançamento desce sempre para baixo do título, que fica com a largura toda */
   @media (max-width: 719px) {
-    & .cp-lanc-topo { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 0 12px; }
-    & .cp-lanc-topo h3 { flex: 1 1 60%; min-width: 0; }
-    & .cp-lanc-tempo { font-size: 13px; color: var(--cp-ink-3); font-weight: 700; }
+    & .cp-lanc-topo { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; }
+    & .cp-lanc-topo h3 { min-width: 0; }
+    & .cp-lanc-tempo { font-size: 13px; color: var(--cp-ink-3); font-weight: 700; white-space: normal; }
+    & .cp-lanc-txt { margin-top: 4px; }
+    & .cp-linhas > div { grid-template-columns: minmax(84px, 30%) minmax(0, 1fr); gap: 12px; }
   }
   /* celular estreito */
   @media (max-width: 479px) {
@@ -573,6 +615,7 @@ body[data-world="comprovante"] {
     & .cp-dados dd.cp-txid { font-size: 11px; }
     & .cp-recibo.v-lado .cp-acoes-cab .btn, & .cp-recibo.v-espelho .cp-acoes-cab .btn, & .cp-painel .cp-acoes-cab .btn, & .cp-cabecalho .cp-acoes-cab .btn { flex: 1 1 100%; }
     & .cp-topo .cp-pagar { padding-inline: 12px; }
+    & .cp-recibo:not(.v-lista) .cp-op > span { padding-inline: 4px; font-size: 15px; }
     & .cp-ag-dir strong { font-size: 14px; }
   }
 }

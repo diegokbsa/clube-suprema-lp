@@ -718,11 +718,77 @@
           }
         },
         {
-          "type": "text",
+          "type": "comprovante_linhas",
           "props": {
-            "title": "Seus dados",
-            "body": "Este site guarda apenas os dados que você envia nos formulários (como nome, e-mail e telefone), para responder e enviar informações sobre o clube.\n\nNão pedimos senha do app, senha do banco nem documentos pelo site.\n\nVocê pode pedir a qualquer momento para ver, corrigir ou apagar os seus dados pelos canais de atendimento desta página.\n\nUsamos cookies de medição só com o seu consentimento.",
-            "variant": "estreito"
+            "anchor": "",
+            "title": "O que este site guarda",
+            "subtitle": "Só o que você mesmo envia. Nada de senha, nada de documento.",
+            "leftTitle": "Fica guardado",
+            "leftRows": [
+              {
+                "label": "Formulário",
+                "value": "Nome, e-mail e telefone",
+                "detail": "Só se você preencher. Serve para responder e mandar avisos do clube."
+              },
+              {
+                "label": "Cookies",
+                "value": "Medição de visitas",
+                "detail": "Só com o seu consentimento, no aviso de cookies."
+              },
+              {
+                "label": "Atendimento",
+                "value": "A conversa no canal",
+                "detail": "Fica no próprio canal (WhatsApp ou chat), não neste site."
+              }
+            ],
+            "rightTitle": "Nunca é pedido",
+            "rightRows": [
+              {
+                "label": "Senha do app",
+                "value": "Nem no site, nem no canal",
+                "detail": "Ninguém do clube precisa dela para nada."
+              },
+              {
+                "label": "Senha do banco",
+                "value": "Nunca",
+                "detail": "O PIX é você quem faz, no app do seu banco."
+              },
+              {
+                "label": "Documento",
+                "value": "Não pelo site",
+                "detail": "Se alguém pedir em nome do clube, desconfie e fale com o suporte."
+              }
+            ],
+            "foot": "**Ver, corrigir ou apagar:** peça a qualquer momento pelos canais abaixo. Quem pede é o titular dos dados.",
+            "variant": "duas"
+          }
+        },
+        {
+          "type": "comprovante_canais",
+          "props": {
+            "anchor": "",
+            "title": "Pedir ou apagar os seus dados",
+            "subtitle": "Escreva de onde você se cadastrou (e-mail ou telefone) e diga o que quer: ver, corrigir ou apagar.",
+            "headLeft": "Canais oficiais",
+            "live": false,
+            "headRight": "pedido por escrito",
+            "items": [
+              {
+                "icon": "chat",
+                "label": "WhatsApp do clube",
+                "detail": "O mesmo canal do atendimento.",
+                "cta": "Abrir conversa",
+                "href": "{{whatsappLink}}"
+              },
+              {
+                "icon": "mail",
+                "label": "E-mail",
+                "detail": "Para deixar o pedido registrado.",
+                "cta": "Escrever",
+                "href": "mailto:{{email}}"
+              }
+            ],
+            "foot": "Só estes canais falam pelo clube."
           }
         },
         {

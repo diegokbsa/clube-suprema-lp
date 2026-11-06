@@ -117,14 +117,19 @@ export const blocks = {
       const name = `cp-v-${hash(`${p.title}|${p.receiptTitle}|${opts.length}`)}`;
       const lado = v === 'lado' || v === 'espelho';
       const cur$ = p.currency ?? 'R$';
+      const notas = notes.length ? `<ul class="cp-notas" aria-label="Como ler o comprovante">${notes.map((n) => `<li class="cp-nota" data-cp-alvo="${n.i}"><b>${esc(n.t)}</b>${esc(n.n)}</li>`).join('')}</ul>` : '';
+      // lado e espelho: duas colunas de verdade (texto + anotações | seletor + comprovante), centradas uma na outra,
+      // para a coluna mais curta não deixar buraco. No celular as colunas viram display: contents e a ordem volta a
+      // ser título, seletor, comprovante e anotações.
+      const [colTxt, colComp, fim] = lado ? ['<div class="cp-col cp-col-txt">', '<div class="cp-col cp-col-comp">', '</div>'] : ['', '', ''];
       return `<section class="b cp-recibo v-${v}" data-cp-recibo>
 <div class="wrap cp-grade">
-  <div class="cp-cab">
+  ${colTxt}<div class="cp-cab">
     <h1>${esc(p.title)}</h1>
     ${p.subtitle ? `<p class="cp-lead">${rich(p.subtitle)}</p>` : ''}
     ${lado && (p.cta || p.secondary) ? `<div class="cp-acoes-cab">${link(p.cta, p.ctaHref, ctx, 'btn cp-pagar', ico('seta'))}${link(p.secondary, p.secondaryHref, ctx, 'btn cp-linha-btn')}</div>` : ''}
-  </div>
-  ${opts.length ? `<fieldset class="cp-sel">
+  </div>${lado ? `${notas}${fim}` : ''}
+  ${colComp}${opts.length ? `<fieldset class="cp-sel">
     ${p.legend ? `<legend>${esc(p.legend)}</legend>` : ''}
     <div class="cp-ops">${opts.map((o, i) => `<label class="cp-op"><input type="radio" name="${name}" value="${esc(o.amount)}" data-line="${esc(o.line)}"${i === sel ? ' checked' : ''}><span><i aria-hidden="true"></i><b>${esc(o.label || `${cur$} ${o.amount}`)}</b>${v === 'lista' && o.line ? `<small>${esc(o.line)}</small>` : ''}</span></label>`).join('')}</div>
     ${p.selectNote ? `<p class="cp-sel-nota">${esc(p.selectNote)}</p>` : ''}
@@ -148,8 +153,8 @@ export const blocks = {
     </div>
     <p class="cp-pe"><strong>${esc(p.footStrong || 'É só uma ilustração.')}</strong> ${esc(p.foot)} ${resp}</p>
     <p class="cp-aviso" role="status" aria-live="polite" data-cp-aviso></p>
-  </article>
-  ${notes.length ? `<ul class="cp-notas" aria-label="Como ler o comprovante">${notes.map((n) => `<li class="cp-nota" data-cp-alvo="${n.i}"><b>${esc(n.t)}</b>${esc(n.n)}</li>`).join('')}</ul>` : ''}
+  </article>${lado ? fim : `
+  ${notas}`}
 </div>
 </section>`;
     },
@@ -172,12 +177,25 @@ export const blocks = {
         <div class="cp-lanc-txt">${richPara(i.text)}${i.pill ? `<span class="cp-pill t-${TONES.includes(i.tone) ? i.tone : 'ouro'}">${i.tone === 'ok' ? ico('check') : ''}${esc(i.pill)}</span>` : ''}</div>`;
         return i.href ? `<li class="cp-lanc com-link"><a href="${safeHref(i.href, ctx.base)}">${inner}<span class="cp-lanc-ir">${ico('seta')}</span></a></li>` : `<li class="cp-lanc">${inner}</li>`;
       };
+      const cab = p.headLeft || p.headRight || p.tag ? `<div class="cp-tela-cab"><strong>${esc(p.headLeft)}</strong><span>${esc(p.headRight)}${p.tag ? `<span class="cp-tag">${esc(p.tag)}</span>` : ''}</span></div>` : '';
+      const lancs = `<ol class="cp-lancs">${list(p.items).map(item).join('')}</ol>`;
+      const saldo = p.totalLabel || p.total || p.cta ? `<div class="cp-saldo"><div><span>${esc(p.totalLabel)}</span><strong>${esc(p.total)}</strong></div>${link(p.cta, p.ctaHref, ctx, 'btn cp-pagar cp-sm', ico('seta'))}</div>` : '';
+      // lado: um extrato só, com a coluna da esquerda de resumo (título em cima, saldo embaixo) e os lançamentos à direita
+      if (v === 'lado') {
+        return `<section class="b cp-extrato v-lado"><div class="wrap">
+  <div class="cp-lado-caixa${saldo ? ' com-pe' : ''}">
+    ${secHead(p)}
+    <div class="cp-tela cp-lado-dir">${cab}${lancs}</div>
+    ${saldo}
+  </div>
+</div></section>`;
+      }
       return `<section class="b cp-extrato v-${v}"><div class="wrap cp-ext-grade">
   ${secHead(p)}
   <div class="cp-tela">
-    ${p.headLeft || p.headRight || p.tag ? `<div class="cp-tela-cab"><strong>${esc(p.headLeft)}</strong><span>${esc(p.headRight)}${p.tag ? `<span class="cp-tag">${esc(p.tag)}</span>` : ''}</span></div>` : ''}
-    <ol class="cp-lancs">${list(p.items).map(item).join('')}</ol>
-    ${p.totalLabel || p.total || p.cta ? `<div class="cp-saldo"><div><span>${esc(p.totalLabel)}</span><strong>${esc(p.total)}</strong></div>${link(p.cta, p.ctaHref, ctx, 'btn cp-pagar cp-sm', ico('seta'))}</div>` : ''}
+    ${cab}
+    ${lancs}
+    ${saldo}
   </div>
 </div></section>`;
     },
@@ -250,14 +268,26 @@ export const blocks = {
       const rowsHtml = (rows) => `<dl class="cp-linhas">${list(rows).map((r) => `<div><dt>${esc(r.label)}</dt><dd>${esc(r.value)}${r.detail ? `<span>${rich(r.detail)}</span>` : ''}</dd></div>`).join('')}</dl>`;
       const two = p.rightTitle || list(p.rightRows).length;
       const v = variant(p, ['duas', 'lado'], 'duas');
-      return `<section class="b cp-linhas-sec v-${v}"><div class="wrap cp-ext-grade">
+      const telas = `<div class="cp-tela">${p.leftTitle ? `<h3>${esc(p.leftTitle)}</h3>` : ''}${rowsHtml(p.leftRows)}</div>
+      ${two ? `<div class="cp-tela">${p.rightTitle ? `<h3>${esc(p.rightTitle)}</h3>` : ''}${rowsHtml(p.rightRows)}</div>` : ''}`;
+      const pe = p.foot ? `<div class="cp-sec-pe">${richPara(p.foot)}</div>` : '';
+      // lado: um recibo só, com título em cima e nota embaixo na coluna da esquerda e as linhas à direita
+      if (v === 'lado') {
+        return `<section class="b cp-linhas-sec v-lado"><div class="wrap">
+  <div class="cp-lado-caixa${pe ? ' com-pe' : ''}">
+    ${secHead(p)}
+    <div class="cp-lado-dir ${two ? 'cp-duas' : 'cp-uma'}">${telas}</div>
+    ${pe}
+  </div>
+</div></section>`;
+      }
+      return `<section class="b cp-linhas-sec v-${v}${two ? '' : ' so-uma'}"><div class="wrap cp-ext-grade">
   ${secHead(p)}
   <div class="cp-corpo">
     <div class="${two ? 'cp-duas' : 'cp-uma'}">
-      <div class="cp-tela">${p.leftTitle ? `<h3>${esc(p.leftTitle)}</h3>` : ''}${rowsHtml(p.leftRows)}</div>
-      ${two ? `<div class="cp-tela">${p.rightTitle ? `<h3>${esc(p.rightTitle)}</h3>` : ''}${rowsHtml(p.rightRows)}</div>` : ''}
+      ${telas}
     </div>
-    ${p.foot ? `<div class="cp-sec-pe">${richPara(p.foot)}</div>` : ''}
+    ${pe}
   </div>
 </div></section>`;
     },
@@ -323,7 +353,7 @@ export const blocks = {
     fields: [F.text('title', 'Título'), F.area('subtitle', 'Texto (use **negrito**)'), F.text('headLeft', 'Cabeçalho (esquerda)'), F.check('live', 'Ponto verde no cabeçalho'), F.text('headRight', 'Cabeçalho (direita)'),
       F.list('items', 'Canais', [ICON_FIELD(), F.text('label', 'Canal'), F.text('detail', 'Detalhe'), F.text('cta', 'Botão'), F.url('href', 'Link')]),
       F.area('foot', 'Nota abaixo (use **negrito**)')],
-    render: (p, ctx) => `<section class="b cp-canais"><div class="wrap">
+    render: (p, ctx) => `<section class="b cp-canais${p.title || p.subtitle ? ' com-cab' : ''}"><div class="wrap">
   ${secHead(p)}
   <div class="cp-tela cp-uma">
     ${p.headLeft || p.headRight ? `<div class="cp-tela-cab"><span class="cp-ao-vivo">${p.live ? '<span class="cp-vivo" aria-hidden="true"></span>' : ''}${esc(p.headLeft)}</span><span>${esc(p.headRight)}</span></div>` : ''}
