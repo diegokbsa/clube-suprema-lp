@@ -53,8 +53,10 @@ registerTable('posts');
 registerTable('paginas_proprias');
 // --seco: roda numa cópia do banco (VACUUM INTO) e não toca no original
 let arquivoDb = path.join(DADOS, 'portal.db');
+let pastaSeco = null; // cópia do ensaio: apagada no fim (tem dados de login)
 if (SECO) {
-  const copia = path.join(fs.mkdtempSync(path.join(os.tmpdir(), 'hot-poker-seco-')), 'portal.db');
+  pastaSeco = fs.mkdtempSync(path.join(os.tmpdir(), 'hot-poker-seco-'));
+  const copia = path.join(pastaSeco, 'portal.db');
   const orig = openDb(arquivoDb); orig.exec(`VACUUM INTO '${copia.replace(/'/g, "''")}'`); orig.close();
   arquivoDb = copia;
 }
@@ -145,4 +147,5 @@ try {
   process.exitCode = 1;
 } finally {
   db.close();
+  if (pastaSeco) { try { fs.rmSync(pastaSeco, { recursive: true, force: true }); } catch { /* em uso: o SO limpa a pasta temporária */ } }
 }
