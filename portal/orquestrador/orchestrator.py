@@ -51,7 +51,9 @@ LIMITES = {
     "travada_horas": 5,            # ordem em andamento há mais que isso = travada
     "trava_ciclo_min": 25,         # trava de ciclo mais velha que isso é considerada abandonada
 }
-DESPACHA = {"codex": "codex", "kimi": "kimi", "claude-design": "big"}  # agente da tarefa → caixa do ordens.py
+# Kbsa, 06/11/2026: o Kimi toma a tela inteira do computador enquanto ele usa o PC; tarefa do Kimi vai para o Codex (trabalha por trás).
+# Para voltar ao Kimi, troque "kimi": "codex" por "kimi": "kimi".
+DESPACHA = {"codex": "codex", "kimi": "codex", "claude-design": "big"}  # agente da tarefa → caixa do ordens.py
 PRIORIDADE = {"alta": 0, "media": 1, "baixa": 2}
 ESTADOS = ["backlog", "pronta", "em_execucao", "em_revisao", "bloqueada", "concluida"]
 SEGREDO = re.compile(r"(?i)(token|senha|password|secret|api[_-]?key|authorization)[\"'\s:=]+[^\s\"',}]{6,}")
@@ -197,6 +199,7 @@ Rode na pasta `{wt}`: `{t['validacao']}` (e `npm run portal:test`). Cole o resum
 - Nada de segredo em arquivo, log ou commit. Integração sem credencial fica "pendente de configuração".
 - Português do Brasil em tudo (textos, erros, commits).
 - Sem dependências npm novas.
+- Não use a tela do computador (o Kbsa está usando): nada de controle de mouse/teclado nem janela na frente. Para ver ou fotografar páginas, use navegador sem tela (Edge/Chrome `--headless=new`, como `portal/tools/fotos.mjs`).
 
 ## Evidências
 Escreva abaixo: RESULTADO (o que fez, arquivos), VALIDAÇÃO (comando + resumo da saída), BRANCH/COMMIT, STATUS e PRÓXIMA AÇÃO.

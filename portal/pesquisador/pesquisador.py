@@ -52,7 +52,7 @@ PROJETO = "lp-clube-suprema"
 SEM_JANELA = getattr(subprocess, "CREATE_NO_WINDOW", 0)
 
 CONFIG = {
-    "agente": "kimi",
+    "agente": "codex",         # Kbsa, 06/11/2026: o Kimi toma a tela inteira; a pesquisa vai para o Codex (trabalha por trás)
     "reserva": "big",
     "pegar_em_min": 40,        # ordem não pega nesse tempo -> próxima vai para a reserva
     "travada_min": 120,        # ordem em andamento há mais que isso -> desiste e segue
@@ -145,6 +145,7 @@ Sistemas que podem usar o achado: {sistemas}.
 - Nada repetido. Já trazidos neste tema:
 {ja}
 - Português do Brasil. Não envie mensagem, não publique, não crie conta, não mexa em código: só pesquise e grave o arquivo.
+- Não use a tela do computador (o Kbsa está usando): pesquise pela ferramenta de busca/leitura web ou por navegador sem tela, nada de mouse, teclado ou janela na frente.
 
 ## Entregável
 Grave **exatamente** este JSON (UTF-8) em `{arquivo}`:
