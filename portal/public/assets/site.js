@@ -22,7 +22,7 @@
       window.dataLayer = window.dataLayer || [];
       window.gtag = function gtag() { window.dataLayer.push(arguments); };
       window.gtag('js', new Date());
-      window.gtag('config', ids.ga4);
+      window.gtag('config', ids.ga4, { send_page_view: false }); // a visita sai abaixo, com event_id
       add(`https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(ids.ga4)}`);
     }
     if (ids.pixel) {
@@ -30,19 +30,31 @@
       f.push = f; f.loaded = true; f.version = '2.0'; f.queue = [];
       add('https://connect.facebook.net/en_US/fbevents.js');
       window.fbq('init', ids.pixel);
-      window.fbq('track', 'PageView');
     }
     queue.splice(0).forEach(([n, p]) => send(n, p));
+    send('page_view', { page: body.dataset.page });
   }
   function add(src) { const s = document.createElement('script'); s.async = true; s.src = src; document.head.appendChild(s); }
   function send(name, params) {
     const id = params.event_id || eventId();
     if (window.gtag) window.gtag('event', name, { ...params, event_id: id });
     if (window.fbq) {
-      const map = { generate_lead: 'Lead', sign_up: 'CompleteRegistration', purchase: 'Purchase', cta_click: 'Contact' };
+      const map = { page_view: 'PageView', generate_lead: 'Lead', sign_up: 'CompleteRegistration', purchase: 'Purchase', cta_click: 'Contact' };
       if (map[name]) window.fbq('track', map[name], params, { eventID: id });
     }
     if (window.dataLayer && ids.gtm) window.dataLayer.push({ event: name, ...params, event_id: id });
+    mirror(name, id, params);
+  }
+  // O mesmo evento vai para o servidor com o MESMO event_id: é assim que a Conversions API da Meta evita contar duas vezes.
+  // Só roda depois do consentimento (send() só é chamado por load()) e nunca na prévia do painel.
+  function mirror(name, id, params) {
+    if (body.dataset.preview) return;
+    const url = `${body.dataset.base || ''}/pa/evento`;
+    const payload = JSON.stringify({ name, event_id: id, consent: 1, page: body.dataset.page, ...params });
+    try {
+      if (navigator.sendBeacon) navigator.sendBeacon(url, new Blob([payload], { type: 'application/json' }));
+      else fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: payload, keepalive: true });
+    } catch { /* medição nunca pode quebrar a página */ }
   }
   window.portalTrack = (name, params = {}) => (loaded ? send(name, params) : queue.push([name, params]));
 
