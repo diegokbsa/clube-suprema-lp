@@ -1,0 +1,507 @@
+{
+  "titulo": "Hot Poker: calendário de 7 dias (13 a 19/11/2026)",
+  "gerado_em": "2026-11-06",
+  "status": "RASCUNHO: nada publicado. Publicar só com o sim do dono.",
+  "regras": [
+    "Instagram @hotpoker.agent (https://www.instagram.com/hotpoker.agent): 1 publicação por dia às 9h; sexta, sábado e domingo têm mais uma, especial, às 18h.",
+    "Toda legenda: gancho na 1ª linha, texto curto, CTA para o link na bio ou hotpoker.club, e \"+18 · Jogue com responsabilidade\".",
+    "Proibido: promessa de ganho, promoção de fichas, depoimento, número de jogadores, prêmio pago. A grade é sempre EXEMPLO.",
+    "Clube 33548 · agente 768286. Telegram ainda sem endereço: {{TELEGRAM}}.",
+    "Facebook (grupo https://www.facebook.com/share/g/1KJNHrXUSF/) e Telegram são sugestões à parte da grade do Instagram."
+  ],
+  "pasta_das_pecas": "conteudo/hot-poker/criativos/",
+  "instagram_feed": [
+    {
+      "dia": "sexta",
+      "horario": "09:00",
+      "especial": false,
+      "formato": "feed 1080×1350",
+      "peca": "f02-como-entrar",
+      "arquivos": [
+        "f02-como-entrar.png"
+      ],
+      "legenda": "Entrar no Hot Poker leva 3 passos. Salva este post.\n\n1. Deixe seu e-mail em hotpoker.club e receba o passo a passo.\n2. Baixe o Suprema Poker e abra pelo link do clube: você já cai no clube 33548, com o agente 768286.\n3. Compre fichas por PIX no canal de fichas. Na primeira compra: seu ID de jogador, o clube e o agente.\n\nTravou em algum passo? Suporte humano 24h no WhatsApp. Link na bio.\n\n+18 · Jogue com responsabilidade.",
+      "hashtags": [
+        "#hotpoker",
+        "#supremapoker",
+        "#pokerbrasil",
+        "#clubedepoker"
+      ],
+      "alt": [
+        "Cartaz de lambe-lambe do Hot Poker: 'Como entrar no clube, três passos'. 1, deixe seu e-mail em hotpoker.club. 2, baixe o Suprema Poker e abra pelo link, clube 33548, agente 768286. 3, compre fichas por PIX no canal de fichas. Rodapé: +18, jogue com responsabilidade, hotpoker.club."
+      ],
+      "data": "13/11/2026"
+    },
+    {
+      "dia": "sexta",
+      "horario": "18:00",
+      "especial": true,
+      "formato": "feed 1080×1350",
+      "peca": "f01-boas-vindas",
+      "arquivos": [
+        "f01-boas-vindas.png"
+      ],
+      "legenda": "Chegou o Hot Poker. E o site já está no ar.\n\nSomos um clube de poker dentro do app Suprema Poker: fichas por PIX, saque na chave do seu próprio CPF e gente de verdade no suporte, 24 horas, no WhatsApp.\n\nGuarda os números: clube 33548, agente 768286.\n\nEm hotpoker.club você deixa só o e-mail e recebe o passo a passo. Link na bio.\n\n+18 · Jogue com responsabilidade.",
+      "hashtags": [
+        "#hotpoker",
+        "#supremapoker",
+        "#pokerbrasil",
+        "#pokeronline"
+      ],
+      "alt": [
+        "Cartaz colado em muro escuro com o letreiro HOT POKER e a chama laranja, o texto 'Clube de poker no Suprema Poker' e 'Chegou o Hot Poker'. Um raio laranja cruza o cartaz. Papel laranja: 'O site está no ar: hotpoker.club. Fichas por PIX. Suporte humano 24h.' Rodapé com +18 e clube 33548, agente 768286."
+      ],
+      "data": "13/11/2026"
+    },
+    {
+      "dia": "sábado",
+      "horario": "09:00",
+      "especial": false,
+      "formato": "quadrado 1080×1080",
+      "peca": "q04-quiz-qual-mais-forte",
+      "arquivos": [
+        "q04-quiz-qual-mais-forte.png"
+      ],
+      "legenda": "Responde rápido: qual mão é mais forte, A ou B?\n\nOlha bem as cinco cartas de cada uma e comenta a sua resposta.\nA resposta sai amanhã de manhã, nos stories e no post do ranking de mãos.\n\nCartas desenhadas, só ilustração. Quer jogar no clube? Link na bio.\n\n+18 · Jogue com responsabilidade.",
+      "hashtags": [
+        "#hotpoker",
+        "#pokerbrasil",
+        "#texasholdem",
+        "#quizdepoker"
+      ],
+      "alt": [
+        "Quiz 'Qual é mais forte?'. Mão A: 2, 6, 9, valete e rei, todas de copas. Mão B: 5 de paus, 6 de ouros, 7 de espadas, 8 de copas e 9 de paus. Texto: 'Comenta A ou B. A resposta sai amanhã nos stories.' Rodapé com +18."
+      ],
+      "data": "14/11/2026"
+    },
+    {
+      "dia": "sábado",
+      "horario": "18:00",
+      "especial": true,
+      "formato": "carrossel 3 telas 1080×1350",
+      "peca": "c01-primeira-compra",
+      "arquivos": [
+        "c01-primeira-compra-1.png",
+        "c01-primeira-compra-2.png",
+        "c01-primeira-compra-3.png"
+      ],
+      "legenda": "Sua primeira compra de fichas por PIX, do começo ao fim. Salva para a hora de comprar.\n\nTela 2: as 3 informações que o canal de fichas (Fichas 24h) pede: seu ID de jogador, o clube 33548 e o agente 768286.\nTela 3: paga o PIX e pronto. O saque também é por PIX, na chave do seu próprio CPF.\n\nAntes de comprar, defina quanto vai usar na noite. Travou? Suporte humano 24h no WhatsApp. Link na bio.\n\n+18 · Jogue com responsabilidade.",
+      "hashtags": [
+        "#hotpoker",
+        "#supremapoker",
+        "#pokerbrasil",
+        "#fichasporpix"
+      ],
+      "alt": [
+        "Tela 1: cartaz 'Sua primeira compra de fichas, por PIX, do começo ao fim', com 'Arraste' e '3 telas. Salve para a hora de comprar.'",
+        "Tela 2: 'Tenha à mão: 3 informações na primeira compra'. Seu ID de jogador (fica no seu perfil, no app Suprema Poker), clube 33548, agente 768286. Nota: 'No canal de fichas: o Fichas 24h.'",
+        "Tela 3: 'Paga o PIX. Pronto.' Saque também por PIX, na chave do seu CPF. Travou? Suporte humano 24h no WhatsApp. Faixa laranja: 'Defina seu limite antes de comprar.' Rodapé com +18."
+      ],
+      "data": "14/11/2026"
+    },
+    {
+      "dia": "domingo",
+      "horario": "09:00",
+      "especial": false,
+      "formato": "feed 1080×1350",
+      "peca": "f05-ranking-de-maos",
+      "arquivos": [
+        "f05-ranking-de-maos.png"
+      ],
+      "legenda": "Resposta do quiz de ontem: a mão A (flush) é mais forte que a B (sequência).\n\nE aqui está o ranking inteiro, da mais forte para a mais fraca. Salva para consultar quando bater a dúvida:\nroyal flush > straight flush > quadra > full house > flush > sequência > trinca > dois pares > par > carta alta.\n\nClube 33548 · agente 768286 · link na bio.\n\n+18 · Jogue com responsabilidade.",
+      "hashtags": [
+        "#hotpoker",
+        "#pokerbrasil",
+        "#rankingdemaos",
+        "#texasholdem"
+      ],
+      "alt": [
+        "Cartaz 'Ranking de mãos, da mais forte para a mais fraca', com dez linhas numeradas e cartas desenhadas: 1 royal flush, 2 straight flush, 3 quadra, 4 full house, 5 flush, 6 sequência, 7 trinca, 8 dois pares, 9 par, 10 carta alta. Rodapé com +18."
+      ],
+      "data": "15/11/2026"
+    },
+    {
+      "dia": "domingo",
+      "horario": "18:00",
+      "especial": true,
+      "formato": "feed 1080×1350",
+      "peca": "f06-grade-exemplo",
+      "arquivos": [
+        "f06-grade-exemplo.png"
+      ],
+      "legenda": "Como pode ser uma noite no clube. (Grade de exemplo: é só ilustração.)\n\n19h, um aquecimento de Texas Hold'em. 20h30, a noite do Omaha. 22h, o principal da noite. Meia-noite, um turbo com blinds subindo rápido.\n\nHorários, formatos e valores reais aparecem dentro do app Suprema Poker, no clube 33548. Nada aqui é horário confirmado.\n\nAntes de sentar: decida quanto vai gastar e a hora de parar. Link na bio.\n\n+18 · Jogue com responsabilidade.",
+      "hashtags": [
+        "#hotpoker",
+        "#supremapoker",
+        "#torneiodepoker",
+        "#pokerbrasil"
+      ],
+      "alt": [
+        "Cartaz com carimbo laranja 'EXEMPLO': 'Uma noite no clube, grade de exemplo, ilustração. Horários e valores reais aparecem dentro do app.' Lista: 19h aquecimento (Texas Hold'em), 20h30 noite do Omaha, 22h principal da noite, 0h turbo da madrugada. Rodapé com +18."
+      ],
+      "data": "15/11/2026"
+    },
+    {
+      "dia": "segunda",
+      "horario": "09:00",
+      "especial": false,
+      "formato": "carrossel 3 telas 1080×1350",
+      "peca": "c02-glossario",
+      "arquivos": [
+        "c02-glossario-1.png",
+        "c02-glossario-2.png",
+        "c02-glossario-3.png"
+      ],
+      "legenda": "5 palavras que você vai ouvir na mesa. Arrasta e salva.\n\nBlind: aposta obrigatória antes das cartas (small blind e big blind).\nFlop: as três primeiras cartas abertas na mesa.\nTurn: a quarta. River: a quinta e última.\nAll-in: todas as fichas que você tem na mesa, de uma vez. Das fichas da mesa, nunca do dinheiro das contas.\n\nManda para aquele amigo que está começando. Link na bio.\n\n+18 · Jogue com responsabilidade.",
+      "hashtags": [
+        "#hotpoker",
+        "#pokerbrasil",
+        "#pokeriniciante",
+        "#glossariodepoker"
+      ],
+      "alt": [
+        "Tela 1: papel laranja 'Fala de mesa: 5 palavras que você vai ouvir no clube', com adesivos colados: blind, flop, turn, river, all-in.",
+        "Tela 2: verbetes. Blind: aposta obrigatória antes das cartas, paga pelos dois jogadores à esquerda do botão. Flop: as três primeiras cartas abertas na mesa, com três cartas desenhadas.",
+        "Tela 3: cinco cartas na mesa com a quarta e a quinta destacadas. Turn: a quarta carta. River: a quinta e última. All-in: apostar todas as fichas que você tem na mesa. 'Nunca do dinheiro das contas.' Rodapé com +18."
+      ],
+      "data": "16/11/2026"
+    },
+    {
+      "dia": "terça",
+      "horario": "09:00",
+      "especial": false,
+      "formato": "feed 1080×1350",
+      "peca": "f04-texas-vs-omaha",
+      "arquivos": [
+        "f04-texas-vs-omaha.png"
+      ],
+      "legenda": "Texas ou Omaha? A diferença em 20 segundos, para quem está começando.\n\nTexas Hold'em (NLH): 2 cartas na mão, 5 na mesa, e a aposta pode ir até todas as fichas que você tem na frente.\nOmaha (PLO): 4 cartas na mão, você usa exatamente 2, e a aposta vai até o tamanho do pote.\n\nComeçando agora? O Texas é o mais simples. Comenta qual você joga. Link na bio.\n\n+18 · Jogue com responsabilidade.",
+      "hashtags": [
+        "#hotpoker",
+        "#texasholdem",
+        "#omahapoker",
+        "#pokeriniciante"
+      ],
+      "alt": [
+        "Dois cartazes, um sobre o outro, com um selo 'VS'. Branco: 'Texas Hold'em, NLH no limit', com duas cartas, ás e rei, e a regra '2 cartas na mão e 5 na mesa'. Laranja: 'Omaha, PLO pot limit', com quatro cartas em leque e a regra '4 cartas na mão, você usa exatamente 2'. Rodapé com +18."
+      ],
+      "data": "17/11/2026"
+    },
+    {
+      "dia": "quarta",
+      "horario": "09:00",
+      "especial": false,
+      "formato": "feed 1080×1350",
+      "peca": "f07-sem-senha",
+      "arquivos": [
+        "f07-sem-senha.png"
+      ],
+      "legenda": "O site do Hot Poker não pede a senha do seu app. Nem documento.\n\nNo hotpoker.club você deixa só o e-mail, para receber o passo a passo.\nSe alguém pedir a senha do seu app, não passe. Na dúvida, chame o suporte humano 24h no WhatsApp (link na bio).\n\nManda para quem joga com você.\n\n+18 · Jogue com responsabilidade.",
+      "hashtags": [
+        "#hotpoker",
+        "#supremapoker",
+        "#segurancadigital",
+        "#pokerbrasil"
+      ],
+      "alt": [
+        "Papel laranja 'Sem senha.' e papel preto 'Sem documento.'. Embaixo, um campo 'Senha do app' riscado em laranja e o texto 'No hotpoker.club você deixa só o e-mail. Se alguém pedir a senha do seu app, não passe.' Rodapé com +18."
+      ],
+      "data": "18/11/2026"
+    },
+    {
+      "dia": "quinta",
+      "horario": "09:00",
+      "especial": false,
+      "formato": "quadrado 1080×1080",
+      "peca": "q01-anota-ai",
+      "arquivos": [
+        "q01-anota-ai.png"
+      ],
+      "legenda": "Anota aí: clube 33548, agente 768286.\n\nVocê usa os dois na primeira compra de fichas, junto com o seu ID de jogador (fica no seu perfil, dentro do app).\nAbrindo o Suprema Poker pelo link do clube, você já cai no clube com o agente. Link na bio.\n\nSalva este post para não perder.\n\n+18 · Jogue com responsabilidade.",
+      "hashtags": [
+        "#hotpoker",
+        "#supremapoker",
+        "#clubedepoker",
+        "#pokerbrasil"
+      ],
+      "alt": [
+        "'Anota aí.' em letras grandes no muro, com a chama do Hot Poker. Papel branco: clube 33548. Papel laranja: agente 768286. Texto: 'Você usa os dois na primeira compra de fichas, com o seu ID de jogador.' Rodapé com +18."
+      ],
+      "data": "19/11/2026"
+    }
+  ],
+  "instagram_stories": [
+    {
+      "dia": "sexta",
+      "horario": "12:00",
+      "peca": "s01-salve-os-numeros",
+      "arquivos": [
+        "s01-salve-os-numeros.png"
+      ],
+      "acao": "Publicar a peça. Sem figurinha.",
+      "texto": "Tire print: clube 33548, agente 768286.",
+      "alt": "Story: Salve esses números. Clube 33548, agente 768286. Tire print desta tela.",
+      "data": "13/11/2026"
+    },
+    {
+      "dia": "sexta",
+      "horario": "18:30",
+      "peca": "s06-site-no-ar",
+      "arquivos": [
+        "s06-site-no-ar.png"
+      ],
+      "acao": "Figurinha de LINK para https://hotpoker.club na faixa logo abaixo de \"Toque no link\".",
+      "texto": "Figurinha: \"hotpoker.club\"",
+      "alt": "Story: Hot Poker, clube de poker no Suprema Poker. No ar. hotpoker.club. Deixe o e-mail e receba o passo a passo.",
+      "data": "13/11/2026"
+    },
+    {
+      "dia": "sábado",
+      "horario": "09:30",
+      "peca": "q04-quiz-qual-mais-forte",
+      "arquivos": [
+        "q04-quiz-qual-mais-forte.png"
+      ],
+      "acao": "Compartilhar o post do quiz nos stories e pôr a figurinha de ENQUETE com as opções \"A\" e \"B\".",
+      "texto": "Vota: A ou B?",
+      "alt": "Quiz: qual mão é mais forte, A ou B?",
+      "data": "14/11/2026"
+    },
+    {
+      "dia": "sábado",
+      "horario": "20:00",
+      "peca": "s05-enquete-texas-omaha",
+      "arquivos": [
+        "s05-enquete-texas-omaha.png"
+      ],
+      "acao": "Figurinha de ENQUETE \"Texas\" / \"Omaha\" na faixa entre \"Responda na enquete\" e o rodapé (por volta de 1.420 a 1.520 px).",
+      "texto": "Enquete: Texas | Omaha",
+      "alt": "Story: Você é de Texas ou de Omaha? Texas, 2 cartas na mão. Omaha, 4 cartas na mão.",
+      "data": "14/11/2026"
+    },
+    {
+      "dia": "domingo",
+      "horario": "09:30",
+      "peca": "f05-ranking-de-maos",
+      "arquivos": [
+        "f05-ranking-de-maos.png"
+      ],
+      "acao": "Compartilhar o post do ranking nos stories com o texto de resposta.",
+      "texto": "Resposta do quiz: A (flush) é mais forte que B (sequência).",
+      "alt": "Ranking de mãos com a resposta do quiz.",
+      "data": "15/11/2026"
+    },
+    {
+      "dia": "domingo",
+      "horario": "20:00",
+      "peca": "s03-limite-antes-de-sentar",
+      "arquivos": [
+        "s03-limite-antes-de-sentar.png"
+      ],
+      "acao": "Publicar a peça. Sem figurinha.",
+      "texto": "Antes de sentar, decida.",
+      "alt": "Story +18: Antes de sentar, decida: quanto vai gastar na noite, a hora de parar; perdeu, não jogue para recuperar; conta, aluguel e comida ficam fora da mesa. Poker é jogo, não é investimento.",
+      "data": "15/11/2026"
+    },
+    {
+      "dia": "segunda",
+      "horario": "12:00",
+      "peca": "s04-como-entrar",
+      "arquivos": [
+        "s04-como-entrar.png"
+      ],
+      "acao": "Figurinha de LINK para https://hotpoker.club fora da área dos passos (no topo, acima de 250 px, ou sobre o raio).",
+      "texto": "Figurinha: \"Passo a passo\"",
+      "alt": "Story: 3 passos até a mesa. 1, deixe o e-mail em hotpoker.club. 2, baixe o Suprema Poker e abra pelo link. 3, compre fichas por PIX.",
+      "data": "16/11/2026"
+    },
+    {
+      "dia": "terça",
+      "horario": "20:00",
+      "peca": "s02-suporte-24h",
+      "arquivos": [
+        "s02-suporte-24h.png"
+      ],
+      "acao": "Figurinha de LINK para o WhatsApp com a mensagem padrão: https://wa.me/5511952138293?text=Oi!%20Venho%20do%20clube%2033548%2C%20agente%20768286%2C%20e%20gostaria%20de%20suporte.",
+      "texto": "Figurinha: \"Chamar o suporte\"",
+      "alt": "Story: 24h, suporte humano no WhatsApp. A mensagem já vai pronta: Oi! Venho do clube 33548, agente 768286, e gostaria de suporte.",
+      "data": "17/11/2026"
+    },
+    {
+      "dia": "quarta",
+      "horario": "12:00",
+      "peca": "f07-sem-senha",
+      "arquivos": [
+        "f07-sem-senha.png"
+      ],
+      "acao": "Compartilhar o post nos stories.",
+      "texto": "Só o e-mail. Mais nada.",
+      "alt": "Sem senha. Sem documento.",
+      "data": "18/11/2026"
+    },
+    {
+      "dia": "quarta",
+      "horario": "20:00",
+      "peca": "s01-salve-os-numeros",
+      "arquivos": [
+        "s01-salve-os-numeros.png"
+      ],
+      "acao": "Repetir a peça e criar o Destaque \"Como entrar\" com s01, s04 e s06.",
+      "texto": "Já salvou?",
+      "alt": "Story: Salve esses números. Clube 33548, agente 768286.",
+      "data": "18/11/2026"
+    },
+    {
+      "dia": "quinta",
+      "horario": "12:00",
+      "peca": "s06-site-no-ar",
+      "arquivos": [
+        "s06-site-no-ar.png"
+      ],
+      "acao": "Figurinha de LINK para https://hotpoker.club.",
+      "texto": "Figurinha: \"hotpoker.club\"",
+      "alt": "Story: No ar. hotpoker.club.",
+      "data": "19/11/2026"
+    },
+    {
+      "dia": "quinta",
+      "horario": "20:00",
+      "peca": "s03-limite-antes-de-sentar",
+      "arquivos": [
+        "s03-limite-antes-de-sentar.png"
+      ],
+      "acao": "Repetir e criar o Destaque \"Jogo responsável\".",
+      "texto": "Antes de sentar, decida.",
+      "alt": "Story +18: Antes de sentar, decida.",
+      "data": "19/11/2026"
+    }
+  ],
+  "facebook_grupo_sugestao": [
+    {
+      "dia": "sexta",
+      "horario": "19:00",
+      "peca": "f01-boas-vindas",
+      "arquivos": [
+        "f01-boas-vindas.png"
+      ],
+      "legenda": "Chegou o Hot Poker, e o site já está no ar: https://hotpoker.club\n\nÉ um clube de poker dentro do app Suprema Poker. Clube 33548, agente 768286. Fichas por PIX no canal de fichas, saque na chave do seu CPF e suporte humano 24h no WhatsApp.\n\nEste grupo é para dúvida de iniciante, dica de mesa e aviso do clube. Pode perguntar à vontade.\n\n+18 · Jogue com responsabilidade.",
+      "data": "13/11/2026"
+    },
+    {
+      "dia": "sábado",
+      "horario": "19:00",
+      "peca": "f03-pix-dois-sentidos",
+      "arquivos": [
+        "f03-pix-dois-sentidos.png"
+      ],
+      "legenda": "PIX nos dois sentidos.\n\nEntra: fichas por PIX no canal de fichas, o Fichas 24h. Sai: saque por PIX, na chave do seu próprio CPF.\nDefina seu limite antes de comprar fichas.\n\nPasso a passo da primeira compra: https://hotpoker.club\n\n+18 · Jogue com responsabilidade.",
+      "data": "14/11/2026"
+    },
+    {
+      "dia": "domingo",
+      "horario": "19:00",
+      "peca": "q02-posicoes-na-mesa",
+      "arquivos": [
+        "q02-posicoes-na-mesa.png"
+      ],
+      "legenda": "Domingo é dia de mesa cheia. Você sabe onde está sentado?\n\nBTN (botão): fala por último depois do flop. SB e BB: pagam os blinds antes das cartas. UTG: o primeiro a falar antes do flop.\n\nDúvida? Comenta aqui que a gente responde. https://hotpoker.club\n\n+18 · Jogue com responsabilidade.",
+      "data": "15/11/2026"
+    },
+    {
+      "dia": "segunda",
+      "horario": "19:00",
+      "peca": "q03-falas-da-mesa",
+      "arquivos": [
+        "q03-falas-da-mesa.png"
+      ],
+      "legenda": "As 4 falas da mesa, em português:\n\nCheck: passa a vez sem apostar. Call: paga a aposta que está na mesa. Raise: aumenta a aposta. Fold: larga as cartas e sai da mão.\n\nQual delas você mais usa? https://hotpoker.club\n\n+18 · Jogue com responsabilidade.",
+      "data": "16/11/2026"
+    },
+    {
+      "dia": "terça",
+      "horario": "19:00",
+      "peca": "f08-redes",
+      "arquivos": [
+        "f08-redes.png"
+      ],
+      "legenda": "Segue o muro também no Instagram: @hotpoker.agent (https://www.instagram.com/hotpoker.agent)\n\nLá sai um post por dia às 9h, e nos fins de semana tem um especial às 18h. Aqui no grupo fica a conversa.\n\n+18 · Jogue com responsabilidade.",
+      "data": "17/11/2026"
+    },
+    {
+      "dia": "quarta",
+      "horario": "19:00",
+      "peca": "f07-sem-senha",
+      "arquivos": [
+        "f07-sem-senha.png"
+      ],
+      "legenda": "Aviso de segurança: o site do Hot Poker não pede a senha do seu app nem documento.\n\nNo https://hotpoker.club você deixa só o e-mail. Se alguém pedir a senha do seu app, não passe.\n\n+18 · Jogue com responsabilidade.",
+      "data": "18/11/2026"
+    },
+    {
+      "dia": "quinta",
+      "horario": "19:00",
+      "peca": "c01-primeira-compra",
+      "arquivos": [
+        "c01-primeira-compra-1.png",
+        "c01-primeira-compra-2.png",
+        "c01-primeira-compra-3.png"
+      ],
+      "legenda": "Primeira compra de fichas por PIX, em 3 imagens (publicar como álbum).\n\nTenha à mão: seu ID de jogador, o clube 33548 e o agente 768286. Paga o PIX e pronto. Saque também por PIX, no seu CPF.\n\nTravou? Suporte humano 24h no WhatsApp: https://wa.me/5511952138293?text=Oi!%20Venho%20do%20clube%2033548%2C%20agente%20768286%2C%20e%20gostaria%20de%20suporte.\n\n+18 · Jogue com responsabilidade.",
+      "data": "19/11/2026"
+    }
+  ],
+  "telegram_canal_sugestao": {
+    "canal": "{{TELEGRAM}}",
+    "mensagens": [
+      {
+        "dia": "sexta",
+        "horario": "10:00",
+        "imagem": "f01-boas-vindas.png",
+        "texto": "Chegou o Hot Poker.\n\nClube de poker no app Suprema Poker. Clube 33548 · agente 768286.\nFichas por PIX, saque no seu CPF e suporte humano 24h no WhatsApp.\n\nPasso a passo: https://hotpoker.club\n\n+18 · Jogue com responsabilidade.",
+        "data": "13/11/2026"
+      },
+      {
+        "dia": "sábado",
+        "horario": "10:00",
+        "imagem": "q04-quiz-qual-mais-forte.png",
+        "texto": "Quiz de sábado: qual mão é mais forte, A ou B?\n\nResponde aqui no canal. A resposta sai amanhã às 10h.\n\n+18 · Jogue com responsabilidade.",
+        "data": "14/11/2026"
+      },
+      {
+        "dia": "domingo",
+        "horario": "10:00",
+        "imagem": "f05-ranking-de-maos.png",
+        "texto": "Resposta: A (flush) é mais forte que B (sequência).\n\nO ranking completo está na imagem. Fixa esta mensagem para consultar quando bater a dúvida.\n\nHoje à noite tem grade de exemplo no Instagram @hotpoker.agent. Os horários reais ficam dentro do app, no clube 33548.\n\n+18 · Jogue com responsabilidade.",
+        "data": "15/11/2026"
+      },
+      {
+        "dia": "segunda",
+        "horario": "10:00",
+        "imagem": "c02-glossario-2.png",
+        "texto": "Glossário rápido:\n\n• Blind: aposta obrigatória antes das cartas.\n• Flop: as 3 primeiras cartas da mesa.\n• Turn: a 4ª. River: a 5ª.\n• All-in: todas as fichas que você tem na mesa, de uma vez.\n\nMais em https://hotpoker.club\n\n+18 · Jogue com responsabilidade.",
+        "data": "16/11/2026"
+      },
+      {
+        "dia": "terça",
+        "horario": "10:00",
+        "imagem": "s02-suporte-24h.png",
+        "texto": "Travou em algum passo? Uma pessoa responde, 24h.\n\nWhatsApp com a mensagem pronta (clube 33548, agente 768286): https://wa.me/5511952138293?text=Oi!%20Venho%20do%20clube%2033548%2C%20agente%20768286%2C%20e%20gostaria%20de%20suporte.\n\n+18 · Jogue com responsabilidade.",
+        "data": "17/11/2026"
+      },
+      {
+        "dia": "quarta",
+        "horario": "10:00",
+        "imagem": "f07-sem-senha.png",
+        "texto": "Aviso: o site do Hot Poker não pede a senha do seu app nem documento.\n\nNo https://hotpoker.club você deixa só o e-mail. Se alguém pedir a senha, não passe.\n\n+18 · Jogue com responsabilidade.",
+        "data": "18/11/2026"
+      },
+      {
+        "dia": "quinta",
+        "horario": "10:00",
+        "imagem": "s03-limite-antes-de-sentar.png",
+        "texto": "Antes de sentar, decida:\n\n• quanto vai gastar na noite;\n• a hora de parar;\n• perdeu? Não jogue para recuperar;\n• conta, aluguel e comida ficam fora da mesa.\n\nPoker é jogo, não é investimento. Só para maiores de 18.\n\nClube 33548 · agente 768286 · https://hotpoker.club",
+        "data": "19/11/2026"
+      }
+    ]
+  }
+}

@@ -38,7 +38,7 @@ export async function createApp({ db, origin = 'http://localhost:3400', secretKe
   const loginLimit = rateLimiter(10, 15 * 60_000);
   const formLimit = rateLimiter(20, 10 * 60_000);
   const hookLimit = rateLimiter(600, 60_000);
-  const app = { db, origin, vault: vault(secretKey), moduleNav: [], publicRoutes: [], rootRoutes: [], prePublish: [], mcpTools: [], sitemapExtras: [], aiRoutines: {}, fetchImpl,
+  const app = { db, origin, vault: vault(secretKey), moduleNav: [], publicRoutes: [], rootRoutes: [], prePublish: [], mcpTools: [], sitemapExtras: [], paginasProprias: [], onLead: [], aiRoutines: {}, fetchImpl,
     edition: eds.default, editions: eds.editions, editionFor: (req) => eds.forRequest(req), serviceToken: serviceToken || null };
   app.originOf = (editionId) => (eds.editions[editionId] || eds.default).origin;
   app.tenantOrigin = (tenantId) => app.originOf(db.prepare('SELECT edition FROM tenants WHERE id = ?').get(tenantId)?.edition);
@@ -57,6 +57,8 @@ export async function createApp({ db, origin = 'http://localhost:3400', secretKe
       if (mod.nav) app.moduleNav.push(...[].concat(mod.nav));
       if (mod.mcpTools) app.mcpTools.push(...mod.mcpTools);          // ferramentas que a IA do usuário pode usar
       if (mod.sitemapEntries) app.sitemapExtras.push(mod.sitemapEntries); // ({ site, tenant, repo }) => [{ path, lastmod }]
+      if (typeof mod.paginaPropria === 'function') app.paginasProprias.push(mod.paginaPropria); // ({ req, site, repo, rest }) => resposta | null
+      if (typeof mod.onLead === 'function') app.onLead.push(mod.onLead); // ({ app, db, tenant, site, repo, lead }) => Promise, depois de gravar o lead
       if (mod.aiRoutines) Object.assign(app.aiRoutines, mod.aiRoutines);  // rotinas automáticas por serviço (noticias_blog, instagram...)
       if (typeof mod.init === 'function') await mod.init(app);
     }
@@ -104,6 +106,10 @@ export async function createApp({ db, origin = 'http://localhost:3400', secretKe
     if (rest === 'sitemap.xml') return send(res, 200, sitemapXml(siteOrigin, base, pages, app.sitemapExtras.flatMap((fn) => { try { return fn({ site, tenant, repo }) || []; } catch { return []; } })), { 'Content-Type': 'application/xml; charset=utf-8', 'Cache-Control': 'public, max-age=600' });
     if (rest === 'robots.txt') return send(res, 200, robotsTxt(siteOrigin, base), { 'Cache-Control': 'public, max-age=3600' });
     if (rest === `${app.seo.key(site)}.txt`) return send(res, 200, app.seo.key(site), { 'Cache-Control': 'public, max-age=86400' }); // chave IndexNow
+    for (const fn of app.paginasProprias) { // HTML próprio do site (raiz e páginas extras) vence o construtor
+      const out = fn({ req, site, tenant, repo, rest, base, origin: siteOrigin });
+      if (out) return send(res, out.status, req.method === 'HEAD' ? '' : out.body, out.headers);
+    }
     for (const r of app.publicRoutes) {
       const params = r.match(`/${rest}`);
       if (params) return r.handler({ req, res, db, app, site, tenant, repo, base, params, pages, origin: siteOrigin, send });
@@ -142,6 +148,9 @@ export async function createApp({ db, origin = 'http://localhost:3400', secretKe
       phone: String(body.phone || '').replace(/[^\d+]/g, '').slice(0, 20) || null, utm: JSON.stringify(utm), click_id: fresh ? click.id : null,
       affiliate_id: fresh ? click.affiliate_id : null, consent: 1, stage: 'novo', demo: tenant.demo });
     repo.insert('lead_events', { lead_id: lead.id, kind: 'criado', data: JSON.stringify({ origem: utm.utm_source || (fresh ? 'afiliado' : 'direto'), pagina: lead.page_slug, referer: String(req.headers.referer || '').slice(0, 200) }) });
+    for (const fn of app.onLead) { // ganchos de módulo (ex.: e-mail de boas-vindas): rodam depois da resposta e nunca derrubam o envio
+      setImmediate(() => { Promise.resolve().then(() => fn({ app, db, tenant, site, repo, lead })).catch((e) => console.error(`[portal] gancho de lead: ${e.message}`)); });
+    }
     return back(true);
   }
 

@@ -14,6 +14,7 @@ export const INTEGRATIONS = [
   { kind: 'ga4_api', label: 'Google Analytics (relatórios)', group: 'relatorios' },
   { kind: 'instagram', label: 'Instagram (conta profissional)', group: 'redes' },
   { kind: 'telegram', label: 'Telegram (bot)', group: 'redes' },
+  { kind: 'email_smtp', label: 'E-mail do CRM (Gmail / SMTP)', group: 'crm' },
   { kind: 'meta_ads', label: 'Meta Ads (conta de anúncios)', group: 'campanhas' },
   { kind: 'webhook_conversoes', label: 'Webhook de conversões', group: 'afiliacao' },
   { kind: 'indexnow', label: 'IndexNow (Bing, Yandex, Seznam, Naver, Yep)', group: 'seo' },
@@ -25,7 +26,7 @@ const AUTO_ACTIVE = new Set(['webhook_conversoes', 'indexnow']); // funcionam se
 export const slugify = (s) => String(s || '').normalize('NFKD').replace(/[̀-ͯ]/g, '').toLowerCase()
   .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 48);
 
-const SETTINGS_KEYS = ['whatsapp', 'telegram', 'instagram', 'email', 'timezone', 'attributionWindowDays', 'logo', 'tagline', 'postsPerDay', 'postTimes'];
+const SETTINGS_KEYS = ['whatsapp', 'telegram', 'instagram', 'facebook', 'email', 'timezone', 'attributionWindowDays', 'logo', 'tagline', 'postsPerDay', 'postTimes'];
 
 export function cleanSettings(nicheId, input = {}) {
   const n = niche(nicheId);
@@ -40,12 +41,19 @@ export function cleanSettings(nicheId, input = {}) {
   return out;
 }
 
+/** Mensagem padrão do WhatsApp no pôquer (a mesma do suprema.blog): o suporte já sabe de que clube e agente a pessoa veio. */
+function waTexto(tenant, settings) {
+  if (tenant.niche_id !== 'poker') return '';
+  const quem = [tenant.number && `do clube ${tenant.number}`, settings.agentId && `agente ${settings.agentId}`].filter(Boolean).join(', ');
+  return quem ? `?text=${encodeURIComponent(`Oi! Venho ${quem}, e gostaria de suporte.`)}` : '';
+}
+
 /** Variáveis que os modelos usam em {{...}}. */
 export function templateVars(tenant, settings) {
   const n = niche(tenant.niche_id);
   return { name: tenant.name, number: tenant.number || '', unit: n?.terms.unit || 'Operação', unitLabel: unitLabel(tenant.niche_id, tenant.number),
     customer: n?.terms.customer || 'Cliente', customers: n?.terms.customers || 'Clientes', partner: n?.terms.partner || 'Parceiro',
-    whatsapp: settings.whatsapp || '', whatsappLink: settings.whatsapp ? `https://wa.me/${String(settings.whatsapp).replace(/\D/g, '')}` : '#contato',
+    whatsapp: settings.whatsapp || '', whatsappLink: settings.whatsapp ? `https://wa.me/${String(settings.whatsapp).replace(/\D/g, '')}${waTexto(tenant, settings)}` : '#contato',
     telegram: settings.telegram || '', instagram: settings.instagram || '', email: settings.email || '', tagline: settings.tagline || '',
     logo: settings.logo || '', disclaimer: n?.disclaimer || '', ...Object.fromEntries((n?.fields || []).map((f) => [f.key, settings[f.key] || ''])) };
 }

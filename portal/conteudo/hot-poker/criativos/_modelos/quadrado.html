@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Hot Poker · modelo QUADRADO 1080×1080</title>
+<!-- Modelo do formato QUADRADO (1080×1080). Abra com ?id=<id da peça> (ids em pecas.js). -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wdth,wght@125,900&family=Barlow+Condensed:wght@600;700&family=Barlow:wght@400;500;600;700&display=block">
+<link rel="stylesheet" href="base.css">
+<style>html, body { width: 1080px; height: 1080px; }</style>
+</head>
+<body>
+<!-- chama da marca (de mocks/hot-poker/chama.svg, sem redesenho) e raio impresso, inline -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="gA" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#f7941d"/><stop offset="1" stop-color="#ec6512"/></linearGradient>
+    <linearGradient id="gB" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f08019"/><stop offset="1" stop-color="#e2461a"/></linearGradient>
+    <path id="a" d="M94 3C112 14 124 34 126 58C127 84 117 104 102 124C86 145 66 164 54 184C44 202 39 224 43 250L38 250C24 240 10 222 5 200C0 172 10 146 30 122C48 101 70 84 84 62C92 48 96 26 94 3Z"/>
+    <path id="b" d="M144 92C160 104 170 124 170 146C170 166 158 180 146 194C138 204 133 214 141 221C150 227 168 214 180 188C184 204 180 224 168 238C158 248 148 250 140 250L68 250C58 238 58 218 68 202C80 184 100 170 116 152C130 136 142 116 144 92Z"/>
+    <clipPath id="cA"><use href="#a"/></clipPath>
+    <clipPath id="cB"><use href="#b"/></clipPath>
+    <filter id="tinta-borda" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency=".7" numOctaves="2" seed="5" result="t"/>
+      <feDisplacementMap in="SourceGraphic" in2="t" scale="3.5" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+  </defs>
+  <symbol id="chama" viewBox="0 0 186 250">
+    <use href="#a" fill="#fff"/>
+    <g clip-path="url(#cA)"><use href="#a" fill="url(#gA)" transform="translate(9 1)"/></g>
+    <use href="#b" fill="#fff"/>
+    <g clip-path="url(#cB)"><use href="#b" fill="url(#gB)" transform="translate(8 2)"/></g>
+  </symbol>
+  <symbol id="raio" viewBox="0 0 240 900">
+    <path d="M150 0 L92 312 L132 306 L58 566 L100 560 L18 900 L156 508 L114 514 L178 266 L138 272 L198 0 Z"/>
+    <path d="M96 300 L52 372 L66 378 L20 470" fill="none" stroke-width="7" stroke-linejoin="miter"/>
+    <path d="M70 560 L118 640 L104 646 L150 732" fill="none" stroke-width="6" stroke-linejoin="miter"/>
+  </symbol>
+</svg>
+<div class="peca" id="peca"></div>
+<script src="pecas.js"></script>
+<script>montar('quadrado');</script>
+</body>
+</html>

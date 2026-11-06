@@ -13,6 +13,7 @@ export const world = {
     { id: 'sx', name: 'Preto e azul SX', colors: { mode: 'escuro', bg: '#0a0d10', surface: '#39bcff', text: '#bfe9ff', muted: '#8fb1c4', primary: '#39bcff', primaryText: '#04141d', accent: '#0b3d63', border: '#1d2c38' } },
     { id: 'feltro', name: 'Feltro verde e papel creme', colors: { mode: 'escuro', bg: '#0d1a13', surface: '#eadcbc', text: '#eadcbc', muted: '#a9b8a6', primary: '#eadcbc', primaryText: '#13221a', accent: '#a3282a', border: '#21392b' } },
     { id: 'rifa', name: 'Balcão claro e bilhete rosa', colors: { mode: 'claro', bg: '#f3eee4', surface: '#f2a7b6', text: '#1f1a22', muted: '#5b5560', primary: '#f2a7b6', primaryText: '#1f0d16', accent: '#1d3f8f', border: '#d9d0c1' } },
+    { id: 'chama', name: 'Preto e bilhete laranja chama', colors: { mode: 'escuro', bg: '#0b0908', surface: '#f47b20', text: '#ffb27a', muted: '#c9a68c', primary: '#f47b20', primaryText: '#170800', accent: '#6b1d05', border: '#3a2618' } },
   ],
 };
 

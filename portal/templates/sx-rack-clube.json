@@ -2,7 +2,7 @@
   "id": "sx-rack-clube",
   "name": "Rack · Clube do jogador (edição SX)",
   "order": 1,
-  "version": 1,
+  "version": 2,
   "category": "Poker · edição SX",
   "niches": [
     "poker"
@@ -57,7 +57,8 @@
               }
             ],
             "cta": "Quero jogar",
-            "ctaHref": "/#quero-jogar"
+            "ctaHref": "/#quero-jogar",
+            "logo": "{{logo}}"
           }
         },
         {
@@ -92,7 +93,8 @@
                 "size": "56"
               }
             ],
-            "legend": "Entre pelo link e jogue no **Clube {{number}}**, com o agente **{{agentId}}**, no app {{app}}."
+            "legend": "Entre pelo link e jogue no **Clube {{number}}**, com o agente **{{agentId}}**, no app {{app}}.",
+            "logo": "{{logo}}"
           }
         },
         {
@@ -237,7 +239,8 @@
             "note": "Leva 10 segundos. **Não pedimos senha do app nem documentos.**",
             "aviso18": "Somente maiores de 18 anos · Jogue com responsabilidade",
             "sealTop": "",
-            "sealNumber": ""
+            "sealNumber": "",
+            "logo": "{{logo}}"
           }
         },
         {
@@ -299,7 +302,8 @@
               }
             ],
             "cta": "Quero jogar",
-            "ctaHref": "/#quero-jogar"
+            "ctaHref": "/#quero-jogar",
+            "logo": "{{logo}}"
           }
         },
         {
@@ -312,7 +316,8 @@
             "title2": "no clube",
             "text": "Do zero até a primeira mão, em quatro fichas. Quem já tem conta no **{{app}}** pula direto para a terceira.",
             "sealTop": "Clube",
-            "sealNumber": "{{number}}"
+            "sealNumber": "{{number}}",
+            "logo": "{{logo}}"
           }
         },
         {
@@ -475,7 +480,8 @@
               }
             ],
             "cta": "Quero jogar",
-            "ctaHref": "/#quero-jogar"
+            "ctaHref": "/#quero-jogar",
+            "logo": "{{logo}}"
           }
         },
         {
@@ -500,7 +506,8 @@
                 "color": "ouro",
                 "size": "78"
               }
-            ]
+            ],
+            "logo": "{{logo}}"
           }
         },
         {
@@ -660,7 +667,8 @@
               }
             ],
             "cta": "Quero jogar",
-            "ctaHref": "/#quero-jogar"
+            "ctaHref": "/#quero-jogar",
+            "logo": "{{logo}}"
           }
         },
         {
@@ -673,7 +681,8 @@
             "title2": "responsável",
             "text": "Poker é diversão para maiores de 18 anos, não fonte de renda. Estas são as regras da casa para jogar sem perder o controle.",
             "sealTop": "Somente",
-            "sealNumber": "+18"
+            "sealNumber": "+18",
+            "logo": "{{logo}}"
           }
         },
         {

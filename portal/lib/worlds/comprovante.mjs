@@ -17,6 +17,7 @@ export const world = {
       colors: { mode: 'escuro', bg: '#0a0d11', surface: '#11161c', text: '#eef3f7', muted: '#8f9daa', primary: '#39bcff', primaryText: '#03121c', accent: '#4fd1a1', border: '#1f2833' } },
     { id: 'papel', name: 'Papel e tinta azul',
       colors: { mode: 'claro', bg: '#f1eee6', surface: '#fffdf8', text: '#16171b', muted: '#5d5f63', primary: '#2340c8', primaryText: '#ffffff', accent: '#157a46', border: '#ddd7ca' } },
+    { id: 'chama', name: 'Preto e laranja chama', colors: { mode: 'escuro', bg: '#0b0908', surface: '#17110d', text: '#f7f1ea', muted: '#bfb1a5', primary: '#f47b20', primaryText: '#150700', accent: '#ffc48a', border: '#3a2618' } },
   ],
 };
 

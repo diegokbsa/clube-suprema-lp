@@ -11,3 +11,10 @@ portal/pesquisador/entrada/
 portal/pesquisador/processado/
 portal/pesquisador/estado/
 portal/relatorios/fotos/
+
+# Hot Poker: artes e vídeos ficam só no PC (grandes); o portal publica só site, blog e assets
+portal/conteudo/hot-poker/criativos/**/*.png
+portal/conteudo/hot-poker/criativos/*.jpg
+portal/conteudo/hot-poker/videos/*.mp4
+portal/conteudo/hot-poker/videos/*.png
+portal/mocks/hot-poker/fotos-5/

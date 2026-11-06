@@ -1,0 +1,110 @@
+{
+  "app-suprema-poker-lobby-mesa-e-botoes": {
+    "titulo": "Guia do app",
+    "apoio": "Lobby, mesa, botões e perfil do Suprema Poker",
+    "selo": "App",
+    "variante": 3
+  },
+  "como-baixar-e-instalar-suprema-poker": {
+    "titulo": "Baixe o Suprema Poker",
+    "apoio": "Android, iPhone e conta criada em poucos minutos",
+    "selo": "App",
+    "variante": 2
+  },
+  "como-entrar-no-hot-poker": {
+    "titulo": "Como entrar no Hot Poker",
+    "apoio": "Pelo link do clube ou com o ID, em menos de um minuto",
+    "selo": "Primeiros passos",
+    "variante": 1
+  },
+  "como-escolher-um-clube-no-suprema-poker": {
+    "titulo": "Como escolher um clube",
+    "apoio": "Oito coisas para conferir antes de comprar a primeira ficha",
+    "selo": "Checklist",
+    "variante": 2
+  },
+  "como-funcionam-os-clubes-do-suprema-poker": {
+    "titulo": "Como funcionam os clubes",
+    "apoio": "ID do clube, código do agente e saldo separado",
+    "selo": "Clubes",
+    "variante": 5
+  },
+  "como-jogar-omaha-plo": {
+    "titulo": "Como jogar Omaha",
+    "apoio": "Quatro cartas, duas na mão, três na mesa",
+    "selo": "PLO · PLO5",
+    "variante": 5
+  },
+  "como-jogar-poker-no-celular": {
+    "titulo": "Poker no celular",
+    "apoio": "Do app à primeira mão, com os ajustes que evitam toque errado",
+    "selo": "Para iniciantes",
+    "variante": 3
+  },
+  "como-sair-de-um-clube-no-suprema-poker": {
+    "titulo": "Sair do clube",
+    "apoio": "Primeiro o saldo, depois a saída. Nessa ordem.",
+    "selo": "Clubes",
+    "variante": 1
+  },
+  "duvidas-frequentes-hot-poker": {
+    "titulo": "Dúvidas frequentes",
+    "apoio": "Conta, clube, fichas por PIX e saque, sem enrolação",
+    "selo": "Suporte 24h",
+    "variante": 5
+  },
+  "estrategia-de-poker-para-iniciantes": {
+    "titulo": "Estratégia para iniciantes",
+    "apoio": "Menos mãos, mais posição, apostas com motivo",
+    "selo": "Texas Hold'em",
+    "variante": 1
+  },
+  "fichas-por-pix-no-hot-poker": {
+    "titulo": "Fichas por PIX",
+    "apoio": "Compra e saque no Fichas 24h, sempre no seu CPF",
+    "selo": "Fichas 24h",
+    "variante": 4
+  },
+  "golpes-no-poker-online-como-se-proteger": {
+    "titulo": "Cuidado com golpes",
+    "apoio": "Sete truques comuns e a regra de bolso para não cair",
+    "selo": "Segurança",
+    "variante": 6
+  },
+  "id-do-clube-e-codigo-do-agente-hot-poker": {
+    "titulo": "33548 · 768286",
+    "apoio": "O ID do clube e o código do agente do Hot Poker",
+    "selo": "Números do clube",
+    "variante": 3
+  },
+  "jogo-responsavel-no-poker": {
+    "titulo": "Jogo responsável",
+    "apoio": "Limite de dinheiro, de tempo e ajuda gratuita",
+    "selo": "+18",
+    "variante": 2
+  },
+  "spin-suprema-poker-como-funciona": {
+    "titulo": "Como funciona o Spin",
+    "apoio": "Mesa de 3, buy-in fixo e uma roleta antes da primeira carta",
+    "selo": "Formato rápido",
+    "variante": 6
+  },
+  "suprema-poker-nao-abre-o-que-fazer": {
+    "titulo": "O app não abre?",
+    "apoio": "Seis testes rápidos e a reinstalação que não apaga nada",
+    "selo": "Suporte",
+    "variante": 4
+  },
+  "suprema-poker-no-pc-e-notebook": {
+    "titulo": "Suprema Poker no PC",
+    "apoio": "Windows, notebook e o que fazer no MacBook",
+    "selo": "Computador",
+    "variante": 6
+  },
+  "tipos-de-torneio-de-poker-online": {
+    "titulo": "Tipos de torneio",
+    "apoio": "Freezeout, re-entry, turbo, KO e o que cada sigla muda",
+    "selo": "Torneios",
+    "variante": 4
+  }
+}
