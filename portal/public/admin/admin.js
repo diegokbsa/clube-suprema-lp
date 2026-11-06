@@ -97,7 +97,7 @@ function layout(route, inner) {
   const tenants = S.me.tenants;
   app.innerHTML = `<div class="shell" id="shell"><aside class="side">
       <div class="logo">${logoMark()}<div>${esc(S.ed.name)}<small>${esc(S.me.user.isSuper ? 'Superadministrador' : S.tenant?.role || '')}</small></div></div>
-      ${tenants.length ? `<label class="tenant-pick field">Operação<select id="tenant-pick">${tenants.map((t) => `<option value="${esc(t.slug)}" ${S.tenant?.slug === t.slug ? 'selected' : ''}>${esc(t.label)} · ${esc(t.name)}${t.demo ? ' (demo)' : ''}</option>`).join('')}</select></label>` : ''}
+      ${tenants.length ? `<label class="tenant-pick field">Operação<select id="tenant-pick">${S.tenant ? '' : '<option value="" selected disabled>Escolha uma operação</option>'}${tenants.map((t) => `<option value="${esc(t.slug)}" ${S.tenant?.slug === t.slug ? 'selected' : ''}>${esc(t.label)} · ${esc(t.name)}${t.demo ? ' (demo)' : ''}</option>`).join('')}</select></label>` : ''}
       <nav class="nav">${navLinks(route)}</nav>
       <div class="side-foot"><div>${esc(S.me.user.name)}</div><div class="muted">${esc(S.me.user.email)}</div><div class="row" style="margin-top:8px"><button class="btn sm" id="logout" type="button">Sair</button></div></div>
     </aside><main class="main" id="main"><button class="btn sm menu-btn" id="menu-btn" type="button">☰ Menu</button>${inner}</main></div>`;
