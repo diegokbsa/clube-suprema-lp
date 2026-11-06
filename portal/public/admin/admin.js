@@ -666,7 +666,10 @@ async function viewAfiliados(r) {
 
 // ---------- integrações ----------
 async function viewIntegracoes(r) {
-  const d = await api('GET', `/api/t/${S.tenant.slug}/integrations`);
+  const [d, hook] = await Promise.all([
+    api('GET', `/api/t/${S.tenant.slug}/integrations`),
+    api('GET', `/api/t/${S.tenant.slug}/conversas/hook`),
+  ]);
   const groups = { seo: 'SEO e buscadores', mensuracao: 'Mensuração no site', relatorios: 'Relatórios', redes: 'Redes sociais', campanhas: 'Campanhas', afiliacao: 'Afiliação' };
   const main = layout(r, `<div class="page-head"><div><h1>Integrações</h1><p>Estado real de cada conexão. Nada aparece como conectado sem estar.</p></div></div>
     ${Object.entries(groups).map(([g, label]) => {
@@ -674,7 +677,12 @@ async function viewIntegracoes(r) {
       return items.length ? `<div class="card"><div class="card-head"><h2>${esc(label)}</h2></div><div class="table-wrap"><table><tbody>${items.map((i) => `<tr><td style="width:40%"><strong>${esc(i.label)}</strong>${i.lastError ? `<div class="err">${esc(i.lastError)}</div>` : ''}</td><td>${statusPill(i.status)}</td>
         <td class="muted">${i.kind === 'webhook_conversoes' ? `<div class="copy"><input readonly value="${esc(i.url)}"><button class="btn sm" type="button" data-copy="${esc(i.url)}">Copiar</button></div><div style="margin-top:6px">Assinatura: <span class="mono">${esc(i.header)}</span> · segredo ${esc(i.secret || '')} ${can('integrations.manage') ? '<button class="btn sm" type="button" id="rotate">Gerar novo segredo</button>' : ''}</div>`
           : i.status === 'pendente' ? (['ga4', 'gtm', 'meta_pixel'].includes(i.kind) ? 'Instale o ID em Sites → Aparência, SEO e mensuração.' : 'Aguardando o módulo desta integração e as credenciais da operação.') : esc(JSON.stringify(i.config))}</td></tr>`).join('')}</tbody></table></div></div>` : '';
-    }).join('')}`);
+    }).join('')}
+    <div class="card"><div class="card-head"><h2>Webhook de mensagens</h2></div>
+      <div class="grid2"><label class="field">URL<div class="copy"><input readonly value="${esc(hook.url)}"><button class="btn sm" type="button" data-copy="${esc(hook.url)}">Copiar</button></div></label>
+        <div><strong>Assinatura</strong><p class="mono">${esc(hook.assinatura)}</p><strong>Segredo do hook</strong><p class="mono">${esc(hook.segredo || 'sem permissão para ver') || 'sem permissão para ver'}</p></div></div>
+      <p class="muted">O webhook registra mensagens recebidas; esta caixa de entrada não envia respostas.</p>
+    </div>`);
   $$('[data-copy]', main).forEach((b) => b.addEventListener('click', async () => { await navigator.clipboard.writeText(b.dataset.copy); toast('Copiado.'); }));
   $('#rotate')?.addEventListener('click', async () => {
     if (!confirm('Gerar um novo segredo? O antigo para de valer na hora.')) return;

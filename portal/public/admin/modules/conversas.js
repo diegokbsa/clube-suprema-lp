@@ -8,7 +8,7 @@ export async function render(el, ctx) {
   const corStatus = { aberta: 'info', aguardando: 'warn', resolvida: 'ok' };
   const rotuloCanal = { whatsapp: 'WhatsApp', telegram: 'Telegram', email: 'E-mail', site: 'Site', manual: 'Manual' };
   const rotuloDirecao = { entrada: 'Cliente', saida: 'Atendimento', nota: 'Nota interna' };
-  const rotuloEvento = { aberta: 'Conversa aberta', status: 'Status alterado', atendente: 'Atendente alterado', assunto: 'Assunto alterado' };
+  const rotuloEvento = { aberta: 'Conversa aberta', status: 'Status alterado', atendente: 'Atendente alterado', assunto: 'Assunto alterado', nota: 'Nota interna' };
   const filtros = { q: '', status: '', canal: '', atendente: '' };
   const state = { dados: null, abertaId: null, detalhe: null, nova: false, rascunho: '', direcao: 'saida', ocupado: false };
 
@@ -24,6 +24,12 @@ export async function render(el, ctx) {
   function nomeAtendente(id) {
     if (!id) return 'Sem atendente';
     return state.dados?.atendentes.find((u) => u.id === id)?.name || 'Atendente indisponível';
+  }
+
+  function rotuloCanalComEstado(canal) {
+    const integracao = state.dados?.canaisIntegracao?.[canal];
+    if (!integracao?.kind) return `${rotuloCanal[canal] || canal} · local`;
+    return `${rotuloCanal[canal] || canal} · ${integracao.configurada ? 'conectado' : integracao.status}`;
   }
 
   async function abrir(id) {
@@ -78,6 +84,7 @@ export async function render(el, ctx) {
     if (e.tipo === 'status') return `${esc(rotuloStatus[d.de] || d.de || '—')} → ${esc(rotuloStatus[d.para] || d.para || '—')}`;
     if (e.tipo === 'atendente') return `${esc(nomeAtendente(d.de))} → ${esc(nomeAtendente(d.para))}`;
     if (e.tipo === 'assunto') return `${esc(d.de || '(sem assunto)')} → ${esc(d.para || '(sem assunto)')}`;
+    if (e.tipo === 'nota') return esc(d.nota || 'Nota interna');
     if (e.tipo === 'aberta') return `Canal ${esc(rotuloCanal[d.canal] || d.canal || '—')} · origem: ${esc(d.por === 'integracao' ? 'integração do canal' : 'painel')}`;
     return esc(JSON.stringify(d)).slice(0, 160);
   }
@@ -115,7 +122,9 @@ export async function render(el, ctx) {
           </select></label>
           <span class="spacer"></span><button class="btn primary" type="button" id="cv-enviar" ${state.ocupado ? 'disabled' : ''}>Registrar mensagem</button>
         </div>
-        <p class="muted" style="font-size:12.5px;margin:0">A resposta fica guardada como pendente de envio: este canal ainda não tem integração configurada, então nada sai daqui para o cliente.</p>
+        <p class="muted" style="font-size:12.5px;margin:0">${state.dados.canaisIntegracao?.[c.canal]?.configurada
+          ? 'Integração conectada; a resposta fica pendente porque esta caixa de entrada ainda não envia mensagens.'
+          : 'Este canal não tem integração configurada; a resposta fica pendente e nada sai daqui para o cliente.'}</p>
       </div>` : ''}
       <div style="margin-top:16px"><strong style="font-size:13px">Histórico</strong>
         ${eventos.length ? `<div style="display:grid;gap:6px;margin-top:8px">${eventos.map((e) => `<div class="list-item" style="gap:4px">
@@ -131,7 +140,7 @@ export async function render(el, ctx) {
     if (!state.nova) return '';
     return `<div class="card"><div class="card-head"><h2>Nova conversa</h2></div>
       <div class="grid2">
-        <label class="field">Canal<select id="nv-canal">${state.dados.canais.map((ch) => `<option value="${esc(ch)}" ${ch === 'manual' ? 'selected' : ''}>${esc(rotuloCanal[ch] || ch)}</option>`).join('')}</select></label>
+        <label class="field">Canal<select id="nv-canal">${state.dados.canais.map((ch) => `<option value="${esc(ch)}" ${ch === 'manual' ? 'selected' : ''}>${esc(rotuloCanalComEstado(ch))}</option>`).join('')}</select></label>
         <label class="field">Nome<input id="nv-nome" placeholder="Nome do cliente"></label>
         <label class="field">E-mail<input id="nv-email" type="email" placeholder="cliente@exemplo.com"></label>
         <label class="field">Telefone<input id="nv-telefone" placeholder="+55 11 90000-0000"></label>
@@ -158,7 +167,7 @@ export async function render(el, ctx) {
           ${d.status.map((s) => `<option value="${esc(s)}" ${filtros.status === s ? 'selected' : ''}>${esc(rotuloStatus[s] || s)} (${t[s] || 0})</option>`).join('')}
         </select></label>
         <label class="field">Canal<select id="f-canal"><option value="">Todos os canais</option>
-          ${d.canais.map((ch) => `<option value="${esc(ch)}" ${filtros.canal === ch ? 'selected' : ''}>${esc(rotuloCanal[ch] || ch)}</option>`).join('')}
+          ${d.canais.map((ch) => `<option value="${esc(ch)}" ${filtros.canal === ch ? 'selected' : ''}>${esc(rotuloCanalComEstado(ch))}</option>`).join('')}
         </select></label>
         <label class="field">Atendente<select id="f-atendente">
           <option value="" ${!filtros.atendente ? 'selected' : ''}>Todos</option>

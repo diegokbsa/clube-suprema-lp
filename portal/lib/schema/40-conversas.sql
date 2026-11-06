@@ -13,6 +13,9 @@ CREATE TABLE IF NOT EXISTS conversations (
   tenant_id TEXT NOT NULL,
   contact_id TEXT,                            -- pessoa na base única (contacts)
   lead_id TEXT,                               -- relacionamento desta operação com a pessoa
+  contact_name TEXT,                          -- retrato local do contato, sem criar lead
+  contact_email TEXT,
+  contact_phone TEXT,
   channel TEXT NOT NULL DEFAULT 'manual',     -- whatsapp | telegram | email | site | manual
   external_id TEXT,                           -- id da conversa no canal de origem (nulo quando aberta no painel)
   subject TEXT,

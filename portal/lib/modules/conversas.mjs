@@ -9,7 +9,7 @@
 //   - Estado real: o painel não envia nada. Resposta escrita aqui fica "pendente de envio" até existir integração do canal.
 import { scoped } from '../repo.mjs';
 import { HttpError, rateLimiter, clientIp } from '../http.mjs';
-import { hmac, safeEqualHex } from '../auth.mjs';
+import { can, hmac, mask, safeEqualHex } from '../auth.mjs';
 import { normEmail, normPhone, upsertContact } from '../migrations.mjs';
 import { audit as writeAudit } from '../tenants.mjs';
 import { now, parse } from '../db.mjs';
@@ -21,6 +21,8 @@ export const STATUS = ['aberta', 'aguardando', 'resolvida'];
 export const CHANNELS = ['whatsapp', 'telegram', 'email', 'site', 'manual'];
 const DIRECTIONS = ['entrada', 'saida', 'nota'];
 const TEXTO_MAX = 4000;
+const CANAL_INTEGRACAO = { whatsapp: 'whatsapp', telegram: 'telegram', email: 'email' };
+const SECRET_LABEL = 'portal:hook:mensagens:v1';
 
 const need = (condition, status, message) => { if (!condition) throw new HttpError(status, message); };
 const texto = (v, max = TEXTO_MAX) => String(v ?? '').replace(/\r\n/g, '\n').trim().slice(0, max);
@@ -44,14 +46,16 @@ function validarAtendente(db, tenantId, ownerId) {
 }
 
 // ---------- leitura ----------
-const verCliente = (lead) => (lead ? {
+const verCliente = (lead, conversa) => lead ? {
   id: lead.contact_id, nome: lead.name, email: lead.email, telefone: lead.phone,
+} : (conversa && (conversa.contact_name || conversa.contact_email || conversa.contact_phone) ? {
+  id: conversa.contact_id, nome: conversa.contact_name, email: conversa.contact_email, telefone: conversa.contact_phone,
 } : null);
 
 const verConversa = (c, lead) => ({
   id: c.id, canal: c.channel, assunto: c.subject, status: c.status, atendente: c.owner_id, leadId: c.lead_id,
   naoLidas: c.unread, mensagens: c.messages, ultimaEm: c.last_message_at, ultima: c.last_message_preview,
-  ultimaDirecao: c.last_direction, criadaEm: c.created_at, idExterno: c.external_id, cliente: verCliente(lead),
+  ultimaDirecao: c.last_direction, criadaEm: c.created_at, idExterno: c.external_id, cliente: verCliente(lead, c),
 });
 
 const verMensagem = (m) => ({
@@ -82,6 +86,20 @@ function contatoExistente(db, { email, phone }) {
   return contato || null;
 }
 
+function conversaDaPessoa(repo, { channel, contactId, email, phone }) {
+  const where = { channel };
+  const condicoes = [];
+  const parametros = [];
+  if (contactId) { condicoes.push('contact_id = ?'); parametros.push(contactId); }
+  if (email) { condicoes.push('contact_email = ?'); parametros.push(email); }
+  if (phone) { condicoes.push('contact_phone = ?'); parametros.push(phone); }
+  if (!condicoes.length) return null;
+  return repo.all('conversations', where, {
+    order: 'last_message_at DESC', limit: 1,
+    extra: `(${condicoes.join(' OR ')})`, extraParams: parametros,
+  })[0] || null;
+}
+
 function contatoDaOperacao(repo, db, { contactId, email, phone, name }) {
   if (contactId) {
     const lead = leadDoContato(repo, contactId);
@@ -95,11 +113,48 @@ function contatoDaOperacao(repo, db, { contactId, email, phone, name }) {
   const existente = contatoExistente(db, dados);
   const id = existente?.id || upsertContact(db, dados);
   need(id, 400, 'Informe o e-mail ou o telefone do cliente.');
-  if (!leadDoContato(repo, id)) {
-    repo.insert('leads', { contact_id: id, email: dados.email, name: dados.name, phone: dados.phone });
-  }
   return id;
 }
+
+function dadosLocaisContato(repo, { contactId, email, phone, name }) {
+  if (contactId) {
+    const lead = leadDoContato(repo, contactId);
+    return {
+      id: contactId, name: lead?.name || (String(name || '').trim().slice(0, 80) || null),
+      email: lead?.email || normEmail(email), phone: lead?.phone || normPhone(phone), leadId: lead?.id || null,
+    };
+  }
+  return {
+    id: null,
+    name: String(name || '').trim().slice(0, 80) || null,
+    email: normEmail(email),
+    phone: normPhone(phone),
+    leadId: null,
+  };
+}
+
+function anexarContatoLocal(repo, conversa, contato) {
+  if (!contato) return conversa;
+  const patch = {};
+  if (!conversa.contact_id && contato.id) patch.contact_id = contato.id;
+  const mesmoContato = !conversa.contact_id || conversa.contact_id === contato.id;
+  if (mesmoContato) {
+    if (!conversa.contact_name && contato.name) patch.contact_name = contato.name;
+    if (!conversa.contact_email && contato.email) patch.contact_email = contato.email;
+    if (!conversa.contact_phone && contato.phone) patch.contact_phone = contato.phone;
+    if (!conversa.lead_id && contato.leadId) patch.lead_id = contato.leadId;
+  }
+  const atualizada = repo.update('conversations', conversa.id, patch);
+  return atualizada || conversa;
+}
+
+function integracaoDoCanal(repo, channel) {
+  const kind = CANAL_INTEGRACAO[channel] || null;
+  const status = kind ? (repo.get('integrations', { kind })?.status || 'pendente') : 'pendente';
+  return { kind, status, configurada: ['ativo', 'conectado', 'conectada'].includes(status) };
+}
+
+export const segredoHookMensagens = (secret) => hmac(secret, SECRET_LABEL);
 
 function leadsDasConversas(repo, conversas) {
   return new Map(conversas.map((conversa) => [conversa.id, leadDaConversa(repo, conversa)]));
@@ -109,21 +164,25 @@ function leadsDasConversas(repo, conversas) {
  * Acha a conversa pelo id externo do canal; senão reaproveita a conversa não resolvida da pessoa naquele canal; senão abre uma.
  * Atendimento resolvido fica resolvido: só volta a abrir se o próprio canal disser que é o mesmo fio (conversa_externa).
  */
-function acharOuAbrirConversa(repo, { channel, externalId, contactId, subject, ownerId = null }) {
+function acharOuAbrirConversa(repo, { channel, externalId, contact, subject, ownerId = null }) {
+  const contactId = contact?.id || null;
   if (externalId) {
     const porExterno = repo.get('conversations', { channel, external_id: externalId });
-    if (porExterno) return { conversa: porExterno, criada: false };
+    if (porExterno) return { conversa: anexarContatoLocal(repo, porExterno, contact), criada: false };
   }
   if (contactId) {
     const aberta = repo.all('conversations', { contact_id: contactId, channel }, {
       order: 'last_message_at DESC', limit: 1, extra: "status <> 'resolvida'",
     })[0];
-    if (aberta) return { conversa: aberta, criada: false };
+    if (aberta) return { conversa: anexarContatoLocal(repo, aberta, contact), criada: false };
   }
-  const lead = leadDoContato(repo, contactId);
+  const lead = contact?.leadId ? repo.get('leads', contact.leadId) : leadDoContato(repo, contactId);
   const conversa = repo.insert('conversations', {
-    contact_id: contactId || null, lead_id: lead?.id || null, channel, external_id: externalId || null,
+    contact_id: contactId || null, lead_id: lead?.id || null,
+    contact_name: contact?.name || null, contact_email: contact?.email || null, contact_phone: contact?.phone || null,
+    channel, external_id: externalId || null,
     subject: subject ? resumo(subject) : null, status: 'aberta', owner_id: ownerId, unread: 0, messages: 0,
+    last_message_at: now(),
   });
   return { conversa, criada: true };
 }
@@ -161,9 +220,8 @@ function registrarMensagem(repo, conversa, { direction, channel, externalId = nu
     }
     throw e;
   }
-  const patch = { messages: (conversa.messages || 0) + 1 };
+  const patch = { messages: (conversa.messages || 0) + 1, last_message_at: quando };
   if (direction !== 'nota') {
-    patch.last_message_at = quando;
     patch.last_message_preview = resumo(corpo);
     patch.last_direction = direction;
   }
@@ -203,12 +261,13 @@ export const routes = [
       if (busca) {
         const alvo = like(busca);
         extra = `id IN (SELECT c.id FROM conversations c
-          WHERE c.tenant_id = ? AND (lower(COALESCE(c.subject, '')) LIKE ? OR EXISTS (
+          WHERE c.tenant_id = ? AND (lower(COALESCE(c.subject, '')) LIKE ? OR lower(COALESCE(c.contact_name, '')) LIKE ?
+            OR COALESCE(c.contact_email, '') LIKE ? OR COALESCE(c.contact_phone, '') LIKE ? OR EXISTS (
             SELECT 1 FROM leads l WHERE l.tenant_id = c.tenant_id AND l.contact_id = c.contact_id
               AND (l.id = c.lead_id OR c.lead_id IS NULL)
               AND (lower(COALESCE(l.name, '')) LIKE ? OR COALESCE(l.email, '') LIKE ? OR COALESCE(l.phone, '') LIKE ?)
           )))`;
-        extraParams = [tenant.id, alvo, alvo, alvo, alvo];
+        extraParams = [tenant.id, alvo, alvo, alvo, alvo, alvo, alvo, alvo];
       }
       const rows = repo.all('conversations', where, { order: 'last_message_at DESC', limit: 200, extra, extraParams });
       const leads = leadsDasConversas(repo, rows);
@@ -217,6 +276,7 @@ export const routes = [
         conversas: rows.map((c) => verConversa(c, leads.get(c.id))),
         atendentes: atendentesDa(db, tenant.id),
         status: STATUS, canais: CHANNELS,
+        canaisIntegracao: Object.fromEntries(CHANNELS.map((canal) => [canal, integracaoDoCanal(repo, canal)])),
         totais: {
           ...totais, todas: repo.count('conversations'), semAtendente: repo.count('conversations', { owner_id: null }),
           naoLidas: repo.count('conversations', {}, 'unread > 0'),
@@ -230,11 +290,20 @@ export const routes = [
       const canal = String(body.canal || 'manual').trim();
       need(CHANNELS.includes(canal), 400, 'Canal inválido.');
       const ownerId = validarAtendente(db, tenant.id, body.atendente ? String(body.atendente) : null);
-      const contactId = contatoDaOperacao(repo, db, {
+      const dados = {
         contactId: body.contactId ? String(body.contactId) : null,
-        email: body.email, phone: body.telefone, name: body.nome,
-      });
-      const { conversa } = acharOuAbrirConversa(repo, { channel: canal, externalId: null, contactId, subject: body.assunto, ownerId });
+        email: normEmail(body.email), phone: normPhone(body.telefone), name: body.nome,
+      };
+      const conhecido = dados.contactId || contatoExistente(db, dados)?.id || null;
+      const existente = conversaDaPessoa(repo, { channel: canal, contactId: conhecido, email: dados.email, phone: dados.phone });
+      let contato;
+      if (existente) {
+        contato = dadosLocaisContato(repo, { ...dados, contactId: existente.contact_id || conhecido });
+      } else {
+        const contatoId = contatoDaOperacao(repo, db, dados);
+        contato = dadosLocaisContato(repo, { ...dados, contactId: contatoId });
+      }
+      const { conversa } = acharOuAbrirConversa(repo, { channel: canal, externalId: null, contact: contato, subject: body.assunto, ownerId });
       registrarEvento(repo, conversa, 'aberta', { canal, por: 'painel' }, user.id);
       const primeira = texto(body.texto);
       let atual = conversa;
@@ -245,6 +314,14 @@ export const routes = [
       audit('conversas.abrir', conversa.id, { canal });
       return { status: 201, body: { conversa: verConversa(atual, leadDaConversa(repo, atual)) } };
     },
+  },
+  {
+    method: 'GET', path: '/api/t/:tenant/conversas/hook', perm: 'integrations.read',
+    handler: ({ tenant, origin, user, role }) => ({
+      url: `${origin}/api/hooks/${tenant.slug}/mensagem`,
+      assinatura: 'X-Portal-Signature: sha256=<HMAC-SHA256>',
+      segredo: can(user, role, 'integrations.manage') ? mask(segredoHookMensagens(tenant.webhook_secret)) : null,
+    }),
   },
   {
     method: 'GET', path: '/api/t/:tenant/conversas/:id', perm: 'leads.read',
@@ -280,7 +357,11 @@ export const routes = [
         status: r.criada ? 201 : 200,
         body: {
           duplicada: !r.criada, mensagem: verMensagem(r.mensagem), conversa: verConversa(r.conversa, leadDaConversa(repo, r.conversa)),
-          aviso: r.criada && direcao === 'saida' ? 'Resposta registrada como pendente de envio: o canal ainda não tem integração configurada.' : null,
+          aviso: r.criada && direcao === 'saida'
+            ? (integracaoDoCanal(repo, canal).configurada
+              ? 'Resposta registrada como pendente de envio: a integração está conectada, mas o painel ainda não envia mensagens.'
+              : 'Resposta registrada como pendente de envio: o canal ainda não tem integração configurada.')
+            : null,
         },
       };
     },
@@ -311,12 +392,14 @@ export const routes = [
         if (assunto !== (conversa.subject || null)) { patch.subject = assunto; mudancas.push(['assunto', { de: conversa.subject || null, para: assunto }]); }
       }
       if (body.lida === true && conversa.unread) patch.unread = 0;
+      const nota = texto(body.nota, 500);
+      if (nota && !mudancas.length) mudancas.push(['nota', { nota }]);
+      if (nota && mudancas.length) patch.last_message_at = now();
 
       if (!Object.keys(patch).length) {
         return { conversa: verConversa(conversa, leadDaConversa(repo, conversa)), mudou: false };
       }
       const atualizada = repo.update('conversations', conversa.id, patch);
-      const nota = texto(body.nota, 500);
       for (const [kind, dados] of mudancas) {
         registrarEvento(repo, conversa, kind, { ...dados, ...(nota ? { nota } : {}) }, user.id);
         audit(`conversas.${kind}`, conversa.id, dados);
@@ -334,10 +417,11 @@ export const routes = [
       const tenant = db.prepare('SELECT * FROM tenants WHERE slug = ? OR id = ?').get(slug, slug);
       need(tenant, 404, 'operação não encontrada');
       const assinatura = String(req.headers['x-portal-signature'] || '').replace(/^sha256=/, '');
-      if (!safeEqualHex(assinatura, hmac(tenant.webhook_secret, raw))) {
+      if (!safeEqualHex(assinatura, hmac(segredoHookMensagens(tenant.webhook_secret), raw))) {
         writeAudit(db, { tenantId: tenant.id, action: 'webhook.assinatura_invalida', data: { ip: clientIp(req), rota: 'mensagem' } });
         throw new HttpError(401, 'assinatura inválida');
       }
+      need(tenant.status === 'ativa', 409, 'operação inativa');
       const canal = String(body.canal || 'whatsapp');
       need(CHANNELS.includes(canal), 400, 'canal inválido');
       const idExterno = String(body.id_externo || '').slice(0, 160);
@@ -348,21 +432,27 @@ export const routes = [
       need(corpo, 400, 'texto é obrigatório');
 
       const repo = scoped(db, tenant.id);
+      const duplicada = repo.get('messages', { channel: canal, external_id: idExterno });
+      if (duplicada) return { status: 200, body: { ok: true, duplicada: true, conversa: duplicada.conversation_id, mensagem: duplicada.id } };
       const conversaExterna = body.conversa_externa ? String(body.conversa_externa).slice(0, 160) : null;
       const existente = conversaExterna ? repo.get('conversations', { channel: canal, external_id: conversaExterna }) : null;
-      const contactId = body.email || body.telefone
-        ? contatoDaOperacao(repo, db, { email: body.email, phone: body.telefone, name: body.nome })
+      const dadosContato = body.email || body.telefone
+        ? dadosLocaisContato(repo, { email: body.email, phone: body.telefone, name: body.nome })
         : null;
-      need(contactId || existente, 400, 'informe email ou telefone do cliente');
+      const contact = existente
+        ? (existente.contact_id ? dadosLocaisContato(repo, { contactId: existente.contact_id }) : dadosContato)
+        : dadosContato;
+      need(contact?.id || contact?.email || contact?.phone || existente, 400, 'informe email ou telefone do cliente');
+      if (!existente && (body.email || body.telefone)) {
+        contact.id = contatoDaOperacao(repo, db, { email: body.email, phone: body.telefone, name: body.nome });
+        const local = dadosLocaisContato(repo, { contactId: contact.id, email: body.email, phone: body.telefone, name: body.nome });
+        contact.leadId = local.leadId;
+      }
 
       const { conversa, criada } = existente ? { conversa: existente, criada: false }
-        : acharOuAbrirConversa(repo, { channel: canal, externalId: conversaExterna, contactId, subject: body.assunto });
+        : acharOuAbrirConversa(repo, { channel: canal, externalId: conversaExterna, contact, subject: body.assunto });
       if (criada) registrarEvento(repo, conversa, 'aberta', { canal, por: 'integracao' });
-      // conversa que já existia sem pessoa (ou pessoa identificada depois): liga na base única sem apagar nada
-      if (contactId && !conversa.contact_id) {
-        const lead = leadDoContato(repo, contactId);
-        Object.assign(conversa, repo.update('conversations', conversa.id, { contact_id: contactId, lead_id: lead?.id || null }) || {});
-      }
+      if (contact && !existente?.contact_id) anexarContatoLocal(repo, conversa, contact);
       const r = registrarMensagem(repo, conversa, {
         direction: direcao, channel: canal, externalId: idExterno, body: corpo,
         authorName: body.nome, occurredAt: body.quando, status: 'registrada',

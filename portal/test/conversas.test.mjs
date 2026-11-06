@@ -4,6 +4,7 @@ import assert from 'node:assert/strict';
 import { startPortal, client, sign } from './helpers.mjs';
 import { scoped } from '../lib/repo.mjs';
 import { upsertContact } from '../lib/migrations.mjs';
+import { segredoHookMensagens } from '../lib/modules/conversas.mjs';
 
 let P;
 let sup;
@@ -20,7 +21,7 @@ const hook = (slug, corpo, segredo) => {
   }).then(async (r) => ({ status: r.status, data: await r.json().catch(() => ({})) }));
 };
 
-const segredoDe = (tenantId) => P.db.prepare('SELECT webhook_secret s FROM tenants WHERE id = ?').get(tenantId).s;
+const segredoDe = (tenantId) => segredoHookMensagens(P.db.prepare('SELECT webhook_secret s FROM tenants WHERE id = ?').get(tenantId).s);
 
 before(async () => {
   P = await startPortal();
@@ -57,6 +58,8 @@ test('módulo aparece no painel e a tela da caixa de entrada é servida', async 
   assert.equal(tela.status, 200);
   assert.match(tela.data, /Caixa de entrada/);
   assert.match(tela.data, /Nota interna/);
+  assert.match(tela.data, /canaisIntegracao/);
+  assert.match(tela.data, /rotuloCanalComEstado/);
 });
 
 test('conversa aberta no painel liga na pessoa da base única e no lead da operação', async () => {
@@ -96,18 +99,26 @@ test('mensagem que chega pelo webhook acha o cliente certo pelo telefone da base
   assert.equal(detalhe.conversa.naoLidas, 1);
   assert.equal(detalhe.mensagens[0].status, 'registrada');
 
-  // pessoa nova entra na base única e ganha relacionamento com esta operação
+  const antes = (await sup.req('GET', `/api/t/${clube.slug}`)).data.dashboard;
+  const csvAntes = await sup.req('GET', `/api/t/${clube.slug}/leads.csv`, undefined, { raw: true });
+  assert.equal(csvAntes.status, 200);
+  // A conversa registra o contato, mas não cria um lead sem consentimento explícito.
   const nova = await hook(clube.slug, { canal: 'whatsapp', id_externo: 'wa-nova-1', texto: 'Quero saber dos torneios', telefone: '21 98888-7777', nome: 'Pessoa Nova' }, segredoDe(clube.id));
   assert.equal(nova.status, 201, JSON.stringify(nova.data));
   const pessoaNova = P.db.prepare('SELECT id, name FROM contacts WHERE phone = ?').get('5521988887777');
   assert.ok(pessoaNova, 'webhook criou a pessoa na base única');
   const conversaNova = P.db.prepare('SELECT contact_id, lead_id FROM conversations WHERE id = ?').get(nova.data.conversa);
   assert.equal(conversaNova.contact_id, pessoaNova.id);
-  assert.ok(conversaNova.lead_id, 'a conversa cria relacionamento local com a pessoa');
-  const leadNovo = scoped(P.db, clube.id).get('leads', conversaNova.lead_id);
-  assert.equal(leadNovo.contact_id, pessoaNova.id);
-  assert.equal(leadNovo.name, 'Pessoa Nova');
-  assert.equal(leadNovo.email, null, 'a operação não herda e-mail da base global');
+  assert.equal(conversaNova.lead_id, null, 'mensagem recebida não cria lead sem consentimento');
+  const detalheNova = (await sup.req('GET', `/api/t/${clube.slug}/conversas/${nova.data.conversa}`)).data;
+  assert.deepEqual(detalheNova.conversa.cliente, { id: pessoaNova.id, nome: 'Pessoa Nova', email: null, telefone: '5521988887777' });
+  const depois = (await sup.req('GET', `/api/t/${clube.slug}`)).data.dashboard;
+  assert.equal(depois.leads30, antes.leads30, 'o contato não aumenta a contagem de leads dos últimos 30 dias');
+  assert.equal(depois.leadsTotal, antes.leadsTotal, 'o contato não aumenta a contagem total de leads');
+  const csvDepois = await sup.req('GET', `/api/t/${clube.slug}/leads.csv`, undefined, { raw: true });
+  assert.equal(csvDepois.status, 200);
+  assert.equal(csvDepois.data, csvAntes.data, 'leads.csv não inclui o contato sem consentimento');
+  assert.ok(!csvDepois.data.includes('Pessoa Nova'));
 });
 
 test('reenvio da mesma mensagem não duplica (idempotência por id externo)', async () => {
@@ -134,6 +145,41 @@ test('reenvio da mesma mensagem não duplica (idempotência por id externo)', as
   assert.equal(outra.status, 201, JSON.stringify(outra.data));
 });
 
+test('webhook duplicado é descartado antes de criar contato ou conversa', async () => {
+  const primeira = await hook(clube.slug, {
+    canal: 'whatsapp', id_externo: 'wa-dedupe-antes', texto: 'Mensagem inicial', telefone: '31 98888-1234', nome: 'Contato Inicial',
+  }, segredoDe(clube.id));
+  assert.equal(primeira.status, 201, JSON.stringify(primeira.data));
+  const conversasAntes = scoped(P.db, clube.id).count('conversations');
+  const repetida = await hook(clube.slug, {
+    canal: 'whatsapp', id_externo: 'wa-dedupe-antes', conversa_externa: 'wa-fio-vazio',
+    texto: 'Reenvio', email: 'nao-criar-contato@conversas.test', nome: 'Duplicado',
+  }, segredoDe(clube.id));
+  assert.equal(repetida.status, 200, JSON.stringify(repetida.data));
+  assert.equal(repetida.data.duplicada, true);
+  assert.equal(repetida.data.conversa, primeira.data.conversa);
+  assert.equal(scoped(P.db, clube.id).count('conversations'), conversasAntes, 'reenvio não abre conversa vazia');
+  assert.equal(P.db.prepare('SELECT COUNT(*) n FROM contacts WHERE email = ?').get('nao-criar-contato@conversas.test').n, 0, 'reenvio não cria contato');
+  assert.equal(scoped(P.db, clube.id).get('conversations', { channel: 'whatsapp', external_id: 'wa-fio-vazio' }), null);
+});
+
+test('webhook em conversa existente não cria nem atualiza contato global', async () => {
+  const primeira = await hook(clube.slug, {
+    canal: 'telegram', id_externo: 'tg-fio-primeira', conversa_externa: 'tg-fio-existente',
+    texto: 'Primeira', telefone: '41 98888-0011', nome: 'Contato do Fio',
+  }, segredoDe(clube.id));
+  assert.equal(primeira.status, 201);
+  const contatoAntes = P.db.prepare('SELECT COUNT(*) n FROM contacts').get().n;
+  const seguinte = await hook(clube.slug, {
+    canal: 'telegram', id_externo: 'tg-fio-seguinte', conversa_externa: 'tg-fio-existente',
+    texto: 'Continuação', email: 'nao-upsert-existente@conversas.test', nome: 'Novo Nome',
+  }, segredoDe(clube.id));
+  assert.equal(seguinte.status, 201, JSON.stringify(seguinte.data));
+  assert.equal(seguinte.data.conversa, primeira.data.conversa);
+  assert.equal(P.db.prepare('SELECT COUNT(*) n FROM contacts').get().n, contatoAntes);
+  assert.equal(P.db.prepare('SELECT COUNT(*) n FROM contacts WHERE email = ?').get('nao-upsert-existente@conversas.test').n, 0);
+});
+
 test('webhook recusa assinatura errada e operação inexistente', async () => {
   const ruim = await hook(clube.slug, { canal: 'whatsapp', id_externo: 'wa-ruim', texto: 'tentativa', telefone: '11952138293' }, 'segredo-errado');
   assert.equal(ruim.status, 401);
@@ -148,6 +194,38 @@ test('webhook recusa assinatura errada e operação inexistente', async () => {
 
   const canalInvalido = await hook(clube.slug, { canal: 'pombo-correio', id_externo: 'wa-canal', texto: 'oi', telefone: '11952138293' }, segredoDe(clube.id));
   assert.equal(canalInvalido.status, 400);
+});
+
+test('hook de mensagens tem chave derivada, URL própria e segredo mascarado', async () => {
+  const info = await sup.req('GET', `/api/t/${clube.slug}/conversas/hook`);
+  assert.equal(info.status, 200, JSON.stringify(info.data));
+  assert.equal(info.data.url, `${P.origin}/api/hooks/${clube.slug}/mensagem`);
+  assert.match(info.data.assinatura, /X-Portal-Signature/);
+  assert.match(info.data.segredo, /^••••[a-f0-9]{4}$/i);
+  const segredoBase = P.db.prepare('SELECT webhook_secret FROM tenants WHERE id = ?').get(clube.id).webhook_secret;
+  assert.notEqual(info.data.segredo, segredoBase, 'a interface não revela o segredo da operação');
+  const bruto = await hook(clube.slug, {
+    canal: 'whatsapp', id_externo: 'wa-segredo-base', texto: 'Assinatura com segredo-base', telefone: '11 90000-0022',
+  }, segredoBase);
+  assert.equal(bruto.status, 401, 'o webhook exige a chave derivada específica de mensagens');
+});
+
+test('webhook recusa operação inativa sem gravar conversa ou mensagem', async () => {
+  const repo = scoped(P.db, clube.id);
+  const conversasAntes = repo.count('conversations');
+  const mensagensAntes = repo.count('messages');
+  P.db.prepare("UPDATE tenants SET status = 'inativa' WHERE id = ?").run(clube.id);
+  try {
+    const r = await hook(clube.slug, {
+      canal: 'whatsapp', id_externo: 'wa-operacao-inativa', texto: 'Não registrar', email: 'inativa@conversas.test',
+    }, segredoDe(clube.id));
+    assert.equal(r.status, 409);
+    assert.equal(repo.count('conversations'), conversasAntes);
+    assert.equal(repo.count('messages'), mensagensAntes);
+    assert.equal(P.db.prepare('SELECT COUNT(*) n FROM contacts WHERE email = ?').get('inativa@conversas.test').n, 0);
+  } finally {
+    P.db.prepare("UPDATE tenants SET status = 'ativa' WHERE id = ?").run(clube.id);
+  }
 });
 
 test('a conversa de uma operação não aparece em outra', async () => {
@@ -210,23 +288,24 @@ test('contato compartilhado só recebe na operação os dados informados nela', 
   assert.equal(conversaListada.cliente.telefone, null);
 
   const repoLoja = scoped(P.db, loja.id);
-  const leadEmail = repoLoja.all('leads', { contact_id: segredoEmail }, { limit: 1 })[0];
-  const leadTelefone = repoLoja.all('leads', { contact_id: segredoTelefone }, { limit: 1 })[0];
-  assert.equal(leadEmail.email, 'email-segredo@clube.test');
-  assert.equal(leadEmail.name, null);
-  assert.equal(leadTelefone.phone, '5521966664321');
-  assert.equal(leadTelefone.email, null);
-  assert.equal(leadTelefone.name, null);
+  assert.equal(P.db.prepare('SELECT lead_id FROM conversations WHERE id = ?').get(porEmail.data.conversa.id).lead_id, null);
+  assert.equal(P.db.prepare('SELECT lead_id FROM conversations WHERE id = ?').get(porTelefone.data.conversa.id).lead_id, null);
+  assert.equal(repoLoja.count('leads', { contact_id: segredoEmail }), 0, 'abrir conversa não cria lead na operação');
+  assert.equal(repoLoja.count('leads', { contact_id: segredoTelefone }), 0, 'abrir conversa não cria lead na operação');
 });
 
 test('status, atendente e notas internas entram no histórico', async () => {
   const conversa = (await sup.req('POST', `/api/t/${clube.slug}/conversas`, { canal: 'site', email: 'fluxo@conversas.test', nome: 'Fluxo', assunto: 'Atendimento' })).data.conversa;
+  const semMensagem = P.db.prepare('SELECT last_message_at FROM conversations WHERE id = ?').get(conversa.id).last_message_at;
+  assert.ok(semMensagem, 'conversa recém-criada já tem last_message_at');
 
+  P.db.prepare('UPDATE conversations SET last_message_at = ? WHERE id = ?').run('2000-01-01T00:00:00.000Z', conversa.id);
   let r = await sup.req('PATCH', `/api/t/${clube.slug}/conversas/${conversa.id}`, { status: 'resolvida', atendente: users.atendente, nota: 'Resolvido no telefone' });
   assert.equal(r.status, 200, JSON.stringify(r.data));
   assert.equal(r.data.conversa.status, 'resolvida');
   assert.equal(r.data.conversa.atendente, users.atendente);
   assert.equal(r.data.mudou, true);
+  assert.notEqual(P.db.prepare('SELECT last_message_at FROM conversations WHERE id = ?').get(conversa.id).last_message_at, '2000-01-01T00:00:00.000Z');
 
   r = await sup.req('PATCH', `/api/t/${clube.slug}/conversas/${conversa.id}`, { status: 'resolvida', atendente: users.atendente });
   assert.equal(r.data.mudou, false, 'repetir o mesmo valor não inventa histórico');
@@ -236,10 +315,18 @@ test('status, atendente e notas internas entram no histórico', async () => {
     assert.equal(ruim.status, 400, `deve recusar ${JSON.stringify(invalido)}`);
   }
 
+  P.db.prepare('UPDATE conversations SET last_message_at = ? WHERE id = ?').run('2000-01-01T00:00:00.000Z', conversa.id);
   const nota = await sup.req('POST', `/api/t/${clube.slug}/conversas/${conversa.id}/mensagens`, { texto: 'Cliente pediu retorno amanhã', direcao: 'nota' });
   assert.equal(nota.status, 201);
   assert.equal(nota.data.mensagem.interna, true);
   assert.equal(nota.data.conversa.status, 'resolvida', 'nota interna não reabre a conversa');
+  assert.notEqual(nota.data.conversa.ultimaEm, '2000-01-01T00:00:00.000Z', 'nota interna também atualiza last_message_at');
+
+  P.db.prepare('UPDATE conversations SET last_message_at = ? WHERE id = ?').run('2000-01-01T00:00:00.000Z', conversa.id);
+  const notaSozinha = await sup.req('PATCH', `/api/t/${clube.slug}/conversas/${conversa.id}`, { nota: 'Nota sem outra alteração' });
+  assert.equal(notaSozinha.status, 200);
+  assert.equal(notaSozinha.data.mudou, true, 'nota sem outra mudança é registrada');
+  assert.notEqual(notaSozinha.data.conversa.ultimaEm, '2000-01-01T00:00:00.000Z');
 
   const resposta = await sup.req('POST', `/api/t/${clube.slug}/conversas/${conversa.id}/mensagens`, { texto: 'Boa tarde, já verifiquei', direcao: 'saida' });
   assert.equal(resposta.status, 201);
@@ -247,7 +334,8 @@ test('status, atendente e notas internas entram no histórico', async () => {
   assert.match(resposta.data.aviso, /pendente de envio/);
 
   const detalhe = (await sup.req('GET', `/api/t/${clube.slug}/conversas/${conversa.id}`)).data;
-  assert.deepEqual(detalhe.eventos.map((e) => e.tipo).sort(), ['aberta', 'atendente', 'status']);
+  assert.deepEqual(detalhe.eventos.map((e) => e.tipo).sort(), ['aberta', 'atendente', 'nota', 'status']);
+  assert.ok(detalhe.eventos.some((e) => e.tipo === 'nota' && e.dados.nota === 'Nota sem outra alteração'));
   const evento = detalhe.eventos.find((e) => e.tipo === 'status');
   assert.deepEqual(evento.dados, { de: 'aberta', para: 'resolvida', nota: 'Resolvido no telefone' });
   assert.equal(detalhe.mensagens.length, 2);
@@ -298,6 +386,35 @@ test('filtros e busca da caixa de entrada', async () => {
 
   assert.equal((await sup.req('GET', `/api/t/${clube.slug}/conversas?status=arquivada`)).status, 400);
   assert.equal((await sup.req('GET', `/api/t/${clube.slug}/conversas?canal=fax`)).status, 400);
+});
+
+test('estado exibido para cada canal acompanha a linha real de integrations', async () => {
+  const repo = scoped(P.db, clube.id);
+  const antes = (await sup.req('GET', `/api/t/${clube.slug}/conversas`)).data.canaisIntegracao;
+  assert.equal(antes.telegram.status, 'pendente', 'Telegram começa pendente no registro real da operação');
+  assert.equal(antes.telegram.configurada, false);
+  assert.equal(antes.whatsapp.kind, 'whatsapp');
+  assert.equal(antes.whatsapp.status, 'pendente', 'sem registro de WhatsApp continua pendente');
+  assert.equal(antes.site.kind, null, 'site não é integração de canal externo');
+
+  const integration = repo.get('integrations', { kind: 'telegram' });
+  assert.ok(integration);
+  P.db.prepare("UPDATE integrations SET status = 'ativo' WHERE tenant_id = ? AND kind = 'telegram'").run(clube.id);
+  try {
+    const depois = (await sup.req('GET', `/api/t/${clube.slug}/conversas`)).data.canaisIntegracao;
+    assert.equal(depois.telegram.status, 'ativo');
+    assert.equal(depois.telegram.configurada, true);
+    const conversa = (await sup.req('POST', `/api/t/${clube.slug}/conversas`, {
+      canal: 'telegram', email: 'telegram-estado@conversas.test', nome: 'Estado Telegram',
+    })).data.conversa;
+    const resposta = await sup.req('POST', `/api/t/${clube.slug}/conversas/${conversa.id}/mensagens`, {
+      direcao: 'saida', texto: 'Resposta de teste',
+    });
+    assert.equal(resposta.data.mensagem.status, 'pendente_envio', 'o painel ainda não envia mesmo com integração conectada');
+    assert.match(resposta.data.aviso, /integração está conectada/);
+  } finally {
+    P.db.prepare('UPDATE integrations SET status = ? WHERE tenant_id = ? AND kind = ?').run(integration.status, clube.id, 'telegram');
+  }
 });
 
 test('afiliado não entra na caixa de entrada e editor não escreve', async () => {
