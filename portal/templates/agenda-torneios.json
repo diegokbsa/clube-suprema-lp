@@ -2,30 +2,31 @@
   "id": "agenda-torneios",
   "name": "Agenda de torneios",
   "order": 24,
-  "version": 1,
+  "version": 2,
   "category": "Poker · torneios",
   "niches": [
     "poker"
   ],
-  "description": "Site centrado na grade de torneios: agenda da semana, formatos explicados e regras publicadas, com conversão pelo convite. Identidade própria; conteúdo de exemplo identificado.",
   "inspiredBy": null,
+  "description": "Site centrado na grade de torneios no mundo Relógio de blinds, em grafite e LED vermelho: relógio de salão com a contagem para o próximo torneio, grade do dia, agenda da semana, formatos e regras. Torneios de exemplo, marcados.",
   "theme": {
+    "world": "relogio",
     "mode": "escuro",
-    "bg": "#160f0d",
-    "surface": "#231714",
-    "text": "#f8f2ec",
-    "muted": "#b5a49a",
-    "primary": "#e4572e",
-    "primaryText": "#ffffff",
-    "accent": "#f2b035",
-    "border": "#3a2620",
-    "font": "Rubik",
-    "fontHead": "Barlow Condensed",
-    "radius": 8
+    "bg": "#111314",
+    "surface": "#050606",
+    "text": "#eef0ec",
+    "muted": "#a6aca8",
+    "primary": "#ff5b3a",
+    "primaryText": "#0c0504",
+    "accent": "#ffb199",
+    "border": "#2b2f31",
+    "font": "Montserrat",
+    "fontHead": "Antonio",
+    "radius": 0
   },
   "seo": {
-    "title": "{{name}} · Agenda de torneios da semana",
-    "description": "Grade de torneios do {{name}} no app {{app}}: horários, buy-ins e garantidos, atualizada toda semana. Somente +18."
+    "title": "Agenda de torneios · {{name}}",
+    "description": "Agenda de torneios do {{unitLabel}} no app {{app}}: horário, buy-in, garantido e registro tardio. Somente maiores de 18 anos."
   },
   "pages": [
     {
@@ -39,175 +40,412 @@
             "logo": "{{logo}}",
             "links": [
               {
-                "label": "Agenda completa",
+                "label": "Agenda",
                 "href": "/agenda"
+              },
+              {
+                "label": "Formatos",
+                "href": "/formatos"
               },
               {
                 "label": "Regras",
                 "href": "/regras"
-              },
-              {
-                "label": "Dúvidas",
-                "href": "#duvidas"
               }
             ],
-            "cta": "Jogar hoje",
+            "cta": "Entrar no clube",
             "ctaHref": "{{inviteLink}}",
             "variant": "barra"
           }
         },
         {
-          "type": "hero",
+          "type": "relogio_monitor",
           "props": {
-            "eyebrow": "{{app}} · clube {{number}}",
-            "title": "Torneio bom é torneio com hora marcada.",
-            "subtitle": "Grade da semana publicada toda segunda: horários, buy-ins e garantidos de cada torneio do clube.",
-            "cta": "Jogar hoje",
-            "ctaHref": "{{inviteLink}}",
-            "secondary": "Ver a agenda",
-            "secondaryHref": "/agenda",
-            "note": "Somente +18 · jogue com responsabilidade",
-            "variant": "cartaz"
-          }
-        },
-        {
-          "type": "schedule",
-          "props": {
-            "title": "Destaques da semana (exemplo)",
+            "title": "Torneio todo dia, no relógio.",
+            "subtitle": "A agenda do **{{unitLabel}}** no **{{app}}**: contagem para o próximo torneio, blinds, buy-in, garantido e registro tardio, como no salão.",
+            "live": "Agora",
+            "countLabel": "Próximo torneio começa em",
             "items": [
               {
-                "day": "Segunda",
+                "time": "12:00",
+                "name": "Abertura Turbo",
+                "mode": "NLH",
+                "buyin": "R$ 5",
+                "guaranteed": "R$ 1.000",
+                "stack": "30K",
+                "blinds": "8",
+                "late": "13:28",
+                "tag": ""
+              },
+              {
+                "time": "14:00",
+                "name": "Deepstack da Tarde",
+                "mode": "NLH",
+                "buyin": "R$ 22",
+                "guaranteed": "R$ 3.000",
+                "stack": "60K",
+                "blinds": "15",
+                "late": "16:30",
+                "tag": ""
+              },
+              {
+                "time": "16:00",
+                "name": "Bounty PLO",
+                "mode": "PLO 5 · PKO",
+                "buyin": "R$ 33",
+                "guaranteed": "R$ 2.500",
+                "stack": "50K",
+                "blinds": "10",
+                "late": "18:00",
+                "tag": ""
+              },
+              {
+                "time": "17:30",
+                "name": "Hyper Relâmpago",
+                "mode": "NLH",
+                "buyin": "R$ 11",
+                "guaranteed": "R$ 1.500",
+                "stack": "25K",
+                "blinds": "5",
+                "late": "18:20",
+                "tag": ""
+              },
+              {
+                "time": "19:00",
+                "name": "Main Diário",
+                "mode": "NLH",
+                "buyin": "R$ 55",
+                "guaranteed": "R$ 10.000",
+                "stack": "50K",
+                "blinds": "12",
+                "late": "21:24",
+                "tag": "Main"
+              },
+              {
                 "time": "20:00",
-                "name": "Aquecimento da semana (exemplo)",
-                "detail": "NLH · buy-in a definir",
-                "prize": "Mesa final com bônus"
+                "name": "PKO da Noite",
+                "mode": "NLH · PKO",
+                "buyin": "R$ 33",
+                "guaranteed": "R$ 5.000",
+                "stack": "40K",
+                "blinds": "10",
+                "late": "22:00",
+                "tag": ""
               },
               {
-                "day": "Quarta",
                 "time": "21:00",
-                "name": "Turbo da quarta (exemplo)",
-                "detail": "NLH turbo · buy-in a definir",
-                "prize": "—"
+                "name": "PLO 6 Turbo",
+                "mode": "PLO 6",
+                "buyin": "R$ 22",
+                "guaranteed": "R$ 2.000",
+                "stack": "40K",
+                "blinds": "8",
+                "late": "22:36",
+                "tag": ""
               },
               {
-                "day": "Domingo",
-                "time": "18:00",
-                "name": "Principal do domingo (exemplo)",
-                "detail": "NLH · buy-in a definir",
-                "prize": "Maior garantido da semana"
+                "time": "22:30",
+                "name": "Freezeout da Madrugada",
+                "mode": "NLH",
+                "buyin": "R$ 11",
+                "guaranteed": "R$ 1.500",
+                "stack": "40K",
+                "blinds": "10",
+                "late": "00:10",
+                "tag": ""
+              },
+              {
+                "time": "00:30",
+                "name": "Coruja Hyper",
+                "mode": "NLH",
+                "buyin": "R$ 5",
+                "guaranteed": "R$ 500",
+                "stack": "20K",
+                "blinds": "5",
+                "late": "01:20",
+                "tag": ""
               }
             ],
-            "cta": "Ver a agenda completa",
-            "ctaHref": "/agenda"
+            "cta": "Entrar no clube",
+            "ctaHref": "{{inviteLink}}",
+            "ctaNote": "Pelo link do clube. Fichas por PIX no canal de fichas.",
+            "source": "Grade de exemplo: troque pelos torneios do seu clube. Horário de Brasília.",
+            "r18": "Jogue com responsabilidade",
+            "variant": "tv"
           }
         },
         {
-          "type": "cards",
+          "type": "relogio_grade",
           "props": {
-            "title": "Formatos que rolam no clube",
+            "title": "Hoje na agenda",
+            "subtitle": "Os torneios do dia em ordem, **marcados ao vivo**. Toque em Agenda para ver a semana.",
             "items": [
               {
-                "tag": "MTT",
-                "title": "Torneios agendados",
-                "text": "Começam na hora marcada, com garantido definido pela operação.",
-                "href": "/agenda"
+                "time": "12:00",
+                "name": "Abertura Turbo",
+                "mode": "NLH",
+                "buyin": "R$ 5",
+                "guaranteed": "R$ 1.000",
+                "stack": "30K",
+                "blinds": "8",
+                "late": "13:28",
+                "tag": ""
               },
               {
-                "tag": "SNG",
-                "title": "Sit & go",
-                "text": "Mesa única que começa quando completa os lugares.",
-                "href": "/agenda"
+                "time": "14:00",
+                "name": "Deepstack da Tarde",
+                "mode": "NLH",
+                "buyin": "R$ 22",
+                "guaranteed": "R$ 3.000",
+                "stack": "60K",
+                "blinds": "15",
+                "late": "16:30",
+                "tag": ""
               },
               {
-                "tag": "Satélite",
-                "title": "Satélites",
-                "text": "Classifique-se pagando menos para os maiores torneios da grade.",
-                "href": "/agenda"
+                "time": "16:00",
+                "name": "Bounty PLO",
+                "mode": "PLO 5 · PKO",
+                "buyin": "R$ 33",
+                "guaranteed": "R$ 2.500",
+                "stack": "50K",
+                "blinds": "10",
+                "late": "18:00",
+                "tag": ""
+              },
+              {
+                "time": "17:30",
+                "name": "Hyper Relâmpago",
+                "mode": "NLH",
+                "buyin": "R$ 11",
+                "guaranteed": "R$ 1.500",
+                "stack": "25K",
+                "blinds": "5",
+                "late": "18:20",
+                "tag": ""
+              },
+              {
+                "time": "19:00",
+                "name": "Main Diário",
+                "mode": "NLH",
+                "buyin": "R$ 55",
+                "guaranteed": "R$ 10.000",
+                "stack": "50K",
+                "blinds": "12",
+                "late": "21:24",
+                "tag": "Main"
+              },
+              {
+                "time": "20:00",
+                "name": "PKO da Noite",
+                "mode": "NLH · PKO",
+                "buyin": "R$ 33",
+                "guaranteed": "R$ 5.000",
+                "stack": "40K",
+                "blinds": "10",
+                "late": "22:00",
+                "tag": ""
+              },
+              {
+                "time": "21:00",
+                "name": "PLO 6 Turbo",
+                "mode": "PLO 6",
+                "buyin": "R$ 22",
+                "guaranteed": "R$ 2.000",
+                "stack": "40K",
+                "blinds": "8",
+                "late": "22:36",
+                "tag": ""
+              },
+              {
+                "time": "22:30",
+                "name": "Freezeout da Madrugada",
+                "mode": "NLH",
+                "buyin": "R$ 11",
+                "guaranteed": "R$ 1.500",
+                "stack": "40K",
+                "blinds": "10",
+                "late": "00:10",
+                "tag": ""
+              },
+              {
+                "time": "00:30",
+                "name": "Coruja Hyper",
+                "mode": "NLH",
+                "buyin": "R$ 5",
+                "guaranteed": "R$ 500",
+                "stack": "20K",
+                "blinds": "5",
+                "late": "01:20",
+                "tag": ""
               }
             ],
-            "variant": "grade"
+            "note": "Grade de exemplo: torneios, garantidos e buy-ins mudam conforme a operação. A grade oficial fica no app.",
+            "cta": "Agenda da semana",
+            "ctaHref": "/agenda",
+            "live": true,
+            "variant": "compacta"
           }
         },
         {
-          "type": "stats",
+          "type": "relogio_estrutura",
           "props": {
+            "title": "Como jogar um torneio da agenda",
+            "subtitle": "Três níveis. **O intervalo é a hora de definir o seu limite.**",
+            "colTime": "Onde",
             "items": [
               {
-                "value": "7",
-                "label": "dias por semana com torneios (exemplo)"
+                "level": "1",
+                "title": "Entre no clube pelo link",
+                "text": "Baixe o {{app}} e abra pelo link do clube. Você entra direto no {{unitLabel}}.",
+                "time": "no app",
+                "timeNote": "link do clube"
               },
               {
-                "value": "3",
-                "label": "formatos na grade (exemplo)"
+                "level": "2",
+                "title": "Compre fichas por PIX",
+                "text": "No canal de fichas, informe o ID de jogador, o clube {{number}} e o agente {{agentId}}.",
+                "time": "no chat",
+                "timeNote": "canal de fichas"
               },
               {
-                "value": "+18",
-                "label": "somente maiores de idade"
+                "level": "Intervalo",
+                "title": "",
+                "text": "Defina antes quanto pode gastar e a hora de parar. **Somente maiores de 18 anos.**",
+                "pause": true
+              },
+              {
+                "level": "3",
+                "title": "Registre-se no torneio",
+                "text": "Escolha na agenda, veja o registro tardio e entre pelo lobby de torneios do app.",
+                "time": "no app",
+                "timeNote": "lobby de torneios"
+              }
+            ]
+          }
+        },
+        {
+          "type": "relogio_leituras",
+          "props": {
+            "title": "Ritmos da agenda",
+            "variant": "faixa",
+            "items": [
+              {
+                "value": "15 min",
+                "label": "Deepstack",
+                "text": "Stack grande, nível longo."
+              },
+              {
+                "value": "12 min",
+                "label": "Regular",
+                "text": "O ritmo do main da noite."
+              },
+              {
+                "value": "8 min",
+                "label": "Turbo",
+                "text": "Blinds sobem mais rápido."
+              },
+              {
+                "value": "5 min",
+                "label": "Hyper",
+                "text": "Torneio curto."
               }
             ],
-            "demo": true
+            "note": "Tempos de nível de exemplo."
+          }
+        },
+        {
+          "type": "relogio_termos",
+          "props": {
+            "title": "Três regras que mais geram dúvida",
+            "variant": "regras",
+            "items": [
+              {
+                "term": "Registro tardio",
+                "text": "Dá para entrar depois do início, até o horário marcado na agenda."
+              },
+              {
+                "term": "Reentrada",
+                "text": "Só nos torneios marcados como reentrada, durante o registro tardio."
+              },
+              {
+                "term": "Ausência",
+                "text": "Quem sai da mesa continua pagando blinds e ante."
+              }
+            ],
+            "note": "Todas as regras na página Regras."
           }
         },
         {
           "type": "faq",
           "props": {
-            "title": "Perguntas frequentes",
+            "title": "Dúvidas",
             "items": [
               {
-                "q": "Como me inscrevo em um torneio?",
-                "a": "Direto no app {{app}}, no lobby do clube {{number}}. Precisa de fichas na conta para o buy-in."
+                "q": "A agenda é a mesma todo dia?",
+                "a": "A agenda de exemplo muda por dia da semana. Veja a semana completa em Agenda."
               },
               {
-                "q": "A agenda muda?",
-                "a": "A grade é publicada toda segunda. Mudanças extraordinárias saem no grupo oficial e nesta página."
+                "q": "Em que fuso estão os horários?",
+                "a": "Horário de Brasília."
               },
               {
-                "q": "Tem torneio para iniciante?",
-                "a": "Sim: os buy-ins variam por torneio e a grade marca os mais acessíveis. Veja a agenda completa."
+                "q": "Como compro fichas para o torneio?",
+                "a": "Por PIX, no canal de fichas, informando o ID de jogador, o clube {{number}} e o agente {{agentId}} na primeira compra."
+              },
+              {
+                "q": "Tem torneio grátis ou bônus?",
+                "a": "Não. A agenda não tem bônus nem fichas grátis."
               }
-            ],
-            "anchor": "duvidas"
+            ]
           }
         },
         {
-          "type": "cta",
+          "type": "relogio_registro",
           "props": {
-            "title": "Garanta o seu lugar",
-            "text": "Entre no clube pelo convite e jogue o próximo torneio da grade.",
-            "cta": "Entrar no clube",
-            "ctaHref": "{{inviteLink}}",
-            "variant": "escuro"
+            "title": "Agenda no e-mail",
+            "text": "Receba o **link do clube** e a agenda da semana. Do app, você escolhe o torneio.",
+            "fields": "email",
+            "button": "Quero a agenda",
+            "success": "Pronto! O link do clube está a caminho do seu e-mail.",
+            "consent": "Tenho mais de 18 anos e aceito receber a agenda e avisos por e-mail. Posso sair quando quiser.",
+            "note": "Não pedimos senha do app nem documento.",
+            "r18": "Proibido para menores de 18 anos. Jogue com responsabilidade."
           }
         },
         {
           "type": "footer",
           "props": {
             "brand": "{{name}}",
-            "text": "Agenda de torneios do {{name}}, no app {{app}}.",
+            "text": "Agenda de torneios do {{unitLabel}} no app {{app}}, no horário de Brasília.",
             "links": [
               {
-                "label": "Agenda completa",
+                "label": "Agenda",
                 "href": "/agenda"
+              },
+              {
+                "label": "Formatos",
+                "href": "/formatos"
               },
               {
                 "label": "Regras",
                 "href": "/regras"
               },
               {
-                "label": "Privacidade",
-                "href": "/privacidade"
+                "label": "Contato",
+                "href": "{{whatsappLink}}"
               }
             ],
-            "disclaimer": "{{disclaimer}}"
+            "disclaimer": "Somente maiores de 18 anos. Jogue com responsabilidade."
           }
         }
       ]
     },
     {
       "slug": "agenda",
-      "title": "Agenda completa",
+      "title": "Agenda da semana",
       "seo": {
-        "description": "Grade semanal de torneios do {{name}} no app {{app}}."
+        "title": "Agenda da semana · {{name}}",
+        "description": "Torneios de segunda a domingo no {{unitLabel}}, no horário de Brasília."
       },
       "blocks": [
         {
@@ -217,101 +455,536 @@
             "logo": "{{logo}}",
             "links": [
               {
-                "label": "Início",
-                "href": "/"
+                "label": "Agenda",
+                "href": "/agenda"
+              },
+              {
+                "label": "Formatos",
+                "href": "/formatos"
               },
               {
                 "label": "Regras",
                 "href": "/regras"
               }
             ],
-            "cta": "Jogar hoje",
+            "cta": "Entrar no clube",
             "ctaHref": "{{inviteLink}}",
             "variant": "barra"
           }
         },
         {
-          "type": "schedule",
+          "type": "relogio_cabecalho",
           "props": {
-            "title": "Grade da semana (exemplo)",
-            "subtitle": "A operação publica a grade real: dias, horários, buy-ins e garantidos.",
+            "title": "Agenda da semana",
+            "subtitle": "Segunda a domingo, no horário de Brasília. **Valores de exemplo**: troque pelos da sua operação no painel.",
+            "items": [
+              {
+                "label": "Fuso",
+                "value": "Brasília"
+              },
+              {
+                "label": "Torneios",
+                "value": "21"
+              }
+            ],
+            "cta": "Entrar no clube",
+            "ctaHref": "{{inviteLink}}",
+            "r18": "Jogue com responsabilidade"
+          }
+        },
+        {
+          "type": "relogio_grade",
+          "props": {
+            "title": "",
+            "subtitle": "",
             "items": [
               {
                 "day": "Segunda",
-                "time": "20:00",
-                "name": "Aquecimento da semana (exemplo)",
-                "detail": "NLH · buy-in a definir",
-                "prize": "Mesa final com bônus"
+                "time": "12:00",
+                "name": "Abertura Turbo",
+                "mode": "NLH",
+                "buyin": "R$ 5",
+                "guaranteed": "R$ 1.000",
+                "stack": "30K",
+                "blinds": "8",
+                "late": "13:28",
+                "tag": ""
+              },
+              {
+                "day": "Segunda",
+                "time": "19:00",
+                "name": "Main Diário",
+                "mode": "NLH",
+                "buyin": "R$ 55",
+                "guaranteed": "R$ 10.000",
+                "stack": "50K",
+                "blinds": "12",
+                "late": "21:24",
+                "tag": "Main"
+              },
+              {
+                "day": "Segunda",
+                "time": "22:30",
+                "name": "Freezeout da Madrugada",
+                "mode": "NLH",
+                "buyin": "R$ 11",
+                "guaranteed": "R$ 1.500",
+                "stack": "40K",
+                "blinds": "10",
+                "late": "00:10",
+                "tag": ""
+              },
+              {
+                "day": "Terça",
+                "time": "14:00",
+                "name": "Deepstack da Tarde",
+                "mode": "NLH",
+                "buyin": "R$ 22",
+                "guaranteed": "R$ 3.000",
+                "stack": "60K",
+                "blinds": "15",
+                "late": "16:30",
+                "tag": ""
               },
               {
                 "day": "Terça",
                 "time": "20:00",
-                "name": "Terça progressiva (exemplo)",
-                "detail": "NLH PKO · buy-in a definir",
-                "prize": "Bounty em cada eliminação"
+                "name": "PKO da Noite",
+                "mode": "NLH · PKO",
+                "buyin": "R$ 33",
+                "guaranteed": "R$ 5.000",
+                "stack": "40K",
+                "blinds": "10",
+                "late": "22:00",
+                "tag": ""
+              },
+              {
+                "day": "Terça",
+                "time": "21:00",
+                "name": "PLO 6 Turbo",
+                "mode": "PLO 6",
+                "buyin": "R$ 22",
+                "guaranteed": "R$ 2.000",
+                "stack": "40K",
+                "blinds": "8",
+                "late": "22:36",
+                "tag": ""
               },
               {
                 "day": "Quarta",
-                "time": "21:00",
-                "name": "Turbo da quarta (exemplo)",
-                "detail": "NLH turbo · buy-in a definir",
-                "prize": "—"
+                "time": "16:00",
+                "name": "Bounty PLO",
+                "mode": "PLO 5 · PKO",
+                "buyin": "R$ 33",
+                "guaranteed": "R$ 2.500",
+                "stack": "50K",
+                "blinds": "10",
+                "late": "18:00",
+                "tag": ""
+              },
+              {
+                "day": "Quarta",
+                "time": "19:00",
+                "name": "Main Diário",
+                "mode": "NLH",
+                "buyin": "R$ 55",
+                "guaranteed": "R$ 10.000",
+                "stack": "50K",
+                "blinds": "12",
+                "late": "21:24",
+                "tag": "Main"
+              },
+              {
+                "day": "Quarta",
+                "time": "00:30",
+                "name": "Coruja Hyper",
+                "mode": "NLH",
+                "buyin": "R$ 5",
+                "guaranteed": "R$ 500",
+                "stack": "20K",
+                "blinds": "5",
+                "late": "01:20",
+                "tag": ""
+              },
+              {
+                "day": "Quinta",
+                "time": "17:30",
+                "name": "Hyper Relâmpago",
+                "mode": "NLH",
+                "buyin": "R$ 11",
+                "guaranteed": "R$ 1.500",
+                "stack": "25K",
+                "blinds": "5",
+                "late": "18:20",
+                "tag": ""
+              },
+              {
+                "day": "Quinta",
+                "time": "19:00",
+                "name": "Main Diário",
+                "mode": "NLH",
+                "buyin": "R$ 55",
+                "guaranteed": "R$ 10.000",
+                "stack": "50K",
+                "blinds": "12",
+                "late": "21:24",
+                "tag": "Main"
               },
               {
                 "day": "Quinta",
                 "time": "20:00",
-                "name": "Quinta clássica (exemplo)",
-                "detail": "NLH · buy-in a definir",
-                "prize": "Garantido a definir"
+                "name": "PKO da Noite",
+                "mode": "NLH · PKO",
+                "buyin": "R$ 33",
+                "guaranteed": "R$ 5.000",
+                "stack": "40K",
+                "blinds": "10",
+                "late": "22:00",
+                "tag": ""
               },
               {
                 "day": "Sexta",
-                "time": "21:00",
-                "name": "Sexta deep (exemplo)",
-                "detail": "NLH deep stack · buy-in a definir",
-                "prize": "—"
+                "time": "14:00",
+                "name": "Deepstack da Tarde",
+                "mode": "NLH",
+                "buyin": "R$ 22",
+                "guaranteed": "R$ 3.000",
+                "stack": "60K",
+                "blinds": "15",
+                "late": "16:30",
+                "tag": ""
+              },
+              {
+                "day": "Sexta",
+                "time": "19:00",
+                "name": "Main Diário",
+                "mode": "NLH",
+                "buyin": "R$ 55",
+                "guaranteed": "R$ 10.000",
+                "stack": "50K",
+                "blinds": "12",
+                "late": "21:24",
+                "tag": "Main"
+              },
+              {
+                "day": "Sexta",
+                "time": "22:30",
+                "name": "Freezeout da Madrugada",
+                "mode": "NLH",
+                "buyin": "R$ 11",
+                "guaranteed": "R$ 1.500",
+                "stack": "40K",
+                "blinds": "10",
+                "late": "00:10",
+                "tag": ""
               },
               {
                 "day": "Sábado",
-                "time": "16:00",
-                "name": "Sábado em dobro (exemplo)",
-                "detail": "NLH · buy-in a definir",
-                "prize": "Duas edições no dia"
+                "time": "14:00",
+                "name": "Deepstack da Tarde",
+                "mode": "NLH",
+                "buyin": "R$ 22",
+                "guaranteed": "R$ 3.000",
+                "stack": "60K",
+                "blinds": "15",
+                "late": "16:30",
+                "tag": ""
+              },
+              {
+                "day": "Sábado",
+                "time": "17:00",
+                "name": "Sábado Deep",
+                "mode": "NLH",
+                "buyin": "R$ 110",
+                "guaranteed": "R$ 20.000",
+                "stack": "100K",
+                "blinds": "20",
+                "late": "20:40",
+                "tag": "Main"
+              },
+              {
+                "day": "Sábado",
+                "time": "20:00",
+                "name": "PKO da Noite",
+                "mode": "NLH · PKO",
+                "buyin": "R$ 33",
+                "guaranteed": "R$ 5.000",
+                "stack": "40K",
+                "blinds": "10",
+                "late": "22:00",
+                "tag": ""
+              },
+              {
+                "day": "Domingo",
+                "time": "12:00",
+                "name": "Abertura Turbo",
+                "mode": "NLH",
+                "buyin": "R$ 5",
+                "guaranteed": "R$ 1.000",
+                "stack": "30K",
+                "blinds": "8",
+                "late": "13:28",
+                "tag": ""
               },
               {
                 "day": "Domingo",
                 "time": "18:00",
-                "name": "Principal do domingo (exemplo)",
-                "detail": "NLH · buy-in a definir",
-                "prize": "Maior garantido da semana"
+                "name": "Domingo Grande",
+                "mode": "NLH",
+                "buyin": "R$ 110",
+                "guaranteed": "R$ 30.000",
+                "stack": "75K",
+                "blinds": "15",
+                "late": "21:30",
+                "tag": "Main"
+              },
+              {
+                "day": "Domingo",
+                "time": "21:00",
+                "name": "PLO 6 Turbo",
+                "mode": "PLO 6",
+                "buyin": "R$ 22",
+                "guaranteed": "R$ 2.000",
+                "stack": "40K",
+                "blinds": "8",
+                "late": "22:36",
+                "tag": ""
               }
             ],
-            "cta": "Entrar no clube",
-            "ctaHref": "{{inviteLink}}"
+            "note": "Agenda de exemplo. A grade oficial fica no app.",
+            "live": false,
+            "variant": "tabela"
           }
         },
         {
-          "type": "notice",
+          "type": "relogio_aviso",
           "props": {
-            "text": "Horários no fuso de Brasília. Grade de exemplo: dias, buy-ins e garantidos são definidos pela operação.",
-            "variant": "discreto"
+            "badge": "+18",
+            "text": "**Somente maiores de 18 anos. Jogue com responsabilidade.**\n\nPoker é entretenimento, não fonte de renda. Defina antes quanto pode gastar e por quanto tempo vai jogar.",
+            "linkLabel": "Regras",
+            "href": "/regras"
           }
         },
         {
           "type": "footer",
           "props": {
             "brand": "{{name}}",
+            "text": "Agenda de torneios do {{unitLabel}} no app {{app}}, no horário de Brasília.",
             "links": [
               {
-                "label": "Início",
-                "href": "/"
+                "label": "Agenda",
+                "href": "/agenda"
               },
               {
-                "label": "Privacidade",
-                "href": "/privacidade"
+                "label": "Formatos",
+                "href": "/formatos"
+              },
+              {
+                "label": "Regras",
+                "href": "/regras"
+              },
+              {
+                "label": "Contato",
+                "href": "{{whatsappLink}}"
               }
             ],
-            "disclaimer": "{{disclaimer}}"
+            "disclaimer": "Somente maiores de 18 anos. Jogue com responsabilidade."
+          }
+        }
+      ]
+    },
+    {
+      "slug": "formatos",
+      "title": "Formatos",
+      "seo": {
+        "title": "Formatos de torneio · {{name}}",
+        "description": "Freezeout, reentrada, PKO, turbo, hyper e deepstack, com a estrutura de blinds de exemplo."
+      },
+      "blocks": [
+        {
+          "type": "navbar",
+          "props": {
+            "brand": "{{name}}",
+            "logo": "{{logo}}",
+            "links": [
+              {
+                "label": "Agenda",
+                "href": "/agenda"
+              },
+              {
+                "label": "Formatos",
+                "href": "/formatos"
+              },
+              {
+                "label": "Regras",
+                "href": "/regras"
+              }
+            ],
+            "cta": "Entrar no clube",
+            "ctaHref": "{{inviteLink}}",
+            "variant": "barra"
+          }
+        },
+        {
+          "type": "relogio_cabecalho",
+          "props": {
+            "title": "Formatos",
+            "subtitle": "Como cada formato da agenda funciona e **como fica a estrutura de blinds** de um torneio regular.",
+            "items": [
+              {
+                "label": "Formatos",
+                "value": "6"
+              },
+              {
+                "label": "Estrutura",
+                "value": "de exemplo"
+              }
+            ]
+          }
+        },
+        {
+          "type": "relogio_termos",
+          "props": {
+            "title": "",
+            "variant": "glossario",
+            "items": [
+              {
+                "term": "Freezeout",
+                "text": "Uma entrada só."
+              },
+              {
+                "term": "Reentrada",
+                "text": "Pode voltar com stack novo durante o registro tardio."
+              },
+              {
+                "term": "PKO",
+                "text": "Recompensa por eliminação que cresce durante o torneio."
+              },
+              {
+                "term": "Turbo",
+                "text": "Níveis curtos."
+              },
+              {
+                "term": "Hyper",
+                "text": "Níveis bem curtos e stack menor."
+              },
+              {
+                "term": "Deepstack",
+                "text": "Stack grande e níveis longos."
+              }
+            ]
+          }
+        },
+        {
+          "type": "relogio_niveis",
+          "props": {
+            "title": "Estrutura regular",
+            "subtitle": "Exemplo com **12 minutos por nível** e stack de 50K.",
+            "items": [
+              {
+                "level": "1",
+                "blinds": "100/200",
+                "ante": "",
+                "minutes": "12 min",
+                "note": ""
+              },
+              {
+                "level": "2",
+                "blinds": "150/300",
+                "ante": "",
+                "minutes": "12 min",
+                "note": ""
+              },
+              {
+                "level": "3",
+                "blinds": "200/400",
+                "ante": "",
+                "minutes": "12 min",
+                "note": ""
+              },
+              {
+                "level": "4",
+                "blinds": "250/500",
+                "ante": "500",
+                "minutes": "12 min",
+                "note": "Entra o ante"
+              },
+              {
+                "level": "5",
+                "blinds": "300/600",
+                "ante": "600",
+                "minutes": "12 min",
+                "note": ""
+              },
+              {
+                "level": "6",
+                "blinds": "400/800",
+                "ante": "800",
+                "minutes": "12 min",
+                "note": ""
+              },
+              {
+                "level": "Pausa",
+                "minutes": "5 min",
+                "note": "Intervalo",
+                "pause": true
+              },
+              {
+                "level": "7",
+                "blinds": "500/1.000",
+                "ante": "1.000",
+                "minutes": "12 min",
+                "note": ""
+              },
+              {
+                "level": "8",
+                "blinds": "600/1.200",
+                "ante": "1.200",
+                "minutes": "12 min",
+                "note": ""
+              },
+              {
+                "level": "9",
+                "blinds": "800/1.600",
+                "ante": "1.600",
+                "minutes": "12 min",
+                "note": ""
+              },
+              {
+                "level": "10",
+                "blinds": "1.000/2.000",
+                "ante": "2.000",
+                "minutes": "12 min",
+                "note": ""
+              }
+            ],
+            "note": "Estrutura de exemplo."
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "text": "Agenda de torneios do {{unitLabel}} no app {{app}}, no horário de Brasília.",
+            "links": [
+              {
+                "label": "Agenda",
+                "href": "/agenda"
+              },
+              {
+                "label": "Formatos",
+                "href": "/formatos"
+              },
+              {
+                "label": "Regras",
+                "href": "/regras"
+              },
+              {
+                "label": "Contato",
+                "href": "{{whatsappLink}}"
+              }
+            ],
+            "disclaimer": "Somente maiores de 18 anos. Jogue com responsabilidade."
           }
         }
       ]
@@ -320,76 +993,119 @@
       "slug": "regras",
       "title": "Regras",
       "seo": {
-        "description": "Regras e conduta nos torneios do {{name}}."
+        "title": "Regras dos torneios · {{name}}",
+        "description": "Registro tardio, reentrada, ausência, desconexão e conduta nos torneios da agenda."
       },
       "blocks": [
         {
           "type": "navbar",
           "props": {
             "brand": "{{name}}",
+            "logo": "{{logo}}",
             "links": [
-              {
-                "label": "Início",
-                "href": "/"
-              },
               {
                 "label": "Agenda",
                 "href": "/agenda"
+              },
+              {
+                "label": "Formatos",
+                "href": "/formatos"
+              },
+              {
+                "label": "Regras",
+                "href": "/regras"
               }
             ],
+            "cta": "Entrar no clube",
+            "ctaHref": "{{inviteLink}}",
             "variant": "barra"
           }
         },
         {
-          "type": "text",
+          "type": "relogio_cabecalho",
           "props": {
-            "title": "Regras e conduta",
-            "body": "Texto-base para a operação revisar e completar.\n\nInscrições: abertas no lobby do app {{app}} até o fim do registro tardio de cada torneio, quando houver. O buy-in é debitado em fichas no momento da inscrição.\n\nConduta: respeito à mesa, proibido jogo combinado e qualquer forma de conluio. Contas flagradas são analisadas pela equipe e podem ser banidas.\n\nPremiação: paga em fichas conforme a estrutura publicada de cada torneio. Reembolso segue a regra de cancelamento do app {{app}}.\n\nIdade: somente maiores de 18 anos.",
-            "variant": "estreito"
+            "title": "Regras",
+            "subtitle": "As regras de mesa são as do app {{app}}. Estas valem para a agenda do clube.",
+            "items": [
+              {
+                "label": "Idade mínima",
+                "value": "18 anos"
+              }
+            ],
+            "r18": "Jogue com responsabilidade"
+          }
+        },
+        {
+          "type": "relogio_termos",
+          "props": {
+            "title": "",
+            "variant": "regras",
+            "items": [
+              {
+                "term": "Registro tardio",
+                "text": "Entrada permitida até o horário marcado na agenda, com o stack inicial, nos blinds daquele nível."
+              },
+              {
+                "term": "Reentrada",
+                "text": "Só nos torneios marcados como reentrada, durante o registro tardio."
+              },
+              {
+                "term": "Ausência",
+                "text": "Quem sai da mesa continua pagando blinds e ante."
+              },
+              {
+                "term": "Desconexão",
+                "text": "A mão segue com o tempo normal. Reconecte o quanto antes."
+              },
+              {
+                "term": "Uma conta por pessoa",
+                "text": "Conta compartilhada é bloqueada."
+              },
+              {
+                "term": "Conluio",
+                "text": "Jogo combinado ou troca de informação é proibido e leva a exclusão."
+              },
+              {
+                "term": "Idade",
+                "text": "**Somente maiores de 18 anos.** Jogue com responsabilidade."
+              }
+            ],
+            "note": "Regras de exemplo: ajuste às da sua operação antes de publicar."
+          }
+        },
+        {
+          "type": "relogio_aviso",
+          "props": {
+            "badge": "+18",
+            "text": "**Somente maiores de 18 anos. Jogue com responsabilidade.**\n\nPoker é entretenimento, não fonte de renda. Defina antes quanto pode gastar e por quanto tempo vai jogar.",
+            "linkLabel": "Agenda",
+            "href": "/agenda"
           }
         },
         {
           "type": "footer",
           "props": {
             "brand": "{{name}}",
-            "disclaimer": "{{disclaimer}}"
-          }
-        }
-      ]
-    },
-    {
-      "slug": "privacidade",
-      "title": "Privacidade",
-      "seo": {
-        "description": "Como o {{name}} trata seus dados."
-      },
-      "blocks": [
-        {
-          "type": "navbar",
-          "props": {
-            "brand": "{{name}}",
+            "text": "Agenda de torneios do {{unitLabel}} no app {{app}}, no horário de Brasília.",
             "links": [
               {
-                "label": "Início",
-                "href": "/"
+                "label": "Agenda",
+                "href": "/agenda"
+              },
+              {
+                "label": "Formatos",
+                "href": "/formatos"
+              },
+              {
+                "label": "Regras",
+                "href": "/regras"
+              },
+              {
+                "label": "Contato",
+                "href": "{{whatsappLink}}"
               }
             ],
-            "variant": "barra"
-          }
-        },
-        {
-          "type": "text",
-          "props": {
-            "title": "Privacidade",
-            "body": "Texto-base para revisão jurídica da operação.\n\nColetamos dados só quando você fala com o atendimento ou entra pelo convite, para viabilizar a sua participação nos torneios. Você pode pedir a exclusão a qualquer momento.\n\nCookies de medição (Google e Meta) só são ativados se você aceitar no aviso do site.",
-            "variant": "estreito"
-          }
-        },
-        {
-          "type": "footer",
-          "props": {
-            "brand": "{{name}}",
-            "disclaimer": "{{disclaimer}}"
+            "disclaimer": "Somente maiores de 18 anos. Jogue com responsabilidade."
           }
         }
       ]

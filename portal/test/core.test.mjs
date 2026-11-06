@@ -41,7 +41,8 @@ test('site só aparece depois de publicado; edição vira rascunho; versão pode
   assert.equal(r.status, 200);
   assert.match(r.data, /Clube Teste/);
   assert.match(r.data, /Somente maiores de 18 anos/);
-  const blocks = home.draft.map((b) => (b.type === 'hero' ? { ...b, props: { ...b.props, title: 'Título <script>alert(1)</script> novo' } } : b));
+  // bloco de texto novo no fim (não depende de qual bloco o modelo usa na primeira tela)
+  const blocks = [...home.draft, { type: 'text', props: { title: 'Título <script>alert(1)</script> novo', body: '' } }];
   r = await sup.req('PUT', `/api/t/clube-10002/pages/${home.id}/draft`, { blocks });
   assert.equal(r.status, 200);
   assert.equal(r.data.page.dirty, true);

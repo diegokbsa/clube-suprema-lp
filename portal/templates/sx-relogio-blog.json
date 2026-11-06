@@ -1,0 +1,749 @@
+{
+  "id": "sx-relogio-blog",
+  "name": "Relógio de blinds · Blog",
+  "order": 15,
+  "version": 1,
+  "category": "Poker · edição SX",
+  "niches": [
+    "poker"
+  ],
+  "inspiredBy": "sx",
+  "description": "Blog educativo no mundo Relógio de blinds: a primeira tela explica o relógio do torneio parte por parte (nível, tempo, blinds, ante), com estrutura de blinds comentada, lista de leitura, glossário e jogo responsável.",
+  "theme": {
+    "world": "relogio",
+    "mode": "escuro",
+    "bg": "#15110a",
+    "surface": "#040404",
+    "text": "#f2e8d6",
+    "muted": "#b3a386",
+    "primary": "#efa144",
+    "primaryText": "#040404",
+    "accent": "#f3b662",
+    "border": "#3a2f1f",
+    "font": "Montserrat",
+    "fontHead": "Antonio",
+    "radius": 0
+  },
+  "seo": {
+    "title": "Guias de torneio · {{name}}",
+    "description": "Estrutura de torneio, níveis, blinds e ante explicados para quem joga no app {{app}}. Conteúdo educativo para maiores de 18 anos."
+  },
+  "pages": [
+    {
+      "slug": "",
+      "title": "Início",
+      "blocks": [
+        {
+          "type": "navbar",
+          "props": {
+            "brand": "{{name}}",
+            "logo": "{{logo}}",
+            "links": [
+              {
+                "label": "Comece aqui",
+                "href": "/comece-aqui"
+              },
+              {
+                "label": "Glossário",
+                "href": "/glossario"
+              },
+              {
+                "label": "Jogo responsável",
+                "href": "/jogo-responsavel"
+              }
+            ],
+            "cta": "Receber os guias",
+            "ctaHref": "/#registro",
+            "variant": "barra"
+          }
+        },
+        {
+          "type": "relogio_anatomia",
+          "props": {
+            "title": "Como ler o relógio de um torneio.",
+            "subtitle": "Nível, tempo, blinds e ante: o painel que todo torneio mostra, explicado parte por parte. Para quem vai jogar o primeiro torneio no **{{app}}** e para quem quer entender a estrutura antes de escolher um.",
+            "level": "7",
+            "time": "12:00",
+            "blinds": "500/1.000",
+            "ante": "1.000",
+            "next": "600/1.200",
+            "event": "Main Diário · exemplo",
+            "parts": [
+              {
+                "title": "Nível",
+                "text": "A etapa do torneio. A cada nível, as apostas obrigatórias sobem."
+              },
+              {
+                "title": "Tempo do nível",
+                "text": "Quanto falta para os blinds subirem. **Turbo** tem nível curto; **deepstack**, longo."
+              },
+              {
+                "title": "Blinds",
+                "text": "Small blind e big blind: as duas apostas obrigatórias de cada mão."
+              },
+              {
+                "title": "Ante",
+                "text": "Aposta extra que entra no pote antes da mão. Aumenta o pote e acelera o jogo."
+              },
+              {
+                "title": "Próximo nível",
+                "text": "Os blinds que entram quando o tempo zerar. **Planeje o seu stack por aqui.**"
+              }
+            ],
+            "cta": "Comece aqui",
+            "ctaHref": "/comece-aqui",
+            "note": "Relógio de exemplo: conta um nível de 12 minutos e recomeça.",
+            "r18": "Jogue com responsabilidade"
+          }
+        },
+        {
+          "type": "relogio_artigos",
+          "props": {
+            "title": "Para ler agora",
+            "subtitle": "Guias curtos, **na ordem em que as dúvidas aparecem** no primeiro torneio.",
+            "items": [
+              {
+                "time": "6 min",
+                "tag": "Estrutura",
+                "title": "Blinds e ante: por que eles sobem",
+                "text": "O relógio é o que obriga o torneio a andar. Entenda a conta por trás de cada nível.",
+                "href": "/comece-aqui"
+              },
+              {
+                "time": "5 min",
+                "tag": "Estrutura",
+                "title": "Stack em big blinds: a conta que guia o torneio",
+                "text": "50 mil fichas não dizem nada sozinhas. Dividido pelo big blind, dizem tudo.",
+                "href": "/glossario"
+              },
+              {
+                "time": "4 min",
+                "tag": "Formatos",
+                "title": "Turbo, hyper e deepstack: o que muda no relógio",
+                "text": "Mesmo buy-in, ritmos diferentes. Como escolher pelo tempo que você tem.",
+                "href": "/glossario"
+              },
+              {
+                "time": "7 min",
+                "tag": "Primeiro torneio",
+                "title": "Registro tardio: entrar depois compensa?",
+                "text": "O que você ganha e o que perde ao entrar com os blinds já mais altos.",
+                "href": "/comece-aqui"
+              },
+              {
+                "time": "3 min",
+                "tag": "Jogo responsável",
+                "title": "Limite de tempo e de valor antes de sentar",
+                "text": "Os combinados que valem mais que qualquer estratégia.",
+                "href": "/jogo-responsavel"
+              }
+            ],
+            "note": "Pauta de exemplo: troque pelos posts do seu blog.",
+            "cta": "Ver o glossário completo",
+            "ctaHref": "/glossario"
+          }
+        },
+        {
+          "type": "relogio_niveis",
+          "props": {
+            "title": "Uma estrutura, nível por nível",
+            "subtitle": "Torneio de exemplo com stack de 50K. Repare na última coluna: **o big blind dobra a cada três ou quatro níveis**, e o seu stack em big blinds cai junto. É isso que obriga a jogar.",
+            "items": [
+              {
+                "level": "1",
+                "blinds": "100/200",
+                "ante": "",
+                "minutes": "12 min",
+                "note": "Stack de 50K = 250 big blinds"
+              },
+              {
+                "level": "2",
+                "blinds": "150/300",
+                "ante": "",
+                "minutes": "12 min",
+                "note": "166 BB"
+              },
+              {
+                "level": "3",
+                "blinds": "200/400",
+                "ante": "",
+                "minutes": "12 min",
+                "note": "125 BB"
+              },
+              {
+                "level": "4",
+                "blinds": "250/500",
+                "ante": "500",
+                "minutes": "12 min",
+                "note": "100 BB · entra o ante"
+              },
+              {
+                "level": "5",
+                "blinds": "300/600",
+                "ante": "600",
+                "minutes": "12 min",
+                "note": "83 BB"
+              },
+              {
+                "level": "6",
+                "blinds": "400/800",
+                "ante": "800",
+                "minutes": "12 min",
+                "note": "62 BB · o big blind dobrou desde o nível 3"
+              },
+              {
+                "level": "Pausa",
+                "minutes": "5 min",
+                "note": "Intervalo: boa hora para levantar da cadeira",
+                "pause": true
+              },
+              {
+                "level": "7",
+                "blinds": "500/1.000",
+                "ante": "1.000",
+                "minutes": "12 min",
+                "note": "50 BB"
+              },
+              {
+                "level": "8",
+                "blinds": "600/1.200",
+                "ante": "1.200",
+                "minutes": "12 min",
+                "note": "41 BB"
+              },
+              {
+                "level": "9",
+                "blinds": "800/1.600",
+                "ante": "1.600",
+                "minutes": "12 min",
+                "note": "31 BB"
+              },
+              {
+                "level": "10",
+                "blinds": "1.000/2.000",
+                "ante": "2.000",
+                "minutes": "12 min",
+                "note": "25 BB · quem não somou fichas já sente a pressão"
+              }
+            ],
+            "note": "Estrutura de exemplo, só para estudo. Cada torneio publica a sua no app."
+          }
+        },
+        {
+          "type": "relogio_termos",
+          "props": {
+            "title": "Seis palavras do relógio",
+            "subtitle": "O mínimo para ler qualquer estrutura. **O glossário completo tem mais de vinte.**",
+            "variant": "glossario",
+            "items": [
+              {
+                "term": "Ante",
+                "text": "Aposta pequena que entra no pote antes da mão. Em muitos torneios, só o big blind paga o ante da mesa toda (**big blind ante**)."
+              },
+              {
+                "term": "Blinds",
+                "text": "As duas apostas obrigatórias de cada mão. Sobem a cada nível."
+              },
+              {
+                "term": "Nível",
+                "text": "Cada etapa do relógio, com blinds e ante fixos durante o tempo do nível."
+              },
+              {
+                "term": "Stack",
+                "text": "As fichas que você tem na frente. No torneio, a conta que importa é stack dividido pelo big blind."
+              },
+              {
+                "term": "Registro tardio",
+                "text": "Janela depois do início em que ainda dá para entrar no torneio."
+              },
+              {
+                "term": "Bolha",
+                "text": "O momento em que falta um eliminado para todo mundo que sobrou entrar no prêmio."
+              }
+            ]
+          }
+        },
+        {
+          "type": "relogio_aviso",
+          "props": {
+            "badge": "+18",
+            "text": "**Somente maiores de 18 anos. Jogue com responsabilidade.**\n\nPoker é entretenimento, não fonte de renda. Defina antes quanto pode gastar e por quanto tempo vai jogar.",
+            "linkLabel": "Jogo responsável",
+            "href": "/jogo-responsavel"
+          }
+        },
+        {
+          "type": "relogio_registro",
+          "props": {
+            "title": "Guias no e-mail",
+            "text": "Um guia por semana sobre **estrutura de torneio, níveis e blinds**. Sem promessa de ganho: é estudo.",
+            "fields": "email",
+            "button": "Quero receber",
+            "success": "Pronto! O primeiro guia chega no seu e-mail.",
+            "consent": "Tenho mais de 18 anos e aceito receber os guias por e-mail. Posso sair quando quiser.",
+            "note": "Não pedimos senha do app nem documento.",
+            "r18": "Conteúdo para maiores de 18 anos. Jogue com responsabilidade."
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "text": "Guias de estrutura de torneio, níveis e blinds do {{unitLabel}} no app {{app}}. Conteúdo educativo, sem promessa de ganho.",
+            "links": [
+              {
+                "label": "Comece aqui",
+                "href": "/comece-aqui"
+              },
+              {
+                "label": "Glossário",
+                "href": "/glossario"
+              },
+              {
+                "label": "Jogo responsável",
+                "href": "/jogo-responsavel"
+              }
+            ],
+            "disclaimer": "Somente maiores de 18 anos. Jogue com responsabilidade."
+          }
+        }
+      ]
+    },
+    {
+      "slug": "comece-aqui",
+      "title": "Comece aqui",
+      "seo": {
+        "title": "Comece aqui · {{name}}",
+        "description": "Do zero ao primeiro torneio: ler o relógio, escolher o torneio, entrar no clube e definir limites."
+      },
+      "blocks": [
+        {
+          "type": "navbar",
+          "props": {
+            "brand": "{{name}}",
+            "logo": "{{logo}}",
+            "links": [
+              {
+                "label": "Comece aqui",
+                "href": "/comece-aqui"
+              },
+              {
+                "label": "Glossário",
+                "href": "/glossario"
+              },
+              {
+                "label": "Jogo responsável",
+                "href": "/jogo-responsavel"
+              }
+            ],
+            "cta": "Receber os guias",
+            "ctaHref": "/#registro",
+            "variant": "barra"
+          }
+        },
+        {
+          "type": "relogio_cabecalho",
+          "props": {
+            "title": "Comece aqui",
+            "subtitle": "Do zero ao primeiro torneio, na ordem certa: **entender o relógio**, escolher um torneio que caiba no seu tempo e no seu bolso, e só então sentar.",
+            "items": [
+              {
+                "label": "Leitura",
+                "value": "8 min"
+              },
+              {
+                "label": "Para",
+                "value": "iniciantes"
+              }
+            ],
+            "r18": "Jogue com responsabilidade"
+          }
+        },
+        {
+          "type": "relogio_estrutura",
+          "props": {
+            "title": "Do zero ao primeiro torneio",
+            "colTime": "Tempo",
+            "items": [
+              {
+                "level": "1",
+                "title": "Entenda o relógio",
+                "text": "Nível, tempo, blinds e ante. A primeira tela deste blog mostra cada parte. Sem isso, a estrutura do torneio não faz sentido.",
+                "time": "3 min",
+                "timeNote": "leitura"
+              },
+              {
+                "level": "2",
+                "title": "Escolha um torneio que caiba",
+                "text": "Veja o horário, o tempo de nível e o registro tardio. **Comece por buy-in baixo** e nível regular, nada de hyper no primeiro.",
+                "time": "2 min",
+                "timeNote": "na grade do app"
+              },
+              {
+                "level": "Antes de sentar",
+                "title": "Defina o limite",
+                "text": "Quanto pode gastar neste mês e a hora de parar hoje. **Escreva os dois** antes de comprar fichas.",
+                "pause": true
+              },
+              {
+                "level": "3",
+                "title": "Entre no clube pelo link",
+                "text": "Abra o {{app}} pelo link de convite do {{unitLabel}}. Você já entra no clube com o agente.",
+                "time": "2 min",
+                "timeNote": "no app"
+              },
+              {
+                "level": "4",
+                "title": "Compre fichas por PIX",
+                "text": "No canal de fichas, informe o ID de jogador, o clube {{number}} e o agente {{agentId}} na primeira compra.",
+                "time": "no chat",
+                "timeNote": "confirmação por escrito"
+              },
+              {
+                "level": "5",
+                "title": "Registre-se e observe",
+                "text": "Nos primeiros níveis, os blinds são baixos em relação ao stack. Use esse tempo para ver como a mesa joga.",
+                "time": "12 min",
+                "timeNote": "um nível"
+              }
+            ]
+          }
+        },
+        {
+          "type": "text",
+          "props": {
+            "title": "O que observar no primeiro torneio",
+            "variant": "estreito",
+            "body": "Nos primeiros níveis, o stack é grande em relação aos blinds: dá para esperar mãos boas sem pressa. Conte o seu stack em big blinds a cada nível. É a conta que mostra quanto tempo você ainda tem.\n\nQuando o ante entra, cada mão vale mais. Ficar parado custa fichas a cada volta da mesa, e o stack encolhe mesmo sem você jogar.\n\nNo intervalo, levante da cadeira. Olhe o relógio do torneio e o relógio da parede: se chegou a hora que você combinou consigo mesmo, a hora de parar é essa, ganhando ou perdendo."
+          }
+        },
+        {
+          "type": "relogio_aviso",
+          "props": {
+            "badge": "+18",
+            "text": "**Somente maiores de 18 anos. Jogue com responsabilidade.**\n\nPoker é entretenimento, não fonte de renda. Defina antes quanto pode gastar e por quanto tempo vai jogar.",
+            "linkLabel": "Jogo responsável",
+            "href": "/jogo-responsavel"
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "text": "Guias de estrutura de torneio, níveis e blinds do {{unitLabel}} no app {{app}}. Conteúdo educativo, sem promessa de ganho.",
+            "links": [
+              {
+                "label": "Comece aqui",
+                "href": "/comece-aqui"
+              },
+              {
+                "label": "Glossário",
+                "href": "/glossario"
+              },
+              {
+                "label": "Jogo responsável",
+                "href": "/jogo-responsavel"
+              }
+            ],
+            "disclaimer": "Somente maiores de 18 anos. Jogue com responsabilidade."
+          }
+        }
+      ]
+    },
+    {
+      "slug": "glossario",
+      "title": "Glossário",
+      "seo": {
+        "title": "Glossário de torneio · {{name}}",
+        "description": "Blinds, ante, nível, stack, buy-in, garantido, registro tardio, bolha e outros termos de torneio de poker."
+      },
+      "blocks": [
+        {
+          "type": "navbar",
+          "props": {
+            "brand": "{{name}}",
+            "logo": "{{logo}}",
+            "links": [
+              {
+                "label": "Comece aqui",
+                "href": "/comece-aqui"
+              },
+              {
+                "label": "Glossário",
+                "href": "/glossario"
+              },
+              {
+                "label": "Jogo responsável",
+                "href": "/jogo-responsavel"
+              }
+            ],
+            "cta": "Receber os guias",
+            "ctaHref": "/#registro",
+            "variant": "barra"
+          }
+        },
+        {
+          "type": "relogio_cabecalho",
+          "props": {
+            "title": "Glossário",
+            "subtitle": "Os termos que aparecem no relógio e na grade de qualquer torneio, em ordem alfabética e em português direto.",
+            "items": [
+              {
+                "label": "Termos",
+                "value": "22"
+              },
+              {
+                "label": "Ordem",
+                "value": "A a Z"
+              }
+            ]
+          }
+        },
+        {
+          "type": "relogio_termos",
+          "props": {
+            "title": "",
+            "variant": "glossario",
+            "items": [
+              {
+                "term": "All-in",
+                "text": "Apostar todas as fichas que tem na frente."
+              },
+              {
+                "term": "Ante",
+                "text": "Aposta pequena que entra no pote antes da mão. Em muitos torneios, só o big blind paga o ante da mesa toda (**big blind ante**)."
+              },
+              {
+                "term": "Big blind (BB)",
+                "text": "A maior das duas apostas obrigatórias. É também a régua do torneio: stack se mede em big blinds."
+              },
+              {
+                "term": "Blinds",
+                "text": "As duas apostas obrigatórias de cada mão. Sobem a cada nível."
+              },
+              {
+                "term": "Bolha",
+                "text": "O momento em que falta um eliminado para todo mundo que sobrou entrar no prêmio."
+              },
+              {
+                "term": "Buy-in",
+                "text": "O valor da inscrição no torneio."
+              },
+              {
+                "term": "Deepstack",
+                "text": "Torneio com stack inicial grande e níveis longos."
+              },
+              {
+                "term": "Freezeout",
+                "text": "Torneio de uma entrada só."
+              },
+              {
+                "term": "Garantido",
+                "text": "O prêmio total mínimo que a operação garante, mesmo que entrem poucos jogadores."
+              },
+              {
+                "term": "Heads-up",
+                "text": "Mão ou fim de torneio com só dois jogadores."
+              },
+              {
+                "term": "ITM",
+                "text": "In the money: entrou na faixa de premiação."
+              },
+              {
+                "term": "Mesa final",
+                "text": "A última mesa do torneio."
+              },
+              {
+                "term": "Nível",
+                "text": "Cada etapa do relógio, com blinds e ante fixos durante o tempo do nível."
+              },
+              {
+                "term": "PKO",
+                "text": "Progressive knockout: torneio com recompensa por eliminação que cresce durante o jogo."
+              },
+              {
+                "term": "Reentrada",
+                "text": "Pagar o buy-in de novo depois de eliminado, durante o registro tardio, nos torneios que permitem."
+              },
+              {
+                "term": "Registro tardio",
+                "text": "Janela depois do início em que ainda dá para entrar no torneio."
+              },
+              {
+                "term": "Shove",
+                "text": "Ir all-in de uma vez, geralmente com stack curto."
+              },
+              {
+                "term": "Small blind",
+                "text": "A menor aposta obrigatória, metade do big blind na maioria das estruturas."
+              },
+              {
+                "term": "Stack",
+                "text": "As fichas que você tem na frente. No torneio, a conta que importa é stack dividido pelo big blind."
+              },
+              {
+                "term": "Stack inicial",
+                "text": "As fichas com que todo mundo começa. Não têm valor em dinheiro: são fichas de torneio."
+              },
+              {
+                "term": "Tempo de nível",
+                "text": "Quanto dura cada nível. 5 min no hyper, 15 min ou mais no deepstack."
+              },
+              {
+                "term": "Turbo / hyper",
+                "text": "Torneios com níveis mais curtos que o regular."
+              }
+            ]
+          }
+        },
+        {
+          "type": "relogio_aviso",
+          "props": {
+            "badge": "+18",
+            "text": "**Somente maiores de 18 anos. Jogue com responsabilidade.**\n\nPoker é entretenimento, não fonte de renda. Defina antes quanto pode gastar e por quanto tempo vai jogar.",
+            "linkLabel": "Jogo responsável",
+            "href": "/jogo-responsavel"
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "text": "Guias de estrutura de torneio, níveis e blinds do {{unitLabel}} no app {{app}}. Conteúdo educativo, sem promessa de ganho.",
+            "links": [
+              {
+                "label": "Comece aqui",
+                "href": "/comece-aqui"
+              },
+              {
+                "label": "Glossário",
+                "href": "/glossario"
+              },
+              {
+                "label": "Jogo responsável",
+                "href": "/jogo-responsavel"
+              }
+            ],
+            "disclaimer": "Somente maiores de 18 anos. Jogue com responsabilidade."
+          }
+        }
+      ]
+    },
+    {
+      "slug": "jogo-responsavel",
+      "title": "Jogo responsável",
+      "seo": {
+        "title": "Jogo responsável · {{name}}",
+        "description": "Somente maiores de 18 anos. Limites de valor e de tempo, sinais de alerta e onde pedir ajuda."
+      },
+      "blocks": [
+        {
+          "type": "navbar",
+          "props": {
+            "brand": "{{name}}",
+            "logo": "{{logo}}",
+            "links": [
+              {
+                "label": "Comece aqui",
+                "href": "/comece-aqui"
+              },
+              {
+                "label": "Glossário",
+                "href": "/glossario"
+              },
+              {
+                "label": "Jogo responsável",
+                "href": "/jogo-responsavel"
+              }
+            ],
+            "cta": "Receber os guias",
+            "ctaHref": "/#registro",
+            "variant": "barra"
+          }
+        },
+        {
+          "type": "relogio_cabecalho",
+          "props": {
+            "title": "Jogo responsável",
+            "subtitle": "Estudar estrutura de torneio ajuda a jogar melhor. **Não transforma poker em renda.** Jogue com o que pode perder e com hora para parar.",
+            "items": [
+              {
+                "label": "Idade mínima",
+                "value": "18 anos"
+              },
+              {
+                "label": "Limite",
+                "value": "antes de sentar"
+              }
+            ],
+            "r18": "Jogue com responsabilidade"
+          }
+        },
+        {
+          "type": "text",
+          "props": {
+            "title": "Sinais de alerta",
+            "variant": "estreito",
+            "body": "Jogar para recuperar o que perdeu. Esconder quanto joga. Pegar dinheiro emprestado para jogar. Ficar irritado quando não pode jogar. Passar da hora combinada toda noite.\n\nSe algum desses sinais aparece, pare e converse com alguém de confiança. Você pode pedir ao suporte do clube para pausar ou encerrar a sua conta, a qualquer momento.\n\nSe precisar conversar agora, o CVV atende de graça pelo telefone 188, 24 horas por dia."
+          }
+        },
+        {
+          "type": "relogio_leituras",
+          "props": {
+            "title": "O relógio que importa",
+            "subtitle": "Antes do relógio do torneio, o seu.",
+            "variant": "lista",
+            "items": [
+              {
+                "value": "R$",
+                "label": "Valor do mês definido antes.",
+                "text": "O que é de lazer, e só."
+              },
+              {
+                "value": "1h",
+                "label": "Hora de parar marcada.",
+                "text": "Use o alarme do celular."
+              },
+              {
+                "value": "Stop",
+                "label": "Sem correr atrás da perda.",
+                "text": "Tentar recuperar na mesma noite costuma aumentar o prejuízo."
+              }
+            ]
+          }
+        },
+        {
+          "type": "relogio_aviso",
+          "props": {
+            "badge": "+18",
+            "text": "**Conteúdo para maiores de 18 anos.**\n\nQuer pausar ou encerrar a sua conta? Fale com o suporte.",
+            "linkLabel": "Falar com o suporte",
+            "href": "{{whatsappLink}}"
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "text": "Guias de estrutura de torneio, níveis e blinds do {{unitLabel}} no app {{app}}. Conteúdo educativo, sem promessa de ganho.",
+            "links": [
+              {
+                "label": "Comece aqui",
+                "href": "/comece-aqui"
+              },
+              {
+                "label": "Glossário",
+                "href": "/glossario"
+              },
+              {
+                "label": "Jogo responsável",
+                "href": "/jogo-responsavel"
+              }
+            ],
+            "disclaimer": "Somente maiores de 18 anos. Jogue com responsabilidade."
+          }
+        }
+      ]
+    }
+  ]
+}
