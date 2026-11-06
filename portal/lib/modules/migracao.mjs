@@ -226,8 +226,15 @@ function aprovar({ db, body, user, origin, params }) {
   need(modelos.some((m) => m.id === body.modelo), 400, 'Escolha um dos modelos de mundo da SX.');
   const slug = slugify(`Clube-${numero}`);
   need(!db.prepare('SELECT 1 FROM tenants WHERE slug = ?').get(slug), 409, `Já existe uma operação com o número ${numero}.`);
-  const existente = db.prepare('SELECT id, email, is_super, pass FROM users WHERE email = ?').get(email);
+  const existente = db.prepare('SELECT id, email, name, is_super, pass FROM users WHERE email = ?').get(email);
   need(!existente?.is_super, 400, 'Esse e-mail é de um superadministrador. Use o e-mail do agente.');
+  const comSenha = Boolean(existente && existente.pass !== SEM_SENHA);
+  if (comSenha && body.confirmoMesmaPessoa !== true) {
+    // e-mail que já tem conta com senha: não vincula em silêncio; a tela mostra quem é e pede confirmação
+    const papeis = db.prepare('SELECT t.name, t.number, t.niche_id, t.edition, m.role FROM memberships m JOIN tenants t ON t.id = m.tenant_id WHERE m.user_id = ? ORDER BY t.created_at').all(existente.id)
+      .map((r) => ({ operacao: `${r.number ? `Clube ${r.number} · ` : ''}${r.name}`, edicao: r.edition, papel: r.role }));
+    throw new HttpError(409, 'Este e-mail já tem conta no portal. Confirme que é a mesma pessoa para vincular.', { contaExistente: { nome: existente.name, email: existente.email, papeis } });
+  }
   const code = slugify(codigo).replace(/-/g, '').slice(0, 20) || randomBytes(4).toString('hex');
 
   // 1. operação + site do modelo (createTenant: páginas só em rascunho, integrações pendentes)
@@ -261,6 +268,7 @@ function aprovar({ db, body, user, origin, params }) {
       .run(user.id, now(), tenant.id, codigo, afiliado.id, cand.id);
     writeAudit(db, { tenantId: tenant.id, userId: user.id, action: 'migracao.aprovar', target: cand.id,
       data: { modelo: body.modelo, numero, codigoAgente: codigo, usuario: userId, usuarioExistente: Boolean(existente), pagina: pagina?.id || null, kit: kit.length } });
+    if (comSenha) writeAudit(db, { tenantId: tenant.id, userId: user.id, action: 'migracao.conta_existente_confirmada', target: userId, data: { email, confirmadoPor: user.id } });
     if (acesso) writeAudit(db, { tenantId: tenant.id, userId: user.id, action: 'migracao.link_primeiro_acesso', target: userId, data: { expiraEm: acesso.expiraEm } });
     return { acesso, pagina, afiliado, kit };
   });
@@ -268,6 +276,13 @@ function aprovar({ db, body, user, origin, params }) {
     link: out.acesso?.link || null, expiraEm: out.acesso?.expiraEm || null, usuarioExistente: Boolean(existente && existente.pass !== SEM_SENHA),
     paginaPerguntas: out.pagina?.id || null, linkAgente: affiliateLink(origin, tenant.slug, code, { medium: 'link', campaign: 'migracao' }),
     nota: 'Nada foi publicado nem enviado. Copie o link e mande você mesmo, se quiser.' } };
+}
+
+// ---------- trava de publicação ----------
+/** Página de perguntas com a revisão do Kbsa pendente não pode ser publicada (gancho prePublish do servidor). */
+export function prePublish({ repo, page }) {
+  const rev = repo.get('migracao_revisoes', { page_id: page.id, status: 'aguardando_revisao' });
+  if (rev) throw new HttpError(409, 'Esta página espera a revisão do Kbsa.');
 }
 
 // ---------- rotas da API ----------

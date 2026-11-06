@@ -38,7 +38,7 @@ export async function createApp({ db, origin = 'http://localhost:3400', secretKe
   const loginLimit = rateLimiter(10, 15 * 60_000);
   const formLimit = rateLimiter(20, 10 * 60_000);
   const hookLimit = rateLimiter(600, 60_000);
-  const app = { db, origin, vault: vault(secretKey), moduleNav: [], publicRoutes: [], rootRoutes: [], mcpTools: [], sitemapExtras: [], aiRoutines: {}, fetchImpl,
+  const app = { db, origin, vault: vault(secretKey), moduleNav: [], publicRoutes: [], rootRoutes: [], prePublish: [], mcpTools: [], sitemapExtras: [], aiRoutines: {}, fetchImpl,
     edition: eds.default, editions: eds.editions, editionFor: (req) => eds.forRequest(req), serviceToken: serviceToken || null };
   app.originOf = (editionId) => (eds.editions[editionId] || eds.default).origin;
   app.tenantOrigin = (tenantId) => app.originOf(db.prepare('SELECT edition FROM tenants WHERE id = ?').get(tenantId)?.edition);
@@ -53,6 +53,7 @@ export async function createApp({ db, origin = 'http://localhost:3400', secretKe
       for (const r of mod.routes || []) routes.push({ ...r, match: compile(r.path) });
       for (const r of mod.publicRoutes || []) app.publicRoutes.push({ ...r, match: compile(r.path) });
       for (const r of mod.rootRoutes || []) app.rootRoutes.push({ ...r, match: compile(r.path) }); // páginas públicas na raiz da edição (ex.: /migrar na SX)
+      if (typeof mod.prePublish === 'function') app.prePublish.push(mod.prePublish); // trava antes de publicar página: lança HttpError para impedir
       if (mod.nav) app.moduleNav.push(...[].concat(mod.nav));
       if (mod.mcpTools) app.mcpTools.push(...mod.mcpTools);          // ferramentas que a IA do usuário pode usar
       if (mod.sitemapEntries) app.sitemapExtras.push(mod.sitemapEntries); // ({ site, tenant, repo }) => [{ path, lastmod }]

@@ -61,6 +61,9 @@ export async function init(app) { /* agendadores do módulo, se precisar; use ap
 Página pública na raiz da edição (PA-140): `export const rootRoutes = [{ method: 'GET', path: '/migrar', editions: ['sx'], handler: ({ req, res, url, params, db, app, edition, origin, send }) => ... }]`.
 Edição fora de `editions` cai no 404 do servidor. Item de menu só de uma edição: `nav.editions = ['sx']`.
 
+Trava antes de publicar página (PA-140): `export function prePublish({ repo, tenant, page, user }) { ... }`. Roda em `POST /api/t/:tenant/pages/:id/publish`
+antes de gravar; para impedir, lance `HttpError` (ex.: 409 "Esta página espera a revisão do Kbsa"). Não grave nada no gancho: ele só decide.
+
 `ctx` das rotas: `{ req, res, url, params, query, body, raw, user, role, tenant, repo, db, app, audit(action, target, data) }`.
 Retorne um objeto (JSON 200) ou `{ status, body, headers }`. Erro: `throw new HttpError(400, 'mensagem')` (de `lib/http.mjs`).
 

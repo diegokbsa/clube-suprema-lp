@@ -265,6 +265,7 @@ export const coreRoutes = [
     method: 'POST', path: '/api/t/:tenant/pages/:id/publish', perm: 'site.publish', handler: ({ repo, params, user, audit, app, tenant }) => {
       const p = repo.get('pages', params.id);
       need(p, 404, 'Página não encontrada.');
+      for (const fn of app.prePublish || []) fn({ repo, tenant, page: p, user }); // ganchos dos módulos (ex.: revisão pendente) podem impedir com HttpError
       const at = now();
       repo.update('pages', p.id, { published: p.draft, published_at: at });
       repo.insert('page_versions', { page_id: p.id, blocks: p.draft, note: 'publicada', created_by: user.id });

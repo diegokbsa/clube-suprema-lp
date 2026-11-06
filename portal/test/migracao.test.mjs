@@ -285,3 +285,38 @@ test('chave migracao.ativa pausa a trilha: /migrar não aceita candidatura e nad
   assert.equal((await enviar(SX.url, candidatura({ nome: 'Depois da Pausa' }))).status, 303);
   assert.ok(SX.db.prepare("SELECT 1 FROM audit WHERE action = 'migracao.config'").get());
 });
+
+test('e-mail que já tem conta com senha: 409 mostrando a conta; só vincula com a confirmação, gravada na auditoria', async () => {
+  await enviar(SX.url, candidatura({ nome: 'Dono Repetido', contato: 'dono@teste.local' }));
+  const c = ultimaCand(SX.db);
+  const dados = { nome: 'Clube Dono', numero: '20010', codigoAgente: 'ag-dono', email: 'dono@teste.local', modelo: 'sx-transmissao-clube' };
+  const r = await SX.sup.req('POST', `/api/admin/migracao/${c.id}/aprovar`, dados);
+  assert.equal(r.status, 409);
+  assert.match(r.data.error, /já tem conta no portal/);
+  assert.equal(r.data.contaExistente.email, 'dono@teste.local');
+  assert.ok(r.data.contaExistente.papeis.some((p) => p.papel === 'admin' && p.operacao.includes('30001')), 'mostra os papéis que a conta já tem');
+  assert.equal(SX.db.prepare("SELECT 1 FROM tenants WHERE slug = 'clube-20010'").get(), undefined, 'sem confirmação nada é criado');
+  assert.equal(ultimaCand(SX.db).status, 'nova');
+  const ok = await SX.sup.req('POST', `/api/admin/migracao/${c.id}/aprovar`, { ...dados, confirmoMesmaPessoa: true });
+  assert.equal(ok.status, 201, JSON.stringify(ok.data));
+  assert.equal(ok.data.link, null, 'conta com senha não ganha link de primeiro acesso');
+  const t = SX.db.prepare("SELECT id FROM tenants WHERE slug = 'clube-20010'").get();
+  const u = SX.db.prepare("SELECT id FROM users WHERE email = 'dono@teste.local'").get();
+  assert.equal(SX.db.prepare('SELECT role FROM memberships WHERE user_id = ? AND tenant_id = ?').get(u.id, t.id).role, 'admin');
+  const a = SX.db.prepare("SELECT * FROM audit WHERE action = 'migracao.conta_existente_confirmada' AND tenant_id = ?").get(t.id);
+  assert.ok(a, 'auditoria da confirmação');
+  assert.equal(a.user_id, SX.db.prepare("SELECT id FROM users WHERE email = 'super@teste.local'").get().id, 'grava quem confirmou');
+});
+
+test('trava no servidor: a página de perguntas não publica enquanto a revisão do Kbsa estiver pendente', async () => {
+  const sites = (await SX.sup.req('GET', '/api/t/clube-20003/sites')).data.sites;
+  const pages = sites[0].pages;
+  const faq = pages.find((p) => p.slug === FAQ_SLUG);
+  const r = await SX.sup.req('POST', `/api/t/clube-20003/pages/${faq.id}/publish`);
+  assert.equal(r.status, 409);
+  assert.equal(r.data.error, 'Esta página espera a revisão do Kbsa.');
+  assert.equal(SX.db.prepare('SELECT published FROM pages WHERE id = ?').get(faq.id).published, null);
+  assert.equal((await SX.sup.req('POST', `/api/t/clube-20003/pages/${pages[0].id}/publish`)).status, 200, 'as outras páginas publicam normalmente');
+  assert.equal((await SX.sup.req('POST', '/api/t/clube-20003/migracao/perguntas/revisar')).status, 200);
+  assert.equal((await SX.sup.req('POST', `/api/t/clube-20003/pages/${faq.id}/publish`)).status, 200, 'depois da revisão publica');
+});
