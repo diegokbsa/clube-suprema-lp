@@ -1,0 +1,730 @@
+/* Mundo "Relógio de blinds": pele escopada em body[data-world="relogio"].
+   Painel de torneio: preto sólido nos momentos decisivos (relógio, caixa do PIX, registro), fios finos, numerais Antonio,
+   legendas Montserrat em caixa-alta. Cores só pelas variáveis do tema (o dono troca no painel); tons derivados com color-mix(). */
+
+body[data-world="relogio"] {
+  --rl-painel: var(--surface);
+  --rl-fundo2: color-mix(in srgb, var(--bg) 93%, var(--primary));
+  --rl-linha: var(--border);
+  --rl-forte: color-mix(in srgb, var(--border) 76%, var(--primary));
+  --rl-cobre: color-mix(in srgb, var(--primary) 80%, var(--bg));
+  --rl-ouro: var(--accent);
+  --rl-vivo: #3fb878;
+  --rl-erro: #f08a6c;
+  --rl-gutter: 16px;
+  --rl-num: var(--font-head);
+  background: var(--bg);
+  color: var(--text);
+  font: 500 1rem/1.6 var(--font);
+  caret-color: var(--primary);
+  font-variant-numeric: tabular-nums;
+}
+@media (min-width: 768px) { body[data-world="relogio"] { --rl-gutter: 32px; } }
+html:has(body[data-world="relogio"]) { scrollbar-color: var(--rl-cobre) var(--bg); scroll-padding-top: 84px; }
+body[data-world="relogio"] ::selection { background: var(--primary); color: var(--primary-text); }
+body[data-world="relogio"] ::-webkit-scrollbar { width: 10px; height: 10px; }
+body[data-world="relogio"] ::-webkit-scrollbar-track { background: var(--bg); }
+body[data-world="relogio"] ::-webkit-scrollbar-thumb { background: var(--rl-forte); border: 2px solid var(--bg); }
+body[data-world="relogio"] ::-webkit-scrollbar-thumb:hover { background: var(--rl-cobre); }
+body[data-world="relogio"] svg { display: block; }
+body[data-world="relogio"] :focus-visible,
+body[data-world="relogio"] a:focus-visible,
+body[data-world="relogio"] button:focus-visible,
+body[data-world="relogio"] summary:focus-visible { outline: 2px solid var(--rl-ouro); outline-offset: 3px; }
+body[data-world="relogio"] h1, body[data-world="relogio"] h2, body[data-world="relogio"] h3 {
+  font-family: var(--rl-num); font-weight: 700; text-transform: uppercase; letter-spacing: .005em; margin: 0; text-wrap: balance; }
+body[data-world="relogio"] p { margin: 0; }
+body[data-world="relogio"] b { font-weight: 700; color: var(--rl-ouro); }
+body[data-world="relogio"] .wrap, body[data-world="relogio"] .wrap.narrow { width: auto; max-width: 1320px; margin-inline: auto; padding-inline: var(--rl-gutter); }
+body[data-world="relogio"] .b { padding-block: 72px; }
+body[data-world="relogio"] .b + .b { border-top: 1px solid var(--rl-linha); }
+@media (max-width: 899px) { body[data-world="relogio"] .b { padding-block: 56px; } }
+body[data-world="relogio"] [hidden] { display: none !important; }
+.rl-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* rótulos, selos, links */
+body[data-world="relogio"] .rl-rot, body[data-world="relogio"] .eyebrow {
+  font: 700 .72rem/1.2 var(--font); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin: 0; }
+body[data-world="relogio"] .rl-ouro { color: var(--rl-ouro); }
+.rl-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--rl-vivo); flex: none; }
+body[data-world="relogio"] .rl-tag, body[data-world="relogio"] .tag, body[data-world="relogio"] .badge {
+  display: inline-block; margin: 8px 0 0; padding: 3px 7px; border: 1px solid var(--rl-cobre); border-radius: 0; background: transparent;
+  font: 700 .66rem/1.2 var(--font); letter-spacing: .12em; text-transform: uppercase; color: var(--rl-ouro); }
+.rl-r18 { display: inline-flex; align-items: center; gap: 10px; color: var(--text); font-weight: 600; font-size: .82rem; }
+body[data-world="relogio"] .rl-r18 b { font: 700 1rem/1 var(--rl-num); padding: 3px 6px; border: 1px solid var(--rl-ouro); color: var(--rl-ouro); }
+.rl-r18-linha { margin-top: 22px !important; }
+.rl-link { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; color: var(--rl-ouro); font-weight: 700; text-decoration: underline;
+  text-decoration-color: var(--rl-cobre); text-underline-offset: 4px; text-decoration-thickness: 1px; }
+.rl-link svg { width: 15px; height: 15px; transition: transform .18s cubic-bezier(.16, 1, .3, 1); }
+.rl-link:hover { color: var(--text); text-decoration-color: var(--rl-ouro); }
+.rl-link:hover svg { transform: translateX(3px); }
+.rl-nota { margin-top: 18px !important; font-size: .86rem; color: var(--muted); max-width: 72ch; }
+.rl-acoes { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 26px; }
+
+/* botões (todos os blocos) */
+body[data-world="relogio"] .btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: .6em; min-height: 52px; padding: 0 1.6em; border: 1px solid transparent; border-radius: 0;
+  background: var(--primary); color: var(--primary-text); font: 800 1rem/1 var(--font); letter-spacing: .04em; text-transform: uppercase; text-decoration: none;
+  cursor: pointer; filter: none; transform: none; transition: background-color .18s ease-out, color .18s ease-out, border-color .18s ease-out; }
+body[data-world="relogio"] .btn:hover { background: var(--rl-ouro); filter: none; transform: none; }
+body[data-world="relogio"] .btn:active { background: var(--rl-cobre); }
+body[data-world="relogio"] .btn[disabled] { background: var(--rl-forte); color: var(--muted); cursor: progress; }
+body[data-world="relogio"] .btn-sm { min-height: 44px; padding: 0 1.1em; font-size: .82rem; }
+body[data-world="relogio"] .btn-lg { min-height: 60px; font-size: 1.05rem; }
+body[data-world="relogio"] .btn-ghost, body[data-world="relogio"] .btn-linha { background: transparent; color: var(--rl-ouro); border-color: var(--rl-cobre); }
+body[data-world="relogio"] .btn-ghost:hover, body[data-world="relogio"] .btn-linha:hover { background: var(--rl-fundo2); color: var(--text); border-color: var(--rl-ouro); }
+.rl-copiar { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 14px; border: 1px solid var(--rl-cobre); border-radius: 0; background: transparent;
+  color: var(--rl-ouro); font: 700 .75rem/1 var(--font); letter-spacing: .1em; text-transform: uppercase; cursor: pointer; transition: background-color .15s ease-out, color .15s ease-out; }
+.rl-copiar svg { width: 15px; height: 15px; }
+.rl-copiar:hover { background: var(--rl-fundo2); color: var(--text); }
+.rl-copiar.ok { color: var(--rl-vivo); border-color: var(--rl-vivo); }
+
+/* ---------- cabeçalho de seção ---------- */
+.rl-cab { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 16px 48px; align-items: end; margin-bottom: 36px; }
+body[data-world="relogio"] .rl-cab h2 { font-size: clamp(2.4rem, 5.4vw, 4.6rem); line-height: .95; }
+.rl-cab-txt { max-width: 58ch; color: var(--muted); font-size: 1.02rem; }
+.rl-cab-txt p + p { margin-top: .8em; }
+body[data-world="relogio"] .rl-cab-txt b { color: var(--text); }
+@media (max-width: 899px) { .rl-cab { grid-template-columns: 1fr; margin-bottom: 28px; } }
+
+/* ---------- monitor (painel preto) ---------- */
+.rl-mon { background: var(--rl-painel); border: 1px solid var(--rl-forte); }
+body[data-world="relogio"] .rl-monitor, body[data-world="relogio"] .rl-painel, body[data-world="relogio"] .rl-caixa.v-destaque,
+body[data-world="relogio"] .rl-cabecalho { padding-block: 20px 56px; border-top: 0; }
+.rl-mon-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; padding: 22px 28px 20px; border-bottom: 1px solid var(--rl-linha); }
+body[data-world="relogio"] .rl-mon-head h1 { font-size: clamp(2.1rem, 4.2vw, 3.9rem); line-height: .98; color: var(--text); }
+.rl-sub { margin-top: 12px !important; max-width: 62ch; font-weight: 600; font-size: clamp(.98rem, 1.3vw, 1.12rem); line-height: 1.45; color: var(--text); }
+.rl-vivo { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; flex: none; text-align: right; }
+.rl-vivo .rl-rot { display: flex; align-items: center; gap: 8px; color: var(--text); }
+.rl-hora { font: 700 2.4rem/1 var(--rl-num); color: var(--text); }
+.rl-vivo small { font-size: .75rem; color: var(--muted); }
+
+.rl-mon-body { display: grid; grid-template-columns: minmax(210px, 1fr) minmax(0, 2.5fr) minmax(210px, 1fr); grid-template-areas: "esq centro dir" "esq centro acao"; }
+.rl-esq { grid-area: esq; border-right: 1px solid var(--rl-linha); }
+.rl-dir { grid-area: dir; border-left: 1px solid var(--rl-linha); }
+.rl-acao { grid-area: acao; border-left: 1px solid var(--rl-linha); padding: 20px 22px 24px; display: flex; flex-direction: column; justify-content: flex-end; gap: 10px; }
+.rl-acao .btn { width: 100%; }
+.rl-acao p { font-size: .82rem; line-height: 1.45; color: var(--muted); }
+.rl-dado { padding: 18px 22px; border-bottom: 1px solid var(--rl-linha); }
+.rl-dado:last-child { border-bottom: 0; }
+.rl-dado .v { margin-top: 8px; font: 700 2.1rem/1.02 var(--rl-num); color: var(--text); overflow-wrap: anywhere; }
+.rl-dado .v.ouro, .rl-fita .v.ouro { color: var(--rl-ouro); }
+.rl-dado .n { margin-top: 6px; font-size: .82rem; color: var(--muted); }
+
+.rl-centro { grid-area: centro; container-type: inline-size; padding: 22px 28px 0; display: flex; flex-direction: column; min-width: 0; }
+.rl-relogio { margin: 6px 0 0; font: 700 min(31cqi, 15rem)/.86 var(--rl-num); color: var(--primary); letter-spacing: .005em; white-space: nowrap; text-align: center; }
+.rl-relogio.longo { font-size: min(20.5cqi, 11.5rem); }
+.rl-relogio .sep { color: var(--rl-cobre); }
+.rl-relogio .un { font-size: .32em; letter-spacing: .02em; color: var(--rl-cobre); margin-left: .06em; }
+.rl-fita { display: grid; grid-template-columns: .8fr 1fr 1.6fr; margin: 22px -28px 0; border-top: 1px solid var(--rl-linha); }
+.rl-fita > div { padding: 14px 20px 18px; border-right: 1px solid var(--rl-linha); min-width: 0; }
+.rl-fita > div:last-child { border-right: 0; }
+.rl-fita .v { margin-top: 6px; font: 700 1.75rem/1.05 var(--rl-num); color: var(--text); overflow-wrap: anywhere; }
+.rl-fita .n { margin-top: 4px; font-size: .8rem; color: var(--muted); }
+.rl-fita .prox .rl-rot { color: var(--rl-ouro); }
+.rl-mon-foot { display: flex; justify-content: space-between; align-items: center; gap: 12px 24px; flex-wrap: wrap; padding: 12px 28px; border-top: 1px solid var(--rl-linha); font-size: .8rem; color: var(--muted); }
+
+/* saguão: relógio à esquerda, a fila dos próximos à direita */
+.rl-monitor.v-saguao .rl-mon-body { grid-template-columns: minmax(0, 2.3fr) minmax(300px, 1fr); grid-template-areas: "centro fila"; }
+.rl-fita-4 { grid-template-columns: 1.4fr 1fr .8fr 1fr; }
+.rl-fila { grid-area: fila; border-left: 1px solid var(--rl-linha); display: flex; flex-direction: column; padding-top: 22px; }
+.rl-fila > .rl-rot { padding: 0 22px 12px; color: var(--rl-ouro); }
+.rl-fila ol { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--rl-linha); flex: 1; }
+.rl-fila li { display: grid; grid-template-columns: 62px minmax(0, 1fr) auto; gap: 12px; align-items: baseline; padding: 12px 22px; border-bottom: 1px solid var(--rl-linha); }
+.rl-fila .h { font: 700 1.35rem/1 var(--rl-num); color: var(--text); }
+.rl-fila .nm { font: 700 1.1rem/1.15 var(--rl-num); text-transform: uppercase; letter-spacing: .01em; min-width: 0; overflow-wrap: anywhere; }
+.rl-fila .nm small { display: block; margin-top: 3px; font: 600 .74rem/1.3 var(--font); text-transform: none; letter-spacing: 0; color: var(--muted); }
+.rl-fila .g { font: 700 1.1rem/1 var(--rl-num); color: var(--rl-ouro); white-space: nowrap; }
+.rl-fila .rl-acao { grid-area: auto; border-left: 0; }
+.rl-monitor.v-saguao .rl-centro { padding-bottom: 0; }
+.rl-monitor.v-saguao .rl-relogio { margin-block: auto; padding-block: 18px 8px; font-size: min(30cqi, 17rem); }
+.rl-monitor.v-saguao .rl-relogio.longo { font-size: min(21cqi, 12.5rem); }
+
+/* tv: o relógio do salão, simétrico */
+.rl-monitor.v-tv .rl-mon-body { grid-template-columns: minmax(200px, 1fr) minmax(0, 2.6fr) minmax(200px, 1fr); grid-template-areas: "topo topo topo" "esq centro dir" "base base base"; }
+.rl-tv-topo { grid-area: topo; display: flex; flex-wrap: wrap; align-items: baseline; justify-content: center; gap: 6px 16px; padding: 18px 28px; border-bottom: 1px solid var(--rl-linha); text-align: center; }
+.rl-tv-topo .v { font: 700 clamp(1.8rem, 3vw, 2.6rem)/1 var(--rl-num); text-transform: uppercase; color: var(--rl-ouro); }
+.rl-tv-topo .n { font-size: .85rem; color: var(--muted); }
+body[data-world="relogio"] .rl-tv-topo .rl-tag { margin: 0; }
+.rl-monitor.v-tv .rl-centro { padding: 26px 24px 30px; justify-content: center; }
+.rl-monitor.v-tv .rl-relogio { font-size: min(33cqi, 17rem); }
+.rl-monitor.v-tv .rl-relogio.longo { font-size: min(22cqi, 12.5rem); }
+.rl-monitor.v-tv .rl-centro > .rl-rot { text-align: center; }
+.rl-tv-base { grid-area: base; display: grid; grid-template-columns: 1fr 1.6fr 1fr; border-top: 1px solid var(--rl-linha); }
+.rl-tv-base > .rl-dado { border-bottom: 0; border-right: 1px solid var(--rl-linha); }
+.rl-tv-base .rl-acao { grid-area: auto; border-left: 0; justify-content: center; }
+
+@media (max-width: 899px) {
+  .rl-mon-head { flex-direction: column; align-items: stretch; padding: 18px 16px 16px; gap: 14px; }
+  .rl-vivo { flex-direction: row; flex-wrap: wrap; align-items: center; justify-content: space-between; text-align: left; border-top: 1px solid var(--rl-linha); padding-top: 12px; }
+  .rl-hora { font-size: 1.5rem; }
+  .rl-vivo small { display: none !important; }
+  .rl-mon-body { grid-template-columns: 1fr 1fr; grid-template-areas: "centro centro" "acao acao" "esq dir"; }
+  .rl-centro { padding: 16px 16px 0; }
+  .rl-fita { margin: 18px -16px 0; grid-template-columns: 1fr 1fr; }
+  .rl-fita > div { padding: 12px 16px 14px; }
+  .rl-fita .prox { grid-column: 1 / -1; border-top: 1px solid var(--rl-linha); border-right: 0; }
+  .rl-fita > div:nth-child(2) { border-right: 0; }
+  .rl-acao { border-left: 0; border-top: 1px solid var(--rl-linha); padding: 14px 16px 16px; }
+  .rl-esq { border-right: 1px solid var(--rl-linha); border-top: 1px solid var(--rl-linha); }
+  .rl-dir { border-left: 0; border-top: 1px solid var(--rl-linha); }
+  /* as duas colunas de leituras dividem a altura igual: os fios de cada lado ficam na mesma linha */
+  .rl-esq, .rl-dir { display: flex; flex-direction: column; }
+  .rl-esq > .rl-dado, .rl-dir > .rl-dado { flex: 1 1 0; }
+  .rl-dado { padding: 14px 16px; }
+  .rl-dado .v { font-size: 1.55rem; }
+  .rl-mon-foot { padding: 12px 16px; }
+  .rl-monitor.v-saguao .rl-mon-body { grid-template-columns: 1fr; grid-template-areas: "centro" "fila"; }
+  .rl-fita-4 { grid-template-columns: 1fr 1fr; }
+  .rl-fita-4 > div:nth-child(n+3) { border-top: 1px solid var(--rl-linha); }
+  .rl-fita-4 > div:nth-child(2) { border-right: 0; }
+  .rl-fita-4 > div:nth-child(3) { border-right: 1px solid var(--rl-linha); }
+  .rl-fila { border-left: 0; border-top: 1px solid var(--rl-linha); padding-top: 16px; }
+  .rl-fila > .rl-rot { padding: 0 16px 10px; }
+  .rl-fila li { grid-template-columns: 52px minmax(0, 1fr) auto; padding: 11px 16px; }
+  .rl-fila .rl-acao { border-top: 0; }
+  .rl-monitor.v-tv .rl-mon-body { grid-template-columns: 1fr 1fr; grid-template-areas: "topo topo" "centro centro" "esq dir" "base base"; }
+  .rl-tv-topo { padding: 14px 16px; justify-content: flex-start; text-align: left; }
+  .rl-monitor.v-tv .rl-centro { padding: 18px 16px 20px; border-bottom: 1px solid var(--rl-linha); }
+  .rl-monitor.v-tv .rl-relogio { font-size: min(31cqi, 15rem); }
+  .rl-tv-base { grid-template-columns: 1fr; }
+  .rl-tv-base > .rl-dado { border-right: 0; border-bottom: 1px solid var(--rl-linha); }
+  .rl-monitor.v-tv .rl-esq, .rl-monitor.v-tv .rl-dir { border-top: 0; }
+}
+
+/* ---------- painel de parceria (ficha técnica) ---------- */
+.rl-painel-corpo { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(300px, 1fr); }
+.rl-painel-copy { padding: 34px 32px 34px; display: flex; flex-direction: column; justify-content: space-between; gap: 24px; }
+body[data-world="relogio"] .rl-painel-copy h1 { font-size: clamp(2.6rem, 5.6vw, 5.6rem); line-height: .92; }
+.rl-painel-copy .rl-sub { font-size: clamp(1rem, 1.4vw, 1.18rem); }
+.rl-painel-copy .rl-acoes { margin-top: 0; }
+.rl-ficha { border-left: 1px solid var(--rl-linha); display: flex; flex-direction: column; }
+.rl-ficha .rl-vivo { flex-direction: row; align-items: center; justify-content: space-between; padding: 18px 22px; border-bottom: 1px solid var(--rl-forte); text-align: left; }
+.rl-ficha .rl-vivo small { display: none; }
+.rl-ficha .rl-hora { font-size: 1.9rem; }
+.rl-ficha dl { margin: 0; flex: 1; display: flex; flex-direction: column; }
+.rl-ficha dl > div { flex: 1; display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 2px 16px; padding: 16px 22px; border-bottom: 1px solid var(--rl-linha); }
+.rl-ficha dl > div:last-child { border-bottom: 0; }
+.rl-ficha dd { margin: 0; }
+.rl-ficha dd.vv { grid-column: 2; grid-row: 1 / span 2; font: 700 2.3rem/1 var(--rl-num); color: var(--primary); text-align: right; }
+.rl-ficha dd.n { grid-column: 1; font-size: .84rem; color: var(--muted); }
+@media (max-width: 899px) {
+  .rl-painel-corpo { grid-template-columns: 1fr; }
+  .rl-painel-copy { padding: 22px 16px 24px; }
+  .rl-ficha { border-left: 0; border-top: 1px solid var(--rl-linha); }
+  .rl-ficha .rl-vivo, .rl-ficha dl > div { padding: 14px 16px; }
+  .rl-ficha dd.vv { font-size: 1.9rem; }
+  .rl-painel-copy .rl-acoes .btn { flex: 1 1 100%; }
+}
+
+/* ---------- cabeçalho de página interna ---------- */
+/* o painel do cabeçalho já fecha a primeira tela: a seção seguinte encosta nele, sem fio e sem o vão duplo */
+body[data-world="relogio"] .rl-cabecalho + .b { border-top: 0; padding-top: 8px; }
+.rl-cab-corpo { display: grid; grid-template-columns: minmax(0, 2fr) minmax(240px, 1fr); }
+.rl-cab-copy { padding: 30px 28px 32px; }
+body[data-world="relogio"] .rl-cab-copy h1 { font-size: clamp(2.5rem, 5.4vw, 5rem); line-height: .93; }
+.rl-cab-copy .rl-sub { max-width: 64ch; margin-top: 16px !important; }
+.rl-cab-leituras { margin: 0; border-left: 1px solid var(--rl-linha); display: flex; flex-direction: column; }
+.rl-cab-leituras > div { flex: 1; padding: 18px 22px; border-bottom: 1px solid var(--rl-linha); display: flex; flex-direction: column; justify-content: center; }
+.rl-cab-leituras > div:last-child { border-bottom: 0; }
+.rl-cab-leituras dd { margin: 8px 0 0; font: 700 2rem/1.02 var(--rl-num); color: var(--primary); overflow-wrap: anywhere; }
+@media (max-width: 899px) {
+  .rl-cab-corpo { grid-template-columns: 1fr; }
+  .rl-cab-copy { padding: 20px 16px 22px; }
+  .rl-cab-leituras { border-left: 0; border-top: 1px solid var(--rl-linha); }
+  .rl-cab-leituras > div { flex-direction: row; align-items: baseline; justify-content: space-between; gap: 16px; padding: 13px 16px; }
+  .rl-cab-leituras dt { flex: none; }
+  .rl-cab-leituras dd { margin: 0; font-size: 1.5rem; text-align: right; min-width: 0; overflow-wrap: normal; }
+}
+
+/* ---------- caixa do PIX ---------- */
+.rl-pix { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 48px; align-items: start; }
+.rl-passos { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--rl-linha); counter-reset: p; }
+.rl-passos li { padding: 18px 0 18px 46px; border-bottom: 1px solid var(--rl-linha); max-width: 60ch; position: relative; counter-increment: p; }
+.rl-passos li::before { content: counter(p); position: absolute; left: 0; top: 16px; font: 700 1.9rem/1 var(--rl-num); color: var(--primary); }
+.rl-passos strong, .rl-passos-fita strong { display: block; font: 700 1.35rem/1.15 var(--rl-num); text-transform: uppercase; letter-spacing: .01em; color: var(--text); margin-bottom: 4px; }
+.rl-passos span, .rl-passos-fita span { color: var(--muted); }
+.rl-quadro { background: var(--rl-painel); border: 1px solid var(--rl-forte); }
+body[data-world="relogio"] .rl-quadro h3 { padding: 18px 22px; border-bottom: 1px solid var(--rl-linha); font-size: 1.5rem; line-height: 1.1; }
+.rl-quadro dl, .rl-caixa-dados dl { margin: 0; }
+.rl-linha-caixa { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 4px 16px; padding: 16px 22px; border-bottom: 1px solid var(--rl-linha); }
+.rl-linha-caixa dt { grid-column: 1 / -1; }
+.rl-linha-caixa dd { margin: 0; font: 700 2.6rem/1 var(--rl-num); color: var(--primary); overflow-wrap: anywhere; min-width: 0; }
+.rl-linha-caixa dd.txt { font: 600 1rem/1.4 var(--font); color: var(--text); }
+.rl-quadro .pe { padding: 18px 22px 22px; display: flex; flex-direction: column; gap: 12px; }
+.rl-quadro .pe p { font-size: .86rem; color: var(--muted); }
+@media (max-width: 899px) { .rl-pix { grid-template-columns: 1fr; gap: 32px; } .rl-linha-caixa { padding: 14px 16px; } body[data-world="relogio"] .rl-quadro h3 { padding: 16px; } .rl-quadro .pe { padding: 16px; } .rl-linha-caixa dd { font-size: 2.2rem; } }
+
+/* caixa como primeira tela (canal de fichas) */
+.rl-caixa-corpo { display: grid; grid-template-columns: minmax(0, 2.4fr) minmax(240px, 1fr); }
+.rl-caixa-dados { padding: 20px 0 0; min-width: 0; }
+.rl-caixa-dados > .rl-rot { padding: 0 28px 14px; }
+.rl-caixa-dados dl { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--rl-linha); }
+.rl-caixa-dados .rl-linha-caixa { container-type: inline-size; grid-template-columns: 1fr; align-content: start; gap: 10px; padding: 18px 28px 24px; border-bottom: 0; border-right: 1px solid var(--rl-linha); }
+.rl-caixa-dados .rl-linha-caixa:last-child { border-right: 0; }
+.rl-caixa-dados dd.nb { font-size: min(33cqi, 7rem); line-height: .88; }
+.rl-caixa-dados dd.txt { font-size: 1.02rem; max-width: 26ch; }
+.rl-caixa-dados .rl-copiar { justify-self: start; }
+.rl-caixa-corpo .rl-acao { grid-area: auto; justify-content: center; }
+.rl-passos-fita { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--rl-linha); counter-reset: p; }
+.rl-passos-fita li { padding: 16px 22px 20px; border-right: 1px solid var(--rl-linha); counter-increment: p; min-width: 0; }
+.rl-passos-fita li:last-child { border-right: 0; }
+.rl-passos-fita li::before { content: counter(p); display: block; margin-bottom: 8px; font: 700 1.1rem/1 var(--rl-num); color: var(--primary); }
+.rl-passos-fita strong { font-size: 1.2rem; }
+.rl-passos-fita span { font-size: .88rem; line-height: 1.45; display: block; }
+@media (max-width: 899px) {
+  .rl-caixa-corpo { grid-template-columns: 1fr; }
+  .rl-caixa-dados { padding-top: 16px; }
+  .rl-caixa-dados > .rl-rot { padding: 0 16px 12px; }
+  .rl-caixa-dados dl { grid-template-columns: 1fr 1fr; }
+  .rl-caixa-dados .rl-linha-caixa { padding: 14px 16px 18px; }
+  .rl-caixa-dados .rl-linha-caixa:nth-child(2) { border-right: 0; }
+  .rl-caixa-dados .rl-linha-caixa:nth-child(3) { grid-column: 1 / -1; border-top: 1px solid var(--rl-linha); border-right: 0; }
+  .rl-passos-fita { grid-template-columns: 1fr 1fr; }
+  .rl-passos-fita li { padding: 14px 16px 16px; }
+  .rl-passos-fita li:nth-child(2n) { border-right: 0; }
+  .rl-passos-fita li:nth-child(n+3) { border-top: 1px solid var(--rl-linha); }
+}
+
+/* ---------- tabelas: grade, estrutura, níveis ---------- */
+body[data-world="relogio"] .rl-tabela, body[data-world="relogio"] .rl-passo, body[data-world="relogio"] .rl-tabela-niveis {
+  width: 100%; min-width: 0; border-collapse: collapse; border-top: 1px solid var(--rl-forte); }
+body[data-world="relogio"] .rl-tabela th, body[data-world="relogio"] .rl-passo th, body[data-world="relogio"] .rl-tabela-niveis th {
+  padding: 12px 16px 12px 0; text-align: left; border-bottom: 1px solid var(--rl-forte); background: none; }
+body[data-world="relogio"] .rl-tabela td, body[data-world="relogio"] .rl-tabela-niveis td { padding: 14px 16px 14px 0; border-bottom: 1px solid var(--rl-linha); vertical-align: middle; }
+body[data-world="relogio"] .rl-tabela .num { text-align: right; padding-right: 0; padding-left: 16px; }
+.rl-tabela tbody tr { transition: background-color .15s ease-out; }
+.rl-tabela tbody tr:not(.rl-dia):hover { background: var(--rl-fundo2); }
+.rl-tabela .h { width: 110px; font: 700 2rem/1 var(--rl-num); color: var(--text); }
+.rl-tabela .nome { font: 700 1.3rem/1.15 var(--rl-num); text-transform: uppercase; letter-spacing: .01em; }
+body[data-world="relogio"] .rl-tabela .rl-tag { margin: 0 0 0 10px; vertical-align: 3px; }
+.rl-tabela .mod { display: block; margin-top: 3px; font: 600 .78rem/1.3 var(--font); color: var(--muted); }
+.rl-tabela .st { display: inline-flex; align-items: center; gap: 6px; margin-left: 10px; font: 700 .66rem/1 var(--font); letter-spacing: .12em; text-transform: uppercase; vertical-align: 2px; color: var(--muted); }
+.rl-tabela .st.aberto { color: var(--rl-vivo); }
+.rl-tabela .st.prox { color: var(--primary-text); background: var(--primary); padding: 4px 6px; }
+.rl-tabela .gar { font: 700 1.5rem/1 var(--rl-num); color: var(--rl-ouro); white-space: nowrap; }
+.rl-tabela .buy { font: 700 1.3rem/1 var(--rl-num); white-space: nowrap; }
+.rl-tabela tr.passou { opacity: .5; }
+.rl-tabela tr.e-prox { background: var(--rl-fundo2); }
+.rl-tabela tr.e-prox .h { color: var(--primary); }
+body[data-world="relogio"] .rl-tabela .rl-dia th { padding: 26px 0 10px; font: 700 1.6rem/1 var(--rl-num); text-transform: uppercase; color: var(--primary); letter-spacing: .02em; border-bottom: 1px solid var(--rl-forte); }
+body[data-world="relogio"] .rl-tabela tbody tr.rl-dia:first-child th { padding-top: 18px; }
+.rl-grade-pe { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; margin-top: 22px; font-size: .88rem; color: var(--muted); }
+.rl-grade.v-compacta .rl-tabela .h { width: 90px; font-size: 1.6rem; }
+.rl-grade.v-compacta .rl-tabela .nome { font-size: 1.15rem; }
+@media (max-width: 767px) {
+  body[data-world="relogio"] .rl-tabela thead { display: none; }
+  body[data-world="relogio"] .rl-tabela tr { display: grid; grid-template-columns: 62px minmax(0, 1fr) auto; grid-template-areas: "h nome gar" "h nome buy"; column-gap: 12px; padding: 14px 2px; border-bottom: 1px solid var(--rl-linha); }
+  body[data-world="relogio"] .rl-tabela tr.rl-dia { display: block; padding: 0; }
+  body[data-world="relogio"] .rl-tabela .rl-dia th { display: block; }
+  body[data-world="relogio"] .rl-tabela td { padding: 0; border: 0; }
+  .rl-tabela .h { grid-area: h; width: auto !important; font-size: 1.45rem !important; }
+  .rl-tabela td.t { grid-area: nome; min-width: 0; }
+  .rl-tabela td.g { grid-area: gar; }
+  .rl-tabela td.b { grid-area: buy; padding-top: 4px !important; }
+  body[data-world="relogio"] .rl-tabela td.num { padding-left: 0; }
+  .rl-tabela .nome { font-size: 1.08rem !important; }
+  body[data-world="relogio"] .rl-tabela .rl-tag { margin: 6px 0 0; display: table; }
+  .rl-tabela .gar { font-size: 1.15rem; }
+  .rl-tabela .buy { font-size: .95rem; color: var(--muted); }
+  .rl-tabela .st { display: flex; margin: 6px 0 0; width: max-content; }
+}
+
+/* estrutura em níveis (passo a passo) */
+body[data-world="relogio"] .rl-passo td { padding: 26px 24px 26px 0; border-bottom: 1px solid var(--rl-linha); vertical-align: top; }
+body[data-world="relogio"] .rl-passo th.num { text-align: right; padding-right: 0; }
+.rl-passo .niv { width: 150px; font: 700 5.2rem/.8 var(--rl-num); color: var(--primary); }
+.rl-passo .niv small { display: block; margin-top: 10px; font: 700 .66rem/1 var(--font); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+body[data-world="relogio"] .rl-passo h3 { font-size: 1.7rem; line-height: 1.1; letter-spacing: .01em; }
+.rl-passo td p { margin-top: 8px; max-width: 62ch; color: color-mix(in srgb, var(--text) 88%, var(--bg)); }
+body[data-world="relogio"] .rl-passo td.tempo { width: 190px; font: 700 1.6rem/1.1 var(--rl-num); color: var(--rl-ouro); text-align: right; padding-right: 0; }
+.rl-passo .tempo small { display: block; margin-top: 4px; font: 600 .78rem/1.3 var(--font); color: var(--muted); }
+body[data-world="relogio"] .rl-passo .rl-intervalo td { background: var(--rl-fundo2); padding-block: 16px; }
+body[data-world="relogio"] .rl-passo .rl-intervalo .niv { font: 700 1.15rem/1 var(--rl-num); letter-spacing: .06em; color: var(--rl-ouro); padding-left: 16px; text-transform: uppercase; }
+body[data-world="relogio"] .rl-passo .rl-intervalo h3 { font-size: 1.2rem; }
+.rl-passo .rl-intervalo p { margin: 0; }
+.rl-passo .rl-intervalo h3 + p { margin-top: 6px; }
+@media (max-width: 767px) {
+  body[data-world="relogio"] .rl-passo thead { display: none; }
+  body[data-world="relogio"] .rl-passo tr { display: grid; grid-template-columns: 64px minmax(0, 1fr); column-gap: 14px; padding: 22px 0; border-bottom: 1px solid var(--rl-linha); }
+  body[data-world="relogio"] .rl-passo td { padding: 0; border: 0; }
+  .rl-passo .niv { width: auto; grid-row: 1 / span 2; font-size: 3.6rem; }
+  body[data-world="relogio"] .rl-passo h3 { font-size: 1.4rem; }
+  body[data-world="relogio"] .rl-passo td.tempo { width: auto; text-align: left; margin-top: 12px; font-size: 1.3rem; padding: 0; }
+  .rl-passo .tempo small { display: inline; margin-left: 8px; }
+  body[data-world="relogio"] .rl-passo .rl-intervalo { background: var(--rl-fundo2); padding: 16px 14px; grid-template-columns: 1fr; row-gap: 8px; }
+  body[data-world="relogio"] .rl-passo .rl-intervalo td { background: none; padding: 0; }
+  body[data-world="relogio"] .rl-passo .rl-intervalo .niv { grid-row: auto; padding-left: 0; }
+}
+
+/* estrutura de blinds */
+.rl-tabela-niveis .lv { width: 110px; font: 700 2.2rem/1 var(--rl-num); color: var(--primary); }
+.rl-tabela-niveis .bl { width: 34%; }
+.rl-tabela-niveis .bl span { font: 700 1.6rem/1 var(--rl-num); }
+.rl-barra { display: block; height: 3px; width: var(--w, 10%); margin-top: 10px; background: var(--rl-cobre); }
+.rl-tabela-niveis .an, .rl-tabela-niveis .mi { font: 700 1.3rem/1 var(--rl-num); white-space: nowrap; }
+.rl-tabela-niveis .mi { color: var(--rl-ouro); }
+.rl-tabela-niveis .ob { font-size: .88rem; color: var(--muted); }
+body[data-world="relogio"] .rl-tabela-niveis .rl-pausa td { background: var(--rl-fundo2); padding-block: 12px; font-size: .9rem; color: var(--text); }
+body[data-world="relogio"] .rl-tabela-niveis .rl-pausa .lv { padding-left: 16px; font: 700 1.1rem/1 var(--rl-num); letter-spacing: .06em; text-transform: uppercase; color: var(--rl-ouro); }
+@media (max-width: 767px) {
+  body[data-world="relogio"] .rl-tabela-niveis thead { display: none; }
+  body[data-world="relogio"] .rl-tabela-niveis tr { display: grid; grid-template-columns: 52px minmax(0, 1fr) auto; grid-template-areas: "lv bl mi" "lv an an" "lv ob ob"; column-gap: 12px; padding: 14px 0; border-bottom: 1px solid var(--rl-linha); }
+  body[data-world="relogio"] .rl-tabela-niveis td { padding: 0; border: 0; }
+  .rl-tabela-niveis .lv { grid-area: lv; width: auto; font-size: 1.8rem; }
+  .rl-tabela-niveis .bl { grid-area: bl; width: auto; }
+  .rl-tabela-niveis .bl span { font-size: 1.35rem; }
+  .rl-tabela-niveis .an { grid-area: an; font: 600 .8rem/1.3 var(--font); color: var(--muted); margin-top: 6px; }
+  .rl-tabela-niveis .an::before { content: 'Ante '; }
+  .rl-tabela-niveis .an.vazio { display: none; }
+  .rl-tabela-niveis .mi { grid-area: mi; font-size: 1.05rem; }
+  .rl-tabela-niveis .ob { grid-area: ob; margin-top: 2px; }
+  body[data-world="relogio"] .rl-tabela-niveis tr.rl-pausa { grid-template-columns: 1fr; grid-template-areas: none; background: var(--rl-fundo2); padding: 12px 14px; row-gap: 4px; }
+  body[data-world="relogio"] .rl-tabela-niveis .rl-pausa td, body[data-world="relogio"] .rl-tabela-niveis .rl-pausa .lv { grid-area: auto; padding: 0; background: none; }
+}
+
+/* ---------- leituras ---------- */
+.rl-mesas { display: grid; grid-template-columns: repeat(var(--n, 4), minmax(0, 1fr)); border-top: 1px solid var(--rl-forte); border-bottom: 1px solid var(--rl-linha); }
+.rl-mesas > div { padding: 24px 24px 28px; border-right: 1px solid var(--rl-linha); min-width: 0; }
+.rl-mesas > div:first-child { padding-left: 0; }
+.rl-mesas > div:last-child { border-right: 0; }
+.rl-mesas .vv { font: 700 2.6rem/1 var(--rl-num); color: var(--primary); overflow-wrap: anywhere; }
+.rl-mesas .q { margin-top: 6px; font: 700 .72rem/1.3 var(--font); letter-spacing: .12em; text-transform: uppercase; color: var(--rl-ouro); }
+.rl-mesas p:not(.vv):not(.q) { margin-top: 12px; color: var(--muted); max-width: 36ch; }
+body[data-world="relogio"] .rl-mesas b, body[data-world="relogio"] .rl-porque b { color: var(--text); }
+@media (max-width: 899px) {
+  .rl-mesas { grid-template-columns: 1fr 1fr; }
+  .rl-mesas > div { padding: 20px 16px 22px 0; }
+  .rl-mesas > div:nth-child(2n) { border-right: 0; padding-left: 16px; padding-right: 0; }
+  .rl-mesas > div:nth-child(n+3) { border-top: 1px solid var(--rl-linha); }
+  .rl-mesas > div:nth-child(2n+1) { padding-left: 0; }
+  .rl-mesas .vv { font-size: 2rem; }
+}
+.rl-porque { margin: 0; border-top: 1px solid var(--rl-forte); }
+.rl-porque > div { display: grid; grid-template-columns: 210px minmax(0, 1fr); gap: 24px; align-items: start; padding: 22px 0; border-bottom: 1px solid var(--rl-linha); }
+.rl-porque dt { font: 700 3.4rem/.9 var(--rl-num); color: var(--primary); overflow-wrap: anywhere; }
+.rl-porque dd { margin: 0; padding-top: .5rem; font-size: 1.12rem; font-weight: 600; max-width: 62ch; }
+.rl-porque dd span { display: block; margin-top: 4px; font-size: .95rem; font-weight: 500; color: var(--muted); }
+@media (max-width: 767px) { .rl-porque > div { grid-template-columns: 92px minmax(0, 1fr); gap: 14px; } .rl-porque dt { font-size: 2.2rem; } .rl-porque dd { font-size: 1rem; padding-top: .2rem; } }
+
+/* ---------- como ler o relógio (blog) ---------- */
+body[data-world="relogio"] .rl-anatomia { padding-block: 40px 64px; border-top: 0; }
+.rl-anatomia .wrap { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.15fr); gap: 40px 56px; align-items: start; }
+.rl-anat-copy { padding-top: 12px; }
+body[data-world="relogio"] .rl-anat-copy h1 { font-size: clamp(2.8rem, 6vw, 5.8rem); line-height: .9; }
+.rl-anat-copy .rl-sub { margin-top: 28px !important; font-size: clamp(1rem, 1.4vw, 1.15rem); }
+.rl-anat-fig { margin: 0; min-width: 0; }
+.rl-marca { display: inline-grid; place-items: center; flex: none; width: 22px; height: 22px; border: 1px solid var(--primary); color: var(--primary); font: 700 .7rem/1 var(--font); letter-spacing: 0; text-transform: none; }
+.rl-anat-topo { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 16px 22px; border-bottom: 1px solid var(--rl-linha); }
+.rl-anat-nivel { display: flex; align-items: center; gap: 10px; }
+.rl-anat-nivel b { font: 700 2rem/1 var(--rl-num); color: var(--text); }
+.rl-anat-tempo { container-type: inline-size; position: relative; padding: 18px 22px 22px; }
+.rl-anat-tempo > .rl-marca { position: absolute; left: 22px; top: 18px; }
+.rl-anat-tempo .rl-relogio { font-size: min(34cqi, 13rem); margin: 0; }
+.rl-anat-fita { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--rl-linha); }
+.rl-anat-fita > div { padding: 14px 20px 18px; border-right: 1px solid var(--rl-linha); min-width: 0; }
+.rl-anat-fita > div:last-child { border-right: 0; }
+.rl-anat-fita .rl-marca { margin-bottom: 10px; }
+.rl-anat-fita .v { margin-top: 6px; font: 700 1.9rem/1 var(--rl-num); overflow-wrap: anywhere; }
+.rl-anat-fita > div:last-child .v { color: var(--rl-ouro); }
+.rl-legenda { list-style: none; margin: 20px 0 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 0 28px; border-top: 1px solid var(--rl-linha); }
+.rl-legenda li { display: flex; gap: 12px; align-items: flex-start; padding: 14px 0; border-bottom: 1px solid var(--rl-linha); }
+.rl-legenda strong { display: block; font: 700 1.15rem/1.15 var(--rl-num); text-transform: uppercase; letter-spacing: .01em; }
+.rl-legenda span:not(.rl-marca) { display: block; margin-top: 3px; font-size: .88rem; line-height: 1.5; color: var(--muted); }
+.rl-legenda li:last-child:nth-child(odd) { grid-column: 1 / -1; }
+@media (max-width: 899px) {
+  body[data-world="relogio"] .rl-anatomia { padding-block: 24px 48px; }
+  .rl-anatomia .wrap { grid-template-columns: 1fr; }
+  .rl-anat-topo { padding: 12px 16px; }
+  .rl-anat-tempo { padding: 16px 16px 18px; }
+  .rl-anat-tempo > .rl-marca { left: 16px; top: 14px; }
+  .rl-anat-fita > div { padding: 12px 12px 14px; }
+  .rl-anat-fita .v { font-size: 1.35rem; }
+  .rl-legenda { grid-template-columns: 1fr; }
+}
+
+/* ---------- lista de leitura ---------- */
+.rl-lista-leitura { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--rl-forte); }
+.rl-lista-leitura li { border-bottom: 1px solid var(--rl-linha); }
+.rl-lista-leitura a { display: grid; grid-template-columns: 120px minmax(0, 1fr) 40px; gap: 24px; align-items: center; padding: 22px 0; text-decoration: none; transition: background-color .15s ease-out; }
+.rl-lista-leitura a:hover { background: var(--rl-fundo2); }
+.rl-lista-leitura .tm { font: 700 2.2rem/1 var(--rl-num); color: var(--primary); }
+.rl-lista-leitura .tm small { display: block; margin-top: 6px; font: 700 .66rem/1 var(--font); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+.rl-lista-leitura .tx { min-width: 0; }
+body[data-world="relogio"] .rl-lista-leitura .rl-tag { margin: 0 0 8px; }
+.rl-lista-leitura strong { display: block; font: 700 1.6rem/1.08 var(--rl-num); text-transform: uppercase; letter-spacing: .01em; color: var(--text); text-wrap: balance; }
+.rl-lista-leitura .rs { display: block; margin-top: 6px; color: var(--muted); max-width: 70ch; }
+.rl-lista-leitura .ir { color: var(--rl-ouro); justify-self: end; }
+.rl-lista-leitura .ir svg { width: 22px; height: 22px; transition: transform .2s cubic-bezier(.16, 1, .3, 1); }
+.rl-lista-leitura a:hover .ir svg { transform: translateX(4px); }
+@media (max-width: 767px) {
+  .rl-lista-leitura .tm small { letter-spacing: .06em; white-space: nowrap; }
+  .rl-lista-leitura a { grid-template-columns: 74px minmax(0, 1fr); gap: 14px; padding: 18px 0; align-items: start; }
+  .rl-lista-leitura .tm { font-size: 1.6rem; }
+  .rl-lista-leitura strong { font-size: 1.25rem; }
+  .rl-lista-leitura .ir { display: none; }
+}
+
+/* ---------- termos e regras ---------- */
+.rl-dl { margin: 0; }
+.rl-dl dd { margin: 0; }
+.rl-dl dd p + p { margin-top: .7em; }
+.rl-termos.v-glossario .rl-dl { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 56px; border-top: 1px solid var(--rl-forte); }
+.rl-termos.v-glossario .rl-dl > div { padding: 22px 0 24px; border-bottom: 1px solid var(--rl-linha); }
+.rl-termos.v-glossario dt { font: 700 1.7rem/1.05 var(--rl-num); text-transform: uppercase; color: var(--primary); letter-spacing: .01em; }
+.rl-termos.v-glossario dd { margin-top: 8px; color: color-mix(in srgb, var(--text) 88%, var(--bg)); max-width: 60ch; }
+.rl-termos.v-regras .rl-dl { border-top: 1px solid var(--rl-forte); max-width: 1100px; }
+.rl-termos.v-regras .rl-dl > div { display: grid; grid-template-columns: 300px minmax(0, 1fr); gap: 32px; padding: 22px 0; border-bottom: 1px solid var(--rl-linha); }
+.rl-termos.v-regras dt { font: 700 1.45rem/1.1 var(--rl-num); text-transform: uppercase; letter-spacing: .01em; }
+.rl-termos.v-regras dd { max-width: 66ch; color: color-mix(in srgb, var(--text) 88%, var(--bg)); }
+@media (max-width: 899px) {
+  .rl-termos.v-glossario .rl-dl { grid-template-columns: 1fr; }
+  .rl-termos.v-regras .rl-dl > div { grid-template-columns: 1fr; gap: 8px; }
+  .rl-termos.v-glossario dt { font-size: 1.45rem; }
+}
+
+/* ---------- aviso com selo ---------- */
+body[data-world="relogio"] .rl-aviso { padding-block: 36px; }
+.rl-aviso-caixa { display: flex; align-items: center; gap: 18px 24px; padding: 20px 24px; border: 1px solid var(--rl-forte); background: var(--rl-fundo2); }
+body[data-world="relogio"] .rl-selo { flex: none; font: 700 1.7rem/1 var(--rl-num); padding: 8px 10px; border: 1px solid var(--rl-ouro); color: var(--rl-ouro); }
+.rl-aviso-caixa .tx { flex: 1; font-weight: 600; max-width: 80ch; }
+.rl-aviso-caixa .tx p + p { margin-top: .4em; font-weight: 500; color: var(--muted); }
+.rl-aviso-caixa .rl-link { flex: none; }
+@media (max-width: 767px) { .rl-aviso-caixa { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: start; gap: 12px 16px; padding: 18px 16px; } .rl-aviso-caixa .rl-link { grid-column: 2; justify-self: start; } }
+
+/* ---------- balcão de registro ---------- */
+.rl-balcao { background: var(--rl-painel); border: 1px solid var(--rl-forte); display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 32px 56px; padding: 44px 44px 40px; }
+body[data-world="relogio"] .rl-balcao h2 { font-size: clamp(2.8rem, 6vw, 5.6rem); line-height: .92; color: var(--primary); }
+.rl-balcao .apoio { margin-top: 16px; max-width: 52ch; font-size: 1.05rem; }
+.rl-balcao .apoio p + p { margin-top: .7em; }
+body[data-world="relogio"] .rl-form { display: flex; flex-direction: column; gap: 12px; align-self: end; }
+body[data-world="relogio"] .rl-form > label:not(.check), .rl-campo-rot { display: grid; gap: 8px; font: 700 .75rem/1 var(--font); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+.rl-campo { display: flex; }
+body[data-world="relogio"] .rl-form input:not([type=checkbox]):not(.hp) { width: 100%; min-width: 0; min-height: 60px; padding: 0 16px; border: 1px solid var(--rl-forte); border-radius: 0; background: var(--bg); color: var(--text); font: 600 1.05rem/1 var(--font); letter-spacing: 0; text-transform: none; }
+.rl-campo input { flex: 1; border-right: 0 !important; }
+body[data-world="relogio"] .rl-form input::placeholder { color: color-mix(in srgb, var(--muted) 78%, var(--bg)); }
+body[data-world="relogio"] .rl-form input:hover { border-color: var(--rl-cobre); }
+body[data-world="relogio"] .rl-form input:focus-visible { outline: 2px solid var(--rl-ouro); outline-offset: 0; border-color: var(--rl-ouro); }
+body[data-world="relogio"] .rl-form input:user-invalid { border-color: var(--rl-erro); }
+.rl-campo .btn { min-height: 60px; flex: none; }
+body[data-world="relogio"] .rl-form .check { display: flex; gap: 10px; align-items: flex-start; min-height: 44px; padding-block: 2px; font: 500 .84rem/1.45 var(--font); letter-spacing: 0; text-transform: none; color: var(--muted); }
+body[data-world="relogio"] .rl-form .check input { margin-top: 2px; width: 18px; height: 18px; flex: none; accent-color: var(--primary); }
+body[data-world="relogio"] .rl-form .form-msg { min-height: 1.5em; margin: 0; font-size: .88rem; font-weight: 600; color: var(--rl-erro); }
+body[data-world="relogio"] .lead-form.ok .form-msg { color: var(--rl-vivo); }
+.rl-form .pq { font-size: .85rem; color: var(--muted); }
+@media (max-width: 899px) {
+  .rl-balcao { grid-template-columns: 1fr; padding: 28px 16px; }
+  .rl-campo { flex-direction: column; }
+  .rl-campo input { border-right: 1px solid var(--rl-forte) !important; border-bottom: 0 !important; }
+  .rl-campo .btn { width: 100%; }
+}
+
+/* =========================================================================
+   Blocos comuns vestidos de relógio
+   ========================================================================= */
+
+/* menu */
+body[data-world="relogio"] .b-navbar { position: sticky; top: 0; z-index: 20; padding: 0; background: var(--bg); backdrop-filter: none; border-bottom: 1px solid var(--rl-linha); }
+body[data-world="relogio"] .b-navbar + .b { border-top: 0; }
+body[data-world="relogio"] .b-navbar .wrap { display: flex; align-items: center; gap: 24px; min-height: 64px; background: none; border: 0; border-radius: 0; }
+body[data-world="relogio"] .b-navbar .brand { display: flex; align-items: center; gap: 10px; flex: none; min-height: 44px; font: 700 1.3rem/1 var(--rl-num); letter-spacing: .02em; text-transform: uppercase; text-decoration: none; }
+body[data-world="relogio"] .b-navbar .brand:not(:has(img))::before {
+  content: ''; width: 30px; height: 30px; flex: none; background: var(--primary);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath d='M12 1h6v3h-6z'/%3E%3Cpath fill-rule='evenodd' d='M15 5a12 12 0 1 1 0 24a12 12 0 0 1 0-24zm0 3a9 9 0 1 0 0 18a9 9 0 0 0 0-18z'/%3E%3Cpath d='M15 9.5a7.5 7.5 0 0 1 7.5 7.5H15z'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath d='M12 1h6v3h-6z'/%3E%3Cpath fill-rule='evenodd' d='M15 5a12 12 0 1 1 0 24a12 12 0 0 1 0-24zm0 3a9 9 0 1 0 0 18a9 9 0 0 0 0-18z'/%3E%3Cpath d='M15 9.5a7.5 7.5 0 0 1 7.5 7.5H15z'/%3E%3C/svg%3E") center / contain no-repeat; }
+body[data-world="relogio"] .b-navbar .brand-logo { height: 32px; }
+body[data-world="relogio"] .b-navbar ul { display: flex; flex-wrap: wrap; gap: 4px 22px; margin: 0 0 0 auto; padding: 0; list-style: none; }
+body[data-world="relogio"] .b-navbar ul a { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; min-width: 44px; padding: 0; font: 600 .8rem/1 var(--font); letter-spacing: .1em; text-transform: uppercase; color: var(--text); border-bottom: 1px solid transparent; text-decoration: none; }
+body[data-world="relogio"] .b-navbar ul a:hover { border-bottom-color: var(--primary); color: var(--rl-ouro); }
+body[data-world="relogio"] .b-navbar ul a[aria-current="page"] { color: var(--rl-ouro); border-bottom-color: var(--primary); }
+body[data-world="relogio"] .b-navbar .btn { flex: none; margin-left: 0; }
+body[data-world="relogio"] .b-navbar.v-centralizado .wrap { flex-direction: row; }
+/* celular: marca e botão numa linha; os links numa faixa única logo abaixo, que rola na horizontal quando não cabem
+   (o relogio.js põe .rl-rola enquanto há link escondido à direita: o fio some em degradê para mostrar que continua) */
+@media (max-width: 899px) {
+  body[data-world="relogio"] .b-navbar .wrap { flex-wrap: wrap; gap: 0 12px; padding-block: 6px 0; min-height: 0; }
+  body[data-world="relogio"] .b-navbar .btn { margin-left: auto; }
+  body[data-world="relogio"] .b-navbar ul { order: 3; flex-wrap: nowrap; justify-content: space-between; gap: 0 20px; width: auto; flex: 1 1 100%;
+    margin: 6px calc(-1 * var(--rl-gutter)) 0; padding: 0 var(--rl-gutter); border-top: 1px solid var(--rl-linha);
+    overflow-x: auto; overscroll-behavior-x: contain; scrollbar-width: none; scroll-snap-type: x proximity; scroll-padding-inline: var(--rl-gutter); }
+  body[data-world="relogio"] .b-navbar ul::-webkit-scrollbar { display: none; }
+  body[data-world="relogio"] .b-navbar ul.rl-rola { -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 48px), transparent); mask-image: linear-gradient(to right, #000 calc(100% - 48px), transparent); }
+  body[data-world="relogio"] .b-navbar ul.rl-rola-e { -webkit-mask-image: linear-gradient(to right, transparent, #000 48px); mask-image: linear-gradient(to right, transparent, #000 48px); }
+  body[data-world="relogio"] .b-navbar ul.rl-rola.rl-rola-e { -webkit-mask-image: linear-gradient(to right, transparent, #000 48px, #000 calc(100% - 48px), transparent); mask-image: linear-gradient(to right, transparent, #000 48px, #000 calc(100% - 48px), transparent); }
+  body[data-world="relogio"] .b-navbar ul li { flex: none; scroll-snap-align: start; }
+  body[data-world="relogio"] .b-navbar ul a { font-size: .7rem; letter-spacing: .07em; white-space: nowrap; border-bottom-width: 2px; }
+  body[data-world="relogio"] .b-navbar .brand { font-size: 1.15rem; min-width: 0; }
+}
+
+/* destaque comum = cabeçalho do monitor */
+body[data-world="relogio"] .b-hero { padding-block: 20px 56px; background: none; }
+body[data-world="relogio"] .b-hero .wrap { display: grid; gap: 0; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); align-items: stretch; text-align: left; justify-items: stretch; }
+body[data-world="relogio"] .b-hero .hero-copy { background: var(--rl-painel); border: 1px solid var(--rl-forte); padding: 30px 28px 28px; }
+body[data-world="relogio"] .b-hero:not(:has(.hero-img)) .wrap { grid-template-columns: 1fr; }
+body[data-world="relogio"] .b-hero h1 { font-size: clamp(2.4rem, 5.4vw, 5rem); line-height: .93; margin-bottom: 0; }
+body[data-world="relogio"] .b-hero .lead { margin: 14px 0 0; max-width: 62ch; color: var(--text); font-weight: 600; font-size: clamp(1rem, 1.3vw, 1.12rem); }
+body[data-world="relogio"] .b-hero .actions { justify-content: flex-start; margin: 24px 0 0; }
+body[data-world="relogio"] .b-hero .note { margin: 14px 0 0; font-size: .82rem; }
+body[data-world="relogio"] .b-hero .hero-img { width: 100%; height: 100%; object-fit: cover; border-radius: 0; box-shadow: none; border: 1px solid var(--rl-forte); border-left: 0; }
+@media (max-width: 899px) { body[data-world="relogio"] .b-hero .wrap { grid-template-columns: 1fr; } body[data-world="relogio"] .b-hero .hero-copy { padding: 20px 16px; } body[data-world="relogio"] .b-hero .hero-img { border-left: 1px solid var(--rl-forte); border-top: 0; } }
+
+/* cabeçalho de seção dos blocos comuns */
+body[data-world="relogio"] .b-head { margin-bottom: 32px; max-width: 900px; }
+body[data-world="relogio"] .b-head h2, body[data-world="relogio"] .b-text h2, body[data-world="relogio"] .b-image_text h2 { font-size: clamp(2.2rem, 4.8vw, 4.2rem); line-height: .95; margin-bottom: 0; }
+body[data-world="relogio"] .b-head .sub { margin: 14px 0 0; color: var(--muted); font-size: 1.02rem; max-width: 60ch; }
+body[data-world="relogio"] .b-head .eyebrow { margin-bottom: 12px; }
+
+/* vantagens: colunas com fios, sem cartão */
+body[data-world="relogio"] .b-features .items { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0; border-top: 1px solid var(--rl-forte); border-bottom: 1px solid var(--rl-linha); }
+body[data-world="relogio"] .b-features .items li { background: none; border: 0; border-right: 1px solid var(--rl-linha); border-radius: 0; padding: 24px 24px 28px; }
+body[data-world="relogio"] .b-features .items li:last-child { border-right: 0; }
+body[data-world="relogio"] .b-features .ico { display: block; width: auto; height: auto; margin: 0 0 8px; background: none; border-radius: 0; font: 700 2.4rem/1 var(--rl-num); color: var(--primary); text-transform: uppercase; }
+body[data-world="relogio"] .b-features h3 { font-size: 1.4rem; line-height: 1.1; }
+body[data-world="relogio"] .b-features .items p { margin-top: 8px; color: var(--muted); }
+body[data-world="relogio"] .b-features.v-lista .items { grid-template-columns: 1fr; border-bottom: 0; max-width: none; }
+body[data-world="relogio"] .b-features.v-lista .items li { display: grid; grid-template-columns: 160px 1fr; border-right: 0; border-bottom: 1px solid var(--rl-linha); padding: 20px 0; }
+@media (max-width: 767px) { body[data-world="relogio"] .b-features .items li { border-right: 0; border-bottom: 1px solid var(--rl-linha); padding: 20px 0; } body[data-world="relogio"] .b-features.v-lista .items li { grid-template-columns: 80px 1fr; } }
+
+/* passo a passo comum = estrutura em níveis */
+body[data-world="relogio"] .b-steps .items { display: block; border-top: 1px solid var(--rl-forte); max-width: none; }
+body[data-world="relogio"] .b-steps .items li { display: grid; grid-template-columns: 120px minmax(0, 1fr); gap: 16px; padding: 24px 0; margin: 0; border: 0; border-bottom: 1px solid var(--rl-linha); border-radius: 0; background: none; }
+body[data-world="relogio"] .b-steps .num { position: static; display: block; width: auto; height: auto; border-radius: 0; background: none; color: var(--primary); font: 700 4.4rem/.8 var(--rl-num); }
+body[data-world="relogio"] .b-steps h3 { font-size: 1.6rem; line-height: 1.1; }
+body[data-world="relogio"] .b-steps .items p { margin-top: 8px; color: color-mix(in srgb, var(--text) 88%, var(--bg)); max-width: 62ch; }
+body[data-world="relogio"] .b-steps.v-linha-do-tempo .items li > div { padding: 0; }
+@media (max-width: 767px) { body[data-world="relogio"] .b-steps .items li { grid-template-columns: 60px minmax(0, 1fr); } body[data-world="relogio"] .b-steps .num { font-size: 3.2rem; } }
+
+/* chamada */
+body[data-world="relogio"] .cta-box { text-align: left; padding: 40px 44px; border-radius: 0; background: var(--rl-painel); border: 1px solid var(--rl-forte); color: var(--text); display: grid; gap: 16px; justify-items: start; }
+body[data-world="relogio"] .cta-box h2 { font-size: clamp(2.4rem, 5vw, 4.6rem); line-height: .93; color: var(--primary); margin: 0; }
+body[data-world="relogio"] .cta-box p { margin: 0; max-width: 58ch; color: var(--text); }
+body[data-world="relogio"] .b-cta.v-destaque .cta-box, body[data-world="relogio"] .b-cta.v-escuro .cta-box { background: var(--rl-painel); color: var(--text); border-color: var(--rl-forte); }
+body[data-world="relogio"] .b-cta.v-faixa { padding: 0; }
+body[data-world="relogio"] .b-cta.v-faixa .wrap { max-width: none; padding: 0; }
+body[data-world="relogio"] .b-cta.v-faixa .cta-box { border: 0; border-block: 1px solid var(--rl-forte); padding-inline: max(var(--rl-gutter), calc((100% - 1320px) / 2 + var(--rl-gutter))); }
+body[data-world="relogio"] .b-cta.v-faixa .btn { background: var(--primary); color: var(--primary-text); }
+@media (max-width: 899px) { body[data-world="relogio"] .cta-box { padding: 28px 16px; } }
+
+/* dúvidas */
+body[data-world="relogio"] .b-faq .wrap.narrow { max-width: 1320px; display: grid; grid-template-columns: minmax(0, .75fr) minmax(0, 1.6fr); column-gap: 56px; align-items: start; }
+body[data-world="relogio"] .b-faq .wrap.narrow > * { grid-column: 2; }
+body[data-world="relogio"] .b-faq .wrap.narrow > .b-head { grid-column: 1; grid-row: 1 / span 40; margin: 0; position: sticky; top: 96px; }
+body[data-world="relogio"] .b-faq .b-head h2 { font-size: clamp(2.2rem, 4.2vw, 3.8rem); }
+body[data-world="relogio"] .b-faq details { border-bottom: 1px solid var(--rl-linha); padding: 0; }
+body[data-world="relogio"] .b-faq .wrap > details:first-of-type { border-top: 1px solid var(--rl-forte); }
+body[data-world="relogio"] .b-faq .b-head + details { border-top: 1px solid var(--rl-forte); }
+body[data-world="relogio"] .b-faq summary { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 20px 0; cursor: pointer; list-style: none;
+  font: 700 1.45rem/1.15 var(--rl-num); text-transform: uppercase; letter-spacing: .01em; transition: color .15s ease-out; }
+body[data-world="relogio"] .b-faq summary::-webkit-details-marker { display: none; }
+body[data-world="relogio"] .b-faq summary:hover { color: var(--rl-ouro); }
+body[data-world="relogio"] .b-faq summary::after { content: ''; width: 22px; height: 22px; flex: none; background: var(--primary); transition: transform .2s cubic-bezier(.16, 1, .3, 1);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 22'%3E%3Cpath d='M10.2 3h1.6v16h-1.6z'/%3E%3Cpath d='M3 10.2h16v1.6H3z'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 22'%3E%3Cpath d='M10.2 3h1.6v16h-1.6z'/%3E%3Cpath d='M3 10.2h16v1.6H3z'/%3E%3C/svg%3E") center / contain no-repeat; }
+body[data-world="relogio"] .b-faq details[open] summary::after { content: ''; transform: rotate(45deg); }
+body[data-world="relogio"] .b-faq details p { margin: 0; padding: 0 0 22px; max-width: 66ch; color: color-mix(in srgb, var(--text) 90%, var(--bg)); }
+body[data-world="relogio"] .b-faq details p + p { margin-top: -10px; }
+@media (max-width: 899px) { body[data-world="relogio"] .b-faq .wrap.narrow { grid-template-columns: 1fr; } body[data-world="relogio"] .b-faq .wrap.narrow > *, body[data-world="relogio"] .b-faq .wrap.narrow > .b-head { grid-column: 1; grid-row: auto; position: static; } body[data-world="relogio"] .b-faq .wrap.narrow > .b-head { margin-bottom: 24px; } }
+@media (max-width: 767px) { body[data-world="relogio"] .b-faq summary { font-size: 1.2rem; } }
+
+/* texto livre */
+body[data-world="relogio"] .b-text .wrap > h2 { margin-bottom: 28px; }
+body[data-world="relogio"] .b-text p { max-width: 68ch; margin: 0 0 1.1em; font-size: 1.05rem; line-height: 1.7; color: color-mix(in srgb, var(--text) 92%, var(--bg)); }
+body[data-world="relogio"] .b-text .wrap.narrow { max-width: 1320px; }
+body[data-world="relogio"] .b-text .wrap.narrow > * { max-width: 780px; }
+
+/* formulário comum = balcão de registro */
+body[data-world="relogio"] .form-box { background: var(--rl-painel); border: 1px solid var(--rl-forte); border-radius: 0; padding: 40px 44px; gap: 28px 56px; }
+body[data-world="relogio"] .form-copy h2 { font-size: clamp(2.4rem, 5vw, 4.6rem); line-height: .93; color: var(--primary); }
+body[data-world="relogio"] .form-copy p { margin-top: 14px; color: var(--text); max-width: 52ch; }
+body[data-world="relogio"] .b-lead_form .lead-form label:not(.check) { font: 700 .75rem/1 var(--font); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); gap: 8px; }
+body[data-world="relogio"] .b-lead_form .lead-form input:not([type=checkbox]) { min-height: 56px; border-radius: 0; border: 1px solid var(--rl-forte); background: var(--bg); font: 600 1rem/1 var(--font); letter-spacing: 0; text-transform: none; color: var(--text); }
+body[data-world="relogio"] .b-lead_form .lead-form input:hover { border-color: var(--rl-cobre); }
+body[data-world="relogio"] .b-lead_form .lead-form input:focus-visible { outline: 2px solid var(--rl-ouro); outline-offset: 0; }
+body[data-world="relogio"] .b-lead_form .lead-form .check { color: var(--muted); }
+body[data-world="relogio"] .b-lead_form .lead-form.ok .form-msg { color: var(--rl-vivo); }
+@media (max-width: 899px) { body[data-world="relogio"] .form-box { padding: 28px 16px; } }
+
+/* números */
+body[data-world="relogio"] .b-stats .items { gap: 0; border-top: 1px solid var(--rl-forte); border-bottom: 1px solid var(--rl-linha); }
+body[data-world="relogio"] .b-stats .items li { border: 0; border-right: 1px solid var(--rl-linha); border-radius: 0; padding: 22px 24px 24px 0; }
+body[data-world="relogio"] .b-stats .items li + li { padding-left: 24px; }
+body[data-world="relogio"] .b-stats .items li:last-child { border-right: 0; }
+body[data-world="relogio"] .b-stats strong { font: 700 clamp(2.4rem, 5vw, 3.6rem)/1 var(--rl-num); color: var(--primary); }
+body[data-world="relogio"] .demo-tag { display: inline-block; border: 1px solid var(--rl-cobre); padding: 4px 8px; color: var(--rl-ouro); font: 700 .7rem/1.3 var(--font); letter-spacing: .1em; text-transform: uppercase; }
+
+/* tabelas comuns (agenda, comparativo) */
+body[data-world="relogio"] .table-wrap { border: 0; border-top: 1px solid var(--rl-forte); border-radius: 0; }
+body[data-world="relogio"] .b-schedule table, body[data-world="relogio"] .b-compare table { min-width: 560px; }
+body[data-world="relogio"] .b-schedule thead th, body[data-world="relogio"] .b-compare thead th { background: none; font: 700 .72rem/1.2 var(--font); letter-spacing: .14em; color: var(--muted); border-bottom: 1px solid var(--rl-forte); padding-left: 0; }
+body[data-world="relogio"] .b-schedule td, body[data-world="relogio"] .b-compare td, body[data-world="relogio"] .b-compare tbody th { padding: 16px 16px 16px 0; border-bottom: 1px solid var(--rl-linha); }
+body[data-world="relogio"] .b-schedule td:nth-child(2) { font: 700 1.6rem/1 var(--rl-num); }
+body[data-world="relogio"] .b-schedule td strong { font: 700 1.25rem/1.1 var(--rl-num); text-transform: uppercase; }
+body[data-world="relogio"] .b-schedule td:last-child { font: 700 1.3rem/1 var(--rl-num); color: var(--rl-ouro); }
+body[data-world="relogio"] .b-compare tbody th { font: 700 1.2rem/1.1 var(--rl-num); text-transform: uppercase; }
+body[data-world="relogio"] .b-compare tbody td { color: color-mix(in srgb, var(--text) 90%, var(--bg)); }
+body[data-world="relogio"] .b-compare thead th:not(:first-child) { color: var(--rl-ouro); }
+@media (max-width: 767px) {
+  body[data-world="relogio"] .b-compare table, body[data-world="relogio"] .b-compare tbody { display: block; min-width: 0; }
+  body[data-world="relogio"] .b-compare thead { display: block; }
+  body[data-world="relogio"] .b-compare thead tr { display: grid; grid-template-columns: 1fr 1fr; column-gap: 14px; border-bottom: 1px solid var(--rl-forte); }
+  body[data-world="relogio"] .b-compare thead th { padding: 12px 0; border: 0; }
+  body[data-world="relogio"] .b-compare thead th:first-child { display: none; }
+  body[data-world="relogio"] .b-compare tr { display: grid; grid-template-columns: 1fr 1fr; column-gap: 14px; padding: 14px 0; border-bottom: 1px solid var(--rl-linha); }
+  body[data-world="relogio"] .b-compare tbody th { grid-column: 1 / -1; padding: 0 0 8px; border: 0; }
+  body[data-world="relogio"] .b-compare td { padding: 0; border: 0; font-size: .92rem; }
+}
+
+/* ofertas e cartões: fichas de painel com fio, sem sombra */
+body[data-world="relogio"] .b-offers .items, body[data-world="relogio"] .b-cards .items { gap: 0; border-top: 1px solid var(--rl-forte); }
+body[data-world="relogio"] .b-offers .items li, body[data-world="relogio"] .b-cards .items a { border: 0; border-bottom: 1px solid var(--rl-linha); border-right: 1px solid var(--rl-linha); border-radius: 0; background: none; padding: 22px; }
+body[data-world="relogio"] .b-cards .items a { padding: 0; }
+body[data-world="relogio"] .b-cards .items a:hover { background: var(--rl-fundo2); border-color: var(--rl-linha); }
+body[data-world="relogio"] .b-cards .card-body { padding: 20px 22px 24px; }
+body[data-world="relogio"] .b-cards h3, body[data-world="relogio"] .b-offers h3 { font-size: 1.45rem; line-height: 1.1; }
+body[data-world="relogio"] .b-cards .card-img, body[data-world="relogio"] .b-offers .offer-img { border-radius: 0; }
+body[data-world="relogio"] .disclosure { color: var(--muted); }
+
+/* imagem e texto */
+body[data-world="relogio"] .b-image_text p { margin-top: 14px; color: color-mix(in srgb, var(--text) 88%, var(--bg)); max-width: 60ch; }
+body[data-world="relogio"] .b-image_text .btn { margin-top: 22px; }
+body[data-world="relogio"] .b-image_text .media img, body[data-world="relogio"] .placeholder { border-radius: 0; border: 1px solid var(--rl-forte); }
+body[data-world="relogio"] .placeholder { background: var(--rl-painel); }
+
+/* logos, faixa, contato, aviso */
+body[data-world="relogio"] .logos-title { font: 700 .72rem/1.2 var(--font); letter-spacing: .14em; color: var(--muted); }
+body[data-world="relogio"] .b-logos a { font: 700 1.3rem/1 var(--rl-num); text-transform: uppercase; color: var(--muted); }
+body[data-world="relogio"] .b-ticker { background: var(--rl-painel); color: var(--primary); border-block: 1px solid var(--rl-forte) !important; }
+body[data-world="relogio"] .b-ticker .track { font: 700 1.1rem/1 var(--rl-num); letter-spacing: .04em; }
+body[data-world="relogio"] .b-contact .b-head h2 { font-size: clamp(2rem, 4vw, 3.4rem); }
+body[data-world="relogio"] .b-contact .channels { gap: 0; border-top: 1px solid var(--rl-forte); }
+body[data-world="relogio"] .b-contact .channels li { flex: 1 1 200px; border-right: 1px solid var(--rl-linha); border-bottom: 1px solid var(--rl-linha); }
+body[data-world="relogio"] .b-contact .channels li:last-child { border-right: 0; }
+body[data-world="relogio"] .b-contact .channels .btn { width: 100%; min-height: 72px; justify-content: space-between; border: 0; background: none; color: var(--text); font: 700 1.5rem/1 var(--rl-num); letter-spacing: .01em; padding: 0 22px 0 0; }
+body[data-world="relogio"] .b-contact .channels li + li .btn { padding-left: 22px; }
+body[data-world="relogio"] .b-contact .channels .btn::after { content: ''; width: 20px; height: 20px; background: var(--rl-ouro); transition: transform .2s cubic-bezier(.16, 1, .3, 1);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='black' stroke-width='1.6'%3E%3Cpath d='M2.5 8h10M8.5 4l4 4-4 4'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='black' stroke-width='1.6'%3E%3Cpath d='M2.5 8h10M8.5 4l4 4-4 4'/%3E%3C/svg%3E") center / contain no-repeat; }
+body[data-world="relogio"] .b-contact .channels .btn:hover { background: var(--rl-fundo2); color: var(--rl-ouro); }
+body[data-world="relogio"] .b-contact .channels .btn:hover::after { transform: translateX(4px); }
+body[data-world="relogio"] .b-contact .note { margin-top: 14px; font-size: .9rem; color: var(--muted); }
+@media (max-width: 767px) { body[data-world="relogio"] .b-contact .channels li { border-right: 0; flex-basis: 100%; } body[data-world="relogio"] .b-contact .channels li + li .btn { padding-left: 0; } }
+body[data-world="relogio"] .b-notice { padding-block: 22px; border-top: 1px solid var(--rl-linha); }
+body[data-world="relogio"] .b-notice p { font-size: .9rem; max-width: 90ch; }
+body[data-world="relogio"] .b-notice.v-alerta { background: var(--rl-fundo2); color: var(--text); }
+
+/* rodapé */
+body[data-world="relogio"] .b-footer { padding-block: 40px 48px; background: var(--bg); border-top: 1px solid var(--rl-linha); }
+body[data-world="relogio"] .b-footer .wrap { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 18px 32px; align-items: start; }
+body[data-world="relogio"] .b-footer strong { display: block; font: 700 1.4rem/1 var(--rl-num); text-transform: uppercase; letter-spacing: .02em; }
+body[data-world="relogio"] .b-footer p { margin: 8px 0 0; font-size: .88rem; color: var(--muted); max-width: 56ch; }
+body[data-world="relogio"] .b-footer ul { gap: 0 22px; }
+body[data-world="relogio"] .b-footer ul a { display: inline-flex; align-items: center; min-height: 44px; min-width: 44px; font-size: .88rem; color: var(--text); text-decoration: none; }
+body[data-world="relogio"] .b-footer ul a:hover { color: var(--rl-ouro); text-decoration: underline; text-decoration-color: var(--rl-cobre); text-underline-offset: 4px; }
+body[data-world="relogio"] .b-footer .disclaimer { grid-column: 1 / -1; margin: 6px 0 0; padding-top: 18px; border-top: 1px solid var(--rl-linha); font-size: .88rem; font-weight: 600; color: var(--text); max-width: none; }
+@media (max-width: 767px) { body[data-world="relogio"] .b-footer .wrap { grid-template-columns: 1fr; } }
+
+/* jornada guiada (aberta por bloco comum) */
+body[data-world="relogio"] .jx-sheet { border-radius: 0; background: var(--rl-painel); border-color: var(--rl-forte); }
+body[data-world="relogio"] .jx-progress { border-radius: 0; }
+body[data-world="relogio"] .b-journey .jx-box { border-radius: 0; background: var(--rl-painel); border-color: var(--rl-forte); text-align: left; }
+body[data-world="relogio"] .consent { border-radius: 0; background: var(--rl-painel); border-color: var(--rl-forte); }

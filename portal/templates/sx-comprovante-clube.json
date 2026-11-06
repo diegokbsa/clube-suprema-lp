@@ -1,0 +1,996 @@
+{
+  "id": "sx-comprovante-clube",
+  "name": "Clube do jogador · Comprovante PIX (edição SX)",
+  "order": 21,
+  "version": 1,
+  "category": "Poker · edição SX",
+  "niches": [
+    "poker"
+  ],
+  "inspiredBy": "sx",
+  "description": "Site do clube para o jogador no mundo Comprovante PIX: texto à esquerda e o \"comprovante de amanhã\" à direita, que muda com o valor escolhido. Extrato do caminho até a mesa, agenda de exemplo e cadastro por e-mail.",
+  "theme": {
+    "world": "comprovante",
+    "mode": "escuro",
+    "bg": "#0f0c07",
+    "surface": "#16120b",
+    "text": "#f4ede1",
+    "muted": "#9a8d78",
+    "primary": "#efa144",
+    "primaryText": "#040404",
+    "accent": "#52c48e",
+    "border": "#2a2318",
+    "font": "Montserrat",
+    "fontHead": "Montserrat",
+    "fontMono": "Antonio",
+    "radius": 10
+  },
+  "seo": {
+    "title": "{{name}} · Poker online 24h no app {{app}}",
+    "description": "Entre no {{name}} pelo link do clube no app {{app}}, compre fichas por PIX e jogue com suporte de verdade. Somente maiores de 18 anos."
+  },
+  "pages": [
+    {
+      "slug": "",
+      "title": "Início",
+      "blocks": [
+        {
+          "type": "comprovante_topo",
+          "props": {
+            "faixa": "Somente maiores de 18 · Jogue com responsabilidade",
+            "brand": "{{name}}",
+            "sub": "ID {{number}}",
+            "logo": "{{logo}}",
+            "links": [
+              {
+                "label": "Como entrar",
+                "href": "/como-entrar",
+                "dot": false
+              },
+              {
+                "label": "Dúvidas",
+                "href": "/duvidas",
+                "dot": false
+              },
+              {
+                "label": "Jogo responsável",
+                "href": "/jogo-responsavel",
+                "dot": false
+              },
+              {
+                "label": "Torneios",
+                "href": "/#agenda",
+                "dot": true
+              }
+            ],
+            "cta": "Quero jogar",
+            "ctaHref": "{{inviteLink}}"
+          }
+        },
+        {
+          "type": "comprovante_recibo",
+          "props": {
+            "title": "Poker online 24h, direto no celular.",
+            "subtitle": "Entre pelo link do clube no app **{{app}}**, compre **fichas por PIX** e jogue no **{{name}}**, com suporte de gente de verdade.",
+            "cta": "Quero jogar",
+            "ctaHref": "{{inviteLink}}",
+            "secondary": "Como entrar",
+            "secondaryHref": "/como-entrar",
+            "legend": "Simule a sua primeira compra",
+            "options": [
+              {
+                "label": "R$ 20",
+                "amount": "20",
+                "line": "",
+                "padrao": false
+              },
+              {
+                "label": "R$ 50",
+                "amount": "50",
+                "line": "",
+                "padrao": true
+              },
+              {
+                "label": "R$ 100",
+                "amount": "100",
+                "line": "",
+                "padrao": false
+              },
+              {
+                "label": "R$ 200",
+                "amount": "200",
+                "line": "",
+                "padrao": false
+              }
+            ],
+            "selectNote": "Valores só para ilustrar. Toque e veja o comprovante mudar.",
+            "logo": "",
+            "receiptTitle": "Comprovante de amanhã",
+            "receiptSub": "{{name}} · {{app}}",
+            "tag": "ILUSTRAÇÃO",
+            "amountLabel": "Valor do PIX em fichas",
+            "currency": "R$",
+            "cents": ",00",
+            "status": "Fichas na conta do app",
+            "when": "Amanhã, depois do seu cadastro",
+            "rows": [
+              {
+                "label": "Destino",
+                "value": "Canal de fichas 24h",
+                "noteTitle": "Destino",
+                "note": "É o canal de fichas do clube. Você escolhe o valor e paga o PIX ali."
+              },
+              {
+                "label": "Clube",
+                "value": "{{number}}",
+                "noteTitle": "",
+                "note": ""
+              },
+              {
+                "label": "Agente",
+                "value": "{{agentId}}",
+                "noteTitle": "Clube e agente",
+                "note": "Na primeira compra você informa esses dois números e o seu ID do jogador."
+              },
+              {
+                "label": "Onde caem",
+                "value": "Fichas na conta do app",
+                "noteTitle": "Onde caem",
+                "note": "Pagou, as fichas aparecem na sua conta do {{app}}."
+              }
+            ],
+            "txidLabel": "ID da transação",
+            "txid": "EXEMPLO-{{number}}-{{agentId}}-",
+            "ctaNoteTitle": "Quero jogar",
+            "ctaNote": "Abre o app pelo link do clube. Sem o app ainda? O link leva para a loja.",
+            "share": "Compartilhar",
+            "shareText": "Poker online 24h no {{name}}, no app {{app}}. Clube {{number}}.",
+            "footStrong": "É só uma ilustração.",
+            "foot": "O PIX de verdade é gerado no canal de fichas depois do cadastro, com o seu ID do jogador.",
+            "variant": "lado"
+          }
+        },
+        {
+          "type": "comprovante_extrato",
+          "props": {
+            "anchor": "como-funciona",
+            "title": "Do e-mail à mesa, em três lançamentos",
+            "subtitle": "Cada linha é uma coisa que você faz, com o tempo que leva. Sem senha do app e sem documento no site.",
+            "headLeft": "Seu caminho até a mesa",
+            "headRight": "3 lançamentos",
+            "tag": "",
+            "items": [
+              {
+                "icon": "mail",
+                "title": "Deixe seu e-mail",
+                "time": "10 s",
+                "text": "Só o e-mail, nada mais. É por ele que a gente manda o link do clube.",
+                "pill": "Começa aqui",
+                "tone": "ouro",
+                "href": "#cadastro"
+              },
+              {
+                "icon": "phone",
+                "title": "Abra o app pelo link do clube",
+                "time": "2 min",
+                "text": "Sem o app ainda? O link leva para a loja e o {{app}} é grátis. Depois de instalar, abra pelo mesmo link: você **já entra no clube com o agente**.",
+                "pill": "Pelo link",
+                "tone": "ouro",
+                "href": ""
+              },
+              {
+                "icon": "ficha",
+                "title": "Compre fichas por PIX",
+                "time": "no canal",
+                "text": "Escolha o valor e pague o PIX no canal de fichas. Na primeira compra, informe o seu ID do jogador, o clube e o agente. **As fichas caem na sua conta do app.**",
+                "pill": "Fichas na conta",
+                "tone": "ok",
+                "href": ""
+              }
+            ],
+            "totalLabel": "Saldo do caminho",
+            "total": "Você sentado na mesa do {{name}}",
+            "cta": "",
+            "ctaHref": "",
+            "variant": "extrato"
+          }
+        },
+        {
+          "type": "comprovante_linhas",
+          "props": {
+            "title": "Mesa rodando a qualquer hora",
+            "subtitle": "Madrugada, intervalo do trabalho, depois do jogo na TV. E do lado de cá, gente de verdade para ajudar.",
+            "leftTitle": "No app",
+            "leftRows": [
+              {
+                "label": "Mesas",
+                "value": "NLH e PLO",
+                "detail": "Conforme a grade do app {{app}}."
+              },
+              {
+                "label": "Torneios",
+                "value": "Durante o dia todo",
+                "detail": "Grade completa no lobby do app."
+              },
+              {
+                "label": "Celular",
+                "value": "Android e iPhone",
+                "detail": "App oficial, grátis nas lojas."
+              }
+            ],
+            "rightTitle": "No {{name}}",
+            "rightRows": [
+              {
+                "label": "Entrada",
+                "value": "Pelo link do clube",
+                "detail": "Você já cai dentro do clube, com o agente."
+              },
+              {
+                "label": "Fichas",
+                "value": "Por PIX, no canal 24h",
+                "detail": ""
+              },
+              {
+                "label": "Saque",
+                "value": "Na chave PIX do seu CPF",
+                "detail": ""
+              },
+              {
+                "label": "Suporte",
+                "value": "Gente de verdade",
+                "detail": "No WhatsApp do clube."
+              }
+            ],
+            "foot": "",
+            "variant": "duas"
+          }
+        },
+        {
+          "type": "comprovante_agenda",
+          "props": {
+            "anchor": "agenda",
+            "title": "Agendados de exemplo",
+            "subtitle": "É assim que a grade aparece no app. Horários e valores abaixo são exemplo: a grade real é a do lobby do {{app}}.",
+            "headLeft": "Hoje no app",
+            "live": true,
+            "headRight": "horário de Brasília",
+            "tag": "EXEMPLO",
+            "items": [
+              {
+                "day": "",
+                "time": "17:30",
+                "name": "Bounty da tarde",
+                "info": "NLH · KO · late até 20:00",
+                "label": "buy-in",
+                "value": "R$ 10"
+              },
+              {
+                "day": "",
+                "time": "19:00",
+                "name": "Battle",
+                "info": "NLH · KO · late até 22:20",
+                "label": "buy-in",
+                "value": "R$ 55"
+              },
+              {
+                "day": "",
+                "time": "20:00",
+                "name": "Deep Stack",
+                "info": "NLH · late até 23:20",
+                "label": "buy-in",
+                "value": "R$ 100"
+              },
+              {
+                "day": "",
+                "time": "21:30",
+                "name": "PLO da noite",
+                "info": "PLO 5 · late até 00:30",
+                "label": "buy-in",
+                "value": "R$ 30"
+              }
+            ],
+            "foot": "Grade de exemplo. Troque pela grade do clube.",
+            "linkLabel": "Ver no app",
+            "linkHref": "{{inviteLink}}"
+          }
+        },
+        {
+          "type": "lead_form",
+          "props": {
+            "anchor": "cadastro",
+            "title": "Comece pelo seu e-mail",
+            "text": "É por ele que a gente manda o link do clube e o passo a passo para a primeira mesa. Sem senha do app e sem documento.",
+            "fields": "email",
+            "button": "Quero jogar",
+            "success": "Pronto! Confira o seu e-mail: o link do clube está a caminho.",
+            "consent": "Tenho 18 anos ou mais e aceito receber o link do clube e avisos por e-mail. Posso sair quando quiser.",
+            "variant": "cartao"
+          }
+        },
+        {
+          "type": "faq",
+          "props": {
+            "eyebrow": "",
+            "title": "Dúvidas antes de entrar",
+            "subtitle": "Toque na linha e ela abre.",
+            "items": [
+              {
+                "q": "Como entro no clube?",
+                "a": "Abra o app {{app}} pelo link do clube. Se ainda não tiver o app, o link leva para a loja; depois de instalar, abra pelo mesmo link e você entra no clube {{number}} com o agente {{agentId}}."
+              },
+              {
+                "q": "Preciso pagar para criar a conta?",
+                "a": "Não. O app é grátis e o cadastro também. Você só paga quando decidir comprar fichas."
+              },
+              {
+                "q": "Já tenho conta no app. Posso entrar?",
+                "a": "Pode. Abra o link do clube com o app instalado e aceite o convite."
+              },
+              {
+                "q": "É só para maiores de 18?",
+                "a": "Sim. Somente maiores de 18 anos. Jogue com responsabilidade: defina um valor antes de sentar e pare quando ele acabar."
+              }
+            ]
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "text": "{{unitLabel}} no app {{app}}. Entrada pelo link do clube, fichas por PIX e suporte de gente de verdade.",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Como entrar",
+                "href": "/como-entrar"
+              },
+              {
+                "label": "Dúvidas",
+                "href": "/duvidas"
+              },
+              {
+                "label": "Jogo responsável",
+                "href": "/jogo-responsavel"
+              }
+            ],
+            "disclaimer": "{{disclaimer}}"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "como-entrar",
+      "title": "Como entrar",
+      "seo": {
+        "description": "Como entrar no {{name}} no app {{app}}: link do clube, convite e primeira compra de fichas por PIX."
+      },
+      "blocks": [
+        {
+          "type": "comprovante_topo",
+          "props": {
+            "faixa": "Somente maiores de 18 · Jogue com responsabilidade",
+            "brand": "{{name}}",
+            "sub": "ID {{number}}",
+            "logo": "{{logo}}",
+            "links": [
+              {
+                "label": "Como entrar",
+                "href": "/como-entrar",
+                "dot": false
+              },
+              {
+                "label": "Dúvidas",
+                "href": "/duvidas",
+                "dot": false
+              },
+              {
+                "label": "Jogo responsável",
+                "href": "/jogo-responsavel",
+                "dot": false
+              },
+              {
+                "label": "Torneios",
+                "href": "/#agenda",
+                "dot": true
+              }
+            ],
+            "cta": "Quero jogar",
+            "ctaHref": "{{inviteLink}}"
+          }
+        },
+        {
+          "type": "comprovante_cabecalho",
+          "props": {
+            "title": "Como entrar no clube",
+            "subtitle": "Do app instalado à primeira mão, em cinco passos. Se travar em algum, o suporte resolve com você.",
+            "cta": "Abrir o link do clube",
+            "ctaHref": "{{inviteLink}}",
+            "secondary": "Falar com o suporte",
+            "secondaryHref": "{{whatsappLink}}",
+            "stripTitle": "Seu convite",
+            "strip": [
+              {
+                "label": "Clube",
+                "value": "{{number}}"
+              },
+              {
+                "label": "Agente",
+                "value": "{{agentId}}"
+              },
+              {
+                "label": "App",
+                "value": "{{app}}"
+              },
+              {
+                "label": "Entrada",
+                "value": "pelo link do clube"
+              }
+            ],
+            "tag": ""
+          }
+        },
+        {
+          "type": "comprovante_extrato",
+          "props": {
+            "title": "Passo a passo da entrada",
+            "subtitle": "Leva poucos minutos. A ordem importa: abrir pelo link é o que coloca você dentro do clube certo.",
+            "headLeft": "Entrada no clube",
+            "headRight": "5 lançamentos",
+            "tag": "",
+            "items": [
+              {
+                "icon": "phone",
+                "title": "Instale o app {{app}}",
+                "time": "2 min",
+                "text": "Pelo link do clube ou direto na loja do seu celular. O app é grátis.",
+                "pill": "",
+                "tone": "ouro",
+                "href": ""
+              },
+              {
+                "icon": "usuario",
+                "title": "Crie a sua conta no app",
+                "time": "1 min",
+                "text": "Com os seus dados, no próprio app. O site nunca pede a sua senha.",
+                "pill": "",
+                "tone": "ouro",
+                "href": ""
+              },
+              {
+                "icon": "link",
+                "title": "Abra o app pelo link do clube",
+                "time": "10 s",
+                "text": "Com o app instalado, toque no link do clube de novo. Ele abre o convite do **clube {{number}}**.",
+                "pill": "Pelo link",
+                "tone": "ouro",
+                "href": ""
+              },
+              {
+                "icon": "check",
+                "title": "Aceite o convite",
+                "time": "10 s",
+                "text": "Você entra no clube já ligado ao **agente {{agentId}}**. Confira o número do clube no lobby.",
+                "pill": "Dentro do clube",
+                "tone": "ok",
+                "href": ""
+              },
+              {
+                "icon": "ficha",
+                "title": "Primeira compra de fichas",
+                "time": "quando quiser",
+                "text": "No canal de fichas, por PIX. Informe o seu ID do jogador, o clube e o agente.",
+                "pill": "",
+                "tone": "ouro",
+                "href": ""
+              }
+            ],
+            "totalLabel": "No fim",
+            "total": "Você na mesa do {{name}}",
+            "cta": "",
+            "ctaHref": "",
+            "variant": "lado"
+          }
+        },
+        {
+          "type": "comprovante_dados",
+          "props": {
+            "title": "Os números do clube",
+            "subtitle": "Se o convite não abrir sozinho, procure o clube no app pelo número e informe o agente.",
+            "leftTitle": "Dados do clube",
+            "leftMeta": "copie e cole",
+            "fields": [
+              {
+                "label": "Clube",
+                "value": "{{number}}",
+                "help": "",
+                "copy": true
+              },
+              {
+                "label": "Agente",
+                "value": "{{agentId}}",
+                "help": "",
+                "copy": true
+              }
+            ],
+            "rightTitle": "Entrar pelo número",
+            "rightMeta": "no app",
+            "steps": [
+              {
+                "text": "No app, abra a área de **clubes**."
+              },
+              {
+                "text": "Toque em **entrar em um clube** e digite **{{number}}**."
+              },
+              {
+                "text": "Se pedir, informe o **agente {{agentId}}**."
+              },
+              {
+                "text": "Aguarde a aprovação do clube. O suporte agiliza se precisar."
+              }
+            ],
+            "noteTitle": "Travou?",
+            "note": "Fale com o suporte do clube e mande um print da tela.",
+            "noteIcon": "chat"
+          }
+        },
+        {
+          "type": "faq",
+          "props": {
+            "eyebrow": "",
+            "title": "Dúvidas da entrada",
+            "subtitle": "",
+            "items": [
+              {
+                "q": "O link abriu a loja, e agora?",
+                "a": "Instale o app, crie a conta e toque no link do clube de novo. Na segunda vez ele abre o convite."
+              },
+              {
+                "q": "Entrei em outro clube por engano.",
+                "a": "Tudo bem. Abra o link do clube {{number}} e aceite o convite; você pode participar de mais de um clube no app."
+              },
+              {
+                "q": "Precisa de documento?",
+                "a": "O site não pede documento. Qualquer verificação de conta é feita pelo próprio app {{app}}."
+              }
+            ]
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "text": "{{unitLabel}} no app {{app}}. Entrada pelo link do clube, fichas por PIX e suporte de gente de verdade.",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Como entrar",
+                "href": "/como-entrar"
+              },
+              {
+                "label": "Dúvidas",
+                "href": "/duvidas"
+              },
+              {
+                "label": "Jogo responsável",
+                "href": "/jogo-responsavel"
+              }
+            ],
+            "disclaimer": "{{disclaimer}}"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "duvidas",
+      "title": "Dúvidas",
+      "seo": {
+        "description": "Dúvidas sobre o {{name}}: conta, convite, fichas por PIX, saque e suporte."
+      },
+      "blocks": [
+        {
+          "type": "comprovante_topo",
+          "props": {
+            "faixa": "Somente maiores de 18 · Jogue com responsabilidade",
+            "brand": "{{name}}",
+            "sub": "ID {{number}}",
+            "logo": "{{logo}}",
+            "links": [
+              {
+                "label": "Como entrar",
+                "href": "/como-entrar",
+                "dot": false
+              },
+              {
+                "label": "Dúvidas",
+                "href": "/duvidas",
+                "dot": false
+              },
+              {
+                "label": "Jogo responsável",
+                "href": "/jogo-responsavel",
+                "dot": false
+              },
+              {
+                "label": "Torneios",
+                "href": "/#agenda",
+                "dot": true
+              }
+            ],
+            "cta": "Quero jogar",
+            "ctaHref": "{{inviteLink}}"
+          }
+        },
+        {
+          "type": "comprovante_cabecalho",
+          "props": {
+            "title": "Dúvidas sobre o clube",
+            "subtitle": "As respostas curtas para o que mais perguntam no suporte. Não achou a sua? Fale com a gente.",
+            "cta": "Falar com o suporte",
+            "ctaHref": "{{whatsappLink}}",
+            "secondary": "",
+            "secondaryHref": "",
+            "stripTitle": "",
+            "strip": [],
+            "tag": ""
+          }
+        },
+        {
+          "type": "faq",
+          "props": {
+            "anchor": "conta",
+            "eyebrow": "",
+            "title": "Conta e convite",
+            "subtitle": "",
+            "items": [
+              {
+                "q": "O app é grátis?",
+                "a": "Sim. O {{app}} é grátis nas lojas e criar a conta também."
+              },
+              {
+                "q": "Já tenho conta. Preciso criar outra?",
+                "a": "Não. Use a mesma conta e abra o link do clube para aceitar o convite."
+              },
+              {
+                "q": "O site pede a minha senha?",
+                "a": "Nunca. Nem o site nem o suporte pedem a senha do app."
+              },
+              {
+                "q": "Posso jogar em mais de um clube?",
+                "a": "Pode. O app permite participar de mais de um clube com a mesma conta."
+              }
+            ]
+          }
+        },
+        {
+          "type": "faq",
+          "props": {
+            "anchor": "fichas",
+            "eyebrow": "",
+            "title": "Fichas e saque",
+            "subtitle": "",
+            "items": [
+              {
+                "q": "Como compro fichas?",
+                "a": "No canal de fichas, por PIX. Na primeira compra, informe o seu ID do jogador, o clube {{number}} e o agente {{agentId}}."
+              },
+              {
+                "q": "Tem bônus de primeira compra?",
+                "a": "Não. O clube não oferece bônus nem fichas grátis. O que você compra é o que entra na conta."
+              },
+              {
+                "q": "Como saco?",
+                "a": "Pelo mesmo canal, com PIX na chave do CPF do titular da conta do app."
+              },
+              {
+                "q": "Qual o mínimo?",
+                "a": "O mínimo de compra e de saque é informado no canal, antes de qualquer pagamento."
+              }
+            ]
+          }
+        },
+        {
+          "type": "comprovante_linhas",
+          "props": {
+            "title": "Canais oficiais",
+            "subtitle": "Fale só por aqui. Qualquer outro contato em nome do clube não é nosso.",
+            "leftTitle": "Onde falar com o clube",
+            "leftRows": [
+              {
+                "label": "Suporte",
+                "value": "WhatsApp do clube",
+                "detail": "Todos os dias, 24 horas."
+              },
+              {
+                "label": "Fichas",
+                "value": "Canal de fichas",
+                "detail": "Compra e saque por PIX."
+              },
+              {
+                "label": "Avisos",
+                "value": "Seu e-mail",
+                "detail": "Se você se cadastrou no site."
+              }
+            ],
+            "rightTitle": "",
+            "rightRows": [],
+            "foot": "",
+            "variant": "duas"
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "text": "{{unitLabel}} no app {{app}}. Entrada pelo link do clube, fichas por PIX e suporte de gente de verdade.",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Como entrar",
+                "href": "/como-entrar"
+              },
+              {
+                "label": "Dúvidas",
+                "href": "/duvidas"
+              },
+              {
+                "label": "Jogo responsável",
+                "href": "/jogo-responsavel"
+              }
+            ],
+            "disclaimer": "{{disclaimer}}"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "jogo-responsavel",
+      "title": "Jogo responsável",
+      "seo": {
+        "description": "Jogo responsável no {{name}}: somente maiores de 18, limites antes de sentar e onde pedir ajuda."
+      },
+      "blocks": [
+        {
+          "type": "comprovante_topo",
+          "props": {
+            "faixa": "Somente maiores de 18 · Jogue com responsabilidade",
+            "brand": "{{name}}",
+            "sub": "ID {{number}}",
+            "logo": "{{logo}}",
+            "links": [
+              {
+                "label": "Como entrar",
+                "href": "/como-entrar",
+                "dot": false
+              },
+              {
+                "label": "Dúvidas",
+                "href": "/duvidas",
+                "dot": false
+              },
+              {
+                "label": "Jogo responsável",
+                "href": "/jogo-responsavel",
+                "dot": false
+              },
+              {
+                "label": "Torneios",
+                "href": "/#agenda",
+                "dot": true
+              }
+            ],
+            "cta": "Quero jogar",
+            "ctaHref": "{{inviteLink}}"
+          }
+        },
+        {
+          "type": "comprovante_cabecalho",
+          "props": {
+            "title": "Jogo responsável",
+            "subtitle": "Poker é entretenimento, não fonte de renda. Somente maiores de 18 anos. Defina o seu limite antes de sentar, como quem confere o comprovante antes de pagar.",
+            "cta": "",
+            "ctaHref": "",
+            "secondary": "",
+            "secondaryHref": "",
+            "stripTitle": "Seu limite, antes de sentar",
+            "strip": [
+              {
+                "label": "Idade",
+                "value": "18 anos ou mais"
+              },
+              {
+                "label": "Valor da sessão",
+                "value": "definido antes"
+              },
+              {
+                "label": "Tempo",
+                "value": "pausa a cada hora"
+              },
+              {
+                "label": "Perdeu o limite",
+                "value": "pare por hoje"
+              }
+            ],
+            "tag": ""
+          }
+        },
+        {
+          "type": "comprovante_linhas",
+          "props": {
+            "title": "Combine com você mesmo",
+            "subtitle": "Regras simples, decididas com a cabeça fria, antes da primeira mão.",
+            "leftTitle": "Antes de sentar",
+            "leftRows": [
+              {
+                "label": "Valor",
+                "value": "Só o que pode perder",
+                "detail": "Nunca dinheiro de contas, aluguel ou comida."
+              },
+              {
+                "label": "Tempo",
+                "value": "Hora para parar",
+                "detail": "Coloque um alarme no celular."
+              },
+              {
+                "label": "Estado",
+                "value": "Sem jogar para esquecer problema",
+                "detail": "Nem depois de beber."
+              }
+            ],
+            "rightTitle": "Na mesa",
+            "rightRows": [
+              {
+                "label": "Perdeu o limite",
+                "value": "Pare por hoje",
+                "detail": "Não compre mais fichas para recuperar."
+              },
+              {
+                "label": "Ganhou",
+                "value": "Saque uma parte",
+                "detail": "Ganhar não muda o limite de amanhã."
+              },
+              {
+                "label": "Cansou",
+                "value": "Levante",
+                "detail": "Cansaço vira decisão ruim."
+              }
+            ],
+            "foot": "",
+            "variant": "duas"
+          }
+        },
+        {
+          "type": "comprovante_extrato",
+          "props": {
+            "title": "Sinais de que é hora de parar",
+            "subtitle": "Se você se reconhece em algum destes, fale com alguém de confiança e dê uma pausa.",
+            "headLeft": "Sinais de alerta",
+            "headRight": "",
+            "tag": "",
+            "items": [
+              {
+                "icon": "relogio",
+                "title": "Jogar mais tempo do que planejou",
+                "time": "",
+                "text": "A sessão estica sempre \"só mais uma\".",
+                "pill": "",
+                "tone": "neutro",
+                "href": ""
+              },
+              {
+                "icon": "ficha",
+                "title": "Comprar fichas para recuperar o que perdeu",
+                "time": "",
+                "text": "É o sinal mais comum de que o jogo deixou de ser diversão.",
+                "pill": "",
+                "tone": "neutro",
+                "href": ""
+              },
+              {
+                "icon": "chat",
+                "title": "Esconder quanto joga",
+                "time": "",
+                "text": "De família, de amigos ou de você mesmo.",
+                "pill": "",
+                "tone": "neutro",
+                "href": ""
+              }
+            ],
+            "totalLabel": "",
+            "total": "",
+            "cta": "",
+            "ctaHref": "",
+            "variant": "extrato"
+          }
+        },
+        {
+          "type": "comprovante_painel",
+          "props": {
+            "title": "Onde pedir ajuda",
+            "subtitle": "Conversar ajuda. Estes serviços são gratuitos.",
+            "cta": "",
+            "ctaHref": "",
+            "secondary": "",
+            "secondaryHref": "",
+            "points": [
+              {
+                "icon": "chat",
+                "text": "**Conte para alguém de confiança.** Falar em voz alta já ajuda a ver o tamanho da coisa."
+              },
+              {
+                "icon": "pausa",
+                "text": "**Peça uma pausa na conta.** O suporte do clube ajuda a dar um tempo, sem pergunta."
+              },
+              {
+                "icon": "escudo",
+                "text": "**Não compre fichas para recuperar.** Perdeu o limite, a sessão de hoje acabou."
+              }
+            ],
+            "logo": "",
+            "panelTitle": "Contatos de apoio",
+            "panelSub": "Gratuitos e sigilosos",
+            "tag": "APOIO",
+            "bigLabel": "",
+            "big": "",
+            "bigSub": "",
+            "rows": [
+              {
+                "label": "CVV",
+                "value": "Ligue 188",
+                "detail": "Apoio emocional, 24 horas, também pelo site cvv.org.br."
+              },
+              {
+                "label": "Jogadores Anônimos",
+                "value": "Grupos de apoio",
+                "detail": "Reuniões para quem quer parar de jogar."
+              },
+              {
+                "label": "No clube",
+                "value": "Peça uma pausa",
+                "detail": "O suporte pode ajudar a dar um tempo na conta."
+              }
+            ],
+            "totalLabel": "",
+            "total": "",
+            "panelFoot": "",
+            "variant": "secao"
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "text": "{{unitLabel}} no app {{app}}. Entrada pelo link do clube, fichas por PIX e suporte de gente de verdade.",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Como entrar",
+                "href": "/como-entrar"
+              },
+              {
+                "label": "Dúvidas",
+                "href": "/duvidas"
+              },
+              {
+                "label": "Jogo responsável",
+                "href": "/jogo-responsavel"
+              }
+            ],
+            "disclaimer": "{{disclaimer}}"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,824 @@
+{
+  "id": "sx-ingresso-parceiro",
+  "name": "Credencial de parceiro (edição SX)",
+  "order": 17,
+  "version": 1,
+  "category": "Poker · edição SX",
+  "niches": [
+    "poker"
+  ],
+  "inspiredBy": "sx",
+  "description": "Recrutamento de agentes e donos de clube (B2B) no mundo \"Ingresso de mesa\": o ingresso vira credencial de parceiro com o pedido de contato dentro dela. O que o grupo entrega, os dois perfis de entrada, as etapas e os compromissos. Sem promessa de ganho; condições de exemplo identificadas.",
+  "theme": {
+    "world": "ingresso",
+    "mode": "escuro",
+    "bg": "#0b0906",
+    "surface": "#efa144",
+    "text": "#f3b662",
+    "muted": "#c4a77e",
+    "primary": "#efa144",
+    "primaryText": "#140f08",
+    "accent": "#0e5a32",
+    "border": "#3a2c18",
+    "font": "Montserrat",
+    "fontHead": "Antonio",
+    "fontMono": "JetBrains Mono",
+    "radius": 8
+  },
+  "seo": {
+    "title": "{{name}} · Seja parceiro do grupo",
+    "description": "Agentes e donos de clube no app {{app}}: atendimento, canal de fichas e apoio de divulgação do grupo. Condições combinadas por escrito. Somente +18."
+  },
+  "pages": [
+    {
+      "slug": "",
+      "title": "Início",
+      "blocks": [
+        {
+          "type": "ingresso_topo",
+          "props": {
+            "brand": "{{name}}",
+            "logo": "{{logo}}",
+            "sub": "Parcerias · +18",
+            "links": [
+              {
+                "label": "Benefícios",
+                "href": "/beneficios",
+                "vivo": false
+              },
+              {
+                "label": "Como funciona",
+                "href": "/como-funciona",
+                "vivo": false
+              },
+              {
+                "label": "Contato",
+                "href": "/contato",
+                "vivo": false
+              }
+            ],
+            "cta": "Quero ser parceiro",
+            "ctaHref": "/#credencial"
+          }
+        },
+        {
+          "type": "ingresso_hero",
+          "props": {
+            "anchor": "credencial",
+            "variant": "credencial",
+            "brand": "{{name}}",
+            "logo": "{{logo}}",
+            "serie": "Credencial de parceiro · agentes e donos de clube",
+            "title": "Traga a sua mesa para dentro do grupo.",
+            "text": "Para **agentes** e **donos de clube** no {{app}}: atendimento ao jogador, canal de fichas por PIX e apoio de divulgação do grupo, com você no comando dos seus jogadores.",
+            "promessa": "Uma conversa, sem compromisso.",
+            "fixos": [
+              {
+                "label": "Perfil",
+                "value": "Agente ou dono"
+              },
+              {
+                "label": "Retorno",
+                "value": "WhatsApp"
+              }
+            ],
+            "fields": "email_nome_telefone",
+            "emailLabel": "E-mail de contato",
+            "button": "Pedir credencial",
+            "success": "Pedido recebido. Sua credencial foi destacada.",
+            "consent": "Aceito ser contatado pelo grupo sobre a parceria. Tenho mais de 18 anos.",
+            "help": "Não pedimos senha, acesso ao seu clube nem documento por aqui.",
+            "miudas": [
+              {
+                "text": "**+18** · Operação só com maiores"
+              },
+              {
+                "text": "**Jogue com responsabilidade**"
+              },
+              {
+                "text": "Sem promessa de ganho"
+              }
+            ],
+            "stubTitle": "Credencial de parceiro",
+            "stubNote": "Uso no grupo",
+            "stubMainLabel": "Acesso",
+            "stubMainValue": "PARCEIRO",
+            "stubFields": [
+              {
+                "label": "Clube-sede",
+                "value": "{{number}}"
+              },
+              {
+                "label": "Agente",
+                "value": "{{agentId}}"
+              }
+            ],
+            "holderLabel": "Credenciado",
+            "holderEmpty": "seu e-mail aqui",
+            "code": "PARCEIRO {{number}}",
+            "cut": "Destaca no picote ao enviar o pedido",
+            "cutDone": "Destacada. A conversa vem a seguir.",
+            "stamp": "RECEBIDO",
+            "stampSub": "PARCERIA",
+            "nextTitle": "Pedido recebido. Agora, a conversa.",
+            "nextText": "Alguém do grupo chama você para entender a sua operação e explicar as condições. Se preferir adiantar, mande uma mensagem.",
+            "nextCta": "Falar no WhatsApp",
+            "nextHref": "{{whatsappLink}}"
+          }
+        },
+        {
+          "type": "ingresso_linhas",
+          "props": {
+            "title": "O que o grupo entrega.",
+            "intro": "Você continua dono da relação com os seus jogadores. O grupo cuida da estrutura que é cara de manter sozinho.",
+            "items": [
+              {
+                "k": "Suporte",
+                "v": "**Atendimento ao jogador** pelo WhatsApp, com gente de verdade, para os jogadores que chegam pelo seu link."
+              },
+              {
+                "k": "PIX",
+                "v": "**Canal de fichas** com compra e saque por PIX, sempre na chave do CPF do titular."
+              },
+              {
+                "k": "Grade",
+                "v": "**Agenda de torneios** e mesas do app organizada e publicada para os seus jogadores."
+              },
+              {
+                "k": "Páginas",
+                "v": "**Site e materiais prontos**, como esta página, com o seu clube e o seu agente já impressos."
+              },
+              {
+                "k": "Painel",
+                "v": "**Acompanhamento** dos cadastros e das entradas que vieram do seu link."
+              }
+            ]
+          }
+        },
+        {
+          "type": "ingresso_passes",
+          "props": {
+            "title": "Dois jeitos de entrar.",
+            "intro": "Escolha o passe que descreve a sua operação hoje. Dá para mudar depois.",
+            "exemplo": true,
+            "items": [
+              {
+                "classe": "AG",
+                "rot": "Passe · agente",
+                "nome": "Agente",
+                "text": "Você já indica jogadores e quer um clube com estrutura para atender quem chega.",
+                "lista": "Link próprio de convite\nMateriais de divulgação prontos\nAcompanhamento dos seus cadastros\nCondições combinadas por escrito",
+                "nota": "Bom para quem está começando a montar a carteira."
+              },
+              {
+                "classe": "CL",
+                "rot": "Passe · clube",
+                "nome": "Dono de clube",
+                "text": "Você tem um clube rodando e quer somar com a estrutura de um grupo, sem perder a sua marca.",
+                "lista": "Atendimento e canal de fichas do grupo\nAgenda de torneios compartilhada\nPáginas com a marca do seu clube\nCondições combinadas por escrito",
+                "nota": "Bom para quem já tem mesa e quer crescer com estrutura."
+              }
+            ]
+          }
+        },
+        {
+          "type": "ingresso_tira",
+          "props": {
+            "anchor": "etapas",
+            "title": "Da conversa à primeira mesa.",
+            "intro": "Três etapas, e em nenhuma delas você paga para entrar ou passa senha de nada.",
+            "items": [
+              {
+                "rot": "Etapa 1 de 3",
+                "numero": "Papo",
+                "title": "Conversa",
+                "text": "A gente entende a sua operação: quem são os seus jogadores, como você atende hoje e o que falta.",
+                "impresso": "Canal | **WhatsApp ou e-mail**"
+              },
+              {
+                "rot": "Etapa 2 de 3",
+                "numero": "Plano",
+                "title": "Condições por escrito",
+                "text": "Combinamos papéis, comissão e regras de divulgação num documento simples, antes de qualquer começo.",
+                "impresso": "Formato | **por escrito**"
+              },
+              {
+                "rot": "Etapa 3 de 3",
+                "numero": "Mesa",
+                "title": "Abertura",
+                "text": "Você recebe o link, as páginas e os materiais. Os seus jogadores entram pelo link e já caem no lugar certo.",
+                "nota": "O acompanhamento dos cadastros começa no primeiro dia."
+              }
+            ]
+          }
+        },
+        {
+          "type": "ingresso_verso",
+          "props": {
+            "title": "Perguntas de quem está pensando em entrar.",
+            "cabEsq": "**Condições** · verso da credencial",
+            "cabDir": "Parcerias · {{app}}",
+            "items": [
+              {
+                "q": "Tem custo para entrar no grupo?",
+                "a": "Não se cobra para conversar nem para receber a proposta. Se houver algum custo na parceria, ele aparece por escrito, antes de começar."
+              },
+              {
+                "q": "Como funciona a comissão?",
+                "a": "É combinada na conversa e registrada por escrito. Este site não promete valor fixo, ganho mínimo nem resultado."
+              },
+              {
+                "q": "Preciso sair do meu clube atual?",
+                "a": "Depende do seu caso. Na conversa a gente olha a sua operação e mostra os caminhos possíveis, sem pressão."
+              },
+              {
+                "q": "Quem atende os meus jogadores?",
+                "a": "O atendimento do grupo atende quem chega pelo seu link, e você continua com acesso ao seu relacionamento com eles."
+              },
+              {
+                "q": "Posso usar a marca do meu clube?",
+                "a": "Pode. As páginas e os materiais saem com o nome, o ID do clube e o ID do agente da sua operação."
+              },
+              {
+                "q": "O grupo pede senha ou acesso?",
+                "a": "Nunca. Ninguém do grupo pede senha do app, do seu clube ou de conta de pagamento."
+              }
+            ],
+            "assina": "Operação só com maiores de 18 anos · **Jogue com responsabilidade**"
+          }
+        },
+        {
+          "type": "ingresso_final",
+          "props": {
+            "variant": "contorno",
+            "title": "Credencial na mão, conversa marcada.",
+            "text": "Deixe o contato na credencial e a gente chama. Sem promessa de ganho.",
+            "cta": "Pedir credencial",
+            "ctaHref": "#credencial",
+            "secondary": "Ver os benefícios",
+            "secondaryHref": "/beneficios"
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "text": "Parcerias para agentes e donos de clube no app {{app}}. Condições combinadas por escrito, sem promessa de ganho.",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Benefícios",
+                "href": "/beneficios"
+              },
+              {
+                "label": "Como funciona",
+                "href": "/como-funciona"
+              },
+              {
+                "label": "Contato",
+                "href": "/contato"
+              }
+            ],
+            "disclaimer": "{{disclaimer}}"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "beneficios",
+      "title": "Benefícios",
+      "seo": {
+        "description": "Benefícios da parceria com o {{name}}: atendimento, canal de fichas por PIX, agenda, páginas e acompanhamento. Somente +18."
+      },
+      "blocks": [
+        {
+          "type": "ingresso_topo",
+          "props": {
+            "brand": "{{name}}",
+            "logo": "{{logo}}",
+            "sub": "Parcerias · +18",
+            "links": [
+              {
+                "label": "Benefícios",
+                "href": "/beneficios",
+                "vivo": false
+              },
+              {
+                "label": "Como funciona",
+                "href": "/como-funciona",
+                "vivo": false
+              },
+              {
+                "label": "Contato",
+                "href": "/contato",
+                "vivo": false
+              }
+            ],
+            "cta": "Quero ser parceiro",
+            "ctaHref": "/#credencial"
+          }
+        },
+        {
+          "type": "ingresso_cabecalho",
+          "props": {
+            "variant": "bilhete",
+            "serie": "Benefícios da parceria",
+            "code": "BENEF {{number}}",
+            "title": "O que muda quando a sua operação entra no grupo.",
+            "text": "Cada item abaixo é uma parte da estrutura que o grupo divide com os parceiros. O que entra no seu caso é combinado **por escrito**.",
+            "campos": [
+              {
+                "label": "Atendimento",
+                "value": "Do grupo"
+              },
+              {
+                "label": "Fichas",
+                "value": "Canal PIX"
+              },
+              {
+                "label": "Divulgação",
+                "value": "Materiais"
+              },
+              {
+                "label": "Acompanhamento",
+                "value": "Painel"
+              }
+            ],
+            "miudas": "**+18** · Sem promessa de ganho · **Jogue com responsabilidade**"
+          }
+        },
+        {
+          "type": "ingresso_linhas",
+          "props": {
+            "title": "A estrutura, item por item.",
+            "items": [
+              {
+                "k": "Suporte",
+                "v": "**Atendimento ao jogador** pelo WhatsApp para quem chega pelo seu link: dúvidas de app, entrada no clube, fichas e saque."
+              },
+              {
+                "k": "PIX",
+                "v": "**Canal de fichas** do grupo, com compra e saque por PIX na chave do CPF do titular e confirmação por escrito no chat."
+              },
+              {
+                "k": "Grade",
+                "v": "**Agenda de torneios** do app organizada em página própria, pronta para divulgar."
+              },
+              {
+                "k": "Páginas",
+                "v": "**Site do seu clube** com cadastro que cai no CRM, guia de entrada e jogo responsável, já com o seu clube e agente."
+              },
+              {
+                "k": "Link",
+                "v": "**Link próprio de convite**, para cada cadastro ficar registrado como seu."
+              },
+              {
+                "k": "Painel",
+                "v": "**Acompanhamento** dos cadastros, entradas no clube e primeiras compras que vieram de você."
+              }
+            ]
+          }
+        },
+        {
+          "type": "ingresso_recibo",
+          "props": {
+            "variant": "recibo-direita",
+            "title": "Quem faz o quê.",
+            "intro": "A parceria funciona quando os papéis estão claros. Este é o resumo que vira documento na etapa 2.",
+            "steps": [
+              {
+                "icon": "equipe",
+                "title": "Você cuida dos seus jogadores",
+                "text": "Indica, acolhe e mantém o relacionamento com quem joga com você."
+              },
+              {
+                "icon": "chat",
+                "title": "O grupo cuida do atendimento",
+                "text": "Dúvidas do app, entrada no clube, fichas e saque."
+              },
+              {
+                "icon": "painel",
+                "title": "Os dois acompanham os números",
+                "text": "Cadastros e entradas pelo seu link ficam registrados no painel."
+              }
+            ],
+            "cta": "Pedir credencial",
+            "ctaHref": "/#credencial",
+            "reciboTitulo": "Acordo de parceria",
+            "reciboSub": "Resumo · modelo de exemplo",
+            "linhas": [
+              {
+                "dt": "Atendimento ao jogador",
+                "dd": "Grupo"
+              },
+              {
+                "dt": "Canal de fichas",
+                "dd": "Grupo"
+              },
+              {
+                "dt": "Páginas e materiais",
+                "dd": "Grupo"
+              },
+              {
+                "dt": "Relacionamento",
+                "dd": "Você"
+              },
+              {
+                "dt": "Comissão",
+                "dd": "Por escrito",
+                "nota": "combinada na etapa 2"
+              }
+            ],
+            "rodape": "**Modelo de exemplo:** os termos reais saem da conversa.\n**+18** · Sem bônus, sem fichas grátis, sem promessa de ganho.",
+            "code": "ACORDO {{number}}"
+          }
+        },
+        {
+          "type": "ingresso_final",
+          "props": {
+            "variant": "papel",
+            "title": "Quer ver isso no seu caso?",
+            "text": "Peça a credencial: a conversa é sem compromisso e o que valer para você fica **por escrito**.",
+            "cta": "Pedir credencial",
+            "ctaHref": "/#credencial"
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "text": "Parcerias para agentes e donos de clube no app {{app}}. Condições combinadas por escrito, sem promessa de ganho.",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Benefícios",
+                "href": "/beneficios"
+              },
+              {
+                "label": "Como funciona",
+                "href": "/como-funciona"
+              },
+              {
+                "label": "Contato",
+                "href": "/contato"
+              }
+            ],
+            "disclaimer": "{{disclaimer}}"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "como-funciona",
+      "title": "Como funciona",
+      "seo": {
+        "description": "Como funciona a entrada de agentes e clubes no grupo {{name}}: conversa, condições por escrito, abertura e acompanhamento."
+      },
+      "blocks": [
+        {
+          "type": "ingresso_topo",
+          "props": {
+            "brand": "{{name}}",
+            "logo": "{{logo}}",
+            "sub": "Parcerias · +18",
+            "links": [
+              {
+                "label": "Benefícios",
+                "href": "/beneficios",
+                "vivo": false
+              },
+              {
+                "label": "Como funciona",
+                "href": "/como-funciona",
+                "vivo": false
+              },
+              {
+                "label": "Contato",
+                "href": "/contato",
+                "vivo": false
+              }
+            ],
+            "cta": "Quero ser parceiro",
+            "ctaHref": "/#credencial"
+          }
+        },
+        {
+          "type": "ingresso_cabecalho",
+          "props": {
+            "variant": "faixa",
+            "title": "Como funciona a entrada no grupo.",
+            "text": "Quatro etapas, nesta ordem. Em nenhuma delas você paga para entrar ou passa senha de nada.",
+            "campos": [
+              {
+                "label": "Etapa 1",
+                "value": "Conversa"
+              },
+              {
+                "label": "Etapa 2",
+                "value": "Por escrito"
+              },
+              {
+                "label": "Etapa 3",
+                "value": "Abertura"
+              },
+              {
+                "label": "Etapa 4",
+                "value": "Acompanhamento"
+              }
+            ],
+            "code": "ETAPAS {{number}}",
+            "miudas": "**+18** · Operação só com maiores · **Jogue com responsabilidade**"
+          }
+        },
+        {
+          "type": "ingresso_tira",
+          "props": {
+            "title": "As quatro etapas.",
+            "items": [
+              {
+                "rot": "Etapa 1 de 4",
+                "numero": "Papo",
+                "title": "Conversa",
+                "text": "Você conta como é a sua operação hoje. A gente explica como o grupo funciona e tira as dúvidas.",
+                "impresso": "Canal | **WhatsApp ou e-mail**"
+              },
+              {
+                "rot": "Etapa 2 de 4",
+                "numero": "Termos",
+                "title": "Condições por escrito",
+                "text": "Papéis, comissão, regras de divulgação e de jogo responsável num documento simples.",
+                "impresso": "Assinatura | **antes de começar**"
+              },
+              {
+                "rot": "Etapa 3 de 4",
+                "numero": "Link",
+                "title": "Abertura",
+                "text": "Link de convite, páginas com o seu clube e agente, materiais prontos e acesso ao painel."
+              },
+              {
+                "rot": "Etapa 4 de 4",
+                "numero": "Painel",
+                "title": "Acompanhamento",
+                "text": "Cadastros, entradas no clube e primeiras compras pelo seu link, para os dois lados verem o mesmo número."
+              }
+            ]
+          }
+        },
+        {
+          "type": "ingresso_clausulas",
+          "props": {
+            "title": "Os compromissos de quem entra.",
+            "intro": "Valem para o grupo e para cada parceiro. Estão no documento da etapa 2.",
+            "cabEsq": "**Compromissos** · parceria",
+            "cabDir": "Grupo {{name}}",
+            "prefixo": "Compromisso",
+            "items": [
+              {
+                "title": "Só maiores de 18 anos",
+                "text": "Nenhuma divulgação para menores, nem em canal frequentado por menores."
+              },
+              {
+                "title": "Sem promessa de ganho",
+                "text": "Nada de \"renda extra\", \"lucro garantido\" ou resultado de mesa como chamada. Poker é jogo."
+              },
+              {
+                "title": "Sem bônus nem fichas grátis",
+                "text": "A divulgação não oferece bônus, fichas grátis ou vantagem em troca de cadastro."
+              },
+              {
+                "title": "Nada de senha",
+                "text": "Ninguém pede senha do app, do clube ou de conta de pagamento, nem para ajudar."
+              },
+              {
+                "title": "PIX só do titular",
+                "text": "Compra e saque sempre na chave do CPF do titular da conta do app."
+              },
+              {
+                "title": "Jogo responsável visível",
+                "text": "As páginas mostram +18 e \"Jogue com responsabilidade\" no corpo, não só no rodapé."
+              }
+            ],
+            "assina": "Compromissos da parceria · **+18**"
+          }
+        },
+        {
+          "type": "ingresso_final",
+          "props": {
+            "variant": "contorno",
+            "title": "Comece pela etapa 1.",
+            "text": "Deixe o contato na credencial. A etapa 1 é só uma conversa.",
+            "cta": "Pedir credencial",
+            "ctaHref": "/#credencial",
+            "secondary": "Falar com o grupo",
+            "secondaryHref": "/contato"
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "text": "Parcerias para agentes e donos de clube no app {{app}}. Condições combinadas por escrito, sem promessa de ganho.",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Benefícios",
+                "href": "/beneficios"
+              },
+              {
+                "label": "Como funciona",
+                "href": "/como-funciona"
+              },
+              {
+                "label": "Contato",
+                "href": "/contato"
+              }
+            ],
+            "disclaimer": "{{disclaimer}}"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "contato",
+      "title": "Contato",
+      "seo": {
+        "description": "Fale com o grupo {{name}} sobre parceria para agentes e donos de clube no app {{app}}."
+      },
+      "blocks": [
+        {
+          "type": "ingresso_topo",
+          "props": {
+            "brand": "{{name}}",
+            "logo": "{{logo}}",
+            "sub": "Parcerias · +18",
+            "links": [
+              {
+                "label": "Benefícios",
+                "href": "/beneficios",
+                "vivo": false
+              },
+              {
+                "label": "Como funciona",
+                "href": "/como-funciona",
+                "vivo": false
+              },
+              {
+                "label": "Contato",
+                "href": "/contato",
+                "vivo": false
+              }
+            ],
+            "cta": "Quero ser parceiro",
+            "ctaHref": "/#credencial"
+          }
+        },
+        {
+          "type": "ingresso_cabecalho",
+          "props": {
+            "variant": "faixa",
+            "title": "Fale com o grupo.",
+            "text": "Pelo formulário ou direto nos canais. A primeira conversa é para entender a sua operação, sem compromisso.",
+            "campos": [
+              {
+                "label": "Resposta",
+                "value": "WhatsApp"
+              },
+              {
+                "label": "Ou por",
+                "value": "E-mail"
+              },
+              {
+                "label": "Custo para conversar",
+                "value": "Nenhum"
+              }
+            ],
+            "miudas": "**+18** · Operação só com maiores · **Jogue com responsabilidade**"
+          }
+        },
+        {
+          "type": "lead_form",
+          "props": {
+            "variant": "lateral",
+            "title": "Conte sobre a sua operação",
+            "text": "Deixe nome, e-mail e WhatsApp. Na conversa, diga se você é agente ou dono de clube e como atende os seus jogadores hoje.\n\nO grupo nunca pede senha do app, do clube ou de conta de pagamento.",
+            "fields": "email_nome_telefone",
+            "button": "Enviar pedido",
+            "success": "Recebido! Vamos chamar você em breve.",
+            "consent": "Aceito ser contatado pelo grupo sobre a parceria. Tenho mais de 18 anos."
+          }
+        },
+        {
+          "type": "ingresso_recibo",
+          "props": {
+            "variant": "recibo-esquerda",
+            "title": "O que levar para a primeira conversa.",
+            "intro": "Não precisa de apresentação pronta. Estes quatro pontos já bastam para a gente entender a sua operação.",
+            "steps": [
+              {
+                "icon": "perfil",
+                "title": "Quem é você na mesa",
+                "text": "Agente que indica jogadores ou dono de clube com mesa rodando."
+              },
+              {
+                "icon": "chat",
+                "title": "Como atende hoje",
+                "text": "Por onde os seus jogadores falam com você e o que mais perguntam."
+              },
+              {
+                "icon": "ficha",
+                "title": "Como as fichas chegam",
+                "text": "Se você já usa um canal de fichas ou se isso é o que falta."
+              },
+              {
+                "icon": "cadeado",
+                "title": "O que fica com você",
+                "text": "A relação com os seus jogadores continua sua. Senha nenhuma entra na conversa."
+              }
+            ],
+            "reciboTitulo": "Ficha da conversa",
+            "reciboSub": "Modelo · preenchida no papo",
+            "linhas": [
+              {
+                "dt": "Perfil",
+                "dd": "",
+                "nota": "agente ou dono de clube"
+              },
+              {
+                "dt": "Clube atual",
+                "dd": ""
+              },
+              {
+                "dt": "Canal de contato",
+                "dd": ""
+              },
+              {
+                "dt": "Canal de fichas",
+                "dd": ""
+              },
+              {
+                "dt": "Comissão",
+                "dd": "Por escrito",
+                "nota": "combinada na etapa 2"
+              }
+            ],
+            "rodape": "**Modelo de exemplo:** os campos em branco saem da conversa.\nNinguém do grupo pede senha do app ou do clube.",
+            "code": "CONVERSA {{number}}"
+          }
+        },
+        {
+          "type": "contact",
+          "props": {
+            "title": "Prefere chamar direto?",
+            "subtitle": "Mande uma mensagem dizendo que veio pela página de parcerias.",
+            "whatsapp": "{{whatsapp}}",
+            "telegram": "{{telegram}}",
+            "email": "{{email}}",
+            "hours": "Resposta em horário comercial"
+          }
+        },
+        {
+          "type": "notice",
+          "props": {
+            "variant": "alerta",
+            "text": "Desconfie de qualquer pessoa que fale em nome do grupo e peça senha, pagamento para entrar ou prometa ganho. O grupo só fala pelos canais desta página."
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "text": "Parcerias para agentes e donos de clube no app {{app}}. Condições combinadas por escrito, sem promessa de ganho.",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Benefícios",
+                "href": "/beneficios"
+              },
+              {
+                "label": "Como funciona",
+                "href": "/como-funciona"
+              },
+              {
+                "label": "Contato",
+                "href": "/contato"
+              }
+            ],
+            "disclaimer": "{{disclaimer}}"
+          }
+        }
+      ]
+    }
+  ]
+}

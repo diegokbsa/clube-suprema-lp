@@ -4,10 +4,15 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { cleanBlocks } from './blocks.mjs';
+import { WORLD_IDS } from './worlds/index.mjs';
 
 const DIR = path.join(path.dirname(fileURLToPath(import.meta.url)), '..', 'templates');
+// As do primeiro grupo ficam para não quebrar site já criado; os mundos novos usam as do segundo (Google Fonts; pesos em lib/site.mjs).
 export const FONTS = ['Inter', 'Manrope', 'Sora', 'DM Sans', 'Space Grotesk', 'Archivo', 'IBM Plex Sans', 'Outfit', 'Bricolage Grotesque',
-  'Fraunces', 'Playfair Display', 'Barlow Condensed', 'Libre Franklin', 'Rubik'];
+  'Fraunces', 'Playfair Display', 'Barlow Condensed', 'Libre Franklin', 'Rubik',
+  'Montserrat', 'Antonio', 'Anton', 'Oswald', 'Bebas Neue', 'Big Shoulders Display', 'Saira Condensed', 'Archivo Narrow', 'Barlow',
+  'JetBrains Mono', 'Red Hat Mono', 'Chivo', 'Chivo Mono', 'Familjen Grotesk', 'Hanken Grotesk', 'Schibsted Grotesk', 'Red Hat Display',
+  'Epilogue', 'Unbounded', 'Instrument Serif', 'Gloock', 'Bodoni Moda', 'Libre Caslon Text', 'Young Serif', 'Figtree', 'Onest', 'Geologica'];
 const HEX = /^#[0-9a-f]{6}$/i;
 const THEME_KEYS = ['bg', 'surface', 'text', 'muted', 'primary', 'primaryText', 'accent', 'border'];
 
@@ -19,6 +24,8 @@ export function cleanTheme(t = {}) {
   for (const k of THEME_KEYS) if (HEX.test(t[k] || '')) out[k] = t[k].toLowerCase();
   if (FONTS.includes(t.font)) out.font = t.font;
   if (FONTS.includes(t.fontHead)) out.fontHead = t.fontHead;
+  if (FONTS.includes(t.fontMono)) out.fontMono = t.fontMono;
+  if (WORLD_IDS.includes(t.world)) out.world = t.world;
   if (['escuro', 'claro'].includes(t.mode)) out.mode = t.mode;
   const r = Number(t.radius);
   if (Number.isFinite(r)) out.radius = Math.max(0, Math.min(28, Math.round(r)));

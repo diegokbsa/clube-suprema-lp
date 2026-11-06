@@ -26,7 +26,7 @@ after(() => Promise.all(servers.map((s) => new Promise((r) => s.close(r)))));
 const insight = (o = {}) => ({ titulo: 'Google muda regra de conteúdo gerado em escala', resumo: 'O Google atualizou a política de spam para conteúdo em escala; sites com muitas páginas parecidas perdem posição.',
   fonte_url: 'https://developers.google.com/search/blog/2026/11/exemplo', fonte_data: '2026-11-04', tipo: 'seo', aplicavel_em: ['geral'], acao: 'Revisar posts automáticos para ter dados próprios e evitar páginas quase iguais.', impacto: 4, esforco: 2, confianca: 4, ...o });
 
-test('edição SX: só poker, paleta da SX nos sites novos e nome da edição', async () => {
+test('edição SX: só poker, mundo do modelo preservado e nome da edição', async () => {
   const { c } = await start('sx');
   const meta = (await c.req('GET', '/api/meta')).data;
   assert.equal(meta.edition.id, 'sx');
@@ -36,7 +36,9 @@ test('edição SX: só poker, paleta da SX nos sites novos e nome da edição', 
   const ok = await c.req('POST', '/api/tenants', { name: 'Clube SX', number: '20001', template: 'clube-poker-premium' });
   assert.equal(ok.status, 201, 'sem nicho informado usa o poker da edição');
   const site = (await c.req('GET', '/api/t/clube-20001/sites')).data.sites[0];
-  assert.equal(site.theme.primary, '#39bcff', 'site novo nasce com a paleta da SX');
+  // modelo com mundo visual mantém o mundo e a paleta dele (o tema da edição só vale para modelo sem mundo)
+  assert.equal(site.theme.world, 'rack', 'site novo nasce com o mundo do modelo');
+  assert.equal(site.theme.primary, '#dcae57', 'paleta do mundo não é trocada pela da edição');
   const presets = (await c.req('GET', '/api/t/clube-20001/journeys')).data.presets.map((p) => p.id);
   assert.ok(presets.includes('jornada-guiada-poker'));
 });

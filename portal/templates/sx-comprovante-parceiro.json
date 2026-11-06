@@ -1,0 +1,785 @@
+{
+  "id": "sx-comprovante-parceiro",
+  "name": "Seja parceiro · Comprovante PIX (edição SX)",
+  "order": 22,
+  "version": 1,
+  "category": "Poker · edição SX",
+  "niches": [
+    "poker"
+  ],
+  "inspiredBy": "sx",
+  "description": "Recrutamento de agentes e donos de clube no mundo Comprovante PIX: o \"extrato do parceiro\" ilustrativo mostra o que o grupo entrega, sem promessa de ganho. Etapas da parceria e formulário de contato para o CRM.",
+  "theme": {
+    "world": "comprovante",
+    "mode": "escuro",
+    "bg": "#0f0c07",
+    "surface": "#16120b",
+    "text": "#f4ede1",
+    "muted": "#9a8d78",
+    "primary": "#efa144",
+    "primaryText": "#040404",
+    "accent": "#52c48e",
+    "border": "#2a2318",
+    "font": "Montserrat",
+    "fontHead": "Montserrat",
+    "fontMono": "Antonio",
+    "radius": 10
+  },
+  "seo": {
+    "title": "{{name}} · Seja parceiro do grupo",
+    "description": "Agentes e donos de clube no app {{app}}: canal de fichas 24h, suporte aos jogadores e extrato semanal. Condições combinadas por escrito. Somente +18."
+  },
+  "pages": [
+    {
+      "slug": "",
+      "title": "Início",
+      "blocks": [
+        {
+          "type": "comprovante_topo",
+          "props": {
+            "faixa": "Somente maiores de 18 · Jogue com responsabilidade",
+            "brand": "{{name}}",
+            "sub": "ID {{number}}",
+            "logo": "{{logo}}",
+            "links": [
+              {
+                "label": "Benefícios",
+                "href": "/beneficios",
+                "dot": false
+              },
+              {
+                "label": "Como funciona",
+                "href": "/como-funciona",
+                "dot": false
+              },
+              {
+                "label": "Contato",
+                "href": "/contato",
+                "dot": false
+              }
+            ],
+            "cta": "Ser parceiro",
+            "ctaHref": "/contato"
+          }
+        },
+        {
+          "type": "comprovante_painel",
+          "props": {
+            "title": "Seu clube no grupo, com o caixa e o suporte do nosso lado.",
+            "subtitle": "Para agentes e donos de clube no **{{app}}**. Você cuida dos seus jogadores; o grupo cuida do canal de fichas, do atendimento e do extrato.",
+            "cta": "Quero ser parceiro",
+            "ctaHref": "/contato",
+            "secondary": "Como funciona",
+            "secondaryHref": "/como-funciona",
+            "points": [
+              {
+                "icon": "ficha",
+                "text": "**Canal de fichas 24h** por PIX para os seus jogadores"
+              },
+              {
+                "icon": "chat",
+                "text": "**Suporte de gente de verdade** para quem joga no seu clube"
+              },
+              {
+                "icon": "recibo",
+                "text": "**Extrato semanal** do seu clube, linha por linha"
+              }
+            ],
+            "logo": "",
+            "panelTitle": "Extrato do parceiro",
+            "panelSub": "Como o relatório semanal chega",
+            "tag": "ILUSTRAÇÃO",
+            "bigLabel": "Canal de fichas dos seus jogadores",
+            "big": "24h",
+            "bigSub": "Atendimento ativo",
+            "rows": [
+              {
+                "label": "Jogadores novos",
+                "value": "pelo seu link",
+                "detail": "Cada entrada aparece no relatório."
+              },
+              {
+                "label": "Compras de fichas",
+                "value": "por jogador, com data",
+                "detail": ""
+              },
+              {
+                "label": "Saques",
+                "value": "na chave do CPF de cada um",
+                "detail": ""
+              },
+              {
+                "label": "Acerto",
+                "value": "como combinado no acordo",
+                "detail": ""
+              }
+            ],
+            "totalLabel": "Fechamento",
+            "total": "semanal",
+            "panelFoot": "**Ilustração.** Nenhuma linha aqui é promessa de ganho: as condições de cada parceria são combinadas em conversa e ficam por escrito.",
+            "variant": "abertura"
+          }
+        },
+        {
+          "type": "comprovante_linhas",
+          "props": {
+            "title": "O que fica com quem",
+            "subtitle": "Uma divisão simples, que vai por escrito no acordo.",
+            "leftTitle": "Com você",
+            "leftRows": [
+              {
+                "label": "Jogadores",
+                "value": "Os seus, pelo seu link",
+                "detail": "Você continua dono da sua comunidade."
+              },
+              {
+                "label": "Contato",
+                "value": "Seu grupo, seu jeito",
+                "detail": "WhatsApp, Telegram ou presencial."
+              },
+              {
+                "label": "Regras",
+                "value": "As do grupo",
+                "detail": "Somente +18, sem bônus e sem promessa de ganho."
+              }
+            ],
+            "rightTitle": "Com o grupo",
+            "rightRows": [
+              {
+                "label": "Fichas",
+                "value": "Canal 24h por PIX",
+                "detail": "Compra e saque com registro."
+              },
+              {
+                "label": "Atendimento",
+                "value": "Suporte aos seus jogadores",
+                "detail": "De madrugada também."
+              },
+              {
+                "label": "Relatório",
+                "value": "Extrato semanal",
+                "detail": "Entradas, compras e saques do seu clube."
+              }
+            ],
+            "foot": "",
+            "variant": "duas"
+          }
+        },
+        {
+          "type": "comprovante_extrato",
+          "props": {
+            "anchor": "etapas",
+            "title": "Como um clube entra no grupo",
+            "subtitle": "Quatro lançamentos, sem letra miúda. Nada começa sem o acordo por escrito.",
+            "headLeft": "Entrada de um parceiro",
+            "headRight": "4 lançamentos",
+            "tag": "",
+            "items": [
+              {
+                "icon": "chat",
+                "title": "Conversa",
+                "time": "1 chamada",
+                "text": "Você conta como é o seu clube e os seus jogadores. A gente explica como o grupo trabalha.",
+                "pill": "Sem custo para conversar",
+                "tone": "ouro",
+                "href": ""
+              },
+              {
+                "icon": "recibo",
+                "title": "Acordo por escrito",
+                "time": "antes de tudo",
+                "text": "Condições, acerto e regras ficam num documento. **Nada de combinado só de boca.**",
+                "pill": "",
+                "tone": "ouro",
+                "href": ""
+              },
+              {
+                "icon": "link",
+                "title": "Seu link e o canal de fichas",
+                "time": "configurado",
+                "text": "Seus jogadores entram pelo seu link e compram fichas pelo canal 24h, com o seu ID de agente.",
+                "pill": "",
+                "tone": "ouro",
+                "href": ""
+              },
+              {
+                "icon": "calendario",
+                "title": "Primeiro extrato",
+                "time": "na semana",
+                "text": "O relatório chega com entradas, compras e saques do seu clube, linha por linha.",
+                "pill": "Extrato semanal",
+                "tone": "ok",
+                "href": ""
+              }
+            ],
+            "totalLabel": "",
+            "total": "",
+            "cta": "Quero conversar",
+            "ctaHref": "/contato",
+            "variant": "lado"
+          }
+        },
+        {
+          "type": "faq",
+          "props": {
+            "eyebrow": "",
+            "title": "Perguntas de quem quer entrar",
+            "subtitle": "",
+            "items": [
+              {
+                "q": "Preciso ter clube próprio?",
+                "a": "Não. Agentes com jogadores e donos de clube podem conversar. A gente vê junto o formato que faz sentido."
+              },
+              {
+                "q": "Quanto custa entrar no grupo?",
+                "a": "As condições são combinadas na conversa e ficam por escrito no acordo, antes de qualquer coisa começar."
+              },
+              {
+                "q": "Vocês garantem resultado?",
+                "a": "Não. Ninguém pode garantir resultado em poker, nem para o clube nem para o jogador. O que o grupo entrega é estrutura: canal de fichas, suporte e extrato."
+              },
+              {
+                "q": "Posso oferecer bônus aos meus jogadores?",
+                "a": "Não. O grupo não trabalha com bônus, fichas grátis ou promessa de ganho."
+              }
+            ]
+          }
+        },
+        {
+          "type": "lead_form",
+          "props": {
+            "anchor": "contato",
+            "title": "Fale com o grupo",
+            "text": "Conte rapidinho sobre o seu clube. A gente responde pelo WhatsApp ou pelo e-mail que você deixar.",
+            "fields": "email_nome_telefone",
+            "button": "Quero conversar",
+            "success": "Recebemos! Vamos falar com você em breve.",
+            "consent": "Tenho 18 anos ou mais e aceito ser contatado pelo grupo sobre parceria. Posso sair quando quiser.",
+            "variant": "lateral"
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "text": "Grupo de clubes no app {{app}}. Parcerias com agentes e donos de clube, com condições combinadas por escrito.",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Benefícios",
+                "href": "/beneficios"
+              },
+              {
+                "label": "Como funciona",
+                "href": "/como-funciona"
+              },
+              {
+                "label": "Contato",
+                "href": "/contato"
+              }
+            ],
+            "disclaimer": "{{disclaimer}}"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "beneficios",
+      "title": "Benefícios",
+      "seo": {
+        "description": "O que o grupo coloca do lado do agente e do dono de clube: canal de fichas 24h, suporte e extrato semanal."
+      },
+      "blocks": [
+        {
+          "type": "comprovante_topo",
+          "props": {
+            "faixa": "Somente maiores de 18 · Jogue com responsabilidade",
+            "brand": "{{name}}",
+            "sub": "ID {{number}}",
+            "logo": "{{logo}}",
+            "links": [
+              {
+                "label": "Benefícios",
+                "href": "/beneficios",
+                "dot": false
+              },
+              {
+                "label": "Como funciona",
+                "href": "/como-funciona",
+                "dot": false
+              },
+              {
+                "label": "Contato",
+                "href": "/contato",
+                "dot": false
+              }
+            ],
+            "cta": "Ser parceiro",
+            "ctaHref": "/contato"
+          }
+        },
+        {
+          "type": "comprovante_cabecalho",
+          "props": {
+            "title": "O que o grupo coloca do seu lado",
+            "subtitle": "Estrutura para o seu clube rodar sem você virar caixa, atendente e contador ao mesmo tempo.",
+            "cta": "Quero conversar",
+            "ctaHref": "/contato",
+            "secondary": "",
+            "secondaryHref": "",
+            "stripTitle": "Em resumo",
+            "strip": [
+              {
+                "label": "Fichas",
+                "value": "canal 24h por PIX"
+              },
+              {
+                "label": "Suporte",
+                "value": "para os seus jogadores"
+              },
+              {
+                "label": "Relatório",
+                "value": "extrato semanal"
+              },
+              {
+                "label": "Acordo",
+                "value": "por escrito"
+              }
+            ],
+            "tag": ""
+          }
+        },
+        {
+          "type": "comprovante_linhas",
+          "props": {
+            "title": "Linha por linha",
+            "subtitle": "O que entra na parceria. Os detalhes de cada item vão no acordo.",
+            "leftTitle": "Benefícios do parceiro",
+            "leftRows": [
+              {
+                "label": "Canal de fichas",
+                "value": "Compra e saque por PIX, 24h",
+                "detail": "Seus jogadores informam o seu ID de agente e as fichas caem no seu clube."
+              },
+              {
+                "label": "Atendimento",
+                "value": "Suporte humano aos jogadores",
+                "detail": "Dúvidas de conta, fichas e saque, a qualquer hora."
+              },
+              {
+                "label": "Extrato",
+                "value": "Relatório semanal",
+                "detail": "Entradas pelo seu link, compras e saques, linha por linha."
+              },
+              {
+                "label": "Material",
+                "value": "Textos e páginas prontos",
+                "detail": "Para divulgar o clube sem promessa de ganho e dentro das regras."
+              },
+              {
+                "label": "Regras claras",
+                "value": "Somente +18, sem bônus",
+                "detail": "O mesmo padrão para todos os clubes do grupo."
+              }
+            ],
+            "rightTitle": "",
+            "rightRows": [],
+            "foot": "Itens de exemplo: confira com o grupo o que vale para a sua parceria.",
+            "variant": "lado"
+          }
+        },
+        {
+          "type": "comprovante_painel",
+          "props": {
+            "title": "Exemplo do extrato semanal",
+            "subtitle": "É assim que o relatório chega. Os números de verdade são os do seu clube.",
+            "cta": "Quero conversar",
+            "ctaHref": "/contato",
+            "secondary": "",
+            "secondaryHref": "",
+            "points": [
+              {
+                "icon": "recibo",
+                "text": "**Linha por linha:** entradas pelo seu link, compras e saques de cada jogador."
+              },
+              {
+                "icon": "calendario",
+                "text": "**Toda semana,** no dia combinado no acordo."
+              },
+              {
+                "icon": "escudo",
+                "text": "**Sem previsão:** o extrato mostra o que já aconteceu, não promete ganho."
+              }
+            ],
+            "logo": "",
+            "panelTitle": "Extrato semanal",
+            "panelSub": "Clube do parceiro · semana de exemplo",
+            "tag": "ILUSTRAÇÃO",
+            "bigLabel": "",
+            "big": "",
+            "bigSub": "",
+            "rows": [
+              {
+                "label": "Jogadores novos pelo seu link",
+                "value": "lista com data",
+                "detail": ""
+              },
+              {
+                "label": "Compras de fichas",
+                "value": "por jogador",
+                "detail": "Valor e horário de cada PIX."
+              },
+              {
+                "label": "Saques",
+                "value": "por jogador",
+                "detail": "Na chave do CPF de cada um."
+              },
+              {
+                "label": "Acerto",
+                "value": "conforme o acordo",
+                "detail": ""
+              }
+            ],
+            "totalLabel": "Envio",
+            "total": "toda semana",
+            "panelFoot": "**Ilustração.** O extrato mostra o que aconteceu; não é previsão nem promessa de ganho.",
+            "variant": "secao"
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "text": "Grupo de clubes no app {{app}}. Parcerias com agentes e donos de clube, com condições combinadas por escrito.",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Benefícios",
+                "href": "/beneficios"
+              },
+              {
+                "label": "Como funciona",
+                "href": "/como-funciona"
+              },
+              {
+                "label": "Contato",
+                "href": "/contato"
+              }
+            ],
+            "disclaimer": "{{disclaimer}}"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "como-funciona",
+      "title": "Como funciona",
+      "seo": {
+        "description": "Como funciona a parceria com o grupo: conversa, acordo por escrito, link do clube e extrato semanal."
+      },
+      "blocks": [
+        {
+          "type": "comprovante_topo",
+          "props": {
+            "faixa": "Somente maiores de 18 · Jogue com responsabilidade",
+            "brand": "{{name}}",
+            "sub": "ID {{number}}",
+            "logo": "{{logo}}",
+            "links": [
+              {
+                "label": "Benefícios",
+                "href": "/beneficios",
+                "dot": false
+              },
+              {
+                "label": "Como funciona",
+                "href": "/como-funciona",
+                "dot": false
+              },
+              {
+                "label": "Contato",
+                "href": "/contato",
+                "dot": false
+              }
+            ],
+            "cta": "Ser parceiro",
+            "ctaHref": "/contato"
+          }
+        },
+        {
+          "type": "comprovante_cabecalho",
+          "props": {
+            "title": "Como funciona a parceria",
+            "subtitle": "Da primeira conversa ao primeiro extrato. Tudo combinado por escrito antes de começar.",
+            "cta": "Quero conversar",
+            "ctaHref": "/contato",
+            "secondary": "",
+            "secondaryHref": "",
+            "stripTitle": "",
+            "strip": [],
+            "tag": ""
+          }
+        },
+        {
+          "type": "comprovante_extrato",
+          "props": {
+            "title": "As etapas",
+            "subtitle": "",
+            "headLeft": "Parceria com o grupo",
+            "headRight": "5 lançamentos",
+            "tag": "",
+            "items": [
+              {
+                "icon": "chat",
+                "title": "Conversa inicial",
+                "time": "1 chamada",
+                "text": "Como é o seu clube, quantos jogadores você atende e como eles jogam hoje.",
+                "pill": "",
+                "tone": "ouro",
+                "href": ""
+              },
+              {
+                "icon": "recibo",
+                "title": "Proposta e acordo",
+                "time": "por escrito",
+                "text": "Condições, forma de acerto, regras do grupo e responsabilidades de cada lado.",
+                "pill": "Documento assinado",
+                "tone": "ouro",
+                "href": ""
+              },
+              {
+                "icon": "link",
+                "title": "Configuração",
+                "time": "antes de divulgar",
+                "text": "Seu link de convite, seu ID de agente no canal de fichas e as páginas do seu clube.",
+                "pill": "",
+                "tone": "ouro",
+                "href": ""
+              },
+              {
+                "icon": "grupo",
+                "title": "Seus jogadores entram",
+                "time": "pelo seu link",
+                "text": "Eles entram no clube, compram fichas pelo canal e falam com o suporte quando precisarem.",
+                "pill": "",
+                "tone": "ouro",
+                "href": ""
+              },
+              {
+                "icon": "calendario",
+                "title": "Extrato e acerto",
+                "time": "toda semana",
+                "text": "O extrato chega com tudo linha por linha e o acerto segue o acordo.",
+                "pill": "Extrato semanal",
+                "tone": "ok",
+                "href": ""
+              }
+            ],
+            "totalLabel": "",
+            "total": "",
+            "cta": "",
+            "ctaHref": "",
+            "variant": "extrato"
+          }
+        },
+        {
+          "type": "comprovante_linhas",
+          "props": {
+            "title": "Regras que valem para todos os clubes",
+            "subtitle": "Não são negociáveis, e protegem você, o jogador e o grupo.",
+            "leftTitle": "Regras do grupo",
+            "leftRows": [
+              {
+                "label": "Idade",
+                "value": "Somente maiores de 18",
+                "detail": "Na divulgação e no clube."
+              },
+              {
+                "label": "Ofertas",
+                "value": "Sem bônus e sem fichas grátis",
+                "detail": ""
+              },
+              {
+                "label": "Divulgação",
+                "value": "Sem promessa de ganho",
+                "detail": "Poker é entretenimento com risco."
+              },
+              {
+                "label": "Dados",
+                "value": "Ninguém pede senha do jogador",
+                "detail": ""
+              }
+            ],
+            "rightTitle": "",
+            "rightRows": [],
+            "foot": "",
+            "variant": "duas"
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "text": "Grupo de clubes no app {{app}}. Parcerias com agentes e donos de clube, com condições combinadas por escrito.",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Benefícios",
+                "href": "/beneficios"
+              },
+              {
+                "label": "Como funciona",
+                "href": "/como-funciona"
+              },
+              {
+                "label": "Contato",
+                "href": "/contato"
+              }
+            ],
+            "disclaimer": "{{disclaimer}}"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "contato",
+      "title": "Contato",
+      "seo": {
+        "description": "Fale com o grupo sobre parceria para agentes e donos de clube no app {{app}}."
+      },
+      "blocks": [
+        {
+          "type": "comprovante_topo",
+          "props": {
+            "faixa": "Somente maiores de 18 · Jogue com responsabilidade",
+            "brand": "{{name}}",
+            "sub": "ID {{number}}",
+            "logo": "{{logo}}",
+            "links": [
+              {
+                "label": "Benefícios",
+                "href": "/beneficios",
+                "dot": false
+              },
+              {
+                "label": "Como funciona",
+                "href": "/como-funciona",
+                "dot": false
+              },
+              {
+                "label": "Contato",
+                "href": "/contato",
+                "dot": false
+              }
+            ],
+            "cta": "Ser parceiro",
+            "ctaHref": "#contato"
+          }
+        },
+        {
+          "type": "comprovante_cabecalho",
+          "props": {
+            "title": "Fale com o grupo",
+            "subtitle": "Deixe os seus dados e conte um pouco do seu clube. A resposta vem por WhatsApp ou e-mail.",
+            "cta": "",
+            "ctaHref": "",
+            "secondary": "",
+            "secondaryHref": "",
+            "stripTitle": "O que ajuda na conversa",
+            "strip": [
+              {
+                "label": "Seu clube",
+                "value": "nome e app"
+              },
+              {
+                "label": "Jogadores",
+                "value": "como você atende hoje"
+              },
+              {
+                "label": "Fichas",
+                "value": "como vendem hoje"
+              }
+            ],
+            "tag": ""
+          }
+        },
+        {
+          "type": "lead_form",
+          "props": {
+            "anchor": "contato",
+            "title": "Quero conversar sobre parceria",
+            "text": "Só usamos os seus dados para responder sobre a parceria.",
+            "fields": "email_nome_telefone",
+            "button": "Enviar",
+            "success": "Recebemos! Vamos falar com você em breve.",
+            "consent": "Tenho 18 anos ou mais e aceito ser contatado pelo grupo sobre parceria. Posso sair quando quiser.",
+            "variant": "cartao"
+          }
+        },
+        {
+          "type": "comprovante_canais",
+          "props": {
+            "anchor": "",
+            "title": "Prefere chamar direto?",
+            "subtitle": "",
+            "headLeft": "Contato do grupo",
+            "live": false,
+            "headRight": "horário comercial",
+            "items": [
+              {
+                "icon": "chat",
+                "label": "WhatsApp",
+                "detail": "Resposta em horário comercial.",
+                "cta": "Abrir conversa",
+                "href": "{{whatsappLink}}"
+              },
+              {
+                "icon": "mail",
+                "label": "E-mail",
+                "detail": "Para mandar detalhes do seu clube.",
+                "cta": "Escrever",
+                "href": "mailto:{{email}}"
+              }
+            ],
+            "foot": ""
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "text": "Grupo de clubes no app {{app}}. Parcerias com agentes e donos de clube, com condições combinadas por escrito.",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Benefícios",
+                "href": "/beneficios"
+              },
+              {
+                "label": "Como funciona",
+                "href": "/como-funciona"
+              },
+              {
+                "label": "Contato",
+                "href": "/contato"
+              }
+            ],
+            "disclaimer": "{{disclaimer}}"
+          }
+        }
+      ]
+    }
+  ]
+}

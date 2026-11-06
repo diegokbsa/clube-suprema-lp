@@ -1,0 +1,681 @@
+{
+  "id": "sx-transmissao-blog",
+  "name": "Mão comentada (Transmissão)",
+  "order": 10,
+  "version": 1,
+  "category": "Poker · edição SX",
+  "niches": [
+    "poker"
+  ],
+  "inspiredBy": "sx",
+  "description": "Blog educativo como o replay de uma transmissão: mão comentada rua por rua com % calculadas, pauta de conteúdos no formato de guia de programação, trilha para iniciantes e glossário com índice. Newsletter que cai no CRM.",
+  "theme": {
+    "world": "transmissao",
+    "mode": "escuro",
+    "bg": "#15110a",
+    "surface": "#1e1810",
+    "text": "#f6eddc",
+    "muted": "#ad9a78",
+    "primary": "#efa144",
+    "primaryText": "#030303",
+    "accent": "#2bb673",
+    "border": "#3b2f1f",
+    "font": "Montserrat",
+    "fontHead": "Barlow Condensed",
+    "fontMono": "Antonio",
+    "radius": 0
+  },
+  "seo": {
+    "title": "{{name}} · Mão comentada e guias de poker",
+    "description": "Aprenda poker com mãos comentadas rua por rua, guias para iniciantes e glossário. Conteúdo educativo do {{name}}. Somente +18."
+  },
+  "pages": [
+    {
+      "slug": "",
+      "title": "Início",
+      "blocks": [
+        {
+          "type": "transmissao_topo",
+          "props": {
+            "brand": "{{name}}",
+            "sub": "Mão comentada",
+            "logo": "{{logo}}",
+            "links": [
+              {
+                "label": "Mão comentada",
+                "href": "/#mao"
+              },
+              {
+                "label": "Comece aqui",
+                "href": "/comece-aqui"
+              },
+              {
+                "label": "Glossário",
+                "href": "/glossario"
+              },
+              {
+                "label": "Jogo responsável",
+                "href": "/jogo-responsavel"
+              }
+            ],
+            "cta": "Jogar no clube",
+            "ctaHref": "{{inviteLink}}"
+          }
+        },
+        {
+          "type": "transmissao_abertura",
+          "props": {
+            "badge": "Replay",
+            "league": "Conteúdo educativo · {{app}}",
+            "responsible": "Jogue com responsabilidade",
+            "title": "Cada mão,",
+            "titleAccent": "rua por rua.",
+            "lead": "Mãos comentadas com as chances calculadas carta a carta, guias para quem está começando e um glossário para não se perder na mesa. **Para aprender, não para prometer ganho.**",
+            "cta": "Ver a mão da semana",
+            "ctaHref": "#mao",
+            "secondary": "Comece aqui",
+            "secondaryHref": "/comece-aqui",
+            "variant": "empilhado"
+          }
+        },
+        {
+          "type": "transmissao_pauta",
+          "props": {
+            "title": "Na pauta",
+            "items": [
+              {
+                "slot": "Replay",
+                "title": "Ás-Rei contra Dama-Dez: quando o flop vira o jogo",
+                "text": "A dama no flop coloca Dama-Dez na frente e o rei do turn devolve a vantagem. Veja as porcentagens mudando rua por rua.",
+                "meta": "Assistir à mão",
+                "href": "#mao"
+              },
+              {
+                "slot": "Básico",
+                "title": "O ranking das mãos, do par ao royal",
+                "text": "O que ganha de quê, com exemplos de cada jogo.",
+                "meta": "5 min",
+                "href": "/glossario"
+              },
+              {
+                "slot": "Básico",
+                "title": "Posição: por que agir por último vale ficha",
+                "text": "Botão, blinds e o que muda em cada lugar da mesa.",
+                "meta": "6 min",
+                "href": "/comece-aqui"
+              },
+              {
+                "slot": "Banca",
+                "title": "Gestão de banca sem planilha",
+                "text": "Uma regra simples para jogar sem estourar o orçamento.",
+                "meta": "4 min",
+                "href": "/jogo-responsavel"
+              },
+              {
+                "slot": "Conta",
+                "title": "Pot odds em uma linha",
+                "text": "Como saber se vale pagar a aposta, sem conta difícil.",
+                "meta": "7 min",
+                "href": "/comece-aqui"
+              }
+            ],
+            "variant": "destaque"
+          }
+        },
+        {
+          "type": "transmissao_mao",
+          "props": {
+            "anchor": "mao",
+            "title": "Mão comentada da semana",
+            "intro": "Use o seletor para ver cada rua ou deixe a mão rodar. As porcentagens são calculadas por todas as cartas que ainda podem sair.",
+            "label": "Replay · Hold'em",
+            "sample": "Mão de exemplo · % calculadas",
+            "cardsA": "As Kd",
+            "cardsB": "Qc 10h",
+            "board": "Qd 7s 2c Ks 4h",
+            "tagA": "Mão A",
+            "tagB": "Mão B",
+            "legPre": "Pré-flop: Ás-Rei é favorito por ter as duas cartas mais altas, 64% contra 36%.",
+            "legFlop": "Flop dama, 7, 2: a dama dá o par para Dama-Dez, que passa a 77%. Ás-Rei precisa de ás ou rei.",
+            "legTurn": "Turn rei: a carta que Ás-Rei queria. Par de reis vence par de damas e a vantagem vai a 89%.",
+            "legRiver": "River 4: nada muda. Ás-Rei leva o pote com par de reis. No flop, seis cartas salvavam Ás-Rei, e o rei do turn foi uma delas.",
+            "variant": "comentada"
+          }
+        },
+        {
+          "type": "transmissao_confronto",
+          "props": {
+            "title": "Antes de sentar",
+            "intro": "Quatro regras que valem mais do que qualquer estratégia.",
+            "items": [
+              {
+                "label": "Idade",
+                "value": "+18",
+                "text": "**Só para adultos.** Jogar valendo dinheiro começa aos 18, sem exceção."
+              },
+              {
+                "label": "Orçamento",
+                "value": "Teto",
+                "text": "Separe um valor por mês para o jogo e não passe dele. **Não compre fichas para recuperar perda.**"
+              },
+              {
+                "label": "Tempo",
+                "value": "Pausa",
+                "text": "Defina a hora de parar antes de começar. Cansado, você joga pior."
+              },
+              {
+                "label": "Ajuda",
+                "value": "188",
+                "text": "Se o jogo deixou de ser diversão, procure apoio. **CVV: ligue 188, grátis, 24h.**"
+              }
+            ]
+          }
+        },
+        {
+          "type": "transmissao_final",
+          "props": {
+            "anchor": "newsletter",
+            "title": "A mão da semana",
+            "titleAccent": "no seu e-mail.",
+            "text": "Uma mão comentada por semana, rua por rua, e os guias novos. Sem promessa de ganho, só poker explicado.",
+            "responsible": "Conteúdo educativo, não dica de aposta. Jogue com responsabilidade.",
+            "fields": "email",
+            "button": "Quero receber",
+            "help": "Um e-mail por semana. Sai quando quiser.",
+            "success": "Pronto! A próxima mão comentada chega no seu e-mail.",
+            "consent": "Concordo em receber o conteúdo do {{name}} por e-mail. Posso sair quando quiser."
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "text": "Conteúdo educativo do {{name}} sobre poker. Não é recomendação de aposta.",
+            "links": [
+              {
+                "label": "Comece aqui",
+                "href": "/comece-aqui"
+              },
+              {
+                "label": "Glossário",
+                "href": "/glossario"
+              },
+              {
+                "label": "Jogo responsável",
+                "href": "/jogo-responsavel"
+              },
+              {
+                "label": "Jogar no clube",
+                "href": "{{inviteLink}}"
+              }
+            ],
+            "disclaimer": "{{disclaimer}} Proibido para menores de 18 anos. O site nunca pede a senha do app nem documento."
+          }
+        }
+      ]
+    },
+    {
+      "slug": "comece-aqui",
+      "title": "Comece aqui",
+      "seo": {
+        "description": "Trilha para quem nunca jogou poker: regras, ranking das mãos, posição, apostas e gestão de banca."
+      },
+      "blocks": [
+        {
+          "type": "transmissao_topo",
+          "props": {
+            "brand": "{{name}}",
+            "sub": "Mão comentada",
+            "logo": "{{logo}}",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Comece aqui",
+                "href": "/comece-aqui"
+              },
+              {
+                "label": "Glossário",
+                "href": "/glossario"
+              },
+              {
+                "label": "Jogo responsável",
+                "href": "/jogo-responsavel"
+              }
+            ],
+            "cta": "Jogar no clube",
+            "ctaHref": "{{inviteLink}}"
+          }
+        },
+        {
+          "type": "transmissao_abertura",
+          "props": {
+            "responsible": "Jogue com responsabilidade",
+            "variant": "pagina",
+            "badge": "Comece aqui",
+            "league": "Do zero à primeira mesa",
+            "title": "Nunca jogou?",
+            "titleAccent": "Comece por aqui.",
+            "lead": "Seis assuntos, nesta ordem. **Em menos de uma hora você entende o que acontece na mesa.**"
+          }
+        },
+        {
+          "type": "transmissao_mesa_final",
+          "props": {
+            "colStep": "Ordem",
+            "colText": "O que aprender",
+            "colValue": "Leitura",
+            "items": [
+              {
+                "title": "Como funciona uma mão de Hold'em",
+                "text": "Duas cartas suas, cinco na mesa e quatro rodadas de aposta: pré-flop, flop, turn e river.",
+                "value": "5 min"
+              },
+              {
+                "title": "O ranking das mãos",
+                "text": "Do par ao royal flush. Decore a ordem antes de sentar.",
+                "value": "5 min"
+              },
+              {
+                "title": "Posição na mesa",
+                "text": "Agir por último dá informação. O botão é o melhor lugar da mesa.",
+                "value": "6 min"
+              },
+              {
+                "title": "Quanto apostar",
+                "text": "Aposta em relação ao pote, não em valor solto. Por que meio pote é um bom começo.",
+                "value": "6 min"
+              },
+              {
+                "title": "Pot odds",
+                "text": "Compare o que falta pagar com o tamanho do pote para decidir se vale continuar.",
+                "value": "7 min"
+              },
+              {
+                "title": "Gestão de banca e limites",
+                "text": "Separe a banca do jogo do resto do seu dinheiro e defina um teto. É a regra mais importante.",
+                "value": "4 min",
+                "lead": true
+              }
+            ],
+            "note": "Conteúdo educativo. Poker envolve sorte no curto prazo e nenhum estudo garante resultado.",
+            "variant": "larga"
+          }
+        },
+        {
+          "type": "transmissao_pauta",
+          "props": {
+            "title": "Leia em seguida",
+            "items": [
+              {
+                "slot": "Replay",
+                "title": "A mão comentada da semana",
+                "text": "Veja as chances mudarem a cada carta.",
+                "meta": "Assistir",
+                "href": "/#mao"
+              },
+              {
+                "slot": "Termos",
+                "title": "Glossário da mesa",
+                "text": "Blind, flop, all-in, ITM e as outras palavras que você vai ouvir.",
+                "meta": "Consultar",
+                "href": "/glossario"
+              },
+              {
+                "slot": "Limites",
+                "title": "Jogo responsável",
+                "text": "Como jogar sem que o jogo vire problema.",
+                "meta": "3 min",
+                "href": "/jogo-responsavel"
+              }
+            ],
+            "variant": "lista"
+          }
+        },
+        {
+          "type": "transmissao_chamada",
+          "props": {
+            "title": "Pronto para a primeira mesa?",
+            "text": "Comece pelas mesas de valor baixo e jogue com o que não faz falta.",
+            "cta": "Jogar no clube",
+            "ctaHref": "{{inviteLink}}",
+            "note": "Somente +18",
+            "variant": "faixa"
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "text": "Conteúdo educativo do {{name}} sobre poker. Não é recomendação de aposta.",
+            "links": [
+              {
+                "label": "Comece aqui",
+                "href": "/comece-aqui"
+              },
+              {
+                "label": "Glossário",
+                "href": "/glossario"
+              },
+              {
+                "label": "Jogo responsável",
+                "href": "/jogo-responsavel"
+              },
+              {
+                "label": "Jogar no clube",
+                "href": "{{inviteLink}}"
+              }
+            ],
+            "disclaimer": "{{disclaimer}} Proibido para menores de 18 anos. O site nunca pede a senha do app nem documento."
+          }
+        }
+      ]
+    },
+    {
+      "slug": "glossario",
+      "title": "Glossário",
+      "seo": {
+        "description": "Glossário de poker em português: os termos da mesa explicados de forma simples."
+      },
+      "blocks": [
+        {
+          "type": "transmissao_topo",
+          "props": {
+            "brand": "{{name}}",
+            "sub": "Mão comentada",
+            "logo": "{{logo}}",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Comece aqui",
+                "href": "/comece-aqui"
+              },
+              {
+                "label": "Glossário",
+                "href": "/glossario"
+              },
+              {
+                "label": "Jogo responsável",
+                "href": "/jogo-responsavel"
+              }
+            ],
+            "cta": "Jogar no clube",
+            "ctaHref": "{{inviteLink}}"
+          }
+        },
+        {
+          "type": "transmissao_abertura",
+          "props": {
+            "responsible": "Jogue com responsabilidade",
+            "variant": "pagina",
+            "badge": "Glossário",
+            "league": "Os termos da mesa",
+            "title": "Fala de",
+            "titleAccent": "mesa, traduzida.",
+            "lead": "As palavras que você vai ouvir no poker, em português simples. **Toque na letra para pular.**"
+          }
+        },
+        {
+          "type": "transmissao_glossario",
+          "props": {
+            "items": [
+              {
+                "term": "All-in",
+                "text": "Apostar todas as fichas que você tem na mesa."
+              },
+              {
+                "term": "Big blind",
+                "abbr": "BB",
+                "text": "A aposta obrigatória maior, feita antes das cartas, pelo segundo jogador à esquerda do botão."
+              },
+              {
+                "term": "Small blind",
+                "abbr": "SB",
+                "text": "A aposta obrigatória menor, feita pelo jogador logo à esquerda do botão."
+              },
+              {
+                "term": "Botão",
+                "abbr": "BTN",
+                "text": "A posição do \"dealer\". Age por último depois do flop: o melhor lugar da mesa."
+              },
+              {
+                "term": "Buy-in",
+                "text": "O valor para entrar em um torneio ou sentar em uma mesa de cash."
+              },
+              {
+                "term": "Call",
+                "text": "Pagar a aposta que está na mesa."
+              },
+              {
+                "term": "Check",
+                "text": "Passar a vez sem apostar, quando ninguém apostou antes."
+              },
+              {
+                "term": "Equidade",
+                "text": "A sua parte do pote pelas chances de ganhar a mão naquele momento. É a % que aparece na placa da mão comentada."
+              },
+              {
+                "term": "Flop",
+                "text": "As três primeiras cartas comunitárias, abertas de uma vez."
+              },
+              {
+                "term": "Fold",
+                "text": "Desistir da mão e das fichas que já apostou nela."
+              },
+              {
+                "term": "Garantido",
+                "abbr": "GTD",
+                "text": "O prêmio mínimo que um torneio paga, mesmo com poucos inscritos."
+              },
+              {
+                "term": "ITM",
+                "text": "In the money: chegar à faixa de premiação de um torneio."
+              },
+              {
+                "term": "Kicker",
+                "text": "A carta que desempata duas mãos com o mesmo jogo."
+              },
+              {
+                "term": "Nuts",
+                "text": "A melhor mão possível com as cartas da mesa naquele momento."
+              },
+              {
+                "term": "Outs",
+                "text": "As cartas que ainda podem sair e melhorar a sua mão para a vencedora."
+              },
+              {
+                "term": "Pot odds",
+                "text": "A relação entre o que falta pagar e o tamanho do pote. Ajuda a decidir se vale continuar."
+              },
+              {
+                "term": "Raise",
+                "text": "Aumentar a aposta que está na mesa."
+              },
+              {
+                "term": "River",
+                "text": "A quinta e última carta comunitária."
+              },
+              {
+                "term": "Stack",
+                "text": "A pilha de fichas de um jogador."
+              },
+              {
+                "term": "Turn",
+                "text": "A quarta carta comunitária."
+              },
+              {
+                "term": "Tilt",
+                "text": "Jogar mal por raiva ou frustração depois de uma mão ruim. Hora de fazer pausa."
+              }
+            ]
+          }
+        },
+        {
+          "type": "transmissao_chamada",
+          "props": {
+            "title": "Agora veja os termos em ação.",
+            "text": "A mão comentada mostra flop, turn, river e equidade, carta a carta.",
+            "cta": "Ver a mão comentada",
+            "ctaHref": "/#mao",
+            "note": "Conteúdo educativo",
+            "variant": "faixa"
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "text": "Conteúdo educativo do {{name}} sobre poker. Não é recomendação de aposta.",
+            "links": [
+              {
+                "label": "Comece aqui",
+                "href": "/comece-aqui"
+              },
+              {
+                "label": "Glossário",
+                "href": "/glossario"
+              },
+              {
+                "label": "Jogo responsável",
+                "href": "/jogo-responsavel"
+              },
+              {
+                "label": "Jogar no clube",
+                "href": "{{inviteLink}}"
+              }
+            ],
+            "disclaimer": "{{disclaimer}} Proibido para menores de 18 anos. O site nunca pede a senha do app nem documento."
+          }
+        }
+      ]
+    },
+    {
+      "slug": "jogo-responsavel",
+      "title": "Jogo responsável",
+      "seo": {
+        "description": "Como jogar poker com responsabilidade: idade, orçamento, tempo e onde pedir ajuda."
+      },
+      "blocks": [
+        {
+          "type": "transmissao_topo",
+          "props": {
+            "brand": "{{name}}",
+            "sub": "Mão comentada",
+            "logo": "{{logo}}",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Comece aqui",
+                "href": "/comece-aqui"
+              },
+              {
+                "label": "Glossário",
+                "href": "/glossario"
+              },
+              {
+                "label": "Jogo responsável",
+                "href": "/jogo-responsavel"
+              }
+            ],
+            "cta": "Jogar no clube",
+            "ctaHref": "{{inviteLink}}"
+          }
+        },
+        {
+          "type": "transmissao_abertura",
+          "props": {
+            "responsible": "Jogue com responsabilidade",
+            "variant": "pagina",
+            "badge": "Jogo responsável",
+            "league": "Limite · pausa · ajuda",
+            "title": "A melhor jogada",
+            "titleAccent": "é saber parar.",
+            "lead": "Nenhuma estratégia deste blog vale mais do que um limite bem definido. **Poker é entretenimento, não fonte de renda.**"
+          }
+        },
+        {
+          "type": "transmissao_confronto",
+          "props": {
+            "title": "Antes de sentar",
+            "intro": "Quatro regras que valem mais do que qualquer estratégia.",
+            "items": [
+              {
+                "label": "Idade",
+                "value": "+18",
+                "text": "**Só para adultos.** Jogar valendo dinheiro começa aos 18, sem exceção."
+              },
+              {
+                "label": "Orçamento",
+                "value": "Teto",
+                "text": "Separe um valor por mês para o jogo e não passe dele. **Não compre fichas para recuperar perda.**"
+              },
+              {
+                "label": "Tempo",
+                "value": "Pausa",
+                "text": "Defina a hora de parar antes de começar. Cansado, você joga pior."
+              },
+              {
+                "label": "Ajuda",
+                "value": "188",
+                "text": "Se o jogo deixou de ser diversão, procure apoio. **CVV: ligue 188, grátis, 24h.**"
+              }
+            ]
+          }
+        },
+        {
+          "type": "text",
+          "props": {
+            "title": "Gestão de banca, na prática",
+            "body": "Separe por mês um valor que você pode perder sem que faça falta. Essa é a sua banca. Ela não se mistura com conta, aluguel ou comida.\n\nEscolha mesas e torneios pequenos em relação a essa banca. Se ela acabar no mês, o jogo acabou no mês. Não compre fichas para recuperar.\n\nAnote quanto entrou e quanto saiu. Ver os números por escrito evita a ilusão de que está tudo bem.",
+            "variant": "estreito"
+          }
+        },
+        {
+          "type": "contact",
+          "props": {
+            "title": "Precisa conversar?",
+            "subtitle": "Fale com o suporte do clube.",
+            "whatsapp": "{{whatsapp}}",
+            "telegram": "{{telegram}}",
+            "email": "{{email}}",
+            "hours": "Também existe o CVV: ligue 188, grátis, 24 horas."
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "text": "Conteúdo educativo do {{name}} sobre poker. Não é recomendação de aposta.",
+            "links": [
+              {
+                "label": "Comece aqui",
+                "href": "/comece-aqui"
+              },
+              {
+                "label": "Glossário",
+                "href": "/glossario"
+              },
+              {
+                "label": "Jogo responsável",
+                "href": "/jogo-responsavel"
+              },
+              {
+                "label": "Jogar no clube",
+                "href": "{{inviteLink}}"
+              }
+            ],
+            "disclaimer": "{{disclaimer}} Proibido para menores de 18 anos. O site nunca pede a senha do app nem documento."
+          }
+        }
+      ]
+    }
+  ]
+}

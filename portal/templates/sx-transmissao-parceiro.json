@@ -1,0 +1,622 @@
+{
+  "id": "sx-transmissao-parceiro",
+  "name": "Seja parceiro (Transmissão)",
+  "order": 7,
+  "version": 1,
+  "category": "Poker · edição SX",
+  "niches": [
+    "poker"
+  ],
+  "inspiredBy": "sx",
+  "description": "Página B2B para recrutar agentes e donos de clube como a sala de controle de uma transmissão: multiview com o que o grupo opera nos bastidores, etapas da parceria e formulário que cai no CRM. Sem número inventado.",
+  "theme": {
+    "world": "transmissao",
+    "mode": "escuro",
+    "bg": "#15110a",
+    "surface": "#1e1810",
+    "text": "#f6eddc",
+    "muted": "#ad9a78",
+    "primary": "#efa144",
+    "primaryText": "#030303",
+    "accent": "#2bb673",
+    "border": "#3b2f1f",
+    "font": "Montserrat",
+    "fontHead": "Barlow Condensed",
+    "fontMono": "Antonio",
+    "radius": 0
+  },
+  "seo": {
+    "title": "{{name}} · Parceria para agentes e donos de clube",
+    "description": "Coloque o seu clube no grupo {{name}} no app {{app}}: atendimento 24h, canal de fichas por PIX e grade de torneios. Condições combinadas por escrito."
+  },
+  "pages": [
+    {
+      "slug": "",
+      "title": "Início",
+      "blocks": [
+        {
+          "type": "transmissao_topo",
+          "props": {
+            "brand": "{{name}}",
+            "sub": "Parceria · {{app}}",
+            "logo": "{{logo}}",
+            "links": [
+              {
+                "label": "Benefícios",
+                "href": "/beneficios"
+              },
+              {
+                "label": "Como funciona",
+                "href": "/como-funciona"
+              },
+              {
+                "label": "Contato",
+                "href": "/contato"
+              }
+            ],
+            "cta": "Quero ser parceiro",
+            "ctaHref": "/contato"
+          }
+        },
+        {
+          "type": "transmissao_abertura",
+          "props": {
+            "badge": "Sala de controle",
+            "league": "Para agentes e donos de clube no {{app}}",
+            "responsible": "Jogue com responsabilidade",
+            "title": "Seu clube na tela,",
+            "titleAccent": "a operação nos bastidores.",
+            "lead": "O {{name}} cuida do que roda por trás da mesa: atendimento 24h, canal de fichas por PIX, grade de torneios e material de divulgação. **Você cuida dos seus jogadores.**",
+            "cta": "Quero ser parceiro",
+            "ctaHref": "/contato",
+            "secondary": "Ver benefícios",
+            "secondaryHref": "/beneficios",
+            "note": "Conversa sem compromisso. As condições de cada parceria são combinadas por escrito.",
+            "variant": "empilhado"
+          }
+        },
+        {
+          "type": "transmissao_multiview",
+          "props": {
+            "items": [
+              {
+                "cam": "PGM · seu clube",
+                "title": "A mesa no ar com a sua marca",
+                "text": "Seus jogadores entram pelo link do seu clube no {{app}}, com o seu agente. O grupo cuida da operação por trás.",
+                "art": "mesa"
+              },
+              {
+                "cam": "CAM 2",
+                "title": "Atendimento 24h",
+                "text": "Equipe no WhatsApp para os seus jogadores, de madrugada também.",
+                "art": "conversa"
+              },
+              {
+                "cam": "CAM 3",
+                "title": "Fichas por PIX",
+                "text": "Canal de compra e saque com registro de cada operação.",
+                "art": "pix"
+              },
+              {
+                "cam": "CAM 4",
+                "title": "Grade e divulgação",
+                "text": "Grade de torneios e peças prontas para os seus canais.",
+                "art": "grade"
+              }
+            ]
+          }
+        },
+        {
+          "type": "transmissao_confronto",
+          "props": {
+            "title": "O que muda para o seu clube",
+            "items": [
+              {
+                "label": "Atendimento",
+                "value": "24",
+                "unit": "h",
+                "text": "O suporte do grupo responde aos seus jogadores todos os dias. **Você deixa de ser o plantão da madrugada.**"
+              },
+              {
+                "label": "Fichas",
+                "value": "PIX",
+                "text": "Compra e saque pelo canal do grupo, com cada operação registrada no chat."
+              },
+              {
+                "label": "Torneios",
+                "value": "Grade",
+                "text": "Seus jogadores entram na grade do grupo, com torneios o dia todo."
+              },
+              {
+                "label": "Contrato",
+                "value": "Escrito",
+                "text": "Repasse, prazos e responsabilidades combinados por escrito antes de começar. **Sem promessa de faturamento.**"
+              }
+            ]
+          }
+        },
+        {
+          "type": "transmissao_mesa_final",
+          "props": {
+            "title": "Como um clube entra no grupo",
+            "intro": "Quatro etapas, sem letra miúda. Você sabe o que acontece em cada uma antes de assinar.",
+            "colStep": "Etapa",
+            "colText": "O que acontece",
+            "colValue": "Como",
+            "items": [
+              {
+                "title": "Você chama",
+                "text": "Pelo formulário ou pelo WhatsApp. Conte como opera hoje: clube próprio, agência ou começando agora.",
+                "value": "Form"
+              },
+              {
+                "title": "Conversa",
+                "text": "Um responsável do {{name}} explica o modelo, tira dúvidas e entende o seu público.",
+                "value": "Chamada"
+              },
+              {
+                "title": "Proposta por escrito",
+                "text": "Repasse, responsabilidades e regras de jogo responsável, tudo no papel.",
+                "value": "Contrato"
+              },
+              {
+                "title": "Seu clube no ar",
+                "text": "Link do clube, canal de fichas e atendimento configurados. Você divulga, o grupo opera.",
+                "value": "No ar",
+                "lead": true
+              }
+            ],
+            "variant": "larga"
+          }
+        },
+        {
+          "type": "faq",
+          "props": {
+            "title": "Perguntas de quem opera",
+            "subtitle": "O que donos de clube e agentes mais perguntam antes da primeira conversa.",
+            "items": [
+              {
+                "q": "Preciso ter um clube aberto?",
+                "a": "Não. Agentes que ainda não têm clube também podem conversar; o modelo muda conforme a sua operação."
+              },
+              {
+                "q": "Como funciona o repasse?",
+                "a": "É combinado por escrito na proposta, conforme o modelo de parceria. Não divulgamos valor genérico porque cada operação é diferente."
+              },
+              {
+                "q": "Quem atende os meus jogadores?",
+                "a": "O atendimento 24h do grupo, pelo WhatsApp. Você acompanha e continua sendo a referência do seu clube."
+              },
+              {
+                "q": "Vocês exigem exclusividade?",
+                "a": "As condições são combinadas caso a caso e ficam no contrato."
+              },
+              {
+                "q": "E o jogo responsável?",
+                "a": "Todos os clubes do grupo seguem as mesmas regras: somente +18, sem bônus ou promessa de ganho e saque só na chave PIX do titular."
+              }
+            ]
+          }
+        },
+        {
+          "type": "transmissao_final",
+          "props": {
+            "anchor": "contato",
+            "title": "Bora colocar",
+            "titleAccent": "seu clube no ar?",
+            "text": "Conte quem você é e como opera hoje. Um responsável do {{name}} retorna para uma conversa, sem compromisso.",
+            "responsible": "Parceria só com operação de jogo responsável, sem bônus nem promessa de ganho.",
+            "fields": "email_nome_telefone",
+            "button": "Quero conversar",
+            "help": "Usamos os seus dados só para falar sobre a parceria.",
+            "success": "Recebemos! Um responsável do {{name}} vai falar com você.",
+            "consent": "Concordo em ser contatado pelo {{name}} sobre parceria. Posso sair quando quiser."
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "text": "{{name}}: grupo de clubes no app {{app}}. Parceria para agentes e donos de clube.",
+            "links": [
+              {
+                "label": "Benefícios",
+                "href": "/beneficios"
+              },
+              {
+                "label": "Como funciona",
+                "href": "/como-funciona"
+              },
+              {
+                "label": "Contato",
+                "href": "/contato"
+              }
+            ],
+            "disclaimer": "{{disclaimer}} Proibido para menores de 18 anos. O site nunca pede a senha do app nem documento."
+          }
+        }
+      ]
+    },
+    {
+      "slug": "beneficios",
+      "title": "Benefícios",
+      "seo": {
+        "description": "O que o {{name}} opera para o seu clube: atendimento 24h, canal de fichas por PIX, grade de torneios e divulgação."
+      },
+      "blocks": [
+        {
+          "type": "transmissao_topo",
+          "props": {
+            "brand": "{{name}}",
+            "sub": "Parceria · {{app}}",
+            "logo": "{{logo}}",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Benefícios",
+                "href": "/beneficios"
+              },
+              {
+                "label": "Como funciona",
+                "href": "/como-funciona"
+              },
+              {
+                "label": "Contato",
+                "href": "/contato"
+              }
+            ],
+            "cta": "Quero ser parceiro",
+            "ctaHref": "/contato"
+          }
+        },
+        {
+          "type": "transmissao_abertura",
+          "props": {
+            "responsible": "Jogue com responsabilidade",
+            "variant": "pagina",
+            "badge": "Benefícios",
+            "league": "O pacote do parceiro",
+            "title": "O que o grupo",
+            "titleAccent": "opera por você.",
+            "lead": "Tudo o que um clube precisa para rodar 24h sem você ficar preso no celular. **As condições de cada item vão por escrito na proposta.**"
+          }
+        },
+        {
+          "type": "transmissao_mesa_final",
+          "props": {
+            "title": "Quem faz o quê",
+            "intro": "O grupo opera a parte pesada. O relacionamento com a sua comunidade continua sendo seu.",
+            "colStep": "Item",
+            "colText": "O que é",
+            "colValue": "Quem faz",
+            "items": [
+              {
+                "title": "Atendimento 24h ao jogador",
+                "text": "Equipe no WhatsApp para os seus jogadores, todos os dias, de madrugada também.",
+                "value": "Grupo"
+              },
+              {
+                "title": "Canal de fichas",
+                "text": "Compra e saque por PIX, com cada operação registrada no chat.",
+                "value": "Grupo"
+              },
+              {
+                "title": "Grade de torneios",
+                "text": "Seus jogadores entram na grade do grupo, com torneios o dia todo.",
+                "value": "Grupo"
+              },
+              {
+                "title": "Site e cadastro do clube",
+                "text": "Página do seu clube com cadastro que cai no seu CRM.",
+                "value": "Grupo"
+              },
+              {
+                "title": "Relatórios e suporte ao agente",
+                "text": "Cadastros e compras dos seus jogadores, e um canal direto só para você.",
+                "value": "Grupo"
+              },
+              {
+                "title": "Divulgação nos seus canais",
+                "text": "Você posta no Instagram, WhatsApp e Telegram com as peças prontas do grupo.",
+                "value": "Você"
+              },
+              {
+                "title": "Comunidade do clube",
+                "text": "Trazer jogador, cuidar do grupo, ser a cara do clube.",
+                "value": "Você",
+                "lead": true
+              },
+              {
+                "title": "Jogo responsável",
+                "text": "Somente +18, sem bônus nem promessa de ganho, saque só no CPF do titular.",
+                "value": "Os dois"
+              }
+            ],
+            "variant": "larga"
+          }
+        },
+        {
+          "type": "text",
+          "props": {
+            "title": "O que não prometemos",
+            "body": "Não prometemos número de jogadores, faturamento nem retorno garantido. Ninguém sério promete.\n\nO que entregamos é operação: atendimento que responde, fichas por PIX com registro e uma grade de torneios rodando. O resultado do clube depende do seu trabalho com a sua comunidade.",
+            "variant": "estreito"
+          }
+        },
+        {
+          "type": "transmissao_chamada",
+          "props": {
+            "title": "Quer ver como fica para o seu clube?",
+            "text": "Uma conversa de meia hora resolve a maioria das dúvidas.",
+            "cta": "Quero conversar",
+            "ctaHref": "/contato",
+            "note": "Sem compromisso",
+            "variant": "faixa"
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "text": "{{name}}: grupo de clubes no app {{app}}. Parceria para agentes e donos de clube.",
+            "links": [
+              {
+                "label": "Benefícios",
+                "href": "/beneficios"
+              },
+              {
+                "label": "Como funciona",
+                "href": "/como-funciona"
+              },
+              {
+                "label": "Contato",
+                "href": "/contato"
+              }
+            ],
+            "disclaimer": "{{disclaimer}} Proibido para menores de 18 anos. O site nunca pede a senha do app nem documento."
+          }
+        }
+      ]
+    },
+    {
+      "slug": "como-funciona",
+      "title": "Como funciona",
+      "seo": {
+        "description": "As etapas da parceria com o {{name}}, do primeiro contato ao clube no ar."
+      },
+      "blocks": [
+        {
+          "type": "transmissao_topo",
+          "props": {
+            "brand": "{{name}}",
+            "sub": "Parceria · {{app}}",
+            "logo": "{{logo}}",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Benefícios",
+                "href": "/beneficios"
+              },
+              {
+                "label": "Como funciona",
+                "href": "/como-funciona"
+              },
+              {
+                "label": "Contato",
+                "href": "/contato"
+              }
+            ],
+            "cta": "Quero ser parceiro",
+            "ctaHref": "/contato"
+          }
+        },
+        {
+          "type": "transmissao_abertura",
+          "props": {
+            "responsible": "Jogue com responsabilidade",
+            "variant": "pagina",
+            "badge": "Como funciona",
+            "league": "Do primeiro contato ao clube no ar",
+            "title": "A parceria,",
+            "titleAccent": "etapa por etapa.",
+            "lead": "Sem surpresa no meio do caminho. **Você sabe o que acontece em cada etapa e o que fica no contrato.**"
+          }
+        },
+        {
+          "type": "transmissao_mesa_final",
+          "props": {
+            "title": "As etapas",
+            "intro": "O tempo de cada etapa depende da sua operação e é combinado na conversa.",
+            "colStep": "Etapa",
+            "colText": "O que acontece",
+            "items": [
+              {
+                "title": "Primeiro contato",
+                "text": "Você preenche o formulário ou chama no WhatsApp e conta como opera hoje."
+              },
+              {
+                "title": "Conversa de apresentação",
+                "text": "Explicamos o modelo do grupo, as regras de jogo responsável e o que esperamos de um parceiro."
+              },
+              {
+                "title": "Proposta por escrito",
+                "text": "Repasse, prazos, responsabilidades de cada lado e como sair da parceria, se um dia quiser."
+              },
+              {
+                "title": "Configuração",
+                "text": "Link do clube no {{app}}, canal de fichas, atendimento e material de divulgação."
+              },
+              {
+                "title": "Operação",
+                "text": "Seu clube no ar. Você divulga e acompanha; o grupo atende e opera as fichas.",
+                "lead": true
+              }
+            ],
+            "variant": "dupla"
+          }
+        },
+        {
+          "type": "faq",
+          "props": {
+            "title": "Depois que entra",
+            "subtitle": "Como fica o dia a dia do parceiro.",
+            "items": [
+              {
+                "q": "Continuo com o meu agente?",
+                "a": "Sim. Os jogadores entram pelo link do seu clube, com o seu agente."
+              },
+              {
+                "q": "Como acompanho o meu clube?",
+                "a": "Pelos relatórios de cadastros e compras e pelo canal direto com o suporte ao agente."
+              },
+              {
+                "q": "Posso sair da parceria?",
+                "a": "Pode. As regras de saída ficam no contrato desde o primeiro dia."
+              },
+              {
+                "q": "Quem cuida de problema com jogador?",
+                "a": "O atendimento do grupo resolve o dia a dia e chama você quando a decisão é do clube."
+              }
+            ]
+          }
+        },
+        {
+          "type": "transmissao_chamada",
+          "props": {
+            "title": "A próxima etapa é uma conversa.",
+            "text": "Conte como você opera hoje e receba a proposta por escrito.",
+            "cta": "Quero conversar",
+            "ctaHref": "/contato",
+            "note": "Sem compromisso",
+            "variant": "larga"
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "text": "{{name}}: grupo de clubes no app {{app}}. Parceria para agentes e donos de clube.",
+            "links": [
+              {
+                "label": "Benefícios",
+                "href": "/beneficios"
+              },
+              {
+                "label": "Como funciona",
+                "href": "/como-funciona"
+              },
+              {
+                "label": "Contato",
+                "href": "/contato"
+              }
+            ],
+            "disclaimer": "{{disclaimer}} Proibido para menores de 18 anos. O site nunca pede a senha do app nem documento."
+          }
+        }
+      ]
+    },
+    {
+      "slug": "contato",
+      "title": "Contato",
+      "seo": {
+        "description": "Fale com o {{name}} sobre parceria para o seu clube no app {{app}}."
+      },
+      "blocks": [
+        {
+          "type": "transmissao_topo",
+          "props": {
+            "brand": "{{name}}",
+            "sub": "Parceria · {{app}}",
+            "logo": "{{logo}}",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Benefícios",
+                "href": "/beneficios"
+              },
+              {
+                "label": "Como funciona",
+                "href": "/como-funciona"
+              },
+              {
+                "label": "Contato",
+                "href": "/contato"
+              }
+            ],
+            "cta": "Quero ser parceiro",
+            "ctaHref": "/contato"
+          }
+        },
+        {
+          "type": "transmissao_abertura",
+          "props": {
+            "responsible": "Jogue com responsabilidade",
+            "variant": "pagina",
+            "badge": "Contato",
+            "league": "Parceria · {{app}}",
+            "title": "Fale com",
+            "titleAccent": "a sala de controle.",
+            "lead": "Deixe nome, e-mail e WhatsApp. **Um responsável do {{name}} retorna para marcar a conversa.**"
+          }
+        },
+        {
+          "type": "transmissao_final",
+          "props": {
+            "anchor": "",
+            "title": "Bora colocar",
+            "titleAccent": "seu clube no ar?",
+            "text": "Conte quem você é e como opera hoje. Um responsável do {{name}} retorna para uma conversa, sem compromisso.",
+            "responsible": "Parceria só com operação de jogo responsável, sem bônus nem promessa de ganho.",
+            "fields": "email_nome_telefone",
+            "button": "Quero conversar",
+            "help": "Usamos os seus dados só para falar sobre a parceria.",
+            "success": "Recebemos! Um responsável do {{name}} vai falar com você.",
+            "consent": "Concordo em ser contatado pelo {{name}} sobre parceria. Posso sair quando quiser."
+          }
+        },
+        {
+          "type": "contact",
+          "props": {
+            "title": "Prefere chamar direto?",
+            "subtitle": "Os mesmos canais, sem formulário.",
+            "whatsapp": "{{whatsapp}}",
+            "telegram": "{{telegram}}",
+            "email": "{{email}}",
+            "hours": "Diga que é sobre parceria para ir direto ao responsável."
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "text": "{{name}}: grupo de clubes no app {{app}}. Parceria para agentes e donos de clube.",
+            "links": [
+              {
+                "label": "Benefícios",
+                "href": "/beneficios"
+              },
+              {
+                "label": "Como funciona",
+                "href": "/como-funciona"
+              },
+              {
+                "label": "Contato",
+                "href": "/contato"
+              }
+            ],
+            "disclaimer": "{{disclaimer}} Proibido para menores de 18 anos. O site nunca pede a senha do app nem documento."
+          }
+        }
+      ]
+    }
+  ]
+}

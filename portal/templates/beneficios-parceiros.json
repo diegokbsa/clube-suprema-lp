@@ -2,30 +2,32 @@
   "id": "beneficios-parceiros",
   "name": "Benefícios e parceiros",
   "order": 22,
-  "version": 1,
+  "version": 2,
   "category": "Poker · parceria",
   "niches": [
     "poker"
   ],
-  "description": "Página para recrutar parceiros e divulgadores: benefícios por nível, passo a passo da parceria e formulário que cai no CRM. Identidade própria; conteúdo de exemplo identificado.",
+  "description": "Recrutamento de divulgadores e indicadores no mundo \"Ingresso de mesa\", em balcão claro com bilhete rosa: a primeira tela é uma credencial de divulgador com o pedido dentro (cai no CRM). Níveis de exemplo em talão, passo a passo da parceria e regras de divulgação. Sem promessa de ganho; condições de exemplo identificadas.",
   "inspiredBy": null,
   "theme": {
+    "world": "ingresso",
     "mode": "claro",
-    "bg": "#f7f6f2",
-    "surface": "#ffffff",
-    "text": "#1c1a17",
-    "muted": "#5d6670",
-    "primary": "#1456c8",
-    "primaryText": "#ffffff",
-    "accent": "#e0a106",
-    "border": "#e4e1d8",
-    "font": "Libre Franklin",
-    "fontHead": "Fraunces",
-    "radius": 10
+    "bg": "#f3eee4",
+    "surface": "#f2a7b6",
+    "text": "#1f1a22",
+    "muted": "#5b5560",
+    "primary": "#f2a7b6",
+    "primaryText": "#1f0d16",
+    "accent": "#1d3f8f",
+    "border": "#d9d0c1",
+    "font": "Figtree",
+    "fontHead": "Saira Condensed",
+    "fontMono": "JetBrains Mono",
+    "radius": 12
   },
   "seo": {
-    "title": "{{name}} · Seja parceiro e cresça com a gente",
-    "description": "Divulgue o {{name}} ({{app}}) e ganhe comissão por indicação: materiais prontos, link próprio e suporte dedicado. Somente +18."
+    "title": "{{name}} · Seja divulgador com link próprio",
+    "description": "Divulgue o {{name}} ({{app}}) com link próprio, materiais prontos e comissão combinada por escrito. Sem promessa de ganho. Somente +18."
   },
   "pages": [
     {
@@ -33,163 +35,238 @@
       "title": "Início",
       "blocks": [
         {
-          "type": "navbar",
+          "type": "ingresso_topo",
           "props": {
             "brand": "{{name}}",
             "logo": "{{logo}}",
+            "sub": "Divulgadores · +18",
             "links": [
               {
                 "label": "Benefícios",
-                "href": "/beneficios"
+                "href": "/beneficios",
+                "vivo": false
               },
               {
                 "label": "Como funciona",
-                "href": "/parceria"
+                "href": "/parceria",
+                "vivo": false
               },
               {
-                "label": "Dúvidas",
-                "href": "#duvidas"
+                "label": "Regras de divulgação",
+                "href": "/regras",
+                "vivo": false
               }
             ],
-            "cta": "Quero ser parceiro",
-            "ctaHref": "#contato",
-            "variant": "centralizado"
+            "cta": "Quero divulgar",
+            "ctaHref": "/#ingresso"
           }
         },
         {
-          "type": "hero",
+          "type": "ingresso_hero",
           "props": {
-            "eyebrow": "Programa de parceiros",
-            "title": "Indique jogadores, acompanhe tudo, receba comissão.",
-            "subtitle": "Link de convite próprio, materiais prontos para divulgação e relatório de indicações — parceria com regras claras e pagamento combinado em contrato.",
-            "cta": "Quero ser parceiro",
-            "ctaHref": "#contato",
-            "secondary": "Ver benefícios",
-            "secondaryHref": "/beneficios",
-            "note": "Atividade para maiores de 18 anos",
-            "variant": "dividido"
+            "anchor": "ingresso",
+            "variant": "credencial",
+            "brand": "{{name}}",
+            "logo": "{{logo}}",
+            "serie": "Credencial de divulgador · {{app}}",
+            "title": "Divulgue o clube com link próprio e regra clara.",
+            "text": "Para **criadores, influenciadores e indicadores**: você recebe um link só seu, materiais prontos e acompanha os cadastros que vieram de você. A comissão é combinada **por escrito** antes de começar.",
+            "promessa": "Seu link. Seus cadastros. Tudo anotado.",
+            "fixos": [
+              {
+                "label": "Clube",
+                "value": "{{number}}"
+              },
+              {
+                "label": "Agente",
+                "value": "{{agentId}}"
+              }
+            ],
+            "fields": "email_nome_telefone",
+            "emailLabel": "E-mail de contato",
+            "button": "Quero meu link",
+            "success": "Pedido recebido. Sua credencial foi destacada.",
+            "consent": "Aceito ser contatado sobre o programa de divulgadores. Tenho mais de 18 anos.",
+            "help": "Não pedimos senha, documento nem dados bancários por aqui.",
+            "miudas": [
+              {
+                "text": "**+18** · Divulgação só para maiores"
+              },
+              {
+                "text": "**Jogue com responsabilidade**"
+              },
+              {
+                "text": "Sem promessa de ganho"
+              }
+            ],
+            "stubTitle": "Credencial de divulgador",
+            "stubNote": "Uso pessoal",
+            "stubMainLabel": "Acesso",
+            "stubMainValue": "DIVULGADOR",
+            "stubFields": [
+              {
+                "label": "Link",
+                "value": "Próprio"
+              },
+              {
+                "label": "Painel",
+                "value": "Cadastros"
+              }
+            ],
+            "holderLabel": "Credenciado",
+            "holderEmpty": "seu e-mail aqui",
+            "code": "DIVULGA {{number}}",
+            "cut": "Destaca no picote ao enviar o pedido",
+            "cutDone": "Destacada. O seu link vem na conversa.",
+            "stamp": "CREDENCIADO",
+            "stampSub": "DIVULGADOR",
+            "nextTitle": "Pedido recebido. O seu link vem na conversa.",
+            "nextText": "A gente chama para conhecer o seu canal, combinar as condições por escrito e entregar o link e os materiais.",
+            "nextCta": "Adiantar pelo WhatsApp",
+            "nextHref": "{{whatsappLink}}"
           }
         },
         {
-          "type": "offers",
+          "type": "ingresso_passes",
           "props": {
-            "title": "O que o parceiro recebe",
+            "anchor": "niveis",
+            "title": "Três níveis de parceria.",
+            "intro": "Comece no nível que descreve o seu canal hoje. Mudar de nível é uma conversa, não uma meta.",
+            "exemplo": true,
             "items": [
               {
-                "badge": "Divulgação",
-                "name": "Kit de materiais",
-                "text": "Artes, textos e vídeos prontos para redes sociais, sempre atualizados pela equipe.",
-                "cta": "Quero ser parceiro",
-                "href": "#contato"
+                "classe": "I",
+                "rot": "Nível 1",
+                "nome": "Indicador",
+                "text": "Você conhece gente que joga e quer indicar com um link próprio.",
+                "lista": "Link próprio de convite\nMensagens prontas para enviar\nPainel com os seus cadastros"
               },
               {
-                "badge": "Acompanhamento",
-                "name": "Link e painel próprios",
-                "text": "Cada indicação entra pelo seu link e aparece no seu relatório de parceiro.",
-                "cta": "Quero ser parceiro",
-                "href": "#contato"
+                "classe": "II",
+                "rot": "Nível 2",
+                "nome": "Criador",
+                "text": "Você tem um canal (Instagram, YouTube, Telegram) e produz conteúdo de poker.",
+                "lista": "Tudo do nível 1\nArtes e textos no padrão das regras\nPágina com o seu nome e o seu link"
               },
               {
-                "badge": "Suporte",
-                "name": "Canal dedicado",
-                "text": "Atendimento prioritário para parceiros: dúvidas de jogadores indicados resolvem direto com a gente.",
-                "cta": "Quero ser parceiro",
-                "href": "#contato"
-              }
-            ],
-            "variant": "cartoes",
-            "disclosure": "Programa de indicação da operação: a comissão é definida em contrato entre as partes."
-          }
-        },
-        {
-          "type": "steps",
-          "props": {
-            "title": "Como vira parceiro",
-            "items": [
-              {
-                "title": "Envie o formulário",
-                "text": "Conte quem você é e onde pretende divulgar. Analisamos cada pedido manualmente."
-              },
-              {
-                "title": "Conversa e contrato",
-                "text": "Alinhamos comissão, regras e materiais por escrito antes de qualquer divulgação."
-              },
-              {
-                "title": "Receba seu link",
-                "text": "Você recebe link de convite exclusivo e acesso ao relatório de indicações."
-              },
-              {
-                "title": "Divulgue e acompanhe",
-                "text": "Cada jogador que entra pelo seu link conta para a sua comissão."
-              }
-            ],
-            "variant": "linha-do-tempo"
-          }
-        },
-        {
-          "type": "compare",
-          "props": {
-            "title": "Níveis de parceria (exemplo — condições definidas em contrato)",
-            "columns": "Parceiro;Parceiro destaque;Grupo",
-            "rows": [
-              {
-                "name": "Kit de materiais",
-                "values": "Básico;Completo;Completo e personalizado"
-              },
-              {
-                "name": "Comissão",
-                "values": "Padrão da operação;Maior, por meta;Sob medida"
-              },
-              {
-                "name": "Suporte",
-                "values": "Canal comum;Prioritário;Linha direta com a equipe"
-              },
-              {
-                "name": "Relatório de indicações",
-                "values": "Mensal;Semanal;Em tempo real"
+                "classe": "III",
+                "rot": "Nível 3",
+                "nome": "Parceiro de comunidade",
+                "text": "Você mantém uma comunidade ou grupo de jogadores e quer estrutura para atender.",
+                "lista": "Tudo do nível 2\nAtendimento do clube para a sua comunidade\nConversa periódica de acompanhamento"
               }
             ]
           }
         },
         {
-          "type": "lead_form",
+          "type": "ingresso_tira",
           "props": {
-            "title": "Peça a sua proposta",
-            "text": "Preencha e a equipe responde com as condições de parceria. Analisamos cada pedido individualmente.",
-            "fields": "email_nome_telefone",
-            "button": "Quero ser parceiro",
-            "success": "Recebido! Vamos analisar e responder no seu e-mail e WhatsApp.",
-            "consent": "Concordo em ser contatado sobre a parceria. Posso sair quando quiser.",
-            "variant": "cartao"
+            "title": "Como a parceria anda.",
+            "intro": "Do pedido ao primeiro cadastro, sem pagar nada para entrar.",
+            "items": [
+              {
+                "rot": "Etapa 1 de 3",
+                "numero": "Pedido",
+                "title": "Peça a credencial",
+                "text": "Nome, e-mail e WhatsApp. A gente chama para conhecer o seu canal.",
+                "impresso": "Retorno | **WhatsApp ou e-mail**"
+              },
+              {
+                "rot": "Etapa 2 de 3",
+                "numero": "Termos",
+                "title": "Combine por escrito",
+                "text": "Nível, comissão e regras de divulgação num documento simples, antes de qualquer post."
+              },
+              {
+                "rot": "Etapa 3 de 3",
+                "numero": "Link",
+                "title": "Divulgue com o seu link",
+                "text": "Cada cadastro pelo seu link fica registrado no painel, com data e origem.",
+                "nota": "Use só os materiais aprovados e as regras de divulgação."
+              }
+            ]
           }
         },
         {
-          "type": "faq",
+          "type": "ingresso_clausulas",
           "props": {
-            "title": "Perguntas frequentes",
+            "title": "As regras de divulgação, resumidas.",
+            "intro": "Elas protegem quem joga, protegem o seu canal e evitam bloqueio nas redes.",
+            "cabEsq": "**Regras** · divulgação",
+            "cabDir": "{{name}}",
+            "prefixo": "Regra",
             "items": [
               {
-                "q": "Preciso ser jogador do clube?",
-                "a": "Não. A parceria é de divulgação: você indica jogadores e acompanha pelo relatório."
+                "title": "Só para maiores de 18",
+                "text": "Nada de divulgação para menores ou em canal frequentado por menores."
               },
               {
-                "q": "Como a comissão é calculada?",
-                "a": "Pelas indicações que entram pelo seu link, no percentual combinado em contrato. Nada é automático: cada período é conferido com você."
+                "title": "Sem promessa de ganho",
+                "text": "Nada de \"renda extra\", \"lucro\" ou print de prêmio como chamada. Poker é jogo."
               },
               {
-                "q": "Posso divulgar em qualquer canal?",
-                "a": "Nos canais combinados no contrato, sempre com aviso de +18 e sem promessa de ganho."
+                "title": "Sem bônus inventado",
+                "text": "O clube não oferece bônus nem fichas grátis. Não prometa o que não existe."
+              },
+              {
+                "title": "Jogue com responsabilidade",
+                "text": "Todo post leva **+18** e **Jogue com responsabilidade**, visíveis."
               }
             ],
-            "anchor": "duvidas"
+            "assina": "Regras completas na página Regras de divulgação · **+18**"
+          }
+        },
+        {
+          "type": "ingresso_verso",
+          "props": {
+            "title": "Perguntas de quem vai divulgar.",
+            "cabEsq": "**Condições** · verso da credencial",
+            "cabDir": "Programa de divulgadores",
+            "items": [
+              {
+                "q": "Quanto eu ganho por indicação?",
+                "a": "A comissão é combinada na conversa e registrada por escrito, conforme o nível. Esta página não promete valor nem resultado."
+              },
+              {
+                "q": "Preciso ter muitos seguidores?",
+                "a": "Não. O nível 1 é para quem indica conhecidos. O que importa é seguir as regras de divulgação."
+              },
+              {
+                "q": "Tem custo para entrar?",
+                "a": "Não se cobra nada para pedir a credencial nem para receber o link."
+              },
+              {
+                "q": "Como sei quem veio pelo meu link?",
+                "a": "Pelo painel: cada cadastro pelo seu link fica registrado com data e origem."
+              },
+              {
+                "q": "Posso criar os meus próprios posts?",
+                "a": "Pode, desde que sigam as regras de divulgação: +18, jogo responsável e nenhuma promessa de ganho ou bônus."
+              }
+            ],
+            "assina": "Divulgação só para maiores de 18 anos · **Jogue com responsabilidade**"
+          }
+        },
+        {
+          "type": "ingresso_final",
+          "props": {
+            "variant": "papel",
+            "title": "Sua credencial está a um formulário.",
+            "text": "Link próprio, materiais prontos e condições **por escrito**. Sem promessa de ganho.",
+            "cta": "Quero meu link",
+            "ctaHref": "#ingresso"
           }
         },
         {
           "type": "footer",
           "props": {
             "brand": "{{name}}",
-            "text": "Programa de parceiros do {{name}}, no app {{app}}.",
+            "text": "Programa de divulgadores do {{name}} no app {{app}}. Link próprio, materiais prontos e comissão combinada por escrito, sem promessa de ganho.",
             "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
               {
                 "label": "Benefícios",
                 "href": "/beneficios"
@@ -199,8 +276,8 @@
                 "href": "/parceria"
               },
               {
-                "label": "Privacidade",
-                "href": "/privacidade"
+                "label": "Regras de divulgação",
+                "href": "/regras"
               }
             ],
             "disclaimer": "{{disclaimer}}"
@@ -212,90 +289,163 @@
       "slug": "beneficios",
       "title": "Benefícios",
       "seo": {
-        "description": "Benefícios do programa de parceiros do {{name}}."
+        "description": "Benefícios do programa de divulgadores do {{name}}: link próprio, materiais, painel de cadastros e atendimento. Somente +18."
       },
       "blocks": [
         {
-          "type": "navbar",
+          "type": "ingresso_topo",
           "props": {
             "brand": "{{name}}",
             "logo": "{{logo}}",
+            "sub": "Divulgadores · +18",
             "links": [
               {
-                "label": "Início",
-                "href": "/"
+                "label": "Benefícios",
+                "href": "/beneficios",
+                "vivo": false
               },
               {
                 "label": "Como funciona",
-                "href": "/parceria"
+                "href": "/parceria",
+                "vivo": false
+              },
+              {
+                "label": "Regras de divulgação",
+                "href": "/regras",
+                "vivo": false
               }
             ],
-            "cta": "Quero ser parceiro",
-            "ctaHref": "/#contato",
-            "variant": "barra"
+            "cta": "Quero divulgar",
+            "ctaHref": "/#ingresso"
           }
         },
         {
-          "type": "features",
+          "type": "ingresso_cabecalho",
           "props": {
-            "title": "Benefícios em detalhe",
+            "variant": "bilhete",
+            "serie": "Benefícios · programa de divulgadores",
+            "code": "BENEF {{number}}",
+            "title": "O que vem com a credencial.",
+            "text": "Tudo o que você recebe para divulgar com tranquilidade. As condições do seu nível ficam **por escrito**.",
+            "campos": [
+              {
+                "label": "Link",
+                "value": "Próprio"
+              },
+              {
+                "label": "Materiais",
+                "value": "Prontos"
+              },
+              {
+                "label": "Painel",
+                "value": "Cadastros"
+              },
+              {
+                "label": "Atendimento",
+                "value": "Do clube"
+              }
+            ],
+            "miudas": "**+18** · Sem promessa de ganho · **Jogue com responsabilidade**"
+          }
+        },
+        {
+          "type": "ingresso_linhas",
+          "props": {
+            "title": "Item por item.",
             "items": [
               {
-                "icon": "▣",
-                "title": "Materiais prontos",
-                "text": "Artes para feed, stories e grupos, revisadas pela equipe e atualizadas a cada campanha."
+                "k": "Link",
+                "v": "**Link próprio de convite**: quem se cadastra por ele fica registrado como indicação sua."
               },
               {
-                "icon": "↗",
-                "title": "Link exclusivo",
-                "text": "O seu convite é só seu: toda indicação fica registrada nele."
+                "k": "Página",
+                "v": "**Página com o seu nome** e o seu link, no padrão das regras, para colocar na bio."
               },
               {
-                "icon": "◷",
-                "title": "Relatório periódico",
-                "text": "Resumo das suas indicações com data e status, para você conferir antes de cada pagamento."
+                "k": "Artes",
+                "v": "**Materiais prontos** (artes e textos) que já trazem +18 e jogo responsável."
               },
               {
-                "icon": "✆",
-                "title": "Suporte prioritário",
-                "text": "Jogador indicado com dúvida? O parceiro tem canal direto para resolver rápido."
+                "k": "Painel",
+                "v": "**Painel de cadastros** com data e origem de cada indicação."
               },
               {
-                "icon": "✓",
-                "title": "Contrato claro",
-                "text": "Comissão, prazos e regras por escrito antes de começar."
+                "k": "Suporte",
+                "v": "Os jogadores que você indica são atendidos pelo **suporte do clube**, não por você."
               },
               {
-                "icon": "+18",
-                "title": "Divulgação responsável",
-                "text": "Materiais com aviso de idade e sem promessa de ganho — exigência da operação."
+                "k": "Contrato",
+                "v": "**Condições por escrito**: nível, comissão e regras antes de começar."
               }
-            ],
-            "variant": "grade"
+            ]
           }
         },
         {
-          "type": "cta",
+          "type": "ingresso_passes",
           "props": {
-            "title": "Pronto para divulgar?",
-            "text": "Envie o formulário e receba a proposta com as condições.",
-            "cta": "Quero ser parceiro",
-            "ctaHref": "/#contato",
-            "variant": "faixa"
+            "title": "Os níveis, lado a lado.",
+            "exemplo": true,
+            "items": [
+              {
+                "classe": "I",
+                "rot": "Nível 1",
+                "nome": "Indicador",
+                "text": "Para quem indica conhecidos.",
+                "lista": "Link próprio\nMensagens prontas\nPainel de cadastros",
+                "nota": "Começa aqui quem não tem canal de conteúdo."
+              },
+              {
+                "classe": "II",
+                "rot": "Nível 2",
+                "nome": "Criador",
+                "text": "Para quem produz conteúdo de poker.",
+                "lista": "Tudo do nível 1\nArtes e textos aprovados\nPágina com o seu nome",
+                "nota": "Os materiais seguem as regras das redes."
+              },
+              {
+                "classe": "III",
+                "rot": "Nível 3",
+                "nome": "Parceiro de comunidade",
+                "text": "Para quem mantém uma comunidade de jogadores.",
+                "lista": "Tudo do nível 2\nAtendimento para a comunidade\nAcompanhamento periódico",
+                "nota": "Combinado caso a caso."
+              }
+            ]
+          }
+        },
+        {
+          "type": "ingresso_final",
+          "props": {
+            "variant": "contorno",
+            "title": "Qual é o seu nível?",
+            "text": "A gente descobre junto, na conversa. Mudar de nível depois é só combinar.",
+            "cta": "Quero meu link",
+            "ctaHref": "/#ingresso",
+            "secondary": "Ver as regras de divulgação",
+            "secondaryHref": "/regras"
           }
         },
         {
           "type": "footer",
           "props": {
             "brand": "{{name}}",
+            "text": "Programa de divulgadores do {{name}} no app {{app}}. Link próprio, materiais prontos e comissão combinada por escrito, sem promessa de ganho.",
             "links": [
               {
                 "label": "Início",
                 "href": "/"
               },
               {
-                "label": "Privacidade",
-                "href": "/privacidade"
+                "label": "Benefícios",
+                "href": "/beneficios"
+              },
+              {
+                "label": "Como funciona",
+                "href": "/parceria"
+              },
+              {
+                "label": "Regras de divulgação",
+                "href": "/regras"
               }
             ],
             "disclaimer": "{{disclaimer}}"
@@ -307,14 +457,167 @@
       "slug": "parceria",
       "title": "Como funciona",
       "seo": {
-        "description": "Passo a passo da parceria com o {{name}}: do formulário ao link próprio."
+        "description": "Como funciona o programa de divulgadores do {{name}}: pedido, condições por escrito, link próprio e acompanhamento."
       },
       "blocks": [
         {
-          "type": "navbar",
+          "type": "ingresso_topo",
           "props": {
             "brand": "{{name}}",
             "logo": "{{logo}}",
+            "sub": "Divulgadores · +18",
+            "links": [
+              {
+                "label": "Benefícios",
+                "href": "/beneficios",
+                "vivo": false
+              },
+              {
+                "label": "Como funciona",
+                "href": "/parceria",
+                "vivo": false
+              },
+              {
+                "label": "Regras de divulgação",
+                "href": "/regras",
+                "vivo": false
+              }
+            ],
+            "cta": "Quero divulgar",
+            "ctaHref": "/#ingresso"
+          }
+        },
+        {
+          "type": "ingresso_cabecalho",
+          "props": {
+            "variant": "faixa",
+            "title": "Como funciona a parceria.",
+            "text": "Quatro etapas, do pedido ao acompanhamento. Em nenhuma delas você paga para entrar.",
+            "campos": [
+              {
+                "label": "Etapa 1",
+                "value": "Pedido"
+              },
+              {
+                "label": "Etapa 2",
+                "value": "Por escrito"
+              },
+              {
+                "label": "Etapa 3",
+                "value": "Link"
+              },
+              {
+                "label": "Etapa 4",
+                "value": "Painel"
+              }
+            ],
+            "code": "PARCERIA {{number}}",
+            "miudas": "**+18** · Divulgação só para maiores · **Jogue com responsabilidade**"
+          }
+        },
+        {
+          "type": "ingresso_tira",
+          "props": {
+            "title": "As quatro etapas.",
+            "items": [
+              {
+                "rot": "Etapa 1 de 4",
+                "numero": "Pedido",
+                "title": "Credencial",
+                "text": "Você pede a credencial na página inicial. A gente chama para conhecer o seu canal."
+              },
+              {
+                "rot": "Etapa 2 de 4",
+                "numero": "Termos",
+                "title": "Condições por escrito",
+                "text": "Nível, comissão e regras de divulgação num documento simples.",
+                "impresso": "Assinatura | **antes do 1º post**"
+              },
+              {
+                "rot": "Etapa 3 de 4",
+                "numero": "Link",
+                "title": "Link e materiais",
+                "text": "Você recebe o link próprio, a página com o seu nome e os materiais aprovados."
+              },
+              {
+                "rot": "Etapa 4 de 4",
+                "numero": "Painel",
+                "title": "Acompanhamento",
+                "text": "Os cadastros pelo seu link aparecem no painel, com data e origem."
+              }
+            ]
+          }
+        },
+        {
+          "type": "ingresso_recibo",
+          "props": {
+            "variant": "recibo-esquerda",
+            "title": "O seu link, linha por linha.",
+            "intro": "Esta é a ficha que fica registrada quando a parceria começa. Os campos em branco são preenchidos na conversa.",
+            "steps": [
+              {
+                "icon": "link",
+                "title": "O link é só seu",
+                "text": "Cada cadastro por ele fica registrado como indicação sua."
+              },
+              {
+                "icon": "megafone",
+                "title": "Os materiais seguem as regras",
+                "text": "+18 e jogo responsável já vêm nas artes."
+              },
+              {
+                "icon": "painel",
+                "title": "O painel mostra os cadastros",
+                "text": "Você e o clube veem o mesmo número."
+              }
+            ],
+            "cta": "Pedir a credencial",
+            "ctaHref": "/#ingresso",
+            "reciboTitulo": "Ficha do divulgador",
+            "reciboSub": "Modelo · preenchida na conversa",
+            "linhas": [
+              {
+                "dt": "Nome",
+                "dd": ""
+              },
+              {
+                "dt": "Canal",
+                "dd": ""
+              },
+              {
+                "dt": "Nível",
+                "dd": ""
+              },
+              {
+                "dt": "Link próprio",
+                "dd": "Gerado no painel"
+              },
+              {
+                "dt": "Comissão",
+                "dd": "Por escrito"
+              }
+            ],
+            "rodape": "**Modelo de exemplo:** os termos reais saem da conversa.\n**+18** · Sem promessa de ganho.",
+            "code": "DIVULGADOR {{number}}"
+          }
+        },
+        {
+          "type": "contact",
+          "props": {
+            "title": "Quer conversar antes?",
+            "subtitle": "Mande uma mensagem dizendo que veio pela página de divulgadores.",
+            "whatsapp": "{{whatsapp}}",
+            "telegram": "{{telegram}}",
+            "instagram": "{{instagram}}",
+            "email": "{{email}}",
+            "hours": "Resposta em horário comercial"
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "text": "Programa de divulgadores do {{name}} no app {{app}}. Link próprio, materiais prontos e comissão combinada por escrito, sem promessa de ganho.",
             "links": [
               {
                 "label": "Início",
@@ -323,72 +626,14 @@
               {
                 "label": "Benefícios",
                 "href": "/beneficios"
-              }
-            ],
-            "cta": "Quero ser parceiro",
-            "ctaHref": "/#contato",
-            "variant": "barra"
-          }
-        },
-        {
-          "type": "hero",
-          "props": {
-            "eyebrow": "Passo a passo",
-            "title": "Da inscrição ao primeiro relatório",
-            "subtitle": "Um processo curto e por escrito: sem cadastro automático, cada parceria é conversada.",
-            "variant": "centralizado"
-          }
-        },
-        {
-          "type": "steps",
-          "props": {
-            "items": [
-              {
-                "title": "Formulário de interesse",
-                "text": "Nome, e-mail e WhatsApp: a equipe responde em até um dia útil (prazo de exemplo)."
               },
               {
-                "title": "Conversa de alinhamento",
-                "text": "Canais de divulgação, público e expectativa de comissão."
+                "label": "Como funciona",
+                "href": "/parceria"
               },
               {
-                "title": "Contrato",
-                "text": "Percentual, periodicidade e regras de divulgação assinados pelas duas partes."
-              },
-              {
-                "title": "Link e materiais",
-                "text": "Você recebe o convite exclusivo e o kit inicial de divulgação."
-              },
-              {
-                "title": "Acompanhamento",
-                "text": "Relatório de indicações e pagamento conforme o contrato."
-              }
-            ],
-            "variant": "numerado"
-          }
-        },
-        {
-          "type": "contact",
-          "props": {
-            "title": "Prefere conversar antes?",
-            "whatsapp": "{{whatsapp}}",
-            "telegram": "{{telegram}}",
-            "email": "{{email}}",
-            "hours": "Atendimento de parcerias em horário comercial."
-          }
-        },
-        {
-          "type": "footer",
-          "props": {
-            "brand": "{{name}}",
-            "links": [
-              {
-                "label": "Início",
-                "href": "/"
-              },
-              {
-                "label": "Privacidade",
-                "href": "/privacidade"
+                "label": "Regras de divulgação",
+                "href": "/regras"
               }
             ],
             "disclaimer": "{{disclaimer}}"
@@ -397,37 +642,160 @@
       ]
     },
     {
-      "slug": "privacidade",
-      "title": "Privacidade",
+      "slug": "regras",
+      "title": "Regras de divulgação",
       "seo": {
-        "description": "Como o {{name}} trata seus dados."
+        "description": "Regras de divulgação do {{name}}: +18, jogo responsável, sem promessa de ganho e sem bônus. Valem para todo divulgador."
       },
       "blocks": [
         {
-          "type": "navbar",
+          "type": "ingresso_topo",
           "props": {
             "brand": "{{name}}",
+            "logo": "{{logo}}",
+            "sub": "Divulgadores · +18",
             "links": [
               {
-                "label": "Início",
-                "href": "/"
+                "label": "Benefícios",
+                "href": "/beneficios",
+                "vivo": false
+              },
+              {
+                "label": "Como funciona",
+                "href": "/parceria",
+                "vivo": false
+              },
+              {
+                "label": "Regras de divulgação",
+                "href": "/regras",
+                "vivo": false
               }
             ],
-            "variant": "barra"
+            "cta": "Quero divulgar",
+            "ctaHref": "/#ingresso"
           }
         },
         {
-          "type": "text",
+          "type": "ingresso_cabecalho",
           "props": {
-            "title": "Privacidade",
-            "body": "Texto-base para revisão jurídica da operação.\n\nColetamos nome, e-mail e telefone só quando você envia o formulário de parceria, para responder à sua proposta. Você pode pedir a exclusão a qualquer momento pelos canais oficiais.\n\nCookies de medição (Google e Meta) só são ativados se você aceitar no aviso do site.",
-            "variant": "estreito"
+            "variant": "faixa",
+            "title": "Regras de divulgação.",
+            "text": "Valem para todo divulgador, em todo canal. Quem não segue perde a credencial. Elas também evitam que o seu perfil seja bloqueado nas redes.",
+            "campos": [
+              {
+                "label": "Regras",
+                "value": "8 no total"
+              },
+              {
+                "label": "Promessa",
+                "value": "Nenhuma"
+              },
+              {
+                "label": "Bônus",
+                "value": "Não existe"
+              }
+            ],
+            "code": "REGRAS {{number}}"
+          }
+        },
+        {
+          "type": "ingresso_clausulas",
+          "props": {
+            "title": "O regulamento do divulgador.",
+            "cabEsq": "**Regulamento** · divulgação",
+            "cabDir": "{{name}} · {{app}}",
+            "prefixo": "Regra",
+            "items": [
+              {
+                "title": "Só para maiores de 18",
+                "text": "Não divulgue para menores, nem em perfis, grupos ou horários voltados a menores."
+              },
+              {
+                "title": "+18 e jogo responsável visíveis",
+                "text": "Todo post, story ou vídeo mostra **+18** e **Jogue com responsabilidade**, legíveis."
+              },
+              {
+                "title": "Nenhuma promessa de ganho",
+                "text": "Proibido falar em \"renda extra\", \"lucro\", \"dinheiro fácil\" ou usar prêmio como chamada."
+              },
+              {
+                "title": "Nada de bônus ou ficha grátis",
+                "text": "O clube não oferece bônus. Não prometa vantagem em troca de cadastro."
+              },
+              {
+                "title": "Nada de senha ou documento",
+                "text": "Nunca peça senha, documento ou dados bancários de ninguém. O cadastro é feito pelo link."
+              },
+              {
+                "title": "Fichas só no canal oficial",
+                "text": "Não venda fichas nem passe chave PIX. Compra e saque só no canal oficial do clube."
+              },
+              {
+                "title": "Seja claro sobre a parceria",
+                "text": "Deixe claro que é uma divulgação paga ou com comissão, como pedem as regras das redes."
+              },
+              {
+                "title": "Materiais aprovados",
+                "text": "Use os materiais do programa ou siga o mesmo padrão. Na dúvida, pergunte antes de postar."
+              }
+            ],
+            "assina": "Quem descumpre as regras perde a credencial · **+18**"
+          }
+        },
+        {
+          "type": "ingresso_selo",
+          "props": {
+            "variant": "papel",
+            "selo": "+18",
+            "aro": "Divulgação só para maiores · Jogue com responsabilidade",
+            "title": "O selo que vai em todo post.",
+            "text": "Não é enfeite: é o que separa divulgação responsável de propaganda enganosa. Sem ele, o post não sai.",
+            "items": [
+              {
+                "text": "**+18** legível na arte ou na legenda"
+              },
+              {
+                "text": "**Jogue com responsabilidade** escrito por extenso"
+              },
+              {
+                "text": "Nenhuma frase sobre ganho, lucro ou renda"
+              }
+            ]
+          }
+        },
+        {
+          "type": "ingresso_final",
+          "props": {
+            "variant": "contorno",
+            "title": "Concorda com as regras?",
+            "text": "Então a credencial é sua. As regras valem do primeiro ao último post.",
+            "cta": "Quero meu link",
+            "ctaHref": "/#ingresso"
           }
         },
         {
           "type": "footer",
           "props": {
             "brand": "{{name}}",
+            "text": "Programa de divulgadores do {{name}} no app {{app}}. Link próprio, materiais prontos e comissão combinada por escrito, sem promessa de ganho.",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Benefícios",
+                "href": "/beneficios"
+              },
+              {
+                "label": "Como funciona",
+                "href": "/parceria"
+              },
+              {
+                "label": "Regras de divulgação",
+                "href": "/regras"
+              }
+            ],
             "disclaimer": "{{disclaimer}}"
           }
         }

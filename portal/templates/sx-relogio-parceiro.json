@@ -1,0 +1,827 @@
+{
+  "id": "sx-relogio-parceiro",
+  "name": "Relógio de blinds · Parceiros",
+  "order": 12,
+  "version": 1,
+  "category": "Poker · edição SX",
+  "niches": [
+    "poker"
+  ],
+  "inspiredBy": "sx",
+  "description": "Página B2B para recrutar agentes e donos de clube para o grupo, no mundo Relógio de blinds: ficha técnica do que o grupo entrega, entrada em níveis, o que fica por escrito e formulário que cai no CRM. Sem números de resultado inventados.",
+  "theme": {
+    "world": "relogio",
+    "mode": "escuro",
+    "bg": "#15110a",
+    "surface": "#040404",
+    "text": "#f2e8d6",
+    "muted": "#b3a386",
+    "primary": "#efa144",
+    "primaryText": "#040404",
+    "accent": "#f3b662",
+    "border": "#3a2f1f",
+    "font": "Montserrat",
+    "fontHead": "Antonio",
+    "radius": 0
+  },
+  "seo": {
+    "title": "Seja parceiro · Grupo {{name}}",
+    "description": "Agentes e donos de clube: grade de torneios, canal de fichas por PIX 24h e suporte para os seus jogadores no app {{app}}. Acordo por escrito."
+  },
+  "pages": [
+    {
+      "slug": "",
+      "title": "Início",
+      "blocks": [
+        {
+          "type": "navbar",
+          "props": {
+            "brand": "{{name}}",
+            "logo": "{{logo}}",
+            "links": [
+              {
+                "label": "Benefícios",
+                "href": "/beneficios"
+              },
+              {
+                "label": "Como funciona",
+                "href": "/como-funciona"
+              },
+              {
+                "label": "Contato",
+                "href": "/contato"
+              }
+            ],
+            "cta": "Quero ser parceiro",
+            "ctaHref": "/contato",
+            "variant": "barra"
+          }
+        },
+        {
+          "type": "relogio_painel",
+          "props": {
+            "title": "Seu clube no relógio do grupo.",
+            "subtitle": "Para **agentes** e **donos de clube** no {{app}}: você traz a sua mesa, o grupo entrega grade de torneios, canal de fichas por PIX e suporte para os seus jogadores. Tudo combinado por escrito.",
+            "live": "Grupo {{name}} · agora",
+            "items": [
+              {
+                "label": "Clube no app",
+                "value": "{{number}}",
+                "note": "ID do clube no {{app}}"
+              },
+              {
+                "label": "Canal de fichas",
+                "value": "PIX 24h",
+                "note": "compra e saque no CPF do jogador"
+              },
+              {
+                "label": "Convite",
+                "value": "1 link",
+                "note": "o jogador já cai no seu agente"
+              },
+              {
+                "label": "Acordo",
+                "value": "por escrito",
+                "note": "comissão e repasse combinados antes"
+              }
+            ],
+            "cta": "Quero ser parceiro",
+            "ctaHref": "/contato",
+            "secondary": "Como funciona",
+            "secondaryHref": "/como-funciona",
+            "note": "Condições de exemplo: comissão e repasse dependem do acordo com cada parceiro.",
+            "r18": "Somente maiores de 18 anos · Jogue com responsabilidade"
+          }
+        },
+        {
+          "type": "relogio_leituras",
+          "props": {
+            "title": "O que o grupo entrega",
+            "subtitle": "Você cuida dos seus jogadores. **A estrutura de mesa, fichas e atendimento já está montada.**",
+            "variant": "lista",
+            "items": [
+              {
+                "value": "Grade",
+                "label": "Torneios todo dia dentro do app.",
+                "text": "Seus jogadores encontram mesa e torneio a qualquer hora, sem você montar grade própria."
+              },
+              {
+                "value": "PIX",
+                "label": "Canal de fichas aberto 24h.",
+                "text": "Compra e saque com atendente no chat. **Você não precisa atender PIX de madrugada.**"
+              },
+              {
+                "value": "Link",
+                "label": "Convite com o seu agente.",
+                "text": "Quem entra pelo seu link fica vinculado a você desde a primeira mão."
+              },
+              {
+                "value": "CRM",
+                "label": "Seus jogadores num painel.",
+                "text": "Quem se cadastrou pelo seu link, quem entrou no clube e quem fez a primeira compra."
+              },
+              {
+                "value": "Chat",
+                "label": "Suporte para os seus jogadores.",
+                "text": "Dúvida de app, de ficha e de saque vai para o atendimento do grupo."
+              }
+            ]
+          }
+        },
+        {
+          "type": "relogio_estrutura",
+          "props": {
+            "title": "Como um agente entra no grupo",
+            "subtitle": "Quatro níveis, sem pressa. **O acordo vem antes do primeiro jogador.**",
+            "colTime": "O que sai",
+            "items": [
+              {
+                "level": "1",
+                "title": "Conversa",
+                "text": "Você conta como é a sua mesa hoje: em qual app, em que horários e o que seus jogadores procuram.",
+                "time": "uma ligação",
+                "timeNote": "ou chat"
+              },
+              {
+                "level": "2",
+                "title": "Acordo por escrito",
+                "text": "Comissão, forma e data de repasse e regras de divulgação ficam no papel antes de começar.",
+                "time": "acordo",
+                "timeNote": "assinado pelos dois"
+              },
+              {
+                "level": "Regra da casa",
+                "title": "",
+                "text": "A divulgação segue as regras do grupo: **somente +18**, jogo responsável e nada de bônus, fichas grátis ou promessa de ganho.",
+                "pause": true
+              },
+              {
+                "level": "3",
+                "title": "Seu link e seu ID",
+                "text": "Você recebe o link de convite e o seu ID de agente. Quem entra pelo link já fica com você.",
+                "time": "link + ID",
+                "timeNote": "prontos para enviar"
+              },
+              {
+                "level": "4",
+                "title": "Primeiros jogadores",
+                "text": "Eles compram fichas no canal 24h informando o clube {{number}} e o seu ID de agente. Você acompanha pelo painel.",
+                "time": "painel",
+                "timeNote": "cadastro, clube e compra"
+              }
+            ]
+          }
+        },
+        {
+          "type": "relogio_grade",
+          "props": {
+            "title": "A grade que seus jogadores encontram",
+            "subtitle": "Um dia de exemplo no clube. Todos os torneios rodam no app e **contam para o seu agente**.",
+            "items": [
+              {
+                "time": "16:00",
+                "name": "Bounty PLO",
+                "mode": "PLO 5 · PKO",
+                "buyin": "R$ 33",
+                "guaranteed": "R$ 2.500",
+                "stack": "50K",
+                "blinds": "10",
+                "late": "18:00",
+                "tag": ""
+              },
+              {
+                "time": "17:30",
+                "name": "Hyper Relâmpago",
+                "mode": "NLH",
+                "buyin": "R$ 11",
+                "guaranteed": "R$ 1.500",
+                "stack": "25K",
+                "blinds": "5",
+                "late": "18:20",
+                "tag": ""
+              },
+              {
+                "time": "19:00",
+                "name": "Main Diário",
+                "mode": "NLH",
+                "buyin": "R$ 55",
+                "guaranteed": "R$ 10.000",
+                "stack": "50K",
+                "blinds": "12",
+                "late": "21:24",
+                "tag": "Main"
+              },
+              {
+                "time": "20:00",
+                "name": "PKO da Noite",
+                "mode": "NLH · PKO",
+                "buyin": "R$ 33",
+                "guaranteed": "R$ 5.000",
+                "stack": "40K",
+                "blinds": "10",
+                "late": "22:00",
+                "tag": ""
+              },
+              {
+                "time": "21:00",
+                "name": "PLO 6 Turbo",
+                "mode": "PLO 6",
+                "buyin": "R$ 22",
+                "guaranteed": "R$ 2.000",
+                "stack": "40K",
+                "blinds": "8",
+                "late": "22:36",
+                "tag": ""
+              },
+              {
+                "time": "22:30",
+                "name": "Freezeout da Madrugada",
+                "mode": "NLH",
+                "buyin": "R$ 11",
+                "guaranteed": "R$ 1.500",
+                "stack": "40K",
+                "blinds": "10",
+                "late": "00:10",
+                "tag": ""
+              }
+            ],
+            "note": "Grade de exemplo: horários, garantidos e buy-ins mudam conforme a operação.",
+            "live": false,
+            "variant": "compacta"
+          }
+        },
+        {
+          "type": "relogio_termos",
+          "props": {
+            "title": "O que fica por escrito",
+            "subtitle": "Nada de combinado de boca. Estes pontos entram no acordo de todo parceiro.",
+            "variant": "regras",
+            "items": [
+              {
+                "term": "Comissão",
+                "text": "Percentual ou valor por jogador, definido no acordo antes de começar."
+              },
+              {
+                "term": "Repasse",
+                "text": "Data, forma de pagamento e o relatório que acompanha cada repasse."
+              },
+              {
+                "term": "Jogadores vinculados",
+                "text": "Quem entra pelo seu link fica vinculado ao seu agente, com o registro no painel."
+              },
+              {
+                "term": "Divulgação",
+                "text": "Somente para maiores de 18, com **jogo responsável** visível, sem bônus, sem fichas grátis e sem promessa de ganho."
+              },
+              {
+                "term": "Saída",
+                "text": "Como encerrar a parceria e o que acontece com os jogadores vinculados."
+              }
+            ]
+          }
+        },
+        {
+          "type": "faq",
+          "props": {
+            "title": "Perguntas de quem já tem mesa",
+            "items": [
+              {
+                "q": "Preciso sair do meu clube atual?",
+                "a": "Isso entra na conversa. Cada caso é combinado no acordo, por escrito."
+              },
+              {
+                "q": "Quanto eu ganho por jogador?",
+                "a": "Depende do acordo. A comissão é definida na conversa, por escrito, antes do primeiro jogador entrar."
+              },
+              {
+                "q": "Quem atende o PIX dos meus jogadores?",
+                "a": "O canal de fichas do grupo, 24 horas. Seus jogadores informam o clube {{number}} e o seu ID de agente na primeira compra."
+              },
+              {
+                "q": "Posso divulgar com bônus ou fichas grátis?",
+                "a": "Não. O grupo não oferece bônus nem fichas grátis, e a divulgação é só para maiores de 18 anos, sem promessa de ganho."
+              },
+              {
+                "q": "Como acompanho meus jogadores?",
+                "a": "Pelo painel do parceiro: cadastro, entrada no clube e primeira compra de quem veio pelo seu link."
+              }
+            ]
+          }
+        },
+        {
+          "type": "relogio_registro",
+          "props": {
+            "title": "Fale com o grupo",
+            "text": "Deixe seu contato. **Um responsável do grupo chama você** para conversar sobre a sua mesa e montar o acordo.",
+            "fields": "email_nome_telefone",
+            "button": "Quero conversar",
+            "success": "Recebemos. Vamos chamar você no WhatsApp ou no e-mail.",
+            "consent": "Tenho mais de 18 anos e aceito ser contatado sobre a parceria com o grupo. Posso sair quando quiser.",
+            "note": "Não pedimos senha do app nem dados dos seus jogadores neste formulário."
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "text": "Grupo {{name}}: clube, grade de torneios e canal de fichas no app {{app}} para agentes e donos de clube.",
+            "links": [
+              {
+                "label": "Benefícios",
+                "href": "/beneficios"
+              },
+              {
+                "label": "Como funciona",
+                "href": "/como-funciona"
+              },
+              {
+                "label": "Contato",
+                "href": "/contato"
+              }
+            ],
+            "disclaimer": "Somente maiores de 18 anos. Jogue com responsabilidade."
+          }
+        }
+      ]
+    },
+    {
+      "slug": "beneficios",
+      "title": "Benefícios",
+      "seo": {
+        "title": "Benefícios para parceiros · Grupo {{name}}",
+        "description": "Grade de torneios, canal de fichas por PIX 24h, link com o seu agente e suporte para os seus jogadores."
+      },
+      "blocks": [
+        {
+          "type": "navbar",
+          "props": {
+            "brand": "{{name}}",
+            "logo": "{{logo}}",
+            "links": [
+              {
+                "label": "Benefícios",
+                "href": "/beneficios"
+              },
+              {
+                "label": "Como funciona",
+                "href": "/como-funciona"
+              },
+              {
+                "label": "Contato",
+                "href": "/contato"
+              }
+            ],
+            "cta": "Quero ser parceiro",
+            "ctaHref": "/contato",
+            "variant": "barra"
+          }
+        },
+        {
+          "type": "relogio_cabecalho",
+          "props": {
+            "title": "Benefícios para quem traz a mesa",
+            "subtitle": "O que muda para o agente quando a mesa passa a rodar no relógio do grupo. **Sem número de resultado prometido**: o que está aqui você confere no primeiro dia.",
+            "items": [
+              {
+                "label": "Canal de fichas",
+                "value": "PIX 24h"
+              },
+              {
+                "label": "Grade",
+                "value": "todo dia"
+              },
+              {
+                "label": "Acordo",
+                "value": "por escrito"
+              }
+            ],
+            "cta": "Quero ser parceiro",
+            "ctaHref": "/contato"
+          }
+        },
+        {
+          "type": "relogio_leituras",
+          "props": {
+            "title": "Quatro coisas que saem do seu colo",
+            "variant": "faixa",
+            "items": [
+              {
+                "value": "PIX",
+                "label": "Atendimento de fichas",
+                "text": "Compra e saque dos seus jogadores no canal do grupo, **a qualquer hora**."
+              },
+              {
+                "value": "Grade",
+                "label": "Torneios no app",
+                "text": "Grade diária do clube, sem você montar estrutura nem garantido próprio."
+              },
+              {
+                "value": "Chat",
+                "label": "Suporte ao jogador",
+                "text": "Dúvida de app, de cadastro e de saque vai para o atendimento."
+              },
+              {
+                "value": "CRM",
+                "label": "Painel do parceiro",
+                "text": "Quem se cadastrou, quem entrou no clube e quem comprou fichas pelo seu link."
+              }
+            ]
+          }
+        },
+        {
+          "type": "compare",
+          "props": {
+            "title": "Mesa sozinha ou mesa no grupo",
+            "subtitle": "Comparação do trabalho do dia a dia, não de resultado.",
+            "columns": "Sozinho; No grupo",
+            "rows": [
+              {
+                "name": "Fichas",
+                "values": "Você atende cada PIX; Canal 24h do grupo"
+              },
+              {
+                "name": "Torneios",
+                "values": "Grade própria ou só cash; Grade do clube no app"
+              },
+              {
+                "name": "Suporte",
+                "values": "Você no WhatsApp a toda hora; Atendimento do grupo"
+              },
+              {
+                "name": "Comissão",
+                "values": "Depende do seu clube; Definida no acordo, por escrito"
+              },
+              {
+                "name": "Acompanhamento",
+                "values": "Planilha ou memória; Painel com cada jogador do seu link"
+              }
+            ]
+          }
+        },
+        {
+          "type": "relogio_aviso",
+          "props": {
+            "badge": "+18",
+            "text": "**A divulgação do grupo é só para maiores de 18 anos. Jogue com responsabilidade.**\n\nNada de bônus, fichas grátis ou promessa de ganho em anúncio, grupo ou rede social.",
+            "linkLabel": "Como funciona",
+            "href": "/como-funciona"
+          }
+        },
+        {
+          "type": "relogio_registro",
+          "props": {
+            "title": "Vamos conversar",
+            "text": "Deixe seu contato. **Um responsável do grupo chama você** para conversar sobre a sua mesa e montar o acordo.",
+            "fields": "email_nome_telefone",
+            "button": "Quero conversar",
+            "success": "Recebemos. Vamos chamar você no WhatsApp ou no e-mail.",
+            "consent": "Tenho mais de 18 anos e aceito ser contatado sobre a parceria com o grupo. Posso sair quando quiser.",
+            "note": "Não pedimos senha do app nem dados dos seus jogadores neste formulário."
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "text": "Grupo {{name}}: clube, grade de torneios e canal de fichas no app {{app}} para agentes e donos de clube.",
+            "links": [
+              {
+                "label": "Benefícios",
+                "href": "/beneficios"
+              },
+              {
+                "label": "Como funciona",
+                "href": "/como-funciona"
+              },
+              {
+                "label": "Contato",
+                "href": "/contato"
+              }
+            ],
+            "disclaimer": "Somente maiores de 18 anos. Jogue com responsabilidade."
+          }
+        }
+      ]
+    },
+    {
+      "slug": "como-funciona",
+      "title": "Como funciona",
+      "seo": {
+        "title": "Como funciona a parceria · Grupo {{name}}",
+        "description": "Do acordo por escrito ao primeiro jogador: como o seu link, o seu ID de agente e o canal de fichas trabalham juntos."
+      },
+      "blocks": [
+        {
+          "type": "navbar",
+          "props": {
+            "brand": "{{name}}",
+            "logo": "{{logo}}",
+            "links": [
+              {
+                "label": "Benefícios",
+                "href": "/beneficios"
+              },
+              {
+                "label": "Como funciona",
+                "href": "/como-funciona"
+              },
+              {
+                "label": "Contato",
+                "href": "/contato"
+              }
+            ],
+            "cta": "Quero ser parceiro",
+            "ctaHref": "/contato",
+            "variant": "barra"
+          }
+        },
+        {
+          "type": "relogio_cabecalho",
+          "props": {
+            "title": "Como funciona",
+            "subtitle": "O caminho do seu jogador, do link até a mesa, e onde o seu **ID de agente** aparece em cada passo.",
+            "items": [
+              {
+                "label": "Clube",
+                "value": "{{number}}"
+              },
+              {
+                "label": "Fichas",
+                "value": "PIX 24h"
+              },
+              {
+                "label": "Seu vínculo",
+                "value": "pelo link"
+              }
+            ]
+          }
+        },
+        {
+          "type": "relogio_estrutura",
+          "props": {
+            "title": "O caminho do seu jogador",
+            "colTime": "Quem cuida",
+            "items": [
+              {
+                "level": "1",
+                "title": "Ele recebe o seu link",
+                "text": "Você envia o link de convite pelo seu canal: WhatsApp, grupo, Instagram. Sempre para maiores de 18.",
+                "time": "você",
+                "timeNote": "divulgação"
+              },
+              {
+                "level": "2",
+                "title": "Baixa o {{app}} e abre pelo link",
+                "text": "Entrando pelo link, ele cai no clube {{number}} já vinculado ao seu agente.",
+                "time": "o app",
+                "timeNote": "vínculo automático"
+              },
+              {
+                "level": "3",
+                "title": "Primeira compra por PIX",
+                "text": "No canal de fichas, ele informa o ID de jogador, o clube {{number}} e o **seu ID de agente**.",
+                "time": "o grupo",
+                "timeNote": "canal 24h"
+              },
+              {
+                "level": "Painel",
+                "title": "",
+                "text": "Cada passo aparece no seu painel: **cadastro, entrada no clube e primeira compra**.",
+                "pause": true
+              },
+              {
+                "level": "4",
+                "title": "Ele joga, você acompanha",
+                "text": "Torneios da grade e cash game no app. Dúvidas dele vão para o suporte do grupo.",
+                "time": "o grupo",
+                "timeNote": "suporte por chat"
+              }
+            ]
+          }
+        },
+        {
+          "type": "relogio_caixa",
+          "props": {
+            "title": "O que o seu jogador informa na compra",
+            "subtitle": "Mande este quadro junto com o link. **Só a primeira compra pede tudo.**",
+            "steps": [
+              {
+                "title": "Abre o canal de fichas",
+                "text": "Pelo link do canal que você envia."
+              },
+              {
+                "title": "Informa os três dados",
+                "text": "ID de jogador, clube {{number}} e o seu ID de agente."
+              },
+              {
+                "title": "Paga o PIX",
+                "text": "Para a chave que o atendente passa no chat."
+              }
+            ],
+            "boxTitle": "Dados da primeira compra",
+            "rows": [
+              {
+                "label": "Clube",
+                "value": "{{number}}",
+                "copy": true
+              },
+              {
+                "label": "Agente",
+                "value": "O seu ID de agente, que vem no acordo.",
+                "copy": false
+              },
+              {
+                "label": "Seu ID de jogador",
+                "value": "Fica no seu perfil, dentro do app {{app}}.",
+                "copy": false
+              }
+            ],
+            "cta": "Ver o canal de fichas",
+            "ctaHref": "{{chipsUrl}}",
+            "note": "O saque do jogador vai sempre para a chave PIX do CPF dele.",
+            "variant": "secao"
+          }
+        },
+        {
+          "type": "faq",
+          "props": {
+            "title": "Dúvidas sobre o repasse",
+            "items": [
+              {
+                "q": "Quando recebo a comissão?",
+                "a": "Na data combinada no acordo, com o relatório dos jogadores do período."
+              },
+              {
+                "q": "E se o jogador entrar sem o link?",
+                "a": "Sem o link ou sem o seu ID na primeira compra, o vínculo não aparece. Por isso o quadro de dados vai junto com o convite."
+              },
+              {
+                "q": "Posso ter subagentes?",
+                "a": "Isso é combinado no acordo, caso a caso."
+              }
+            ]
+          }
+        },
+        {
+          "type": "relogio_aviso",
+          "props": {
+            "badge": "+18",
+            "text": "**Convite só para maiores de 18 anos. Jogue com responsabilidade.**\n\nNo link que você envia: nada de bônus, fichas grátis ou promessa de ganho.",
+            "linkLabel": "Benefícios",
+            "href": "/beneficios"
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "text": "Grupo {{name}}: clube, grade de torneios e canal de fichas no app {{app}} para agentes e donos de clube.",
+            "links": [
+              {
+                "label": "Benefícios",
+                "href": "/beneficios"
+              },
+              {
+                "label": "Como funciona",
+                "href": "/como-funciona"
+              },
+              {
+                "label": "Contato",
+                "href": "/contato"
+              }
+            ],
+            "disclaimer": "Somente maiores de 18 anos. Jogue com responsabilidade."
+          }
+        }
+      ]
+    },
+    {
+      "slug": "contato",
+      "title": "Contato",
+      "seo": {
+        "title": "Contato para parceria · Grupo {{name}}",
+        "description": "Deixe seu contato e um responsável do grupo chama você para conversar sobre a sua mesa."
+      },
+      "blocks": [
+        {
+          "type": "navbar",
+          "props": {
+            "brand": "{{name}}",
+            "logo": "{{logo}}",
+            "links": [
+              {
+                "label": "Benefícios",
+                "href": "/beneficios"
+              },
+              {
+                "label": "Como funciona",
+                "href": "/como-funciona"
+              },
+              {
+                "label": "Contato",
+                "href": "/contato"
+              }
+            ],
+            "cta": "Quero ser parceiro",
+            "ctaHref": "/contato",
+            "variant": "barra"
+          }
+        },
+        {
+          "type": "relogio_cabecalho",
+          "props": {
+            "title": "Contato para parceria",
+            "subtitle": "Conte como é a sua mesa hoje. **Um responsável do grupo chama você** no WhatsApp ou no e-mail para conversar e montar o acordo.",
+            "items": [
+              {
+                "label": "Formulário",
+                "value": "3 campos"
+              },
+              {
+                "label": "Retorno",
+                "value": "WhatsApp ou e-mail"
+              }
+            ]
+          }
+        },
+        {
+          "type": "relogio_registro",
+          "props": {
+            "title": "Deixe seu contato",
+            "text": "Três campos e pronto. **O que vale levar para a conversa** está logo abaixo.",
+            "fields": "email_nome_telefone",
+            "button": "Quero conversar",
+            "success": "Recebemos. Vamos chamar você no WhatsApp ou no e-mail.",
+            "consent": "Tenho mais de 18 anos e aceito ser contatado sobre a parceria com o grupo. Posso sair quando quiser.",
+            "note": "Não pedimos senha do app nem dados dos seus jogadores neste formulário."
+          }
+        },
+        {
+          "type": "relogio_termos",
+          "props": {
+            "title": "Leve para a conversa",
+            "subtitle": "Nada disso vai no formulário. É o que o responsável do grupo pergunta primeiro.",
+            "variant": "regras",
+            "items": [
+              {
+                "term": "Onde a mesa está hoje",
+                "text": "Em qual app e em qual clube os seus jogadores jogam agora."
+              },
+              {
+                "term": "Como você divulga",
+                "text": "Grupo, WhatsApp, Instagram. A divulgação segue as regras do grupo: **só para maiores de 18**, sem bônus e sem promessa de ganho."
+              },
+              {
+                "term": "O que você espera do acordo",
+                "text": "Comissão, data e forma de repasse. **Tudo vai por escrito** antes do primeiro jogador."
+              },
+              {
+                "term": "O que não precisa",
+                "text": "Senha do app, documento ou lista de jogadores. O grupo não pede nada disso."
+              }
+            ]
+          }
+        },
+        {
+          "type": "cta",
+          "props": {
+            "title": "Prefere chamar direto?",
+            "text": "Fale com o grupo no WhatsApp. Diga que é sobre parceria e em qual app está a sua mesa.",
+            "cta": "Chamar no WhatsApp",
+            "ctaHref": "{{whatsappLink}}",
+            "variant": "escuro"
+          }
+        },
+        {
+          "type": "relogio_aviso",
+          "props": {
+            "badge": "+18",
+            "text": "**Parceria e jogo somente para maiores de 18 anos. Jogue com responsabilidade.**\n\nO grupo não oferece bônus, fichas grátis nem promessa de ganho, e pede o mesmo na divulgação dos parceiros."
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "text": "Grupo {{name}}: clube, grade de torneios e canal de fichas no app {{app}} para agentes e donos de clube.",
+            "links": [
+              {
+                "label": "Benefícios",
+                "href": "/beneficios"
+              },
+              {
+                "label": "Como funciona",
+                "href": "/como-funciona"
+              },
+              {
+                "label": "Contato",
+                "href": "/contato"
+              }
+            ],
+            "disclaimer": "Somente maiores de 18 anos. Jogue com responsabilidade."
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -20,7 +20,8 @@ export function upsertContact(db, { email, phone, name }) {
   let c = e ? db.prepare('SELECT * FROM contacts WHERE email = ?').get(e) : null;
   if (!c && ph) c = db.prepare('SELECT * FROM contacts WHERE phone = ? AND (email IS NULL OR ? IS NULL) LIMIT 1').get(ph, e);
   if (c) {
-    db.prepare('UPDATE contacts SET email = COALESCE(email, ?), phone = COALESCE(?, phone), name = COALESCE(?, name), updated_at = ? WHERE id = ?')
+    // só completa o que falta: uma operação nova não sobrescreve nome nem telefone que a pessoa deixou em outra
+    db.prepare('UPDATE contacts SET email = COALESCE(email, ?), phone = COALESCE(phone, ?), name = COALESCE(name, ?), updated_at = ? WHERE id = ?')
       .run(e, ph, name ? String(name).slice(0, 80) : null, now, c.id);
     return c.id;
   }

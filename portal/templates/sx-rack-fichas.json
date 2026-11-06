@@ -1,0 +1,693 @@
+{
+  "id": "sx-rack-fichas",
+  "name": "Rack · Fichas 24h (edição SX)",
+  "order": 3,
+  "version": 1,
+  "category": "Poker · edição SX",
+  "niches": [
+    "poker"
+  ],
+  "inspiredBy": "sx",
+  "description": "Canal de fichas 24h no mundo Rack de fichas: torres de fichas na primeira tela, comanda com ID, clube e agente, a pilha interativa do PIX e páginas de compra, saque e ajuda.",
+  "theme": {
+    "world": "rack",
+    "mode": "escuro",
+    "bg": "#120e09",
+    "surface": "#1c160e",
+    "text": "#f1e9dc",
+    "muted": "#c3b4a0",
+    "primary": "#efa144",
+    "primaryText": "#040404",
+    "accent": "#f2e4c4",
+    "border": "#3a2d1b",
+    "font": "Montserrat",
+    "fontHead": "Antonio",
+    "radius": 14
+  },
+  "seo": {
+    "title": "{{name}} · Fichas 24h por PIX",
+    "description": "Fichas 24h do Clube {{number}} no app {{app}}: compra e saque por PIX, com atendente de verdade. Somente maiores de 18 anos."
+  },
+  "pages": [
+    {
+      "slug": "",
+      "title": "Início",
+      "blocks": [
+        {
+          "type": "rack_topo",
+          "props": {
+            "brand": "{{name}}",
+            "sub": "Fichas 24h · Clube {{number}}",
+            "links": [
+              {
+                "label": "Como comprar",
+                "href": "/como-comprar"
+              },
+              {
+                "label": "Saque",
+                "href": "/saque"
+              },
+              {
+                "label": "Ajuda",
+                "href": "/ajuda"
+              }
+            ],
+            "cta": "Comprar fichas",
+            "ctaHref": "{{chipsUrl}}"
+          }
+        },
+        {
+          "type": "rack_abre",
+          "props": {
+            "variant": "torre",
+            "title": "Fichas por PIX,",
+            "title2": "a qualquer hora.",
+            "tese": "Compra e saque no canal de fichas do **{{name}}**, com gente de verdade do outro lado. De madrugada também.",
+            "apoio": "Você paga o PIX, o atendente confirma e as fichas caem na sua conta do {{app}}. O saque vai para a chave do seu CPF.",
+            "cta": "Comprar fichas agora",
+            "ctaHref": "{{chipsUrl}}",
+            "link": "Como funciona a compra",
+            "linkHref": "/como-comprar",
+            "stacks": [
+              {
+                "label": "Compra por PIX",
+                "color": "creme",
+                "size": "10"
+              },
+              {
+                "label": "Atendente 24h",
+                "color": "marca",
+                "size": "14"
+              },
+              {
+                "label": "Saque no CPF",
+                "color": "ouro",
+                "size": "7"
+              }
+            ]
+          }
+        },
+        {
+          "type": "rack_comanda",
+          "props": {
+            "variant": "faixa",
+            "title": "Tenha à mão antes de abrir o canal",
+            "subtitle": "Com estes três dados as fichas caem na conta certa já na primeira compra.",
+            "items": [
+              {
+                "label": "ID do jogador",
+                "value": "No perfil",
+                "note": "toque na sua foto no app"
+              },
+              {
+                "label": "Clube",
+                "value": "{{number}}"
+              },
+              {
+                "label": "Agente",
+                "value": "{{agentId}}"
+              }
+            ],
+            "cta": "Abrir canal de fichas",
+            "ctaHref": "{{chipsUrl}}",
+            "note": "Somente +18 · Nunca pedimos sua senha"
+          }
+        },
+        {
+          "type": "rack_caixa",
+          "props": {
+            "anchor": "pilha",
+            "title": "Monte a pilha do PIX",
+            "text": "Toque nas fichas e veja a pilha crescer. No canal é igual: você diz quanto quer, paga o PIX e as fichas caem no app.",
+            "aviso": "Ilustração do fluxo: nada é cobrado nesta página. O valor de verdade você combina no canal de fichas.",
+            "values": "20, 50, 100, 200",
+            "currency": "R$",
+            "cta": "Comprar fichas",
+            "ctaHref": "{{chipsUrl}}",
+            "note": "Somente maiores de 18 anos · Jogue com responsabilidade"
+          }
+        },
+        {
+          "type": "rack_passos",
+          "props": {
+            "variant": "pilha",
+            "title": "Do PIX à mesa",
+            "subtitle": "Três fichas, uma conversa no chat e o comprovante guardado.",
+            "items": [
+              {
+                "value": "ABRA",
+                "unit": "o canal",
+                "color": "creme",
+                "title": "Abra o canal de fichas.",
+                "text": "Toque no botão e informe seu **ID de jogador**, o clube **{{number}}** e o agente **{{agentId}}**."
+              },
+              {
+                "value": "PIX",
+                "unit": "pague",
+                "color": "ouro",
+                "title": "Pague o PIX.",
+                "text": "O atendente confirma o valor e passa a chave. Mande o comprovante no próprio chat."
+              },
+              {
+                "value": "OK",
+                "unit": "na conta",
+                "color": "marca",
+                "title": "Receba as fichas.",
+                "text": "As fichas caem na sua conta do app, com confirmação por escrito no chat.",
+                "note": "quer sacar? o caminho é parecido",
+                "noteHref": "/saque"
+              }
+            ]
+          }
+        },
+        {
+          "type": "faq",
+          "props": {
+            "title": "Perguntas sobre fichas",
+            "items": [
+              {
+                "q": "Qual o valor mínimo?",
+                "a": "O mínimo é informado no canal de fichas, antes de qualquer pagamento."
+              },
+              {
+                "q": "Demora quanto?",
+                "a": "Depois do comprovante, a confirmação costuma ser rápida. Em pico de movimento pode haver fila, e o atendente avisa."
+              },
+              {
+                "q": "Posso comprar para outra pessoa?",
+                "a": "As fichas vão para o ID de jogador informado no chat. Confira o número antes de pagar."
+              },
+              {
+                "q": "Tem bônus ou ficha grátis?",
+                "a": "Não. O canal vende fichas pelo valor pago, sem bônus."
+              },
+              {
+                "q": "O atendente vai pedir minha senha?",
+                "a": "Nunca. Ninguém do canal pede a senha do app. Se pedirem, não passe e avise o suporte."
+              }
+            ]
+          }
+        },
+        {
+          "type": "cta",
+          "props": {
+            "variant": "faixa",
+            "title": "Precisa de fichas agora?",
+            "text": "O canal está aberto. Tenha à mão seu ID de jogador, o clube {{number}} e o agente {{agentId}}.",
+            "cta": "Abrir canal de fichas",
+            "ctaHref": "{{chipsUrl}}"
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "text": "Canal de fichas do Clube {{number}} no app {{app}}. Compra e saque por PIX.",
+            "links": [
+              {
+                "label": "Como comprar",
+                "href": "/como-comprar"
+              },
+              {
+                "label": "Saque",
+                "href": "/saque"
+              },
+              {
+                "label": "Ajuda",
+                "href": "/ajuda"
+              },
+              {
+                "label": "Suporte no WhatsApp",
+                "href": "{{whatsappLink}}"
+              }
+            ],
+            "disclaimer": "Somente maiores de 18 anos. Jogue com responsabilidade. Este site não pede senha do app nem documentos."
+          }
+        }
+      ]
+    },
+    {
+      "slug": "como-comprar",
+      "title": "Como comprar",
+      "seo": {
+        "description": "Como comprar fichas por PIX no canal do {{name}}: dados, pagamento e confirmação. Somente +18."
+      },
+      "blocks": [
+        {
+          "type": "rack_topo",
+          "props": {
+            "brand": "{{name}}",
+            "sub": "Fichas 24h · Clube {{number}}",
+            "links": [
+              {
+                "label": "Como comprar",
+                "href": "/como-comprar"
+              },
+              {
+                "label": "Saque",
+                "href": "/saque"
+              },
+              {
+                "label": "Ajuda",
+                "href": "/ajuda"
+              }
+            ],
+            "cta": "Comprar fichas",
+            "ctaHref": "{{chipsUrl}}"
+          }
+        },
+        {
+          "type": "rack_pagina",
+          "props": {
+            "variant": "selo",
+            "back": "Início",
+            "backHref": "/",
+            "title": "Como comprar",
+            "title2": "fichas por PIX",
+            "text": "Cinco fichas, do botão até as fichas na sua conta do **{{app}}**. Tudo registrado por escrito no chat.",
+            "sealTop": "Clube",
+            "sealNumber": "{{number}}"
+          }
+        },
+        {
+          "type": "rack_passos",
+          "props": {
+            "variant": "pilha",
+            "title": "A compra, passo a passo",
+            "items": [
+              {
+                "value": "1",
+                "unit": "abrir",
+                "color": "creme",
+                "title": "Abra o canal de fichas.",
+                "text": "Pelo botão desta página. O atendimento é por chat."
+              },
+              {
+                "value": "ID",
+                "unit": "seus dados",
+                "color": "ouro",
+                "title": "Informe seus dados.",
+                "text": "Seu **ID de jogador**, o clube **{{number}}** e o agente **{{agentId}}**."
+              },
+              {
+                "value": "R$",
+                "unit": "valor",
+                "color": "cobre",
+                "title": "Diga quanto quer.",
+                "text": "O atendente confirma o valor e passa a chave PIX."
+              },
+              {
+                "value": "PIX",
+                "unit": "comprovante",
+                "color": "preta",
+                "title": "Pague e mande o comprovante.",
+                "text": "Pelo app do seu banco. Depois, envie o comprovante no mesmo chat."
+              },
+              {
+                "value": "OK",
+                "unit": "fichas",
+                "color": "marca",
+                "title": "Confira as fichas no app.",
+                "text": "As fichas caem na sua conta e o atendente confirma por escrito."
+              }
+            ]
+          }
+        },
+        {
+          "type": "rack_comanda",
+          "props": {
+            "variant": "cartao",
+            "title": "Na primeira compra, tenha à mão",
+            "subtitle": "Copie do jeito que aparece no app. Um número trocado manda as fichas para outra conta.",
+            "items": [
+              {
+                "label": "ID do jogador",
+                "value": "No perfil",
+                "note": "toque na sua foto no app"
+              },
+              {
+                "label": "Clube",
+                "value": "{{number}}"
+              },
+              {
+                "label": "Agente",
+                "value": "{{agentId}}"
+              }
+            ],
+            "cta": "Abrir canal de fichas",
+            "ctaHref": "{{chipsUrl}}",
+            "note": "Somente maiores de 18 anos"
+          }
+        },
+        {
+          "type": "notice",
+          "props": {
+            "variant": "alerta",
+            "text": "O atendente nunca pede a senha do seu app nem código de verificação. Pague só para a chave PIX informada no canal oficial."
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "text": "Canal de fichas do Clube {{number}} no app {{app}}. Compra e saque por PIX.",
+            "links": [
+              {
+                "label": "Como comprar",
+                "href": "/como-comprar"
+              },
+              {
+                "label": "Saque",
+                "href": "/saque"
+              },
+              {
+                "label": "Ajuda",
+                "href": "/ajuda"
+              },
+              {
+                "label": "Suporte no WhatsApp",
+                "href": "{{whatsappLink}}"
+              }
+            ],
+            "disclaimer": "Somente maiores de 18 anos. Jogue com responsabilidade. Este site não pede senha do app nem documentos."
+          }
+        }
+      ]
+    },
+    {
+      "slug": "saque",
+      "title": "Saque",
+      "seo": {
+        "description": "Saque de fichas do {{name}} por PIX, na chave do seu CPF. Regras e passo a passo."
+      },
+      "blocks": [
+        {
+          "type": "rack_topo",
+          "props": {
+            "brand": "{{name}}",
+            "sub": "Fichas 24h · Clube {{number}}",
+            "links": [
+              {
+                "label": "Como comprar",
+                "href": "/como-comprar"
+              },
+              {
+                "label": "Saque",
+                "href": "/saque"
+              },
+              {
+                "label": "Ajuda",
+                "href": "/ajuda"
+              }
+            ],
+            "cta": "Comprar fichas",
+            "ctaHref": "{{chipsUrl}}"
+          }
+        },
+        {
+          "type": "rack_pagina",
+          "props": {
+            "variant": "faixa",
+            "back": "Início",
+            "backHref": "/",
+            "title": "Saque",
+            "title2": "na chave do seu CPF",
+            "text": "Mesmo canal, caminho de volta: as fichas saem da sua conta do app e o PIX cai na chave ligada ao seu CPF.",
+            "stacks": [
+              {
+                "color": "ouro",
+                "size": "70"
+              },
+              {
+                "color": "creme",
+                "size": "46"
+              },
+              {
+                "color": "cobre",
+                "size": "84"
+              }
+            ]
+          }
+        },
+        {
+          "type": "rack_passos",
+          "props": {
+            "variant": "horizontal",
+            "title": "Três fichas de volta",
+            "items": [
+              {
+                "value": "PEÇA",
+                "unit": "no canal",
+                "color": "creme",
+                "title": "Peça o saque no canal.",
+                "text": "Informe seu **ID de jogador** e o valor que quer sacar."
+              },
+              {
+                "value": "CPF",
+                "unit": "sua chave",
+                "color": "ouro",
+                "title": "Confirme a chave PIX.",
+                "text": "A chave tem que estar no **CPF do titular** da conta no app."
+              },
+              {
+                "value": "PIX",
+                "unit": "recebido",
+                "color": "marca",
+                "title": "Receba o PIX.",
+                "text": "O atendente retira as fichas da conta e faz o PIX, com confirmação no chat."
+              }
+            ]
+          }
+        },
+        {
+          "type": "rack_fatos",
+          "props": {
+            "variant": "fatos",
+            "title": "Regras do saque",
+            "subtitle": "Para o dinheiro chegar em quem é dono da conta.",
+            "items": [
+              {
+                "term": "CPF",
+                "title": "Só para a chave do titular.",
+                "text": "O PIX vai para a chave ligada ao CPF de quem é dono da conta no app."
+              },
+              {
+                "term": "ID",
+                "title": "Confira o número.",
+                "text": "O saque sai do ID de jogador informado no chat."
+              },
+              {
+                "term": "Chat",
+                "title": "Tudo por escrito.",
+                "text": "Pedido, valor e confirmação ficam registrados na conversa."
+              },
+              {
+                "term": "Prazo",
+                "title": "Informado na hora.",
+                "text": "O atendente diz o prazo antes de confirmar. Em pico de movimento pode haver fila."
+              }
+            ]
+          }
+        },
+        {
+          "type": "faq",
+          "props": {
+            "title": "Dúvidas do saque",
+            "items": [
+              {
+                "q": "Posso sacar para a conta de outra pessoa?",
+                "a": "Não. Só para a chave PIX do CPF do titular da conta no app."
+              },
+              {
+                "q": "Tem valor mínimo?",
+                "a": "Se houver, o atendente informa antes de confirmar o pedido."
+              },
+              {
+                "q": "E se a chave estiver errada?",
+                "a": "Avise no chat antes da confirmação. Depois do PIX feito, fale com o suporte na hora."
+              }
+            ]
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "text": "Canal de fichas do Clube {{number}} no app {{app}}. Compra e saque por PIX.",
+            "links": [
+              {
+                "label": "Como comprar",
+                "href": "/como-comprar"
+              },
+              {
+                "label": "Saque",
+                "href": "/saque"
+              },
+              {
+                "label": "Ajuda",
+                "href": "/ajuda"
+              },
+              {
+                "label": "Suporte no WhatsApp",
+                "href": "{{whatsappLink}}"
+              }
+            ],
+            "disclaimer": "Somente maiores de 18 anos. Jogue com responsabilidade. Este site não pede senha do app nem documentos."
+          }
+        }
+      ]
+    },
+    {
+      "slug": "ajuda",
+      "title": "Ajuda",
+      "seo": {
+        "description": "Ajuda do canal de fichas do {{name}}: fichas que não caíram, valor errado, ID e suporte 24h."
+      },
+      "blocks": [
+        {
+          "type": "rack_topo",
+          "props": {
+            "brand": "{{name}}",
+            "sub": "Fichas 24h · Clube {{number}}",
+            "links": [
+              {
+                "label": "Como comprar",
+                "href": "/como-comprar"
+              },
+              {
+                "label": "Saque",
+                "href": "/saque"
+              },
+              {
+                "label": "Ajuda",
+                "href": "/ajuda"
+              }
+            ],
+            "cta": "Comprar fichas",
+            "ctaHref": "{{chipsUrl}}"
+          }
+        },
+        {
+          "type": "rack_pagina",
+          "props": {
+            "variant": "selo",
+            "back": "Início",
+            "backHref": "/",
+            "title": "Ajuda",
+            "title2": "do canal de fichas",
+            "text": "Os problemas mais comuns e o que fazer em cada um. Se não resolver, o suporte responde a qualquer hora.",
+            "sealTop": "Suporte",
+            "sealNumber": "24h"
+          }
+        },
+        {
+          "type": "faq",
+          "props": {
+            "title": "Problemas comuns",
+            "items": [
+              {
+                "q": "Paguei e as fichas não caíram",
+                "a": "Mande o comprovante no mesmo chat e aguarde a confirmação. Se passar do prazo informado, chame o suporte com o comprovante em mãos."
+              },
+              {
+                "q": "Mandei o valor errado",
+                "a": "Avise no chat na hora, com o comprovante. O atendente regulariza a operação."
+              },
+              {
+                "q": "Esqueci de informar meu ID",
+                "a": "Informe no mesmo chat, junto com o comprovante. As fichas só caem depois do ID confirmado."
+              },
+              {
+                "q": "Não acho meu ID de jogador",
+                "a": "No app {{app}}, toque na sua foto de perfil. O ID é o número que aparece ali."
+              },
+              {
+                "q": "O canal não responde",
+                "a": "Em horário de pico pode haver fila. Se demorar demais, fale com o suporte pelo WhatsApp abaixo."
+              }
+            ]
+          }
+        },
+        {
+          "type": "rack_fatos",
+          "props": {
+            "variant": "fatos",
+            "title": "Três sinais de golpe",
+            "subtitle": "Se aparecer qualquer um deles, não pague. Fale com o suporte pelo WhatsApp deste site.",
+            "items": [
+              {
+                "term": "Senha",
+                "title": "Pediram sua senha ou código.",
+                "text": "O canal **nunca** pede a senha do app nem código de verificação."
+              },
+              {
+                "term": "Chave",
+                "title": "A chave PIX mudou.",
+                "text": "Pague só para a chave informada no chat do canal oficial."
+              },
+              {
+                "term": "Pressa",
+                "title": "Pressão para pagar já.",
+                "text": "Atendente de verdade espera você conferir o valor e a chave."
+              }
+            ]
+          }
+        },
+        {
+          "type": "rack_comanda",
+          "props": {
+            "variant": "cartao",
+            "title": "Antes de chamar o suporte",
+            "subtitle": "Não resolveu? Gente de verdade responde no WhatsApp. Com estes três itens, o atendimento começa pelo fim.",
+            "items": [
+              {
+                "label": "Comprovante",
+                "value": "do PIX",
+                "note": "print ou PDF do banco"
+              },
+              {
+                "label": "ID do jogador",
+                "value": "No perfil",
+                "note": "toque na sua foto no app"
+              },
+              {
+                "label": "Horário",
+                "value": "da compra",
+                "note": "como está no comprovante"
+              }
+            ],
+            "cta": "Chamar o suporte no WhatsApp",
+            "ctaHref": "{{whatsappLink}}",
+            "note": "Somente maiores de 18 anos"
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "text": "Canal de fichas do Clube {{number}} no app {{app}}. Compra e saque por PIX.",
+            "links": [
+              {
+                "label": "Como comprar",
+                "href": "/como-comprar"
+              },
+              {
+                "label": "Saque",
+                "href": "/saque"
+              },
+              {
+                "label": "Ajuda",
+                "href": "/ajuda"
+              },
+              {
+                "label": "Suporte no WhatsApp",
+                "href": "{{whatsappLink}}"
+              }
+            ],
+            "disclaimer": "Somente maiores de 18 anos. Jogue com responsabilidade. Este site não pede senha do app nem documentos."
+          }
+        }
+      ]
+    }
+  ]
+}

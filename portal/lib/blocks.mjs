@@ -1,37 +1,10 @@
 // Catálogo de blocos do construtor. Cada bloco = { type, props }. O editor monta o formulário a partir de `fields`;
 // o site público é renderizado por `render`. Todo texto passa por esc(); todo link passa por safeHref().
 
-export const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+import { esc, safeHref, para, list, head, btn, img, variant, F, HEAD } from './block-kit.mjs';
+import { WORLD_BLOCKS } from './worlds/index.mjs';
 
-/** Só http(s), mailto, tel, âncora e caminho relativo. Caminho "/x" vira relativo à base do site. */
-export function safeHref(href, base = '') {
-  const h = String(href ?? '').trim();
-  if (!h) return '#';
-  if (h.startsWith('#')) return esc(h);
-  if (h.startsWith('/') && !h.startsWith('//')) return esc(base + h);
-  if (/^(https?:|mailto:|tel:)/i.test(h)) return esc(h);
-  return '#';
-}
-
-const para = (txt) => String(txt ?? '').split(/\n{2,}/).map((p) => p.trim()).filter(Boolean)
-  .map((p) => `<p>${esc(p).replace(/\n/g, '<br>')}</p>`).join('');
-const list = (v) => (Array.isArray(v) ? v : []);
-const head = (p, cls = '') => (p.title || p.subtitle || p.eyebrow
-  ? `<header class="b-head ${cls}">${p.eyebrow ? `<p class="eyebrow">${esc(p.eyebrow)}</p>` : ''}${p.title ? `<h2>${esc(p.title)}</h2>` : ''}${p.subtitle ? `<p class="sub">${esc(p.subtitle)}</p>` : ''}</header>`
-  : '');
-const btn = (label, href, ctx, cls = 'btn') => (label ? `<a class="${cls}" href="${safeHref(href, ctx.base)}" data-cta="${esc(label)}">${esc(label)}</a>` : '');
-const img = (src, alt = '', cls = '') => (src && /^(https?:\/\/|\/)/.test(src) ? `<img class="${cls}" src="${esc(src)}" alt="${esc(alt)}" loading="lazy" decoding="async">` : '');
-const variant = (p, allowed, fallback) => (allowed.includes(p.variant) ? p.variant : fallback);
-
-const F = {
-  text: (k, label, extra = {}) => ({ k, label, t: 'text', ...extra }),
-  area: (k, label, extra = {}) => ({ k, label, t: 'textarea', ...extra }),
-  url: (k, label, extra = {}) => ({ k, label, t: 'url', ...extra }),
-  select: (k, label, options) => ({ k, label, t: 'select', options }),
-  check: (k, label) => ({ k, label, t: 'checkbox' }),
-  list: (k, label, of) => ({ k, label, t: 'list', of }),
-};
-const HEAD = [F.text('eyebrow', 'Chamada pequena'), F.text('title', 'Título'), F.area('subtitle', 'Subtítulo')];
+export { esc, safeHref };
 
 export const BLOCKS = {
   navbar: {
@@ -94,7 +67,7 @@ export const BLOCKS = {
     render: (p, ctx) => {
       const f = p.fields || 'email_nome';
       const consent = p.consent || 'Concordo em receber contato sobre esta oferta. Posso sair quando quiser.';
-      return `<section class="b b-lead_form v-${variant(p, ['cartao', 'faixa', 'lateral'], 'cartao')}" id="contato"><div class="wrap"><div class="form-box">
+      return `<section class="b b-lead_form v-${variant(p, ['cartao', 'faixa', 'lateral'], 'cartao')}"><div class="wrap"><div class="form-box">
         <div class="form-copy"><h2>${esc(p.title || 'Fale com a gente')}</h2>${para(p.text)}</div>
         <form class="lead-form" method="post" action="${esc(ctx.formAction)}" data-success="${esc(p.success || 'Recebemos! Vamos falar com você em breve.')}">
           <input type="hidden" name="page" value="${esc(ctx.page.slug)}">
@@ -167,12 +140,14 @@ export const BLOCKS = {
   contact: {
     label: 'Canais de atendimento',
     fields: [...HEAD, F.text('whatsapp', 'WhatsApp (só números, com DDI)'), F.text('telegram', 'Telegram (@usuario)'), F.text('instagram', 'Instagram (@perfil)'), F.text('email', 'E-mail'), F.text('hours', 'Horário')],
-    render: (p) => {
+    render: (p, ctx) => {
       const ch = [];
       if (p.whatsapp) ch.push(['WhatsApp', `https://wa.me/${String(p.whatsapp).replace(/\D/g, '')}`]);
       if (p.telegram) ch.push(['Telegram', `https://t.me/${String(p.telegram).replace(/^@/, '')}`]);
       if (p.instagram) ch.push(['Instagram', `https://instagram.com/${String(p.instagram).replace(/^@/, '')}`]);
       if (p.email) ch.push(['E-mail', `mailto:${p.email}`]);
+      // sem canal nem horário o bloco não aparece no site; na prévia avisa o que falta
+      if (!ch.length && !p.hours) return ctx?.preview ? '<section class="b b-contact"><div class="wrap"><p class="note">Preencha pelo menos um canal (WhatsApp, Telegram, Instagram ou e-mail) para este bloco aparecer no site.</p></div></section>' : '';
       return `<section class="b b-contact"><div class="wrap">${head(p)}<ul class="channels">${ch.map(([n, h]) => `<li><a class="btn btn-ghost" href="${safeHref(h)}" rel="noopener">${esc(n)}</a></li>`).join('')}</ul>
         ${p.hours ? `<p class="note">${esc(p.hours)}</p>` : ''}</div></section>`;
     },
@@ -200,6 +175,12 @@ export const BLOCKS = {
       ${p.disclaimer || ctx.disclaimer ? `<p class="disclaimer">${esc(p.disclaimer || ctx.disclaimer)}</p>` : ''}</div></footer>`,
   },
 };
+
+// Blocos-assinatura dos mundos visuais (lib/worlds/*.mjs). O nome do bloco começa pelo id do mundo (ex.: rack_hero).
+for (const [k, b] of Object.entries(WORLD_BLOCKS)) {
+  if (BLOCKS[k]) throw new Error(`bloco repetido nos mundos: ${k}`);
+  BLOCKS[k] = b;
+}
 
 // Todo bloco aceita uma âncora (id) para links "#ancora" do menu.
 for (const b of Object.values(BLOCKS)) b.fields.push(F.text('anchor', 'Âncora para links # (ex.: duvidas)'));
@@ -229,14 +210,23 @@ export function cleanBlocks(blocks) {
 }
 
 export function renderBlocks(blocks, ctx) {
-  return list(blocks).map((b) => {
+  const anchors = list(blocks).map((b) => String(b?.props?.anchor || '').trim().toLowerCase());
+  // "#contato" (destino padrão quando não há WhatsApp) cai no primeiro formulário da página, de qualquer mundo
+  let contato = anchors.includes('contato');
+  return list(blocks).map((b, i) => {
     const def = BLOCKS[b.type];
     if (!def) return '';
     try {
       const html = def.render(b.props || {}, ctx);
-      const anchor = String(b.props?.anchor || '').trim().toLowerCase();
-      if (!ANCHOR.test(anchor)) return html;
+      let anchor = anchors[i];
       const first = html.match(/^\s*<[a-z]+[^>]*>/i)?.[0] || '';
+      if (!ANCHOR.test(anchor)) {
+        if (contato || !html.includes('class="lead-form')) return html;
+        contato = true;
+        // bloco que já tem id próprio (links internos dependem dele): ganha uma âncora vazia logo antes
+        if (/ id="/.test(first)) return `<span id="contato" aria-hidden="true"></span>${html}`;
+        anchor = 'contato';
+      }
       return / id="/.test(first) ? html.replace(/ id="[^"]*"/, ` id="${anchor}"`) : html.replace(/^(\s*<[a-z]+)/i, `$1 id="${anchor}"`);
     } catch { return ''; }
   }).join('\n');

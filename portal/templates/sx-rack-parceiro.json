@@ -1,0 +1,659 @@
+{
+  "id": "sx-rack-parceiro",
+  "name": "Rack · Seja parceiro (edição SX)",
+  "order": 2,
+  "version": 1,
+  "category": "Poker · edição SX",
+  "niches": [
+    "poker"
+  ],
+  "inspiredBy": "sx",
+  "description": "Página para recrutar agentes e donos de clube para o grupo, no mundo Rack de fichas: rack do grupo com um canal vazio esperando o clube, passos da entrada e formulário de conversa. Sem números inventados.",
+  "theme": {
+    "world": "rack",
+    "mode": "escuro",
+    "bg": "#120e09",
+    "surface": "#1c160e",
+    "text": "#f1e9dc",
+    "muted": "#c3b4a0",
+    "primary": "#efa144",
+    "primaryText": "#040404",
+    "accent": "#f2e4c4",
+    "border": "#3a2d1b",
+    "font": "Montserrat",
+    "fontHead": "Antonio",
+    "radius": 14
+  },
+  "seo": {
+    "title": "{{name}} · Seja parceiro",
+    "description": "Agentes e donos de clube: conheça o {{name}} no app {{app}}. Canal de fichas, convite e suporte, com condições por escrito."
+  },
+  "pages": [
+    {
+      "slug": "",
+      "title": "Início",
+      "blocks": [
+        {
+          "type": "rack_topo",
+          "props": {
+            "brand": "{{name}}",
+            "sub": "Grupo de clubes · {{app}}",
+            "links": [
+              {
+                "label": "Benefícios",
+                "href": "/beneficios"
+              },
+              {
+                "label": "Como funciona",
+                "href": "/como-funciona"
+              },
+              {
+                "label": "Contato",
+                "href": "/contato"
+              }
+            ],
+            "cta": "Quero conversar",
+            "ctaHref": "/contato"
+          }
+        },
+        {
+          "type": "rack_abre",
+          "props": {
+            "variant": "vaga",
+            "title": "Tem um canal",
+            "title2": "esperando o seu clube.",
+            "tese": "O **{{name}}** junta agentes e donos de clube no app **{{app}}**. Você cuida dos seus jogadores; o grupo põe na mesa **canal de fichas**, suporte e estrutura.",
+            "apoio": "Conversa primeiro, compromisso depois: as condições ficam por escrito antes de qualquer acordo.",
+            "cta": "Quero conversar",
+            "ctaHref": "/contato",
+            "link": "Ver como funciona",
+            "linkHref": "/como-funciona",
+            "aviso18": "Todos os clubes do grupo são só para maiores de 18",
+            "sealTop": "Grupo",
+            "sealNumber": "{{number}}",
+            "stacks": [
+              {
+                "label": "Clube {{number}}",
+                "color": "marca",
+                "size": "78"
+              },
+              {
+                "label": "Fichas 24h",
+                "color": "creme",
+                "size": "66"
+              },
+              {
+                "label": "Convite",
+                "color": "cobre",
+                "size": "84"
+              },
+              {
+                "label": "Suporte",
+                "color": "ouro",
+                "size": "72"
+              },
+              {
+                "label": "Seu clube aqui",
+                "size": "0"
+              }
+            ],
+            "legend": "Cada canal do rack é uma frente do grupo. O vazio é o do **seu clube**."
+          }
+        },
+        {
+          "type": "rack_fatos",
+          "props": {
+            "variant": "fatos",
+            "title": "O que o grupo põe na mesa",
+            "subtitle": "Sem número inventado: o que muda no seu dia a dia de agente.",
+            "link": "Ver todos os benefícios",
+            "linkHref": "/beneficios",
+            "items": [
+              {
+                "term": "24h",
+                "title": "Canal de fichas que não fecha.",
+                "text": "Seus jogadores compram e sacam por PIX a qualquer hora, com atendente do grupo."
+              },
+              {
+                "term": "1 link",
+                "title": "Convite que cai no seu clube.",
+                "text": "O jogador abre o app pelo seu link e já entra no clube certo, com o seu ID de agente."
+              },
+              {
+                "term": "Você",
+                "title": "O jogador continua sendo seu.",
+                "text": "Quem trouxe foi você, e o relacionamento com ele segue com você."
+              },
+              {
+                "term": "Junto",
+                "title": "Suporte para o agente também.",
+                "text": "Dúvida de operação, de jogador ou de app: tem gente do grupo para responder."
+              }
+            ]
+          }
+        },
+        {
+          "type": "rack_passos",
+          "props": {
+            "variant": "horizontal",
+            "title": "Como um clube entra no grupo",
+            "subtitle": "Três conversas, sem pressa e sem letra miúda.",
+            "items": [
+              {
+                "value": "1",
+                "unit": "conversa",
+                "color": "creme",
+                "title": "Você conta como é o seu clube.",
+                "text": "Que modalidades roda, em que horários, como atende hoje. Pode ser pelo WhatsApp."
+              },
+              {
+                "value": "2",
+                "unit": "por escrito",
+                "color": "ouro",
+                "title": "A gente mostra as condições.",
+                "text": "Repasse, canal de fichas e regras de jogo responsável, **tudo por escrito**, antes de qualquer compromisso."
+              },
+              {
+                "value": "ON",
+                "unit": "no rack",
+                "color": "marca",
+                "title": "Seu clube entra no grupo.",
+                "text": "Link de convite, canal de fichas e suporte prontos para os seus jogadores."
+              }
+            ]
+          }
+        },
+        {
+          "type": "rack_comanda",
+          "props": {
+            "variant": "cartao",
+            "title": "Leve para a conversa",
+            "subtitle": "Não precisa de apresentação bonita. Com estes três dados a primeira conversa já rende.",
+            "items": [
+              {
+                "label": "Seu clube",
+                "value": "ID no app",
+                "note": "o número do clube no {{app}}"
+              },
+              {
+                "label": "Seu público",
+                "value": "Quem joga",
+                "note": "horários e modalidades"
+              },
+              {
+                "label": "Seu contato",
+                "value": "WhatsApp",
+                "note": "para a gente responder"
+              }
+            ],
+            "cta": "Marcar a conversa",
+            "ctaHref": "/contato",
+            "note": "O grupo só trabalha com clubes +18"
+          }
+        },
+        {
+          "type": "faq",
+          "props": {
+            "title": "Perguntas de quem tem clube",
+            "items": [
+              {
+                "q": "Preciso pagar para entrar no grupo?",
+                "a": "As condições são combinadas caso a caso e ficam por escrito antes de qualquer compromisso. Nada é cobrado nesta página."
+              },
+              {
+                "q": "Perco meus jogadores?",
+                "a": "Não. Os jogadores continuam no seu clube, entrando pelo seu link de convite."
+              },
+              {
+                "q": "Funciona para quem está começando?",
+                "a": "Funciona. Na conversa a gente olha o tamanho do seu clube e o que faz sentido para ele."
+              },
+              {
+                "q": "Como fica o jogo responsável?",
+                "a": "Todo clube do grupo segue as mesmas regras: só maiores de 18, sem bônus, sem promessa de ganho e sem pedir senha de jogador."
+              }
+            ]
+          }
+        },
+        {
+          "type": "rack_final",
+          "props": {
+            "anchor": "conversa",
+            "variant": "torres",
+            "title": "Vamos conversar sobre o seu clube",
+            "text": "Deixe seu contato. Alguém do grupo chama você no WhatsApp ou no e-mail.",
+            "fields": "email_nome_telefone",
+            "button": "Quero conversar",
+            "success": "Recebemos! Alguém do grupo vai chamar você em breve.",
+            "consent": "Concordo em ser contatado pelo grupo sobre parceria. Posso sair quando quiser.",
+            "note": "Sem compromisso. **As condições chegam por escrito.**",
+            "aviso18": "Somente maiores de 18 · Jogo responsável"
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "text": "Grupo de clubes no app {{app}}. Para agentes e donos de clube.",
+            "links": [
+              {
+                "label": "Benefícios",
+                "href": "/beneficios"
+              },
+              {
+                "label": "Como funciona",
+                "href": "/como-funciona"
+              },
+              {
+                "label": "Contato",
+                "href": "/contato"
+              }
+            ],
+            "disclaimer": "Somente maiores de 18 anos. Jogue com responsabilidade. Este site não pede senha do app nem documentos."
+          }
+        }
+      ]
+    },
+    {
+      "slug": "beneficios",
+      "title": "Benefícios",
+      "seo": {
+        "description": "O que o {{name}} assume para o seu clube no app {{app}}: canal de fichas 24h, convite, suporte e material. Condições por escrito."
+      },
+      "blocks": [
+        {
+          "type": "rack_topo",
+          "props": {
+            "brand": "{{name}}",
+            "sub": "Grupo de clubes · {{app}}",
+            "links": [
+              {
+                "label": "Benefícios",
+                "href": "/beneficios"
+              },
+              {
+                "label": "Como funciona",
+                "href": "/como-funciona"
+              },
+              {
+                "label": "Contato",
+                "href": "/contato"
+              }
+            ],
+            "cta": "Quero conversar",
+            "ctaHref": "/contato"
+          }
+        },
+        {
+          "type": "rack_pagina",
+          "props": {
+            "variant": "selo",
+            "back": "Início",
+            "backHref": "/",
+            "title": "Benefícios",
+            "title2": "para o seu clube",
+            "text": "O que o grupo assume para você poder cuidar dos seus jogadores. As condições de repasse a gente combina na conversa, **por escrito**.",
+            "sealTop": "Grupo",
+            "sealNumber": "{{number}}"
+          }
+        },
+        {
+          "type": "rack_rack",
+          "props": {
+            "title": "Cada fileira, uma frente do grupo",
+            "subtitle": "O que fica pronto quando o seu clube entra no rack.",
+            "items": [
+              {
+                "label": "Fichas 24h",
+                "color": "creme",
+                "size": "90",
+                "text": "Canal de compra e saque por PIX aberto a qualquer hora, com atendente do grupo. Saque sempre na chave do CPF do titular."
+              },
+              {
+                "label": "Convite",
+                "color": "ouro",
+                "size": "70",
+                "text": "Link de convite com o seu ID de agente: o jogador entra direto no seu clube."
+              },
+              {
+                "label": "Suporte",
+                "color": "marca",
+                "size": "80",
+                "text": "Atendimento para o jogador e para o agente, no WhatsApp."
+              },
+              {
+                "label": "Material",
+                "color": "cobre",
+                "size": "55",
+                "text": "Textos e páginas prontos para divulgar o clube, sempre com +18 e jogo responsável."
+              },
+              {
+                "label": "Regras",
+                "color": "preta",
+                "size": "65",
+                "text": "As mesmas para todos os clubes: **sem bônus, sem promessa de ganho, sem pedir senha**."
+              }
+            ],
+            "note": "O tamanho das fileiras é só desenho, não é estatística."
+          }
+        },
+        {
+          "type": "text",
+          "props": {
+            "variant": "estreito",
+            "title": "O que continua com você",
+            "body": "Seus jogadores, seu jeito de atender e o nome do seu clube. O grupo entra com a estrutura; quem conhece a sua mesa é você.\n\nSe um dia a parceria não fizer mais sentido, a saída também é combinada por escrito."
+          }
+        },
+        {
+          "type": "cta",
+          "props": {
+            "variant": "escuro",
+            "title": "Quer ver as condições?",
+            "text": "Elas chegam por escrito, antes de qualquer compromisso.",
+            "cta": "Quero conversar",
+            "ctaHref": "/contato"
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "text": "Grupo de clubes no app {{app}}. Para agentes e donos de clube.",
+            "links": [
+              {
+                "label": "Benefícios",
+                "href": "/beneficios"
+              },
+              {
+                "label": "Como funciona",
+                "href": "/como-funciona"
+              },
+              {
+                "label": "Contato",
+                "href": "/contato"
+              }
+            ],
+            "disclaimer": "Somente maiores de 18 anos. Jogue com responsabilidade. Este site não pede senha do app nem documentos."
+          }
+        }
+      ]
+    },
+    {
+      "slug": "como-funciona",
+      "title": "Como funciona",
+      "seo": {
+        "description": "Como um clube entra no {{name}}: conversa, condições por escrito, configuração e suporte no dia a dia."
+      },
+      "blocks": [
+        {
+          "type": "rack_topo",
+          "props": {
+            "brand": "{{name}}",
+            "sub": "Grupo de clubes · {{app}}",
+            "links": [
+              {
+                "label": "Benefícios",
+                "href": "/beneficios"
+              },
+              {
+                "label": "Como funciona",
+                "href": "/como-funciona"
+              },
+              {
+                "label": "Contato",
+                "href": "/contato"
+              }
+            ],
+            "cta": "Quero conversar",
+            "ctaHref": "/contato"
+          }
+        },
+        {
+          "type": "rack_pagina",
+          "props": {
+            "variant": "faixa",
+            "back": "Início",
+            "backHref": "/",
+            "title": "Como funciona",
+            "title2": "a entrada no grupo",
+            "text": "Cinco fichas, da primeira conversa ao clube rodando com o canal de fichas do grupo.",
+            "stacks": [
+              {
+                "color": "marca",
+                "size": "80"
+              },
+              {
+                "color": "creme",
+                "size": "60"
+              },
+              {
+                "color": "ouro",
+                "size": "88"
+              },
+              {
+                "label": "Seu clube",
+                "size": "0"
+              }
+            ]
+          }
+        },
+        {
+          "type": "rack_passos",
+          "props": {
+            "variant": "pilha",
+            "title": "Da conversa ao clube no ar",
+            "items": [
+              {
+                "value": "1",
+                "unit": "conversa",
+                "color": "creme",
+                "title": "Conversa.",
+                "text": "Você conta como é o seu clube e o que procura. A gente explica como o grupo trabalha."
+              },
+              {
+                "value": "2",
+                "unit": "condições",
+                "color": "ouro",
+                "title": "Condições por escrito.",
+                "text": "Repasse, responsabilidades de cada lado e regras de jogo responsável, num documento só."
+              },
+              {
+                "value": "3",
+                "unit": "configuração",
+                "color": "cobre",
+                "title": "Configuração.",
+                "text": "Link de convite com o seu **ID de agente**, acesso ao canal de fichas e contato do suporte."
+              },
+              {
+                "value": "ON",
+                "unit": "no ar",
+                "color": "marca",
+                "title": "Clube no ar.",
+                "text": "Seus jogadores entram pelo link e compram fichas pelo canal do grupo."
+              },
+              {
+                "value": "24h",
+                "unit": "dia a dia",
+                "color": "preta",
+                "title": "Dia a dia.",
+                "text": "Dúvida de jogador ou de operação? O suporte do grupo responde, para você e para eles."
+              }
+            ]
+          }
+        },
+        {
+          "type": "rack_comanda",
+          "props": {
+            "variant": "faixa",
+            "title": "Dados que o grupo vai pedir",
+            "subtitle": "Para configurar o convite e o canal de fichas.",
+            "items": [
+              {
+                "label": "Clube",
+                "value": "ID do clube",
+                "note": "no app {{app}}"
+              },
+              {
+                "label": "Agente",
+                "value": "Seu ID",
+                "note": "de agente no app"
+              },
+              {
+                "label": "Responsável",
+                "value": "WhatsApp",
+                "note": "de quem responde pelo clube"
+              }
+            ],
+            "cta": "Começar a conversa",
+            "ctaHref": "/contato",
+            "note": "Clubes só para maiores de 18"
+          }
+        },
+        {
+          "type": "faq",
+          "props": {
+            "title": "Dúvidas da operação",
+            "items": [
+              {
+                "q": "Quanto tempo leva para o clube entrar?",
+                "a": "Depende da conversa e da configuração no app. O prazo é combinado junto com as condições."
+              },
+              {
+                "q": "Meus jogadores precisam trocar de clube?",
+                "a": "Não. Eles continuam no seu clube; o que muda é o canal de fichas e o suporte."
+              },
+              {
+                "q": "Quem atende o jogador no canal de fichas?",
+                "a": "O atendente do grupo, sempre com o seu ID de agente na conversa."
+              }
+            ]
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "text": "Grupo de clubes no app {{app}}. Para agentes e donos de clube.",
+            "links": [
+              {
+                "label": "Benefícios",
+                "href": "/beneficios"
+              },
+              {
+                "label": "Como funciona",
+                "href": "/como-funciona"
+              },
+              {
+                "label": "Contato",
+                "href": "/contato"
+              }
+            ],
+            "disclaimer": "Somente maiores de 18 anos. Jogue com responsabilidade. Este site não pede senha do app nem documentos."
+          }
+        }
+      ]
+    },
+    {
+      "slug": "contato",
+      "title": "Contato",
+      "seo": {
+        "description": "Fale com o {{name}} sobre o seu clube no app {{app}}."
+      },
+      "blocks": [
+        {
+          "type": "rack_topo",
+          "props": {
+            "brand": "{{name}}",
+            "sub": "Grupo de clubes · {{app}}",
+            "links": [
+              {
+                "label": "Benefícios",
+                "href": "/beneficios"
+              },
+              {
+                "label": "Como funciona",
+                "href": "/como-funciona"
+              },
+              {
+                "label": "Contato",
+                "href": "/contato"
+              }
+            ],
+            "cta": "Quero conversar",
+            "ctaHref": "/contato"
+          }
+        },
+        {
+          "type": "rack_pagina",
+          "props": {
+            "variant": "selo",
+            "back": "Início",
+            "backHref": "/",
+            "title": "Contato",
+            "title2": "para parceiros",
+            "text": "Fale com o grupo sobre o seu clube. A resposta chega no WhatsApp ou no e-mail, como você preferir.",
+            "sealTop": "Grupo",
+            "sealNumber": "{{number}}"
+          }
+        },
+        {
+          "type": "rack_final",
+          "props": {
+            "anchor": "formulario",
+            "variant": "torres",
+            "title": "Conte sobre o seu clube",
+            "text": "Nome, e-mail e WhatsApp bastam. O resto a gente conversa.",
+            "fields": "email_nome_telefone",
+            "button": "Quero conversar",
+            "success": "Recebemos! Alguém do grupo vai chamar você em breve.",
+            "consent": "Concordo em ser contatado pelo grupo sobre parceria. Posso sair quando quiser.",
+            "note": "Sem compromisso. **As condições chegam por escrito.**",
+            "aviso18": "Somente maiores de 18 · Jogo responsável",
+            "sealTop": "",
+            "sealNumber": ""
+          }
+        },
+        {
+          "type": "cta",
+          "props": {
+            "variant": "escuro",
+            "title": "Prefere chamar direto?",
+            "text": "O WhatsApp do grupo é só para agentes e donos de clube. Respondemos todos os dias.",
+            "cta": "Chamar o grupo no WhatsApp",
+            "ctaHref": "{{whatsappLink}}"
+          }
+        },
+        {
+          "type": "notice",
+          "props": {
+            "variant": "discreto",
+            "text": "Esta página é para agentes e donos de clube. É jogador e procura um clube? Fale com o suporte no WhatsApp."
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "text": "Grupo de clubes no app {{app}}. Para agentes e donos de clube.",
+            "links": [
+              {
+                "label": "Benefícios",
+                "href": "/beneficios"
+              },
+              {
+                "label": "Como funciona",
+                "href": "/como-funciona"
+              },
+              {
+                "label": "Contato",
+                "href": "/contato"
+              }
+            ],
+            "disclaimer": "Somente maiores de 18 anos. Jogue com responsabilidade. Este site não pede senha do app nem documentos."
+          }
+        }
+      ]
+    }
+  ]
+}

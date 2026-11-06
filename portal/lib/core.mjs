@@ -10,6 +10,7 @@ import { createUser, checkPassword, passwordProblem, can, permsOf, ROLES, mask }
 import { createTenant, publicTenant, INTEGRATIONS, slugify, cleanSettings } from './tenants.mjs';
 import { publicNiches, niche } from './niches.mjs';
 import { templateList, cleanTheme, FONTS, loadTemplates } from './templates.mjs';
+import { WORLDS } from './worlds/index.mjs';
 import { blockSchema, cleanBlocks } from './blocks.mjs';
 import { affiliateLink } from './attribution.mjs';
 import { seoChecklist, siteBase } from './seo.mjs';
@@ -76,7 +77,8 @@ export const coreRoutes = [
       niches: publicNiches().filter((n) => edition.allowsNiche(n.id)),
       templates: templateList(query.niche || '').filter((t) => t.niches.includes('*') || t.niches.some((n) => edition.allowsNiche(n)))
         .sort((a, b) => edition.templateOrder(a) - edition.templateOrder(b)), blocks: blockSchema(),
-      roles: ROLES, fonts: FONTS, stages: STAGES, integrations: INTEGRATIONS, modules: app.moduleNav }),
+      roles: ROLES, fonts: FONTS, stages: STAGES, integrations: INTEGRATIONS, modules: app.moduleNav,
+      worlds: Object.values(WORLDS).map(({ id, name, description, palettes }) => ({ id, name, description, palettes: palettes || [] })) }),
   },
 
   // ---------- administração central (superadmin) ----------
@@ -103,7 +105,10 @@ export const coreRoutes = [
   {
     method: 'POST', path: '/api/tenants', super: true, handler: ({ db, body, user, edition, origin }) => {
       need(edition.allowsNiche(body.niche || edition.defaultNiche), 400, `A edição ${edition.name} não trabalha com esse nicho.`);
-      const { tenant, site } = createTenant(db, { ...body, edition: edition.id, niche: body.niche || edition.defaultNiche, theme: { ...(edition.siteTheme || {}), ...(body.theme || {}) } }, { userId: user.id });
+      // Modelo com mundo visual próprio (theme.world) mantém a identidade dele; o tema da edição só entra nos modelos sem mundo.
+      const tpl = body.template ? loadTemplates().get(body.template) : null;
+      const base = tpl?.theme?.world ? {} : (edition.siteTheme || {});
+      const { tenant, site } = createTenant(db, { ...body, edition: edition.id, niche: body.niche || edition.defaultNiche, theme: { ...base, ...(body.theme || {}) } }, { userId: user.id });
       return { status: 201, body: { tenant: publicTenant(tenant), site: site && siteOut(site), adminUrl: `/admin/#/t/${tenant.slug}`,
         siteUrl: site ? `${origin}/s/${site.slug}/` : null } };
     },
@@ -260,6 +265,7 @@ export const coreRoutes = [
     method: 'POST', path: '/api/t/:tenant/pages/:id/publish', perm: 'site.publish', handler: ({ repo, params, user, audit, app, tenant }) => {
       const p = repo.get('pages', params.id);
       need(p, 404, 'Página não encontrada.');
+      for (const fn of app.prePublish || []) fn({ repo, tenant, page: p, user }); // ganchos dos módulos (ex.: revisão pendente) podem impedir com HttpError
       const at = now();
       repo.update('pages', p.id, { published: p.draft, published_at: at });
       repo.insert('page_versions', { page_id: p.id, blocks: p.draft, note: 'publicada', created_by: user.id });

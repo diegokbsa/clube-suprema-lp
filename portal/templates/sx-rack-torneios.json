@@ -1,0 +1,698 @@
+{
+  "id": "sx-rack-torneios",
+  "name": "Rack · Agenda de torneios (edição SX)",
+  "order": 4,
+  "version": 1,
+  "category": "Poker · edição SX",
+  "niches": [
+    "poker"
+  ],
+  "inspiredBy": "sx",
+  "description": "Agenda de torneios no mundo Rack de fichas: a grade é a primeira tela, com horários enormes, formatos como fileiras do rack e páginas de grade da semana, formatos e regras. Grade de exemplo marcada.",
+  "theme": {
+    "world": "rack",
+    "mode": "escuro",
+    "bg": "#120e09",
+    "surface": "#1c160e",
+    "text": "#f1e9dc",
+    "muted": "#c3b4a0",
+    "primary": "#efa144",
+    "primaryText": "#040404",
+    "accent": "#f2e4c4",
+    "border": "#3a2d1b",
+    "font": "Montserrat",
+    "fontHead": "Antonio",
+    "radius": 14
+  },
+  "seo": {
+    "title": "{{name}} · Torneios de poker",
+    "description": "Grade de torneios do Clube {{number}} no app {{app}}: horários, formatos e regras. Somente maiores de 18 anos."
+  },
+  "pages": [
+    {
+      "slug": "",
+      "title": "Início",
+      "blocks": [
+        {
+          "type": "rack_topo",
+          "props": {
+            "brand": "{{name}}",
+            "sub": "Torneios · Clube {{number}}",
+            "links": [
+              {
+                "label": "Grade",
+                "href": "/grade",
+                "live": true
+              },
+              {
+                "label": "Formatos",
+                "href": "/formatos"
+              },
+              {
+                "label": "Regras",
+                "href": "/regras"
+              }
+            ],
+            "cta": "Quero jogar",
+            "ctaHref": "{{inviteLink}}"
+          }
+        },
+        {
+          "type": "rack_grade",
+          "props": {
+            "variant": "capa",
+            "title": "Hoje na mesa",
+            "subtitle": "Os torneios do **Clube {{number}}** no app **{{app}}**, do primeiro blind ao último. Escolha o horário e entre pelo link do clube.",
+            "chips": [
+              {
+                "label": "NLH",
+                "color": "creme"
+              },
+              {
+                "label": "PLO",
+                "color": "ouro"
+              },
+              {
+                "label": "KO",
+                "color": "marca"
+              },
+              {
+                "label": "Turbo",
+                "color": "cobre"
+              }
+            ],
+            "date": "Horários de Brasília",
+            "example": true,
+            "exampleNote": "Grade de exemplo: troque horários, buy-ins e garantidos pela grade real do clube antes de publicar.",
+            "items": [
+              {
+                "time": "18:00",
+                "name": "Abertura NLH",
+                "detail": "NLH · Freezeout",
+                "buyin": "R$ 10",
+                "prize": "R$ 1.000"
+              },
+              {
+                "time": "19:00",
+                "name": "Bounty da Noite",
+                "detail": "NLH · KO",
+                "buyin": "R$ 30",
+                "prize": "R$ 3.000"
+              },
+              {
+                "time": "20:00",
+                "name": "PLO Turbo",
+                "detail": "PLO 5 · Turbo",
+                "buyin": "R$ 50",
+                "prize": "R$ 5.000"
+              },
+              {
+                "time": "21:00",
+                "name": "Main Event",
+                "detail": "NLH · Rebuy e add-on",
+                "buyin": "R$ 100",
+                "prize": "R$ 10.000"
+              },
+              {
+                "time": "22:00",
+                "name": "Mystery KO",
+                "detail": "NLH · KO",
+                "buyin": "R$ 20",
+                "prize": "R$ 2.000"
+              },
+              {
+                "time": "23:30",
+                "name": "Hyper da Madrugada",
+                "detail": "NLH · Hyper",
+                "buyin": "R$ 5",
+                "prize": "R$ 500"
+              }
+            ],
+            "cta": "Entrar no clube",
+            "ctaHref": "{{inviteLink}}",
+            "link": "Ver a grade da semana",
+            "linkHref": "/grade"
+          }
+        },
+        {
+          "type": "rack_rack",
+          "props": {
+            "title": "Escolha a sua pilha",
+            "subtitle": "Cada formato pede um jeito de jogar. Comece pelo que combina com o seu tempo.",
+            "items": [
+              {
+                "label": "Freezeout",
+                "color": "creme",
+                "size": "88",
+                "text": "Uma vida só: acabaram as fichas, acabou o torneio. Bom para começar.",
+                "href": "/formatos#freezeout"
+              },
+              {
+                "label": "Rebuy",
+                "color": "ouro",
+                "size": "70",
+                "text": "Dá para recomprar fichas no começo, dentro do período de rebuy.",
+                "href": "/formatos#rebuy"
+              },
+              {
+                "label": "KO",
+                "color": "marca",
+                "size": "58",
+                "text": "Cada jogador que você elimina rende um prêmio na hora.",
+                "href": "/formatos#ko"
+              },
+              {
+                "label": "Turbo",
+                "color": "cobre",
+                "size": "42",
+                "text": "Os blinds sobem mais rápido: torneio mais curto, decisão mais rápida.",
+                "href": "/formatos#turbo"
+              }
+            ],
+            "note": "O tamanho das fileiras é só desenho, não é estatística.",
+            "link": "Entender todos os formatos",
+            "linkHref": "/formatos"
+          }
+        },
+        {
+          "type": "rack_passos",
+          "props": {
+            "variant": "horizontal",
+            "title": "Do convite ao primeiro torneio",
+            "items": [
+              {
+                "value": "LINK",
+                "unit": "do clube",
+                "color": "creme",
+                "title": "Entre no clube pelo link.",
+                "text": "Abra o {{app}} pelo link de convite: você já cai no **Clube {{number}}**."
+              },
+              {
+                "value": "PIX",
+                "unit": "fichas",
+                "color": "preta",
+                "title": "Compre fichas por PIX.",
+                "text": "No canal de fichas, informando ID de jogador, clube **{{number}}** e agente **{{agentId}}**."
+              },
+              {
+                "value": "18h",
+                "unit": "inscrição",
+                "color": "ouro",
+                "title": "Inscreva-se no torneio.",
+                "text": "Na aba de torneios do app, escolha o horário e confirme o buy-in."
+              }
+            ]
+          }
+        },
+        {
+          "type": "rack_final",
+          "props": {
+            "anchor": "link",
+            "variant": "selo",
+            "title": "Quer o link do clube?",
+            "text": "Deixe seu e-mail e receba o link de convite para se inscrever nos torneios do Clube {{number}}.",
+            "fields": "email",
+            "button": "Quero o link",
+            "success": "Pronto! O link do clube chega no seu e-mail.",
+            "consent": "Concordo em receber o link do clube e avisos por e-mail. Posso sair quando quiser.",
+            "note": "**Não pedimos senha do app nem documentos.**",
+            "aviso18": "Somente maiores de 18 anos · Jogue com responsabilidade",
+            "sealTop": "Clube",
+            "sealNumber": "{{number}}"
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "text": "Torneios do Clube {{number}} no app {{app}}. Grade de exemplo: confira sempre a grade do dia no app.",
+            "links": [
+              {
+                "label": "Grade",
+                "href": "/grade"
+              },
+              {
+                "label": "Formatos",
+                "href": "/formatos"
+              },
+              {
+                "label": "Regras",
+                "href": "/regras"
+              }
+            ],
+            "disclaimer": "Somente maiores de 18 anos. Jogue com responsabilidade. Este site não pede senha do app nem documentos."
+          }
+        }
+      ]
+    },
+    {
+      "slug": "grade",
+      "title": "Grade da semana",
+      "seo": {
+        "description": "Grade de torneios da semana no Clube {{number}} ({{app}}): horários, buy-ins e garantidos. Grade de exemplo."
+      },
+      "blocks": [
+        {
+          "type": "rack_topo",
+          "props": {
+            "brand": "{{name}}",
+            "sub": "Torneios · Clube {{number}}",
+            "links": [
+              {
+                "label": "Grade",
+                "href": "/grade",
+                "live": true
+              },
+              {
+                "label": "Formatos",
+                "href": "/formatos"
+              },
+              {
+                "label": "Regras",
+                "href": "/regras"
+              }
+            ],
+            "cta": "Quero jogar",
+            "ctaHref": "{{inviteLink}}"
+          }
+        },
+        {
+          "type": "rack_pagina",
+          "props": {
+            "variant": "faixa",
+            "back": "Início",
+            "backHref": "/",
+            "title": "Grade",
+            "title2": "da semana",
+            "text": "Os torneios fixos do clube, de segunda a domingo, em horário de Brasília.",
+            "stacks": [
+              {
+                "color": "creme",
+                "size": "84"
+              },
+              {
+                "color": "ouro",
+                "size": "62"
+              },
+              {
+                "color": "marca",
+                "size": "90"
+              },
+              {
+                "color": "cobre",
+                "size": "48"
+              }
+            ]
+          }
+        },
+        {
+          "type": "rack_grade",
+          "props": {
+            "variant": "secao",
+            "title": "Segunda a domingo",
+            "subtitle": "Buy-in é o valor da inscrição; garantido é o prêmio mínimo que o torneio paga, conforme as regras do app.",
+            "example": true,
+            "exampleNote": "Grade de exemplo: troque horários, buy-ins e garantidos pela grade real do clube antes de publicar.",
+            "date": "Horários de Brasília",
+            "items": [
+              {
+                "day": "Seg",
+                "time": "20:00",
+                "name": "Segunda NLH",
+                "detail": "NLH · Freezeout",
+                "buyin": "R$ 20",
+                "prize": "R$ 2.000"
+              },
+              {
+                "day": "Ter",
+                "time": "20:00",
+                "name": "Terça KO",
+                "detail": "NLH · KO",
+                "buyin": "R$ 30",
+                "prize": "R$ 3.000"
+              },
+              {
+                "day": "Qua",
+                "time": "21:00",
+                "name": "PLO da Quarta",
+                "detail": "PLO 5",
+                "buyin": "R$ 50",
+                "prize": "R$ 4.000"
+              },
+              {
+                "day": "Qui",
+                "time": "20:00",
+                "name": "Turbo de Quinta",
+                "detail": "NLH · Turbo",
+                "buyin": "R$ 15",
+                "prize": "R$ 1.500"
+              },
+              {
+                "day": "Sex",
+                "time": "21:00",
+                "name": "Sexta Rebuy",
+                "detail": "NLH · Rebuy e add-on",
+                "buyin": "R$ 40",
+                "prize": "R$ 5.000"
+              },
+              {
+                "day": "Sáb",
+                "time": "19:00",
+                "name": "Satélite do Domingo",
+                "detail": "NLH · Satélite",
+                "buyin": "R$ 10",
+                "prize": "Vagas"
+              },
+              {
+                "day": "Dom",
+                "time": "18:00",
+                "name": "Main Event de Domingo",
+                "detail": "NLH · Rebuy e add-on",
+                "buyin": "R$ 100",
+                "prize": "R$ 10.000"
+              },
+              {
+                "day": "Todo dia",
+                "time": "23:30",
+                "name": "Hyper da Madrugada",
+                "detail": "NLH · Hyper",
+                "buyin": "R$ 5",
+                "prize": "R$ 500"
+              }
+            ],
+            "cta": "Entrar no clube",
+            "ctaHref": "{{inviteLink}}",
+            "aviso18": "Somente maiores de 18 anos · Jogue com responsabilidade"
+          }
+        },
+        {
+          "type": "text",
+          "props": {
+            "variant": "estreito",
+            "title": "Como ler a grade",
+            "body": "Hora: o começo do torneio, em horário de Brasília. Muitos aceitam inscrição tardia por alguns níveis de blind; o app mostra até quando.\n\nBuy-in: o valor da inscrição, pago em fichas da sua conta do app.\n\nGarantido: o prêmio mínimo do torneio. Se entrarem mais jogadores, o prêmio cresce conforme a estrutura do app."
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "text": "Torneios do Clube {{number}} no app {{app}}. Grade de exemplo: confira sempre a grade do dia no app.",
+            "links": [
+              {
+                "label": "Grade",
+                "href": "/grade"
+              },
+              {
+                "label": "Formatos",
+                "href": "/formatos"
+              },
+              {
+                "label": "Regras",
+                "href": "/regras"
+              }
+            ],
+            "disclaimer": "Somente maiores de 18 anos. Jogue com responsabilidade. Este site não pede senha do app nem documentos."
+          }
+        }
+      ]
+    },
+    {
+      "slug": "formatos",
+      "title": "Formatos",
+      "seo": {
+        "description": "Formatos de torneio de poker explicados: freezeout, rebuy, add-on, KO, turbo, hyper, satélite e spin."
+      },
+      "blocks": [
+        {
+          "type": "rack_topo",
+          "props": {
+            "brand": "{{name}}",
+            "sub": "Torneios · Clube {{number}}",
+            "links": [
+              {
+                "label": "Grade",
+                "href": "/grade",
+                "live": true
+              },
+              {
+                "label": "Formatos",
+                "href": "/formatos"
+              },
+              {
+                "label": "Regras",
+                "href": "/regras"
+              }
+            ],
+            "cta": "Quero jogar",
+            "ctaHref": "{{inviteLink}}"
+          }
+        },
+        {
+          "type": "rack_pagina",
+          "props": {
+            "variant": "selo",
+            "back": "Início",
+            "backHref": "/",
+            "title": "Formatos",
+            "title2": "de torneio",
+            "text": "Freezeout, rebuy, KO, turbo: o que muda em cada um, sem jargão.",
+            "sealTop": "Clube",
+            "sealNumber": "{{number}}"
+          }
+        },
+        {
+          "type": "rack_fatos",
+          "props": {
+            "variant": "glossario",
+            "title": "Os formatos, um por um",
+            "subtitle": "Clique num formato da página inicial e você cai direto aqui.",
+            "items": [
+              {
+                "term": "Freezeout",
+                "title": "Uma vida só.",
+                "text": "Acabaram as fichas, acabou o torneio. Não tem recompra."
+              },
+              {
+                "term": "Rebuy",
+                "title": "Recompra no começo.",
+                "text": "Durante o período de rebuy, quem perde as fichas pode comprar de novo."
+              },
+              {
+                "term": "Add-on",
+                "title": "Fichas extras no intervalo.",
+                "text": "No fim do período de rebuy, todo mundo pode comprar uma última pilha extra."
+              },
+              {
+                "term": "KO",
+                "title": "Prêmio por eliminação.",
+                "text": "Também chamado de bounty: cada jogador que você elimina rende um prêmio na hora."
+              },
+              {
+                "term": "Turbo",
+                "title": "Blinds mais rápidos.",
+                "text": "Os níveis duram menos: o torneio acaba mais cedo e as decisões chegam mais rápido."
+              },
+              {
+                "term": "Hyper",
+                "title": "Mais rápido ainda.",
+                "text": "Níveis curtíssimos e pilha menor: bom para quem tem pouco tempo."
+              },
+              {
+                "term": "Satélite",
+                "title": "Vale vaga, não dinheiro.",
+                "text": "O prêmio é a inscrição num torneio maior."
+              },
+              {
+                "term": "Spin",
+                "title": "Três jogadores, prêmio sorteado.",
+                "text": "Torneio-relâmpago em que o valor do prêmio é sorteado antes da primeira mão."
+              }
+            ]
+          }
+        },
+        {
+          "type": "text",
+          "props": {
+            "variant": "estreito",
+            "title": "Qual escolher",
+            "body": "Começando agora? Freezeout com buy-in baixo: dá para aprender sem gastar mais do que o planejado.\n\nPouco tempo? Turbo ou hyper.\n\nGosta de jogo agressivo? KO.\n\nEm qualquer formato, decida antes quanto vai gastar no dia, e pare quando chegar nele."
+          }
+        },
+        {
+          "type": "cta",
+          "props": {
+            "variant": "escuro",
+            "title": "Viu um que combina?",
+            "text": "Confira os horários na grade da semana.",
+            "cta": "Ver a grade",
+            "ctaHref": "/grade"
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "text": "Torneios do Clube {{number}} no app {{app}}. Grade de exemplo: confira sempre a grade do dia no app.",
+            "links": [
+              {
+                "label": "Grade",
+                "href": "/grade"
+              },
+              {
+                "label": "Formatos",
+                "href": "/formatos"
+              },
+              {
+                "label": "Regras",
+                "href": "/regras"
+              }
+            ],
+            "disclaimer": "Somente maiores de 18 anos. Jogue com responsabilidade. Este site não pede senha do app nem documentos."
+          }
+        }
+      ]
+    },
+    {
+      "slug": "regras",
+      "title": "Regras",
+      "seo": {
+        "description": "Regras dos torneios do Clube {{number}}: inscrição, desconexão, conduta e prêmios. Somente +18."
+      },
+      "blocks": [
+        {
+          "type": "rack_topo",
+          "props": {
+            "brand": "{{name}}",
+            "sub": "Torneios · Clube {{number}}",
+            "links": [
+              {
+                "label": "Grade",
+                "href": "/grade",
+                "live": true
+              },
+              {
+                "label": "Formatos",
+                "href": "/formatos"
+              },
+              {
+                "label": "Regras",
+                "href": "/regras"
+              }
+            ],
+            "cta": "Quero jogar",
+            "ctaHref": "{{inviteLink}}"
+          }
+        },
+        {
+          "type": "rack_pagina",
+          "props": {
+            "variant": "faixa",
+            "back": "Início",
+            "backHref": "/",
+            "title": "Regras",
+            "title2": "dos torneios",
+            "text": "O básico para jogar limpo e sem surpresa. Em caso de dúvida, vale a regra do app {{app}}.",
+            "stacks": [
+              {
+                "color": "preta",
+                "size": "76"
+              },
+              {
+                "color": "creme",
+                "size": "54"
+              },
+              {
+                "color": "ouro",
+                "size": "68"
+              }
+            ]
+          }
+        },
+        {
+          "type": "rack_fatos",
+          "props": {
+            "variant": "fatos",
+            "title": "Regras de ouro",
+            "subtitle": "Valem para todos os torneios do clube.",
+            "items": [
+              {
+                "term": "+18",
+                "title": "Só maiores de 18 anos.",
+                "text": "Conta de menor é encerrada."
+              },
+              {
+                "term": "1 conta",
+                "title": "Uma conta por pessoa.",
+                "text": "Jogar com mais de uma conta no mesmo torneio é proibido."
+              },
+              {
+                "term": "Limpo",
+                "title": "Sem conluio.",
+                "text": "Combinar jogada, trocar informação de cartas ou entregar fichas para outro jogador é proibido."
+              },
+              {
+                "term": "Respeito",
+                "title": "Na mesa e no chat.",
+                "text": "Ofensa e ameaça levam a advertência e, se repetir, a saída do clube."
+              }
+            ]
+          }
+        },
+        {
+          "type": "text",
+          "props": {
+            "variant": "estreito",
+            "title": "Inscrição e inscrição tardia",
+            "body": "A inscrição é feita no próprio app, na aba de torneios, com fichas da sua conta. Muitos torneios aceitam inscrição tardia por alguns níveis; o app mostra até quando."
+          }
+        },
+        {
+          "type": "text",
+          "props": {
+            "variant": "estreito",
+            "title": "Desconexão",
+            "body": "Se a internet cair, suas fichas continuam na mesa e o app joga as mãos no automático até você voltar. Prefira uma conexão estável antes de se inscrever."
+          }
+        },
+        {
+          "type": "text",
+          "props": {
+            "variant": "estreito",
+            "title": "Prêmios",
+            "body": "Os prêmios são pagos em fichas na sua conta do app, conforme a estrutura de cada torneio. O saque é feito pelo canal de fichas, na chave PIX do seu CPF."
+          }
+        },
+        {
+          "type": "notice",
+          "props": {
+            "variant": "alerta",
+            "text": "Torneio não é fonte de renda: decida antes quanto vai gastar no dia e pare quando chegar nele."
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "text": "Torneios do Clube {{number}} no app {{app}}. Grade de exemplo: confira sempre a grade do dia no app.",
+            "links": [
+              {
+                "label": "Grade",
+                "href": "/grade"
+              },
+              {
+                "label": "Formatos",
+                "href": "/formatos"
+              },
+              {
+                "label": "Regras",
+                "href": "/regras"
+              }
+            ],
+            "disclaimer": "Somente maiores de 18 anos. Jogue com responsabilidade. Este site não pede senha do app nem documentos."
+          }
+        }
+      ]
+    }
+  ]
+}

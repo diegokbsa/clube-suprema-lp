@@ -70,6 +70,7 @@ function navLinks(route) {
     items.push(['#/nova', S.ed.terms.newOperation, route.view === 'nova']);
     items.push(['#/clientes', 'Base de clientes', route.view === 'clientes']);
     items.push(['#/insights', 'Insights de IA', route.view === 'insights']);
+    if (S.ed.id === 'sx') items.push(['#/migracao', 'Trilha de migração', route.view === 'migracao']); // PA-140: fila de candidaturas
   }
   if (t) {
     items.push(['title', t.label]);
@@ -82,7 +83,7 @@ function navLinks(route) {
     add('/leads', 'Leads e CRM', 'leads.read', v === 'leads');
     add('/afiliados', 'Afiliados', 'affiliates.read', v === 'afiliados');
     add('/calendario', 'Calendário editorial', 'calendar.read', v === 'calendario');
-    for (const m of S.meta.modules || []) add(`/m/${m.id}`, m.label, m.perm, v === 'module' && route.module === m.id);
+    for (const m of S.meta.modules || []) if (!m.editions || m.editions.includes(S.ed.id)) add(`/m/${m.id}`, m.label, m.perm, v === 'module' && route.module === m.id);
     add('/integracoes', 'Integrações', 'integrations.read', v === 'integracoes');
     add('/usuarios', 'Usuários', 'users.manage', v === 'usuarios');
     add('/config', 'Configurações', 'tenant.manage', v === 'config');
@@ -113,6 +114,7 @@ function parseRoute() {
   if (parts[0] === 'nova') return { view: 'nova' };
   if (parts[0] === 'insights') return { view: 'insights' };
   if (parts[0] === 'clientes') return { view: 'clientes' };
+  if (parts[0] === 'migracao') return { view: 'migracao' };
   if (parts[0] === 't') {
     const slug = parts[1];
     const sub = parts[2] || '';
@@ -132,7 +134,7 @@ async function route() {
     if (S.me.tenants[0]) { location.hash = `#/t/${S.me.tenants[0].slug}`; return; }
   }
   if (r.view === 'dash' && S.tenant && !can('tenant.read') && can('ai.connect')) { location.hash = `#/t/${S.tenant.slug}/ia`; return; } // afiliado
-  const views = { central: viewCentral, nova: viewNova, insights: viewInsights, clientes: viewBaseClientes, dash: viewDash, site: viewSite, editor: viewEditor, seo: viewSeo, ia: viewIa, leads: viewLeads, afiliados: viewAfiliados,
+  const views = { central: viewCentral, nova: viewNova, insights: viewInsights, clientes: viewBaseClientes, migracao: viewMigracaoFila, dash: viewDash, site: viewSite, editor: viewEditor, seo: viewSeo, ia: viewIa, leads: viewLeads, afiliados: viewAfiliados,
     integracoes: viewIntegracoes, usuarios: viewUsuarios, calendario: viewCalendario, auditoria: viewAuditoria, config: viewConfig, module: viewModule };
   try {
     await (views[r.view] || viewCentral)(r);
@@ -739,6 +741,14 @@ async function viewModule(r) {
   const main = layout(r, `<div class="page-head"><div><h1>${esc(m?.label || r.module)}</h1></div></div><div id="mod"></div>`);
   if (!m) { $('#mod', main).innerHTML = '<div class="empty">Módulo não instalado.</div>'; return; }
   const mod = await import(`/admin/modules/${encodeURIComponent(m.id)}.js`);
+  await mod.render($('#mod', main), { api, S, esc, toast, can, route, fmtDate });
+}
+
+// ---------- trilha "Migrar para o pôquer" (PA-140): fila do superadmin, só na edição SX ----------
+async function viewMigracaoFila(r) {
+  if (!S.me.user.isSuper || S.ed.id !== 'sx') { location.hash = '#/'; return; }
+  const main = layout(r, '<div id="mod"></div>');
+  const mod = await import('/admin/modules/migracao-fila.js');
   await mod.render($('#mod', main), { api, S, esc, toast, can, route, fmtDate });
 }
 
