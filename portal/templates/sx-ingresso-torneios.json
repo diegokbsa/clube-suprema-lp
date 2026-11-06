@@ -1,0 +1,954 @@
+{
+  "id": "sx-ingresso-torneios",
+  "name": "Bilhetes de torneio (edição SX)",
+  "order": 19,
+  "version": 1,
+  "category": "Poker · edição SX",
+  "niches": [
+    "poker"
+  ],
+  "inspiredBy": "sx",
+  "description": "Agenda de torneios no mundo \"Ingresso de mesa\": título no fundo e um bilhete de torneio em pé com o cadastro; cada torneio da grade é um bilhete com canhoto (hora, nome, formato, buy-in e garantido). Grade de exemplo editável e marcada como exemplo, formatos e regras.",
+  "theme": {
+    "world": "ingresso",
+    "mode": "escuro",
+    "bg": "#0b0906",
+    "surface": "#efa144",
+    "text": "#f3b662",
+    "muted": "#c4a77e",
+    "primary": "#efa144",
+    "primaryText": "#140f08",
+    "accent": "#0e5a32",
+    "border": "#3a2c18",
+    "font": "Montserrat",
+    "fontHead": "Antonio",
+    "fontMono": "JetBrains Mono",
+    "radius": 8
+  },
+  "seo": {
+    "title": "{{name}} · Agenda de torneios",
+    "description": "Grade de torneios do {{name}} no app {{app}}: horários de Brasília, formatos e regras. Somente +18. Jogue com responsabilidade."
+  },
+  "pages": [
+    {
+      "slug": "",
+      "title": "Início",
+      "blocks": [
+        {
+          "type": "ingresso_topo",
+          "props": {
+            "brand": "{{name}}",
+            "logo": "{{logo}}",
+            "sub": "Torneios · +18",
+            "links": [
+              {
+                "label": "Grade",
+                "href": "/grade",
+                "vivo": true
+              },
+              {
+                "label": "Formatos",
+                "href": "/formatos",
+                "vivo": false
+              },
+              {
+                "label": "Regras",
+                "href": "/regras",
+                "vivo": false
+              }
+            ],
+            "cta": "Quero jogar",
+            "ctaHref": "/#ingresso"
+          }
+        },
+        {
+          "type": "ingresso_hero",
+          "props": {
+            "anchor": "ingresso",
+            "variant": "retrato",
+            "brand": "{{name}}",
+            "logo": "{{logo}}",
+            "serie": "Bilhete de torneio · {{app}}",
+            "title": "A grade do dia, bilhete por bilhete.",
+            "text": "Torneios no app **{{app}}** pelo clube {{number}}. Deixe o e-mail para receber a grade e entrar no clube pelo link.",
+            "promessa": "Escolha o horário. Sente na hora marcada.",
+            "fixos": [
+              {
+                "label": "Clube",
+                "value": "{{number}}"
+              },
+              {
+                "label": "Agente",
+                "value": "{{agentId}}"
+              }
+            ],
+            "fields": "email",
+            "emailLabel": "Seu e-mail",
+            "button": "Quero a grade",
+            "success": "Pronto! Seu bilhete foi destacado.",
+            "consent": "Aceito receber a grade de torneios e os avisos do clube por e-mail. Tenho mais de 18 anos.",
+            "help": "Aqui não pedimos senha do app nem documento.",
+            "miudas": [
+              {
+                "text": "**+18** · Proibido para menores"
+              },
+              {
+                "text": "**Jogue com responsabilidade**"
+              }
+            ],
+            "stubTitle": "Bilhete de torneio",
+            "stubNote": "Horário de Brasília",
+            "stubMainLabel": "Torneio · Assento",
+            "stubMainValue": "O DE HOJE · O SEU",
+            "stubFields": [
+              {
+                "label": "Clube",
+                "value": "{{number}}"
+              },
+              {
+                "label": "Agente",
+                "value": "{{agentId}}"
+              }
+            ],
+            "holderLabel": "Titular",
+            "holderEmpty": "seu e-mail aqui",
+            "code": "TORNEIO {{number}}",
+            "cut": "Destaca no picote ao tocar em Quero a grade",
+            "cutDone": "Destacado. Nos vemos na mesa.",
+            "stamp": "INSCRITO",
+            "stampSub": "GRADE {{number}}",
+            "nextTitle": "Bilhete destacado. Agora, o app.",
+            "nextText": "Abra o {{app}} pelo link do clube e procure o torneio na aba de torneios. Para se registrar, você precisa de fichas na conta do clube.",
+            "nextCta": "Abrir o app pelo link",
+            "nextHref": "{{inviteLink}}"
+          }
+        },
+        {
+          "type": "ingresso_fita",
+          "props": {
+            "anchor": "hoje",
+            "variant": "fita",
+            "title": "Hoje à noite.",
+            "meta": "Horário de Brasília",
+            "metaLink": "Ver a grade da semana",
+            "metaHref": "/grade",
+            "exemplo": true,
+            "items": [
+              {
+                "dia": "",
+                "hora": "18:00",
+                "nome": "Abertura da Noite",
+                "tipo": "NLH",
+                "rot1": "Buy-in",
+                "val1": "R$ 10",
+                "rot2": "Garantido",
+                "val2": "R$ 5.000"
+              },
+              {
+                "dia": "",
+                "hora": "18:30",
+                "nome": "Mini Turbo",
+                "tipo": "NLH · Turbo",
+                "rot1": "Buy-in",
+                "val1": "R$ 3",
+                "rot2": "Garantido",
+                "val2": "R$ 1.000"
+              },
+              {
+                "dia": "",
+                "hora": "19:00",
+                "nome": "Caça ao KO",
+                "tipo": "NLH · KO",
+                "rot1": "Buy-in",
+                "val1": "R$ 50",
+                "rot2": "Garantido",
+                "val2": "R$ 20.000",
+                "selo": "Principal"
+              },
+              {
+                "dia": "",
+                "hora": "19:30",
+                "nome": "Omaha das 19h30",
+                "tipo": "PLO 5",
+                "rot1": "Buy-in",
+                "val1": "R$ 30",
+                "rot2": "Garantido",
+                "val2": "R$ 8.000"
+              },
+              {
+                "dia": "",
+                "hora": "20:00",
+                "nome": "Deep da Noite",
+                "tipo": "NLH · Deep",
+                "rot1": "Buy-in",
+                "val1": "R$ 20",
+                "rot2": "Garantido",
+                "val2": "R$ 6.000"
+              },
+              {
+                "dia": "",
+                "hora": "21:00",
+                "nome": "Hyper das 21h",
+                "tipo": "NLH · Hyper",
+                "rot1": "Buy-in",
+                "val1": "R$ 5",
+                "rot2": "Garantido",
+                "val2": "R$ 1.500"
+              }
+            ],
+            "nota": "Garantido é o valor mínimo que o torneio distribui, definido por quem organiza no app. Nomes, horários e valores desta grade são de exemplo."
+          }
+        },
+        {
+          "type": "ingresso_termos",
+          "props": {
+            "variant": "tres-colunas",
+            "title": "Formatos em uma linha.",
+            "intro": "O nome do torneio costuma dizer o formato. Estes são os que mais aparecem na grade.",
+            "items": [
+              {
+                "termo": "Freezeout",
+                "sigla": "Sem recompra",
+                "texto": "Uma entrada só. Perdeu as fichas, está fora."
+              },
+              {
+                "termo": "Rebuy",
+                "sigla": "Recompra",
+                "texto": "Dá para comprar de novo no começo, dentro de um prazo."
+              },
+              {
+                "termo": "KO",
+                "sigla": "Knockout",
+                "texto": "Parte do prêmio vai para quem elimina outro jogador."
+              },
+              {
+                "termo": "Turbo",
+                "sigla": "Ritmo",
+                "texto": "Os blinds sobem mais rápido. Torneio mais curto."
+              },
+              {
+                "termo": "Deep",
+                "sigla": "Pilha",
+                "texto": "Começa com mais fichas. Torneio mais longo e mais jogado."
+              },
+              {
+                "termo": "Satélite",
+                "sigla": "Vaga",
+                "texto": "O prêmio é a vaga num torneio maior, não dinheiro."
+              }
+            ],
+            "cta": "Ver todos os formatos",
+            "ctaHref": "/formatos"
+          }
+        },
+        {
+          "type": "ingresso_tira",
+          "props": {
+            "title": "Como entrar num torneio.",
+            "items": [
+              {
+                "rot": "Canhoto 1 de 3",
+                "numero": "Link",
+                "title": "Abra o app pelo link",
+                "text": "Pelo link do clube você já cai no clube {{number}} com o agente {{agentId}}.",
+                "impresso": "Clube **{{number}}** | Agente **{{agentId}}**"
+              },
+              {
+                "rot": "Canhoto 2 de 3",
+                "numero": "PIX",
+                "title": "Tenha fichas na conta",
+                "text": "O buy-in sai das fichas do clube. Compre no canal oficial de fichas, por PIX."
+              },
+              {
+                "rot": "Canhoto 3 de 3",
+                "numero": "Reg",
+                "title": "Registre-se no torneio",
+                "text": "Na aba de torneios do app, escolha o horário e toque em registrar antes do fim do registro.",
+                "nota": "Atrasou? Muitos torneios aceitam registro tardio por um tempo."
+              }
+            ]
+          }
+        },
+        {
+          "type": "ingresso_selo",
+          "props": {
+            "variant": "papel",
+            "selo": "+18",
+            "aro": "Torneio tem hora para acabar · Jogue com responsabilidade",
+            "title": "Torneio tem hora para acabar. O seu limite também.",
+            "text": "Escolha **quantos torneios** vai jogar na noite e **quanto** vai gastar em buy-ins antes da primeira mão.",
+            "items": [
+              {
+                "text": "Defina o total de buy-ins da semana"
+              },
+              {
+                "text": "Não entre em torneio caro para recuperar um barato"
+              },
+              {
+                "text": "Sono vem antes do torneio da madrugada"
+              }
+            ],
+            "cta": "Ler as regras dos torneios",
+            "ctaHref": "/regras"
+          }
+        },
+        {
+          "type": "ingresso_final",
+          "props": {
+            "variant": "contorno",
+            "title": "Receba a grade e escolha o seu horário.",
+            "text": "**Clube {{number}} · Agente {{agentId}}** · +18 · Jogue com responsabilidade",
+            "cta": "Quero a grade",
+            "ctaHref": "#ingresso",
+            "secondary": "Regras dos torneios",
+            "secondaryHref": "/regras"
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "text": "Agenda de torneios do clube {{number}} no app {{app}}. Horários de Brasília. Grade de exemplo até o clube publicar a do dia.",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Grade",
+                "href": "/grade"
+              },
+              {
+                "label": "Formatos",
+                "href": "/formatos"
+              },
+              {
+                "label": "Regras",
+                "href": "/regras"
+              },
+              {
+                "label": "Suporte no WhatsApp",
+                "href": "{{whatsappLink}}"
+              }
+            ],
+            "disclaimer": "{{disclaimer}}"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "grade",
+      "title": "Grade",
+      "seo": {
+        "description": "Grade da semana de torneios do {{name}} no app {{app}}, em horário de Brasília. Grade de exemplo até a publicação da oficial."
+      },
+      "blocks": [
+        {
+          "type": "ingresso_topo",
+          "props": {
+            "brand": "{{name}}",
+            "logo": "{{logo}}",
+            "sub": "Torneios · +18",
+            "links": [
+              {
+                "label": "Grade",
+                "href": "/grade",
+                "vivo": true
+              },
+              {
+                "label": "Formatos",
+                "href": "/formatos",
+                "vivo": false
+              },
+              {
+                "label": "Regras",
+                "href": "/regras",
+                "vivo": false
+              }
+            ],
+            "cta": "Quero jogar",
+            "ctaHref": "/#ingresso"
+          }
+        },
+        {
+          "type": "ingresso_cabecalho",
+          "props": {
+            "variant": "faixa",
+            "title": "Grade da semana.",
+            "text": "Cada bilhete é um torneio. O clube troca esta grade de exemplo pela grade real; o horário é sempre o **de Brasília**.",
+            "campos": [
+              {
+                "label": "Fuso",
+                "value": "Brasília"
+              },
+              {
+                "label": "Clube",
+                "value": "{{number}}"
+              },
+              {
+                "label": "App",
+                "value": "{{app}}"
+              }
+            ],
+            "code": "GRADE {{number}}",
+            "miudas": "**+18** · Proibido para menores · **Jogue com responsabilidade**"
+          }
+        },
+        {
+          "type": "ingresso_fita",
+          "props": {
+            "variant": "grade",
+            "title": "Segunda a quinta",
+            "exemplo": true,
+            "items": [
+              {
+                "dia": "Segunda",
+                "hora": "19:00",
+                "nome": "Segunda Deep",
+                "tipo": "NLH · Deep",
+                "rot1": "Buy-in",
+                "val1": "R$ 20",
+                "rot2": "Garantido",
+                "val2": "R$ 5.000",
+                "nota": "Pilha inicial maior, bom para jogar com calma."
+              },
+              {
+                "dia": "Segunda",
+                "hora": "21:00",
+                "nome": "Turbo da Segunda",
+                "tipo": "NLH · Turbo",
+                "rot1": "Buy-in",
+                "val1": "R$ 5",
+                "rot2": "Garantido",
+                "val2": "R$ 1.000"
+              },
+              {
+                "dia": "Terça",
+                "hora": "19:30",
+                "nome": "Terça do Omaha",
+                "tipo": "PLO 5",
+                "rot1": "Buy-in",
+                "val1": "R$ 30",
+                "rot2": "Garantido",
+                "val2": "R$ 6.000",
+                "nota": "Cinco cartas na mão, pot-limit."
+              },
+              {
+                "dia": "Terça",
+                "hora": "22:00",
+                "nome": "Hyper da Terça",
+                "tipo": "NLH · Hyper",
+                "rot1": "Buy-in",
+                "val1": "R$ 3",
+                "rot2": "Garantido",
+                "val2": "R$ 800"
+              },
+              {
+                "dia": "Quarta",
+                "hora": "19:00",
+                "nome": "Caça ao KO",
+                "tipo": "NLH · KO",
+                "rot1": "Buy-in",
+                "val1": "R$ 50",
+                "rot2": "Garantido",
+                "val2": "R$ 15.000",
+                "selo": "Principal",
+                "nota": "Parte do prêmio vai para cada eliminação."
+              },
+              {
+                "dia": "Quarta",
+                "hora": "21:30",
+                "nome": "Satélite de Domingo",
+                "tipo": "NLH · Satélite",
+                "rot1": "Buy-in",
+                "val1": "R$ 10",
+                "rot2": "Garantido",
+                "val2": "5 vagas",
+                "nota": "O prêmio é a vaga no torneio de domingo."
+              },
+              {
+                "dia": "Quinta",
+                "hora": "19:00",
+                "nome": "Quinta Freezeout",
+                "tipo": "NLH · Freezeout",
+                "rot1": "Buy-in",
+                "val1": "R$ 25",
+                "rot2": "Garantido",
+                "val2": "R$ 7.000"
+              },
+              {
+                "dia": "Quinta",
+                "hora": "21:00",
+                "nome": "Mystery da Quinta",
+                "tipo": "NLH · KO",
+                "rot1": "Buy-in",
+                "val1": "R$ 15",
+                "rot2": "Garantido",
+                "val2": "R$ 4.000"
+              }
+            ]
+          }
+        },
+        {
+          "type": "ingresso_fita",
+          "props": {
+            "variant": "grade",
+            "title": "Sexta a domingo",
+            "exemplo": true,
+            "items": [
+              {
+                "dia": "Sexta",
+                "hora": "20:00",
+                "nome": "Sexta Principal",
+                "tipo": "NLH",
+                "rot1": "Buy-in",
+                "val1": "R$ 100",
+                "rot2": "Garantido",
+                "val2": "R$ 30.000",
+                "selo": "Principal"
+              },
+              {
+                "dia": "Sexta",
+                "hora": "22:30",
+                "nome": "Turbo da Madrugada",
+                "tipo": "NLH · Turbo",
+                "rot1": "Buy-in",
+                "val1": "R$ 10",
+                "rot2": "Garantido",
+                "val2": "R$ 2.000"
+              },
+              {
+                "dia": "Sábado",
+                "hora": "16:00",
+                "nome": "Sábado Deep",
+                "tipo": "NLH · Deep",
+                "rot1": "Buy-in",
+                "val1": "R$ 30",
+                "rot2": "Garantido",
+                "val2": "R$ 10.000"
+              },
+              {
+                "dia": "Sábado",
+                "hora": "20:00",
+                "nome": "Omaha de Sábado",
+                "tipo": "PLO 5 · KO",
+                "rot1": "Buy-in",
+                "val1": "R$ 50",
+                "rot2": "Garantido",
+                "val2": "R$ 12.000"
+              },
+              {
+                "dia": "Domingo",
+                "hora": "15:00",
+                "nome": "Domingo Principal",
+                "tipo": "NLH",
+                "rot1": "Buy-in",
+                "val1": "R$ 200",
+                "rot2": "Garantido",
+                "val2": "R$ 50.000",
+                "selo": "Principal",
+                "nota": "O satélite de quarta dá vaga neste torneio."
+              },
+              {
+                "dia": "Domingo",
+                "hora": "19:00",
+                "nome": "Encerramento",
+                "tipo": "NLH · Turbo",
+                "rot1": "Buy-in",
+                "val1": "R$ 10",
+                "rot2": "Garantido",
+                "val2": "R$ 3.000"
+              }
+            ],
+            "nota": "Garantido é o valor mínimo que o torneio distribui. Horários, buy-ins e garantidos desta página são de exemplo: confira sempre a grade dentro do app antes de se registrar."
+          }
+        },
+        {
+          "type": "ingresso_final",
+          "props": {
+            "variant": "papel",
+            "title": "Escolheu o torneio? Abra o app.",
+            "text": "Tenha fichas na conta antes do fim do registro. **+18** · Jogue com responsabilidade.",
+            "cta": "Abrir o app pelo link",
+            "ctaHref": "{{inviteLink}}"
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "text": "Agenda de torneios do clube {{number}} no app {{app}}. Horários de Brasília. Grade de exemplo até o clube publicar a do dia.",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Grade",
+                "href": "/grade"
+              },
+              {
+                "label": "Formatos",
+                "href": "/formatos"
+              },
+              {
+                "label": "Regras",
+                "href": "/regras"
+              },
+              {
+                "label": "Suporte no WhatsApp",
+                "href": "{{whatsappLink}}"
+              }
+            ],
+            "disclaimer": "{{disclaimer}}"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "formatos",
+      "title": "Formatos",
+      "seo": {
+        "description": "Formatos de torneio explicados: freezeout, rebuy, KO, turbo, deep, satélite e mais. Somente +18."
+      },
+      "blocks": [
+        {
+          "type": "ingresso_topo",
+          "props": {
+            "brand": "{{name}}",
+            "logo": "{{logo}}",
+            "sub": "Torneios · +18",
+            "links": [
+              {
+                "label": "Grade",
+                "href": "/grade",
+                "vivo": true
+              },
+              {
+                "label": "Formatos",
+                "href": "/formatos",
+                "vivo": false
+              },
+              {
+                "label": "Regras",
+                "href": "/regras",
+                "vivo": false
+              }
+            ],
+            "cta": "Quero jogar",
+            "ctaHref": "/#ingresso"
+          }
+        },
+        {
+          "type": "ingresso_cabecalho",
+          "props": {
+            "variant": "bilhete",
+            "serie": "Guia · formatos de torneio",
+            "code": "FORMATOS",
+            "title": "Formatos de torneio, sem complicar.",
+            "text": "O que muda de um torneio para outro: **como se entra**, **quanto tempo dura** e **como o prêmio é dividido**.",
+            "campos": [
+              {
+                "label": "Entrada",
+                "value": "Buy-in"
+              },
+              {
+                "label": "Ritmo",
+                "value": "Blinds"
+              },
+              {
+                "label": "Prêmio",
+                "value": "Estrutura"
+              },
+              {
+                "label": "Jogo",
+                "value": "NLH · PLO"
+              }
+            ],
+            "miudas": "**+18** · Jogue com responsabilidade"
+          }
+        },
+        {
+          "type": "ingresso_termos",
+          "props": {
+            "variant": "duas-colunas",
+            "title": "Os formatos da grade.",
+            "items": [
+              {
+                "termo": "Freezeout",
+                "sigla": "Entrada",
+                "texto": "Uma entrada só por jogador. Ficou sem fichas, está fora do torneio."
+              },
+              {
+                "termo": "Rebuy",
+                "sigla": "Entrada",
+                "texto": "Permite comprar fichas de novo no começo, dentro do período de recompra. Defina antes quantas recompras vai fazer."
+              },
+              {
+                "termo": "Add-on",
+                "sigla": "Entrada",
+                "texto": "Compra extra de fichas oferecida uma vez, geralmente no fim do período de recompra."
+              },
+              {
+                "termo": "Registro tardio",
+                "sigla": "Entrada",
+                "texto": "Tempo depois do início em que ainda dá para se registrar."
+              },
+              {
+                "termo": "Turbo",
+                "sigla": "Ritmo",
+                "texto": "Os blinds sobem mais rápido. Torneio mais curto, com menos tempo para cada decisão."
+              },
+              {
+                "termo": "Hyper",
+                "sigla": "Ritmo",
+                "texto": "Ainda mais rápido que o turbo. Pode acabar em menos de uma hora."
+              },
+              {
+                "termo": "Deep",
+                "sigla": "Ritmo",
+                "texto": "Pilha inicial maior que o normal. Torneio mais longo e mais jogado."
+              },
+              {
+                "termo": "KO",
+                "sigla": "Prêmio",
+                "texto": "Parte do buy-in vira recompensa por eliminar outro jogador. O resto forma o prêmio normal."
+              },
+              {
+                "termo": "Mystery KO",
+                "sigla": "Prêmio",
+                "texto": "A recompensa por eliminação tem valor sorteado, revelado na hora."
+              },
+              {
+                "termo": "Satélite",
+                "sigla": "Prêmio",
+                "texto": "O prêmio é a vaga num torneio maior, e não dinheiro."
+              },
+              {
+                "termo": "Garantido",
+                "sigla": "Prêmio",
+                "texto": "Valor mínimo que o torneio distribui, mesmo que entrem menos jogadores do que o esperado."
+              },
+              {
+                "termo": "PLO",
+                "sigla": "Jogo",
+                "texto": "Omaha pot-limit: cada jogador recebe quatro (ou cinco, no PLO 5) cartas e aposta até o tamanho do pote."
+              }
+            ]
+          }
+        },
+        {
+          "type": "ingresso_linhas",
+          "props": {
+            "title": "Qual formato combina com a sua noite?",
+            "items": [
+              {
+                "k": "Começando",
+                "v": "**Freezeout ou deep** com buy-in baixo: uma entrada só e tempo para pensar em cada mão."
+              },
+              {
+                "k": "Pouco tempo",
+                "v": "**Turbo ou hyper**: acabam mais cedo. Bom para jogar um e dormir."
+              },
+              {
+                "k": "Noite livre",
+                "v": "**Deep ou KO**: mais longos, com mais mãos jogadas."
+              },
+              {
+                "k": "Limite",
+                "v": "Em **rebuy**, decida antes quantas recompras vai fazer, e pare nelas."
+              }
+            ]
+          }
+        },
+        {
+          "type": "ingresso_final",
+          "props": {
+            "variant": "contorno",
+            "title": "Formato escolhido? Veja a grade.",
+            "text": "**+18** · Jogue com responsabilidade.",
+            "cta": "Ver a grade da semana",
+            "ctaHref": "/grade",
+            "secondary": "Regras dos torneios",
+            "secondaryHref": "/regras"
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "text": "Agenda de torneios do clube {{number}} no app {{app}}. Horários de Brasília. Grade de exemplo até o clube publicar a do dia.",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Grade",
+                "href": "/grade"
+              },
+              {
+                "label": "Formatos",
+                "href": "/formatos"
+              },
+              {
+                "label": "Regras",
+                "href": "/regras"
+              },
+              {
+                "label": "Suporte no WhatsApp",
+                "href": "{{whatsappLink}}"
+              }
+            ],
+            "disclaimer": "{{disclaimer}}"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "regras",
+      "title": "Regras",
+      "seo": {
+        "description": "Regras dos torneios do {{name}}: registro, horários, garantido, premiação, conduta e jogo responsável. Somente +18."
+      },
+      "blocks": [
+        {
+          "type": "ingresso_topo",
+          "props": {
+            "brand": "{{name}}",
+            "logo": "{{logo}}",
+            "sub": "Torneios · +18",
+            "links": [
+              {
+                "label": "Grade",
+                "href": "/grade",
+                "vivo": true
+              },
+              {
+                "label": "Formatos",
+                "href": "/formatos",
+                "vivo": false
+              },
+              {
+                "label": "Regras",
+                "href": "/regras",
+                "vivo": false
+              }
+            ],
+            "cta": "Quero jogar",
+            "ctaHref": "/#ingresso"
+          }
+        },
+        {
+          "type": "ingresso_cabecalho",
+          "props": {
+            "variant": "faixa",
+            "title": "Regras dos torneios.",
+            "text": "Valem para todos os torneios da grade. Quando o app mostra uma regra diferente para um torneio, **vale a do app**.",
+            "campos": [
+              {
+                "label": "Fuso",
+                "value": "Brasília"
+              },
+              {
+                "label": "Idade mínima",
+                "value": "18 anos"
+              },
+              {
+                "label": "Contas",
+                "value": "1 por pessoa"
+              }
+            ],
+            "code": "REGRAS {{number}}"
+          }
+        },
+        {
+          "type": "ingresso_clausulas",
+          "props": {
+            "title": "O regulamento, em oito regras.",
+            "cabEsq": "**Regulamento** · torneios",
+            "cabDir": "Clube {{number}} · {{app}}",
+            "prefixo": "Regra",
+            "items": [
+              {
+                "title": "Registro pelo app",
+                "text": "A inscrição é feita só dentro do {{app}}, na aba de torneios, com fichas da sua conta do clube."
+              },
+              {
+                "title": "Horário de Brasília",
+                "text": "Todos os horários da grade estão no horário de Brasília."
+              },
+              {
+                "title": "Registro tardio",
+                "text": "Quando o torneio aceita, dá para entrar depois do início. O prazo aparece no próprio torneio."
+              },
+              {
+                "title": "Garantido",
+                "text": "O garantido é o valor mínimo distribuído, definido por quem organiza o torneio no app."
+              },
+              {
+                "title": "Premiação",
+                "text": "Distribuída conforme a estrutura publicada no torneio, em fichas na conta do clube."
+              },
+              {
+                "title": "Desistência",
+                "text": "Depois do início, o buy-in não volta. Antes do início, siga o que o app permitir para cancelar o registro."
+              },
+              {
+                "title": "Conduta",
+                "text": "Proibido jogar em conluio, usar mais de uma conta ou ferramenta de ajuda em tempo real. Contas envolvidas podem ser bloqueadas."
+              },
+              {
+                "title": "Titularidade e idade",
+                "text": "Uma conta por pessoa, maior de 18 anos. Compra e saque sempre no PIX do CPF do titular."
+              }
+            ],
+            "assina": "Proibido para menores de 18 anos · **Jogue com responsabilidade**"
+          }
+        },
+        {
+          "type": "ingresso_selo",
+          "props": {
+            "variant": "fundo",
+            "selo": "+18",
+            "aro": "Jogue com responsabilidade · Proibido para menores",
+            "title": "A regra que vem antes de todas.",
+            "text": "Defina o seu limite de buy-ins **antes** da noite começar. Se ficou difícil parar, fale com o suporte: dá para pausar.",
+            "cta": "Falar com o suporte",
+            "ctaHref": "{{whatsappLink}}"
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "text": "Agenda de torneios do clube {{number}} no app {{app}}. Horários de Brasília. Grade de exemplo até o clube publicar a do dia.",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Grade",
+                "href": "/grade"
+              },
+              {
+                "label": "Formatos",
+                "href": "/formatos"
+              },
+              {
+                "label": "Regras",
+                "href": "/regras"
+              },
+              {
+                "label": "Suporte no WhatsApp",
+                "href": "{{whatsappLink}}"
+              }
+            ],
+            "disclaimer": "{{disclaimer}}"
+          }
+        }
+      ]
+    }
+  ]
+}
