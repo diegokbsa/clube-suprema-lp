@@ -1,0 +1,16 @@
+{
+  "id": "showdown-quem-mostra-primeiro",
+  "tipo": "Regras do poker",
+  "titulo": "Showdown no poker: quem mostra as cartas primeiro? #shorts",
+  "descricao": "Quem vira as cartas primeiro no showdown, o que muda quando todos passam no river e quando dá para esconder a mão que perdeu. No próximo vídeo: o que é straddle.\n\n18+ · Jogue com responsabilidade.\n\n#poker #pokeronline #texasholdem #supremapoker",
+  "post": "showdown-quem-mostra-primeiro",
+  "cenas": [
+    { "tela": "Showdown: **quem mostra primeiro?**", "fala": "Chegou no showdown. Quem mostra as cartas primeiro?", "imagem": "public/img/app-mesa.webp" },
+    { "passo": 1, "tela": "Teve aposta no river? **Quem apostou mostra**", "fala": "Se teve aposta no river, mostra primeiro quem fez a última aposta ou o último aumento." },
+    { "passo": 2, "tela": "Todos passaram? **O primeiro à esquerda do botão**", "fala": "Se todo mundo passou, mostra primeiro quem está mais à esquerda do botão." },
+    { "passo": 3, "tela": "Perdeu? Pode **descartar sem mostrar**", "fala": "Viu que perdeu? Em geral, você pode descartar as cartas sem mostrar." },
+    { "tela": "Mas cuidado: **carta descartada não volta**", "fala": "Mas cuidado: carta descartada não volta. Na dúvida, mostre." },
+    { "tela": "No poker, **as cartas falam**", "fala": "E lembre: vale a mão que está na mesa, não o que você anuncia." },
+    { "tela": "No próximo: **o que é straddle**. Segue o canal!", "fala": "No próximo vídeo, o que é straddle. Segue o canal!", "imagem": "public/img/app-mesa.webp" }
+  ]
+}
