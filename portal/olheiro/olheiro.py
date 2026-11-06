@@ -278,12 +278,12 @@ def rodar_juiz(est: dict, b: dict) -> None:
 # ---------------------------------------------------------------- nota para o Kbsa
 
 def nota_vault(b: dict) -> None:
-    rot = {"levar_ao_kbsa": "Para decidir com o Kbsa", "guardar": "Guardadas (boas, sem urgência)", "a_julgar": "Aguardando o juiz",
-           "guardada_kbsa": "Ideias do Kbsa guardadas para debater", "descartar": "Descartadas pelo juiz"}
+    rot = {"aprovada_kbsa": "Aprovadas pelo Kbsa (em construção)", "levar_ao_kbsa": "Para decidir com o Kbsa", "guardar": "Guardadas (boas, sem urgência)",
+           "a_julgar": "Aguardando o juiz", "guardada_kbsa": "Lista do Kbsa: guardadas para depois", "descartar": "Descartadas pelo juiz"}
     md = ["---", "type: ideias", "gerado_por: portal/olheiro/olheiro.py", f"atualizado: {iso()}", "---",
           "# Ideias para decidir (olheiros + filtro do Claude)", "",
           "Nota gerada a cada 30 min. Não edite à mão: as decisões do Kbsa ficam em `portal/olheiro/ideias.json`.", ""]
-    for s in ("guardada_kbsa", "levar_ao_kbsa", "guardar", "a_julgar", "descartar"):
+    for s in ("aprovada_kbsa", "levar_ao_kbsa", "guardada_kbsa", "guardar", "a_julgar", "descartar"):
         grupo = sorted((i for i in b["ideias"] if i["status"] == s), key=lambda i: -(i.get("nota") or 0))
         if not grupo:
             continue
