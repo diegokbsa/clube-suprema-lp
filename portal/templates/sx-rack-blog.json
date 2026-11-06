@@ -1,0 +1,829 @@
+{
+  "id": "sx-rack-blog",
+  "name": "Rack · Blog educativo (edição SX)",
+  "order": 5,
+  "version": 1,
+  "category": "Poker · edição SX",
+  "niches": [
+    "poker"
+  ],
+  "inspiredBy": "sx",
+  "description": "Conteúdo educativo no mundo Rack de fichas: capa com um guia por ficha, glossário em fichas, trilhas por nível e páginas de comece aqui, glossário e jogo responsável.",
+  "theme": {
+    "world": "rack",
+    "mode": "escuro",
+    "bg": "#120e09",
+    "surface": "#1c160e",
+    "text": "#f1e9dc",
+    "muted": "#c3b4a0",
+    "primary": "#efa144",
+    "primaryText": "#040404",
+    "accent": "#f2e4c4",
+    "border": "#3a2d1b",
+    "font": "Montserrat",
+    "fontHead": "Antonio",
+    "radius": 14
+  },
+  "seo": {
+    "title": "{{name}} · Guias de poker",
+    "description": "Guias de poker sem enrolação: regras, mesa, torneios, fichas por PIX e jogo responsável. Do {{name}}, no app {{app}}. Somente +18."
+  },
+  "pages": [
+    {
+      "slug": "",
+      "title": "Início",
+      "blocks": [
+        {
+          "type": "rack_topo",
+          "props": {
+            "brand": "{{name}}",
+            "sub": "Guias de poker · Clube {{number}}",
+            "links": [
+              {
+                "label": "Comece aqui",
+                "href": "/comece-aqui"
+              },
+              {
+                "label": "Glossário",
+                "href": "/glossario"
+              },
+              {
+                "label": "Jogo responsável",
+                "href": "/jogo-responsavel"
+              },
+              {
+                "label": "Blog",
+                "href": "/blog"
+              }
+            ],
+            "cta": "Entrar no clube",
+            "ctaHref": "{{inviteLink}}"
+          }
+        },
+        {
+          "type": "rack_guias",
+          "props": {
+            "variant": "capa",
+            "title": "Poker sem enrolação",
+            "subtitle": "Guias curtos para quem nunca jogou e para quem quer jogar melhor. **Uma ficha por assunto**, do primeiro blind ao saque por PIX.",
+            "items": [
+              {
+                "color": "marca",
+                "tag": "Comece aqui",
+                "title": "Do zero à primeira mão",
+                "text": "O caminho inteiro: baixar o {{app}}, entrar no clube, comprar fichas e sentar na mesa.",
+                "href": "/comece-aqui",
+                "time": "6 min"
+              },
+              {
+                "color": "creme",
+                "tag": "Regras",
+                "title": "O ranking das mãos",
+                "text": "Da carta alta ao royal flush, na ordem, com o que forma cada uma.",
+                "href": "/comece-aqui#maos",
+                "time": "4 min"
+              },
+              {
+                "color": "ouro",
+                "tag": "Mesa",
+                "title": "Blinds, botão e a ordem de jogada",
+                "text": "Quem fala primeiro, por que o botão importa e o que são small e big blind.",
+                "href": "/glossario#blind",
+                "time": "5 min"
+              },
+              {
+                "color": "cobre",
+                "tag": "Torneio",
+                "title": "Freezeout, rebuy ou KO?",
+                "text": "Os formatos de torneio explicados sem jargão.",
+                "href": "/glossario#rebuy",
+                "time": "4 min"
+              },
+              {
+                "color": "preta",
+                "tag": "Fichas",
+                "title": "Comprar e sacar por PIX",
+                "text": "Que dados ter à mão e por que o saque vai só para o seu CPF.",
+                "href": "/comece-aqui#fichas",
+                "time": "3 min"
+              },
+              {
+                "color": "creme",
+                "tag": "Cabeça",
+                "title": "Limite antes de sentar",
+                "text": "Como decidir quanto jogar e reconhecer a hora de parar.",
+                "href": "/jogo-responsavel",
+                "time": "3 min"
+              }
+            ],
+            "link": "Ver todos os posts do blog",
+            "linkHref": "/blog"
+          }
+        },
+        {
+          "type": "rack_fatos",
+          "props": {
+            "variant": "glossario",
+            "title": "Cinco palavras para entender a mesa",
+            "subtitle": "Se você souber estas, já acompanha qualquer mão.",
+            "link": "Abrir o glossário completo",
+            "linkHref": "/glossario",
+            "items": [
+              {
+                "term": "Blind",
+                "title": "A aposta obrigatória.",
+                "text": "Dois jogadores apostam antes de ver as cartas (small e big blind) para a mão ter o que disputar."
+              },
+              {
+                "term": "Buy-in",
+                "title": "O valor para entrar.",
+                "text": "Quanto custa a inscrição num torneio ou o mínimo para sentar numa mesa."
+              },
+              {
+                "term": "Stack",
+                "title": "A sua pilha de fichas.",
+                "text": "Quantas fichas você tem na mesa naquele momento."
+              },
+              {
+                "term": "Pote",
+                "title": "O que está em jogo.",
+                "text": "A soma das apostas da mão. Quem ganha a mão leva o pote."
+              },
+              {
+                "term": "All-in",
+                "title": "Tudo na mesa.",
+                "text": "Apostar todas as fichas que você tem. Só faça sabendo o que está arriscando."
+              }
+            ]
+          }
+        },
+        {
+          "type": "rack_rack",
+          "props": {
+            "title": "Escolha por onde começar",
+            "subtitle": "Três trilhas, do jeito que você chega à mesa.",
+            "items": [
+              {
+                "label": "Nunca joguei",
+                "color": "creme",
+                "size": "34",
+                "text": "Comece pelo ranking das mãos e pela ordem de jogada. Depois, o caminho até o clube.",
+                "href": "/comece-aqui"
+              },
+              {
+                "label": "Jogo com amigos",
+                "color": "ouro",
+                "size": "62",
+                "text": "Veja como os blinds funcionam no online e os formatos de torneio.",
+                "href": "/glossario"
+              },
+              {
+                "label": "Já jogo online",
+                "color": "marca",
+                "size": "90",
+                "text": "Vá direto para fichas por PIX, saque no seu CPF e jogo responsável.",
+                "href": "/comece-aqui#fichas"
+              }
+            ],
+            "note": "A fileira cresce com a experiência: é só um jeito de desenhar o caminho."
+          }
+        },
+        {
+          "type": "rack_final",
+          "props": {
+            "anchor": "receber",
+            "variant": "torres",
+            "title": "Um guia novo no seu e-mail",
+            "text": "Quando sair guia novo, você recebe. Junto, o link do clube para colocar em prática.",
+            "fields": "email",
+            "button": "Quero receber",
+            "success": "Pronto! O próximo guia chega no seu e-mail.",
+            "consent": "Concordo em receber guias e avisos do clube por e-mail. Posso sair quando quiser.",
+            "note": "Sem spam. **Dá para sair quando quiser.**",
+            "aviso18": "Conteúdo para maiores de 18 · Jogue com responsabilidade"
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "text": "Guias de poker do Clube {{number}} no app {{app}}. Conteúdo educativo, sem promessa de ganho.",
+            "links": [
+              {
+                "label": "Comece aqui",
+                "href": "/comece-aqui"
+              },
+              {
+                "label": "Glossário",
+                "href": "/glossario"
+              },
+              {
+                "label": "Jogo responsável",
+                "href": "/jogo-responsavel"
+              },
+              {
+                "label": "Blog",
+                "href": "/blog"
+              }
+            ],
+            "disclaimer": "Somente maiores de 18 anos. Jogue com responsabilidade. Este site não pede senha do app nem documentos."
+          }
+        }
+      ]
+    },
+    {
+      "slug": "comece-aqui",
+      "title": "Comece aqui",
+      "seo": {
+        "description": "Comece no poker: as regras do Texas Hold'em, o ranking das mãos e o caminho até a mesa no app {{app}}."
+      },
+      "blocks": [
+        {
+          "type": "rack_topo",
+          "props": {
+            "brand": "{{name}}",
+            "sub": "Guias de poker · Clube {{number}}",
+            "links": [
+              {
+                "label": "Comece aqui",
+                "href": "/comece-aqui"
+              },
+              {
+                "label": "Glossário",
+                "href": "/glossario"
+              },
+              {
+                "label": "Jogo responsável",
+                "href": "/jogo-responsavel"
+              },
+              {
+                "label": "Blog",
+                "href": "/blog"
+              }
+            ],
+            "cta": "Entrar no clube",
+            "ctaHref": "{{inviteLink}}"
+          }
+        },
+        {
+          "type": "rack_pagina",
+          "props": {
+            "variant": "selo",
+            "back": "Início",
+            "backHref": "/",
+            "title": "Comece aqui",
+            "text": "Tudo o que você precisa para jogar a primeira mão no **{{app}}**: as regras em cinco minutos e o caminho até o clube.",
+            "sealTop": "Clube",
+            "sealNumber": "{{number}}"
+          }
+        },
+        {
+          "type": "text",
+          "props": {
+            "variant": "estreito",
+            "title": "O jogo em três parágrafos",
+            "body": "No Texas Hold'em, cada jogador recebe duas cartas fechadas. Depois, cinco cartas comunitárias vão para a mesa em três etapas: o flop (três cartas), o turn (uma) e o river (mais uma).\n\nEm cada etapa há uma rodada de apostas: você pode passar (check), pagar (call), aumentar (raise) ou desistir (fold).\n\nGanha quem formar a melhor mão de cinco cartas, juntando as suas com as da mesa, ou quem fizer todos os outros desistirem."
+          }
+        },
+        {
+          "type": "rack_fatos",
+          "props": {
+            "anchor": "maos",
+            "variant": "glossario",
+            "title": "O ranking das mãos",
+            "subtitle": "Da mais forte para a mais fraca.",
+            "items": [
+              {
+                "term": "Royal flush",
+                "title": "A, K, Q, J e 10 do mesmo naipe.",
+                "text": "A mão mais forte do jogo."
+              },
+              {
+                "term": "Straight flush",
+                "title": "Sequência do mesmo naipe.",
+                "text": "Cinco cartas seguidas, todas de um naipe."
+              },
+              {
+                "term": "Quadra",
+                "title": "Quatro cartas iguais.",
+                "text": "Por exemplo, quatro reis."
+              },
+              {
+                "term": "Full house",
+                "title": "Trinca mais par.",
+                "text": "Três cartas iguais e mais duas iguais."
+              },
+              {
+                "term": "Flush",
+                "title": "Cinco do mesmo naipe.",
+                "text": "Fora de ordem; vale a carta mais alta."
+              },
+              {
+                "term": "Sequência",
+                "title": "Cinco cartas seguidas.",
+                "text": "De naipes diferentes."
+              },
+              {
+                "term": "Trinca",
+                "title": "Três cartas iguais.",
+                "text": "Por exemplo, três setes."
+              },
+              {
+                "term": "Dois pares",
+                "title": "Dois pares diferentes.",
+                "text": "Por exemplo, dois valetes e dois cincos."
+              },
+              {
+                "term": "Par",
+                "title": "Duas cartas iguais.",
+                "text": "A mão feita mais comum."
+              },
+              {
+                "term": "Carta alta",
+                "title": "Nenhuma combinação.",
+                "text": "Vale a carta mais alta da mão."
+              }
+            ]
+          }
+        },
+        {
+          "type": "rack_passos",
+          "props": {
+            "anchor": "fichas",
+            "variant": "pilha",
+            "title": "Do zero à mesa",
+            "subtitle": "Quatro fichas até a primeira mão no clube.",
+            "items": [
+              {
+                "value": "@",
+                "unit": "e-mail",
+                "color": "creme",
+                "title": "Deixe seu e-mail.",
+                "text": "É por ele que chega o link do clube."
+              },
+              {
+                "value": "APP",
+                "unit": "grátis",
+                "color": "ouro",
+                "title": "Baixe o {{app}}.",
+                "text": "Na loja oficial do seu celular, e crie a conta no próprio app."
+              },
+              {
+                "value": "LINK",
+                "unit": "do clube",
+                "color": "cobre",
+                "title": "Abra o app pelo link.",
+                "text": "Você entra no **Clube {{number}}** com o agente **{{agentId}}**."
+              },
+              {
+                "value": "PIX",
+                "unit": "fichas",
+                "color": "preta",
+                "title": "Compre fichas por PIX.",
+                "text": "No canal de fichas. O saque também é por lá, na chave PIX do seu CPF."
+              }
+            ]
+          }
+        },
+        {
+          "type": "rack_comanda",
+          "props": {
+            "variant": "cartao",
+            "title": "Na primeira compra, tenha à mão",
+            "subtitle": "O atendente do canal de fichas pede estes três dados.",
+            "items": [
+              {
+                "label": "ID do jogador",
+                "value": "No perfil",
+                "note": "toque na sua foto no app"
+              },
+              {
+                "label": "Clube",
+                "value": "{{number}}"
+              },
+              {
+                "label": "Agente",
+                "value": "{{agentId}}"
+              }
+            ],
+            "cta": "Entrar no clube",
+            "ctaHref": "{{inviteLink}}",
+            "note": "Somente maiores de 18 anos"
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "text": "Guias de poker do Clube {{number}} no app {{app}}. Conteúdo educativo, sem promessa de ganho.",
+            "links": [
+              {
+                "label": "Comece aqui",
+                "href": "/comece-aqui"
+              },
+              {
+                "label": "Glossário",
+                "href": "/glossario"
+              },
+              {
+                "label": "Jogo responsável",
+                "href": "/jogo-responsavel"
+              },
+              {
+                "label": "Blog",
+                "href": "/blog"
+              }
+            ],
+            "disclaimer": "Somente maiores de 18 anos. Jogue com responsabilidade. Este site não pede senha do app nem documentos."
+          }
+        }
+      ]
+    },
+    {
+      "slug": "glossario",
+      "title": "Glossário",
+      "seo": {
+        "description": "Glossário de poker: blind, stack, pote, buy-in, rebuy, KO e os termos do clube, explicados em uma linha."
+      },
+      "blocks": [
+        {
+          "type": "rack_topo",
+          "props": {
+            "brand": "{{name}}",
+            "sub": "Guias de poker · Clube {{number}}",
+            "links": [
+              {
+                "label": "Comece aqui",
+                "href": "/comece-aqui"
+              },
+              {
+                "label": "Glossário",
+                "href": "/glossario"
+              },
+              {
+                "label": "Jogo responsável",
+                "href": "/jogo-responsavel"
+              },
+              {
+                "label": "Blog",
+                "href": "/blog"
+              }
+            ],
+            "cta": "Entrar no clube",
+            "ctaHref": "{{inviteLink}}"
+          }
+        },
+        {
+          "type": "rack_pagina",
+          "props": {
+            "variant": "faixa",
+            "back": "Início",
+            "backHref": "/",
+            "title": "Glossário",
+            "title2": "da mesa",
+            "text": "Os termos que aparecem na mesa, no torneio e no clube, explicados em uma linha.",
+            "stacks": [
+              {
+                "color": "ouro",
+                "size": "88"
+              },
+              {
+                "color": "creme",
+                "size": "66"
+              },
+              {
+                "color": "cobre",
+                "size": "50"
+              }
+            ]
+          }
+        },
+        {
+          "type": "rack_fatos",
+          "props": {
+            "variant": "glossario",
+            "title": "Na mesa",
+            "items": [
+              {
+                "term": "Blind",
+                "title": "Aposta obrigatória.",
+                "text": "Small blind e big blind apostam antes das cartas, e a posição deles gira a cada mão."
+              },
+              {
+                "term": "Botão",
+                "title": "A posição do dealer.",
+                "text": "Quem está no botão fala por último depois do flop: é a melhor posição da mesa."
+              },
+              {
+                "term": "Stack",
+                "title": "Sua pilha de fichas.",
+                "text": "O total de fichas que você tem na mesa."
+              },
+              {
+                "term": "Pote",
+                "title": "A soma das apostas.",
+                "text": "Quem vence a mão leva o pote."
+              },
+              {
+                "term": "Flop, turn e river",
+                "title": "As cartas da mesa.",
+                "text": "Três, depois uma, depois mais uma."
+              },
+              {
+                "term": "Check",
+                "title": "Passar a vez.",
+                "text": "Só quando ninguém apostou antes de você na rodada."
+              },
+              {
+                "term": "Call",
+                "title": "Pagar a aposta.",
+                "text": "Colocar o mesmo valor que o último jogador apostou."
+              },
+              {
+                "term": "Raise",
+                "title": "Aumentar.",
+                "text": "Apostar mais do que a aposta atual."
+              },
+              {
+                "term": "Fold",
+                "title": "Desistir da mão.",
+                "text": "Você perde o que já apostou, e nada mais."
+              },
+              {
+                "term": "All-in",
+                "title": "Todas as fichas.",
+                "text": "Apostar o stack inteiro de uma vez."
+              }
+            ]
+          }
+        },
+        {
+          "type": "rack_fatos",
+          "props": {
+            "variant": "glossario",
+            "title": "No torneio",
+            "items": [
+              {
+                "term": "Buy-in",
+                "title": "A inscrição.",
+                "text": "O valor para entrar no torneio."
+              },
+              {
+                "term": "Garantido",
+                "title": "Prêmio mínimo.",
+                "text": "O torneio paga pelo menos esse valor, mesmo com poucos inscritos."
+              },
+              {
+                "term": "Freezeout",
+                "title": "Sem recompra.",
+                "text": "Uma vida só."
+              },
+              {
+                "term": "Rebuy",
+                "title": "Recompra.",
+                "text": "Comprar fichas de novo no começo do torneio."
+              },
+              {
+                "term": "Add-on",
+                "title": "Fichas extras.",
+                "text": "Uma pilha a mais no fim do período de rebuy."
+              },
+              {
+                "term": "KO",
+                "title": "Prêmio por eliminação.",
+                "text": "Também chamado de bounty."
+              }
+            ]
+          }
+        },
+        {
+          "type": "rack_fatos",
+          "props": {
+            "variant": "glossario",
+            "title": "No clube",
+            "items": [
+              {
+                "term": "ID do jogador",
+                "title": "O seu número no app.",
+                "text": "Fica no perfil do {{app}}; o canal de fichas pede ele."
+              },
+              {
+                "term": "ID do clube",
+                "title": "O número do clube.",
+                "text": "O deste clube é {{number}}."
+              },
+              {
+                "term": "Agente",
+                "title": "Quem cuida dos jogadores.",
+                "text": "O agente deste clube é {{agentId}}."
+              },
+              {
+                "term": "Canal de fichas",
+                "title": "Onde se compra e saca.",
+                "text": "Por PIX, com atendente; o saque vai para a chave do seu CPF."
+              }
+            ]
+          }
+        },
+        {
+          "type": "cta",
+          "props": {
+            "variant": "escuro",
+            "title": "Entendeu o jogo?",
+            "text": "Hora de colocar em prática no clube, com o valor que você decidir.",
+            "cta": "Entrar no clube",
+            "ctaHref": "{{inviteLink}}"
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "text": "Guias de poker do Clube {{number}} no app {{app}}. Conteúdo educativo, sem promessa de ganho.",
+            "links": [
+              {
+                "label": "Comece aqui",
+                "href": "/comece-aqui"
+              },
+              {
+                "label": "Glossário",
+                "href": "/glossario"
+              },
+              {
+                "label": "Jogo responsável",
+                "href": "/jogo-responsavel"
+              },
+              {
+                "label": "Blog",
+                "href": "/blog"
+              }
+            ],
+            "disclaimer": "Somente maiores de 18 anos. Jogue com responsabilidade. Este site não pede senha do app nem documentos."
+          }
+        }
+      ]
+    },
+    {
+      "slug": "jogo-responsavel",
+      "title": "Jogo responsável",
+      "seo": {
+        "description": "Jogo responsável: três perguntas antes de sentar, sinais de alerta e onde buscar ajuda. Somente maiores de 18 anos."
+      },
+      "blocks": [
+        {
+          "type": "rack_topo",
+          "props": {
+            "brand": "{{name}}",
+            "sub": "Guias de poker · Clube {{number}}",
+            "links": [
+              {
+                "label": "Comece aqui",
+                "href": "/comece-aqui"
+              },
+              {
+                "label": "Glossário",
+                "href": "/glossario"
+              },
+              {
+                "label": "Jogo responsável",
+                "href": "/jogo-responsavel"
+              },
+              {
+                "label": "Blog",
+                "href": "/blog"
+              }
+            ],
+            "cta": "Entrar no clube",
+            "ctaHref": "{{inviteLink}}"
+          }
+        },
+        {
+          "type": "rack_pagina",
+          "props": {
+            "variant": "faixa",
+            "back": "Início",
+            "backHref": "/",
+            "title": "Jogo",
+            "title2": "responsável",
+            "text": "Poker é jogo para maiores de 18 anos, com dinheiro de verdade. Por isso o guia mais importante deste site é este.",
+            "stacks": [
+              {
+                "color": "creme",
+                "size": "40"
+              },
+              {
+                "color": "ouro",
+                "size": "40"
+              },
+              {
+                "color": "preta",
+                "size": "40"
+              }
+            ]
+          }
+        },
+        {
+          "type": "rack_passos",
+          "props": {
+            "variant": "horizontal",
+            "title": "Três perguntas antes de sentar",
+            "items": [
+              {
+                "value": "R$",
+                "unit": "limite",
+                "color": "creme",
+                "title": "Quanto posso perder sem fazer falta?",
+                "text": "Esse é o seu limite do dia. Chegou nele, levanta."
+              },
+              {
+                "value": "1h",
+                "unit": "tempo",
+                "color": "ouro",
+                "title": "Quanto tempo vou jogar?",
+                "text": "Combine com você mesmo antes de abrir o app, e respeite o horário."
+              },
+              {
+                "value": "OK?",
+                "unit": "cabeça",
+                "color": "preta",
+                "title": "Estou bem para jogar?",
+                "text": "Cansado, irritado ou depois de beber, a decisão piora. Fica para outro dia."
+              }
+            ]
+          }
+        },
+        {
+          "type": "rack_fatos",
+          "props": {
+            "variant": "fatos",
+            "title": "Sinais de alerta",
+            "subtitle": "Se algum destes aparecer, é hora de parar.",
+            "items": [
+              {
+                "term": "Mais",
+                "title": "Joga mais do que decidiu.",
+                "text": "Em tempo ou em dinheiro."
+              },
+              {
+                "term": "Volta",
+                "title": "Volta para recuperar.",
+                "text": "Tentar ganhar de volta o que perdeu costuma aumentar a perda."
+              },
+              {
+                "term": "Esconde",
+                "title": "Esconde quanto joga.",
+                "text": "De quem mora com você ou de quem você gosta."
+              },
+              {
+                "term": "Atrapalha",
+                "title": "O jogo atrapalha a vida.",
+                "text": "Trabalho, sono, contas ou família."
+              }
+            ]
+          }
+        },
+        {
+          "type": "text",
+          "props": {
+            "variant": "estreito",
+            "title": "Onde buscar ajuda",
+            "body": "Se o jogo deixou de ser diversão, fale com alguém. O CVV (Centro de Valorização da Vida) atende de graça, 24 horas, pelo telefone 188 ou pelo site cvv.org.br. Os grupos de Jogadores Anônimos também têm reuniões pelo Brasil.\n\nNo clube, você pode pedir para sair a qualquer momento pelo suporte."
+          }
+        },
+        {
+          "type": "notice",
+          "props": {
+            "variant": "alerta",
+            "text": "Somente maiores de 18 anos. Jogue com responsabilidade. Nenhum guia deste site é promessa de ganho."
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "text": "Guias de poker do Clube {{number}} no app {{app}}. Conteúdo educativo, sem promessa de ganho.",
+            "links": [
+              {
+                "label": "Comece aqui",
+                "href": "/comece-aqui"
+              },
+              {
+                "label": "Glossário",
+                "href": "/glossario"
+              },
+              {
+                "label": "Jogo responsável",
+                "href": "/jogo-responsavel"
+              },
+              {
+                "label": "Blog",
+                "href": "/blog"
+              }
+            ],
+            "disclaimer": "Somente maiores de 18 anos. Jogue com responsabilidade. Este site não pede senha do app nem documentos."
+          }
+        }
+      ]
+    }
+  ]
+}
