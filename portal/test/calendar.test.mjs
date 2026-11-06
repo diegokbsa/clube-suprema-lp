@@ -192,6 +192,11 @@ test('fuso com horário de verão: o espaço cai na hora certa do relógio local
   assert.equal(meiaNoiteInexistente.toISOString(), '2026-09-06T04:00:00.000Z', 'avança para 01:00, o primeiro horário válido');
   assert.equal(diaLocal('America/Santiago', meiaNoiteInexistente), '2026-09-06', 'o espaço não volta para o dia anterior');
   assert.equal(horaLocal('America/Santiago', meiaNoiteInexistente), '01:00');
+
+  const horarioAposVirada = instanteLocal('America/Santiago', '2026-04-05', '01:30');
+  assert.equal(horarioAposVirada.toISOString(), '2026-04-05T05:30:00.000Z', 'a segunda passada corrige o deslocamento quando o relógio volta à meia-noite');
+  assert.equal(diaLocal('America/Santiago', horarioAposVirada), '2026-04-05');
+  assert.equal(horaLocal('America/Santiago', horarioAposVirada), '01:30');
 });
 
 test('agendar exige legenda e conta conectada; publicado e erro ficam fora da geração', async () => {
