@@ -29,7 +29,7 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 // dados de exemplo por nicho (fictícios, só para a foto)
 const EXEMPLO = {
-  poker: { name: 'Clube 123123', number: '123123', settings: { app: 'Suprema Poker', agentId: '000000', tagline: 'Mesas 24h, fichas na hora e suporte de verdade.' } },
+  poker: { name: 'Clube 123123', number: '123123', settings: { app: 'Suprema Poker', agentId: '000000', whatsapp: '5511900000000', tagline: 'Mesas 24h, fichas na hora e suporte de verdade.' } },
   loja: { name: 'Loja Exemplo', number: '', settings: { coupon: 'BEMVINDO10', tagline: 'Ofertas conferidas todo dia.' } },
   criador: { name: 'Canal Exemplo', number: '', settings: { tagline: 'Conteúdo, comunidade e eventos.' } },
   saas: { name: 'App Exemplo', number: '', settings: { product: 'CRM para clínicas', tagline: 'Teste grátis por 14 dias.' } },
