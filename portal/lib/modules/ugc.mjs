@@ -132,7 +132,7 @@ const PAUTAS = {
   generico: {
     youtube: [P('Tutorial rápido: o recurso mais usado', 'Em 40 segundos você aprende isso.'), P('O erro mais comum de quem começa', 'Quase todo mundo erra nisso no começo.'),
       P('Perguntas frequentes respondidas', 'A pergunta que mais chega para a gente.'), P('Como escolher a opção certa para você', 'Três perguntas antes de decidir.'),
-      P('Antes e depois: um caso real descrito sem números inventados', 'O que muda na prática.'), P('Por dentro: como funciona por trás', 'O bastidor que pouca gente vê.'),
+      P('Antes e depois: o que muda na prática', 'Um caso de verdade, sem número inventado.'), P('Por dentro: como funciona por trás', 'O bastidor que pouca gente vê.'),
       P('Glossário em 1 minuto', 'Cinco palavras que você vai ouvir muito.')],
     instagram: [P('Bastidor da semana', 'Um pedaço do que acontece por aqui.'), P('Enquete: o que você quer ver amanhã?', 'Você escolhe o próximo post.'),
       P('Carrossel: 5 dicas rápidas', 'Salva para consultar depois.'), P('Novidade da semana', 'Chegou coisa nova.'),

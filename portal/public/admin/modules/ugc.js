@@ -50,9 +50,9 @@ const CSS = `
 .ugc .rec-row strong { font-size: 13.5px; }
 .ugc .rec-row small { color: var(--ink-3); display: block; font-size: 12px; }
 .ugc .tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--line); }
-.ugc .tab { appearance: none; border: 0; background: none; font: 650 13.5px var(--font); color: var(--ink-3); padding: 10px 14px; min-height: 44px; border-bottom: 2px solid transparent; margin-bottom: -1px; cursor: pointer; display: inline-flex; align-items: center; gap: 7px; }
+.ugc .tab { appearance: none; border: 0; background: none; font: 650 13.5px var(--font); color: var(--ink-3); padding: 10px 14px; min-height: 44px; border-bottom: 2px solid transparent; margin-bottom: -1px; cursor: pointer; display: inline-flex; align-items: center; }
 .ugc .tab.on { color: var(--ink-strong); border-bottom-color: var(--brand); }
-.ugc .tab .n { font: 600 11px var(--mono); background: var(--bg); border: 1px solid var(--line); border-radius: 999px; padding: 1px 7px; color: var(--ink-2); }
+.ugc .tab .n { margin-left: 7px; font: 600 11px var(--mono); background: var(--bg); border: 1px solid var(--line); border-radius: 999px; padding: 1px 7px; color: var(--ink-2); }
 .ugc .toolbar { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
 .ugc .week { display: inline-flex; align-items: center; border: 1px solid var(--line-2); border-radius: 8px; background: var(--panel); }
 .ugc .week button { appearance: none; border: 0; background: none; min-width: 36px; min-height: 36px; font: 600 15px var(--font); color: var(--ink-2); cursor: pointer; }
@@ -62,14 +62,21 @@ const CSS = `
 .ugc .day.hoje h3 { color: var(--brand-2); }
 .ugc .day.hoje h3::after { content: 'hoje'; font-size: 10.5px; background: var(--info-soft); color: var(--info); padding: 1px 7px; border-radius: 999px; letter-spacing: .04em; }
 .ugc .items { display: grid; gap: 6px; }
-.ugc .item { display: grid; grid-template-columns: 4px minmax(0, 1fr) auto; gap: 12px; align-items: center; background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px 10px 0; }
+.ugc .item { display: grid; grid-template-columns: 4px 150px minmax(0, 1fr) auto auto; gap: 14px; align-items: center; background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 8px 10px 8px 0; }
 .ugc .item .bar { align-self: stretch; background: var(--net); border-radius: 0 4px 4px 0; }
 .ugc .item .t { display: grid; gap: 2px; }
 .ugc .item .t strong { font-size: 14px; color: var(--ink-strong); }
 .ugc .item .t em { font-style: normal; color: var(--ink-3); font-size: 12.5px; }
 .ugc .item .meta { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; font-size: 12px; color: var(--ink-3); }
 .ugc .item .acts { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; justify-content: flex-end; }
-.ugc .who-line { font-weight: 650; color: var(--net); font-size: 12px; }
+.ugc .who-line { font-weight: 650; color: var(--net); font-size: 12px; line-height: 1.3; }
+.ugc .item .who-line small { display: block; color: var(--ink-3); font-weight: 500; }
+.ugc .how { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border: 1px solid var(--line); border-radius: var(--radius); background: var(--panel); }
+.ugc .how div { padding: 14px 16px; border-left: 1px solid var(--line); display: grid; gap: 4px; align-content: start; }
+.ugc .how div:first-child { border-left: 0; }
+.ugc .how b { font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--brand-2); }
+.ugc .how strong { color: var(--ink-strong); font-size: 14px; }
+.ugc .how span { color: var(--ink-3); font-size: 12.5px; }
 .ugc .filters { display: flex; gap: 6px; flex-wrap: wrap; }
 .ugc .chip { appearance: none; border: 1px solid var(--line-2); background: var(--panel); border-radius: 999px; padding: 0 12px; min-height: 34px; font: 600 12.5px var(--font); color: var(--ink-2); cursor: pointer; display: inline-flex; gap: 6px; align-items: center; }
 .ugc .chip.on { background: var(--ink-strong); color: var(--panel); border-color: var(--ink-strong); }
@@ -82,6 +89,8 @@ const CSS = `
 .ugc .peca-body { border-top: 1px solid var(--line); padding: 14px; display: grid; gap: 12px; }
 .ugc .fields { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 12px; }
 .ugc .fields .wide { grid-column: 1 / -1; }
+.ugc .fields > * { align-content: start; }
+.ugc [role=tabpanel] { display: grid; gap: 14px; }
 .ugc .pf { display: grid; gap: 6px; font-size: 13px; }
 .ugc .pf-row { display: flex; gap: 8px; align-items: flex-start; padding: 8px 10px; border-radius: 8px; }
 .ugc .pf-row.bad { background: var(--bad-soft); color: var(--bad); }
@@ -111,7 +120,7 @@ const CSS = `
 dialog.ugc-dlg { width: min(760px, calc(100% - 24px)); max-height: calc(100vh - 24px); }
 dialog.ugc-dlg form { padding: 0; gap: 0; }
 dialog.ugc-dlg .dlg-head { padding: 18px 20px 12px; display: grid; gap: 4px; border-bottom: 1px solid var(--line); }
-dialog.ugc-dlg .dlg-body { padding: 16px 20px; display: grid; gap: 14px; overflow-y: auto; max-height: calc(100vh - 210px); }
+dialog.ugc-dlg .dlg-body { padding: 16px 20px; display: grid; gap: 14px; align-content: start; overflow-y: auto; max-height: calc(100vh - 210px); }
 dialog.ugc-dlg .dlg-foot { padding: 12px 20px 16px; display: flex; gap: 8px; justify-content: flex-end; border-top: 1px solid var(--line); flex-wrap: wrap; }
 dialog.ugc-dlg .steps { display: flex; gap: 6px; list-style: none; padding: 0; margin: 6px 0 0; font-size: 12.5px; font-weight: 650; color: var(--ink-3); flex-wrap: wrap; }
 dialog.ugc-dlg .steps li { padding: 4px 10px; border-radius: 999px; border: 1px solid var(--line); }
@@ -121,7 +130,7 @@ dialog.ugc-dlg .fmt-row { display: grid; grid-template-columns: 150px minmax(0, 
 dialog.ugc-dlg .fmt-row:first-child { border-top: 0; }
 dialog.ugc-dlg .fmt-net { display: flex; gap: 8px; align-items: center; font-weight: 700; color: var(--net); padding-top: 8px; }
 dialog.ugc-dlg .seg { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
-dialog.ugc-dlg .seg button { appearance: none; text-align: left; border: 1.5px solid var(--line); background: var(--panel); border-radius: 9px; padding: 9px 10px; font: 600 13px var(--font); color: var(--ink); cursor: pointer; display: grid; gap: 2px; min-height: 44px; }
+dialog.ugc-dlg .seg button { appearance: none; text-align: left; border: 1.5px solid var(--line); background: var(--panel); border-radius: 9px; padding: 9px 10px; font: 600 13px var(--font); color: var(--ink); cursor: pointer; display: grid; gap: 2px; align-content: start; min-height: 44px; }
 dialog.ugc-dlg .seg button small { font-weight: 500; color: var(--ink-3); font-size: 11.5px; }
 dialog.ugc-dlg .seg button.on { border-color: var(--brand); box-shadow: 0 0 0 3px var(--gold-soft); }
 dialog.ugc-dlg .subtabs { display: flex; gap: 6px; flex-wrap: wrap; }
@@ -135,7 +144,9 @@ dialog.ugc-dlg .pathopt { display: grid; gap: 6px; padding: 14px; border: 1px so
 dialog.ugc-dlg .pathopt h3 { display: flex; gap: 8px; align-items: center; }
 dialog.ugc-dlg .pathopt p { margin: 0; font-size: 13px; color: var(--ink-2); }
 dialog.ugc-dlg .cost { font: 600 13px var(--mono); color: var(--ink-strong); }
-@media (max-width: 960px) { .ugc .cast { grid-template-columns: 1fr; } .ugc .hero { grid-template-columns: 1fr; } }
+@media (max-width: 1180px) { .ugc .item { grid-template-columns: 4px 130px minmax(0, 1fr) auto; } .ugc .item .meta { grid-column: 3; } .ugc .item .acts { grid-column: 4; grid-row: 1 / span 2; } }
+@media (max-width: 960px) { .ugc .cast { grid-template-columns: 1fr; } .ugc .hero { grid-template-columns: 1fr; } .ugc .how { grid-template-columns: 1fr 1fr; }
+  .ugc .how div:nth-child(3) { border-left: 0; } .ugc .how div:nth-child(n+3) { border-top: 1px solid var(--line); } }
 @media (max-width: 700px) {
   .ugc .paths { grid-template-columns: 1fr; }
   .ugc .path { border-left: 0; border-top: 1px solid var(--line); }
@@ -143,8 +154,14 @@ dialog.ugc-dlg .cost { font: 600 13px var(--mono); color: var(--ink-strong); }
   .ugc .btn, .ugc .chip, .ugc .week button { min-height: 44px; }
   .ugc .btn.sm { min-height: 44px; padding: 0 12px; }
   .ugc .btn.icon { width: 44px; }
-  .ugc .item { grid-template-columns: 4px minmax(0, 1fr); padding-right: 12px; }
-  .ugc .item .acts { grid-column: 2; justify-content: flex-start; }
+  .ugc .item { grid-template-columns: 4px minmax(0, 1fr); padding-right: 12px; gap: 6px 12px; }
+  .ugc .item > :not(.bar) { grid-column: 2; grid-row: auto; }
+  .ugc .item .bar { grid-row: 1 / span 4; }
+  .ugc .item .who-line small { display: inline; }
+  .ugc .item .acts { justify-content: flex-start; }
+  .ugc .how { grid-template-columns: 1fr; }
+  .ugc .how div, .ugc .how div:nth-child(3) { border-left: 0; border-top: 1px solid var(--line); }
+  .ugc .how div:first-child { border-top: 0; }
   .ugc .fields { grid-template-columns: 1fr; }
   .ugc .score thead { display: none; }
   .ugc .score tr { display: grid; grid-template-columns: 1fr 1fr; border-bottom: 1px solid var(--line); }
@@ -153,11 +170,25 @@ dialog.ugc-dlg .cost { font: 600 13px var(--mono); color: var(--ink-strong); }
   .ugc .score td.pn { grid-column: 1 / -1; padding-top: 14px; }
   .ugc .score td.n::before { content: attr(data-l); display: block; font: 500 11.5px var(--font); color: var(--ink-3); }
   .ugc .tabs { overflow-x: auto; }
-  .ugc .tab { padding: 10px; }
+  .ugc .tab { padding: 10px 12px; }
+  .ugc .tab .lg { display: none; }
   .ugc .hero { padding: 18px; }
-  dialog.ugc-dlg { width: 100%; max-width: 100%; max-height: 100%; height: 100%; margin: 0; border-radius: 0; }
-  dialog.ugc-dlg .dlg-body { max-height: none; flex: 1; }
-  dialog.ugc-dlg form { display: flex; flex-direction: column; height: 100%; }
+  /* celular: elenco enxuto e o trabalho (abas) logo abaixo; os caminhos de produção vão para o fim */
+  .ugc .pcard .quote, .ugc .pcard .next { display: none; }
+  .ugc .pc-body { padding-bottom: 10px; }
+  .ugc .mini b { font-size: 1rem; }
+  .ugc .mini div { padding: 8px 12px; }
+  .ugc .paths { order: 1; }
+  .ugc details.cfg { order: 2; }
+  .ugc input:not([type=checkbox]), .ugc select { min-height: 44px; }
+  dialog.ugc-dlg input:not([type=checkbox]):not([type=color]), dialog.ugc-dlg select { min-height: 44px; }
+  dialog.ugc-dlg .palette input { width: 56px; height: 44px; }
+  .ugc .score td.n:last-child { grid-column: 1 / -1; }
+  /* celular: o diálogo ocupa a tela, rola inteiro e os botões ficam presos embaixo */
+  dialog.ugc-dlg { display: block; width: 100%; max-width: 100%; max-height: 100%; height: 100%; margin: 0; border-radius: 0; overflow-y: auto; }
+  dialog.ugc-dlg form { display: flex; flex-direction: column; min-height: 100%; }
+  dialog.ugc-dlg .dlg-body { max-height: none; overflow: visible; flex: 1 0 auto; }
+  dialog.ugc-dlg .dlg-foot { position: sticky; bottom: 0; background: var(--panel); z-index: 2; box-shadow: 0 -8px 16px -12px rgb(0 0 0 / .25); }
   dialog.ugc-dlg .fmt-row { grid-template-columns: 1fr; gap: 6px; }
   dialog.ugc-dlg .fmt-net { padding-top: 0; }
   dialog.ugc-dlg .seg { grid-template-columns: 1fr; }
@@ -173,6 +204,7 @@ const ICON = {
 const REDES = ['youtube', 'instagram', 'tiktok'];
 const ORIGEM = { agenda: 'Agenda', blog: 'Blog', insight: 'Insight', modelo: 'Modelo', manual: 'Manual' };
 const CAMINHO = { modelo: 'Modelo de texto', api: 'Minha IA', mcp: 'IA conectada', manual: 'Escrita à mão' };
+const PECA_F = { rascunho: 'em rascunho', aprovado: 'aprovada', publicado: 'publicada', medido: 'medida' };
 const PILL_PECA = { rascunho: 'info', aprovado: 'ok', publicado: 'gold', medido: 'ok' };
 
 export async function render(el, ctx) {
@@ -181,7 +213,9 @@ export async function render(el, ctx) {
   const slug = S.tenant.slug;
   const podeEditar = can('ugc.edit');
   const podeAprovar = can('ugc.approve');
-  const st = { d: null, aba: null, semana: null, filtro: 'rascunho', janela: 'd7', aberta: null, resultado: null };
+  const st = { d: null, aba: null, semana: null, filtro: 'rascunho', janela: 'd7', aberta: null, resultado: null, quem: 'todos' };
+  // diálogo aberto não sobrevive à troca de tela
+  window.addEventListener('hashchange', () => document.getElementById('ugc-dlg')?.close(), { once: true });
   const n = (v) => Number(v || 0).toLocaleString('pt-BR');
   const iniciais = (nome) => String(nome || '?').split(/\s+/).filter(Boolean).slice(0, 2).map((p) => p[0]).join('').toUpperCase();
   const dataCurta = (dia) => { const [y, m, d] = dia.split('-').map(Number); return new Date(Date.UTC(y, m - 1, d)).toLocaleDateString('pt-BR', { timeZone: 'UTC', day: '2-digit', month: '2-digit' }); };
@@ -269,7 +303,7 @@ export async function render(el, ctx) {
   function abasHtml() {
     const rasc = st.d.pecas.filter((x) => x.status === 'rascunho').length;
     const aba = (id, label, extra = '') => `<button class="tab ${st.aba === id ? 'on' : ''}" type="button" role="tab" aria-selected="${st.aba === id}" data-act="aba" data-v="${id}">${label}${extra}</button>`;
-    return `<div class="tabs" role="tablist">${aba('pauta', 'Pauta da semana', `<span class="n">${st.d.pautas.length}</span>`)}${aba('fila', 'Aprovação', rasc ? `<span class="n">${rasc}</span>` : '')}${aba('placar', 'Placar')}</div>`;
+    return `<div class="tabs" role="tablist">${aba('pauta', 'Pauta<span class="lg">&nbsp;da semana</span>', `<span class="n">${st.d.pautas.length}</span>`)}${aba('fila', 'Aprovação', rasc ? `<span class="n">${rasc}</span>` : '')}${aba('placar', 'Placar')}</div>`;
   }
 
   // ---------------------------------------------------------------- pauta
@@ -284,8 +318,11 @@ export async function render(el, ctx) {
     if (!st.d.elenco.length) return `${bar}<div class="empty-state"><h3>A pauta sai do elenco</h3><p>Monte os influenciadores primeiro. Depois o sistema propõe 7 pautas por semana para cada um, a partir da agenda do site, do blog e dos insights.</p>${podeEditar ? '<button class="btn primary" type="button" data-act="wizard">Montar o elenco</button>' : ''}</div>`;
     if (!st.d.pautas.length) return `${bar}<div class="empty-state"><h3>Nenhuma pauta nesta semana</h3><p>O sistema propõe a semana cruzando o que a operação já tem: agenda de torneios e eventos do site, posts do blog e insights aprovados. O que faltar vem de modelos honestos do nicho. Você edita, reordena ou apaga.</p>${podeEditar ? '<button class="btn primary" type="button" data-act="propor">Propor a pauta da semana</button>' : ''}</div>`;
     const dias = [...Array(7)].map((_, i) => { const [y, m, d] = sem.inicio.split('-').map(Number); const t = new Date(Date.UTC(y, m - 1, d + i)); return t.toISOString().slice(0, 10); });
-    return `${bar}<div class="days">${dias.map((dia) => {
-      const itens = st.d.pautas.filter((p) => p.dia === dia).sort((a, b) => a.ordem - b.ordem || REDES.indexOf(persona(a.persona_id)?.rede) - REDES.indexOf(persona(b.persona_id)?.rede));
+    const quem = `<div class="filters" aria-label="Filtrar por influenciador"><button class="chip ${st.quem === 'todos' ? 'on' : ''}" type="button" data-act="quem" data-v="todos">Todos <b>${st.d.pautas.length}</b></button>${st.d.elenco.map((x) =>
+      `<button class="chip net-${esc(x.rede)} ${st.quem === x.id ? 'on' : ''}" type="button" data-act="quem" data-v="${esc(x.id)}">${esc(x.nome)} <b>${st.d.pautas.filter((p) => p.persona_id === x.id).length}</b></button>`).join('')}</div>`;
+    const visiveis = st.d.pautas.filter((p) => st.quem === 'todos' || p.persona_id === st.quem);
+    return `${bar}${quem}<div class="days">${dias.map((dia) => {
+      const itens = visiveis.filter((p) => p.dia === dia).sort((a, b) => a.ordem - b.ordem || REDES.indexOf(persona(a.persona_id)?.rede) - REDES.indexOf(persona(b.persona_id)?.rede));
       if (!itens.length) return '';
       return `<section class="day ${dia === sem.hoje ? 'hoje' : ''}"><h3>${esc(diaSemana(dia))} · ${esc(dataCurta(dia))}</h3><div class="items">${itens.map((p, i) => itemPauta(p, i, itens)).join('')}</div></section>`;
     }).join('')}</div>`;
@@ -294,9 +331,10 @@ export async function render(el, ctx) {
     const pe = persona(p.persona_id);
     const peca = p.peca_id ? st.d.pecas.find((x) => x.id === p.peca_id) : null;
     return `<div class="item net-${esc(pe?.rede || '')}"><span class="bar"></span>
-      <div class="t"><span class="who-line">${esc(pe?.nome || '')} · ${esc(rede(pe?.rede)?.curto || '')}</span><strong>${esc(p.tema)}</strong>${p.gancho ? `<em>${esc(p.gancho)}</em>` : ''}
-        <span class="meta"><span class="pill">${esc(ORIGEM[p.origem] || p.origem)}</span>${p.status === 'aprovada' ? '<span class="pill ok"><span class="dot"></span>Pauta aprovada</span>' : '<span class="pill"><span class="dot"></span>Proposta</span>'}
-        ${peca ? `<span class="pill ${PILL_PECA[peca.status]}">Peça: ${esc(peca.statusNome.toLowerCase())}</span>` : ''}</span></div>
+      <span class="who-line">${esc(pe?.nome || '')}<small> · ${esc(rede(pe?.rede)?.curto || '')}</small></span>
+      <div class="t"><strong>${esc(p.tema)}</strong>${p.gancho ? `<em>${esc(p.gancho)}</em>` : ''}</div>
+      <span class="meta">${p.origem !== 'modelo' ? `<span class="pill info">${esc(ORIGEM[p.origem] || p.origem)}</span>` : ''}${p.status === 'aprovada' ? '<span class="pill ok"><span class="dot"></span>Aprovada</span>' : ''}
+        ${peca ? `<span class="pill ${PILL_PECA[peca.status]}">Peça ${esc(PECA_F[peca.status] || peca.statusNome)}</span>` : ''}</span>
       <div class="acts">${peca ? `<button class="btn sm" type="button" data-act="ver-peca" data-id="${esc(peca.id)}">Ver peça</button>`
         : podeEditar ? `<button class="btn sm primary" type="button" data-act="produzir" data-id="${esc(p.id)}">Produzir</button>` : ''}
         ${podeEditar ? `<button class="btn sm" type="button" data-act="editar-pauta" data-id="${esc(p.id)}">Editar</button>
@@ -326,15 +364,18 @@ export async function render(el, ctx) {
     const pf = x.preflight;
     if (x.pendente) return '<span class="pill warn">Falta preencher o modelo</span>';
     if (pf.ok) return `<span class="pill ok"><span class="dot"></span>Preflight ok${pf.avisos.length ? ` · ${pf.avisos.length} aviso(s)` : ''}</span>`;
-    return `<span class="pill bad"><span class="dot"></span>${pf.bloqueios.length + pf.faltando.length} problema(s)</span>`;
+    return `<span class="pill bad"><span class="dot"></span>${new Set(pf.bloqueios.map((b) => `${b.regra}|${b.parte}`)).size + pf.faltando.length} problema(s)</span>`;
   }
   function preflightLista(pf, pendente) {
     const linhas = [];
-    if (pendente) linhas.push('<div class="pf-row warn"><b>Modelo:</b> ainda tem trecho “[escreva aqui…]” para preencher.</div>');
-    for (const b of pf.bloqueios) linhas.push(`<div class="pf-row bad"><span><b>Bloqueia (${esc(b.parte || '')}):</b> “${esc(b.trecho)}”. ${esc(b.motivo)}</span></div>`);
+    if (pendente) linhas.push('<div class="pf-row warn"><span><b>Modelo:</b> ainda tem trecho “[escreva aqui…]” para preencher.</span></div>');
+    // um alerta por regra e parte, com os trechos juntos (texto ruim não vira parede de alertas)
+    const agrupar = (lista) => { const m = new Map(); for (const x of lista) { const k = `${x.regra}|${x.parte || ''}`; if (!m.has(k)) m.set(k, { ...x, trechos: [] }); if (x.trecho) m.get(k).trechos.push(x.trecho); } return [...m.values()]; };
+    const trechos = (g) => (g.trechos.length ? `${[...new Set(g.trechos)].slice(0, 4).map((t) => `“${esc(t)}”`).join(', ')}. ` : '');
+    for (const g of agrupar(pf.bloqueios)) linhas.push(`<div class="pf-row bad"><span><b>Bloqueia${g.parte ? ` (${esc(g.parte)})` : ''}:</b> ${trechos(g)}${esc(g.motivo)}</span></div>`);
     for (const f of pf.faltando) linhas.push(`<div class="pf-row bad"><span><b>Falta:</b> ${esc(f.trecho)}. ${esc(f.motivo)}</span></div>`);
-    for (const a of pf.avisos) linhas.push(`<div class="pf-row warn"><span><b>Aviso:</b> ${a.trecho ? `“${esc(a.trecho)}”. ` : ''}${esc(a.motivo)}</span></div>`);
-    if (!linhas.length) linhas.push('<div class="pf-row ok"><b>Preflight ok:</b> sem promessa, sem bônus e com tudo o que a legenda exige.</div>');
+    for (const g of agrupar(pf.avisos)) linhas.push(`<div class="pf-row warn"><span><b>Aviso:</b> ${trechos(g)}${esc(g.motivo)}</span></div>`);
+    if (!linhas.length) linhas.push('<div class="pf-row ok"><span><b>Preflight ok:</b> sem promessa, sem bônus e com tudo o que a legenda exige.</span></div>');
     return linhas.join('');
   }
   function cardPeca(x) {
@@ -351,7 +392,7 @@ export async function render(el, ctx) {
         ${resumoPreflight(x)}<span class="pill ${PILL_PECA[x.status]}"><span class="dot"></span>${esc(x.statusNome)}</span>
       </div>
       ${aberta ? `<div class="peca-body">
-        <div class="fields">${campo('roteiro', 'Roteiro', 6)}${campo('legenda', 'Legenda', 5, false)}<div class="field" style="display:grid;gap:12px">${campo('hashtags', 'Hashtags', 2)}${campo('capa', 'Texto de capa', 2)}</div>${campo('briefing', pe?.formato === 'ia' ? 'Briefing (produção da persona de IA)' : 'Briefing para quem grava', 5)}</div>
+        <div class="fields">${campo('roteiro', 'Roteiro', 6)}${campo('legenda', 'Legenda', 9, false)}<div class="field" style="display:grid;gap:12px">${campo('hashtags', 'Hashtags', 2)}${campo('capa', 'Texto de capa', 2)}</div>${campo('briefing', pe?.formato === 'ia' ? 'Briefing (produção da persona de IA)' : 'Briefing para quem grava', 5)}</div>
         <div class="pf" data-pf>${preflightLista(x.preflight, x.pendente)}</div>
         ${x.link ? `<div class="field"><span style="font-size:12.5px;font-weight:600;color:var(--ink-2)">Link desta peça (põe na bio ou no CTA)</span><div class="linkbox"><input readonly value="${esc(x.link)}"><button class="btn sm" type="button" data-act="copiar-link" data-v="${esc(x.link)}">Copiar</button></div></div>` : ''}
         ${x.numeros ? `<div class="nums"><span><b>${n(x.views)}</b>views informadas</span><span><b>${n(x.numeros.cliques)}</b>cliques</span><span><b>${n(x.numeros.leads)}</b>leads</span><span><b>${n(x.numeros.conversoes)}</b>conversões</span>${x.postUrl ? `<a href="${esc(x.postUrl)}" target="_blank" rel="noopener">Abrir o post</a>` : ''}</div>` : ''}
@@ -387,7 +428,7 @@ export async function render(el, ctx) {
       <div class="score"><table><thead><tr><th>Influenciador</th><th>Views</th><th>Cliques</th><th>Leads</th><th>Conversões</th><th>Publicadas</th></tr></thead><tbody>
       ${linhas.map(({ p, v }) => `<tr class="net-${esc(p.rede)}"><td class="pn"><div class="pname"><div class="avatar">${esc(iniciais(p.nome))}</div><div><strong>${esc(p.nome)}</strong><div class="note">${esc(rede(p.rede).nome)}</div></div></div></td>
         <td class="n" data-l="Views">${n(v.views)}${v.publicadas && v.medidas < v.publicadas ? `<div class="note" style="font:500 11px var(--font)">${v.publicadas - v.medidas} sem número</div>` : ''}</td>
-        <td class="n" data-l="Cliques">${n(v.cliques)}<div class="hbar" style="width:${Math.round(((v.cliques || 0) / max) * 100)}%"></div></td>
+        <td class="n" data-l="Cliques">${n(v.cliques)}${v.cliques ? `<div class="hbar" style="width:${Math.round((v.cliques / max) * 100)}%"></div>` : ""}</td>
         <td class="n" data-l="Leads">${n(v.leads)}</td><td class="n" data-l="Conversões verificadas">${n(v.conversoes)}</td><td class="n" data-l="Peças publicadas">${n(v.publicadas)}</td></tr>`).join('')}
       </tbody></table></div>
       ${semNada ? '<p class="note">Ainda sem números nesta janela. Publique uma peça aprovada, cole o link do post e informe as views; os cliques entram sozinhos pelo link de cada influenciador.</p>' : ''}`;
@@ -401,7 +442,17 @@ export async function render(el, ctx) {
       <span class="note">Conta todas as pessoas da operação. Ao bater o teto, o botão para de gerar até o mês virar.</span></div></details>`;
   }
 
+  function comoFuncionaHtml() {
+    return `<section class="how" aria-label="Como funciona">
+      <div><b>Passo 1</b><strong>Elenco</strong><span>Ficha de cada influenciador e um link rastreado por rede.</span></div>
+      <div><b>Passo 2</b><strong>Pauta da semana</strong><span>Proposta a partir da agenda, do blog e dos insights. Você edita.</span></div>
+      <div><b>Passo 3</b><strong>Peça</strong><span>Roteiro, legenda, hashtags, capa e briefing: pelo modelo, pela sua IA ou pela IA conectada.</span></div>
+      <div><b>Passo 4</b><strong>Aprovação e placar</strong><span>O preflight confere; você aprova, posta à mão e mede quem traz cadastro.</span></div></section>`;
+  }
+
   function desenhar() {
+    const lead = `<p class="lead">${st.d.operacao.exigeJogo ? 'Poker: sem promessa, sem bônus e sem ficha grátis, sempre com +18 e “Jogue com responsabilidade”. ' : ''}O estúdio escreve; você aprova e posta à mão. Nada sai sozinho.</p>`;
+    if (!st.d.elenco.length) { el.innerHTML = `<div class="ugc">${lead}${elencoHtml()}${comoFuncionaHtml()}${caminhosHtml()}${configHtml()}</div>`; return; }
     const corpo = { pauta: pautaHtml, fila: filaHtml, placar: placarHtml }[st.aba]();
     el.innerHTML = `<div class="ugc">
       <p class="lead">${st.d.operacao.exigeJogo ? 'Poker: sem promessa, sem bônus e sem ficha grátis, sempre com +18 e “Jogue com responsabilidade”. ' : ''}O estúdio escreve; você aprova e posta à mão. Nada sai sozinho.</p>
@@ -599,7 +650,7 @@ export async function render(el, ctx) {
     const apiBloco = pronta
       ? `<p>Modelo <b>${esc(est.modelo)}</b> · <span class="cost">${esc(est.estimativa.texto)}</span></p><p class="note">${n(est.usadas)} de ${n(est.teto)} gerações neste mês nesta operação. O texto entra como rascunho e passa pelo preflight.</p>
         <div class="row"><button class="btn primary" type="button" data-g="gerar">Gerar com a minha IA (${esc(est.estimativa.texto.split(' por')[0])})</button></div>`
-      : `<p>${esc(est?.mensagem || 'Conecte sua IA em Conectar sua IA')}</p><div class="row">${est?.estado === 'teto' ? '' : `<a class="btn" href="#/t/${esc(slug)}/ia">Conecte sua IA em Conectar sua IA</a>`}</div>`;
+      : `<p>${est?.estado === 'teto' ? esc(est.mensagem) : 'Sem chave de API própria válida: nada é gerado até você conectar.'}</p><div class="row">${est?.estado === 'teto' ? '' : `<a class="btn" href="#/t/${esc(slug)}/ia">Conecte sua IA em Conectar sua IA</a>`}</div>`;
     const d = dialogo(`<form method="dialog"><div class="dlg-head net-${esc(pe.rede)}"><h2>Produzir a peça</h2><span class="note"><b style="color:var(--net)">${esc(pe.nome)} · ${esc(rede(pe.rede).nome)}</b> · ${esc(p.tema)}</span></div>
       <div class="dlg-body">
         <div class="pathopt"><h3>Modelo de texto <span class="pill ok">sem IA</span></h3><p>Esqueleto de roteiro, legenda, hashtags, capa e briefing na voz de ${esc(pe.nome)}, já com o rodapé obrigatório. Você preenche os trechos marcados.</p>
@@ -662,6 +713,7 @@ export async function render(el, ctx) {
         case 'aba': st.aba = v; st.resultado = null; return desenhar();
         case 'filtro': st.filtro = v; return desenhar();
         case 'janela': st.janela = v; return desenhar();
+        case 'quem': st.quem = v; return desenhar();
         case 'semana': st.semana = v; return carregar();
         case 'abrir': st.aberta = st.aberta === id ? null : id; return desenhar();
         case 'wizard': return assistente();

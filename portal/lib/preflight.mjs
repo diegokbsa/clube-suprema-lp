@@ -101,7 +101,7 @@ const RESULTADO = '(?:ganhos?|lucros?|resultados?|vitorias?|retornos?|sucesso|di
 const BLOQUEIOS = [
   {
     regra: 'promessa_ganho',
-    motivo: 'Promete ganho, renda ou lucro. Fale do jogo e da experiência, nunca de dinheiro a ganhar.',
+    motivo: 'Promete ganho, renda ou lucro. Fale da experiência e do que a operação oferece, nunca de dinheiro a ganhar.',
     padroes: [
       rx(`${B}${L('ganhe')}m?${E}(?!${SEP}+(?:${NAO_FINANCEIRO.join('|')})${E})`),
       rx(`${B}(?:${['ganhar', 'ganha', 'ganhando', 'ganho', 'ganhos', 'faturar', 'faturando', 'lucrar', 'lucro', 'lucros', 'lucrando', 'lucrativo'].map(L).join('|')})${E}(?:${SEP}+[a-z0-9$]+){0,3}?${SEP}+${DINHEIRO}`),
@@ -127,7 +127,7 @@ const BLOQUEIOS = [
   },
   {
     regra: 'resultado_garantido',
-    motivo: 'Garante resultado. Nada no jogo (nem em venda) é garantido; tire o "garantido".',
+    motivo: 'Garante resultado. Nada é garantido: tire o "garantido".',
     padroes: [
       rx(`${B}${RESULTADO}${SEP}+(?:[a-z]+${SEP}+)?${L('garantid')}(?:o|a|os|as)${E}`),
       rx(`${B}${L('garantid')}(?:o|a|os|as)${SEP}+(?:[a-z]+${SEP}+)?${RESULTADO}${E}`),
