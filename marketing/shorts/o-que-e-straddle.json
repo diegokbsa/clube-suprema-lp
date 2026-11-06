@@ -1,0 +1,16 @@
+{
+  "id": "o-que-e-straddle",
+  "tipo": "Regras do poker",
+  "titulo": "O que é straddle no poker? A aposta cega extra explicada #shorts",
+  "descricao": "Straddle é a aposta cega voluntária antes das cartas: quem pode fazer, quanto vale e por que muda quem fala por último no pré-flop. No próximo vídeo: como jogar Omaha (PLO).\n\n18+ · Jogue com responsabilidade.\n\n#poker #pokeronline #texasholdem #supremapoker",
+  "post": "o-que-e-straddle",
+  "cenas": [
+    { "tela": "Straddle: **o blind que ninguém obriga**", "fala": "Já viu alguém dobrar o big blind antes das cartas? Isso é straddle.", "imagem": "public/img/app-mesa.webp" },
+    { "passo": 1, "tela": "Quem faz: o jogador **à esquerda do big blind**", "fala": "Em geral, quem faz é o jogador logo à esquerda do big blind, antes de ver as cartas." },
+    { "passo": 2, "tela": "Quanto vale: **2 big blinds**", "fala": "O valor mais comum é o dobro do big blind. Numa mesa um dois, o straddle é quatro." },
+    { "passo": 3, "tela": "Para entrar, pague **pelo menos o straddle**", "fala": "A partir daí, quem quiser jogar a mão precisa pagar pelo menos o valor do straddle." },
+    { "passo": 4, "tela": "Quem fez o straddle **fala por último** no pré-flop", "fala": "Em troca, quem fez o straddle fala por último no pré-flop. Do flop em diante, nada muda." },
+    { "tela": "É opcional e **só vale se a mesa permitir**", "fala": "É opcional, quase não aparece em torneio e só vale quando a mesa permite." },
+    { "tela": "No próximo: **como jogar Omaha**. Segue o canal!", "fala": "No próximo vídeo, como jogar Omaha. Segue o canal!", "imagem": "public/img/app-mesa.webp" }
+  ]
+}
