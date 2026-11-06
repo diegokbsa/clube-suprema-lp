@@ -13,15 +13,16 @@ const ALL = ['tenant.read', 'tenant.manage', 'users.manage', 'site.read', 'site.
   'media.read', 'media.edit', 'leads.read', 'leads.edit', 'leads.export', 'affiliates.read', 'affiliates.manage', 'affiliate.self',
   'creatives.read', 'creatives.edit', 'creatives.approve', 'calendar.read', 'calendar.edit', 'social.publish', 'integrations.read',
   'integrations.manage', 'campaigns.read', 'campaigns.edit', 'campaigns.publish', 'commissions.read', 'commissions.manage', 'reports.read', 'audit.read',
-  'ai.connect'];
+  'ai.connect', 'ugc.read', 'ugc.edit', 'ugc.approve'];
 
 const PERMS = {
   admin: new Set(ALL.filter((p) => p !== 'affiliate.self')),
   marketing: new Set(['tenant.read', 'site.read', 'site.edit', 'site.publish', 'blog.read', 'blog.edit', 'blog.publish', 'media.read', 'media.edit',
     'leads.read', 'leads.edit', 'leads.export', 'affiliates.read', 'creatives.read', 'creatives.edit', 'creatives.approve', 'calendar.read',
-    'calendar.edit', 'social.publish', 'integrations.read', 'campaigns.read', 'campaigns.edit', 'commissions.read', 'reports.read', 'ai.connect']),
+    'calendar.edit', 'social.publish', 'integrations.read', 'campaigns.read', 'campaigns.edit', 'commissions.read', 'reports.read', 'ai.connect',
+    'ugc.read', 'ugc.edit']),
   editor: new Set(['tenant.read', 'site.read', 'site.edit', 'blog.read', 'blog.edit', 'media.read', 'media.edit', 'creatives.read', 'creatives.edit',
-    'calendar.read', 'calendar.edit', 'ai.connect']),
+    'calendar.read', 'calendar.edit', 'ai.connect', 'ugc.read', 'ugc.edit']),
   affiliate: new Set(['affiliate.self', 'ai.connect', 'creatives.read', 'creatives.edit']),
 };
 export const PERMISSIONS = ALL;

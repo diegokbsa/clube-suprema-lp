@@ -45,9 +45,13 @@ const ultimaCand = (db) => db.prepare('SELECT * FROM migracao_candidaturas ORDER
 test('preflight bloqueia promessa e exige +18 e jogo responsável; os textos públicos da trilha passam', () => {
   const ruim = checarTexto('Ganhe renda extra com bônus e ficha grátis! Lucro garantido e rakeback.', { nicho: 'poker', edicao: 'sx', rede: 'instagram' });
   assert.equal(ruim.ok, false);
-  const regras = ruim.bloqueios.map((b) => b.regra);
-  for (const r of ['Promessa de ganho', 'Promessa de renda', 'Promessa de lucro', 'Bônus ao público', 'Ficha grátis ao público', 'Rakeback ao público', '"Garantido"']) assert.ok(regras.includes(r), `bloqueia: ${r}`);
-  assert.deepEqual(ruim.faltando, ['+18', 'Jogue com responsabilidade']);
+  // preflight definitivo é o da PA-141: confere o comportamento, não o nome interno das regras
+  for (const t of ['Ganhe renda extra jogando.', 'Lucro garantido toda semana.', 'Bônus de boas-vindas para você.', 'Ficha grátis no cadastro.', 'Rakeback de 30% para todos.']) {
+    const r = checarTexto(`${t} +18. Jogue com responsabilidade.`, { nicho: 'poker', edicao: 'sx', rede: 'instagram' });
+    assert.equal(r.ok, false, `bloqueia: ${t}`);
+    assert.ok(r.bloqueios.length > 0, `bloqueio explicado: ${t}`);
+  }
+  assert.deepEqual(ruim.faltando.map((f) => f.regra), ['mais_18', 'jogo_responsavel']);
   const negado = checarTexto('Sem bônus e sem ficha grátis. Não prometemos ganho. +18. Jogue com responsabilidade.', { nicho: 'poker', edicao: 'sx' });
   assert.equal(negado.ok, true, 'negar a promessa não é prometer');
   const pub = preflightPublico();

@@ -2,7 +2,12 @@
 
 Ideia do Kbsa em 06/11/2026: "dentro do painel criar modelo de UGC, onde selecionamos 3 influencers, criamos e deixamos 1 pra cada rede social pra postar conteúdo". Pediu para guardar a ideia e modelar o quanto antes, para decidirmos juntos.
 
-Este documento é o modelo. **Nada foi construído ainda.** Ao lado de cada decisão está o que eu recomendo.
+Este documento é o modelo. Ao lado de cada decisão está o que eu recomendo.
+
+> **Construído na PA-141 (06/11/2026)**, nas duas edições, com as recomendações abaixo: 2 personas de IA e 1 rosto da marca, uma rede fixa por influenciador,
+> sem vídeo de IA (roteiro, legenda, hashtags, capa e briefing), publicação manual com aprovação. Código: `lib/modules/ugc.mjs`, `lib/schema/50-ugc.sql`,
+> `public/admin/modules/ugc.js` e o preflight `lib/preflight.mjs` (API no topo do arquivo). Fora desta fase: vídeo e imagem de IA, publicação integrada,
+> TikTok no Calendário e métricas lidas da API das redes (hoje as views são informadas à mão).
 
 ## 1. O que é, em uma frase
 
