@@ -22,15 +22,26 @@ if(!RE.test(v)||(ck&&!ck.checked))return;if(f.getAttribute('data-crm')===v)retur
 var q=new URLSearchParams(location.search),b={email:v,consent:'1',website:'',page:location.pathname.replace(/^\\/|\\/$/g,'')};
 U.forEach(function(k){if(q.get(k))b[k]=q.get(k)});
 fetch('/f/'+S,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(b),keepalive:true,credentials:'same-origin'})
-.then(function(r){if(!r.ok)return r.json().then(function(j){throw new Error(j&&j.error||'erro')})})
+.then(function(r){if(!r.ok)return r.json().then(function(j){throw new Error(j&&j.error||'erro')});if(window.hpMedir)window.hpMedir('generate_lead',{pagina:b.page||'inicio'})})
 .catch(function(err){f.removeAttribute('data-crm');aviso('Não deu para registrar seu e-mail agora ('+(err&&err.message||'sem conexão')+'). Tente de novo em instantes ou chame o suporte no WhatsApp.')});
 },false)})();</script>`;
 }
 
-/** Documento pronto para servir: troca __SITE__ e põe o script do CRM antes de </body>. */
-export function montar(html, siteId) {
+/** Tag da medição (GA4/Pixel com consentimento) a partir de site.tracking; vazia sem IDs. */
+export function tagMedicao(site) {
+  let t = {};
+  try { t = JSON.parse(site?.tracking || '{}') || {}; } catch { t = {}; }
+  const ga4 = /^G-[A-Z0-9]{4,12}$/.test(t.ga4 || '') ? t.ga4 : '';
+  const pixel = /^\d{8,20}$/.test(t.pixel || '') ? t.pixel : '';
+  return ga4 || pixel ? `<script src="/assets/medicao.js" data-ga4="${ga4}" data-pixel="${pixel}" defer></script>` : '';
+}
+
+/** Documento pronto para servir: troca __SITE__ e põe a medição e o script do CRM antes de </body>. */
+export function montar(html, siteOuId) {
+  const site = typeof siteOuId === 'object' && siteOuId ? siteOuId : { id: siteOuId };
+  const siteId = site.id;
   const doc = String(html).replace(/__SITE__/g, String(siteId));
-  const s = scriptCrm(siteId);
+  const s = tagMedicao(site) + scriptCrm(siteId);
   return /<\/body>/i.test(doc) ? doc.replace(/<\/body>(?![\s\S]*<\/body>)/i, `${s}</body>`) : `${doc}${s}`;
 }
 
@@ -41,7 +52,7 @@ export function paginaPropria({ req, site, repo, rest }) {
   if (!CAMINHO.test(caminho)) return null;
   const p = repo.get('paginas_proprias', { site_id: site.id, caminho });
   if (!p) return null;
-  return { status: 200, body: montar(p.html, site.id), headers: { 'Content-Type': 'text/html; charset=utf-8', 'Content-Security-Policy': CSP_PROPRIA,
+  return { status: 200, body: montar(p.html, site), headers: { 'Content-Type': 'text/html; charset=utf-8', 'Content-Security-Policy': CSP_PROPRIA,
     'X-Content-Type-Options': 'nosniff', 'Referrer-Policy': 'strict-origin-when-cross-origin', 'Cache-Control': 'public, max-age=120' } };
 }
 

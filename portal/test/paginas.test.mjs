@@ -56,3 +56,12 @@ test('blog: markdown curto vira HTML seguro (títulos, listas, negrito, links) e
   assert.doesNotMatch(h, /href="javascript/);
   assert.equal(htmlText('linha um\nlinha dois\n\noutro'), '<p>linha um linha dois</p><p>outro</p>', 'post antigo continua igual');
 });
+
+test('medição: com GA4 no site a página leva o medicao.js (consentimento antes) e o envio marca generate_lead', async () => {
+  const { tagMedicao } = await import('../lib/modules/paginas.mjs');
+  assert.equal(tagMedicao({ tracking: '{}' }), '');
+  assert.equal(tagMedicao({ tracking: JSON.stringify({ ga4: 'G-<script>' }) }), '', 'ID inválido não entra');
+  const h = montar(DOC, { id: 's9', tracking: JSON.stringify({ ga4: 'G-FNLC9XCP3N' }) });
+  assert.match(h, /src="\/assets\/medicao\.js" data-ga4="G-FNLC9XCP3N"/);
+  assert.match(h, /hpMedir\('generate_lead'/);
+});

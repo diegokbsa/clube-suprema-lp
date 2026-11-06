@@ -6,11 +6,12 @@ import { now, parse, tx } from '../db.mjs';
 import { scoped } from '../repo.mjs';
 import { slugify } from '../tenants.mjs';
 import { themeCss } from '../site.mjs';
+import { tagMedicao } from './paginas.mjs';
 
 export const tables = ['posts'];
 export const nav = { id: 'blog', label: 'Blog', perm: 'blog.read' };
 
-const PUBLIC_CSP = "default-src 'none'; img-src 'self' https:; style-src 'self' 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com; base-uri 'none'; form-action 'none'; frame-ancestors 'none'";
+const PUBLIC_CSP = "default-src 'none'; img-src 'self' https:; style-src 'self' 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com; script-src 'self' https://www.googletagmanager.com https://connect.facebook.net; connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com https://www.facebook.com; base-uri 'none'; form-action 'none'; frame-ancestors 'none'";
 const text = (value, max) => String(value ?? '').trim().slice(0, max);
 
 function tagsOf(value) {
@@ -218,7 +219,7 @@ function head({ site, origin, base, title, description, canonical, image, struct
     <title>${esc(title)}</title><meta name="description" content="${esc(description)}"><link rel="canonical" href="${esc(canonicalUrl)}">
     <meta property="og:url" content="${esc(canonicalUrl)}"><meta property="og:title" content="${esc(title)}"><meta property="og:description" content="${esc(description)}"><meta property="og:type" content="article">
     ${image ? `<meta property="og:image" content="${esc(image)}">` : ''}<link rel="stylesheet" href="/assets/site.css">
-    ${structuredData ? `<script type="application/ld+json">${safeJsonLd(structuredData)}</script>` : ''}
+    ${structuredData ? `<script type="application/ld+json">${safeJsonLd(structuredData)}</script>` : ''}${tagMedicao(site)}
     <style>${themeCss(parse(site.theme, {}))}
       .blog-wrap{width:min(1080px,calc(100% - 32px));margin:0 auto;padding:44px 0 72px;color:var(--text);font:400 16px/1.65 var(--font,system-ui,sans-serif)}
       .blog-top{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-bottom:18px;border-bottom:1px solid var(--border)}
