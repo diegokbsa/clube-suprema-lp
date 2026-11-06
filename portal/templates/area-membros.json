@@ -1,0 +1,398 @@
+{
+  "id": "area-membros",
+  "name": "Comunidade e membros",
+  "order": 18,
+  "version": 1,
+  "category": "Comunidade · membros",
+  "niches": [
+    "criador"
+  ],
+  "description": "Página de entrada para comunidade fechada: rotina semanal, benefícios, planos de exemplo e lista de espera.",
+  "inspiredBy": null,
+  "theme": {
+    "mode": "escuro",
+    "bg": "#0e1210",
+    "surface": "#18201a",
+    "text": "#eef4ec",
+    "muted": "#9db1a0",
+    "primary": "#4ade80",
+    "primaryText": "#0c1a10",
+    "accent": "#38bdf8",
+    "border": "#2a382d",
+    "font": "Manrope",
+    "fontHead": "Outfit",
+    "radius": 20
+  },
+  "seo": {
+    "title": "{{name}} · Comunidade",
+    "description": "Comunidade do {{name}}: rotina, benefícios e planos de exemplo. Lista de espera aberta."
+  },
+  "pages": [
+    {
+      "slug": "",
+      "title": "Início",
+      "blocks": [
+        {
+          "type": "navbar",
+          "props": {
+            "brand": "{{name}}",
+            "logo": "{{logo}}",
+            "links": [
+              {
+                "label": "Comunidade",
+                "href": "/comunidade"
+              },
+              {
+                "label": "Planos",
+                "href": "/planos"
+              }
+            ],
+            "cta": "Quero entrar",
+            "ctaHref": "/planos",
+            "variant": "flutuante"
+          }
+        },
+        {
+          "type": "hero",
+          "props": {
+            "eyebrow": "Comunidade fechada",
+            "title": "Um lugar para aprender junto, toda semana.",
+            "subtitle": "Página de exemplo para comunidades pagas ou gratuitas: o que acontece dentro, os planos e como entrar na lista de espera.",
+            "cta": "Ver planos",
+            "ctaHref": "/planos",
+            "secondary": "Conhecer a comunidade",
+            "secondaryHref": "/comunidade",
+            "variant": "painel"
+          }
+        },
+        {
+          "type": "steps",
+          "props": {
+            "title": "A rotina lá dentro",
+            "items": [
+              {
+                "title": "Encontro da semana",
+                "text": "Exemplo de rotina: um encontro ao vivo por semana, com tema anunciado antes."
+              },
+              {
+                "title": "Desafio prático",
+                "text": "Exemplo de rotina: um desafio curto para aplicar o tema da semana."
+              },
+              {
+                "title": "Material de apoio",
+                "text": "Exemplo de rotina: resumo e materiais ficam salvos para rever quando quiser."
+              },
+              {
+                "title": "Revisão do mês",
+                "text": "Exemplo de rotina: encontro mensal para revisar progresso e planejar o próximo mês."
+              }
+            ],
+            "variant": "linha-do-tempo"
+          }
+        },
+        {
+          "type": "features",
+          "props": {
+            "title": "O que os membros recebem",
+            "items": [
+              {
+                "icon": "◉",
+                "title": "Encontros ao vivo",
+                "text": "Exemplo de benefício: encontros semanais com gravação disponível."
+              },
+              {
+                "icon": "✎",
+                "title": "Feedback nos desafios",
+                "text": "Exemplo de benefício: comentários nos desafios entregues."
+              },
+              {
+                "icon": "☰",
+                "title": "Biblioteca",
+                "text": "Exemplo de benefício: materiais e gravações organizados por tema."
+              }
+            ],
+            "variant": "destaque-lateral"
+          }
+        },
+        {
+          "type": "cta",
+          "props": {
+            "title": "Entre para a lista de espera.",
+            "text": "As vagas abrem por turma para manter a qualidade das conversas.",
+            "cta": "Quero participar",
+            "ctaHref": "/planos#espera",
+            "variant": "escuro"
+          }
+        },
+        {
+          "type": "lead_form",
+          "props": {
+            "title": "Lista de espera",
+            "text": "Deixe seu contato e receba o aviso quando abrir a próxima turma.",
+            "fields": "email_nome",
+            "button": "Entrar na lista",
+            "success": "Você está na lista! Avisamos quando abrir vaga.",
+            "variant": "faixa"
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "text": "Comunidade mantida pelo {{unitLabel}}.",
+            "links": [
+              {
+                "label": "Comunidade",
+                "href": "/comunidade"
+              },
+              {
+                "label": "Planos",
+                "href": "/planos"
+              },
+              {
+                "label": "Privacidade",
+                "href": "/privacidade"
+              }
+            ],
+            "disclaimer": "{{disclaimer}}"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "comunidade",
+      "title": "Comunidade",
+      "seo": {
+        "description": "Como é a comunidade do {{name}} por dentro."
+      },
+      "blocks": [
+        {
+          "type": "navbar",
+          "props": {
+            "brand": "{{name}}",
+            "logo": "{{logo}}",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Planos",
+                "href": "/planos"
+              }
+            ],
+            "cta": "Quero entrar",
+            "ctaHref": "/planos",
+            "variant": "barra"
+          }
+        },
+        {
+          "type": "hero",
+          "props": {
+            "eyebrow": "Por dentro",
+            "title": "Como é a comunidade por dentro",
+            "subtitle": "Texto de demonstração: o clima, as regras de convivência e o que se espera de cada membro.",
+            "variant": "centralizado"
+          }
+        },
+        {
+          "type": "image_text",
+          "props": {
+            "eyebrow": "Convivência",
+            "title": "Regras simples, respeito sempre",
+            "text": "Texto de demonstração: descreva as regras de convivência da comunidade e como a moderação funciona.\n\nComunidade boa é comunidade com combinados claros.",
+            "variant": "imagem-direita"
+          }
+        },
+        {
+          "type": "features",
+          "props": {
+            "title": "Espaços da comunidade",
+            "items": [
+              {
+                "icon": "☰",
+                "title": "Fórum por temas (exemplo)",
+                "text": "Exemplo de espaço: discussões organizadas por assunto."
+              },
+              {
+                "icon": "◉",
+                "title": "Encontros ao vivo (exemplo)",
+                "text": "Exemplo de espaço: sala semanal de conversa aberta."
+              },
+              {
+                "icon": "✎",
+                "title": "Mural de desafios (exemplo)",
+                "text": "Exemplo de espaço: onde os desafios da semana são publicados."
+              }
+            ],
+            "variant": "grade"
+          }
+        },
+        {
+          "type": "faq",
+          "props": {
+            "title": "Perguntas frequentes",
+            "items": [
+              {
+                "q": "A comunidade é paga?",
+                "a": "O modelo prevê plano gratuito e plano de membro; os valores reais estão na página de planos quando abertos."
+              },
+              {
+                "q": "Posso sair quando quiser?",
+                "a": "Sim. A saída e o cancelamento seguem as regras informadas antes da adesão."
+              }
+            ]
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Privacidade",
+                "href": "/privacidade"
+              }
+            ],
+            "disclaimer": "{{disclaimer}}"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "planos",
+      "title": "Planos",
+      "seo": {
+        "description": "Planos de exemplo da comunidade {{name}}."
+      },
+      "blocks": [
+        {
+          "type": "navbar",
+          "props": {
+            "brand": "{{name}}",
+            "logo": "{{logo}}",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Comunidade",
+                "href": "/comunidade"
+              }
+            ],
+            "variant": "barra"
+          }
+        },
+        {
+          "type": "hero",
+          "props": {
+            "eyebrow": "Planos",
+            "title": "Escolha como participar",
+            "subtitle": "Tabela de demonstração: os planos e valores reais são definidos pela operação.",
+            "variant": "centralizado"
+          }
+        },
+        {
+          "type": "compare",
+          "props": {
+            "title": "Planos de exemplo",
+            "subtitle": "Valores fictícios para demonstração; os reais aparecem quando a turma abre.",
+            "columns": "Gratuito (exemplo);Membro (exemplo)",
+            "rows": [
+              {
+                "name": "Fórum",
+                "values": "leitura;leitura e participação"
+              },
+              {
+                "name": "Encontros ao vivo",
+                "values": "um por mês;toda semana"
+              },
+              {
+                "name": "Biblioteca",
+                "values": "amostra;completa"
+              }
+            ]
+          }
+        },
+        {
+          "type": "lead_form",
+          "props": {
+            "title": "Entre na lista de espera",
+            "text": "Quando a próxima turma abrir, avisamos você primeiro.",
+            "fields": "email_nome",
+            "button": "Quero ser avisado",
+            "success": "Pronto! Você entra na lista de espera.",
+            "variant": "cartao",
+            "anchor": "espera"
+          }
+        },
+        {
+          "type": "notice",
+          "props": {
+            "text": "Nenhum plano promete resultado financeiro. Comunidade é espaço de aprendizado e troca.",
+            "variant": "discreto"
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Privacidade",
+                "href": "/privacidade"
+              }
+            ],
+            "disclaimer": "{{disclaimer}}"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "privacidade",
+      "title": "Privacidade",
+      "seo": {
+        "description": "Como o {{name}} trata seus dados."
+      },
+      "blocks": [
+        {
+          "type": "navbar",
+          "props": {
+            "brand": "{{name}}",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              }
+            ],
+            "variant": "barra"
+          }
+        },
+        {
+          "type": "text",
+          "props": {
+            "title": "Privacidade",
+            "body": "Texto-base para revisão jurídica da operação.\n\nColetamos nome e e-mail só quando você entra na lista de espera, para avisar sobre a abertura de turmas. Você pode pedir a exclusão a qualquer momento.\n\nCookies de medição só são ativados se você aceitar no aviso do site.",
+            "variant": "estreito"
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "disclaimer": "{{disclaimer}}"
+          }
+        }
+      ]
+    }
+  ]
+}

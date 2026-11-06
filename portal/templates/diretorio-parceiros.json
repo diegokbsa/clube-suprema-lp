@@ -1,0 +1,425 @@
+{
+  "id": "diretorio-parceiros",
+  "name": "Diretório de parceiros",
+  "order": 11,
+  "version": 1,
+  "category": "Afiliação · diretório",
+  "niches": [
+    "loja",
+    "criador"
+  ],
+  "description": "Guia em formato de diretório para listar parceiros por categoria, com página de anúncio e formulário de interesse. Listagens de exemplo identificadas.",
+  "inspiredBy": null,
+  "theme": {
+    "mode": "claro",
+    "bg": "#f7f8f5",
+    "surface": "#ffffff",
+    "text": "#1c2321",
+    "muted": "#5d6b66",
+    "primary": "#0e7a5f",
+    "primaryText": "#ffffff",
+    "accent": "#d8a12c",
+    "border": "#dfe5e1",
+    "font": "Inter",
+    "fontHead": "Sora",
+    "radius": 12
+  },
+  "seo": {
+    "title": "{{name}} · Diretório de parceiros",
+    "description": "Guia de parceiros organizado por categorias. Listagens de demonstração; os anúncios reais são cadastrados pela operação."
+  },
+  "pages": [
+    {
+      "slug": "",
+      "title": "Início",
+      "blocks": [
+        {
+          "type": "navbar",
+          "props": {
+            "brand": "{{name}}",
+            "logo": "{{logo}}",
+            "links": [
+              {
+                "label": "Categorias",
+                "href": "/categorias"
+              },
+              {
+                "label": "Anuncie",
+                "href": "/anuncie"
+              }
+            ],
+            "cta": "Anunciar",
+            "ctaHref": "/anuncie",
+            "variant": "barra"
+          }
+        },
+        {
+          "type": "hero",
+          "props": {
+            "eyebrow": "Guia de parceiros",
+            "title": "Encontre parceiros de confiança em um só lugar.",
+            "subtitle": "Um diretório organizado por categorias, com apresentação clara de cada parceiro e link direto para contato.",
+            "cta": "Explorar categorias",
+            "ctaHref": "/categorias",
+            "secondary": "Anunciar meu negócio",
+            "secondaryHref": "/anuncie",
+            "note": "Conteúdo de demonstração: as listagens reais entram pelo painel.",
+            "variant": "dividido"
+          }
+        },
+        {
+          "type": "cards",
+          "props": {
+            "title": "Categorias em destaque",
+            "subtitle": "Exemplos de categorias: a operação define as categorias reais do diretório.",
+            "items": [
+              {
+                "title": "Alimentação (exemplo)",
+                "text": "Exemplo de categoria: restaurantes, lanches e delivery da região.",
+                "href": "/categorias",
+                "tag": "Categoria"
+              },
+              {
+                "title": "Serviços (exemplo)",
+                "text": "Exemplo de categoria: profissionais e empresas de serviço.",
+                "href": "/categorias",
+                "tag": "Categoria"
+              },
+              {
+                "title": "Lojas e produtos (exemplo)",
+                "text": "Exemplo de categoria: lojas físicas e virtuais parceiras.",
+                "href": "/categorias",
+                "tag": "Categoria"
+              }
+            ],
+            "variant": "grade"
+          }
+        },
+        {
+          "type": "logos",
+          "props": {
+            "title": "Quem já aparece no guia (exemplos)",
+            "items": [
+              {
+                "name": "Parceiro Exemplo 1",
+                "href": "/categorias"
+              },
+              {
+                "name": "Parceiro Exemplo 2",
+                "href": "/categorias"
+              },
+              {
+                "name": "Parceiro Exemplo 3",
+                "href": "/categorias"
+              },
+              {
+                "name": "Parceiro Exemplo 4",
+                "href": "/categorias"
+              }
+            ]
+          }
+        },
+        {
+          "type": "faq",
+          "props": {
+            "title": "Perguntas frequentes",
+            "items": [
+              {
+                "q": "Como um parceiro entra no diretório?",
+                "a": "Pela página Anuncie: preenche o formulário e a operação revisa antes de publicar."
+              },
+              {
+                "q": "As listagens são pagas?",
+                "a": "O modelo prevê indicação de parceiros; as condições comerciais são definidas pela operação."
+              },
+              {
+                "q": "Quem garante a qualidade dos parceiros?",
+                "a": "A operação revisa cada anúncio antes de publicar e pode remover listagens a qualquer momento."
+              }
+            ]
+          }
+        },
+        {
+          "type": "cta",
+          "props": {
+            "title": "Quer aparecer no guia?",
+            "text": "Envie seus dados e a operação avalia a inclusão no diretório.",
+            "cta": "Anunciar agora",
+            "ctaHref": "/anuncie",
+            "variant": "faixa"
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "text": "Diretório mantido pelo {{unitLabel}}.",
+            "links": [
+              {
+                "label": "Categorias",
+                "href": "/categorias"
+              },
+              {
+                "label": "Anuncie",
+                "href": "/anuncie"
+              },
+              {
+                "label": "Privacidade",
+                "href": "/privacidade"
+              }
+            ],
+            "disclaimer": "{{disclaimer}}"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "categorias",
+      "title": "Categorias",
+      "seo": {
+        "description": "Categorias do diretório {{name}}."
+      },
+      "blocks": [
+        {
+          "type": "navbar",
+          "props": {
+            "brand": "{{name}}",
+            "logo": "{{logo}}",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Anuncie",
+                "href": "/anuncie"
+              }
+            ],
+            "cta": "Anunciar",
+            "ctaHref": "/anuncie",
+            "variant": "barra"
+          }
+        },
+        {
+          "type": "hero",
+          "props": {
+            "eyebrow": "Todas as categorias",
+            "title": "Navegue pelo diretório",
+            "subtitle": "Categorias de exemplo: a operação publica as categorias e os parceiros reais.",
+            "variant": "centralizado"
+          }
+        },
+        {
+          "type": "cards",
+          "props": {
+            "items": [
+              {
+                "title": "Alimentação (exemplo)",
+                "text": "Exemplo de listagem: nome, descrição curta e link de contato do parceiro.",
+                "href": "#",
+                "tag": "Exemplo"
+              },
+              {
+                "title": "Serviços (exemplo)",
+                "text": "Exemplo de listagem: nome, descrição curta e link de contato do parceiro.",
+                "href": "#",
+                "tag": "Exemplo"
+              },
+              {
+                "title": "Lojas e produtos (exemplo)",
+                "text": "Exemplo de listagem: nome, descrição curta e link de contato do parceiro.",
+                "href": "#",
+                "tag": "Exemplo"
+              },
+              {
+                "title": "Saúde e bem-estar (exemplo)",
+                "text": "Exemplo de listagem: nome, descrição curta e link de contato do parceiro.",
+                "href": "#",
+                "tag": "Exemplo"
+              },
+              {
+                "title": "Educação (exemplo)",
+                "text": "Exemplo de listagem: nome, descrição curta e link de contato do parceiro.",
+                "href": "#",
+                "tag": "Exemplo"
+              },
+              {
+                "title": "Tecnologia (exemplo)",
+                "text": "Exemplo de listagem: nome, descrição curta e link de contato do parceiro.",
+                "href": "#",
+                "tag": "Exemplo"
+              }
+            ],
+            "variant": "grade"
+          }
+        },
+        {
+          "type": "cta",
+          "props": {
+            "title": "Seu negócio pode estar aqui.",
+            "text": "Cadastre-se na página de anúncio e a operação retorna com as condições.",
+            "cta": "Quero anunciar",
+            "ctaHref": "/anuncie",
+            "variant": "faixa"
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Privacidade",
+                "href": "/privacidade"
+              }
+            ],
+            "disclaimer": "{{disclaimer}}"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "anuncie",
+      "title": "Anuncie",
+      "seo": {
+        "description": "Anuncie seu negócio no diretório {{name}}."
+      },
+      "blocks": [
+        {
+          "type": "navbar",
+          "props": {
+            "brand": "{{name}}",
+            "logo": "{{logo}}",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Categorias",
+                "href": "/categorias"
+              }
+            ],
+            "variant": "barra"
+          }
+        },
+        {
+          "type": "hero",
+          "props": {
+            "eyebrow": "Para parceiros",
+            "title": "Anuncie no diretório",
+            "subtitle": "Conte como é o processo: cadastro, revisão da operação e publicação da listagem.",
+            "variant": "centralizado"
+          }
+        },
+        {
+          "type": "steps",
+          "props": {
+            "title": "Como funciona",
+            "items": [
+              {
+                "title": "Envie seus dados",
+                "text": "Preencha o formulário abaixo com nome, contato e categoria do seu negócio."
+              },
+              {
+                "title": "A operação revisa",
+                "text": "Cada pedido passa por revisão antes de entrar no ar, para manter a qualidade do guia."
+              },
+              {
+                "title": "Sua listagem entra no ar",
+                "text": "Aprovado, o anúncio aparece na categoria certa com link direto para o seu contato."
+              }
+            ],
+            "variant": "numerado"
+          }
+        },
+        {
+          "type": "lead_form",
+          "props": {
+            "title": "Peça sua listagem",
+            "text": "Deixe seus dados e a operação retorna com as condições de anúncio.",
+            "fields": "email_nome_telefone",
+            "button": "Quero anunciar",
+            "success": "Recebido! A operação entra em contato para combinar a listagem.",
+            "variant": "cartao",
+            "anchor": "cadastro"
+          }
+        },
+        {
+          "type": "faq",
+          "props": {
+            "title": "Dúvidas de quem anuncia",
+            "items": [
+              {
+                "q": "Quanto tempo leva a revisão?",
+                "a": "O prazo é definido pela operação e informado no retorno do contato."
+              },
+              {
+                "q": "Posso sair do diretório quando quiser?",
+                "a": "Sim. Basta pedir a remoção pelos canais de atendimento."
+              }
+            ]
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Privacidade",
+                "href": "/privacidade"
+              }
+            ],
+            "disclaimer": "{{disclaimer}}"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "privacidade",
+      "title": "Privacidade",
+      "seo": {
+        "description": "Como o {{name}} trata seus dados."
+      },
+      "blocks": [
+        {
+          "type": "navbar",
+          "props": {
+            "brand": "{{name}}",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              }
+            ],
+            "variant": "barra"
+          }
+        },
+        {
+          "type": "text",
+          "props": {
+            "title": "Privacidade",
+            "body": "Texto-base para revisão jurídica da operação.\n\nColetamos nome, e-mail e telefone só quando você envia um formulário, para tratar do seu pedido de anúncio ou contato. Você pode pedir a exclusão a qualquer momento pelos canais de atendimento.\n\nCookies de medição só são ativados se você aceitar no aviso do site.",
+            "variant": "estreito"
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "disclaimer": "{{disclaimer}}"
+          }
+        }
+      ]
+    }
+  ]
+}

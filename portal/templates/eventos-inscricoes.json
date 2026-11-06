@@ -1,0 +1,426 @@
+{
+  "id": "eventos-inscricoes",
+  "name": "Eventos e inscrições",
+  "order": 16,
+  "version": 1,
+  "category": "Eventos · inscrições",
+  "niches": [
+    "criador"
+  ],
+  "description": "Página para divulgar eventos e captar inscrições: agenda em tabela, formatos e lista de interesse. Eventos e lotes de exemplo identificados.",
+  "inspiredBy": null,
+  "theme": {
+    "mode": "escuro",
+    "bg": "#120e1c",
+    "surface": "#1d1630",
+    "text": "#f3efff",
+    "muted": "#a99fd1",
+    "primary": "#ff5c8a",
+    "primaryText": "#2b0a18",
+    "accent": "#ffc53d",
+    "border": "#352a55",
+    "font": "Archivo",
+    "fontHead": "Barlow Condensed",
+    "radius": 12
+  },
+  "seo": {
+    "title": "{{name}} · Eventos e inscrições",
+    "description": "Agenda de eventos do {{name}}. Datas e lotes de demonstração; a grade real é publicada pela operação."
+  },
+  "pages": [
+    {
+      "slug": "",
+      "title": "Início",
+      "blocks": [
+        {
+          "type": "navbar",
+          "props": {
+            "brand": "{{name}}",
+            "logo": "{{logo}}",
+            "links": [
+              {
+                "label": "Agenda",
+                "href": "/agenda"
+              },
+              {
+                "label": "Ingressos",
+                "href": "/ingressos"
+              }
+            ],
+            "cta": "Garantir vaga",
+            "ctaHref": "/ingressos",
+            "variant": "centralizado"
+          }
+        },
+        {
+          "type": "hero",
+          "props": {
+            "eyebrow": "Eventos e encontros",
+            "title": "Da live ao encontro presencial: inscrição em um clique.",
+            "subtitle": "Página de exemplo para divulgar eventos: agenda clara, formatos e inscrição sem fricção.",
+            "cta": "Ver agenda",
+            "ctaHref": "/agenda",
+            "secondary": "Como participar",
+            "secondaryHref": "/ingressos",
+            "variant": "cartaz"
+          }
+        },
+        {
+          "type": "schedule",
+          "props": {
+            "title": "Próximos eventos (exemplos)",
+            "subtitle": "Grade de demonstração: a agenda real é publicada pela operação.",
+            "items": [
+              {
+                "day": "Sexta (exemplo)",
+                "time": "20h",
+                "name": "Live de abertura (exemplo)",
+                "detail": "Online · ao vivo",
+                "prize": "Gratuita (exemplo)"
+              },
+              {
+                "day": "Sábado (exemplo)",
+                "time": "15h",
+                "name": "Encontro presencial (exemplo)",
+                "detail": "Local a definir",
+                "prize": "Vagas limitadas (exemplo)"
+              },
+              {
+                "day": "Domingo (exemplo)",
+                "time": "10h",
+                "name": "Mesa de encerramento (exemplo)",
+                "detail": "Online · ao vivo",
+                "prize": "Para inscritos (exemplo)"
+              }
+            ],
+            "cta": "Quero participar",
+            "ctaHref": "/ingressos"
+          }
+        },
+        {
+          "type": "image_text",
+          "props": {
+            "eyebrow": "Como é",
+            "title": "Encontros para aprender e fazer networking",
+            "text": "Texto de demonstração: conte como são os eventos, quem apresenta e o que o participante leva para casa.\n\nFotos reais dos encontros anteriores entram neste bloco quando a operação tiver.",
+            "cta": "Ver ingressos",
+            "ctaHref": "/ingressos",
+            "variant": "imagem-direita"
+          }
+        },
+        {
+          "type": "cta",
+          "props": {
+            "title": "As vagas abrem por lote.",
+            "text": "Entre na lista de interesse e receba o aviso antes da abertura de cada lote.",
+            "cta": "Entrar na lista",
+            "ctaHref": "/ingressos",
+            "variant": "destaque"
+          }
+        },
+        {
+          "type": "faq",
+          "props": {
+            "title": "Perguntas frequentes",
+            "items": [
+              {
+                "q": "Os eventos são online ou presenciais?",
+                "a": "O modelo prevê os dois formatos; a agenda indica o formato de cada encontro."
+              },
+              {
+                "q": "Gravação fica disponível?",
+                "a": "Depende do evento; a informação aparece na página de inscrição de cada um."
+              },
+              {
+                "q": "Como recebo o ingresso?",
+                "a": "O processo real de emissão é informado pela operação após a inscrição."
+              }
+            ]
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "text": "Eventos do {{unitLabel}}.",
+            "links": [
+              {
+                "label": "Agenda",
+                "href": "/agenda"
+              },
+              {
+                "label": "Ingressos",
+                "href": "/ingressos"
+              },
+              {
+                "label": "Privacidade",
+                "href": "/privacidade"
+              }
+            ],
+            "disclaimer": "{{disclaimer}}"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "agenda",
+      "title": "Agenda",
+      "seo": {
+        "description": "Agenda de eventos do {{name}}."
+      },
+      "blocks": [
+        {
+          "type": "navbar",
+          "props": {
+            "brand": "{{name}}",
+            "logo": "{{logo}}",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Ingressos",
+                "href": "/ingressos"
+              }
+            ],
+            "cta": "Garantir vaga",
+            "ctaHref": "/ingressos",
+            "variant": "barra"
+          }
+        },
+        {
+          "type": "hero",
+          "props": {
+            "eyebrow": "Agenda completa",
+            "title": "Todos os próximos encontros",
+            "subtitle": "Grade de demonstração com dia, hora, formato e destaque de cada evento.",
+            "variant": "centralizado"
+          }
+        },
+        {
+          "type": "schedule",
+          "props": {
+            "items": [
+              {
+                "day": "Semana 1 (exemplo)",
+                "time": "20h",
+                "name": "Live de abertura (exemplo)",
+                "detail": "Online · ao vivo",
+                "prize": "Gratuita (exemplo)"
+              },
+              {
+                "day": "Semana 2 (exemplo)",
+                "time": "15h",
+                "name": "Oficina prática (exemplo)",
+                "detail": "Online · ao vivo",
+                "prize": "Para inscritos (exemplo)"
+              },
+              {
+                "day": "Semana 3 (exemplo)",
+                "time": "10h",
+                "name": "Encontro presencial (exemplo)",
+                "detail": "Local a definir",
+                "prize": "Vagas limitadas (exemplo)"
+              },
+              {
+                "day": "Semana 4 (exemplo)",
+                "time": "10h",
+                "name": "Mesa de encerramento (exemplo)",
+                "detail": "Online · ao vivo",
+                "prize": "Para inscritos (exemplo)"
+              }
+            ],
+            "cta": "Quero participar",
+            "ctaHref": "/ingressos"
+          }
+        },
+        {
+          "type": "notice",
+          "props": {
+            "text": "Datas, horários e locais desta página são de exemplo. A agenda oficial é a publicada pela operação no painel.",
+            "variant": "discreto"
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Privacidade",
+                "href": "/privacidade"
+              }
+            ],
+            "disclaimer": "{{disclaimer}}"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "ingressos",
+      "title": "Ingressos",
+      "seo": {
+        "description": "Como garantir vaga nos eventos do {{name}}."
+      },
+      "blocks": [
+        {
+          "type": "navbar",
+          "props": {
+            "brand": "{{name}}",
+            "logo": "{{logo}}",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Agenda",
+                "href": "/agenda"
+              }
+            ],
+            "variant": "barra"
+          }
+        },
+        {
+          "type": "hero",
+          "props": {
+            "eyebrow": "Ingressos",
+            "title": "Como garantir sua vaga",
+            "subtitle": "Inscrição de exemplo: os lotes, preços e regras reais são definidos pela operação.",
+            "variant": "centralizado"
+          }
+        },
+        {
+          "type": "steps",
+          "props": {
+            "title": "Passo a passo",
+            "items": [
+              {
+                "title": "Entre na lista de interesse",
+                "text": "Deixe nome e e-mail no formulário abaixo para receber o aviso de abertura dos lotes."
+              },
+              {
+                "title": "Receba o link de inscrição",
+                "text": "Quando o lote abrir, a operação envia o link oficial de inscrição para a lista."
+              },
+              {
+                "title": "Confirme os dados",
+                "text": "A confirmação e o ingresso seguem o processo oficial informado pela operação."
+              }
+            ],
+            "variant": "numerado"
+          }
+        },
+        {
+          "type": "compare",
+          "props": {
+            "title": "Lotes de exemplo",
+            "subtitle": "Tabela de demonstração: lotes e benefícios reais são definidos pela operação.",
+            "columns": "Lote 1 (exemplo);Lote 2 (exemplo)",
+            "rows": [
+              {
+                "name": "Preço",
+                "values": "a definir;a definir"
+              },
+              {
+                "name": "O que inclui",
+                "values": "acesso geral;acesso geral e gravação"
+              },
+              {
+                "name": "Janela",
+                "values": "primeira semana;segunda semana"
+              }
+            ]
+          }
+        },
+        {
+          "type": "lead_form",
+          "props": {
+            "title": "Lista de interesse",
+            "text": "Deixe seus dados e receba o aviso quando o próximo lote abrir.",
+            "fields": "email_nome_telefone",
+            "button": "Quero ser avisado",
+            "success": "Pronto! Você entra na lista de interesse.",
+            "variant": "cartao",
+            "anchor": "inscricao"
+          }
+        },
+        {
+          "type": "faq",
+          "props": {
+            "title": "Dúvidas sobre ingressos",
+            "items": [
+              {
+                "q": "Posso transferir minha inscrição?",
+                "a": "A regra de transferência é definida pela operação e informada na inscrição."
+              },
+              {
+                "q": "Tem reembolso?",
+                "a": "A política de reembolso é definida pela operação e informada antes do pagamento."
+              }
+            ]
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Privacidade",
+                "href": "/privacidade"
+              }
+            ],
+            "disclaimer": "{{disclaimer}}"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "privacidade",
+      "title": "Privacidade",
+      "seo": {
+        "description": "Como o {{name}} trata seus dados."
+      },
+      "blocks": [
+        {
+          "type": "navbar",
+          "props": {
+            "brand": "{{name}}",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              }
+            ],
+            "variant": "barra"
+          }
+        },
+        {
+          "type": "text",
+          "props": {
+            "title": "Privacidade",
+            "body": "Texto-base para revisão jurídica da operação.\n\nColetamos nome, e-mail e telefone só quando você entra na lista de interesse, para enviar o aviso dos lotes e informações do evento. Você pode pedir a exclusão a qualquer momento.\n\nCookies de medição só são ativados se você aceitar no aviso do site.",
+            "variant": "estreito"
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "disclaimer": "{{disclaimer}}"
+          }
+        }
+      ]
+    }
+  ]
+}

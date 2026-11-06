@@ -1,0 +1,358 @@
+{
+  "id": "negocio-local",
+  "name": "Negócio local",
+  "order": 17,
+  "version": 1,
+  "category": "Local · presença",
+  "niches": [
+    "loja"
+  ],
+  "description": "Presença digital para negócio local: serviços, canais de atendimento e pedido de orçamento. Serviços e áreas de exemplo identificados.",
+  "inspiredBy": null,
+  "theme": {
+    "mode": "claro",
+    "bg": "#f8f6f2",
+    "surface": "#ffffff",
+    "text": "#22281f",
+    "muted": "#687263",
+    "primary": "#35682d",
+    "primaryText": "#ffffff",
+    "accent": "#d97b29",
+    "border": "#e2ddd2",
+    "font": "IBM Plex Sans",
+    "fontHead": "Archivo",
+    "radius": 8
+  },
+  "seo": {
+    "title": "{{name}} · Atendimento local",
+    "description": "Serviços e atendimento do {{name}}. Página de demonstração; serviços e áreas reais definidos pela operação."
+  },
+  "pages": [
+    {
+      "slug": "",
+      "title": "Início",
+      "blocks": [
+        {
+          "type": "navbar",
+          "props": {
+            "brand": "{{name}}",
+            "logo": "{{logo}}",
+            "links": [
+              {
+                "label": "Serviços",
+                "href": "/servicos"
+              },
+              {
+                "label": "Contato",
+                "href": "/contato"
+              }
+            ],
+            "cta": "Pedir orçamento",
+            "ctaHref": "/contato",
+            "variant": "barra"
+          }
+        },
+        {
+          "type": "hero",
+          "props": {
+            "eyebrow": "Perto de você",
+            "title": "Seu negócio local com presença de grande.",
+            "subtitle": "Página de exemplo para lojas e serviços da região: o que faz, como atende e como pedir orçamento.",
+            "cta": "Pedir orçamento",
+            "ctaHref": "/contato",
+            "secondary": "Ver serviços",
+            "secondaryHref": "/servicos",
+            "note": "Atendimento pelo WhatsApp da operação: {{whatsapp}}.",
+            "variant": "dividido"
+          }
+        },
+        {
+          "type": "image_text",
+          "props": {
+            "eyebrow": "Quem atende",
+            "title": "Equipe da região, resposta rápida",
+            "text": "Texto de demonstração: apresente a equipe, o tempo de resposta e o jeito de atender.\n\nPrefere loja física? O endereço da operação fica em {{storeUrl}}.",
+            "cta": "Falar no WhatsApp",
+            "ctaHref": "{{whatsappLink}}",
+            "variant": "imagem-esquerda"
+          }
+        },
+        {
+          "type": "features",
+          "props": {
+            "title": "Por que chamar a gente",
+            "items": [
+              {
+                "icon": "◷",
+                "title": "Resposta rápida",
+                "text": "Exemplo de argumento: retorno no mesmo dia útil para pedidos de orçamento."
+              },
+              {
+                "icon": "⌂",
+                "title": "Da região",
+                "text": "Exemplo de argumento: atendimento local, com conhecimento da região."
+              },
+              {
+                "icon": "✓",
+                "title": "Orçamento claro",
+                "text": "Exemplo de argumento: preço e prazo combinados antes de começar."
+              }
+            ],
+            "variant": "grade"
+          }
+        },
+        {
+          "type": "contact",
+          "props": {
+            "title": "Canais de atendimento",
+            "whatsapp": "{{whatsapp}}",
+            "instagram": "{{instagram}}",
+            "email": "{{email}}",
+            "hours": "Segunda a sábado, horário comercial (exemplo)."
+          }
+        },
+        {
+          "type": "faq",
+          "props": {
+            "title": "Perguntas frequentes",
+            "items": [
+              {
+                "q": "Atendem quais bairros?",
+                "a": "A lista de bairros e cidades atendidas é definida pela operação e informada no contato."
+              },
+              {
+                "q": "O orçamento custa algo?",
+                "a": "Neste modelo, o pedido de orçamento é gratuito; a operação confirma a regra no retorno."
+              }
+            ]
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "text": "{{unitLabel}} atendendo a região.",
+            "links": [
+              {
+                "label": "Serviços",
+                "href": "/servicos"
+              },
+              {
+                "label": "Contato",
+                "href": "/contato"
+              },
+              {
+                "label": "Privacidade",
+                "href": "/privacidade"
+              }
+            ],
+            "disclaimer": "{{disclaimer}}"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "servicos",
+      "title": "Serviços",
+      "seo": {
+        "description": "Serviços oferecidos pelo {{name}}."
+      },
+      "blocks": [
+        {
+          "type": "navbar",
+          "props": {
+            "brand": "{{name}}",
+            "logo": "{{logo}}",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Contato",
+                "href": "/contato"
+              }
+            ],
+            "cta": "Pedir orçamento",
+            "ctaHref": "/contato",
+            "variant": "barra"
+          }
+        },
+        {
+          "type": "hero",
+          "props": {
+            "eyebrow": "Serviços",
+            "title": "O que fazemos",
+            "subtitle": "Lista de exemplo: os serviços reais são cadastrados pela operação, com descrição e faixa de preço quando fizer sentido.",
+            "variant": "centralizado"
+          }
+        },
+        {
+          "type": "cards",
+          "props": {
+            "items": [
+              {
+                "title": "Serviço principal (exemplo)",
+                "text": "Exemplo de descrição: o que inclui, prazo médio e como pedir.",
+                "href": "/contato",
+                "tag": "Serviço"
+              },
+              {
+                "title": "Serviço recorrente (exemplo)",
+                "text": "Exemplo de descrição: plano mensal ou por visita, com o que está incluso.",
+                "href": "/contato",
+                "tag": "Serviço"
+              },
+              {
+                "title": "Atendimento emergencial (exemplo)",
+                "text": "Exemplo de descrição: quando chamar e qual o tempo de resposta.",
+                "href": "/contato",
+                "tag": "Serviço"
+              }
+            ],
+            "variant": "grade"
+          }
+        },
+        {
+          "type": "cta",
+          "props": {
+            "title": "Não achou o que procura?",
+            "text": "Chame no WhatsApp e veja se a operação atende o seu caso.",
+            "cta": "Falar no WhatsApp",
+            "ctaHref": "{{whatsappLink}}",
+            "variant": "faixa"
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Privacidade",
+                "href": "/privacidade"
+              }
+            ],
+            "disclaimer": "{{disclaimer}}"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "contato",
+      "title": "Contato",
+      "seo": {
+        "description": "Fale com o {{name}} e peça seu orçamento."
+      },
+      "blocks": [
+        {
+          "type": "navbar",
+          "props": {
+            "brand": "{{name}}",
+            "logo": "{{logo}}",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Serviços",
+                "href": "/servicos"
+              }
+            ],
+            "variant": "barra"
+          }
+        },
+        {
+          "type": "lead_form",
+          "props": {
+            "title": "Peça seu orçamento",
+            "text": "Conte o que você precisa e a operação retorna com preço e prazo.",
+            "fields": "email_nome_telefone",
+            "button": "Pedir orçamento",
+            "success": "Recebido! A operação entra em contato em breve.",
+            "variant": "cartao",
+            "anchor": "orcamento"
+          }
+        },
+        {
+          "type": "contact",
+          "props": {
+            "title": "Prefere chamar direto?",
+            "whatsapp": "{{whatsapp}}",
+            "telegram": "{{telegram}}",
+            "instagram": "{{instagram}}",
+            "email": "{{email}}",
+            "hours": "Segunda a sábado, horário comercial (exemplo)."
+          }
+        },
+        {
+          "type": "text",
+          "props": {
+            "title": "Área de atendimento",
+            "body": "Texto de demonstração: liste aqui os bairros e cidades atendidos pela operação.\n\nFora da área? A operação informa no retorno se consegue atender ou indica um parceiro.",
+            "variant": "estreito"
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Privacidade",
+                "href": "/privacidade"
+              }
+            ],
+            "disclaimer": "{{disclaimer}}"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "privacidade",
+      "title": "Privacidade",
+      "seo": {
+        "description": "Como o {{name}} trata seus dados."
+      },
+      "blocks": [
+        {
+          "type": "navbar",
+          "props": {
+            "brand": "{{name}}",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              }
+            ],
+            "variant": "barra"
+          }
+        },
+        {
+          "type": "text",
+          "props": {
+            "title": "Privacidade",
+            "body": "Texto-base para revisão jurídica da operação.\n\nColetamos nome, e-mail e telefone só quando você pede um orçamento ou chama nos canais de atendimento, para responder ao seu pedido. Você pode pedir a exclusão a qualquer momento.\n\nCookies de medição só são ativados se você aceitar no aviso do site.",
+            "variant": "estreito"
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "disclaimer": "{{disclaimer}}"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,447 @@
+{
+  "id": "saas-trial-demo",
+  "name": "SaaS com teste grátis",
+  "order": 13,
+  "version": 1,
+  "category": "SaaS · aquisição",
+  "niches": [
+    "saas"
+  ],
+  "description": "Página de afiliado para software: proposta clara, recursos, comparação de planos de exemplo e chamada para o teste grátis.",
+  "inspiredBy": null,
+  "theme": {
+    "mode": "claro",
+    "bg": "#f6f8fb",
+    "surface": "#ffffff",
+    "text": "#17202e",
+    "muted": "#5a6678",
+    "primary": "#2e5be6",
+    "primaryText": "#ffffff",
+    "accent": "#12b5a5",
+    "border": "#dde4ef",
+    "font": "Libre Franklin",
+    "fontHead": "Space Grotesk",
+    "radius": 10
+  },
+  "seo": {
+    "title": "{{name}} · {{product}} com teste grátis",
+    "description": "Conheça o {{product}} e comece o teste grátis. Página de demonstração com planos e valores de exemplo."
+  },
+  "pages": [
+    {
+      "slug": "",
+      "title": "Início",
+      "blocks": [
+        {
+          "type": "navbar",
+          "props": {
+            "brand": "{{name}}",
+            "logo": "{{logo}}",
+            "links": [
+              {
+                "label": "Planos",
+                "href": "/planos"
+              },
+              {
+                "label": "Recursos",
+                "href": "/recursos"
+              }
+            ],
+            "cta": "Testar grátis",
+            "ctaHref": "{{trialUrl}}",
+            "variant": "barra"
+          }
+        },
+        {
+          "type": "hero",
+          "props": {
+            "eyebrow": "{{product}}",
+            "title": "Apresente o produto e converta o teste grátis.",
+            "subtitle": "Página de exemplo para afiliados de software: o que o produto resolve, para quem é e como começar sem pagar nada.",
+            "cta": "Começar o teste grátis",
+            "ctaHref": "{{trialUrl}}",
+            "secondary": "Ver planos",
+            "secondaryHref": "/planos",
+            "note": "Demonstração: textos, planos e números de exemplo.",
+            "variant": "painel"
+          }
+        },
+        {
+          "type": "logos",
+          "props": {
+            "title": "Integra com as ferramentas que você já usa (exemplos)",
+            "items": [
+              {
+                "name": "Ferramenta Exemplo 1",
+                "href": "/recursos"
+              },
+              {
+                "name": "Ferramenta Exemplo 2",
+                "href": "/recursos"
+              },
+              {
+                "name": "Ferramenta Exemplo 3",
+                "href": "/recursos"
+              }
+            ]
+          }
+        },
+        {
+          "type": "features",
+          "props": {
+            "title": "Por que indicar este produto",
+            "items": [
+              {
+                "icon": "▶",
+                "title": "Teste sem cartão",
+                "text": "Exemplo de argumento: o visitante começa o teste grátis sem cadastrar cartão de crédito."
+              },
+              {
+                "icon": "◎",
+                "title": "Foco em um problema",
+                "text": "Exemplo de argumento: a página explica um problema só e mostra como o produto resolve."
+              },
+              {
+                "icon": "↗",
+                "title": "Link rastreado",
+                "text": "O link do teste grátis é o link de afiliado da operação, com atribuição registrada."
+              }
+            ],
+            "variant": "grade"
+          }
+        },
+        {
+          "type": "compare",
+          "props": {
+            "title": "Planos de exemplo",
+            "subtitle": "Tabela de demonstração: os planos e valores reais vêm do site oficial do produto.",
+            "columns": "Grátis (exemplo);Profissional (exemplo)",
+            "rows": [
+              {
+                "name": "Usuários",
+                "values": "1;até 5"
+              },
+              {
+                "name": "Suporte",
+                "values": "por e-mail;prioritário"
+              },
+              {
+                "name": "Relatórios",
+                "values": "básicos;completos"
+              }
+            ]
+          }
+        },
+        {
+          "type": "faq",
+          "props": {
+            "title": "Perguntas frequentes",
+            "items": [
+              {
+                "q": "O teste grátis pede cartão?",
+                "a": "Neste modelo, não. A regra real do teste é confirmada no site oficial do produto."
+              },
+              {
+                "q": "Vocês são o suporte do produto?",
+                "a": "Não. Somos afiliados: indicamos o produto e o suporte oficial é do fabricante."
+              },
+              {
+                "q": "O que acontece no fim do teste?",
+                "a": "As regras de cobrança e cancelamento são do produto; confira no site oficial antes de assinar."
+              }
+            ]
+          }
+        },
+        {
+          "type": "cta",
+          "props": {
+            "title": "Pronto para testar?",
+            "text": "Comece o teste grátis pelo link da operação e veja o produto funcionando na prática.",
+            "cta": "Criar conta grátis",
+            "ctaHref": "{{trialUrl}}",
+            "variant": "destaque"
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "text": "Página de afiliado mantida pelo {{unitLabel}}.",
+            "links": [
+              {
+                "label": "Planos",
+                "href": "/planos"
+              },
+              {
+                "label": "Recursos",
+                "href": "/recursos"
+              },
+              {
+                "label": "Privacidade",
+                "href": "/privacidade"
+              }
+            ],
+            "disclaimer": "{{disclaimer}}"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "planos",
+      "title": "Planos",
+      "seo": {
+        "description": "Planos de exemplo do {{product}} comparados pela equipe do {{name}}."
+      },
+      "blocks": [
+        {
+          "type": "navbar",
+          "props": {
+            "brand": "{{name}}",
+            "logo": "{{logo}}",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Recursos",
+                "href": "/recursos"
+              }
+            ],
+            "cta": "Testar grátis",
+            "ctaHref": "{{trialUrl}}",
+            "variant": "barra"
+          }
+        },
+        {
+          "type": "hero",
+          "props": {
+            "eyebrow": "Planos",
+            "title": "Compare antes de assinar",
+            "subtitle": "Tabela de demonstração: os planos, limites e preços reais são os do site oficial do produto.",
+            "variant": "centralizado"
+          }
+        },
+        {
+          "type": "compare",
+          "props": {
+            "columns": "Grátis (exemplo);Profissional (exemplo);Equipe (exemplo)",
+            "rows": [
+              {
+                "name": "Usuários",
+                "values": "1;até 5;ilimitado"
+              },
+              {
+                "name": "Projetos",
+                "values": "até 3;até 20;ilimitados"
+              },
+              {
+                "name": "Suporte",
+                "values": "por e-mail;prioritário;gerente dedicado"
+              },
+              {
+                "name": "Relatórios",
+                "values": "básicos;completos;personalizados"
+              }
+            ]
+          }
+        },
+        {
+          "type": "steps",
+          "props": {
+            "title": "Como começar",
+            "items": [
+              {
+                "title": "Crie a conta grátis",
+                "text": "Use o link desta página para abrir o teste grátis no site oficial do produto."
+              },
+              {
+                "title": "Teste com um projeto real",
+                "text": "Leve um caso de uso de verdade para o teste: é a melhor forma de avaliar."
+              },
+              {
+                "title": "Escolha o plano no site oficial",
+                "text": "A assinatura e o pagamento acontecem no site do produto, nunca nesta página."
+              }
+            ],
+            "variant": "numerado"
+          }
+        },
+        {
+          "type": "cta",
+          "props": {
+            "title": "Comece pelo grátis.",
+            "text": "Sem compromisso: o teste é a forma mais honesta de comparar.",
+            "cta": "Testar grátis agora",
+            "ctaHref": "{{trialUrl}}",
+            "variant": "faixa"
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Privacidade",
+                "href": "/privacidade"
+              }
+            ],
+            "disclaimer": "{{disclaimer}}"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "recursos",
+      "title": "Recursos",
+      "seo": {
+        "description": "Recursos de exemplo do {{product}} explicados em português claro."
+      },
+      "blocks": [
+        {
+          "type": "navbar",
+          "props": {
+            "brand": "{{name}}",
+            "logo": "{{logo}}",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Planos",
+                "href": "/planos"
+              }
+            ],
+            "cta": "Testar grátis",
+            "ctaHref": "{{trialUrl}}",
+            "variant": "barra"
+          }
+        },
+        {
+          "type": "hero",
+          "props": {
+            "eyebrow": "Recursos",
+            "title": "O que o produto faz, em linguagem direta",
+            "subtitle": "Lista de exemplo: os recursos reais são os documentados no site oficial do produto.",
+            "variant": "centralizado"
+          }
+        },
+        {
+          "type": "features",
+          "props": {
+            "items": [
+              {
+                "icon": "◫",
+                "title": "Painel central (exemplo)",
+                "text": "Exemplo de descrição: tudo o que importa em uma tela, sem caça ao menu."
+              },
+              {
+                "icon": "⎘",
+                "title": "Relatórios (exemplo)",
+                "text": "Exemplo de descrição: relatórios prontos para acompanhar o trabalho."
+              },
+              {
+                "icon": "⇄",
+                "title": "Integrações (exemplo)",
+                "text": "Exemplo de descrição: conecta com as ferramentas que a equipe já usa."
+              },
+              {
+                "icon": "☏",
+                "title": "Suporte (exemplo)",
+                "text": "Exemplo de descrição: canais de ajuda do fabricante, com prazos informados."
+              }
+            ],
+            "variant": "lista"
+          }
+        },
+        {
+          "type": "image_text",
+          "props": {
+            "eyebrow": "Na prática",
+            "title": "Um exemplo de uso real",
+            "text": "Texto de demonstração: descreva aqui um caso de uso típico do produto, com o antes e o depois do cliente.\n\nQuando a operação tiver um caso próprio, este bloco é o lugar de contar.",
+            "cta": "Testar grátis",
+            "ctaHref": "{{trialUrl}}",
+            "variant": "imagem-direita"
+          }
+        },
+        {
+          "type": "faq",
+          "props": {
+            "title": "Dúvidas sobre os recursos",
+            "items": [
+              {
+                "q": "Os recursos mudam por plano?",
+                "a": "Sim. A tabela de planos mostra o que entra em cada nível; confirme no site oficial."
+              },
+              {
+                "q": "Tem aplicativo para celular?",
+                "a": "Verifique no site oficial do produto; esta página é uma demonstração de afiliado."
+              }
+            ]
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Privacidade",
+                "href": "/privacidade"
+              }
+            ],
+            "disclaimer": "{{disclaimer}}"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "privacidade",
+      "title": "Privacidade",
+      "seo": {
+        "description": "Como o {{name}} trata seus dados."
+      },
+      "blocks": [
+        {
+          "type": "navbar",
+          "props": {
+            "brand": "{{name}}",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              }
+            ],
+            "variant": "barra"
+          }
+        },
+        {
+          "type": "text",
+          "props": {
+            "title": "Privacidade e aviso de afiliado",
+            "body": "Texto-base para revisão jurídica da operação.\n\nEsta é uma página de afiliado: os links de teste grátis levam ao site oficial do produto e podemos receber comissão, sem custo extra para você. Dados de cadastro e pagamento ficam no site do produto.\n\nColetamos dados só quando você envia um formulário nesta página. Você pode pedir a exclusão a qualquer momento.",
+            "variant": "estreito"
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "disclaimer": "{{disclaimer}}"
+          }
+        }
+      ]
+    }
+  ]
+}
