@@ -1,0 +1,388 @@
+{
+  "id": "vitrine-generica",
+  "name": "Vitrine genérica",
+  "order": 20,
+  "version": 1,
+  "category": "Genérico · vitrine",
+  "niches": [
+    "*"
+  ],
+  "description": "Modelo genérico que serve para qualquer nicho: apresentação, ofertas em destaque, prova e contato. Conteúdo de demonstração identificado.",
+  "inspiredBy": null,
+  "theme": {
+    "mode": "claro",
+    "bg": "#fafafa",
+    "surface": "#ffffff",
+    "text": "#1f2937",
+    "muted": "#6b7280",
+    "primary": "#111827",
+    "primaryText": "#ffffff",
+    "accent": "#e11d48",
+    "border": "#e5e7eb",
+    "font": "Inter",
+    "fontHead": "Sora",
+    "radius": 12
+  },
+  "seo": {
+    "title": "{{name}} · {{tagline}}",
+    "description": "Vitrine do {{name}}: ofertas em destaque, apresentação e contato. Conteúdo de demonstração."
+  },
+  "pages": [
+    {
+      "slug": "",
+      "title": "Início",
+      "blocks": [
+        {
+          "type": "navbar",
+          "props": {
+            "brand": "{{name}}",
+            "logo": "{{logo}}",
+            "links": [
+              {
+                "label": "Ofertas",
+                "href": "/ofertas"
+              },
+              {
+                "label": "Sobre",
+                "href": "/sobre"
+              }
+            ],
+            "cta": "Ver ofertas",
+            "ctaHref": "/ofertas",
+            "variant": "centralizado"
+          }
+        },
+        {
+          "type": "hero",
+          "props": {
+            "eyebrow": "{{tagline}}",
+            "title": "Uma vitrine simples para qualquer nicho.",
+            "subtitle": "Modelo genérico de demonstração: funciona para {{unitLabel}} de qualquer nicho, com ofertas, apresentação e contato.",
+            "cta": "Ver ofertas",
+            "ctaHref": "/ofertas",
+            "secondary": "Sobre nós",
+            "secondaryHref": "/sobre",
+            "variant": "dividido"
+          }
+        },
+        {
+          "type": "features",
+          "props": {
+            "title": "O que este modelo resolve",
+            "items": [
+              {
+                "icon": "◈",
+                "title": "Apresentação direta",
+                "text": "Quem é a operação, o que oferece e para quem, logo na primeira tela."
+              },
+              {
+                "icon": "↗",
+                "title": "Ofertas com link",
+                "text": "Cartões de oferta com destino claro e aviso de afiliado quando couber."
+              },
+              {
+                "icon": "☏",
+                "title": "Contato fácil",
+                "text": "Canais de atendimento e formulário que cai direto no CRM da operação."
+              }
+            ],
+            "variant": "grade"
+          }
+        },
+        {
+          "type": "offers",
+          "props": {
+            "title": "Ofertas em destaque (exemplos)",
+            "subtitle": "Exemplos de formato: as ofertas reais são cadastradas pela operação.",
+            "items": [
+              {
+                "name": "Oferta destaque (exemplo)",
+                "text": "Exemplo de oferta: o que é, para quem é e por que vale o clique.",
+                "badge": "Destaque",
+                "cta": "Ver oferta",
+                "href": "/ofertas"
+              },
+              {
+                "name": "Oferta recorrente (exemplo)",
+                "text": "Exemplo de oferta: condição permanente da operação.",
+                "badge": "Sempre ativa",
+                "cta": "Ver oferta",
+                "href": "/ofertas"
+              },
+              {
+                "name": "Oferta sazonal (exemplo)",
+                "text": "Exemplo de oferta: válida por período limitado, com data visível.",
+                "badge": "Por tempo limitado",
+                "cta": "Ver oferta",
+                "href": "/ofertas"
+              }
+            ],
+            "variant": "cartoes",
+            "disclosure": "Alguns links são de afiliado: podemos receber comissão sem custo extra para você."
+          }
+        },
+        {
+          "type": "stats",
+          "props": {
+            "title": "Números de exemplo",
+            "items": [
+              {
+                "value": "100%",
+                "label": "personalizável"
+              },
+              {
+                "value": "3",
+                "label": "páginas prontas"
+              },
+              {
+                "value": "0",
+                "label": "dependência extra"
+              }
+            ],
+            "demo": true
+          }
+        },
+        {
+          "type": "cta",
+          "props": {
+            "title": "Gostou do que viu?",
+            "text": "Fale com a operação pelos canais de atendimento ou deixe seu contato na página de ofertas.",
+            "cta": "Falar com a equipe",
+            "ctaHref": "{{whatsappLink}}",
+            "variant": "faixa"
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "text": "Vitrine do {{unitLabel}}.",
+            "links": [
+              {
+                "label": "Ofertas",
+                "href": "/ofertas"
+              },
+              {
+                "label": "Sobre",
+                "href": "/sobre"
+              },
+              {
+                "label": "Privacidade",
+                "href": "/privacidade"
+              }
+            ],
+            "disclaimer": "{{disclaimer}}"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "ofertas",
+      "title": "Ofertas",
+      "seo": {
+        "description": "Ofertas em destaque do {{name}}."
+      },
+      "blocks": [
+        {
+          "type": "navbar",
+          "props": {
+            "brand": "{{name}}",
+            "logo": "{{logo}}",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Sobre",
+                "href": "/sobre"
+              }
+            ],
+            "cta": "Falar com a equipe",
+            "ctaHref": "{{whatsappLink}}",
+            "variant": "barra"
+          }
+        },
+        {
+          "type": "hero",
+          "props": {
+            "eyebrow": "Todas as ofertas",
+            "title": "O que está valendo agora",
+            "subtitle": "Lista de exemplo: a operação publica as ofertas reais com regras e links identificados.",
+            "variant": "centralizado"
+          }
+        },
+        {
+          "type": "offers",
+          "props": {
+            "items": [
+              {
+                "name": "Oferta 1 (exemplo)",
+                "text": "Formato de exemplo: descrição da oferta, regras e validade ao lado do link.",
+                "badge": "Exemplo",
+                "cta": "Ver oferta",
+                "href": "#"
+              },
+              {
+                "name": "Oferta 2 (exemplo)",
+                "text": "Formato de exemplo: descrição da oferta, regras e validade ao lado do link.",
+                "badge": "Exemplo",
+                "cta": "Ver oferta",
+                "href": "#"
+              },
+              {
+                "name": "Oferta 3 (exemplo)",
+                "text": "Formato de exemplo: descrição da oferta, regras e validade ao lado do link.",
+                "badge": "Exemplo",
+                "cta": "Ver oferta",
+                "href": "#"
+              }
+            ],
+            "variant": "lista",
+            "disclosure": "Alguns links são de afiliado: podemos receber comissão sem custo extra para você."
+          }
+        },
+        {
+          "type": "lead_form",
+          "props": {
+            "title": "Receba as novidades",
+            "text": "Deixe seu contato e a operação avisa quando entrar oferta nova.",
+            "fields": "email_nome",
+            "button": "Quero receber",
+            "success": "Pronto! Você vai receber as novidades.",
+            "variant": "cartao",
+            "anchor": "cadastro"
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Privacidade",
+                "href": "/privacidade"
+              }
+            ],
+            "disclaimer": "{{disclaimer}}"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "sobre",
+      "title": "Sobre",
+      "seo": {
+        "description": "Sobre o {{name}}."
+      },
+      "blocks": [
+        {
+          "type": "navbar",
+          "props": {
+            "brand": "{{name}}",
+            "logo": "{{logo}}",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Ofertas",
+                "href": "/ofertas"
+              }
+            ],
+            "variant": "barra"
+          }
+        },
+        {
+          "type": "image_text",
+          "props": {
+            "eyebrow": "Quem somos",
+            "title": "A história da operação",
+            "text": "Texto de demonstração: conte quando a operação começou, o que oferece e o que a diferencia.\n\nFotos e números reais entram quando a operação tiver.",
+            "cta": "Ver ofertas",
+            "ctaHref": "/ofertas",
+            "variant": "imagem-esquerda"
+          }
+        },
+        {
+          "type": "text",
+          "props": {
+            "title": "Como trabalhamos",
+            "body": "Texto de demonstração: descreva o processo de atendimento, do primeiro contato à entrega.\n\nTransparência primeiro: o que a operação promete é só o que ela consegue entregar.",
+            "variant": "estreito"
+          }
+        },
+        {
+          "type": "contact",
+          "props": {
+            "title": "Canais de atendimento",
+            "whatsapp": "{{whatsapp}}",
+            "telegram": "{{telegram}}",
+            "instagram": "{{instagram}}",
+            "email": "{{email}}",
+            "hours": "Horário de atendimento definido pela operação."
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Privacidade",
+                "href": "/privacidade"
+              }
+            ],
+            "disclaimer": "{{disclaimer}}"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "privacidade",
+      "title": "Privacidade",
+      "seo": {
+        "description": "Como o {{name}} trata seus dados."
+      },
+      "blocks": [
+        {
+          "type": "navbar",
+          "props": {
+            "brand": "{{name}}",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              }
+            ],
+            "variant": "barra"
+          }
+        },
+        {
+          "type": "text",
+          "props": {
+            "title": "Privacidade",
+            "body": "Texto-base para revisão jurídica da operação.\n\nColetamos nome, e-mail e telefone só quando você envia um formulário ou chama nos canais de atendimento. Você pode pedir a exclusão a qualquer momento.\n\nCookies de medição só são ativados se você aceitar no aviso do site.",
+            "variant": "estreito"
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "disclaimer": "{{disclaimer}}"
+          }
+        }
+      ]
+    }
+  ]
+}

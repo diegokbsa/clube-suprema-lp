@@ -1,0 +1,412 @@
+{
+  "id": "tcg-colecionaveis",
+  "name": "TCG e colecionáveis",
+  "order": 19,
+  "version": 1,
+  "category": "Loja · colecionáveis",
+  "niches": [
+    "loja"
+  ],
+  "description": "Vitrine para loja de cards e colecionáveis: destaques, guia de condições e trocas com a comunidade. Itens de exemplo identificados.",
+  "inspiredBy": null,
+  "theme": {
+    "mode": "escuro",
+    "bg": "#101318",
+    "surface": "#1a1f27",
+    "text": "#eef2f8",
+    "muted": "#97a3b6",
+    "primary": "#f0c33c",
+    "primaryText": "#221a02",
+    "accent": "#4f7dd9",
+    "border": "#2c3542",
+    "font": "Space Grotesk",
+    "fontHead": "Bricolage Grotesque",
+    "radius": 10
+  },
+  "seo": {
+    "title": "{{name}} · Cards e colecionáveis",
+    "description": "Vitrine do {{name}}: destaques, guia de condições e trocas. Itens de demonstração; a vitrine real vem do painel."
+  },
+  "pages": [
+    {
+      "slug": "",
+      "title": "Início",
+      "blocks": [
+        {
+          "type": "navbar",
+          "props": {
+            "brand": "{{name}}",
+            "logo": "{{logo}}",
+            "links": [
+              {
+                "label": "Coleção",
+                "href": "/colecao"
+              },
+              {
+                "label": "Trocas",
+                "href": "/trocas"
+              }
+            ],
+            "cta": "Ver a coleção",
+            "ctaHref": "/colecao",
+            "variant": "barra"
+          }
+        },
+        {
+          "type": "hero",
+          "props": {
+            "eyebrow": "Cards e colecionáveis",
+            "title": "Sua coleção começa aqui.",
+            "subtitle": "Página de exemplo para loja de cards e colecionáveis: destaques da vitrine, guia de condições e trocas com a comunidade.",
+            "cta": "Ver destaques",
+            "ctaHref": "/colecao",
+            "secondary": "Como funcionam as trocas",
+            "secondaryHref": "/trocas",
+            "variant": "cartaz"
+          }
+        },
+        {
+          "type": "cards",
+          "props": {
+            "title": "Destaques da vitrine (exemplos)",
+            "subtitle": "Conteúdo de demonstração: os itens reais entram pelo painel, com foto, condição e preço.",
+            "items": [
+              {
+                "title": "Box de coleção (exemplo)",
+                "text": "Exemplo de item: box lacrado, com edição e ano informados.",
+                "href": "/colecao",
+                "tag": "Vitrine"
+              },
+              {
+                "title": "Deck inicial (exemplo)",
+                "text": "Exemplo de item: deck pronto para começar a jogar.",
+                "href": "/colecao",
+                "tag": "Vitrine"
+              },
+              {
+                "title": "Acessórios (exemplo)",
+                "text": "Exemplo de item: sleeves, pastas e deck boxes.",
+                "href": "/colecao",
+                "tag": "Vitrine"
+              }
+            ],
+            "variant": "carrossel"
+          }
+        },
+        {
+          "type": "compare",
+          "props": {
+            "title": "Guia de condições (exemplo)",
+            "subtitle": "Tabela de demonstração: a loja define a régua real de avaliação dos itens.",
+            "columns": "Termo;Condição",
+            "rows": [
+              {
+                "name": "NM",
+                "values": "near mint;quase sem marcas de uso"
+              },
+              {
+                "name": "LP",
+                "values": "light played;marcas leves de uso"
+              },
+              {
+                "name": "MP",
+                "values": "moderately played;marcas visíveis de uso"
+              }
+            ]
+          }
+        },
+        {
+          "type": "offers",
+          "props": {
+            "title": "Parceiros da loja (exemplos)",
+            "subtitle": "Exemplos de parcerias: editoras, distribuidores e lojas amigas.",
+            "items": [
+              {
+                "name": "Distribuidor Exemplo 1",
+                "text": "Exemplo de parceria: reposição de produtos lacrados.",
+                "badge": "Parceiro",
+                "cta": "Ver itens",
+                "href": "/colecao"
+              },
+              {
+                "name": "Loja Amiga Exemplo 2",
+                "text": "Exemplo de parceria: troca de estoque entre lojas.",
+                "badge": "Parceiro",
+                "cta": "Ver itens",
+                "href": "/colecao"
+              }
+            ],
+            "variant": "cartoes",
+            "disclosure": "Alguns links são de afiliado: podemos receber comissão sem custo extra para você."
+          }
+        },
+        {
+          "type": "notice",
+          "props": {
+            "text": "Preços e disponibilidade mudam com o mercado. Os itens desta página são de exemplo. Colecionáveis não são produto de investimento nem promessa de valorização.",
+            "variant": "discreto"
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "text": "Loja mantida pelo {{unitLabel}}.",
+            "links": [
+              {
+                "label": "Coleção",
+                "href": "/colecao"
+              },
+              {
+                "label": "Trocas",
+                "href": "/trocas"
+              },
+              {
+                "label": "Privacidade",
+                "href": "/privacidade"
+              }
+            ],
+            "disclaimer": "{{disclaimer}}"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "colecao",
+      "title": "Coleção",
+      "seo": {
+        "description": "Vitrine de cards e colecionáveis do {{name}}."
+      },
+      "blocks": [
+        {
+          "type": "navbar",
+          "props": {
+            "brand": "{{name}}",
+            "logo": "{{logo}}",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Trocas",
+                "href": "/trocas"
+              }
+            ],
+            "cta": "Pedir pelo WhatsApp",
+            "ctaHref": "{{whatsappLink}}",
+            "variant": "barra"
+          }
+        },
+        {
+          "type": "hero",
+          "props": {
+            "eyebrow": "A vitrine",
+            "title": "Itens à venda",
+            "subtitle": "Vitrine de exemplo: os itens reais mostram foto, condição, preço e link direto para pedido.",
+            "variant": "centralizado"
+          }
+        },
+        {
+          "type": "cards",
+          "props": {
+            "items": [
+              {
+                "title": "Item avulso (exemplo)",
+                "text": "Exemplo de listagem: nome, edição, condição e preço.",
+                "href": "#",
+                "tag": "Avulso"
+              },
+              {
+                "title": "Lote fechado (exemplo)",
+                "text": "Exemplo de listagem: lote com itens agrupados e preço único.",
+                "href": "#",
+                "tag": "Lote"
+              },
+              {
+                "title": "Produto lacrado (exemplo)",
+                "text": "Exemplo de listagem: box ou deck lacrado de fábrica.",
+                "href": "#",
+                "tag": "Lacrado"
+              },
+              {
+                "title": "Acessório (exemplo)",
+                "text": "Exemplo de listagem: sleeves, pastas e organizadores.",
+                "href": "#",
+                "tag": "Acessório"
+              }
+            ],
+            "variant": "grade"
+          }
+        },
+        {
+          "type": "cta",
+          "props": {
+            "title": "Viu algo que procura?",
+            "text": "Chame no WhatsApp para reservar o item ou tirar dúvida sobre condição.",
+            "cta": "Falar no WhatsApp",
+            "ctaHref": "{{whatsappLink}}",
+            "variant": "faixa"
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Privacidade",
+                "href": "/privacidade"
+              }
+            ],
+            "disclaimer": "{{disclaimer}}"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "trocas",
+      "title": "Trocas",
+      "seo": {
+        "description": "Como funcionam as trocas no {{name}}."
+      },
+      "blocks": [
+        {
+          "type": "navbar",
+          "props": {
+            "brand": "{{name}}",
+            "logo": "{{logo}}",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Coleção",
+                "href": "/colecao"
+              }
+            ],
+            "cta": "Propor troca",
+            "ctaHref": "{{whatsappLink}}",
+            "variant": "barra"
+          }
+        },
+        {
+          "type": "hero",
+          "props": {
+            "eyebrow": "Trocas",
+            "title": "Troque suas cartas com segurança",
+            "subtitle": "Fluxo de exemplo: a operação define as regras reais de avaliação e troca.",
+            "variant": "centralizado"
+          }
+        },
+        {
+          "type": "steps",
+          "props": {
+            "title": "Como funciona",
+            "items": [
+              {
+                "title": "Liste suas cartas",
+                "text": "Exemplo de passo: envie a lista com fotos e condição de cada carta."
+              },
+              {
+                "title": "Receba a avaliação",
+                "text": "Exemplo de passo: a loja avalia pelo guia de condições e faz uma proposta."
+              },
+              {
+                "title": "Combine a troca",
+                "text": "Exemplo de passo: escolha os itens de interesse e ajuste a diferença, se houver."
+              },
+              {
+                "title": "Encontro ou envio",
+                "text": "Exemplo de passo: entrega combinada com a operação, com confirmação dos dois lados."
+              }
+            ],
+            "variant": "numerado"
+          }
+        },
+        {
+          "type": "faq",
+          "props": {
+            "title": "Dúvidas sobre trocas",
+            "items": [
+              {
+                "q": "A loja avalia qualquer carta?",
+                "a": "A operação define quais edições e condições aceita; consulte antes de enviar."
+              },
+              {
+                "q": "Posso vender em vez de trocar?",
+                "a": "Se a loja compra avulso, a regra é informada no atendimento."
+              }
+            ]
+          }
+        },
+        {
+          "type": "notice",
+          "props": {
+            "text": "Trocas dependem de avaliação presencial ou por fotos. Nenhuma troca é fechada sem confirmação dos dois lados.",
+            "variant": "discreto"
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Privacidade",
+                "href": "/privacidade"
+              }
+            ],
+            "disclaimer": "{{disclaimer}}"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "privacidade",
+      "title": "Privacidade",
+      "seo": {
+        "description": "Como o {{name}} trata seus dados."
+      },
+      "blocks": [
+        {
+          "type": "navbar",
+          "props": {
+            "brand": "{{name}}",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              }
+            ],
+            "variant": "barra"
+          }
+        },
+        {
+          "type": "text",
+          "props": {
+            "title": "Privacidade",
+            "body": "Texto-base para revisão jurídica da operação.\n\nColetamos dados de contato só quando você chama nos canais de atendimento ou envia um formulário, para responder pedidos e combinar trocas. Você pode pedir a exclusão a qualquer momento.\n\nCookies de medição só são ativados se você aceitar no aviso do site.",
+            "variant": "estreito"
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "disclaimer": "{{disclaimer}}"
+          }
+        }
+      ]
+    }
+  ]
+}

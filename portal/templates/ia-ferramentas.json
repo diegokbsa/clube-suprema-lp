@@ -1,0 +1,422 @@
+{
+  "id": "ia-ferramentas",
+  "name": "Curadoria de ferramentas de IA",
+  "order": 14,
+  "version": 1,
+  "category": "SaaS · IA",
+  "niches": [
+    "saas",
+    "criador"
+  ],
+  "description": "Curadoria de ferramentas de IA por categoria, com critérios de avaliação transparentes e aviso de afiliado. Análises de exemplo identificadas.",
+  "inspiredBy": null,
+  "theme": {
+    "mode": "escuro",
+    "bg": "#0d0f1a",
+    "surface": "#161a2c",
+    "text": "#eceefc",
+    "muted": "#9aa2c8",
+    "primary": "#7c6cff",
+    "primaryText": "#ffffff",
+    "accent": "#35d0ba",
+    "border": "#2a3050",
+    "font": "Outfit",
+    "fontHead": "Space Grotesk",
+    "radius": 18
+  },
+  "seo": {
+    "title": "{{name}} · Ferramentas de IA testadas",
+    "description": "Curadoria de ferramentas de IA com critérios claros. Análises de demonstração; links de afiliado identificados."
+  },
+  "pages": [
+    {
+      "slug": "",
+      "title": "Início",
+      "blocks": [
+        {
+          "type": "navbar",
+          "props": {
+            "brand": "{{name}}",
+            "logo": "{{logo}}",
+            "links": [
+              {
+                "label": "Ferramentas",
+                "href": "/ferramentas"
+              },
+              {
+                "label": "Critérios",
+                "href": "/criterios"
+              }
+            ],
+            "cta": "Ver a lista",
+            "ctaHref": "/ferramentas",
+            "variant": "centralizado"
+          }
+        },
+        {
+          "type": "hero",
+          "props": {
+            "eyebrow": "Curadoria de IA",
+            "title": "Ferramentas de IA testadas, explicadas e organizadas.",
+            "subtitle": "Seleção de exemplo: cada ferramenta entra com o que faz, para quem é e o que dá para fazer de graça.",
+            "cta": "Ver ferramentas",
+            "ctaHref": "/ferramentas",
+            "secondary": "Como escolhemos",
+            "secondaryHref": "/criterios",
+            "variant": "centralizado"
+          }
+        },
+        {
+          "type": "cards",
+          "props": {
+            "title": "Categorias da curadoria",
+            "subtitle": "Exemplos de categorias: a operação define as categorias reais da curadoria.",
+            "items": [
+              {
+                "title": "Escrita e texto (exemplo)",
+                "text": "Exemplo de categoria: geradores e revisores de texto.",
+                "href": "/ferramentas",
+                "tag": "Categoria"
+              },
+              {
+                "title": "Imagem e design (exemplo)",
+                "text": "Exemplo de categoria: criação e edição de imagens.",
+                "href": "/ferramentas",
+                "tag": "Categoria"
+              },
+              {
+                "title": "Automação (exemplo)",
+                "text": "Exemplo de categoria: fluxos automáticos entre ferramentas.",
+                "href": "/ferramentas",
+                "tag": "Categoria"
+              }
+            ],
+            "variant": "mosaico"
+          }
+        },
+        {
+          "type": "features",
+          "props": {
+            "title": "O que você encontra em cada análise",
+            "items": [
+              {
+                "icon": "◈",
+                "title": "O que a ferramenta faz",
+                "text": "Resumo direto: problema que resolve e para quem é indicada."
+              },
+              {
+                "icon": "◎",
+                "title": "Plano grátis",
+                "text": "O que dá para fazer sem pagar e onde está o limite do plano grátis."
+              },
+              {
+                "icon": "§",
+                "title": "Preço de entrada",
+                "text": "Menor plano pago e o que muda em relação ao grátis, com data da checagem."
+              },
+              {
+                "icon": "↗",
+                "title": "Link identificado",
+                "text": "Links de afiliado sempre marcados como tal, sem camuflagem."
+              }
+            ],
+            "variant": "lista"
+          }
+        },
+        {
+          "type": "stats",
+          "props": {
+            "title": "A curadoria em números de exemplo",
+            "items": [
+              {
+                "value": "3",
+                "label": "categorias neste modelo"
+              },
+              {
+                "value": "4",
+                "label": "critérios de avaliação"
+              },
+              {
+                "value": "1",
+                "label": "análise por ferramenta"
+              }
+            ],
+            "demo": true
+          }
+        },
+        {
+          "type": "faq",
+          "props": {
+            "title": "Perguntas frequentes",
+            "items": [
+              {
+                "q": "Vocês testam as ferramentas?",
+                "a": "O modelo prevê teste antes da publicação; cada análise registra a data da checagem."
+              },
+              {
+                "q": "Os links são de afiliado?",
+                "a": "Alguns sim, sempre identificados. Você não paga nada a mais por isso."
+              },
+              {
+                "q": "Posso sugerir uma ferramenta?",
+                "a": "Sim, pelos canais de atendimento da operação."
+              }
+            ]
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "text": "Curadoria mantida pelo {{unitLabel}}.",
+            "links": [
+              {
+                "label": "Ferramentas",
+                "href": "/ferramentas"
+              },
+              {
+                "label": "Critérios",
+                "href": "/criterios"
+              },
+              {
+                "label": "Privacidade",
+                "href": "/privacidade"
+              }
+            ],
+            "disclaimer": "{{disclaimer}}"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "ferramentas",
+      "title": "Ferramentas",
+      "seo": {
+        "description": "Ferramentas de IA analisadas pelo {{name}}."
+      },
+      "blocks": [
+        {
+          "type": "navbar",
+          "props": {
+            "brand": "{{name}}",
+            "logo": "{{logo}}",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Critérios",
+                "href": "/criterios"
+              }
+            ],
+            "cta": "Como escolhemos",
+            "ctaHref": "/criterios",
+            "variant": "barra"
+          }
+        },
+        {
+          "type": "hero",
+          "props": {
+            "eyebrow": "A lista",
+            "title": "Ferramentas analisadas",
+            "subtitle": "Análises de exemplo: a operação publica as análises reais, com data da checagem e link identificado.",
+            "variant": "centralizado"
+          }
+        },
+        {
+          "type": "offers",
+          "props": {
+            "items": [
+              {
+                "name": "Ferramenta de texto (exemplo)",
+                "text": "Análise de exemplo: o que faz, limite do plano grátis e menor plano pago.",
+                "badge": "Análise de exemplo",
+                "cta": "Ler análise",
+                "href": "#"
+              },
+              {
+                "name": "Ferramenta de imagem (exemplo)",
+                "text": "Análise de exemplo: o que faz, limite do plano grátis e menor plano pago.",
+                "badge": "Análise de exemplo",
+                "cta": "Ler análise",
+                "href": "#"
+              },
+              {
+                "name": "Ferramenta de automação (exemplo)",
+                "text": "Análise de exemplo: o que faz, limite do plano grátis e menor plano pago.",
+                "badge": "Análise de exemplo",
+                "cta": "Ler análise",
+                "href": "#"
+              }
+            ],
+            "variant": "cartoes",
+            "disclosure": "Alguns links são de afiliado: podemos receber comissão sem custo extra para você."
+          }
+        },
+        {
+          "type": "compare",
+          "props": {
+            "title": "O que avaliamos em cada ferramenta",
+            "subtitle": "Exemplo didático: os critérios reais estão na página Critérios.",
+            "columns": "O que olhamos;Onde aparece",
+            "rows": [
+              {
+                "name": "Plano grátis",
+                "values": "o limite real do uso gratuito;na análise da ferramenta"
+              },
+              {
+                "name": "Preço de entrada",
+                "values": "menor plano pago;na análise da ferramenta"
+              },
+              {
+                "name": "Data da checagem",
+                "values": "quando testamos por último;no fim de cada análise"
+              }
+            ]
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Privacidade",
+                "href": "/privacidade"
+              }
+            ],
+            "disclaimer": "{{disclaimer}}"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "criterios",
+      "title": "Critérios",
+      "seo": {
+        "description": "Como o {{name}} avalia as ferramentas de IA."
+      },
+      "blocks": [
+        {
+          "type": "navbar",
+          "props": {
+            "brand": "{{name}}",
+            "logo": "{{logo}}",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Ferramentas",
+                "href": "/ferramentas"
+              }
+            ],
+            "variant": "barra"
+          }
+        },
+        {
+          "type": "hero",
+          "props": {
+            "eyebrow": "Transparência",
+            "title": "Como escolhemos",
+            "subtitle": "Os critérios que uma ferramenta precisa passar para entrar na lista.",
+            "variant": "centralizado"
+          }
+        },
+        {
+          "type": "steps",
+          "props": {
+            "title": "O funil da curadoria",
+            "items": [
+              {
+                "title": "Teste de verdade",
+                "text": "Criamos uma conta e usamos a ferramenta em uma tarefa real antes de escrever qualquer linha."
+              },
+              {
+                "title": "Limite do plano grátis",
+                "text": "Documentamos até onde dá para ir sem pagar e onde o paywall aparece."
+              },
+              {
+                "title": "Preço de entrada",
+                "text": "Checamos o menor plano pago e anotamos a data da consulta."
+              },
+              {
+                "title": "Revisão periódica",
+                "text": "Análise desatualizada sai do ar até a próxima checagem."
+              }
+            ],
+            "variant": "numerado"
+          }
+        },
+        {
+          "type": "text",
+          "props": {
+            "title": "Independência",
+            "body": "Texto-base para a operação revisar.\n\nLinks de afiliado não mudam a ordem nem o conteúdo das análises. Se uma ferramenta pagar comissão e falhar nos critérios, ela não entra na lista.",
+            "variant": "estreito"
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Privacidade",
+                "href": "/privacidade"
+              }
+            ],
+            "disclaimer": "{{disclaimer}}"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "privacidade",
+      "title": "Privacidade",
+      "seo": {
+        "description": "Como o {{name}} trata seus dados."
+      },
+      "blocks": [
+        {
+          "type": "navbar",
+          "props": {
+            "brand": "{{name}}",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              }
+            ],
+            "variant": "barra"
+          }
+        },
+        {
+          "type": "text",
+          "props": {
+            "title": "Privacidade e aviso de afiliado",
+            "body": "Texto-base para revisão jurídica da operação.\n\nAlguns links desta página são de afiliado e podemos receber comissão, sem custo extra para você. Coletamos dados só quando você envia um formulário, e você pode pedir a exclusão a qualquer momento.\n\nCookies de medição só são ativados se você aceitar no aviso do site.",
+            "variant": "estreito"
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "disclaimer": "{{disclaimer}}"
+          }
+        }
+      ]
+    }
+  ]
+}

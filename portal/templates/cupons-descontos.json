@@ -1,0 +1,397 @@
+{
+  "id": "cupons-descontos",
+  "name": "Cupons e descontos",
+  "order": 12,
+  "version": 1,
+  "category": "Afiliação · cupons",
+  "niches": [
+    "loja"
+  ],
+  "description": "Vitrine de cupons e descontos com data de teste, regras ao lado do código e aviso de afiliado. Cupons de exemplo identificados.",
+  "inspiredBy": null,
+  "theme": {
+    "mode": "escuro",
+    "bg": "#14110c",
+    "surface": "#1f1a12",
+    "text": "#f5efe2",
+    "muted": "#b3a88f",
+    "primary": "#e8b23a",
+    "primaryText": "#241a05",
+    "accent": "#c2542c",
+    "border": "#3a3222",
+    "font": "DM Sans",
+    "fontHead": "Bricolage Grotesque",
+    "radius": 16
+  },
+  "seo": {
+    "title": "{{name}} · Cupons e descontos",
+    "description": "Cupons testados e com regras claras. Conteúdo de demonstração; links de afiliado identificados."
+  },
+  "pages": [
+    {
+      "slug": "",
+      "title": "Início",
+      "blocks": [
+        {
+          "type": "navbar",
+          "props": {
+            "brand": "{{name}}",
+            "logo": "{{logo}}",
+            "links": [
+              {
+                "label": "Cupons",
+                "href": "/cupons"
+              },
+              {
+                "label": "Lojas",
+                "href": "/lojas"
+              }
+            ],
+            "cta": "Ver cupons",
+            "ctaHref": "/cupons",
+            "variant": "flutuante"
+          }
+        },
+        {
+          "type": "hero",
+          "props": {
+            "eyebrow": "Cupons e descontos",
+            "title": "Desconto bom é desconto testado.",
+            "subtitle": "Cupons de exemplo no ar: a operação publica os códigos reais, como o {{coupon}}, depois de testar cada um.",
+            "cta": "Ver cupons de hoje",
+            "ctaHref": "/cupons",
+            "secondary": "Lojas parceiras",
+            "secondaryHref": "/lojas",
+            "variant": "centralizado"
+          }
+        },
+        {
+          "type": "ticker",
+          "props": {
+            "items": [
+              {
+                "text": "Todo cupom tem data de teste"
+              },
+              {
+                "text": "Links de afiliado identificados"
+              },
+              {
+                "text": "Ofertas mudam sem aviso"
+              },
+              {
+                "text": "Conteúdo de demonstração"
+              }
+            ]
+          }
+        },
+        {
+          "type": "offers",
+          "props": {
+            "title": "Cupons em destaque",
+            "subtitle": "Exemplos de formato: os cupons reais entram pelo painel, com código, validade e regras.",
+            "items": [
+              {
+                "name": "Cupom de primeira compra (exemplo)",
+                "text": "Exemplo de formato: percentual de desconto na primeira compra, com validade e regras ao lado do código.",
+                "badge": "Testado (exemplo)",
+                "cta": "Ver cupom",
+                "href": "/cupons"
+              },
+              {
+                "name": "Frete grátis (exemplo)",
+                "text": "Exemplo de formato: frete grátis acima de um valor mínimo de pedido, com regras da loja.",
+                "badge": "Testado (exemplo)",
+                "cta": "Ver cupom",
+                "href": "/cupons"
+              },
+              {
+                "name": "Desconto da semana (exemplo)",
+                "text": "Exemplo de formato: oferta semanal com data de início e fim visíveis.",
+                "badge": "Semanal",
+                "cta": "Ver cupom",
+                "href": "/cupons"
+              }
+            ],
+            "variant": "lista",
+            "disclosure": "Alguns links são de afiliado: podemos receber comissão sem custo extra para você."
+          }
+        },
+        {
+          "type": "cta",
+          "props": {
+            "title": "Receba o cupom da semana.",
+            "text": "Deixe seu contato e avisamos quando um cupom novo for testado e aprovado.",
+            "cta": "Quero receber",
+            "ctaHref": "/cupons#cadastro",
+            "variant": "destaque"
+          }
+        },
+        {
+          "type": "notice",
+          "props": {
+            "text": "Cupons têm validade e regras definidas pelas lojas. Se um código falhar, avise a gente pelos canais de contato.",
+            "variant": "discreto"
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "text": "Cupons selecionados pelo {{unitLabel}}.",
+            "links": [
+              {
+                "label": "Cupons",
+                "href": "/cupons"
+              },
+              {
+                "label": "Lojas",
+                "href": "/lojas"
+              },
+              {
+                "label": "Privacidade",
+                "href": "/privacidade"
+              }
+            ],
+            "disclaimer": "{{disclaimer}}"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "cupons",
+      "title": "Cupons",
+      "seo": {
+        "description": "Todos os cupons testados do {{name}}."
+      },
+      "blocks": [
+        {
+          "type": "navbar",
+          "props": {
+            "brand": "{{name}}",
+            "logo": "{{logo}}",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Lojas",
+                "href": "/lojas"
+              }
+            ],
+            "cta": "Quero receber cupons",
+            "ctaHref": "#cadastro",
+            "variant": "barra"
+          }
+        },
+        {
+          "type": "hero",
+          "props": {
+            "eyebrow": "Todos os cupons",
+            "title": "O que está valendo agora",
+            "subtitle": "Lista de exemplo: a operação publica os cupons reais com código, validade e link de afiliado identificado.",
+            "variant": "centralizado"
+          }
+        },
+        {
+          "type": "offers",
+          "props": {
+            "items": [
+              {
+                "name": "Primeira compra (exemplo)",
+                "text": "Formato de exemplo: percentual de desconto na primeira compra. Validade e valor mínimo informados ao lado do código.",
+                "badge": "Novos clientes",
+                "cta": "Pegar cupom",
+                "href": "#"
+              },
+              {
+                "name": "Frete grátis (exemplo)",
+                "text": "Formato de exemplo: frete grátis acima de um valor mínimo de pedido.",
+                "badge": "Todo mundo",
+                "cta": "Pegar cupom",
+                "href": "#"
+              },
+              {
+                "name": "Categoria em oferta (exemplo)",
+                "text": "Formato de exemplo: desconto válido só em uma categoria da loja.",
+                "badge": "Por categoria",
+                "cta": "Pegar cupom",
+                "href": "#"
+              },
+              {
+                "name": "Volta às compras (exemplo)",
+                "text": "Formato de exemplo: incentivo para quem não compra há um tempo.",
+                "badge": "Reativação",
+                "cta": "Pegar cupom",
+                "href": "#"
+              }
+            ],
+            "variant": "lista",
+            "disclosure": "Alguns links são de afiliado: podemos receber comissão sem custo extra para você."
+          }
+        },
+        {
+          "type": "lead_form",
+          "props": {
+            "title": "Receba os cupons novos",
+            "text": "Deixe seu contato e receba os cupons assim que forem testados.",
+            "fields": "email_nome",
+            "button": "Quero receber",
+            "success": "Pronto! Você vai receber os próximos cupons.",
+            "variant": "cartao",
+            "anchor": "cadastro"
+          }
+        },
+        {
+          "type": "notice",
+          "props": {
+            "text": "Cupom expirado sai do ar. Se encontrar um código que não funciona, conte para a gente.",
+            "variant": "alerta"
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Privacidade",
+                "href": "/privacidade"
+              }
+            ],
+            "disclaimer": "{{disclaimer}}"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "lojas",
+      "title": "Lojas parceiras",
+      "seo": {
+        "description": "Lojas parceiras do {{name}}."
+      },
+      "blocks": [
+        {
+          "type": "navbar",
+          "props": {
+            "brand": "{{name}}",
+            "logo": "{{logo}}",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Cupons",
+                "href": "/cupons"
+              }
+            ],
+            "variant": "barra"
+          }
+        },
+        {
+          "type": "hero",
+          "props": {
+            "eyebrow": "Lojas parceiras",
+            "title": "Onde os cupons funcionam",
+            "subtitle": "Lista de exemplo: a operação cadastra as lojas reais, com link para a loja, como {{storeUrl}}.",
+            "variant": "centralizado"
+          }
+        },
+        {
+          "type": "cards",
+          "props": {
+            "title": "Lojas no ar (exemplos)",
+            "items": [
+              {
+                "title": "Loja Exemplo 1",
+                "text": "Exemplo de listagem: o que a loja vende e quais cupons costuma ter.",
+                "href": "#",
+                "tag": "Parceira"
+              },
+              {
+                "title": "Loja Exemplo 2",
+                "text": "Exemplo de listagem: o que a loja vende e quais cupons costuma ter.",
+                "href": "#",
+                "tag": "Parceira"
+              },
+              {
+                "title": "Loja Exemplo 3",
+                "text": "Exemplo de listagem: o que a loja vende e quais cupons costuma ter.",
+                "href": "#",
+                "tag": "Parceira"
+              }
+            ],
+            "variant": "grade"
+          }
+        },
+        {
+          "type": "text",
+          "props": {
+            "title": "Como testamos os cupons",
+            "body": "Antes de publicar, a operação testa cada código em um pedido real ou simulado na loja e anota a data do teste.\n\nCupom que falha duas vezes seguidas sai do ar até a loja confirmar um novo código.",
+            "variant": "estreito"
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Privacidade",
+                "href": "/privacidade"
+              }
+            ],
+            "disclaimer": "{{disclaimer}}"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "privacidade",
+      "title": "Privacidade",
+      "seo": {
+        "description": "Como o {{name}} trata seus dados."
+      },
+      "blocks": [
+        {
+          "type": "navbar",
+          "props": {
+            "brand": "{{name}}",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              }
+            ],
+            "variant": "barra"
+          }
+        },
+        {
+          "type": "text",
+          "props": {
+            "title": "Privacidade",
+            "body": "Texto-base para revisão jurídica da operação.\n\nColetamos nome e e-mail só quando você envia um formulário, para enviar os cupons. Você pode pedir a exclusão a qualquer momento pelos canais de atendimento.\n\nCookies de medição só são ativados se você aceitar no aviso do site.",
+            "variant": "estreito"
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "disclaimer": "{{disclaimer}}"
+          }
+        }
+      ]
+    }
+  ]
+}

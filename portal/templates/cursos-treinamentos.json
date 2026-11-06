@@ -1,0 +1,392 @@
+{
+  "id": "cursos-treinamentos",
+  "name": "Cursos e treinamentos",
+  "order": 15,
+  "version": 1,
+  "category": "Educação · cursos",
+  "niches": [
+    "criador"
+  ],
+  "description": "Página para criadores que vendem cursos: trilhas, formato das aulas e lista de espera. Trilhas e turmas de exemplo identificadas.",
+  "inspiredBy": null,
+  "theme": {
+    "mode": "claro",
+    "bg": "#fbf7f1",
+    "surface": "#ffffff",
+    "text": "#2a2118",
+    "muted": "#7a6c5c",
+    "primary": "#b4571f",
+    "primaryText": "#fffaf3",
+    "accent": "#3f7d54",
+    "border": "#e8dccc",
+    "font": "Rubik",
+    "fontHead": "Fraunces",
+    "radius": 14
+  },
+  "seo": {
+    "title": "{{name}} · Cursos e treinamentos",
+    "description": "Trilhas de aprendizado do {{name}}. Conteúdo de demonstração; turmas e valores reais definidos pela operação."
+  },
+  "pages": [
+    {
+      "slug": "",
+      "title": "Início",
+      "blocks": [
+        {
+          "type": "navbar",
+          "props": {
+            "brand": "{{name}}",
+            "logo": "{{logo}}",
+            "links": [
+              {
+                "label": "Trilhas",
+                "href": "/trilhas"
+              },
+              {
+                "label": "Sobre",
+                "href": "/sobre"
+              }
+            ],
+            "cta": "Entrar na lista",
+            "ctaHref": "#lista-espera",
+            "variant": "barra"
+          }
+        },
+        {
+          "type": "hero",
+          "props": {
+            "eyebrow": "Cursos e treinamentos",
+            "title": "Aprenda no seu ritmo, com trilhas diretas.",
+            "subtitle": "Página de exemplo para criadores que ensinam: trilhas claras, formato das aulas e lista de espera para a próxima turma.",
+            "cta": "Ver trilhas",
+            "ctaHref": "/trilhas",
+            "secondary": "Conhecer o criador",
+            "secondaryHref": "/sobre",
+            "variant": "dividido"
+          }
+        },
+        {
+          "type": "steps",
+          "props": {
+            "title": "Como funciona",
+            "items": [
+              {
+                "title": "Escolha a trilha",
+                "text": "Cada trilha mostra o que você aprende, o tempo estimado e o nível indicado."
+              },
+              {
+                "title": "Entre na turma",
+                "text": "As vagas abrem por turma; quem está na lista de espera é avisado primeiro."
+              },
+              {
+                "title": "Avance no seu ritmo",
+                "text": "Aulas gravadas para assistir quando quiser, com encontros ao vivo de tirar dúvidas."
+              }
+            ],
+            "variant": "numerado"
+          }
+        },
+        {
+          "type": "cards",
+          "props": {
+            "title": "Trilhas de exemplo",
+            "subtitle": "Conteúdo de demonstração: as trilhas reais são cadastradas pela operação.",
+            "items": [
+              {
+                "title": "Trilha iniciante (exemplo)",
+                "text": "Exemplo de trilha: começa do zero, com exercícios curtos a cada aula.",
+                "href": "/trilhas",
+                "tag": "Iniciante"
+              },
+              {
+                "title": "Trilha intermediária (exemplo)",
+                "text": "Exemplo de trilha: para quem já pratica e quer subir de nível.",
+                "href": "/trilhas",
+                "tag": "Intermediária"
+              },
+              {
+                "title": "Workshop ao vivo (exemplo)",
+                "text": "Exemplo de formato: encontro único, ao vivo, com material de apoio.",
+                "href": "/trilhas",
+                "tag": "Ao vivo"
+              }
+            ],
+            "variant": "grade"
+          }
+        },
+        {
+          "type": "lead_form",
+          "props": {
+            "title": "Entre na lista de espera",
+            "text": "As turmas abrem algumas vezes por ano. Deixe seu contato para ser avisado antes de todo mundo.",
+            "fields": "email_nome",
+            "button": "Quero ser avisado",
+            "success": "Pronto! Avisamos quando a próxima turma abrir.",
+            "variant": "cartao",
+            "anchor": "lista-espera"
+          }
+        },
+        {
+          "type": "faq",
+          "props": {
+            "title": "Perguntas frequentes",
+            "items": [
+              {
+                "q": "As aulas são ao vivo ou gravadas?",
+                "a": "O modelo prevê aulas gravadas com encontros ao vivo; o formato real de cada trilha é informado na página dela."
+              },
+              {
+                "q": "Tem certificado?",
+                "a": "A emissão de certificado é definida pela operação e informada antes da inscrição."
+              },
+              {
+                "q": "Quanto custa?",
+                "a": "Os valores reais são informados quando a turma abre; esta página é uma demonstração."
+              }
+            ]
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "text": "Cursos do {{unitLabel}}.",
+            "links": [
+              {
+                "label": "Trilhas",
+                "href": "/trilhas"
+              },
+              {
+                "label": "Sobre",
+                "href": "/sobre"
+              },
+              {
+                "label": "Privacidade",
+                "href": "/privacidade"
+              }
+            ],
+            "disclaimer": "{{disclaimer}}"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "trilhas",
+      "title": "Trilhas",
+      "seo": {
+        "description": "Trilhas de aprendizado do {{name}}."
+      },
+      "blocks": [
+        {
+          "type": "navbar",
+          "props": {
+            "brand": "{{name}}",
+            "logo": "{{logo}}",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Sobre",
+                "href": "/sobre"
+              }
+            ],
+            "cta": "Entrar na lista",
+            "ctaHref": "#lista",
+            "variant": "barra"
+          }
+        },
+        {
+          "type": "hero",
+          "props": {
+            "eyebrow": "Todas as trilhas",
+            "title": "Escolha por onde começar",
+            "subtitle": "Trilhas de exemplo: cada trilha real mostra programa, carga horária e nível antes da inscrição.",
+            "variant": "centralizado"
+          }
+        },
+        {
+          "type": "cards",
+          "props": {
+            "items": [
+              {
+                "title": "Trilha iniciante (exemplo)",
+                "text": "Exemplo de programa: fundamentos em aulas curtas, com exercícios guiados.",
+                "href": "#",
+                "tag": "Iniciante"
+              },
+              {
+                "title": "Trilha intermediária (exemplo)",
+                "text": "Exemplo de programa: prática dirigida com projetos progressivos.",
+                "href": "#",
+                "tag": "Intermediária"
+              },
+              {
+                "title": "Workshop ao vivo (exemplo)",
+                "text": "Exemplo de programa: tema único, ao vivo, com gravação para rever.",
+                "href": "#",
+                "tag": "Ao vivo"
+              }
+            ],
+            "variant": "grade"
+          }
+        },
+        {
+          "type": "schedule",
+          "props": {
+            "title": "Encontros ao vivo (exemplos)",
+            "subtitle": "Grade de demonstração: os encontros reais entram no calendário da operação.",
+            "items": [
+              {
+                "day": "Quinta (exemplo)",
+                "time": "20h",
+                "name": "Aula aberta (exemplo)",
+                "detail": "Online · ao vivo",
+                "prize": "Gratuita (exemplo)"
+              },
+              {
+                "day": "Sábado (exemplo)",
+                "time": "10h",
+                "name": "Tira-dúvidas da turma (exemplo)",
+                "detail": "Online · ao vivo",
+                "prize": "Para alunos (exemplo)"
+              }
+            ],
+            "cta": "Quero participar",
+            "ctaHref": "#lista"
+          }
+        },
+        {
+          "type": "lead_form",
+          "props": {
+            "title": "Lista de espera das turmas",
+            "text": "Deixe seu contato e escolha a trilha de interesse quando a operação chamar.",
+            "fields": "email_nome",
+            "button": "Entrar na lista",
+            "success": "Você está na lista! Avisamos quando abrir turma.",
+            "variant": "faixa",
+            "anchor": "lista"
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Privacidade",
+                "href": "/privacidade"
+              }
+            ],
+            "disclaimer": "{{disclaimer}}"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "sobre",
+      "title": "Sobre",
+      "seo": {
+        "description": "Quem ensina no {{name}}."
+      },
+      "blocks": [
+        {
+          "type": "navbar",
+          "props": {
+            "brand": "{{name}}",
+            "logo": "{{logo}}",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Trilhas",
+                "href": "/trilhas"
+              }
+            ],
+            "variant": "barra"
+          }
+        },
+        {
+          "type": "image_text",
+          "props": {
+            "eyebrow": "Quem ensina",
+            "title": "A história por trás das trilhas",
+            "text": "Texto de demonstração: conte aqui a trajetória do criador, o que ele faz e por que ensina.\n\nCanal principal: {{channel}}.",
+            "cta": "Ver trilhas",
+            "ctaHref": "/trilhas",
+            "variant": "imagem-direita"
+          }
+        },
+        {
+          "type": "text",
+          "props": {
+            "title": "Método",
+            "body": "Texto de demonstração: explique o método de ensino em três ideias simples.\n\nO que muda na prática do aluno, em quanto tempo aparece o primeiro resultado e o que se espera de dedicação por semana.",
+            "variant": "estreito"
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Privacidade",
+                "href": "/privacidade"
+              }
+            ],
+            "disclaimer": "{{disclaimer}}"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "privacidade",
+      "title": "Privacidade",
+      "seo": {
+        "description": "Como o {{name}} trata seus dados."
+      },
+      "blocks": [
+        {
+          "type": "navbar",
+          "props": {
+            "brand": "{{name}}",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              }
+            ],
+            "variant": "barra"
+          }
+        },
+        {
+          "type": "text",
+          "props": {
+            "title": "Privacidade",
+            "body": "Texto-base para revisão jurídica da operação.\n\nColetamos nome e e-mail só quando você entra na lista de espera, para avisar sobre turmas. Você pode sair da lista e pedir a exclusão a qualquer momento.\n\nCookies de medição só são ativados se você aceitar no aviso do site.",
+            "variant": "estreito"
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "disclaimer": "{{disclaimer}}"
+          }
+        }
+      ]
+    }
+  ]
+}
