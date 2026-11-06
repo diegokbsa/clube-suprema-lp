@@ -55,7 +55,8 @@ test('módulo aparece no painel e a tela da caixa de entrada é servida', async 
 
   const tela = await sup.req('GET', '/admin/modules/conversas.js', undefined, { raw: true });
   assert.equal(tela.status, 200);
-  assert.match(tela.data, /Conversas/);
+  assert.match(tela.data, /Caixa de entrada/);
+  assert.match(tela.data, /Nota interna/);
 });
 
 test('conversa aberta no painel liga na pessoa da base única e no lead da operação', async () => {
