@@ -141,12 +141,14 @@ export async function render(el, ctx) {
         ${porMundo.map(([mundo, lista]) => `<div class="mg-mundo"><h3>${esc(NOMES_MUNDO[mundo] || mundo)}</h3><div class="mg-modelos">${lista.map((m) => `<label class="mg-modelo" title="${esc(m.descricao)}">
           <input type="radio" name="modelo" value="${esc(m.id)}">${miniatura(m, esc)}<span>${esc(m.tipoNome)}</span></label>`).join('')}</div></div>`).join('')}
       </fieldset>
+      <div data-conta hidden></div>
       <label class="check"><input type="checkbox" name="ciente"> Avisei (ou vou avisar) o agente de que a conta de rede social dele pode cair pelo histórico de apostas.</label>
       <p class="err" data-err></p>
       <div class="mg-acoes"><button class="btn" type="button" data-cancelar>Cancelar</button><button class="btn primary" type="submit">Aprovar e criar a operação</button></div>
     </form>`;
     const form = painelEl.querySelector('form');
     form.querySelector('[data-cancelar]').addEventListener('click', () => { painelEl.hidden = true; card.classList.remove('aberta'); });
+    form.elements.email.addEventListener('input', () => { const box = form.querySelector('[data-conta]'); box.hidden = true; box.innerHTML = ''; }); // trocou o e-mail: a confirmação antiga não vale
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       const f = form.elements;
@@ -156,7 +158,8 @@ export async function render(el, ctx) {
       const btn = form.querySelector('[type=submit]');
       btn.disabled = true;
       try {
-        const r = await api('POST', `/api/admin/migracao/${id}/aprovar`, { nome: f.nome.value, numero: f.numero.value, codigoAgente: f.codigoAgente.value, email: f.email.value, modelo: f.modelo.value });
+        const r = await api('POST', `/api/admin/migracao/${id}/aprovar`, { nome: f.nome.value, numero: f.numero.value, codigoAgente: f.codigoAgente.value, email: f.email.value, modelo: f.modelo.value,
+          confirmoMesmaPessoa: Boolean(f.mesmaPessoa?.checked) });
         ctx.S.me = await api('GET', '/api/me');
         painelEl.innerHTML = resultadoLink(r.link, r.expiraEm, `Operação criada: ${r.tenant.label} · ${r.tenant.name}`,
           `${r.usuarioExistente ? '<p>O e-mail já tinha acesso ao portal com senha: o agente entra com a senha dele, sem link.</p>' : ''}
@@ -165,7 +168,18 @@ export async function render(el, ctx) {
         ligarCopiar(painelEl);
         card.querySelector('.mg-acoes')?.remove();
         toast('Operação criada em rascunho. Nada foi enviado.');
-      } catch (ex) { err.textContent = ex.message; btn.disabled = false; }
+      } catch (ex) {
+        btn.disabled = false;
+        const conta = ex.status === 409 && ex.data?.contaExistente;
+        if (!conta) { err.textContent = ex.message; return; }
+        // e-mail que já tem conta com senha: mostra quem é e exige a confirmação antes de vincular
+        const box = form.querySelector('[data-conta]');
+        box.hidden = false;
+        box.innerHTML = `<div class="mg-risco" role="alert"><div><strong>Este e-mail já tem conta no portal (${esc(conta.nome)} · ${esc(conta.email)}${conta.papeis.length ? `: ${esc(conta.papeis.map((p) => `${p.papel} em ${p.operacao}${p.edicao === 'sx' ? '' : ' (edição Geral)'}`).join('; '))}` : ': sem operação vinculada'}).</strong>
+          <p>Aprovar vincula essa mesma conta como administradora da nova operação, sem link de primeiro acesso. Confira se é a mesma pessoa.</p></div></div>
+          <label class="check"><input type="checkbox" name="mesmaPessoa"> Confirmo que é a mesma pessoa.</label>`;
+        err.textContent = 'Confirme que é a mesma pessoa (ou troque o e-mail) e aprove de novo.';
+      }
     });
   }
 }
