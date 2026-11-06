@@ -78,13 +78,17 @@ def texto(testes: str | None = None, area: str = "aff") -> str:
         linhas += ["", "🔎 *Em revisão*"] + [f"• {nome(t)}" for t in revisao]
     if bloq:
         linhas += ["", "⚠️ *Bloqueadas*"] + [f"• {nome(t)}: {str(st[t].get('bloqueio') or '')[:90]}" for t in bloq]
+    ideias = [i for i in ler(REPO / "portal" / "olheiro" / "ideias.json", {"ideias": []})["ideias"] if i.get("area") == area]
+    levar = [i for i in ideias if i.get("status") == "levar_ao_kbsa"]
+    linhas += ["", f"💡 Ideias dos olheiros: {len(ideias)} trazidas · {len(levar)} para decidirmos juntos"
+               + (f" ({sum(1 for i in levar if i.get('muda_o_jogo'))} que podem mudar o jogo)" if levar else "") + ". Pergunte quando quiser ver."]
     if area == "sx":
         linhas += ["", f"🌐 sx.kbsa.app {no_ar('https://sx.kbsa.app/healthz')}", "", "Foto: um modelo novo da SX na versão mais nova (ambiente de desenvolvimento)."]
     else:
         linhas += ["", f"🧪 Testes: {testes or 'não rodaram nesta hora'}",
                    f"💡 Insights hoje: {pesq.get('por_dia', {}).get(hoje, 0)} pesquisas · {pesq.get('totais', {}).get('insights', 0)} insights no total",
                    f"📦 Ordens hoje (as duas frentes): {estado.get('ordens_hoje', {}).get(hoje, 0)}",
-                   f"🌐 portal.kbsa.app {no_ar('https://portal.kbsa.app/healthz')}",
+                   f"🌐 aff.kbsa.app {no_ar('https://aff.kbsa.app/healthz')}",
                    "", "Fotos: site e painel na versão mais nova (ambiente de desenvolvimento)."]
     return "\n".join(linhas)
 
