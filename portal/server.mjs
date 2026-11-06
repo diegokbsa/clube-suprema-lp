@@ -38,7 +38,7 @@ export async function createApp({ db, origin = 'http://localhost:3400', secretKe
   const loginLimit = rateLimiter(10, 15 * 60_000);
   const formLimit = rateLimiter(20, 10 * 60_000);
   const hookLimit = rateLimiter(600, 60_000);
-  const app = { db, origin, vault: vault(secretKey), moduleNav: [], publicRoutes: [], mcpTools: [], sitemapExtras: [], aiRoutines: {}, fetchImpl,
+  const app = { db, origin, vault: vault(secretKey), moduleNav: [], publicRoutes: [], rootRoutes: [], mcpTools: [], sitemapExtras: [], aiRoutines: {}, fetchImpl,
     edition: eds.default, editions: eds.editions, editionFor: (req) => eds.forRequest(req), serviceToken: serviceToken || null };
   app.originOf = (editionId) => (eds.editions[editionId] || eds.default).origin;
   app.tenantOrigin = (tenantId) => app.originOf(db.prepare('SELECT edition FROM tenants WHERE id = ?').get(tenantId)?.edition);
@@ -52,6 +52,7 @@ export async function createApp({ db, origin = 'http://localhost:3400', secretKe
       for (const t of mod.tables || []) registerTable(t);
       for (const r of mod.routes || []) routes.push({ ...r, match: compile(r.path) });
       for (const r of mod.publicRoutes || []) app.publicRoutes.push({ ...r, match: compile(r.path) });
+      for (const r of mod.rootRoutes || []) app.rootRoutes.push({ ...r, match: compile(r.path) }); // páginas públicas na raiz da edição (ex.: /migrar na SX)
       if (mod.nav) app.moduleNav.push(...[].concat(mod.nav));
       if (mod.mcpTools) app.mcpTools.push(...mod.mcpTools);          // ferramentas que a IA do usuário pode usar
       if (mod.sitemapEntries) app.sitemapExtras.push(mod.sitemapEntries); // ({ site, tenant, repo }) => [{ path, lastmod }]
@@ -251,6 +252,13 @@ export async function createApp({ db, origin = 'http://localhost:3400', secretKe
       }
       if ((m = /^\/f\/([0-9a-f-]{36})$/.exec(p)) && req.method === 'POST') return await submitLead(req, res, m[1]);
       if ((m = /^\/r\/([a-z0-9-]+)\/([A-Za-z0-9_-]+)$/.exec(p)) && req.method === 'GET') return trackClick(req, res, m[1], m[2], url);
+      // rotas públicas de módulo na raiz: { method, path, editions?: ['sx'], handler }. Edição fora da lista cai no 404 abaixo.
+      const ed = app.editionFor(req);
+      for (const r of app.rootRoutes) {
+        if ((r.method || 'GET') !== req.method || (r.editions && !r.editions.includes(ed.id))) continue;
+        const params = r.match(p);
+        if (params) return await r.handler({ req, res, url, params, db, app, edition: ed, origin: ed.origin, send });
+      }
       return send(res, 404, 'Não encontrado.');
     } catch (e) {
       const status = e.status || 500;

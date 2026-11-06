@@ -58,6 +58,9 @@ export const publicRoutes = [
 export async function init(app) { /* agendadores do módulo, se precisar; use app.db */ }
 ```
 
+Página pública na raiz da edição (PA-140): `export const rootRoutes = [{ method: 'GET', path: '/migrar', editions: ['sx'], handler: ({ req, res, url, params, db, app, edition, origin, send }) => ... }]`.
+Edição fora de `editions` cai no 404 do servidor. Item de menu só de uma edição: `nav.editions = ['sx']`.
+
 `ctx` das rotas: `{ req, res, url, params, query, body, raw, user, role, tenant, repo, db, app, audit(action, target, data) }`.
 Retorne um objeto (JSON 200) ou `{ status, body, headers }`. Erro: `throw new HttpError(400, 'mensagem')` (de `lib/http.mjs`).
 
