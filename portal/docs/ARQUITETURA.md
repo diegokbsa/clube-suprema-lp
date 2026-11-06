@@ -102,3 +102,13 @@ git -C "C:\Users\Administrator\Desktop\portal-afiliacao" worktree add -b portal/
 
 Commits pequenos, mensagem em português. **Nunca** commit ou push no `main`, nunca `git push --force`, nunca publicar nada fora do PC.
 O coordenador (Claude) revisa e faz o merge em `portal-afiliacao`.
+
+## Edições e base única de clientes (06/11/2026)
+
+- **Um processo, um banco, duas edições.** A edição vem do endereço (`portal.kbsa.app` = geral, `sx.kbsa.app` = sx) ou da porta local
+  (`PORTAL_PORT=3400:geral,3401:sx`). Nas rotas use `ctx.edition` e `ctx.origin`; nunca `app.edition`/`app.origin` (são só o padrão).
+- **Operação tem edição** (`tenants.edition`). Rota `/api/t/:tenant` de outra edição responde 404. Links públicos usam `app.originOf(tenant.edition)`.
+- **Cliente é uma pessoa só** (`contacts`, sem `tenant_id`): e-mail normalizado manda, telefone completa (`upsertContact` em `lib/migrations.mjs`).
+  O relacionamento com a operação é o lead (`leads.contact_id`). Toda tabela nova de CRM (conversas, mensagens, tarefas) tem `tenant_id` **e** `contact_id`.
+- **Isolamento:** a operação só lê pessoas que tenham lead nela (ver `lib/modules/clientes.mjs`); a base inteira é só para o superadmin, por edição.
+- **Mudança de esquema em banco existente:** acrescente em `lib/migrations.mjs` (só adiciona coluna/índice, idempotente). Nunca apague.
