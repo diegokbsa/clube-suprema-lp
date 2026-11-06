@@ -13,7 +13,7 @@ c01-primeira-compra-1 c01-primeira-compra-2 c01-primeira-compra-3 c02-glossario-
 IDS="${*:-$TODAS}"
 BASE="file:///$(cygpath -m "$AQUI")"
 for id in $IDS; do
-  case "$id" in f*|c*) fmt=feed;; s*) fmt=story;; q*) fmt=quadrado;; esac
+  case "$id" in f*|c*|k*) fmt=feed;; s*) fmt=story;; q*) fmt=quadrado;; esac
   "$EDGE" --headless=new --disable-gpu --hide-scrollbars --user-data-dir="$PERFIL" --virtual-time-budget=8000 \
     --window-size="${TAM[$fmt]}" --screenshot="$(cygpath -m "$SAIDA")/$id.png" "$BASE/$fmt.html?id=$id" >/dev/null 2>&1
   echo "ok $id ($fmt ${TAM[$fmt]})"

@@ -474,6 +474,73 @@ P['c02-glossario-3'] = { fmt: 'feed', html: `
 ${rod()}` };
 
 /* ===================================================================== */
+
+/* =====================================================================
+   CARROSSEL K01 — como entrar no clube (telas 2 a 6; a tela 1 é a capa com foto em capa-foto.html)
+   ===================================================================== */
+const passoGrande = (n, titulo, apoio, extra = '', laranja = false) => `
+${raio(n % 2 ? 'left:900px;top:-120px;height:900px' : 'left:-190px;top:240px;height:900px')}
+<span class="an ${laranja ? 'pa' : 'lc'}" style="position:absolute;left:46px;top:30px;font-size:430px;line-height:.82">${n}</span>
+<p class="co gz" style="position:absolute;left:330px;top:96px;font-size:40px">Passo ${n} de 3</p>
+<div class="cartaz ${laranja ? 'laranja rc' : 'rb'}" style="left:40px;top:400px;width:1000px;--g:${n % 2 ? '-.8' : '.8'}deg;padding:${laranja ? '58px 50px 44px' : '44px 50px 62px'}">
+  <p class="an" style="font-size:104px;text-wrap:balance">${titulo}</p>
+  <p class="tx" style="font-size:40px;margin-top:18px;max-width:880px">${apoio}</p>
+</div>
+${extra}
+${rod()}`;
+
+P['k01-como-entrar-2'] = { fmt: 'feed', html: passoGrande(1, 'Deixe seu e-mail', 'Em <b>hotpoker.club</b> (o link está na bio). Leva uns 10 segundos e o passo a passo chega com o link do clube.',
+  `<div class="cartaz preto ra" style="left:120px;top:900px;width:840px;--g:1.5deg;padding:38px 44px 38px;display:flex;align-items:center;gap:22px">
+     <p class="an pa" style="font-size:64px">Sem senha. Sem documento.</p></div>`) };
+
+P['k01-como-entrar-3'] = { fmt: 'feed', html: passoGrande(2, 'Baixe o Suprema Poker e abra pelo link', 'Grátis na App Store e no Google Play. Entrando pelo link do clube, você já cai no <b>clube 33548</b> com o <b>agente 768286</b>.',
+  `<div class="cartaz rc" style="left:300px;top:972px;width:720px;--g:-2deg;padding:46px 40px 30px">
+     <p class="an" style="font-size:58px">Não precisa procurar o clube.</p></div>`, true) };
+
+P['k01-como-entrar-4'] = { fmt: 'feed', html: `
+${raio('left:900px;top:-120px;height:900px')}
+<span class="an lc" style="position:absolute;left:46px;top:30px;font-size:430px;line-height:.82">3</span>
+<p class="co gz" style="position:absolute;left:330px;top:96px;font-size:40px">Passo 3 de 3</p>
+<div class="cartaz rb" style="left:40px;top:400px;width:1000px;--g:-.8deg;padding:44px 50px 56px">
+  <p class="an" style="font-size:104px">Fichas por PIX</p>
+  <p class="tx" style="font-size:38px;margin-top:14px">No canal de fichas, o Fichas 24h. Na primeira compra, tenha à mão:</p>
+</div>
+<div class="cartaz laranja rc" style="left:70px;top:770px;width:940px;--g:1deg;padding:46px 46px 30px">
+  <ol class="lista">
+    <li style="padding:12px 0"><p class="an" style="font-size:70px">Seu ID de jogador</p><p class="tx" style="font-size:30px">Fica no seu perfil, dentro do app.</p></li>
+    <li style="padding:12px 0"><p class="an" style="font-size:70px">Clube 33548 · Agente 768286</p></li>
+  </ol>
+</div>
+${rod()}` };
+
+P['k01-como-entrar-5'] = { fmt: 'feed', html: `
+${resto('right:-50px;top:180px;width:220px;height:640px;--g:1.5deg')}
+<div class="cartaz rb" style="left:40px;top:50px;width:1000px;--g:-1deg;padding:44px 50px 60px">
+  <p class="an" style="font-size:120px">Salve os números</p>
+  <p class="co lj" style="font-size:44px;margin-top:10px">Tire print desta tela</p>
+</div>
+<div class="cartaz preto ra" style="left:60px;top:380px;width:960px;--g:.8deg;padding:52px 50px 52px">
+  <p class="co gz" style="font-size:40px">Clube</p><p class="an lc" style="font-size:190px;line-height:.9">33548</p>
+  <p class="co gz" style="font-size:40px;margin-top:26px">Agente</p><p class="an pa" style="font-size:190px;line-height:.9">768286</p>
+</div>
+<div class="cartaz laranja rc" style="left:100px;top:1000px;width:900px;--g:-1.5deg;padding:44px 40px 26px">
+  <p class="an" style="font-size:48px">Saque por PIX no seu CPF · Suporte humano 24h</p>
+</div>
+${rod({ num: false })}` };
+
+P['k01-como-entrar-6'] = { fmt: 'feed', html: `
+${raio('left:-160px;top:-160px;height:860px')}
+<div class="cartaz laranja rb" style="left:40px;top:60px;width:1000px;--g:-.8deg;padding:56px 52px 72px">
+  <div>${trava(120, 'ti')}</div>
+  <p class="an" style="font-size:118px;margin-top:34px">Começa pelo<br>link na bio</p>
+  <p class="an min" style="font-size:92px;margin-top:20px">hotpoker.club</p>
+</div>
+<div class="cartaz rc" style="left:80px;top:790px;width:920px;--g:1.2deg;padding:48px 44px 30px">
+  <p class="tx" style="font-size:36px"><b>Canal no Telegram:</b> t.me/hotpokerclub</p>
+  <p class="tx" style="font-size:36px;margin-top:10px"><b>+18.</b> Defina seu limite antes de sentar. Poker é jogo, não é investimento.</p>
+</div>
+${rod()}` };
+
 function montar(fmt) {
   const id = new URLSearchParams(location.search).get('id');
   const el = document.getElementById('peca');

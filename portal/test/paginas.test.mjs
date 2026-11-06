@@ -65,3 +65,15 @@ test('medição: com GA4 no site a página leva o medicao.js (consentimento ante
   assert.match(h, /src="\/assets\/medicao\.js" data-ga4="G-FNLC9XCP3N"/);
   assert.match(h, /hpMedir\('generate_lead'/);
 });
+
+test('buscadores: o superadmin registra a verificação do Search Console e do Bing; outro tipo é recusado', async () => {
+  const { routes } = await import('../lib/modules/buscadores.mjs');
+  const r = routes[0];
+  const linhas = [{ id: 'i1', kind: 'google_search_console', status: 'pendente' }, { id: 'i2', kind: 'bing_webmaster', status: 'pendente' }];
+  const repo = { get: (t, w) => linhas.find((l) => l.kind === w.kind) || null, update: (t, id, p) => Object.assign(linhas.find((l) => l.id === id), p) };
+  const out = r.handler({ repo, params: { kind: 'bing_webmaster' }, body: { metodo: 'CNAME', sitemap: 'https://hotpoker.club/sitemap.xml' }, audit: () => {} });
+  assert.equal(out.status, 'ativo');
+  assert.equal(JSON.parse(linhas[1].public_config).sitemap, 'https://hotpoker.club/sitemap.xml');
+  assert.throws(() => r.handler({ repo, params: { kind: 'meta_pixel' }, body: {}, audit: () => {} }), /Só Google Search Console/);
+  assert.equal(r.super, true);
+});
