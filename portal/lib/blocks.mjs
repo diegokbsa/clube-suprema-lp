@@ -67,7 +67,7 @@ export const BLOCKS = {
     render: (p, ctx) => {
       const f = p.fields || 'email_nome';
       const consent = p.consent || 'Concordo em receber contato sobre esta oferta. Posso sair quando quiser.';
-      return `<section class="b b-lead_form v-${variant(p, ['cartao', 'faixa', 'lateral'], 'cartao')}" id="contato"><div class="wrap"><div class="form-box">
+      return `<section class="b b-lead_form v-${variant(p, ['cartao', 'faixa', 'lateral'], 'cartao')}"><div class="wrap"><div class="form-box">
         <div class="form-copy"><h2>${esc(p.title || 'Fale com a gente')}</h2>${para(p.text)}</div>
         <form class="lead-form" method="post" action="${esc(ctx.formAction)}" data-success="${esc(p.success || 'Recebemos! Vamos falar com você em breve.')}">
           <input type="hidden" name="page" value="${esc(ctx.page.slug)}">
@@ -140,12 +140,14 @@ export const BLOCKS = {
   contact: {
     label: 'Canais de atendimento',
     fields: [...HEAD, F.text('whatsapp', 'WhatsApp (só números, com DDI)'), F.text('telegram', 'Telegram (@usuario)'), F.text('instagram', 'Instagram (@perfil)'), F.text('email', 'E-mail'), F.text('hours', 'Horário')],
-    render: (p) => {
+    render: (p, ctx) => {
       const ch = [];
       if (p.whatsapp) ch.push(['WhatsApp', `https://wa.me/${String(p.whatsapp).replace(/\D/g, '')}`]);
       if (p.telegram) ch.push(['Telegram', `https://t.me/${String(p.telegram).replace(/^@/, '')}`]);
       if (p.instagram) ch.push(['Instagram', `https://instagram.com/${String(p.instagram).replace(/^@/, '')}`]);
       if (p.email) ch.push(['E-mail', `mailto:${p.email}`]);
+      // sem canal nem horário o bloco não aparece no site; na prévia avisa o que falta
+      if (!ch.length && !p.hours) return ctx?.preview ? '<section class="b b-contact"><div class="wrap"><p class="note">Preencha pelo menos um canal (WhatsApp, Telegram, Instagram ou e-mail) para este bloco aparecer no site.</p></div></section>' : '';
       return `<section class="b b-contact"><div class="wrap">${head(p)}<ul class="channels">${ch.map(([n, h]) => `<li><a class="btn btn-ghost" href="${safeHref(h)}" rel="noopener">${esc(n)}</a></li>`).join('')}</ul>
         ${p.hours ? `<p class="note">${esc(p.hours)}</p>` : ''}</div></section>`;
     },
@@ -208,14 +210,23 @@ export function cleanBlocks(blocks) {
 }
 
 export function renderBlocks(blocks, ctx) {
-  return list(blocks).map((b) => {
+  const anchors = list(blocks).map((b) => String(b?.props?.anchor || '').trim().toLowerCase());
+  // "#contato" (destino padrão quando não há WhatsApp) cai no primeiro formulário da página, de qualquer mundo
+  let contato = anchors.includes('contato');
+  return list(blocks).map((b, i) => {
     const def = BLOCKS[b.type];
     if (!def) return '';
     try {
       const html = def.render(b.props || {}, ctx);
-      const anchor = String(b.props?.anchor || '').trim().toLowerCase();
-      if (!ANCHOR.test(anchor)) return html;
+      let anchor = anchors[i];
       const first = html.match(/^\s*<[a-z]+[^>]*>/i)?.[0] || '';
+      if (!ANCHOR.test(anchor)) {
+        if (contato || !html.includes('class="lead-form')) return html;
+        contato = true;
+        // bloco que já tem id próprio (links internos dependem dele): ganha uma âncora vazia logo antes
+        if (/ id="/.test(first)) return `<span id="contato" aria-hidden="true"></span>${html}`;
+        anchor = 'contato';
+      }
       return / id="/.test(first) ? html.replace(/ id="[^"]*"/, ` id="${anchor}"`) : html.replace(/^(\s*<[a-z]+)/i, `$1 id="${anchor}"`);
     } catch { return ''; }
   }).join('\n');

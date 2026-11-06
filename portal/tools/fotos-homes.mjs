@@ -2,7 +2,7 @@
 // Monta um banco temporário do zero (não toca no banco de desenvolvimento), cria uma operação de exemplo por modelo,
 // publica as páginas, sobe um portal temporário em portas próprias e fotografa a home com o Edge/Chrome sem tela.
 //   node portal/tools/fotos-homes.mjs <pasta-de-saida> [--modelos id1,id2] [--celular] [--paginas]
-//     --modelos  só esses modelos · --celular  também foto em 390 px (arquivo ...-celular.jpg) · --paginas  também as páginas internas
+//     --modelos  só esses modelos · --celular  também foto em 390 px (arquivo ...-celular.jpg) · --paginas  também as páginas internas (com --celular, as internas também em 390 px: ...-<pagina>-celular.jpg)
 //   imprime JSON { homes: [{ modelo, nome, edicao, arquivo, celular?, paginas? }] }. Portas livres sorteadas: pode rodar vários ao mesmo tempo.
 import { spawn } from 'node:child_process';
 import net from 'node:net';
@@ -101,18 +101,27 @@ try {
     const porta = h.edicao === 'sx' ? PS : PG;
     const arquivo = await pg.fotoLonga(path.join(OUT, `home-${h.modelo}-${stamp}.jpg`), { max: SO ? 6000 : 2200 });
     const item = { modelo: h.modelo, nome: h.nome, edicao: h.edicao, arquivo };
-    if (CELULAR) {
-      await pg.send('Emulation.setDeviceMetricsOverride', { width: 390, height: 844, deviceScaleFactor: 1, mobile: true });
-      await pg.load(`http://127.0.0.1:${porta}/s/${h.slug}/`);
-      item.celular = await pg.fotoLonga(path.join(OUT, `home-${h.modelo}-${stamp}-celular.jpg`), { width: 390, height: 844, max: 7000, mobile: true });
-      const largura = await pg.send('Runtime.evaluate', { expression: 'document.documentElement.scrollWidth', returnByValue: true });
-      item.larguraCelular = largura.result?.result?.value;
-    }
     if (PAGINAS) {
       item.paginas = [];
       for (const sl of h.paginas) {
         await pg.load(`http://127.0.0.1:${porta}/s/${h.slug}/${sl}`);
         item.paginas.push(await pg.fotoLonga(path.join(OUT, `home-${h.modelo}-${stamp}-${sl}.jpg`), { max: 5000 }));
+      }
+    }
+    if (CELULAR) {
+      const largura = async () => (await pg.send('Runtime.evaluate', { expression: 'document.documentElement.scrollWidth', returnByValue: true })).result?.result?.value;
+      await pg.send('Emulation.setDeviceMetricsOverride', { width: 390, height: 844, deviceScaleFactor: 1, mobile: true });
+      await pg.load(`http://127.0.0.1:${porta}/s/${h.slug}/`);
+      item.celular = await pg.fotoLonga(path.join(OUT, `home-${h.modelo}-${stamp}-celular.jpg`), { width: 390, height: 844, max: 7000, mobile: true });
+      item.larguraCelular = await largura();
+      // com --paginas, as internas também no celular; larguraCelular passa a ser a maior largura entre todas (390 = sem rolagem lateral)
+      if (PAGINAS) {
+        item.paginasCelular = [];
+        for (const sl of h.paginas) {
+          await pg.load(`http://127.0.0.1:${porta}/s/${h.slug}/${sl}`);
+          item.paginasCelular.push(await pg.fotoLonga(path.join(OUT, `home-${h.modelo}-${stamp}-${sl}-celular.jpg`), { width: 390, height: 844, max: 7000, mobile: true }));
+          item.larguraCelular = Math.max(item.larguraCelular || 0, await largura() || 0);
+        }
       }
     }
     homes.push(item);
