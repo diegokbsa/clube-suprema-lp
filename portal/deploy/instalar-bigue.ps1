@@ -29,19 +29,42 @@ Passo 'Conferindo Node e Git'
 $node = (Get-Command node -ErrorAction Stop).Source
 $ver = (& $node --version)
 if ([int]($ver.TrimStart('v').Split('.')[0]) -lt 22) { throw "Node $ver é antigo: o portal precisa do Node 22.5+ (node:sqlite). Instale o Node 24 LTS." }
-$git = (Get-Command git -ErrorAction Stop).Source
-Write-Host "node $ver · git ok"
+$git = (Get-Command git -ErrorAction SilentlyContinue).Source
+$gh = (Get-Command gh -ErrorAction SilentlyContinue).Source
+if (-not $git -and -not $gh) { throw 'Precisa de git ou do gh (GitHub CLI logado) para baixar o código.' }
+Write-Host "node $ver · $(if ($git) { 'git' } else { 'sem git: baixa o zip pelo gh' })"
 
 Passo 'Código'
-if (Test-Path (Join-Path $App '.git')) {
+if ($git -and (Test-Path (Join-Path $App '.git'))) {
   & $git -C $App fetch origin $Branch
   & $git -C $App checkout $Branch
   & $git -C $App reset --hard "origin/$Branch"   # pasta só de implantação: ninguém edita aqui
-} else {
+  & $git -C $App log --oneline -1
+} elseif ($git -and -not (Test-Path $App)) {
   New-Item -ItemType Directory -Force (Split-Path $App) | Out-Null
   & $git clone --branch $Branch --single-branch $Repo $App
+  & $git -C $App log --oneline -1
+} else {
+  # Bigue sem git: baixa o zip da branch pela API do GitHub com o login do gh (o token fica só na memória deste script)
+  $repoPath = ($Repo -replace '^https://github.com/', '' -replace '\.git$', '')
+  $tok = (& $gh auth token).Trim()
+  $tmp = Join-Path $env:TEMP "portal-$(Get-Date -Format yyyyMMddHHmmss)"
+  New-Item -ItemType Directory -Force $tmp | Out-Null
+  Invoke-WebRequest -UseBasicParsing -Uri "https://api.github.com/repos/$repoPath/zipball/$Branch" -Headers @{ Authorization = "Bearer $tok"; 'User-Agent' = 'KBSA-Homelab/1.0' } -OutFile "$tmp\codigo.zip"
+  Remove-Variable tok
+  Expand-Archive -Path "$tmp\codigo.zip" -DestinationPath "$tmp\x" -Force
+  $novo = Get-ChildItem "$tmp\x" -Directory | Select-Object -First 1
+  if (-not (Test-Path (Join-Path $novo.FullName 'portal\server.mjs'))) { throw 'O zip baixado não tem portal\server.mjs; nada foi trocado.' }
+  PararPortal
+  if (Test-Path $App) {
+    $velho = "$App.anterior"
+    if (Test-Path $velho) { Remove-Item -Recurse -Force $velho }
+    Rename-Item $App (Split-Path $velho -Leaf)            # a versão anterior fica em <App>.anterior para voltar atrás
+  }
+  Move-Item $novo.FullName $App
+  Remove-Item -Recurse -Force $tmp
+  Write-Host "código: $($novo.Name) (zip da branch $Branch)"
 }
-& $git -C $App log --oneline -1
 
 Passo 'Dados'
 New-Item -ItemType Directory -Force $Dados | Out-Null
