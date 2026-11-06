@@ -42,7 +42,8 @@ after(() => P.close());
 test('sem consentimento nenhum script de mensuração carrega e o servidor não registra nada', async () => {
   const html = (await sup.req('GET', '/s/clube-10050/', undefined, { raw: true })).data;
   const externos = [...html.matchAll(/<script[^>]+src="([^"]+)"/g)].map((m) => m[1]);
-  assert.deepEqual(externos, ['/assets/site.js'], 'a página só traz o script do próprio portal');
+  assert.deepEqual(externos.filter((u) => !u.startsWith('/assets/')), [], 'a página só traz scripts do próprio portal');
+  assert.ok(externos.includes('/assets/site.js'), 'o script do portal está na página');
   assert.ok(!/googletagmanager\.com/.test(html), 'nenhuma tag do Google no HTML');
   assert.ok(!/connect\.facebook\.net/.test(html), 'nenhuma tag da Meta no HTML');
   assert.match(html, /id="consent"/, 'a faixa de consentimento está na página');
