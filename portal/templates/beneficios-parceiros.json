@@ -1,0 +1,437 @@
+{
+  "id": "beneficios-parceiros",
+  "name": "Benefícios e parceiros",
+  "order": 22,
+  "version": 1,
+  "category": "Poker · parceria",
+  "niches": [
+    "poker"
+  ],
+  "description": "Página para recrutar parceiros e divulgadores: benefícios por nível, passo a passo da parceria e formulário que cai no CRM. Identidade própria; conteúdo de exemplo identificado.",
+  "inspiredBy": null,
+  "theme": {
+    "mode": "claro",
+    "bg": "#f7f6f2",
+    "surface": "#ffffff",
+    "text": "#1c1a17",
+    "muted": "#5d6670",
+    "primary": "#1456c8",
+    "primaryText": "#ffffff",
+    "accent": "#e0a106",
+    "border": "#e4e1d8",
+    "font": "Libre Franklin",
+    "fontHead": "Fraunces",
+    "radius": 10
+  },
+  "seo": {
+    "title": "{{name}} · Seja parceiro e cresça com a gente",
+    "description": "Divulgue o {{name}} ({{app}}) e ganhe comissão por indicação: materiais prontos, link próprio e suporte dedicado. Somente +18."
+  },
+  "pages": [
+    {
+      "slug": "",
+      "title": "Início",
+      "blocks": [
+        {
+          "type": "navbar",
+          "props": {
+            "brand": "{{name}}",
+            "logo": "{{logo}}",
+            "links": [
+              {
+                "label": "Benefícios",
+                "href": "/beneficios"
+              },
+              {
+                "label": "Como funciona",
+                "href": "/parceria"
+              },
+              {
+                "label": "Dúvidas",
+                "href": "#duvidas"
+              }
+            ],
+            "cta": "Quero ser parceiro",
+            "ctaHref": "#contato",
+            "variant": "centralizado"
+          }
+        },
+        {
+          "type": "hero",
+          "props": {
+            "eyebrow": "Programa de parceiros",
+            "title": "Indique jogadores, acompanhe tudo, receba comissão.",
+            "subtitle": "Link de convite próprio, materiais prontos para divulgação e relatório de indicações — parceria com regras claras e pagamento combinado em contrato.",
+            "cta": "Quero ser parceiro",
+            "ctaHref": "#contato",
+            "secondary": "Ver benefícios",
+            "secondaryHref": "/beneficios",
+            "note": "Atividade para maiores de 18 anos",
+            "variant": "dividido"
+          }
+        },
+        {
+          "type": "offers",
+          "props": {
+            "title": "O que o parceiro recebe",
+            "items": [
+              {
+                "badge": "Divulgação",
+                "name": "Kit de materiais",
+                "text": "Artes, textos e vídeos prontos para redes sociais, sempre atualizados pela equipe.",
+                "cta": "Quero ser parceiro",
+                "href": "#contato"
+              },
+              {
+                "badge": "Acompanhamento",
+                "name": "Link e painel próprios",
+                "text": "Cada indicação entra pelo seu link e aparece no seu relatório de parceiro.",
+                "cta": "Quero ser parceiro",
+                "href": "#contato"
+              },
+              {
+                "badge": "Suporte",
+                "name": "Canal dedicado",
+                "text": "Atendimento prioritário para parceiros: dúvidas de jogadores indicados resolvem direto com a gente.",
+                "cta": "Quero ser parceiro",
+                "href": "#contato"
+              }
+            ],
+            "variant": "cartoes",
+            "disclosure": "Programa de indicação da operação: a comissão é definida em contrato entre as partes."
+          }
+        },
+        {
+          "type": "steps",
+          "props": {
+            "title": "Como vira parceiro",
+            "items": [
+              {
+                "title": "Envie o formulário",
+                "text": "Conte quem você é e onde pretende divulgar. Analisamos cada pedido manualmente."
+              },
+              {
+                "title": "Conversa e contrato",
+                "text": "Alinhamos comissão, regras e materiais por escrito antes de qualquer divulgação."
+              },
+              {
+                "title": "Receba seu link",
+                "text": "Você recebe link de convite exclusivo e acesso ao relatório de indicações."
+              },
+              {
+                "title": "Divulgue e acompanhe",
+                "text": "Cada jogador que entra pelo seu link conta para a sua comissão."
+              }
+            ],
+            "variant": "linha-do-tempo"
+          }
+        },
+        {
+          "type": "compare",
+          "props": {
+            "title": "Níveis de parceria (exemplo — condições definidas em contrato)",
+            "columns": "Parceiro;Parceiro destaque;Grupo",
+            "rows": [
+              {
+                "name": "Kit de materiais",
+                "values": "Básico;Completo;Completo e personalizado"
+              },
+              {
+                "name": "Comissão",
+                "values": "Padrão da operação;Maior, por meta;Sob medida"
+              },
+              {
+                "name": "Suporte",
+                "values": "Canal comum;Prioritário;Linha direta com a equipe"
+              },
+              {
+                "name": "Relatório de indicações",
+                "values": "Mensal;Semanal;Em tempo real"
+              }
+            ]
+          }
+        },
+        {
+          "type": "lead_form",
+          "props": {
+            "title": "Peça a sua proposta",
+            "text": "Preencha e a equipe responde com as condições de parceria. Analisamos cada pedido individualmente.",
+            "fields": "email_nome_telefone",
+            "button": "Quero ser parceiro",
+            "success": "Recebido! Vamos analisar e responder no seu e-mail e WhatsApp.",
+            "consent": "Concordo em ser contatado sobre a parceria. Posso sair quando quiser.",
+            "variant": "cartao"
+          }
+        },
+        {
+          "type": "faq",
+          "props": {
+            "title": "Perguntas frequentes",
+            "items": [
+              {
+                "q": "Preciso ser jogador do clube?",
+                "a": "Não. A parceria é de divulgação: você indica jogadores e acompanha pelo relatório."
+              },
+              {
+                "q": "Como a comissão é calculada?",
+                "a": "Pelas indicações que entram pelo seu link, no percentual combinado em contrato. Nada é automático: cada período é conferido com você."
+              },
+              {
+                "q": "Posso divulgar em qualquer canal?",
+                "a": "Nos canais combinados no contrato, sempre com aviso de +18 e sem promessa de ganho."
+              }
+            ],
+            "anchor": "duvidas"
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "text": "Programa de parceiros do {{name}}, no app {{app}}.",
+            "links": [
+              {
+                "label": "Benefícios",
+                "href": "/beneficios"
+              },
+              {
+                "label": "Como funciona",
+                "href": "/parceria"
+              },
+              {
+                "label": "Privacidade",
+                "href": "/privacidade"
+              }
+            ],
+            "disclaimer": "{{disclaimer}}"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "beneficios",
+      "title": "Benefícios",
+      "seo": {
+        "description": "Benefícios do programa de parceiros do {{name}}."
+      },
+      "blocks": [
+        {
+          "type": "navbar",
+          "props": {
+            "brand": "{{name}}",
+            "logo": "{{logo}}",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Como funciona",
+                "href": "/parceria"
+              }
+            ],
+            "cta": "Quero ser parceiro",
+            "ctaHref": "/#contato",
+            "variant": "barra"
+          }
+        },
+        {
+          "type": "features",
+          "props": {
+            "title": "Benefícios em detalhe",
+            "items": [
+              {
+                "icon": "▣",
+                "title": "Materiais prontos",
+                "text": "Artes para feed, stories e grupos, revisadas pela equipe e atualizadas a cada campanha."
+              },
+              {
+                "icon": "↗",
+                "title": "Link exclusivo",
+                "text": "O seu convite é só seu: toda indicação fica registrada nele."
+              },
+              {
+                "icon": "◷",
+                "title": "Relatório periódico",
+                "text": "Resumo das suas indicações com data e status, para você conferir antes de cada pagamento."
+              },
+              {
+                "icon": "✆",
+                "title": "Suporte prioritário",
+                "text": "Jogador indicado com dúvida? O parceiro tem canal direto para resolver rápido."
+              },
+              {
+                "icon": "✓",
+                "title": "Contrato claro",
+                "text": "Comissão, prazos e regras por escrito antes de começar."
+              },
+              {
+                "icon": "+18",
+                "title": "Divulgação responsável",
+                "text": "Materiais com aviso de idade e sem promessa de ganho — exigência da operação."
+              }
+            ],
+            "variant": "grade"
+          }
+        },
+        {
+          "type": "cta",
+          "props": {
+            "title": "Pronto para divulgar?",
+            "text": "Envie o formulário e receba a proposta com as condições.",
+            "cta": "Quero ser parceiro",
+            "ctaHref": "/#contato",
+            "variant": "faixa"
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Privacidade",
+                "href": "/privacidade"
+              }
+            ],
+            "disclaimer": "{{disclaimer}}"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "parceria",
+      "title": "Como funciona",
+      "seo": {
+        "description": "Passo a passo da parceria com o {{name}}: do formulário ao link próprio."
+      },
+      "blocks": [
+        {
+          "type": "navbar",
+          "props": {
+            "brand": "{{name}}",
+            "logo": "{{logo}}",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Benefícios",
+                "href": "/beneficios"
+              }
+            ],
+            "cta": "Quero ser parceiro",
+            "ctaHref": "/#contato",
+            "variant": "barra"
+          }
+        },
+        {
+          "type": "hero",
+          "props": {
+            "eyebrow": "Passo a passo",
+            "title": "Da inscrição ao primeiro relatório",
+            "subtitle": "Um processo curto e por escrito: sem cadastro automático, cada parceria é conversada.",
+            "variant": "centralizado"
+          }
+        },
+        {
+          "type": "steps",
+          "props": {
+            "items": [
+              {
+                "title": "Formulário de interesse",
+                "text": "Nome, e-mail e WhatsApp: a equipe responde em até um dia útil (prazo de exemplo)."
+              },
+              {
+                "title": "Conversa de alinhamento",
+                "text": "Canais de divulgação, público e expectativa de comissão."
+              },
+              {
+                "title": "Contrato",
+                "text": "Percentual, periodicidade e regras de divulgação assinados pelas duas partes."
+              },
+              {
+                "title": "Link e materiais",
+                "text": "Você recebe o convite exclusivo e o kit inicial de divulgação."
+              },
+              {
+                "title": "Acompanhamento",
+                "text": "Relatório de indicações e pagamento conforme o contrato."
+              }
+            ],
+            "variant": "numerado"
+          }
+        },
+        {
+          "type": "contact",
+          "props": {
+            "title": "Prefere conversar antes?",
+            "whatsapp": "{{whatsapp}}",
+            "telegram": "{{telegram}}",
+            "email": "{{email}}",
+            "hours": "Atendimento de parcerias em horário comercial."
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              },
+              {
+                "label": "Privacidade",
+                "href": "/privacidade"
+              }
+            ],
+            "disclaimer": "{{disclaimer}}"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "privacidade",
+      "title": "Privacidade",
+      "seo": {
+        "description": "Como o {{name}} trata seus dados."
+      },
+      "blocks": [
+        {
+          "type": "navbar",
+          "props": {
+            "brand": "{{name}}",
+            "links": [
+              {
+                "label": "Início",
+                "href": "/"
+              }
+            ],
+            "variant": "barra"
+          }
+        },
+        {
+          "type": "text",
+          "props": {
+            "title": "Privacidade",
+            "body": "Texto-base para revisão jurídica da operação.\n\nColetamos nome, e-mail e telefone só quando você envia o formulário de parceria, para responder à sua proposta. Você pode pedir a exclusão a qualquer momento pelos canais oficiais.\n\nCookies de medição (Google e Meta) só são ativados se você aceitar no aviso do site.",
+            "variant": "estreito"
+          }
+        },
+        {
+          "type": "footer",
+          "props": {
+            "brand": "{{name}}",
+            "disclaimer": "{{disclaimer}}"
+          }
+        }
+      ]
+    }
+  ]
+}
