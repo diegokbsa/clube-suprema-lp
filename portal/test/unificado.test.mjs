@@ -78,6 +78,15 @@ test('dono de um clube não vê cliente de outro clube, nem pelo id', async () =
   const meu = (await dono.req('GET', `/api/t/clube-777777/clientes/${cid}`)).data;
   assert.equal(meu.leads.length, 1, 'vê a entrada da pessoa no clube dele');
   assert.equal(JSON.stringify(meu).includes('instagram'), false, 'não vê a origem que ela teve no outro clube');
+  // a pessoa deixou o telefone só no clube 123123; no 777777 deixou e-mail e outro nome
+  assert.equal(meu.cliente.phone, null, 'não vê o telefone que ela deixou no outro clube');
+  assert.equal(meu.cliente.name, 'João Silva', 'vê o nome que ela deixou neste clube');
+  const lista = (await dono.req('GET', '/api/t/clube-777777/clientes')).data.clientes;
+  assert.equal(lista[0].phone, null, 'a lista também não mostra o telefone de outro clube');
+  assert.equal(JSON.stringify(lista).includes('98888'), false);
+  assert.equal((await dono.req('GET', '/api/t/clube-777777/clientes?q=98888')).data.clientes.length, 0, 'busca pelo telefone de outro clube não acha');
+  const global = db.prepare('SELECT name, phone FROM contacts WHERE id = ?').get(cid);
+  assert.equal(global.name, 'João', 'cadastro de outro clube não sobrescreve o nome da base');
   const outra = db.prepare("INSERT INTO contacts (id, email, created_at, updated_at) VALUES ('so-do-outro', 'x@y.com', 'a', 'a')").run();
   void outra;
   assert.equal((await dono.req('GET', '/api/t/clube-777777/clientes/so-do-outro')).status, 404);

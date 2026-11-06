@@ -13,12 +13,18 @@ export const routes = [
   {
     method: 'GET', path: '/api/t/:tenant/clientes', perm: 'leads.read', handler: ({ db, tenant, query }) => {
       const q = String(query.q || '').trim();
-      const rows = db.prepare(`SELECT c.id, c.name, c.email, c.phone, COUNT(l.id) leads, MIN(l.created_at) primeiro, MAX(l.created_at) ultimo,
-          (SELECT stage FROM leads x WHERE x.tenant_id = ? AND x.contact_id = c.id ORDER BY x.created_at DESC LIMIT 1) etapa,
-          (SELECT json_extract(utm, '$.utm_source') FROM leads x WHERE x.tenant_id = ? AND x.contact_id = c.id ORDER BY x.created_at ASC LIMIT 1) origem
-        FROM leads l JOIN contacts c ON c.id = l.contact_id
-        WHERE l.tenant_id = ? ${q ? 'AND (lower(c.name) LIKE ? OR c.email LIKE ? OR c.phone LIKE ?)' : ''}
-        GROUP BY c.id ORDER BY ultimo DESC LIMIT 500`).all(tenant.id, tenant.id, tenant.id, ...(q ? [like(q), like(q), like(q)] : []));
+      // Nome, e-mail e telefone saem só das entradas DESTA operação (leads), nunca do cadastro global (contacts):
+      // outra operação não pode descobrir dados que a pessoa deixou em outro lugar só por saber o e-mail dela.
+      const campo = (c) => `(SELECT x.${c} FROM leads x WHERE x.tenant_id = ? AND x.contact_id = l.contact_id AND x.${c} IS NOT NULL AND x.${c} <> '' ORDER BY x.created_at DESC LIMIT 1) ${c}`;
+      const rows = db.prepare(`SELECT l.contact_id id, ${campo('name')}, ${campo('email')}, ${campo('phone')},
+          COUNT(l.id) leads, MIN(l.created_at) primeiro, MAX(l.created_at) ultimo,
+          (SELECT stage FROM leads x WHERE x.tenant_id = ? AND x.contact_id = l.contact_id ORDER BY x.created_at DESC LIMIT 1) etapa,
+          (SELECT json_extract(utm, '$.utm_source') FROM leads x WHERE x.tenant_id = ? AND x.contact_id = l.contact_id ORDER BY x.created_at ASC LIMIT 1) origem
+        FROM leads l
+        WHERE l.tenant_id = ? AND l.contact_id IS NOT NULL
+          ${q ? 'AND l.contact_id IN (SELECT contact_id FROM leads WHERE tenant_id = ? AND (lower(name) LIKE ? OR lower(email) LIKE ? OR phone LIKE ?))' : ''}
+        GROUP BY l.contact_id ORDER BY ultimo DESC LIMIT 500`)
+        .all(tenant.id, tenant.id, tenant.id, tenant.id, tenant.id, tenant.id, ...(q ? [tenant.id, like(q), like(q), like(q)] : []));
       return { clientes: rows, total: db.prepare('SELECT COUNT(DISTINCT contact_id) n FROM leads WHERE tenant_id = ? AND contact_id IS NOT NULL').get(tenant.id).n };
     },
   },
@@ -26,7 +32,9 @@ export const routes = [
     method: 'GET', path: '/api/t/:tenant/clientes/:id', perm: 'leads.read', handler: ({ db, repo, tenant, params }) => {
       const leads = repo.all('leads', { contact_id: params.id }, { order: 'created_at DESC' });
       if (!leads.length) throw new HttpError(404, 'Cliente não encontrado nesta operação.'); // não revela pessoas de outras operações
-      const c = db.prepare('SELECT id, name, email, phone, created_at FROM contacts WHERE id = ?').get(params.id);
+      // ficha montada só com o que a pessoa deixou nesta operação (leads do mais novo para o mais velho)
+      const ult = (k) => leads.find((l) => l[k])?.[k] || null;
+      const c = { id: params.id, name: ult('name'), email: ult('email'), phone: ult('phone'), created_at: leads[leads.length - 1].created_at };
       const ids = leads.map((l) => l.id);
       const eventos = ids.length ? db.prepare(`SELECT * FROM lead_events WHERE tenant_id = ? AND lead_id IN (${ids.map(() => '?').join(',')}) ORDER BY created_at DESC LIMIT 200`).all(tenant.id, ...ids) : [];
       const conversoes = repo.all('conversions', {}, { extra: `lead_id IN (${ids.map(() => '?').join(',')})`, extraParams: ids, order: 'created_at DESC' });
