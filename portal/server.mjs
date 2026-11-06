@@ -315,5 +315,7 @@ if (isMain) {
   const { handle, app } = await createApp({ db, origin, secretKey, editionId: ed.id, serviceToken, origins, portEditions });
   app.serviceTokensExtra = serviceTokensExtra;
   const host = process.env.PORTAL_HOST || undefined; // no servidor: 127.0.0.1 (só o túnel e o Caddy chegam)
-  for (const p of ports) http.createServer(handle).listen(p, host, () => console.log(`[portal] no ar em ${origin} (painel: ${origin}/admin/) · ouvindo ${host || 'todas as interfaces'}:${p}${portEditions[p] ? ` (${portEditions[p]})` : ''}`));
+  // cada porta mostra a origem da própria edição (3401 -> sx.kbsa.app), não a origem padrão
+  const origemDa = (p) => (portEditions[p] && origins?.[portEditions[p]]) || origin;
+  for (const p of ports) http.createServer(handle).listen(p, host, () => console.log(`[portal] no ar em ${origemDa(p)} (painel: ${origemDa(p)}/admin/) · ouvindo ${host || 'todas as interfaces'}:${p}${portEditions[p] ? ` (${portEditions[p]})` : ''}`));
 }
