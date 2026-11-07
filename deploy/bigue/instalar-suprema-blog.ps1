@@ -134,9 +134,14 @@ $upd = Join-Path $Dados 'atualizar-suprema-blog.ps1'
 Copy-Item (Join-Path $App 'deploy\bigue\atualizar-suprema-blog.ps1') $upd -Force
 $gatilho = New-ScheduledTaskTrigger -Once -At (Get-Date).AddMinutes(2) -RepetitionInterval (New-TimeSpan -Minutes 10)
 $cfgU = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries -ExecutionTimeLimit (New-TimeSpan -Minutes 8) -MultipleInstances IgnoreNew
+# Roda com o usuário que instalou (sessão aberta), não como SYSTEM: o login do gh fica no cofre desse usuário.
+# Com <dados>\github-token.txt (token fine-grained só de leitura do repositório) não depende do gh.
+$eu = [System.Security.Principal.WindowsIdentity]::GetCurrent().Name
+$quem = New-ScheduledTaskPrincipal -UserId $eu -LogonType Interactive -RunLevel Highest
 Register-ScheduledTask -TaskName 'Suprema Blog - Atualizar' -Action (New-ScheduledTaskAction -Execute 'powershell.exe' `
-  -Argument "-NoProfile -ExecutionPolicy Bypass -File `"$upd`" -App `"$App`" -Dados `"$Dados`" -Branch $Branch -Repo $Repo") `
-  -Trigger $gatilho -Settings $cfgU -User 'SYSTEM' -RunLevel Highest -Force | Out-Null
+  -Argument "-NoProfile -WindowStyle Hidden -ExecutionPolicy Bypass -File `"$upd`" -App `"$App`" -Dados `"$Dados`" -Branch $Branch -Repo $Repo -Porta $Porta") `
+  -Trigger $gatilho -Settings $cfgU -Principal $quem -Force | Out-Null
+Write-Host "atualização a cada 10 min como $eu (precisa da sessão aberta ou de $Dados\github-token.txt)"
 
 Passo 'Saúde'
 $ok = $false
