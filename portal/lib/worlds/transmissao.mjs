@@ -2,7 +2,7 @@
 // calculadas de verdade (enumeração completa), seletor pré-flop/flop/turn/river, faixa de torneios correndo, selo AO VIVO e
 // tipografia de grafismo de TV (Barlow Condensed nos nomes, Antonio nos números, Montserrat no texto).
 // Pele em public/assets/worlds/transmissao.css · interação em public/assets/worlds/transmissao.js (sem JS a página mostra o river).
-import { esc, safeHref, list, img, variant, F } from '../block-kit.mjs';
+import { esc, safeHref, list, img, variant, F, AO_VIVO, contagem } from '../block-kit.mjs';
 
 export const world = {
   name: 'Transmissão de TV',
@@ -411,13 +411,13 @@ export const blocks = {
     label: 'Transmissão · grade de torneios',
     fields: [...HEADF, F.text('heading', 'Placa da grade (ex.: Destaques da noite)'), F.text('source', 'Fonte / atualização'), F.check('sample', 'É grade de exemplo (mostra o selo Exemplo)'),
       F.list('items', 'Torneios', [F.text('period', 'Faixa do dia (opcional: Manhã, Tarde, Noite)'), F.text('time', 'Hora'), F.text('name', 'Torneio'), F.text('game', 'Jogo'), F.text('buyin', 'Buy-in'), F.text('prize', 'Garantido'), F.check('lead', 'Em destaque')]),
-      F.text('foot', 'Texto do rodapé da grade'), F.text('link', 'Link'), F.url('linkHref', 'Destino do link')],
+      F.text('foot', 'Texto do rodapé da grade'), F.text('link', 'Link'), F.url('linkHref', 'Destino do link'), ...AO_VIVO],
     render: (p, ctx) => {
       let periodo = '';
       const linhas = list(p.items).map((i) => {
         const cab = i.period && i.period !== periodo ? `<tr class="tx-periodo"><th colspan="5" scope="colgroup">${esc(i.period)}</th></tr>` : '';
         if (i.period) periodo = i.period;
-        return `${cab}<tr${i.lead ? ' class="top"' : ''}><td class="h">${esc(i.time)}</td><td class="n">${esc(i.name)}</td><td class="j" data-buyin="${i.buyin ? ` · ${esc(i.buyin)}` : ''}">${esc(i.game)}</td><td class="bi">${esc(i.buyin)}</td><td class="g">${esc(i.prize)}</td></tr>`;
+        return `${cab}<tr${i.lead ? ' class="top"' : ''}><td class="h">${esc(i.time)}</td><td class="n">${esc(i.name)}${contagem(i)}</td><td class="j" data-buyin="${i.buyin ? ` · ${esc(i.buyin)}` : ''}">${esc(i.game)}</td><td class="bi">${esc(i.buyin)}</td><td class="g">${esc(i.prize)}</td></tr>`;
       }).join('');
       return `<section class="tx-secao tx-grade-sec"><div class="tx-caixa">${cabecalho(p)}<div class="tx-grade">
         <div class="tx-grade-cab"><strong><i class="tx-ponto" aria-hidden="true"></i>${esc(p.heading || 'Grade do dia')}</strong><span>${p.sample ? '<b class="tx-tag">Exemplo</b>' : ''}${esc(p.source)}</span></div>
@@ -432,7 +432,7 @@ export const blocks = {
     label: 'Transmissão · letreiro fixo de torneios (rodapé da tela)',
     fields: [F.text('label', 'Rótulo (ex.: Hoje na liga)'), F.text('labelShort', 'Rótulo curto no celular (ex.: Hoje)'), F.url('href', 'Destino do rótulo'),
       F.check('sample', 'É grade de exemplo (mostra Exemplo no rótulo)'),
-      F.list('items', 'Itens', [F.text('time', 'Hora'), F.text('name', 'Nome'), F.text('detail', 'Detalhe (jogo, buy-in, garantido)')])],
+      F.list('items', 'Itens', [F.text('time', 'Hora'), F.text('name', 'Nome'), F.text('detail', 'Detalhe (jogo, buy-in, garantido)')]), ...AO_VIVO],
     render: (p, ctx) => {
       const li = list(p.items).map((i) => `<li><span class="tx-num">${esc(i.time)}</span><b>${esc(i.name)}</b>${esc(i.detail)}</li>`).join('');
       const rot = p.label || 'Hoje';

@@ -2,7 +2,7 @@
   "id": "sx-rack-torneios",
   "name": "Rack · Agenda de torneios (edição SX)",
   "order": 4,
-  "version": 2,
+  "version": 3,
   "category": "Poker · edição SX",
   "niches": [
     "poker"
@@ -132,7 +132,8 @@
             "cta": "Entrar no clube",
             "ctaHref": "{{inviteLink}}",
             "link": "Ver a grade da semana",
-            "linkHref": "/grade"
+            "linkHref": "/grade",
+            "aoVivo": true
           }
         },
         {
@@ -386,7 +387,8 @@
             ],
             "cta": "Entrar no clube",
             "ctaHref": "{{inviteLink}}",
-            "aviso18": "Somente maiores de 18 anos · Jogue com responsabilidade"
+            "aviso18": "Somente maiores de 18 anos · Jogue com responsabilidade",
+            "aoVivo": true
           }
         },
         {

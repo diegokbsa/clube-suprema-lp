@@ -2,7 +2,7 @@
 // garantido e registro tardio numa grade de instrumentos com fios finos, hora de Brasília ao vivo.
 // Pele em public/assets/worlds/relogio.css (veste também os blocos comuns); interação em public/assets/worlds/relogio.js
 // (lê a grade editável dos atributos data-*; sem JS a página mostra a grade estática). Blocos começam por "relogio_".
-import { esc, safeHref, list, btn, variant, F } from '../block-kit.mjs';
+import { esc, safeHref, list, btn, variant, F, AO_VIVO, contagem } from '../block-kit.mjs';
 
 export const world = {
   name: 'Relógio de blinds',
@@ -142,7 +142,7 @@ export const blocks = {
     fields: [F.text('title', 'Título'), F.area('subtitle', 'Texto (use **assim** para destacar)'),
       F.list('items', 'Torneios (exemplos editáveis)', [F.text('day', 'Dia (opcional: agrupa a grade, ex.: Segunda)'), ...GRADE_FIELDS]),
       F.text('note', 'Nota abaixo da grade (fonte, exemplo)'), F.text('cta', 'Link'), F.url('ctaHref', 'Destino do link'),
-      F.check('live', 'É a grade de hoje: marcar ao vivo registro aberto e encerrado'),
+      F.check('live', 'É a grade de hoje: marcar ao vivo registro aberto e encerrado'), ...AO_VIVO,
       F.select('variant', 'Composição', ['tabela', 'compacta'])],
     render: (p, ctx) => {
       const v = variant(p, ['tabela', 'compacta'], 'tabela');
@@ -154,7 +154,7 @@ export const blocks = {
         if (t.day) dia = t.day;
         const mod = v === 'tabela' ? det : t.mode;
         return `${grupo}<tr${h ? ` data-ini="${h}"` : ''}${hora(t.late) ? ` data-fim="${hora(t.late)}"` : ''}><td class="h">${esc(t.time)}</td>
-          <td class="t"><span class="nome">${esc(t.name)}</span>${t.tag ? `<span class="rl-tag">${esc(t.tag)}</span>` : ''}<span class="st" hidden></span>${mod ? `<span class="mod">${esc(mod)}</span>` : ''}</td>
+          <td class="t"><span class="nome">${esc(t.name)}</span>${t.tag ? `<span class="rl-tag">${esc(t.tag)}</span>` : ''}<span class="st" hidden></span>${mod ? `<span class="mod">${esc(mod)}</span>` : ''}${contagem(t)}</td>
           <td class="num g"><span class="gar">${esc(t.guaranteed)}</span></td><td class="num b"><span class="buy">${esc(t.buyin)}</span></td></tr>`;
       }).join('');
       return `<section class="b rl-grade v-${v}"${p.live ? ' data-rl-grade data-ao-vivo="1"' : ''}><div class="wrap">

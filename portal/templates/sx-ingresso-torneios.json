@@ -2,7 +2,7 @@
   "id": "sx-ingresso-torneios",
   "name": "Bilhetes de torneio (edição SX)",
   "order": 19,
-  "version": 1,
+  "version": 2,
   "category": "Poker · edição SX",
   "niches": [
     "poker"
@@ -196,7 +196,8 @@
                 "val2": "R$ 1.500"
               }
             ],
-            "nota": "Garantido é o valor mínimo que o torneio distribui, definido por quem organiza no app. Nomes, horários e valores desta grade são de exemplo."
+            "nota": "Garantido é o valor mínimo que o torneio distribui, definido por quem organiza no app. Nomes, horários e valores desta grade são de exemplo.",
+            "aoVivo": true
           }
         },
         {
@@ -486,7 +487,8 @@
                 "rot2": "Garantido",
                 "val2": "R$ 4.000"
               }
-            ]
+            ],
+            "aoVivo": true
           }
         },
         {
@@ -560,7 +562,8 @@
                 "val2": "R$ 3.000"
               }
             ],
-            "nota": "Garantido é o valor mínimo que o torneio distribui. Horários, buy-ins e garantidos desta página são de exemplo: confira sempre a grade dentro do app antes de se registrar."
+            "nota": "Garantido é o valor mínimo que o torneio distribui. Horários, buy-ins e garantidos desta página são de exemplo: confira sempre a grade dentro do app antes de se registrar.",
+            "aoVivo": true
           }
         },
         {

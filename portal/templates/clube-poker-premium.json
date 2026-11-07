@@ -2,7 +2,7 @@
   "id": "clube-poker-premium",
   "name": "Clube de poker premium",
   "order": 1,
-  "version": 2,
+  "version": 3,
   "category": "Poker · clube",
   "niches": [
     "poker"
@@ -192,7 +192,8 @@
               }
             ],
             "link": "Ver a grade completa",
-            "linkHref": "/torneios"
+            "linkHref": "/torneios",
+            "aoVivo": true
           }
         },
         {
@@ -413,7 +414,8 @@
             ],
             "cta": "Entrar no clube",
             "ctaHref": "/#entrar",
-            "aviso18": "Somente maiores de 18 anos · Jogue com responsabilidade"
+            "aviso18": "Somente maiores de 18 anos · Jogue com responsabilidade",
+            "aoVivo": true
           }
         },
         {

@@ -2,7 +2,7 @@
 // Pele em public/assets/worlds/rack.css; interação (montar a pilha do PIX) em public/assets/worlds/rack.js.
 // As fichas são SVG desenhado aqui, sem <use> entre blocos: cada bloco é independente. As cores das fichas vêm do tema
 // (classes rk-c-<cor> no CSS, derivadas de --primary, --accent e --bg), então trocar a paleta no painel troca as fichas junto.
-import { esc, safeHref, list, btn, variant, F } from '../block-kit.mjs';
+import { esc, safeHref, list, btn, variant, F, AO_VIVO, contagem } from '../block-kit.mjs';
 
 export const world = {
   name: 'Rack de fichas',
@@ -244,7 +244,7 @@ export const blocks = {
     fields: [...HEADF, F.text('date', 'Linha da data (ex.: horários de Brasília)'),
       F.list('chips', 'Modalidades (fichas pequenas)', [F.text('label', 'Nome'), F.select('color', 'Cor', CORES)]),
       F.list('items', 'Torneios', [F.text('day', 'Dia (opcional)'), F.text('time', 'Hora'), F.text('name', 'Nome'), F.text('detail', 'Formato'), F.text('buyin', 'Buy-in'), F.text('prize', 'Garantido')]),
-      F.check('example', 'É grade de exemplo (mostra o carimbo EXEMPLO)'), F.area('exampleNote', 'Aviso da grade de exemplo'),
+      F.check('example', 'É grade de exemplo (mostra o carimbo EXEMPLO)'), F.area('exampleNote', 'Aviso da grade de exemplo'), ...AO_VIVO,
       F.text('cta', 'Botão'), F.url('ctaHref', 'Destino do botão'), F.text('link', 'Link'), F.url('linkHref', 'Destino do link'), F.text('aviso18', 'Linha +18'),
       F.select('variant', 'Composição', ['secao', 'capa'])],
     render: (p, ctx) => {
@@ -258,7 +258,7 @@ export const blocks = {
         ${p.date ? `<p class="rk-grade-data">${esc(p.date)}</p>` : ''}
         <table class="rk-tabela${comDia ? ' com-dia' : ''}"><caption class="rk-sr">${esc(p.title || 'Grade de torneios')}${p.example ? ' (exemplo)' : ''}</caption>
           <thead><tr>${comDia ? '<th scope="col">Dia</th>' : ''}<th scope="col">Hora</th><th scope="col">Torneio</th><th scope="col" class="d">Buy-in</th><th scope="col" class="d">Garantido</th></tr></thead>
-          <tbody>${items.map((i) => `<tr>${comDia ? `<td class="dia">${esc(i.day)}</td>` : ''}<td class="hora">${esc(i.time)}</td><td class="nome">${esc(i.name)}${i.detail ? `<small>${esc(i.detail)}</small>` : ''}</td><td class="din buy" data-r="buy-in">${esc(i.buyin)}</td><td class="din gar" data-r="gar.">${esc(i.prize)}</td></tr>`).join('')}</tbody></table>
+          <tbody>${items.map((i) => `<tr>${comDia ? `<td class="dia">${esc(i.day)}</td>` : ''}<td class="hora">${esc(i.time)}</td><td class="nome">${esc(i.name)}${i.detail ? `<small>${esc(i.detail)}</small>` : ''}${contagem(i)}</td><td class="din buy" data-r="buy-in">${esc(i.buyin)}</td><td class="din gar" data-r="gar.">${esc(i.prize)}</td></tr>`).join('')}</tbody></table>
         ${p.example && p.exampleNote ? `<p class="rk-aviso rk-aviso-grade">${ICO.info}<span>${esc(p.exampleNote)}</span></p>` : ''}
         ${p.cta || p.link || v === 'capa' || p.aviso18 ? `<div class="rk-grade-pe">${btn(p.cta, p.ctaHref, ctx, 'btn btn-lg')}${arrowLink(p.link, p.linkHref, ctx)}${v === 'capa' || p.aviso18 ? selo18(p.aviso18) : ''}</div>` : ''}
       </div></section>`;

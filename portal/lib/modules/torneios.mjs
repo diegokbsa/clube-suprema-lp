@@ -11,6 +11,8 @@ import { templateVars } from '../tenants.mjs';
 import { esc } from '../blocks.mjs';
 import { head, sendHtml, absoluteSiteUrl, faqLd } from './blog.mjs';
 import { siteDaOperacao, urlDoSite } from './email.mjs';
+import { aplicarGradeAoVivo, pedeGradeAoVivo, cdEvento } from '../grade-ao-vivo.mjs';
+import { contagem } from '../block-kit.mjs';
 
 const API = 'https://api.pokerbyte.com.br/mtt/list/';
 const TTL_MS = 10 * 60_000;
@@ -18,6 +20,8 @@ const INICIO_DIA_H = 7;
 const TZ = 'America/Sao_Paulo';
 const LIGA = /^\d{1,8}$/;
 const cache = new Map(); // 'liga|AAAA-MM-DD' -> { at, list }
+const emVoo = new Map(); // 'liga|AAAA-MM-DD' -> Promise (uma busca por vez)
+const ESPERA_PAGINA_MS = 2500; // a página de um site nunca espera mais que isso pela liga
 let APP = null; // guardado no init: fetch injetável (testes) e banco
 
 const brData = (d) => new Intl.DateTimeFormat('en-CA', { timeZone: TZ, year: 'numeric', month: '2-digit', day: '2-digit' }).format(d);
@@ -45,12 +49,20 @@ export function configTorneios(tenant) {
 }
 
 /** Limpa o cache em memória (testes). */
-export function limparCacheTorneios() { cache.clear(); }
+export function limparCacheTorneios() { cache.clear(); emVoo.clear(); }
 
-async function buscarDia(liga, dia, fetchImpl) {
+// rapido: com resposta antiga no cache, devolve ela na hora e atualiza por trás (as páginas dos sites usam assim)
+async function buscarDia(liga, dia, fetchImpl, { rapido = false } = {}) {
   const chave = `${liga}|${dia}`;
   const hit = cache.get(chave);
   if (hit && Date.now() - hit.at < TTL_MS) return hit.list;
+  if (!emVoo.has(chave)) emVoo.set(chave, baixarDia(liga, dia, fetchImpl, hit).finally(() => emVoo.delete(chave)));
+  if (rapido && hit) { emVoo.get(chave).catch(() => {}); return hit.list; }
+  return emVoo.get(chave);
+}
+
+async function baixarDia(liga, dia, fetchImpl, hit) {
+  const chave = `${liga}|${dia}`;
   try {
     const r = await fetchImpl(`${API}${liga}/all/${dia}/guaranteed/desc`, { headers: { Accept: 'application/json' }, signal: AbortSignal.timeout(8000) });
     if (!r.ok) throw new Error(`HTTP ${r.status}`);
@@ -79,13 +91,13 @@ function normalizar(t) {
 }
 
 /** { dia, de, ate, eventos } do dia de poker (7h às 7h, Brasília) da liga, ou null se a API não respondeu. */
-export async function buscarGrade(liga, { agora = new Date(), fetchImpl = APP?.fetchImpl || globalThis.fetch } = {}) {
+export async function buscarGrade(liga, { agora = new Date(), fetchImpl = APP?.fetchImpl || globalThis.fetch, rapido = false } = {}) {
   if (!LIGA.test(String(liga || ''))) return null;
   const hoje = brData(agora);
   const dia = brHora(agora) < INICIO_DIA_H ? somaDias(hoje, -1) : hoje;
   const de = new Date(`${dia}T0${INICIO_DIA_H}:00:00-03:00`);
   const ate = new Date(de.getTime() + 86400_000);
-  const listas = await Promise.all([buscarDia(liga, dia, fetchImpl), buscarDia(liga, somaDias(dia, 1), fetchImpl)]);
+  const listas = await Promise.all([buscarDia(liga, dia, fetchImpl, { rapido }), buscarDia(liga, somaDias(dia, 1), fetchImpl, { rapido })]);
   if (listas.every((l) => l === null)) return null;
   const vistos = new Set();
   const eventos = listas.flat().filter(Boolean)
@@ -147,7 +159,7 @@ function itemHtml(e, agora) {
   const info = [`Buy-in <b>${e.buyin ? esc(brl(e.buyin)) : 'grátis'}</b>`, e.garantido ? `Garantido <b>${esc(brl(e.garantido))}</b>` : '',
     e.stack ? `Stack ${esc(kilo(e.stack))}` : '', e.blinds ? `Blinds ${esc(e.blinds)} min` : '', e.late ? `Late até ${esc(hhmm(e.late))}` : ''].filter(Boolean);
   return `<li class="mtt${e.mainEvent ? ' is-main' : ''}${lateAberto ? ' is-late' : ''}"><time class="mtt-hora" datetime="${esc(e.inicio.toISOString())}">${esc(hhmm(e.inicio))}</time>
-    <div><p class="mtt-nome">${esc(e.nome)} ${tags.map((t) => `<span class="mtt-tag">${esc(t)}</span>`).join('')}${lateAberto ? '<span class="mtt-tag mtt-late">Late aberto</span>' : ''}</p>
+    <div><p class="mtt-nome">${esc(e.nome)} ${tags.map((t) => `<span class="mtt-tag">${esc(t)}</span>`).join('')}${lateAberto ? '<span class="mtt-tag mtt-late">Late aberto</span>' : ''}${contagem({ _cd: cdEvento(e, agora) })}</p>
     <p class="mtt-info">${info.map((s) => `<span>${s}</span>`).join('')}</p></div></li>`;
 }
 
@@ -208,7 +220,7 @@ function paginaTorneios({ site, tenant, base, origin, grade, cfg, agora }) {
     ${grade ? `<p class="grade-fonte">${abertosAgora.length} torneios ainda abertos${fechados ? ` · ${fechados} já fecharam o registro hoje` : ''}. Horários de Brasília. A grade vem da ${esc(cfg.nome)} e pode mudar: confira sempre no lobby do app antes de se inscrever. Versão em texto: <a href="${esc(`${base}/torneios.txt`)}">torneios.txt</a>.${vars.disclaimer ? ` ${esc(vars.disclaimer)}` : ''}</p>` : ''}
     ${faq.length ? `<section class="grade-faq" aria-labelledby="faq-torneios"><h2 id="faq-torneios">Perguntas sobre os torneios de hoje</h2>${faq.map((f) => `<details><summary>${esc(f.q)}</summary><p>${esc(f.a)}</p></details>`).join('')}</section>` : ''}
     <aside class="blog-box blog-box-cta grade-cta"><strong class="blog-box-title">Quer jogar esses torneios?</strong><p>Os torneios da ${esc(cfg.nome)} ficam no lobby do ${esc(vars.unitLabel || site.name)}. Entre pelo link oficial e comece hoje.</p><a class="btn-cta" href="${esc(`${base}/baixar`)}">Entrar no clube</a></aside>
-    </main></body></html>`;
+    </main>${abertosAgora.length ? '<script src="/assets/contagem.js" defer></script>' : ''}</body></html>`;
   return `${head({ site, origin, base, title: titulo, description: descricao, canonical: '/torneios', image: '', structuredData: ld, ogType: 'website', extraCss: CSS })}${corpo}`;
 }
 
@@ -300,7 +312,24 @@ export async function gradeEstruturada(tenant, { agora = new Date(), app = APP }
   return { dia: grade.dia, url: app ? urlTorneios(app, tenant) : '', eventos: grade.eventos };
 }
 
+/**
+ * Blocos de grade com "aoVivo" (modelos prontos) recebem os torneios abertos da liga na hora de desenhar a página.
+ * A página espera a liga no máximo ESPERA_PAGINA_MS (app.esperaGradeMs nos testes); sem resposta, fica com os itens digitados.
+ */
+export async function prepararBlocosAoVivo(app, tenant, blocks, { agora = new Date() } = {}) {
+  if (!pedeGradeAoVivo(blocks)) return blocks;
+  const cfg = configTorneios(tenant);
+  if (!cfg.ativo) return blocks;
+  let timer;
+  const limite = new Promise((r) => { timer = setTimeout(() => r(null), app.esperaGradeMs ?? ESPERA_PAGINA_MS); });
+  const grade = await Promise.race([buscarGrade(cfg.liga, { agora, fetchImpl: app.fetchImpl || globalThis.fetch, rapido: true }).catch(() => null), limite]);
+  clearTimeout(timer);
+  return grade ? aplicarGradeAoVivo(blocks, grade, { agora, nome: cfg.nome }) : blocks;
+}
+
 export function init(app) {
   APP = app;
   if (typeof app.gradeDoDia !== 'function') app.gradeDoDia = (tenant, opts = {}) => gradeEstruturada(tenant, { ...opts, app });
+  const antes = app.prepararBlocos;
+  app.prepararBlocos = async (tenant, blocks) => prepararBlocosAoVivo(app, tenant, antes ? await antes(tenant, blocks) : blocks);
 }

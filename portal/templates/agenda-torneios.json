@@ -2,7 +2,7 @@
   "id": "agenda-torneios",
   "name": "Agenda de torneios",
   "order": 24,
-  "version": 2,
+  "version": 3,
   "category": "Poker · torneios",
   "niches": [
     "poker"
@@ -283,7 +283,8 @@
             "cta": "Agenda da semana",
             "ctaHref": "/agenda",
             "live": true,
-            "variant": "compacta"
+            "variant": "compacta",
+            "aoVivo": true
           }
         },
         {
@@ -751,7 +752,8 @@
             ],
             "note": "Agenda de exemplo. A grade oficial fica no app.",
             "live": false,
-            "variant": "tabela"
+            "variant": "tabela",
+            "aoVivo": true
           }
         },
         {

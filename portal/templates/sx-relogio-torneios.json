@@ -2,7 +2,7 @@
   "id": "sx-relogio-torneios",
   "name": "Relógio de blinds · Torneios",
   "order": 14,
-  "version": 1,
+  "version": 2,
   "category": "Poker · edição SX",
   "niches": [
     "poker"
@@ -284,7 +284,8 @@
             "ctaHref": "/grade",
             "live": true,
             "variant": "tabela",
-            "anchor": "hoje"
+            "anchor": "hoje",
+            "aoVivo": true
           }
         },
         {
@@ -759,7 +760,8 @@
             ],
             "note": "Grade de exemplo: troque pelos torneios do seu clube no painel. A grade oficial fica no app.",
             "live": false,
-            "variant": "tabela"
+            "variant": "tabela",
+            "aoVivo": true
           }
         },
         {

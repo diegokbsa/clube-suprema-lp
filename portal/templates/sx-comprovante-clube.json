@@ -2,7 +2,7 @@
   "id": "sx-comprovante-clube",
   "name": "Clube do jogador · Comprovante PIX (edição SX)",
   "order": 21,
-  "version": 1,
+  "version": 2,
   "category": "Poker · edição SX",
   "niches": [
     "poker"
@@ -291,7 +291,8 @@
             ],
             "foot": "Grade de exemplo. Troque pela grade do clube.",
             "linkLabel": "Ver no app",
-            "linkHref": "{{inviteLink}}"
+            "linkHref": "{{inviteLink}}",
+            "aoVivo": true
           }
         },
         {

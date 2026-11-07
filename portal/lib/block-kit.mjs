@@ -34,3 +34,12 @@ export const F = {
   list: (k, label, of) => ({ k, label, t: 'list', of }),
 };
 export const HEAD = [F.text('eyebrow', 'Chamada pequena'), F.text('title', 'Título'), F.area('subtitle', 'Subtítulo')];
+
+/** Campos dos blocos de grade que podem puxar os torneios da liga (lib/grade-ao-vivo.mjs). */
+export const AO_VIVO = [F.check('aoVivo', 'Grade ao vivo da liga (Recursos → Torneios ao vivo): troca os itens abaixo pelos torneios abertos agora, com contagem regressiva. Sem liga ligada, mostra os itens abaixo.'),
+  F.text('aoVivoMax', 'Grade ao vivo · quantos torneios mostrar (padrão 8)')];
+
+/** Selo da contagem regressiva de um item da grade ao vivo ('' nos itens digitados à mão). site.js atualiza a cada 15 s. */
+export const contagem = (i) => (i?._cd?.ini
+  ? `<span class="cd cd-${esc(i._cd.fase)}${i._cd.urgente ? ' cd-urgente' : ''}" data-cd-ini="${esc(i._cd.ini)}" data-cd-fim="${esc(i._cd.fim)}">${esc(i._cd.texto)}</span>`
+  : '');

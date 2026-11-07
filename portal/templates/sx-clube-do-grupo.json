@@ -2,7 +2,7 @@
   "id": "sx-clube-do-grupo",
   "name": "Clube do grupo (edição SX)",
   "order": 21,
-  "version": 1,
+  "version": 2,
   "category": "Poker · edição SX",
   "niches": [
     "poker"
@@ -261,7 +261,8 @@
               }
             ],
             "cta": "Quero jogar",
-            "ctaHref": "{{inviteLink}}"
+            "ctaHref": "{{inviteLink}}",
+            "aoVivo": true
           }
         },
         {

@@ -82,11 +82,15 @@ export async function createApp({ db, origin = 'http://localhost:3400', secretKe
     res.setHeader('Set-Cookie', cookie(SESSION_COOKIE, '', { maxAge: 0, secure, sameSite: 'Strict' }));
     return { ok: true };
   };
-  app.preview = ({ repo, tenant, params }) => {
+  // blocos -> blocos prontos para desenhar (ex.: grade ao vivo da liga, em lib/modules/torneios.mjs); nunca derruba a página
+  const prontos = async (tenant, blocks) => { try { return app.prepararBlocos ? await app.prepararBlocos(tenant, blocks) : blocks; } catch (e) { console.warn(`[blocos] ${e.message}`); return blocks; } };
+  app.prontos = prontos;
+  app.siteCsp = SITE_CSP;
+  app.preview = async ({ repo, tenant, params }) => {
     const page = repo.get('pages', params.id);
     if (!page) throw new HttpError(404, 'Página não encontrada.');
     const site = repo.get('sites', page.site_id);
-    const html = renderPage({ site, page, blocks: parse(page.draft, []), tenant, base: `/s/${site.slug}`, origin: app.originOf(tenant.edition), preview: true,
+    const html = renderPage({ site, page, blocks: await prontos(tenant, parse(page.draft, [])), tenant, base: `/s/${site.slug}`, origin: app.originOf(tenant.edition), preview: true,
       pages: repo.all('pages', { site_id: site.id }, { order: 'position ASC' }) });
     return { status: 200, body: html, headers: { 'Content-Type': 'text/html; charset=utf-8', 'Content-Security-Policy': SITE_CSP.replace("frame-ancestors 'self'", "frame-ancestors 'self'") } };
   };
@@ -120,7 +124,7 @@ export async function createApp({ db, origin = 'http://localhost:3400', secretKe
     const slug = String(rest || '').replace(/\/$/, '');
     const page = pages.find((p) => p.slug === slug);
     if (!page || !page.published) return send(res, 404, renderNotFound(site), { 'Content-Type': 'text/html; charset=utf-8' });
-    const html = renderPage({ site, page, blocks: parse(page.published, []), tenant, base, origin: siteOrigin, pages });
+    const html = renderPage({ site, page, blocks: await prontos(tenant, parse(page.published, [])), tenant, base, origin: siteOrigin, pages });
     return send(res, 200, html, { 'Content-Type': 'text/html; charset=utf-8', 'Content-Security-Policy': SITE_CSP, 'Cache-Control': 'public, max-age=60' });
   }
 
