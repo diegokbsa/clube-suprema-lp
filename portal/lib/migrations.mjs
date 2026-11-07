@@ -33,6 +33,9 @@ export function upsertContact(db, { email, phone, name }) {
 export function migrate(db) {
   if (!has(db, 'tenants', 'edition')) db.exec("ALTER TABLE tenants ADD COLUMN edition TEXT NOT NULL DEFAULT 'geral'");
   if (!has(db, 'leads', 'contact_id')) db.exec('ALTER TABLE leads ADD COLUMN contact_id TEXT');
+  for (const col of ['contact_name', 'contact_email', 'contact_phone']) {
+    if (!has(db, 'conversations', col)) db.exec(`ALTER TABLE conversations ADD COLUMN ${col} TEXT`);
+  }
   db.exec('CREATE INDEX IF NOT EXISTS tenants_edition ON tenants (edition)');
   db.exec('CREATE INDEX IF NOT EXISTS leads_contact ON leads (contact_id)');
   // leads antigos sem pessoa: liga na base única (uma vez; depois o formulário já grava)
