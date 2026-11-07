@@ -992,7 +992,16 @@ function initFichas() {
     $('#f24h-form').hidden = true;
     showFichasGuide({ name: '', cpf: '', phone: '', birth: '' });
   }
-  $('#f24h-open').addEventListener('click', () => track('f24h_signup_open', { jornada: jornada() }));
+  // O cadastro do Fichas 24h não aceita dados pelo link nem preenchimento automático (testado em 07/11/2026):
+  // o toque no botão já copia o e-mail, e lá o jogador só toca no campo Email e em Colar.
+  $('#f24h-open').addEventListener('click', () => {
+    const email = state.signup?.player?.email;
+    if (email) {
+      copyText(email);
+      toast('E-mail copiado. No Fichas 24h, toque em Email e em Colar.');
+    }
+    track('f24h_signup_open', { jornada: jornada() });
+  });
   $('#f24h-buy').addEventListener('click', () => track('buy_chips_click', { jornada: jornada() }));
 }
 
