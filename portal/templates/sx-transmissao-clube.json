@@ -2,7 +2,7 @@
   "id": "sx-transmissao-clube",
   "name": "Clube ao vivo (Transmissão)",
   "order": 6,
-  "version": 1,
+  "version": 2,
   "category": "Poker · edição SX",
   "niches": [
     "poker"
@@ -256,7 +256,8 @@
             ],
             "foot": "Horários de Brasília. Nomes, buy-ins e garantidos de exemplo.",
             "link": "Abrir o app do clube",
-            "linkHref": "{{inviteLink}}"
+            "linkHref": "{{inviteLink}}",
+            "aoVivo": true
           }
         },
         {
@@ -412,7 +413,8 @@
                 "name": "Hyper da Madrugada",
                 "detail": "NLH · buy-in R$ 15 · garantido R$ 2.500"
               }
-            ]
+            ],
+            "aoVivo": true
           }
         }
       ]

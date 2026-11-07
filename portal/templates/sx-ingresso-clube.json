@@ -2,7 +2,7 @@
   "id": "sx-ingresso-clube",
   "name": "Clube no ingresso (edição SX)",
   "order": 16,
-  "version": 1,
+  "version": 2,
   "category": "Poker · edição SX",
   "niches": [
     "poker"
@@ -297,7 +297,8 @@
                 "val2": "R$ 1.500"
               }
             ],
-            "nota": "Garantido é o valor mínimo que o torneio distribui, definido por quem organiza o torneio no app. Nomes, horários e valores desta grade são de exemplo."
+            "nota": "Garantido é o valor mínimo que o torneio distribui, definido por quem organiza o torneio no app. Nomes, horários e valores desta grade são de exemplo.",
+            "aoVivo": true
           }
         },
         {

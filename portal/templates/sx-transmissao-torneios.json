@@ -2,7 +2,7 @@
   "id": "sx-transmissao-torneios",
   "name": "Agenda de torneios (Transmissão)",
   "order": 9,
-  "version": 1,
+  "version": 2,
   "category": "Poker · edição SX",
   "niches": [
     "poker"
@@ -127,7 +127,8 @@
             ],
             "foot": "Horários de Brasília. Buy-ins e garantidos de exemplo: confira sempre no app antes de registrar.",
             "link": "Grade completa",
-            "linkHref": "/grade"
+            "linkHref": "/grade",
+            "aoVivo": true
           }
         },
         {
@@ -281,7 +282,8 @@
                 "name": "Hyper da Madrugada",
                 "detail": "NLH · buy-in R$ 15 · garantido R$ 2.500"
               }
-            ]
+            ],
+            "aoVivo": true
           }
         }
       ]
@@ -442,7 +444,8 @@
             ],
             "foot": "Nomes, buy-ins e garantidos de exemplo. A grade oficial é sempre a do app.",
             "link": "Abrir o app",
-            "linkHref": "{{inviteLink}}"
+            "linkHref": "{{inviteLink}}",
+            "aoVivo": true
           }
         },
         {
@@ -533,7 +536,8 @@
                 "name": "Hyper da Madrugada",
                 "detail": "NLH · buy-in R$ 15 · garantido R$ 2.500"
               }
-            ]
+            ],
+            "aoVivo": true
           }
         }
       ]

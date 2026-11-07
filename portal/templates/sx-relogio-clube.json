@@ -2,7 +2,7 @@
   "id": "sx-relogio-clube",
   "name": "Relógio de blinds · Clube",
   "order": 11,
-  "version": 1,
+  "version": 2,
   "category": "Poker · edição SX",
   "niches": [
     "poker"
@@ -374,7 +374,8 @@
             "ctaHref": "/como-entrar",
             "live": true,
             "variant": "tabela",
-            "anchor": "torneios"
+            "anchor": "torneios",
+            "aoVivo": true
           }
         },
         {

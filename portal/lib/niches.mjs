@@ -12,6 +12,8 @@ export const NICHES = {
       { key: 'agentId', label: 'ID do agente', placeholder: 'Ex.: 1439098' },
       { key: 'inviteLink', label: 'Link de convite do clube', placeholder: 'https://...' },
       { key: 'chipsUrl', label: 'Onde comprar fichas', placeholder: 'https://...' },
+      { key: 'chipsHomeUrl', label: 'Página de compra depois do cadastro de fichas (Fichas 24h: /home)', placeholder: 'https://...' },
+      { key: 'chipsClubName', label: 'Nome do clube no sistema de fichas (como aparece no "Cadastrar ID")', placeholder: 'Ex.: SX | XX POKER' },
     ],
     conversions: [
       { kind: 'cadastro', label: 'Cadastro no app' },

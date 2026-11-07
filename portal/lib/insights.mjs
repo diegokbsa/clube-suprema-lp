@@ -20,7 +20,7 @@ export function cleanInsight(i) {
     impacto: clampN(i.impacto), esforco: clampN(i.esforco), confianca: clampN(i.confianca), urgente: i.urgente ? 1 : 0 };
 }
 
-function serviceOk(app, header) {
+export function serviceOk(app, header) {
   const m = /^Bearer\s+(\S+)$/i.exec(String(header || ''));
   const tokens = [].concat(app.serviceToken || [], app.serviceTokensExtra || []).filter(Boolean);
   if (!m || !tokens.length) return false;

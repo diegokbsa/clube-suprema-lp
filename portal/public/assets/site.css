@@ -224,3 +224,19 @@ html.jx-open { overflow: hidden; }
 .consent p { margin: 0; flex: 1 1 260px; color: var(--muted); }
 .consent div { display: flex; gap: 8px; }
 body.mode-claro .b-cta.v-escuro .cta-box { color: #f4f2ec; }
+/* cadastro no app + Fichas 24h guiado (passos conta_app, entrar_clube e fichas24h) */
+.jx-body h3 { font-size: 1rem; margin: 18px 0 2px; }
+.jx-status .jx-copy { grid-template-columns: 22px 1fr auto; }
+.jx-status .jx-ok span { color: var(--primary); font-weight: 800; }
+.jx-status .jx-erro span { color: #e5484d; font-weight: 800; }
+
+/* contagem regressiva da grade ao vivo (lib/grade-ao-vivo.mjs + /assets/contagem.js): vermelha nos últimos 5 min */
+.cd{display:inline-flex;align-items:center;gap:6px;margin:4px 0 0 .5em;padding:1px 9px;border:1px solid var(--border);border-radius:999px;font:600 .74rem/1.5 var(--font,system-ui,sans-serif);letter-spacing:.01em;color:var(--muted);white-space:nowrap;vertical-align:middle;font-variant-numeric:tabular-nums;text-transform:none}
+.cd::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor;opacity:.8}
+.cd-late{color:var(--primary);border-color:color-mix(in srgb,var(--primary) 55%,transparent)}
+.cd-urgente{color:#fff;background:#d92d20;border-color:#d92d20}
+.cd-urgente::before{opacity:1;animation:cd-pisca 1s steps(2,start) infinite}
+.cd-fim{opacity:.75}.cd-fim::before{display:none}
+.cd-passou{opacity:.55}
+@keyframes cd-pisca{to{visibility:hidden}}
+@media (prefers-reduced-motion:reduce){.cd-urgente::before{animation:none}}

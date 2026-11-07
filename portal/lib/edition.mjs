@@ -17,7 +17,7 @@ export const EDITIONS = {
     terms: { operations: 'Clubes do grupo', newOperation: 'Novo clube' },
     siteTheme: SX_SITE_THEME,              // tema padrão dos sites criados nesta edição (o modelo ainda pode mudar)
     templateOrder: (t) => (t.inspiredBy === 'sx' ? 0 : t.niches.includes('poker') ? 1 : 2),
-    presets: ['jornada-guiada-poker', 'captacao-simples'],
+    presets: ['cadastro-app-fichas24h', 'jornada-guiada-poker', 'captacao-simples'],
     origin: 'https://sx.kbsa.app',
   },
   geral: {

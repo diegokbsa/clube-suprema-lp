@@ -3,7 +3,7 @@
 // sem JS o comprovante mostra o valor marcado como padrão. Todo comprovante leva o selo ILUSTRAÇÃO: o PIX de verdade
 // é gerado no canal de fichas da operação, nunca no site.
 // Pele em public/assets/worlds/comprovante.css (veste também os blocos comuns). Blocos abaixo começam por "comprovante_".
-import { esc, safeHref, list, img, variant, F } from '../block-kit.mjs';
+import { esc, safeHref, list, img, variant, F, AO_VIVO, contagem } from '../block-kit.mjs';
 
 export const world = {
   name: 'Comprovante PIX',
@@ -300,13 +300,13 @@ export const blocks = {
     fields: [F.text('title', 'Título'), F.area('subtitle', 'Texto (use **negrito**)'), F.text('headLeft', 'Cabeçalho (esquerda)'), F.check('live', 'Ponto verde no cabeçalho'), F.text('headRight', 'Cabeçalho (direita)'),
       F.text('tag', 'Selo (vazio = EXEMPLO)'),
       F.list('items', 'Itens', [F.text('day', 'Dia (igual ao anterior = mesmo grupo)'), F.text('time', 'Hora'), F.text('name', 'Nome'), F.text('info', 'Detalhe (formato, buy-in)'), F.text('label', 'Rótulo à direita'), F.text('value', 'Valor à direita')]),
-      F.text('foot', 'Rodapé (fonte, aviso)'), F.text('linkLabel', 'Link do rodapé'), F.url('linkHref', 'Destino do link')],
+      F.text('foot', 'Rodapé (fonte, aviso)'), F.text('linkLabel', 'Link do rodapé'), F.url('linkHref', 'Destino do link'), ...AO_VIVO],
     render: (p, ctx) => {
       let last = null;
       const rows = list(p.items).map((i) => {
         const dia = i.day && i.day !== last ? `<li class="cp-dia">${esc(i.day)}</li>` : '';
         last = i.day || last;
-        return `${dia}<li class="cp-ag"><span class="cp-ag-hora">${esc(i.time)}</span><div><div class="cp-ag-nome">${esc(i.name)}</div>${i.info ? `<div class="cp-ag-info">${esc(i.info)}</div>` : ''}</div>${i.value || i.label ? `<div class="cp-ag-dir">${i.label ? `<span>${esc(i.label)}</span>` : ''}<strong>${esc(i.value)}</strong></div>` : '<span></span>'}</li>`;
+        return `${dia}<li class="cp-ag"><span class="cp-ag-hora">${esc(i.time)}</span><div><div class="cp-ag-nome">${esc(i.name)}${contagem(i)}</div>${i.info ? `<div class="cp-ag-info">${esc(i.info)}</div>` : ''}</div>${i.value || i.label ? `<div class="cp-ag-dir">${i.label ? `<span>${esc(i.label)}</span>` : ''}<strong>${esc(i.value)}</strong></div>` : '<span></span>'}</li>`;
       }).join('');
       return `<section class="b cp-agenda"><div class="wrap">
   ${secHead(p)}

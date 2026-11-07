@@ -306,17 +306,14 @@ async function viewNova(r) {
     }
     if (W.step === 2) {
       templates = (await api('GET', `/api/meta?niche=${encodeURIComponent(W.niche)}`)).templates;
-      body.innerHTML = `<h2>Escolha o modelo do site</h2><p class="muted">O conteúdo nasce editável. Atualizações futuras do modelo nunca mudam o seu site sozinhas.</p>
-        ${templates.length ? `<div class="choice-grid">${templates.map((t) => `<button type="button" class="choice ${W.template === t.id ? 'on' : ''}" data-tpl="${esc(t.id)}">
-          <div class="swatch"><div class="sw-bg" style="background:${esc(t.theme.bg)};color:${esc(t.theme.text)}"><span></span><span></span></div><i style="background:${esc(t.theme.primary)}"></i><i style="background:${esc(t.theme.accent)}"></i></div>
-          <strong>${esc(t.name)}</strong><small>${esc(t.category)} · ${t.pages.length} páginas</small><small>${esc(t.description)}</small></button>`).join('')}
-          <button type="button" class="choice ${W.template === '' ? 'on' : ''}" data-tpl=""><strong>Sem site por enquanto</strong><small>Cria só a operação. Dá para criar o site depois.</small></button></div>`
-          : '<div class="empty">Ainda não há modelos para este nicho. A operação pode ser criada sem site e ganhar um depois.</div>'}`;
-      $$('[data-tpl]', body).forEach((b) => b.addEventListener('click', () => {
-        W.template = b.dataset.tpl;
-        W.theme = { ...(templates.find((t) => t.id === W.template)?.theme || {}), ...(S.meta.edition?.siteTheme || {}) }; // edição SX: paleta da SX por padrão
-        draw();
-      }));
+      body.innerHTML = `<h2>Escolha o modelo do site</h2><p class="muted">Veja a demo de cada modelo antes de escolher. O conteúdo nasce editável, e atualizações futuras do modelo nunca mudam o seu site sozinhas.</p>
+        ${templates.length ? '<div id="w-galeria" class="gm"></div>' : '<div class="empty">Ainda não há modelos para este nicho. A operação pode ser criada sem site e ganhar um depois.</div>'}`;
+      if (templates.length) {
+        galeriaModelos($('#w-galeria', body), { templates, selecionado: W.template ?? null, demoBase: '/api/modelos/', semSite: true, onEscolher: (id) => {
+          W.template = id;
+          W.theme = { ...(templates.find((t) => t.id === W.template)?.theme || {}), ...(S.meta.edition?.siteTheme || {}) }; // edição SX: paleta da SX por padrão
+        } });
+      }
     }
     if (W.step === 3) {
       const t = W.theme;
@@ -407,6 +404,80 @@ async function viewDash(r) {
         : '<div class="empty">Nenhum lead ainda. Os formulários do site enviam para cá, com a origem de cada contato.</div>'}</div>`);
 }
 
+// ---------- galeria de modelos (Novo site e criação de operação) ----------
+// Miniatura em /admin/modelos/<id>.jpg (sem ela, fica a amostra de cores); "Ver demo" abre o modelo inteiro, navegável, por cima da tela.
+const OBJETIVOS = [['torneios', 'Torneios', /torneio|agenda/], ['fichas', 'Fichas', /fichas/], ['conteudo', 'Conteúdo', /blog|educativ|curso/],
+  ['parceria', 'Parceria', /parceir/], ['clube', 'Clube', /clube|grupo|premium|membro/]];
+const objetivoDe = (t) => OBJETIVOS.find(([, , rx]) => rx.test(t.id)) || ['outros', (String(t.category).split('·')[1] || t.category || 'Outros').trim().replace(/^./, (c) => c.toUpperCase())];
+const amostra = (t) => `<div class="swatch gm-swatch"><div class="sw-bg" style="background:${esc(t.theme.bg)};color:${esc(t.theme.text)}"><span></span><span></span></div><i style="background:${esc(t.theme.primary)}"></i><i style="background:${esc(t.theme.accent)}"></i></div>`;
+
+/**
+ * Desenha a galeria em el. opts: { templates, selecionado, demoBase ('/api/modelos/' ou '/api/t/<slug>/modelos/'), onEscolher(id), semSite (mostra o cartão "Sem site") }.
+ * Devolve { redesenhar(selecionado) }.
+ */
+function galeriaModelos(el, { templates, selecionado = null, demoBase, onEscolher, semSite = false }) {
+  const mundos = Object.fromEntries((S.meta?.worlds || []).map((w) => [w.id, w.name]));
+  const F = { mundo: '', objetivo: '' };
+  let sel = selecionado;
+  const opcoes = (k, valores) => [['', 'Todos'], ...valores].map(([v, l]) => `<button type="button" class="gm-chip${F[k] === v ? ' on' : ''}" data-f="${k}" data-v="${esc(v)}" aria-pressed="${F[k] === v}">${esc(l)}</button>`).join('');
+  const usados = (fn) => [...new Map(templates.map((t) => fn(t)).filter(([v]) => v)).entries()];
+  function draw() {
+    const lista = templates.filter((t) => (!F.mundo || (t.theme.world || 'classico') === F.mundo) && (!F.objetivo || objetivoDe(t)[0] === F.objetivo));
+    const filtroMundo = usados((t) => [t.theme.world || 'classico', mundos[t.theme.world] || (t.theme.world ? t.theme.world : 'Clássico')]);
+    el.innerHTML = `<div class="gm-filtros">${filtroMundo.length > 1 ? `<div class="gm-grupo" role="group" aria-label="Mundo"><span>Mundo</span>${opcoes('mundo', filtroMundo)}</div>` : ''}
+        <div class="gm-grupo" role="group" aria-label="Objetivo"><span>Objetivo</span>${opcoes('objetivo', usados((t) => objetivoDe(t).slice(0, 2)))}</div>
+        <span class="gm-conta">${lista.length} ${lista.length === 1 ? 'modelo' : 'modelos'}</span></div>
+      <div class="gm-grade">${lista.map((t) => `<article class="gm-card${sel === t.id ? ' on' : ''}" data-id="${esc(t.id)}">
+          <button type="button" class="gm-thumb" data-demo="${esc(t.id)}" aria-label="Ver a demo de ${esc(t.name)}"><img src="/admin/modelos/${esc(t.id)}.jpg" alt="" loading="lazy" decoding="async" width="480" height="300"><span class="gm-ver">Ver demo</span></button>
+          <div class="gm-info"><strong>${esc(t.name.replace(/\s*\(edição SX\)\s*$/, ''))}</strong>
+            <small>${esc([mundos[t.theme.world] || '', objetivoDe(t)[1], `${t.pages.length} páginas`].filter(Boolean).join(' · '))}</small>
+            <p>${esc(t.description)}</p></div>
+          <div class="gm-acoes"><button type="button" class="btn sm" data-demo="${esc(t.id)}">Ver demo</button>
+            <button type="button" class="btn sm ${sel === t.id ? 'gold' : 'primary'}" data-usar="${esc(t.id)}" aria-pressed="${sel === t.id}">${sel === t.id ? 'Escolhido ✓' : 'Usar este modelo'}</button></div>
+        </article>`).join('')}
+        ${semSite ? `<article class="gm-card gm-vazio${sel === '' ? ' on' : ''}"><div class="gm-info"><strong>Sem site por enquanto</strong><p>Cria só a operação. Dá para criar o site depois, em Sites e páginas.</p></div>
+          <div class="gm-acoes"><button type="button" class="btn sm ${sel === '' ? 'gold' : ''}" data-usar="">${sel === '' ? 'Escolhido ✓' : 'Escolher'}</button></div></article>` : ''}
+        ${lista.length ? '' : '<div class="empty">Nenhum modelo com esses filtros.</div>'}</div>`;
+    $$('.gm-thumb img', el).forEach((im) => im.addEventListener('error', () => {
+      const t = templates.find((x) => x.id === im.closest('[data-id]').dataset.id);
+      im.replaceWith(Object.assign(document.createElement('div'), { className: 'gm-sem-foto', innerHTML: amostra(t) }));
+    }, { once: true }));
+    $$('[data-f]', el).forEach((b) => b.addEventListener('click', () => { F[b.dataset.f] = b.dataset.v; draw(); }));
+    $$('[data-usar]', el).forEach((b) => b.addEventListener('click', () => { sel = b.dataset.usar; onEscolher(sel); draw(); }));
+    $$('[data-demo]', el).forEach((b) => b.addEventListener('click', () => abrirDemo(templates.find((t) => t.id === b.dataset.demo))));
+  }
+  function abrirDemo(t) {
+    const dlg = document.createElement('dialog');
+    dlg.className = 'gm-demo';
+    const url = (slug) => `${demoBase}${encodeURIComponent(t.id)}/demo/${slug}`;
+    dlg.innerHTML = `<div class="gm-demo-barra"><div class="gm-demo-titulo"><strong>${esc(t.name.replace(/\s*\(edição SX\)\s*$/, ''))}</strong>
+        <nav class="gm-demo-paginas" aria-label="Páginas do modelo">${t.pages.map((p, i) => `<button type="button" class="gm-chip${i === 0 ? ' on' : ''}" data-pg="${esc(p.slug)}">${esc(p.title)}</button>`).join('')}</nav></div>
+      <div class="gm-demo-acoes"><div class="gm-tela" role="group" aria-label="Tamanho da tela"><button type="button" class="gm-chip on" data-tela="">Computador</button><button type="button" class="gm-chip" data-tela="celular">Celular</button></div>
+        <a class="btn sm" target="_blank" rel="noopener" href="${esc(url(''))}" id="gm-aba">Abrir em nova aba ↗</a>
+        <button type="button" class="btn sm primary" id="gm-usar">${sel === t.id ? 'Escolhido ✓' : 'Usar este modelo'}</button>
+        <button type="button" class="btn sm" id="gm-fechar" aria-label="Fechar a demo">Fechar</button></div></div>
+      <div class="gm-demo-palco"><iframe title="Demo do modelo ${esc(t.name)}" src="${esc(url(''))}"></iframe></div>`;
+    document.body.appendChild(dlg);
+    const ifr = $('iframe', dlg);
+    $$('[data-pg]', dlg).forEach((b) => b.addEventListener('click', () => {
+      $$('[data-pg]', dlg).forEach((x) => x.classList.toggle('on', x === b));
+      ifr.src = url(b.dataset.pg);
+      $('#gm-aba', dlg).href = url(b.dataset.pg);
+    }));
+    $$('[data-tela]', dlg).forEach((b) => b.addEventListener('click', () => {
+      $$('[data-tela]', dlg).forEach((x) => x.classList.toggle('on', x === b));
+      dlg.classList.toggle('celular', b.dataset.tela === 'celular');
+    }));
+    const fechar = () => { dlg.close(); dlg.remove(); };
+    $('#gm-fechar', dlg).addEventListener('click', fechar);
+    dlg.addEventListener('cancel', (e) => { e.preventDefault(); fechar(); });
+    $('#gm-usar', dlg).addEventListener('click', () => { sel = t.id; onEscolher(sel); fechar(); draw(); });
+    dlg.showModal();
+  }
+  draw();
+  return { redesenhar: (s) => { sel = s; draw(); } };
+}
+
 // ---------- sites e páginas ----------
 async function viewSite(r) {
   const { sites } = await api('GET', `/api/t/${S.tenant.slug}/sites`);
@@ -437,11 +508,22 @@ async function viewSite(r) {
     location.hash = `#/t/${slug}/editor/${res.page.id}`;
   }));
   $('#new-site')?.addEventListener('click', () => {
-    dlg.innerHTML = `<form method="dialog" id="ns"><h2>Novo site</h2><label class="field">Modelo<select name="template">${meta.templates.map((t) => `<option value="${esc(t.id)}">${esc(t.name)}</option>`).join('')}</select></label>
-      <p class="err" id="ns-err"></p><div class="row end"><button class="btn" value="cancel">Cancelar</button><button class="btn primary" id="ns-go" type="button">Criar</button></div></form>`;
+    let escolhido = null;
+    dlg.classList.add('wide');
+    dlg.innerHTML = `<form method="dialog" id="ns"><div class="gm-cab"><div><h2>Novo site</h2><p class="muted">Escolha um modelo. A demo já mostra o nome e os links de ${esc(S.tenant.name)}; nada é publicado até você publicar.</p></div>
+        <button class="btn" value="cancel" aria-label="Fechar">Fechar</button></div>
+      <div id="ns-galeria" class="gm"></div>
+      <p class="err" id="ns-err"></p><div class="row end gm-pe"><span class="muted" id="ns-sel">Nenhum modelo escolhido.</span><span class="spacer"></span><button class="btn" value="cancel">Cancelar</button><button class="btn primary" id="ns-go" type="button" disabled>Criar site</button></div></form>`;
+    galeriaModelos($('#ns-galeria', dlg), { templates: meta.templates, demoBase: `/api/t/${encodeURIComponent(slug)}/modelos/`, onEscolher: (id) => {
+      escolhido = id;
+      $('#ns-go', dlg).disabled = !id;
+      $('#ns-sel', dlg).textContent = `Modelo: ${meta.templates.find((t) => t.id === id)?.name || id}`;
+    } });
+    dlg.addEventListener('close', () => dlg.classList.toggle('wide', false), { once: true });
     dlg.showModal();
     $('#ns-go', dlg).addEventListener('click', async () => {
-      try { await api('POST', `/api/t/${slug}/sites`, { template: $('[name=template]', dlg).value }); dlg.close(); route(); } catch (e) { $('#ns-err', dlg).textContent = e.message; }
+      if (!escolhido) return;
+      try { await api('POST', `/api/t/${slug}/sites`, { template: escolhido }); dlg.close(); route(); } catch (e) { $('#ns-err', dlg).textContent = e.message; }
     });
   });
   $$('[data-settings]', main).forEach((b) => b.addEventListener('click', () => siteSettings(dlg, sites.find((s) => s.id === b.dataset.settings))));
@@ -736,14 +818,16 @@ async function viewIntegracoes(r) {
   const [em, tg] = await Promise.all([api('GET', `/api/t/${S.tenant.slug}/email`).catch(() => null), api('GET', `/api/t/${S.tenant.slug}/telegram`).catch(() => null)]);
   const groups = { seo: 'SEO e buscadores', mensuracao: 'Mensuração no site', relatorios: 'Relatórios', redes: 'Redes sociais', campanhas: 'Campanhas', afiliacao: 'Afiliação' };
   const main = layout(r, `<div class="page-head"><div><h1>Integrações</h1><p>Estado real de cada conexão. Nada aparece como conectado sem estar.</p></div></div>
-    ${cartoesCrm(em, tg, can('integrations.manage'))}
+    ${cartoesCrm(em, tg, can('integrations.manage'))}<div id="int-bluesky"></div><div id="int-planilha"></div>
     ${Object.entries(groups).map(([g, label]) => {
       const items = d.integrations.filter((i) => i.group === g);
       return items.length ? `<div class="card"><div class="card-head"><h2>${esc(label)}</h2></div><div class="table-wrap"><table><tbody>${items.map((i) => `<tr><td style="width:40%"><strong>${esc(i.label)}</strong>${i.lastError ? `<div class="err">${esc(i.lastError)}</div>` : ''}</td><td>${statusPill(i.status)}</td>
         <td class="muted">${i.kind === 'webhook_conversoes' ? `<div class="copy"><input readonly value="${esc(i.url)}"><button class="btn sm" type="button" data-copy="${esc(i.url)}">Copiar</button></div><div style="margin-top:6px">Assinatura: <span class="mono">${esc(i.header)}</span> · segredo ${esc(i.secret || '')} ${can('integrations.manage') ? '<button class="btn sm" type="button" id="rotate">Gerar novo segredo</button>' : ''}</div>`
-          : i.status === 'pendente' ? (['ga4', 'gtm', 'meta_pixel'].includes(i.kind) ? 'Instale o ID em Sites → Aparência, SEO e mensuração.' : 'Aguardando o módulo desta integração e as credenciais da operação.') : esc(JSON.stringify(i.config))}</td></tr>`).join('')}</tbody></table></div></div>` : '';
+          : i.status === 'pendente' ? (['ga4', 'gtm', 'meta_pixel'].includes(i.kind) ? 'Instale o ID em Sites → Aparência, SEO e mensuração.' : ['clarity', 'google_ads'].includes(i.kind) ? 'Instale o ID em Mensuração e pixels.' : 'Aguardando o módulo desta integração e as credenciais da operação.') : esc(JSON.stringify(i.config))}</td></tr>`).join('')}</tbody></table></div></div>` : '';
     }).join('')}`);
+  import('/admin/modules/planilha.js').then((m) => m.renderCartao($('#int-planilha', main), { api, S, esc, toast, can, route, fmtDate })).catch(() => {}); // cópia dos leads na planilha
   $$('[data-copy]', main).forEach((b) => b.addEventListener('click', async () => { await navigator.clipboard.writeText(b.dataset.copy); toast('Copiado.'); }));
+  import('/admin/modules/bluesky.js').then((m) => m.cartao($('#int-bluesky', main), { api, S, esc, toast, can, route, fmtDate })).catch(() => {}); // PA-151
   const acao = (id, fn) => $(id)?.addEventListener('click', async (e) => {
     const b = e.currentTarget; b.disabled = true;
     try { await fn(); } catch (err) { toast(err.message, true); } finally { b.disabled = false; }
@@ -817,7 +901,8 @@ async function viewConfig(r) {
       <label class="field">Janela de atribuição (dias)<input data-s="attributionWindowDays" type="number" min="1" max="365" value="${esc(s.attributionWindowDays || 30)}"></label>
       <label class="field">Publicações por dia<input data-s="postsPerDay" type="number" min="0" max="12" value="${esc(s.postsPerDay ?? 3)}"></label>
       <label class="field">Horários<input data-s="postTimes" value="${esc(s.postTimes || '')}"></label></div>
-      <p class="err" id="c-err"></p><div class="row end"><button class="btn primary" type="button" id="c-save">Salvar</button></div></div>`);
+      <p class="err" id="c-err"></p><div class="row end"><button class="btn primary" type="button" id="c-save">Salvar</button></div></div><div id="c-recursos"></div>`);
+  import('/admin/modules/recursos.js').then((m) => m.renderConfig($('#c-recursos', main), { api, S, esc, toast, can, route, fmtDate })).catch(() => {}); // torneios e /baixar (PA-150)
   $('#c-save').addEventListener('click', async () => {
     const settings = {};
     $$('[data-s]', main).forEach((i) => { settings[i.dataset.s] = i.type === 'number' ? Number(i.value) : i.value.trim(); });

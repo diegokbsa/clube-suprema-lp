@@ -27,7 +27,7 @@ const MIME = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; cha
 const SESSION_COOKIE = 'pa_sess';
 
 const ADMIN_CSP = "default-src 'self'; img-src 'self' data: https:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; frame-src 'self'; frame-ancestors 'none'; base-uri 'none'; form-action 'self'";
-const SITE_CSP = "default-src 'self'; img-src 'self' data: https:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self' https://www.googletagmanager.com https://connect.facebook.net; connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com https://www.facebook.com; frame-src https://www.googletagmanager.com; frame-ancestors 'self'; base-uri 'none'; form-action 'self'";
+const SITE_CSP = "default-src 'self'; img-src 'self' data: https:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self' https://www.googletagmanager.com https://connect.facebook.net https://www.clarity.ms https://*.clarity.ms https://www.googleadservices.com https://googleads.g.doubleclick.net; connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com https://www.facebook.com https://*.clarity.ms https://www.google.com https://www.googleadservices.com https://googleads.g.doubleclick.net https://*.doubleclick.net; frame-src https://www.googletagmanager.com https://td.doubleclick.net; frame-ancestors 'self'; base-uri 'none'; form-action 'self'";
 
 export async function createApp({ db, origin = 'http://localhost:3400', secretKey = 'dev-only-change-me', modulesDir = path.join(HERE, 'lib', 'modules'), fetchImpl, editionId, serviceToken,
   origins = {}, portEditions = {} } = {}) {
@@ -82,11 +82,15 @@ export async function createApp({ db, origin = 'http://localhost:3400', secretKe
     res.setHeader('Set-Cookie', cookie(SESSION_COOKIE, '', { maxAge: 0, secure, sameSite: 'Strict' }));
     return { ok: true };
   };
-  app.preview = ({ repo, tenant, params }) => {
+  // blocos -> blocos prontos para desenhar (ex.: grade ao vivo da liga, em lib/modules/torneios.mjs); nunca derruba a página
+  const prontos = async (tenant, blocks) => { try { return app.prepararBlocos ? await app.prepararBlocos(tenant, blocks) : blocks; } catch (e) { console.warn(`[blocos] ${e.message}`); return blocks; } };
+  app.prontos = prontos;
+  app.siteCsp = SITE_CSP;
+  app.preview = async ({ repo, tenant, params }) => {
     const page = repo.get('pages', params.id);
     if (!page) throw new HttpError(404, 'Página não encontrada.');
     const site = repo.get('sites', page.site_id);
-    const html = renderPage({ site, page, blocks: parse(page.draft, []), tenant, base: `/s/${site.slug}`, origin: app.originOf(tenant.edition), preview: true,
+    const html = renderPage({ site, page, blocks: await prontos(tenant, parse(page.draft, [])), tenant, base: `/s/${site.slug}`, origin: app.originOf(tenant.edition), preview: true,
       pages: repo.all('pages', { site_id: site.id }, { order: 'position ASC' }) });
     return { status: 200, body: html, headers: { 'Content-Type': 'text/html; charset=utf-8', 'Content-Security-Policy': SITE_CSP.replace("frame-ancestors 'self'", "frame-ancestors 'self'") } };
   };
@@ -96,7 +100,7 @@ export async function createApp({ db, origin = 'http://localhost:3400', secretKe
   const siteByHost = (host) => (host ? db.prepare('SELECT * FROM sites WHERE domain = ?').get(String(host).split(':')[0].toLowerCase()) : null);
   const tenantOf = (site) => db.prepare('SELECT * FROM tenants WHERE id = ?').get(site.tenant_id);
 
-  function servePublicSite(req, res, site, rest, base) {
+  async function servePublicSite(req, res, site, rest, base) {
     const tenant = tenantOf(site);
     if (!tenant || tenant.status !== 'ativa') return send(res, 404, 'Site não encontrado.');
     if (site.external_url) return send(res, 302, '', { Location: site.external_url });
@@ -110,15 +114,17 @@ export async function createApp({ db, origin = 'http://localhost:3400', secretKe
       const out = fn({ req, site, tenant, repo, rest, base, origin: siteOrigin });
       if (out) return send(res, out.status, req.method === 'HEAD' ? '' : out.body, out.headers);
     }
-    for (const r of app.publicRoutes) {
+    for (const r of app.publicRoutes) { // a rota pode devolver false para deixar o caminho seguir (ex.: /torneios desligado cai na página do construtor)
       const params = r.match(`/${rest}`);
-      if (params) return r.handler({ req, res, db, app, site, tenant, repo, base, params, pages, origin: siteOrigin, send });
+      if (!params) continue;
+      const out = await r.handler({ req, res, db, app, site, tenant, repo, base, params, pages, origin: siteOrigin, send });
+      if (out !== false) return out;
     }
     if (req.method !== 'GET') return send(res, 405, 'Método não permitido.');
     const slug = String(rest || '').replace(/\/$/, '');
     const page = pages.find((p) => p.slug === slug);
     if (!page || !page.published) return send(res, 404, renderNotFound(site), { 'Content-Type': 'text/html; charset=utf-8' });
-    const html = renderPage({ site, page, blocks: parse(page.published, []), tenant, base, origin: siteOrigin, pages });
+    const html = renderPage({ site, page, blocks: await prontos(tenant, parse(page.published, [])), tenant, base, origin: siteOrigin, pages });
     return send(res, 200, html, { 'Content-Type': 'text/html; charset=utf-8', 'Content-Security-Policy': SITE_CSP, 'Cache-Control': 'public, max-age=60' });
   }
 
@@ -247,7 +253,7 @@ export async function createApp({ db, origin = 'http://localhost:3400', secretKe
       if (hostSite) {
         if (p.startsWith('/assets/')) return serveStatic(res, p.replace('/assets/', 'assets/'));
         if (p.startsWith('/f/') && req.method === 'POST') return await submitLead(req, res, p.slice(3));
-        return servePublicSite(req, res, hostSite, p.slice(1), '');
+        return await servePublicSite(req, res, hostSite, p.slice(1), '');
       }
       if (p === '/' ) return send(res, 302, '', { Location: '/admin/' });
       if (p === '/admin' ) return send(res, 302, '', { Location: '/admin/' });
@@ -258,7 +264,7 @@ export async function createApp({ db, origin = 'http://localhost:3400', secretKe
         const site = siteBySlug(m[1]);
         if (!site) return send(res, 404, 'Site não encontrado.');
         if (m[2] === undefined) return send(res, 301, '', { Location: `/s/${m[1]}/${url.search}` });
-        return servePublicSite(req, res, site, m[2], `/s/${site.slug}`);
+        return await servePublicSite(req, res, site, m[2], `/s/${site.slug}`);
       }
       if ((m = /^\/f\/([0-9a-f-]{36})$/.exec(p)) && req.method === 'POST') return await submitLead(req, res, m[1]);
       if ((m = /^\/r\/([a-z0-9-]+)\/([A-Za-z0-9_-]+)$/.exec(p)) && req.method === 'GET') return trackClick(req, res, m[1], m[2], url);

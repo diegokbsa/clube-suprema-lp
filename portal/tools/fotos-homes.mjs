@@ -4,6 +4,7 @@
 //   node portal/tools/fotos-homes.mjs <pasta-de-saida> [--modelos id1,id2] [--celular] [--paginas]
 //     --exemplo arq.json  troca o exemplo do pôquer por uma marca de verdade ({ name, number, settings, paleta?: id da paleta do mundo, theme?, rodape: [{ label, href }] }) ·
 //     --modelos  só esses modelos · --celular  também foto em 390 px (arquivo ...-celular.jpg) · --paginas  também as páginas internas (com --celular, as internas também em 390 px: ...-<pagina>-celular.jpg)
+//     --miniaturas  só as miniaturas da galeria de modelos (480x300, topo da home em 1280x800) em public/admin/modelos/<id>.jpg (ignora a pasta de saída)
 //   imprime JSON { homes: [{ modelo, nome, edicao, arquivo, celular?, paginas? }] }. Portas livres sorteadas: pode rodar vários ao mesmo tempo.
 import { spawn } from 'node:child_process';
 import net from 'node:net';
@@ -19,7 +20,8 @@ import { WORLDS } from '../lib/worlds/index.mjs';
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.join(HERE, '..');
 const ARGS = process.argv.slice(2);
-const OUT = ARGS[0] && !ARGS[0].startsWith('--') ? ARGS[0] : path.join(ROOT, 'relatorios', 'fotos');
+const MINI = ARGS.includes('--miniaturas');
+const OUT = MINI ? path.join(ROOT, 'public', 'admin', 'modelos') : ARGS[0] && !ARGS[0].startsWith('--') ? ARGS[0] : path.join(ROOT, 'relatorios', 'fotos');
 const opt = (k) => { const i = ARGS.indexOf(k); return i >= 0 ? (ARGS[i + 1] && !ARGS[i + 1].startsWith('--') ? ARGS[i + 1] : true) : null; };
 const SO = typeof opt('--modelos') === 'string' ? new Set(opt('--modelos').split(',').map((x) => x.trim())) : null;
 const CELULAR = Boolean(opt('--celular'));
@@ -74,7 +76,7 @@ try {
     const nicho = t.niches.includes('*') ? 'loja' : t.niches[0];
     const ex = (nicho === 'poker' && MARCA) || EXEMPLO[nicho] || EXEMPLO.loja;
     const edicao = t.id.startsWith('sx-') ? 'sx' : 'geral';
-    const { site } = createTenant(db, { name: ex.name, number: ex.number, settings: ex.settings, theme: ex.paleta ? WORLDS[t.theme?.world]?.palettes.find((pl) => pl.id === ex.paleta)?.colors : ex.theme, niche: nicho, slug: `ex-${t.id}`, template: t.id, demo: !(MARCA && nicho === 'poker'), edition: edicao });
+    const { site } = createTenant(db, { name: ex.name, number: ex.number, settings: ex.settings, theme: ex.paleta ? WORLDS[t.theme?.world]?.palettes.find((pl) => pl.id === ex.paleta)?.colors : ex.theme, niche: nicho, slug: `ex-${t.id}`, template: t.id, demo: !MINI && !(MARCA && nicho === 'poker'), edition: edicao });
     if (ex.rodape?.length) { // links extras no rodapé (redes da marca)
       for (const pgr of db.prepare('SELECT id, draft FROM pages WHERE site_id = ?').all(site.id)) {
         const blocos = JSON.parse(pgr.draft || '[]');
@@ -106,9 +108,18 @@ try {
   const stamp = `${agora.slice(0, 13).replace(/[-T]/g, '')}h`;
   const homes = [];
   for (const h of lista) {
-    await pg.send('Emulation.setDeviceMetricsOverride', { width: 1366, height: 860, deviceScaleFactor: 1, mobile: false });
-    await pg.load(`http://127.0.0.1:${h.edicao === 'sx' ? PS : PG}/s/${h.slug}/`);
     const porta = h.edicao === 'sx' ? PS : PG;
+    if (MINI) { // galeria: só o primeiro quadro, reduzido
+      await pg.send('Emulation.setDeviceMetricsOverride', { width: 1280, height: 800, deviceScaleFactor: 1, mobile: false });
+      await pg.load(`http://127.0.0.1:${porta}/s/${h.slug}/`);
+      const r = await pg.send('Page.captureScreenshot', { format: 'jpeg', quality: 72, clip: { x: 0, y: 0, width: 1280, height: 800, scale: 0.375 } });
+      const arquivo = path.join(OUT, `${h.modelo}.jpg`);
+      fs.writeFileSync(arquivo, Buffer.from(r.result.data, 'base64'));
+      homes.push({ modelo: h.modelo, nome: h.nome, edicao: h.edicao, arquivo });
+      continue;
+    }
+    await pg.send('Emulation.setDeviceMetricsOverride', { width: 1366, height: 860, deviceScaleFactor: 1, mobile: false });
+    await pg.load(`http://127.0.0.1:${porta}/s/${h.slug}/`);
     const arquivo = await pg.fotoLonga(path.join(OUT, `home-${h.modelo}-${stamp}.jpg`), { max: SO ? 6000 : 2200 });
     const item = { modelo: h.modelo, nome: h.nome, edicao: h.edicao, arquivo };
     if (PAGINAS) {

@@ -24,9 +24,9 @@ export function themeCss(theme) {
 
 /**
  * site, page: linhas do banco. blocks: lista já escolhida (publicada ou rascunho).
- * opts: { base, origin, preview, tenant, pages }
+ * opts: { base, origin, preview, tenant, pages, faixa } · faixa: aviso no topo no lugar dos padrões (demo de modelo na galeria)
  */
-export function renderPage({ site, page, blocks, tenant, base, origin, preview = false, pages = [] }) {
+export function renderPage({ site, page, blocks, tenant, base, origin, preview = false, pages = [], faixa = '' }) {
   const theme = cleanTheme(parse(site.theme, {}));
   const siteSeo = parse(site.seo, {});
   const seo = parse(page.seo, {});
@@ -40,7 +40,13 @@ export function renderPage({ site, page, blocks, tenant, base, origin, preview =
   const ga4 = /^G-[A-Z0-9]{4,12}$/.test(tracking.ga4 || '') ? tracking.ga4 : '';
   const gtm = /^GTM-[A-Z0-9]{4,10}$/.test(tracking.gtm || '') ? tracking.gtm : '';
   const pixel = /^\d{8,20}$/.test(tracking.pixel || '') ? tracking.pixel : '';
-  const needsConsent = Boolean(ga4 || gtm || pixel);
+  const clarity = /^[a-z0-9]{6,16}$/.test(tracking.clarity || '') ? tracking.clarity : '';
+  const ads = /^AW-\d{6,14}$/.test(tracking.ads || '') ? tracking.ads : '';
+  const adsLabel = ads && /^[A-Za-z0-9_-]{4,40}$/.test(tracking.adsLabel || '') ? tracking.adsLabel : '';
+  const needsConsent = Boolean(ga4 || gtm || pixel || clarity || ads);
+  const quem = [(ga4 || gtm || ads) && 'Google', pixel && 'Meta', clarity && 'Microsoft Clarity'].filter(Boolean);
+  const quemTexto = quem.length > 1 ? `${quem.slice(0, -1).join(', ')} e ${quem[quem.length - 1]}` : quem[0] || '';
+  const corpo = renderBlocks(blocks, ctx);
   return `<!doctype html>
 <html lang="pt-BR">
 <head>
@@ -61,16 +67,16 @@ ${theme.world ? `<link rel="stylesheet" href="/assets/worlds/${esc(theme.world)}
 <style>${themeCss(theme)}</style>
 ${preview ? '' : `<script type="application/ld+json">${jsonLd({ site, page, tenant, canonical: canonical || `${origin}${base}/${page.slug}`, origin: origin || '', base, description, logo: parse(tenant.settings, {}).logo })}</script>`}
 </head>
-<body class="mode-${theme.mode}"${theme.world ? ` data-world="${esc(theme.world)}"` : ''} data-site="${esc(site.id)}" data-page="${esc(page.slug)}" data-base="${esc(base)}"${preview ? ' data-preview="1"' : ''} data-ga4="${esc(ga4)}" data-gtm="${esc(gtm)}" data-pixel="${esc(pixel)}">
-${preview ? '<div class="preview-bar">Prévia do rascunho · não publicado</div>' : ''}
-${tenant.demo ? '<div class="demo-bar">Site de demonstração: dados e textos de exemplo.</div>' : ''}
+<body class="mode-${theme.mode}"${theme.world ? ` data-world="${esc(theme.world)}"` : ''} data-site="${esc(site.id)}" data-page="${esc(page.slug)}" data-base="${esc(base)}"${preview ? ' data-preview="1"' : ''} data-ga4="${esc(ga4)}" data-gtm="${esc(gtm)}" data-pixel="${esc(pixel)}" data-clarity="${esc(clarity)}" data-ads="${esc(ads)}" data-ads-label="${esc(adsLabel)}">
+${faixa ? `<div class="demo-bar">${esc(faixa)}</div>` : `${preview ? '<div class="preview-bar">Prévia do rascunho · não publicado</div>' : ''}
+${tenant.demo ? '<div class="demo-bar">Site de demonstração: dados e textos de exemplo.</div>' : ''}`}
 <main>
-${renderBlocks(blocks, ctx)}
+${corpo}
 </main>
-${needsConsent ? `<div class="consent" id="consent" hidden><p>Usamos cookies de medição (Google e Meta) para entender o que funciona neste site. Você escolhe.</p>
+${needsConsent ? `<div class="consent" id="consent" hidden><p>Usamos cookies de medição (${esc(quemTexto)}) para entender o que funciona neste site. Você escolhe.</p>
 <div><button class="btn btn-sm" type="button" data-consent="sim">Aceitar</button><button class="btn btn-ghost btn-sm" type="button" data-consent="nao">Recusar</button></div></div>` : ''}
 <script src="/assets/site.js" defer></script>
-${theme.world ? `<script src="/assets/worlds/${esc(theme.world)}.js" defer></script>` : ''}
+${corpo.includes('data-cd-ini') ? '<script src="/assets/contagem.js" defer></script>\n' : ''}${theme.world ? `<script src="/assets/worlds/${esc(theme.world)}.js" defer></script>` : ''}
 </body>
 </html>`;
 }

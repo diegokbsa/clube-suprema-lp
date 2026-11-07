@@ -2,7 +2,7 @@
   "id": "sx-transmissao-fichas",
   "name": "Fichas 24h (Transmissão)",
   "order": 8,
-  "version": 1,
+  "version": 2,
   "category": "Poker · edição SX",
   "niches": [
     "poker"
@@ -280,7 +280,8 @@
                 "name": "Senha do app",
                 "detail": "o canal não pede a sua senha nem documento"
               }
-            ]
+            ],
+            "aoVivo": true
           }
         }
       ]

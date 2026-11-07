@@ -2,7 +2,7 @@
   "id": "sx-comprovante-torneios",
   "name": "Agenda de torneios · Comprovante PIX (edição SX)",
   "order": 24,
-  "version": 1,
+  "version": 2,
   "category": "Poker · edição SX",
   "niches": [
     "poker"
@@ -207,7 +207,8 @@
             ],
             "foot": "Grade de exemplo. A grade real fica no lobby do app.",
             "linkLabel": "Ver a semana",
-            "linkHref": "/grade"
+            "linkHref": "/grade",
+            "aoVivo": true
           }
         },
         {
@@ -481,7 +482,8 @@
             ],
             "foot": "Grade de exemplo. Troque pela grade do clube.",
             "linkLabel": "Ver no app",
-            "linkHref": "{{inviteLink}}"
+            "linkHref": "{{inviteLink}}",
+            "aoVivo": true
           }
         },
         {

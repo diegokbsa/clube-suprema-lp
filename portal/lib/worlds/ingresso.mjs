@@ -2,7 +2,7 @@
 // canhoto do jogador, código de barras desenhado a partir do código impresso, campos de formulário impressos e fonte mono.
 // Pele em public/assets/worlds/ingresso.css (escopada em body[data-world="ingresso"]); interação "destaca no picote" em ingresso.js.
 // Blocos-assinatura abaixo (nome começa por "ingresso_"). Texto aceita **negrito**; tudo passa por esc() e todo link por safeHref().
-import { esc, safeHref, list, img, variant, F } from '../block-kit.mjs';
+import { esc, safeHref, list, img, variant, F, AO_VIVO, contagem } from '../block-kit.mjs';
 
 export const world = {
   name: 'Ingresso de mesa',
@@ -250,15 +250,15 @@ export const blocks = {
       F.list('items', 'Bilhetes', [F.text('dia', 'Dia'), F.text('hora', 'Hora'), F.text('nome', 'Nome'), F.text('tipo', 'Formato'), F.text('selo', 'Selo (ex.: Main Event)'),
         F.text('rot1', 'Rótulo 1 (ex.: Buy-in)'), F.text('val1', 'Valor 1'), F.text('rot2', 'Rótulo 2 (ex.: Garantido)'), F.text('val2', 'Valor 2'), F.text('nota', 'Nota do bilhete')]),
       F.check('exemplo', 'Grade de exemplo (mostra o aviso)'), F.text('nota', 'Nota abaixo da grade'), F.text('cta', 'Botão'), F.url('ctaHref', 'Destino do botão'),
-      F.select('variant', 'Composição', ['fita', 'grade'])],
+      F.select('variant', 'Composição', ['fita', 'grade']), ...AO_VIVO],
     render: (p, ctx) => {
       const v = variant(p, ['fita', 'grade'], 'fita');
       const valores = (i) => (i.rot1 || i.rot2 ? `<span class="ing-valores">${i.rot1 ? `<span class="ing-rot">${esc(i.rot1)}</span><b>${esc(i.val1)}</b>` : ''}${i.rot2 ? `<span class="ing-rot">${esc(i.rot2)}</span><b>${esc(i.val2)}</b>` : ''}</span>` : '');
       const tipo = (i) => `<span class="ing-tipo">${esc(i.tipo)}${i.selo ? ` <span class="ing-me">${esc(i.selo)}</span>` : ''}</span>`;
       const item = (i) => (v === 'grade'
         ? `<li class="ing-bilhete-t"><div class="ing-bt-canhoto ing-papel"><span class="ing-rot">${esc(i.dia)}</span><span class="ing-hora">${esc(i.hora)}</span></div>
-            <div class="ing-bt-corpo ing-papel"><span class="ing-nome">${esc(i.nome)}</span>${tipo(i)}${i.nota ? `<span class="ing-bt-nota">${esc(i.nota)}</span>` : ''}${valores(i)}</div></li>`
-        : `<li class="ing-papel"><span class="ing-hora">${esc(i.hora)}</span>${i.dia ? `<span class="ing-rot ing-dia">${esc(i.dia)}</span>` : ''}<span class="ing-nome">${esc(i.nome)}</span>${tipo(i)}${valores(i)}</li>`);
+            <div class="ing-bt-corpo ing-papel"><span class="ing-nome">${esc(i.nome)}</span>${tipo(i)}${i.nota ? `<span class="ing-bt-nota">${esc(i.nota)}</span>` : ''}${contagem(i)}${valores(i)}</div></li>`
+        : `<li class="ing-papel"><span class="ing-hora">${esc(i.hora)}</span>${i.dia ? `<span class="ing-rot ing-dia">${esc(i.dia)}</span>` : ''}<span class="ing-nome">${esc(i.nome)}</span>${tipo(i)}${contagem(i)}${valores(i)}</li>`);
       return `<section class="b ing-sec ing-agenda v-${v}"><div class="wrap">${cab(p)}
         ${list(p.tags).length ? `<ul class="ing-modalidades">${list(p.tags).map((t) => `<li><b>${esc(t.sigla)}</b>${esc(t.texto)}</li>`).join('')}</ul>` : ''}
         ${p.subtitle || p.meta ? `<div class="ing-grade-cab">${p.subtitle ? `<h3>${rich(p.subtitle)}</h3>` : ''}<p>${esc(p.meta)}${p.metaLink ? `<br><a href="${safeHref(p.metaHref, ctx.base)}">${esc(p.metaLink)}</a>` : ''}</p></div>` : ''}

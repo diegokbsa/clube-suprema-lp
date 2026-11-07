@@ -2,7 +2,7 @@
   "id": "sx-relogio-parceiro",
   "name": "Relógio de blinds · Parceiros",
   "order": 12,
-  "version": 1,
+  "version": 2,
   "category": "Poker · edição SX",
   "niches": [
     "poker"
@@ -247,7 +247,8 @@
             ],
             "note": "Grade de exemplo: horários, garantidos e buy-ins mudam conforme a operação.",
             "live": false,
-            "variant": "compacta"
+            "variant": "compacta",
+            "aoVivo": true
           }
         },
         {

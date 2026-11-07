@@ -1,7 +1,7 @@
 // Catálogo de blocos do construtor. Cada bloco = { type, props }. O editor monta o formulário a partir de `fields`;
 // o site público é renderizado por `render`. Todo texto passa por esc(); todo link passa por safeHref().
 
-import { esc, safeHref, para, list, head, btn, img, variant, F, HEAD } from './block-kit.mjs';
+import { esc, safeHref, para, list, head, btn, img, variant, F, HEAD, AO_VIVO, contagem } from './block-kit.mjs';
 import { WORLD_BLOCKS } from './worlds/index.mjs';
 
 export { esc, safeHref };
@@ -90,9 +90,9 @@ export const BLOCKS = {
   schedule: {
     label: 'Agenda (torneios, eventos, aulas)',
     fields: [...HEAD, F.list('items', 'Itens', [F.text('day', 'Dia'), F.text('time', 'Hora'), F.text('name', 'Nome'), F.text('detail', 'Detalhe (buy-in, formato)'), F.text('prize', 'Destaque (garantido, vagas)')]),
-      F.text('cta', 'Botão'), F.url('ctaHref', 'Destino')],
+      F.text('cta', 'Botão'), F.url('ctaHref', 'Destino'), ...AO_VIVO],
     render: (p, ctx) => `<section class="b b-schedule"><div class="wrap">${head(p)}<div class="table-wrap"><table><thead><tr><th>Dia</th><th>Hora</th><th>Nome</th><th>Detalhe</th><th>Destaque</th></tr></thead><tbody>
-      ${list(p.items).map((i) => `<tr><td>${esc(i.day)}</td><td>${esc(i.time)}</td><td><strong>${esc(i.name)}</strong></td><td>${esc(i.detail)}</td><td>${esc(i.prize)}</td></tr>`).join('')}
+      ${list(p.items).map((i) => `<tr><td>${esc(i.day)}</td><td>${esc(i.time)}</td><td><strong>${esc(i.name)}</strong>${contagem(i)}</td><td>${esc(i.detail)}</td><td>${esc(i.prize)}</td></tr>`).join('')}
       </tbody></table></div>${btn(p.cta, p.ctaHref, ctx)}</div></section>`,
   },
   offers: {
