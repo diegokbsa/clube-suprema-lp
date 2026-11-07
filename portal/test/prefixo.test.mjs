@@ -48,3 +48,13 @@ test('IndexNow anuncia as URLs em kbsa.app/milhas', async () => {
   const urls = calls.flatMap((c) => c.urlList || []);
   assert.ok(urls.includes('https://kbsa.app/milhas/blog/juntar-milhas'), JSON.stringify(calls));
 });
+
+test('página própria em blog/<post> vence o modelo do blog, com o mesmo endereço', async () => {
+  const put = await sup.req('PUT', `/api/t/criador-70001/sites/${site.id}/paginas-proprias`, { caminho: 'blog/juntar-milhas', html: '<!doctype html><html><body><h1>PROPRIO</h1></body></html>', indexar: false });
+  assert.equal(put.status, 200, JSON.stringify(put.data));
+  const r = await sup.req('GET', `/s/${site.slug}/blog/juntar-milhas`, undefined, { raw: true, headers: { 'X-Portal-Prefix': '/milhas', Accept: 'text/html' } });
+  assert.equal(r.status, 200);
+  assert.match(r.data, /PROPRIO/);
+  const ruim = await sup.req('PUT', `/api/t/criador-70001/sites/${site.id}/paginas-proprias`, { caminho: 'a/b/c', html: '<!doctype html><html></html>' });
+  assert.equal(ruim.status, 400);
+});

@@ -6,7 +6,8 @@ import { now } from '../db.mjs';
 
 export const tables = ['paginas_proprias'];
 
-const CAMINHO = /^[a-z0-9-]{0,60}$/;
+// Um nível extra é permitido (ex.: blog/<post>) para sites que desenham o próprio blog à mão.
+const CAMINHO = /^[a-z0-9-]{0,60}(?:\/[a-z0-9-]{1,90})?$/;
 const limpar = (c) => String(c ?? '').trim().replace(/^\/+|\/+$/g, '').toLowerCase();
 // HTML próprio usa script e estilo embutidos e Google Fonts; o resto continua fechado.
 export const CSP_PROPRIA = "default-src 'self'; img-src 'self' data: https:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://connect.facebook.net https://www.clarity.ms https://*.clarity.ms https://www.googleadservices.com https://googleads.g.doubleclick.net; connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com https://www.facebook.com https://*.clarity.ms https://www.google.com https://www.googleadservices.com https://googleads.g.doubleclick.net https://*.doubleclick.net; frame-src https://www.googletagmanager.com https://td.doubleclick.net; frame-ancestors 'none'; base-uri 'none'; form-action 'self'";
