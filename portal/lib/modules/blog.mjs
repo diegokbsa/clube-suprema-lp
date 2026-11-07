@@ -91,7 +91,7 @@ function requirePost(repo, id) {
   return post;
 }
 
-function publishedCopy(row) {
+export function publishedCopy(row) {
   const data = parse(row.published_data, null);
   return data && row.published_slug ? { ...data, slug: row.published_slug,
     publishedAt: data.datePublished || row.published_at, dateModified: data.dateModified || row.published_at } : null;
@@ -144,10 +144,12 @@ function postResponse(repo, row) {
   return postOut(row, suggestions, site?.name || '');
 }
 
-/** Texto do post em HTML seguro. Aceita um markdown curto: "## " e "### " (títulos), listas "- " e "1. ", **negrito**
- *  e [texto](/caminho | https://...). Tudo o mais é escapado; post antigo sem markdown continua saindo em parágrafos. */
-export function htmlText(value) {
-  const inline = (s) => esc(s)
+const CAIXAS = { cta: { cls: 'blog-box blog-box-cta', titulo: '' }, nota: { cls: 'blog-box blog-box-nota', titulo: 'Nota' }, dica: { cls: 'blog-box blog-box-dica', titulo: 'Dica' } };
+const ABRE_CAIXA = /^:::(cta|nota|dica)(?:\s+(.*))?$/;
+const FECHA_CAIXA = /^:::\s*$/;
+
+function inline(s) {
+  return esc(s)
     .replace(/\*\*([^*]+?)\*\*/g, '<strong>$1</strong>')
     .replace(/\[([^\]]+?)\]\(([^)\s]+?)\)/g, (m, txt, href) => {
       const h = href.replace(/&amp;/g, '&');
@@ -156,8 +158,62 @@ export function htmlText(value) {
       const fora = /^https:/i.test(h);
       return `<a href="${esc(h)}"${fora ? ' rel="noopener" target="_blank"' : ''}>${txt}</a>`;
     });
+}
+
+/** Texto do post em HTML seguro. Aceita um markdown curto: "## " e "### " (títulos), listas "- " e "1. ", **negrito**,
+ *  [texto](/caminho | https://...) e as caixas ":::cta Título", ":::nota" e ":::dica", fechadas por ":::" (como no suprema.blog).
+ *  Tudo o mais é escapado (HTML cru do conteúdo nunca passa); post antigo sem markdown continua saindo em parágrafos. */
+export function htmlText(value) {
+  const linhas = String(value || '').replace(/\r/g, '').split('\n');
   const out = [];
-  for (const bloco of String(value || '').replace(/\r/g, '').split(/\n{2,}/)) {
+  let solto = [];
+  const soltar = () => { if (solto.length) out.push(blocosHtml(solto.join('\n'))); solto = []; };
+  for (let i = 0; i < linhas.length; i++) {
+    const abre = ABRE_CAIXA.exec(linhas[i].trim());
+    if (!abre) { solto.push(linhas[i]); continue; }
+    const fim = linhas.findIndex((l, j) => j > i && FECHA_CAIXA.test(l.trim()));
+    if (fim < 0) { solto.push(linhas[i]); continue; } // caixa sem fechamento: a linha sai como texto comum
+    soltar();
+    const def = CAIXAS[abre[1]];
+    const titulo = (abre[2] || '').trim() || def.titulo;
+    out.push(`<aside class="${def.cls}">${titulo ? `<strong class="blog-box-title">${inline(titulo)}</strong>` : ''}${blocosHtml(linhas.slice(i + 1, fim).join('\n'))}</aside>`);
+    i = fim;
+  }
+  soltar();
+  return out.join('');
+}
+
+const TITULO_FAQ = /^##\s+(perguntas frequentes|perguntas e respostas|d[uú]vidas frequentes|faq)(\s|$|[:.!?])/i;
+const textoPlano = (s) => String(s || '').replace(/\[([^\]]+?)\]\(([^)\s]+?)\)/g, '$1').replace(/\*\*([^*]+?)\*\*/g, '$1').replace(/\s+/g, ' ').trim();
+
+/** Perguntas e respostas do post: a seção "## Perguntas frequentes" (ou "## FAQ", "## Dúvidas frequentes") com cada pergunta
+ *  num "### " e a resposta nas linhas seguintes. Vira o JSON-LD FAQPage do artigo. Sem a seção, devolve []. */
+export function faqDoTexto(value) {
+  const linhas = String(value || '').replace(/\r/g, '').split('\n');
+  const ini = linhas.findIndex((l) => TITULO_FAQ.test(l.trim()));
+  if (ini < 0) return [];
+  const faq = [];
+  let atual = null;
+  for (const bruta of linhas.slice(ini + 1)) {
+    const l = bruta.trim();
+    if (/^##\s/.test(l)) break; // a próxima seção encerra o FAQ
+    const q = /^###\s+(.+)$/.exec(l);
+    if (q) { atual = { q: textoPlano(q[1]), a: [] }; faq.push(atual); continue; }
+    if (!atual || !l || ABRE_CAIXA.test(l) || FECHA_CAIXA.test(l)) continue;
+    atual.a.push(l.replace(/^([-*]|\d+[.)])\s+/, ''));
+  }
+  return faq.map((f) => ({ q: f.q.slice(0, 300), a: textoPlano(f.a.join(' ')).slice(0, 2000) })).filter((f) => f.q && f.a).slice(0, 20);
+}
+
+/** JSON-LD FAQPage a partir de [{ q, a }] em texto plano. */
+export function faqLd(faq, id = '') {
+  return { '@type': 'FAQPage', ...(id ? { '@id': id } : {}),
+    mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) };
+}
+
+function blocosHtml(value) {
+  const out = [];
+  for (const bloco of String(value || '').split(/\n{2,}/)) {
     const linhas = bloco.split('\n').map((l) => l.trimEnd()).filter((l) => l.trim());
     if (!linhas.length) continue;
     const t = /^(#{2,3})\s+(.+)$/.exec(linhas[0].trim());
@@ -170,17 +226,17 @@ export function htmlText(value) {
   return out.join('');
 }
 
-function absoluteSiteUrl(origin, base, path) {
+export function absoluteSiteUrl(origin, base, path) {
   if (/^https:\/\//i.test(String(path || ''))) return String(path);
   return `${origin}${base}${String(path || '').startsWith('/') ? path : `/${path || ''}`}`;
 }
 
-function absoluteAssetUrl(origin, path) {
+export function absoluteAssetUrl(origin, path) {
   if (/^https:\/\//i.test(String(path || ''))) return String(path);
   return `${origin}${String(path || '').startsWith('/') ? path : `/${path || ''}`}`;
 }
 
-function safeJsonLd(value) {
+export function safeJsonLd(value) {
   const escaped = { '<': '\\u003c', '>': '\\u003e', '&': '\\u0026', '\u2028': '\\u2028', '\u2029': '\\u2029' };
   return JSON.stringify(value).replace(/[<>&\u2028\u2029]/g, (char) => escaped[char]);
 }
@@ -189,6 +245,7 @@ function articleStructuredData({ site, post, origin, base }) {
   const home = absoluteSiteUrl(origin, base, '/');
   const blog = absoluteSiteUrl(origin, base, '/blog');
   const canonical = absoluteSiteUrl(origin, base, `/blog/${encodeURIComponent(post.slug)}`);
+  const faq = faqDoTexto(post.content);
   return {
     '@context': 'https://schema.org',
     '@graph': [
@@ -209,15 +266,17 @@ function articleStructuredData({ site, post, origin, base }) {
           { '@type': 'ListItem', position: 3, name: post.title, item: canonical },
         ],
       },
+      ...(faq.length ? [faqLd(faq, `${canonical}#perguntas-frequentes`)] : []),
     ],
   };
 }
 
-function head({ site, origin, base, title, description, canonical, image, structuredData = null }) {
+/** Cabeçalho das páginas geradas no servidor (blog, /sobre, /torneios): tema do site, canonical, Open Graph e JSON-LD escapado. */
+export function head({ site, origin, base, title, description, canonical, image, structuredData = null, ogType = 'article', extraCss = '' }) {
   const canonicalUrl = absoluteSiteUrl(origin, base, canonical);
   return `<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
     <title>${esc(title)}</title><meta name="description" content="${esc(description)}"><link rel="canonical" href="${esc(canonicalUrl)}">
-    <meta property="og:url" content="${esc(canonicalUrl)}"><meta property="og:title" content="${esc(title)}"><meta property="og:description" content="${esc(description)}"><meta property="og:type" content="article">
+    <meta property="og:url" content="${esc(canonicalUrl)}"><meta property="og:title" content="${esc(title)}"><meta property="og:description" content="${esc(description)}"><meta property="og:type" content="${esc(ogType)}">
     ${image ? `<meta property="og:image" content="${esc(image)}">` : ''}<link rel="stylesheet" href="/assets/site.css">
     ${structuredData ? `<script type="application/ld+json">${safeJsonLd(structuredData)}</script>` : ''}${tagMedicao(site)}
     <style>${themeCss(parse(site.theme, {}))}
@@ -235,11 +294,14 @@ function head({ site, origin, base, title, description, canonical, image, struct
       .blog-content strong{color:var(--text)}.blog-back{display:inline-block;margin-top:24px;color:var(--primary);font-weight:650;text-decoration:none}
       .blog-related{margin:34px 0 0;padding-top:20px;border-top:1px solid var(--border)}.blog-related h2{font:650 1.3rem/1.25 var(--font-head,var(--font));margin:0 0 12px}.blog-related ul{padding-left:20px}.blog-related li{margin:10px 0}.blog-related a{color:var(--primary);font-weight:650}.blog-related p{margin:3px 0;color:var(--muted)}
       .blog-tags{display:flex;gap:7px;flex-wrap:wrap;margin:12px 0}.blog-tags span{border:1px solid var(--border);border-radius:999px;padding:2px 9px;color:var(--muted);font-size:.8rem}
-      @media(max-width:600px){.blog-wrap{padding-top:26px}.blog-intro{margin:34px auto 22px}.blog-article{margin-top:34px}}
+      .blog-box{margin:0 0 1.4em;padding:16px 18px;border:1px solid var(--border);border-left:4px solid var(--primary);border-radius:var(--radius);background:var(--surface)}
+      .blog-box p:last-child,.blog-box ul:last-child,.blog-box ol:last-child{margin-bottom:0}.blog-box-title{display:block;margin:0 0 6px;font-weight:700;color:var(--text)}
+      .blog-box-cta,.blog-box-dica{border-left-color:var(--accent,var(--primary))}
+      @media(max-width:600px){.blog-wrap{padding-top:26px}.blog-intro{margin:34px auto 22px}.blog-article{margin-top:34px}}${extraCss}
     </style></head>`;
 }
 
-function sendHtml(send, res, html) {
+export function sendHtml(send, res, html) {
   return send(res, 200, html, { 'Content-Type': 'text/html; charset=utf-8', 'Content-Security-Policy': PUBLIC_CSP,
     'X-Content-Type-Options': 'nosniff', 'Referrer-Policy': 'strict-origin-when-cross-origin', 'Cache-Control': 'public, max-age=60' });
 }

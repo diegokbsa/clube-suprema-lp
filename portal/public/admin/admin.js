@@ -817,7 +817,8 @@ async function viewConfig(r) {
       <label class="field">Janela de atribuição (dias)<input data-s="attributionWindowDays" type="number" min="1" max="365" value="${esc(s.attributionWindowDays || 30)}"></label>
       <label class="field">Publicações por dia<input data-s="postsPerDay" type="number" min="0" max="12" value="${esc(s.postsPerDay ?? 3)}"></label>
       <label class="field">Horários<input data-s="postTimes" value="${esc(s.postTimes || '')}"></label></div>
-      <p class="err" id="c-err"></p><div class="row end"><button class="btn primary" type="button" id="c-save">Salvar</button></div></div>`);
+      <p class="err" id="c-err"></p><div class="row end"><button class="btn primary" type="button" id="c-save">Salvar</button></div></div><div id="c-recursos"></div>`);
+  import('/admin/modules/recursos.js').then((m) => m.renderConfig($('#c-recursos', main), { api, S, esc, toast, can, route, fmtDate })).catch(() => {}); // torneios e /baixar (PA-150)
   $('#c-save').addEventListener('click', async () => {
     const settings = {};
     $$('[data-s]', main).forEach((i) => { settings[i.dataset.s] = i.type === 'number' ? Number(i.value) : i.value.trim(); });

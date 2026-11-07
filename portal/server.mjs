@@ -96,7 +96,7 @@ export async function createApp({ db, origin = 'http://localhost:3400', secretKe
   const siteByHost = (host) => (host ? db.prepare('SELECT * FROM sites WHERE domain = ?').get(String(host).split(':')[0].toLowerCase()) : null);
   const tenantOf = (site) => db.prepare('SELECT * FROM tenants WHERE id = ?').get(site.tenant_id);
 
-  function servePublicSite(req, res, site, rest, base) {
+  async function servePublicSite(req, res, site, rest, base) {
     const tenant = tenantOf(site);
     if (!tenant || tenant.status !== 'ativa') return send(res, 404, 'Site não encontrado.');
     if (site.external_url) return send(res, 302, '', { Location: site.external_url });
@@ -110,9 +110,11 @@ export async function createApp({ db, origin = 'http://localhost:3400', secretKe
       const out = fn({ req, site, tenant, repo, rest, base, origin: siteOrigin });
       if (out) return send(res, out.status, req.method === 'HEAD' ? '' : out.body, out.headers);
     }
-    for (const r of app.publicRoutes) {
+    for (const r of app.publicRoutes) { // a rota pode devolver false para deixar o caminho seguir (ex.: /torneios desligado cai na página do construtor)
       const params = r.match(`/${rest}`);
-      if (params) return r.handler({ req, res, db, app, site, tenant, repo, base, params, pages, origin: siteOrigin, send });
+      if (!params) continue;
+      const out = await r.handler({ req, res, db, app, site, tenant, repo, base, params, pages, origin: siteOrigin, send });
+      if (out !== false) return out;
     }
     if (req.method !== 'GET') return send(res, 405, 'Método não permitido.');
     const slug = String(rest || '').replace(/\/$/, '');
@@ -247,7 +249,7 @@ export async function createApp({ db, origin = 'http://localhost:3400', secretKe
       if (hostSite) {
         if (p.startsWith('/assets/')) return serveStatic(res, p.replace('/assets/', 'assets/'));
         if (p.startsWith('/f/') && req.method === 'POST') return await submitLead(req, res, p.slice(3));
-        return servePublicSite(req, res, hostSite, p.slice(1), '');
+        return await servePublicSite(req, res, hostSite, p.slice(1), '');
       }
       if (p === '/' ) return send(res, 302, '', { Location: '/admin/' });
       if (p === '/admin' ) return send(res, 302, '', { Location: '/admin/' });
@@ -258,7 +260,7 @@ export async function createApp({ db, origin = 'http://localhost:3400', secretKe
         const site = siteBySlug(m[1]);
         if (!site) return send(res, 404, 'Site não encontrado.');
         if (m[2] === undefined) return send(res, 301, '', { Location: `/s/${m[1]}/${url.search}` });
-        return servePublicSite(req, res, site, m[2], `/s/${site.slug}`);
+        return await servePublicSite(req, res, site, m[2], `/s/${site.slug}`);
       }
       if ((m = /^\/f\/([0-9a-f-]{36})$/.exec(p)) && req.method === 'POST') return await submitLead(req, res, m[1]);
       if ((m = /^\/r\/([a-z0-9-]+)\/([A-Za-z0-9_-]+)$/.exec(p)) && req.method === 'GET') return trackClick(req, res, m[1], m[2], url);
