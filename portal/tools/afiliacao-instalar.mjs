@@ -37,11 +37,11 @@ function aplicarLinks(texto, prefixo) {
     .replace(/\{\{POST:([a-z0-9-]+)\}\}/g, (_m, s) => `${prefixo}/blog/${s}`);
 }
 
-function homeHtml(info, posts, ga4) {
+function homeHtml(info, posts, ga4, prefixo) {
   const itens = posts.map((p) => `<li><a href="blog/${esc(p.slug)}"><strong>${esc(p.title)}</strong></a><br><span>${esc(p.excerpt)}</span></li>`).join('\n');
   return `<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>${esc(info.nome)} · ${esc(info.tagline)}</title><meta name="description" content="${esc(info.descricao).slice(0, 160)}">
-<link rel="stylesheet" href="/assets/site.css"><link rel="alternate" type="application/rss+xml" href="blog/feed.xml">
+<link rel="canonical" href="${esc(prefixo)}/"><link rel="stylesheet" href="/assets/site.css"><link rel="alternate" type="application/rss+xml" href="blog/feed.xml">
 <style>body{max-width:760px;margin:0 auto;padding:32px 16px;font-family:system-ui,sans-serif;line-height:1.6;color:#1d1d1f;background:#fff}
 h1{font-size:2rem;margin:.2em 0}.tag{color:#5b4bd5;font-weight:600}ul{list-style:none;padding:0}li{padding:14px 0;border-bottom:1px solid #eee}
 a{color:#5b4bd5}footer{margin-top:40px;font-size:.85rem;color:#666}</style></head><body>
@@ -114,7 +114,7 @@ try {
       const pub = { ...base, status: 'publicado', scheduled_at: null, published_at: at, published_slug: a.slug, published_data: JSON.stringify(publishedData(base, at)) };
       if (!atual) { repo.insert('posts', pub); novos++; } else { repo.update('posts', atual.id, pub); atualizados++; }
     }
-    gravarPagina(repo, { siteId: site.id, caminho: '', html: homeHtml(info, lista, med.ga4), titulo: info.nome, indexar: true });
+    gravarPagina(repo, { siteId: site.id, caminho: '', html: homeHtml(info, lista, med.ga4, prefixo), titulo: info.nome, indexar: true });
     passo(`${slugBlog}: ${novos} posts novos, ${atualizados} atualizados, home gravada, medição ${tracking}`);
   }
   const pendentes = Object.entries(LINKS).filter(([, v]) => v.status !== 'ativo').map(([k]) => k);
