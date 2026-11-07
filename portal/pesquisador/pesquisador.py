@@ -1,4 +1,4 @@
-"""Pesquisador de IA do Portal: a cada 20 minutos pesquisa na internet um tema (rodízio de temas.json) e traz insights
+"""Pesquisador de IA do Portal: de hora em hora (Kbsa, 06/11/2026 23h40) pesquisa na internet um tema (rodízio de temas.json) e traz insights
 com fonte e ação sugerida para os sistemas (edição SX, edição Geral, suprema.blog, orquestrador).
 
   pesquisador.py start     registra a tarefa agendada "Portal - Pesquisador (20 min)" e roda um ciclo
@@ -47,7 +47,7 @@ SEGREDOS = Path(r"C:\AgentSetup\secrets\portal-servico.env")
 SECO = os.environ.get("PESQUISADOR_SECO") == "1"  # teste: nota vai para estado/, não cria cartão no Plane nem pede pesquisa
 if SECO:
     NOTAS = ESTADO_DIR / "notas-teste"
-TAREFA = "Portal - Pesquisador (20 min)"
+TAREFA = "Portal - Pesquisador (20 min)"  # nome antigo mantido para não quebrar referências; roda de hora em hora
 PROJETO = "lp-clube-suprema"
 SEM_JANELA = getattr(subprocess, "CREATE_NO_WINDOW", 0)
 
@@ -56,7 +56,7 @@ CONFIG = {
     "reserva": "big",
     "pegar_em_min": 40,        # ordem não pega nesse tempo -> próxima vai para a reserva
     "travada_min": 120,        # ordem em andamento há mais que isso -> desiste e segue
-    "max_por_dia": 72,         # 20 em 20 min o dia inteiro; com uma pesquisa por vez, na prática sai menos
+    "max_por_dia": 24,         # de hora em hora o dia inteiro (Kbsa, 06/11/2026); com uma pesquisa por vez, na prática sai menos
     "plane_impacto": 4,
     "plane_confianca": 3,
     "portais": [               # token: arquivo da pasta de dados (mesma máquina) ou chave no portal-servico.env
@@ -383,7 +383,7 @@ def main(argv: list[str]) -> int:
         return ciclo()
     if cmd == "start":
         w = Path(sys.executable).with_name("pythonw.exe")
-        r = schtasks("/Create", "/F", "/SC", "MINUTE", "/MO", "20", "/TN", TAREFA, "/TR", f'"{w if w.exists() else sys.executable}" -I "{Path(__file__).resolve()}" ciclo')
+        r = schtasks("/Create", "/F", "/SC", "MINUTE", "/MO", "60", "/TN", TAREFA, "/TR", f'"{w if w.exists() else sys.executable}" -I "{Path(__file__).resolve()}" ciclo')
         print(f"{TAREFA}: {'registrada' if r.returncode == 0 else 'FALHOU'} {r.stdout.strip() or r.stderr.strip()}")
         est = estado()
         est["pausado"] = False
