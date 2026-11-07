@@ -268,14 +268,24 @@
           const n0 = parte === 'compra' ? 0 : 1;
           sheet.innerHTML = `${head}
             ${parte !== 'compra' ? `<h3>1. Cadastro no sistema de fichas</h3><ul class="jx-list">${copyRow('E-mail', st.data.email || '')}${copyRow('Senha', 'a mesma que você criou aqui', false)}${copyRow('Nome completo', d.name || '')}${copyRow('CPF', mCpf(d.cpf))}${copyRow('Nascimento', fData(d.birth))}${copyRow('Celular', mFone(d.phone))}</ul>
-              ${signup ? `<a class="btn btn-lg jx-f24-go" href="${esc(signup)}" target="_blank" rel="noopener">${esc(s.button || 'Abrir o cadastro de fichas')}</a>` : '<p class="note">Link do cadastro de fichas ainda não configurado.</p>'}
+              ${signup ? `<a class="btn btn-lg jx-f24-go" href="${esc(signup)}" target="_blank" rel="noopener">${esc(s.button || 'Abrir o cadastro de fichas')}</a>
+              ${st.data.email ? '<p class="note jx-f24-dica">O botão já copia o seu e-mail: lá, toque em <b>Email</b> e em <b>Colar</b>, e use a mesma senha daqui.</p>' : ''}` : '<p class="note">Link do cadastro de fichas ainda não configurado.</p>'}
               <button class="btn btn-ghost btn-sm jx-f24-edit" type="button">Corrigir meus dados</button>` : ''}
             ${parte !== 'cadastro' ? `<h3>${n0 + 1}. Cadastrar ID${s.clubName ? ` (clube “${esc(s.clubName)}”)` : ''}</h3><ul class="jx-list">${copyRow('Seu ID de jogador', idApp || '(o ID do seu perfil no app)', Boolean(idApp))}${s.clube ? copyRow('Clube', s.clube) : ''}${s.agente ? copyRow('Agente', s.agente) : ''}</ul>
               <h3>${n0 + 2}. Validação</h3><p>O sistema de fichas manda umas fichas para a sua conta do app. Veja no app quantas chegaram e digite o valor lá para validar.</p>
               <h3>${n0 + 3}. Compra</h3>${home ? `<a class="btn btn-lg jx-f24-buy" href="${esc(home)}" target="_blank" rel="noopener">${esc(s.buyButton || 'Comprar fichas')}</a>` : '<p class="note">Link da compra ainda não configurado.</p>'}` : ''}
             <button class="btn ${parte === 'cadastro' ? '' : 'btn-ghost'} jx-next" type="button">${esc(s.done || 'Pronto, continuar')}</button>${back}`;
           const clique = (destino) => { send(cfg.id, key, st.step, 'clicar'); if (window.portalTrack) window.portalTrack('cta_click', { destino, jornada: cfg.id, variante: key }); };
-          sheet.querySelector('.jx-f24-go')?.addEventListener('click', () => clique('fichas_cadastro'));
+          // O cadastro de fichas não aceita dados pelo link nem preenchimento automático (testado em 07/11/2026): o toque já copia o e-mail.
+          sheet.querySelector('.jx-f24-go')?.addEventListener('click', () => {
+            if (st.data.email) {
+              navigator.clipboard?.writeText(st.data.email).then(() => {
+                const dica = sheet.querySelector('.jx-f24-dica');
+                if (dica) dica.textContent = 'E-mail copiado. No cadastro de fichas, toque em Email e em Colar.';
+              }).catch(() => {});
+            }
+            clique('fichas_cadastro');
+          });
           sheet.querySelector('.jx-f24-buy')?.addEventListener('click', () => clique('fichas_compra'));
           sheet.querySelector('.jx-f24-edit')?.addEventListener('click', () => { try { localStorage.removeItem(f24Key); } catch { /* sem armazenamento */ } draw(); });
           if (!idApp && st.data.cadastro && !preview && parte !== 'cadastro') {
