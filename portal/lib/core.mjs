@@ -191,7 +191,8 @@ export const coreRoutes = [
       if (body.seo) patch.seo = JSON.stringify({ title: String(body.seo.title || '').slice(0, 70), description: String(body.seo.description || '').slice(0, 170), image: String(body.seo.image || '').slice(0, 300) });
       if (body.tracking) {
         const t = body.tracking;
-        patch.tracking = JSON.stringify({ ga4: /^G-[A-Z0-9]{4,12}$/.test(t.ga4 || '') ? t.ga4 : '', gtm: /^GTM-[A-Z0-9]{4,10}$/.test(t.gtm || '') ? t.gtm : '', pixel: /^\d{8,20}$/.test(t.pixel || '') ? t.pixel : '' });
+        // mantém o que a tela de Sites não mostra (Clarity e Google Ads ficam em Mensuração e pixels)
+        patch.tracking = JSON.stringify({ ...parse(s.tracking, {}), ga4: /^G-[A-Z0-9]{4,12}$/.test(t.ga4 || '') ? t.ga4 : '', gtm: /^GTM-[A-Z0-9]{4,10}$/.test(t.gtm || '') ? t.gtm : '', pixel: /^\d{8,20}$/.test(t.pixel || '') ? t.pixel : '' });
         const tr = parse(patch.tracking, {});
         for (const [kind, v] of [['ga4', tr.ga4], ['gtm', tr.gtm], ['meta_pixel', tr.pixel]]) {
           const integ = repo.get('integrations', { kind });
