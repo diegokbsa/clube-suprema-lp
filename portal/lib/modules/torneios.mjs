@@ -290,4 +290,17 @@ export const routes = [
   },
 ];
 
-export function init(app) { APP = app; }
+// Grade estruturada para o robô dos grupos e o Bluesky (lib/automacao.mjs → obterGrade lê app.gradeDoDia):
+// { dia, url, eventos: [{ inicio, nome, garantido, buyin, ... }] } do dia de poker da operação, ou null.
+export async function gradeEstruturada(tenant, { agora = new Date(), app = APP } = {}) {
+  const cfg = configTorneios(tenant);
+  if (!cfg.ativo) return null;
+  const grade = await buscarGrade(cfg.liga, { agora, fetchImpl: app?.fetchImpl || globalThis.fetch });
+  if (!grade || !grade.eventos.length) return null;
+  return { dia: grade.dia, url: app ? urlTorneios(app, tenant) : '', eventos: grade.eventos };
+}
+
+export function init(app) {
+  APP = app;
+  if (typeof app.gradeDoDia !== 'function') app.gradeDoDia = (tenant, opts = {}) => gradeEstruturada(tenant, { ...opts, app });
+}

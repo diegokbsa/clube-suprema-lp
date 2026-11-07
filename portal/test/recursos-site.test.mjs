@@ -120,6 +120,18 @@ test('torneios: API fora do ar mostra aviso, e gradeDoDia devolve texto curto ou
   assert.equal(configTorneios({ settings: JSON.stringify({ torneiosAtivo: true, torneiosLiga: 'x' }) }).ativo, false);
 });
 
+test('integração PA-150 + PA-151: o robô dos grupos e o Bluesky recebem a grade estruturada dos torneios', async () => {
+  const { obterGrade, gradeDisponivel } = await import('../lib/automacao.mjs');
+  limparCacheTorneios();
+  assert.equal(typeof P.app.gradeDoDia, 'function', 'o módulo de torneios pendura a grade no app');
+  assert.equal(await gradeDisponivel(P.app), true);
+  const g = await obterGrade(P.app, tenantRow());
+  assert.ok(g && g.eventos.length >= 2, JSON.stringify(g));
+  assert.ok(g.eventos.some((e) => e.nome === 'Turbo PLO' && e.garantido === 5000 && e.buyin === 20));
+  const desligado = { ...tenantRow(), settings: JSON.stringify({ torneiosAtivo: false, torneiosLiga: '106' }) };
+  assert.equal(await obterGrade(P.app, desligado), null, 'torneios desligados: nada sai no robô nem no Bluesky');
+});
+
 test('gradeDoDia com hora fixa: dia de poker das 7h às 7h e só torneios ainda abertos', async () => {
   limparCacheTorneios();
   const agora = new Date('2026-11-06T12:00:00Z'); // 9h em Brasília

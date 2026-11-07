@@ -96,7 +96,7 @@ function fonteDaGrade(app) {
 export async function gradeDisponivel(app) {
   if (fonteDaGrade(app)) return true;
   const mod = await moduloDeTorneios();
-  return typeof mod?.gradeDoDia === 'function';
+  return typeof mod?.gradeEstruturada === 'function';
 }
 
 const instante = (v) => {
@@ -127,7 +127,7 @@ export async function obterGrade(app, tenant, { agora = new Date() } = {}) {
     let fonte = fonteDaGrade(app);
     if (!fonte) {
       const mod = await moduloDeTorneios();
-      if (typeof mod?.gradeDoDia === 'function') fonte = mod.gradeDoDia;
+      if (typeof mod?.gradeEstruturada === 'function') fonte = mod.gradeEstruturada;
     }
     if (!fonte) return null;
     return normalizarGrade(await fonte(tenant, { agora, app }), fusoDe(tenant), agora);
