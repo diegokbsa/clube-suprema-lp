@@ -19,6 +19,16 @@ export const STEP_TYPES = {
   confirmacao: { label: 'Confirmar que fez', fields: [F('title', 'Título'), F('text', 'Texto', 'textarea'), F('button', 'Botão (ex.: Pronto, já fiz)')] },
   texto: { label: 'Instrução', fields: [F('title', 'Título'), F('text', 'Texto', 'textarea'), F('button', 'Botão')] },
   final: { label: 'Final (meta da jornada)', fields: [F('title', 'Título'), F('text', 'Texto', 'textarea'), F('button', 'Botão (opcional)'), F('url', 'Link do botão (opcional)')] },
+  // Cadastro no app + Fichas 24h guiado (a jornada do suprema.blog). O motor fica em lib/modules/cadastro.mjs.
+  conta_app: { label: 'Cadastro com e-mail e senha (um acesso só: site, app e fichas; vai para o CRM)', fields: [F('title', 'Título'), F('text', 'Texto', 'textarea'),
+    F('fields', 'Campos', 'select', { options: ['email_senha', 'email_senha_nome_telefone'] }), F('button', 'Botão'), F('consent', 'Texto de consentimento (18+ e termos)', 'textarea')] },
+  entrar_clube: { label: 'Entrar no clube pelo app e informar o ID (acompanhamento ao vivo)', fields: [F('title', 'Título'), F('text', 'Texto', 'textarea'),
+    F('button', 'Botão que abre o app'), F('url', 'Link de convite (ex.: {{inviteLink}})'), F('idLabel', 'Pergunta do ID (ex.: Seu ID de jogador)'), F('done', 'Botão de enviar o ID')] },
+  fichas24h: { label: 'Fichas 24h guiado: dados prontos para copiar e colar', fields: [F('title', 'Título'), F('text', 'Texto', 'textarea'),
+    F('parte', 'Parte do Fichas 24h', 'select', { options: ['tudo', 'cadastro', 'compra'] }), F('signupUrl', 'Link do cadastro (ex.: {{chipsUrl}})'),
+    F('homeUrl', 'Link da compra (ex.: {{chipsHomeUrl}})'), F('clubName', 'Nome do clube no sistema de fichas (ex.: {{chipsClubName}})'),
+    F('clube', 'Clube para o "Cadastrar ID" (ex.: {{number}})'), F('agente', 'Agente (ex.: {{agentId}})'),
+    F('button', 'Botão do cadastro'), F('buyButton', 'Botão da compra'), F('done', 'Botão de concluir')] },
 };
 
 export function cleanSteps(steps) {
@@ -45,7 +55,21 @@ const FICHAS = { type: 'link_externo', title: 'Termine seu cadastro de fichas', 
 const COMPRA = { type: 'confirmacao', title: 'Compre suas fichas por PIX', text: 'No sistema de fichas, escolha o valor e pague o PIX. As fichas caem na sua conta do app.', button: 'Pronto, fichas na conta' };
 const FIM = { type: 'final', title: 'Tudo pronto! Agora é só jogar', text: 'Suas fichas caem na sua conta do {{name}}. Precisa de ajuda? Fale com o suporte.', button: 'Falar com o suporte', url: '{{whatsappLink}}' };
 
+// Jornada do suprema.blog (FLOW=completo, SUPREMA_MODE=app, F24H_MODE=guiado) com o mesmo teste A/B.
+const CONTA = { type: 'conta_app', title: 'Crie seu acesso', text: 'Um acesso só: use o mesmo e-mail e a mesma senha no app e no sistema de fichas.', fields: 'email_senha', button: 'Criar meu acesso', consent: 'Tenho 18 anos ou mais e aceito receber contato sobre o clube.' };
+const CLUBE = { type: 'entrar_clube', title: 'Agora, entre no clube pelo app', text: 'Abra o {{app}} pelo nosso link: você cria a conta com o mesmo e-mail e senha e já entra no {{unitLabel}} com o nosso agente. Depois, cole aqui o seu ID de jogador (fica no seu perfil no app).', button: 'Abrir o app no clube', url: '{{inviteLink}}', idLabel: 'Seu ID de jogador', done: 'Enviar meu ID' };
+const F24 = { type: 'fichas24h', title: 'Suas fichas no Fichas 24h', text: 'Seus dados estão prontos: em cada passo é só copiar e colar.', parte: 'tudo', signupUrl: '{{chipsUrl}}', homeUrl: '{{chipsHomeUrl}}', clubName: '{{chipsClubName}}', clube: '{{number}}', agente: '{{agentId}}', button: 'Terminar meu cadastro no Fichas 24h', buyButton: 'Comprar fichas no Fichas 24h', done: 'Pronto, fichas na conta' };
+const FIM_APP = { type: 'final', title: 'Tudo pronto! Agora é só jogar', text: 'Abra o {{app}}: suas fichas caem na sua conta do {{unitLabel}}. Precisa de ajuda? Fale com o suporte.', button: 'Falar com o suporte', url: '{{whatsappLink}}' };
+
 export const PRESETS = {
+  'cadastro-app-fichas24h': {
+    name: 'Cadastro no app + Fichas 24h guiado (jornada do suprema.blog)', niches: ['poker'],
+    description: 'Cria o acesso, leva ao app pelo link de convite com acompanhamento ao vivo do ID e deixa o cadastro e a compra no Fichas 24h prontos para copiar. A = app primeiro; B = fichas primeiro.',
+    variants: [
+      { key: 'a', name: 'A · App primeiro, fichas de uma vez', weight: 50, steps: [CONTA, CLUBE, F24, FIM_APP] },
+      { key: 'b', name: 'B · Fichas primeiro, app depois', weight: 50, steps: [CONTA, { ...F24, parte: 'cadastro', title: 'Primeiro, sua conta de fichas', done: 'Pronto, criei minha conta de fichas' }, CLUBE, { ...F24, parte: 'compra', title: 'Agora, compre suas fichas' }, FIM_APP] },
+    ],
+  },
   'jornada-guiada-poker': {
     name: 'Jornada guiada: entrar no clube e comprar fichas', niches: ['poker'],
     description: 'As duas ordens testadas no suprema.blog: A = app primeiro e fichas de uma vez; B = fichas primeiro, app depois e volta para comprar.',
