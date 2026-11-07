@@ -1,0 +1,16 @@
+{
+  "id": "glossario-de-poker",
+  "tipo": "Dica rápida",
+  "titulo": "Termos de poker: nuts, kicker, outs e tilt explicados em 40 segundos #shorts",
+  "descricao": "Nuts, kicker, outs, tilt e bad beat: os termos de poker que você vai ouvir na mesa, explicados rapidinho. No próximo vídeo: como saber se você tem o nuts.\n\n18+ · Jogue com responsabilidade.\n\n#poker #pokeronline #texasholdem #supremapoker",
+  "post": "glossario-de-poker",
+  "cenas": [
+    { "tela": "Você sabe o que é **nuts**?", "fala": "Nuts, kicker, outs, tilt. Você sabe o que é cada um?", "imagem": "public/img/app-mesa.webp" },
+    { "passo": 1, "tela": "Nuts: **a melhor mão possível** na mesa", "fala": "Nuts é a melhor mão possível com aquelas cartas da mesa. Quem tem o nuts, no máximo, empata." },
+    { "passo": 2, "tela": "Kicker: a carta que **desempata**", "fala": "Kicker é a carta que desempata. Ás e rei ganha de ás e dama quando os dois fazem par de ases." },
+    { "passo": 3, "tela": "Outs: as cartas que **completam o seu projeto**", "fala": "Outs são as cartas que ainda completam o seu projeto. Com quatro de copas, sobram nove outs para o flush." },
+    { "passo": 4, "tela": "Tilt: jogar mal **por emoção**", "fala": "Tilt é jogar mal por causa da emoção, depois de perder uma mão. A saída é fazer uma pausa." },
+    { "passo": 5, "tela": "Bad beat: perder sendo **muito favorito**", "fala": "E bad beat é perder sendo muito favorito, por causa de uma carta no final." },
+    { "tela": "No próximo: **como saber se você tem o nuts**. Segue o canal!", "fala": "No próximo vídeo, como saber se a sua mão é o nuts. Segue o canal!", "imagem": "public/img/app-mesa.webp" }
+  ]
+}
