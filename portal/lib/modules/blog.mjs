@@ -29,7 +29,7 @@ function safeCover(value) {
   } catch { return null; }
 }
 
-function cleanArticle(input, current = null) {
+export function cleanArticle(input, current = null) {
   const title = text(input.title ?? current?.title, 120);
   const content = String(input.content ?? current?.content ?? '').trim();
   const slug = slugify(input.slug ?? current?.slug ?? title);

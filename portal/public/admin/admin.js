@@ -736,7 +736,7 @@ async function viewIntegracoes(r) {
   const [em, tg] = await Promise.all([api('GET', `/api/t/${S.tenant.slug}/email`).catch(() => null), api('GET', `/api/t/${S.tenant.slug}/telegram`).catch(() => null)]);
   const groups = { seo: 'SEO e buscadores', mensuracao: 'Mensuração no site', relatorios: 'Relatórios', redes: 'Redes sociais', campanhas: 'Campanhas', afiliacao: 'Afiliação' };
   const main = layout(r, `<div class="page-head"><div><h1>Integrações</h1><p>Estado real de cada conexão. Nada aparece como conectado sem estar.</p></div></div>
-    ${cartoesCrm(em, tg, can('integrations.manage'))}
+    ${cartoesCrm(em, tg, can('integrations.manage'))}<div id="int-bluesky"></div>
     ${Object.entries(groups).map(([g, label]) => {
       const items = d.integrations.filter((i) => i.group === g);
       return items.length ? `<div class="card"><div class="card-head"><h2>${esc(label)}</h2></div><div class="table-wrap"><table><tbody>${items.map((i) => `<tr><td style="width:40%"><strong>${esc(i.label)}</strong>${i.lastError ? `<div class="err">${esc(i.lastError)}</div>` : ''}</td><td>${statusPill(i.status)}</td>
@@ -744,6 +744,7 @@ async function viewIntegracoes(r) {
           : i.status === 'pendente' ? (['ga4', 'gtm', 'meta_pixel'].includes(i.kind) ? 'Instale o ID em Sites → Aparência, SEO e mensuração.' : 'Aguardando o módulo desta integração e as credenciais da operação.') : esc(JSON.stringify(i.config))}</td></tr>`).join('')}</tbody></table></div></div>` : '';
     }).join('')}`);
   $$('[data-copy]', main).forEach((b) => b.addEventListener('click', async () => { await navigator.clipboard.writeText(b.dataset.copy); toast('Copiado.'); }));
+  import('/admin/modules/bluesky.js').then((m) => m.cartao($('#int-bluesky', main), { api, S, esc, toast, can, route, fmtDate })).catch(() => {}); // PA-151
   const acao = (id, fn) => $(id)?.addEventListener('click', async (e) => {
     const b = e.currentTarget; b.disabled = true;
     try { await fn(); } catch (err) { toast(err.message, true); } finally { b.disabled = false; }

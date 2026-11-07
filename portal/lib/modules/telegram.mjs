@@ -4,6 +4,10 @@
 // - Publicação: espaços do calendário com canal 'telegram' e situação 'agendado' cuja hora passou saem no canal
 //   (sendMessage ou sendPhoto, em HTML escapado) e são marcados pelos ajudantes do calendário (marcarPublicado/marcarErro).
 // - Respostas no privado: getUpdates com offset guardado na public_config (sem webhook: o servidor fica atrás de túnel).
+// - Grupos (PA-151, como o robô do suprema.blog): quem adiciona o bot ao grupo recebe as boas-vindas e a grade de torneios do
+//   dia; o bot responde /torneios, /clube, /fichas, /suporte e /ajuda no grupo, e o admin pausa com /pausar e volta com /ativar.
+//   Grade do dia nos grupos ativos a partir do horário configurado (padrão 09:00), uma vez por dia por grupo (ultima_grade).
+//   A grade vem do módulo de torneios (lib/automacao.mjs → obterGrade); sem ele, /torneios avisa e nada é mandado.
 // Laços: publicação a cada 60 s e respostas a cada 10 s, com unref. Desligados com PORTAL_SEM_ROTINAS=1 e nos testes (node --test).
 //
 // Situação da integração: 'ativo' quando o teste passa, porque é 'ativo' que o calendário entende como conta conectada
@@ -12,8 +16,12 @@ import { now, parse } from '../db.mjs';
 import { HttpError } from '../http.mjs';
 import { scoped } from '../repo.mjs';
 import { audit as gravarAuditoria } from '../tenants.mjs';
-import { marcarPublicado, marcarErro } from './calendar.mjs';
+import { marcarPublicado, marcarErro, diaLocal } from './calendar.mjs';
 import { dadosDaOperacao, siteDaOperacao } from './email.mjs';
+import { lerConfig, gravarConfig, rotinasLigadas, fusoDe, horaOk, passouDa, obterGrade, gradeDisponivel, destaques, linhasDaGrade, diaRotulo } from '../automacao.mjs';
+
+export const tables = ['telegram_grupos', 'automacao_config'];
+export const nav = { id: 'telegram-grupos', label: 'Robô do Telegram', perm: 'integrations.read' };
 
 const need = (cond, status, msg) => { if (!cond) throw new HttpError(status, msg); };
 
@@ -84,7 +92,7 @@ function saida(row) {
     estado, estadoLabel: ESTADOS[estado], conectado: estado === 'conectado',
     lastCheck: row.last_check || null, lastError: row.last_error || null,
     ajuda: 'Crie o bot no @BotFather (comando /newbot) e copie o token. Depois ponha o bot como administrador do canal, com permissão de publicar, e use "Testar".',
-    comandos: ['/start', '/clube', '/fichas', '/suporte'],
+    comandos: ['/start', '/torneios', '/clube', '/fichas', '/suporte'],
   };
 }
 
@@ -96,7 +104,7 @@ export function respostaDoBot(d, texto) {
   const nomeClube = `<b>${escHtml(d.clube)}</b>${d.poker && d.idClube ? ` (ID do clube <b>${escHtml(d.idClube)}</b>)` : ''}`;
   const suporte = d.whatsapp ? `Suporte no WhatsApp (a mensagem já vai pronta): ${link(d.whatsapp, 'chamar o suporte')}` : '';
   const site = d.siteUrl ? `Site: ${link(d.siteUrl, d.siteUrl)}` : '';
-  const menu = 'Comandos: /clube (como entrar), /fichas (canal oficial de fichas), /suporte (falar com a equipe).';
+  const menu = `Comandos: ${d.temGrade ? '/torneios (torneios de hoje), ' : ''}/clube (como entrar), /fichas (canal oficial de fichas), /suporte (falar com a equipe).`;
   const clube = () => {
     if (!d.poker) return [`Para conhecer ${nomeClube}, veja o site.`, site, suporte];
     const passos = [
@@ -191,14 +199,186 @@ export async function publicarVencidos(app, { agora = new Date() } = {}) {
   return resumo;
 }
 
-// ---------------------------------------------------------------- respostas no privado
+// ---------------------------------------------------------------- respostas no privado e nos grupos
 
-/** Lê as mensagens novas do bot (getUpdates) e responde. Devolve { respondidas }. */
+const GRUPOS = new Set(['group', 'supergroup']);
+const DENTRO = new Set(['member', 'administrator', 'creator', 'restricted']);
+const ADMIN_ANONIMO = 1087968824;  // @GroupAnonymousBot: admin que escreve como o próprio grupo
+const ESPERA_MS = 20_000;          // o mesmo comando no mesmo chat: no máximo uma resposta a cada 20 s
+const SAIU = /kicked|not a member|chat not found|bot was blocked|deactivated|have no rights|not enough rights|CHAT_WRITE_FORBIDDEN/i;
+const APELIDOS = { torneios: 'torneios', grade: 'torneios', hoje: 'torneios', clube: 'clube', entrar: 'clube', fichas: 'fichas', suporte: 'suporte',
+  ajuda: 'ajuda', help: 'ajuda', pausar: 'pausar', ativar: 'ativar' };
+const PADRAO_GRUPOS = { gradeAtiva: true, gradeHora: '09:00', gradeNoCanal: false, destaques: 8 };
+
+const leituras = new WeakMap();   // app -> Map(tenantId -> ISO da última leitura bem-sucedida)
+const respostasRecentes = new WeakMap();
+const mapaDe = (wm, app) => { if (!wm.has(app)) wm.set(app, new Map()); return wm.get(app); };
+
+/** Quando o bot da operação leu as mensagens pela última vez (para o vigia). Null se não leu desde que o servidor ligou. */
+export const ultimaLeitura = (app, tenantId) => mapaDe(leituras, app).get(tenantId) || null;
+
+export function configDosGrupos(repo) {
+  const c = lerConfig(repo, 'telegram_grupos', PADRAO_GRUPOS);
+  return { gradeAtiva: Boolean(c.gradeAtiva), gradeHora: horaOk(c.gradeHora) || '09:00', gradeNoCanal: Boolean(c.gradeNoCanal),
+    destaques: Math.max(3, Math.min(15, Math.round(Number(c.destaques) || 8))) };
+}
+
+const httpsOk = (u) => (/^https:\/\/[^\s<>"']+$/i.test(String(u || '')) ? String(u) : '');
+const linkAdicionar = (cfg) => (cfg.botUsuario ? `https://t.me/${cfg.botUsuario.replace(/^@/, '')}?startgroup=grade` : '');
+
+function botoes(d, cfg, { adicionar = true } = {}) {
+  const linhas = [];
+  const entrar = httpsOk(d.convite) || httpsOk(d.whatsapp) || httpsOk(d.siteUrl);
+  if (entrar) linhas.push([{ text: `Entrar no ${d.clube}`.slice(0, 60), url: entrar }]);
+  if (adicionar && linkAdicionar(cfg)) linhas.push([{ text: 'Receber a grade no meu grupo', url: linkAdicionar(cfg) }]);
+  return linhas.length ? { inline_keyboard: linhas } : undefined;
+}
+
+/** Grade do dia em HTML do Telegram (tudo escapado). */
+export function mensagemDaGrade(d, grade, top, tz, agora = new Date()) {
+  const fuso = tz === 'America/Sao_Paulo' ? 'horário de Brasília' : `fuso ${tz}`;
+  const linhas = linhasDaGrade(top, tz).map((l) => `${escHtml(l.hora)} · <b>${escHtml(l.nome)}</b>${l.garantido ? ` · ${escHtml(l.garantido)} GTD` : ''}${l.buyin ? ` · buy-in ${escHtml(l.buyin)}` : ''}`);
+  return [
+    '🏆 <b>Torneios de hoje</b>',
+    `${escHtml(diaRotulo(tz, agora))} · ${escHtml(fuso)}`,
+    '',
+    ...linhas,
+    ...(grade.url ? ['', `Grade completa (${grade.total} torneios): ${link(grade.url, grade.url)}`] : []),
+    '',
+    `♠️ Jogue no <b>${escHtml(d.clube)}</b>${d.poker && d.idClube ? ` (ID ${escHtml(d.idClube)})` : ''}: /clube`,
+    ...(d.aviso ? ['', escHtml(d.aviso)] : []),
+  ].join('\n');
+}
+
+function ajudaDoGrupo(d, gcfg, temGrade) {
+  const comGrade = temGrade && gcfg.gradeAtiva;
+  return [
+    `Oi, pessoal! Sou o bot do <b>${escHtml(d.clube)}</b>.`,
+    comGrade ? `Todo dia às ${escHtml(gcfg.gradeHora)} mando aqui os maiores torneios do dia.` : null,
+    '',
+    temGrade ? '/torneios · os torneios de hoje' : null,
+    `/clube · como entrar no ${escHtml(d.clube)}`,
+    '/fichas · canal oficial de fichas',
+    '/suporte · falar com a equipe',
+    comGrade ? 'Admin: /pausar para parar a grade e /ativar para voltar.' : null,
+    ...(d.aviso ? ['', escHtml(d.aviso)] : []),
+  ].filter((l) => l !== null).join('\n').replace(/\n{3,}/g, '\n\n').trim();
+}
+
+function guardarGrupo(repo, chat, patch) {
+  const chatId = String(chat.id);
+  const atual = repo.get('telegram_grupos', { chat_id: chatId });
+  const dados = { titulo: String(chat.title || atual?.titulo || '').slice(0, 120), tipo: GRUPOS.has(chat.type) ? chat.type : (atual?.tipo || 'group'), ...patch };
+  return atual ? repo.update('telegram_grupos', atual.id, dados) : repo.insert('telegram_grupos', { chat_id: chatId, situacao: 'ativo', ...dados });
+}
+
+/** Texto da grade de agora para um chat, ou o aviso de que não há. */
+async function textoDaGradeAgora(b) {
+  const agora = new Date();
+  const grade = await obterGrade(b.app, b.tenant, { agora });
+  if (!grade) return { texto: 'A grade de torneios de hoje ainda não está disponível. Tente mais tarde.', grade: null };
+  const top = destaques(grade, agora, b.gcfg.destaques);
+  if (!top.length) return { texto: `Os torneios de hoje já começaram.${grade.url ? ` A grade fica em ${link(grade.url, grade.url)}` : ''}`, grade: null };
+  return { texto: mensagemDaGrade(b.d, grade, top, b.tz, agora), grade };
+}
+
+const enviar = (b, chatId, text, extra = {}) => tg(b.app, b.token, 'sendMessage', { chat_id: chatId, text, parse_mode: 'HTML', link_preview_options: { is_disabled: true }, ...extra });
+
+/** Marca a grade do dia como mandada para o grupo antes de mandar (dois laços ao mesmo tempo não repetem). */
+function reservarGradeDoGrupo(db, grupo, dia) {
+  return db.prepare('UPDATE telegram_grupos SET ultima_grade = ?, updated_at = ? WHERE tenant_id = ? AND id = ? AND (ultima_grade IS NULL OR ultima_grade != ?)')
+    .run(dia, now(), grupo.tenant_id, grupo.id, dia).changes > 0;
+}
+
+/** Manda a grade a um grupo. Devolve 'ok' | 'saiu' | 'falhou' | 'repetido'. */
+async function gradeParaGrupo(b, grupo, texto, dia) {
+  if (!reservarGradeDoGrupo(b.app.db, grupo, dia)) return 'repetido';
+  try {
+    await enviar(b, grupo.chat_id, texto, { reply_markup: botoes(b.d, b.cfg) });
+    b.repo.update('telegram_grupos', grupo.id, { ultimo_erro: null });
+    return 'ok';
+  } catch (e) {
+    const motivo = esconder(e?.message || e, b.token).slice(0, 300);
+    if (SAIU.test(motivo)) { b.repo.update('telegram_grupos', grupo.id, { situacao: 'saiu', ultimo_erro: motivo }); return 'saiu'; }
+    b.repo.update('telegram_grupos', grupo.id, { ultima_grade: grupo.ultima_grade || null, ultimo_erro: motivo }); // tenta de novo na próxima rodada
+    return 'falhou';
+  }
+}
+
+async function souAdmin(b, m) {
+  if (m.sender_chat?.id === m.chat.id || m.from?.id === ADMIN_ANONIMO) return true;
+  const membro = await tg(b.app, b.token, 'getChatMember', { chat_id: m.chat.id, user_id: m.from?.id }).catch(() => null);
+  return ['creator', 'administrator'].includes(membro?.status);
+}
+
+/** Comando num grupo. Devolve true se respondeu. */
+async function comandoNoGrupo(b, m) {
+  const casou = /^\/([a-z_]+)(?:@(\w+))?/i.exec(String(m.text || ''));
+  if (!casou) return false;
+  const meu = String(b.cfg.botUsuario || '').replace(/^@/, '').toLowerCase();
+  if (casou[2] && casou[2].toLowerCase() !== meu) return false;              // comando para outro bot
+  const cmd = APELIDOS[casou[1].toLowerCase()];
+  if (!cmd) return false;                                                    // /start e o resto: no grupo, só os comandos conhecidos
+  const recentes = mapaDe(respostasRecentes, b.app);
+  const chave = `${b.tenant.id}:${m.chat.id}:${cmd}`;
+  if (Date.now() - (recentes.get(chave) || 0) < ESPERA_MS) return false;
+  recentes.set(chave, Date.now());
+  const opts = { reply_parameters: { message_id: m.message_id, allow_sending_without_reply: true }, ...(m.is_topic_message && m.message_thread_id ? { message_thread_id: m.message_thread_id } : {}) };
+  const grupo = b.repo.get('telegram_grupos', { chat_id: String(m.chat.id) }) || guardarGrupo(b.repo, m.chat, { situacao: 'ativo' });
+  if (cmd === 'torneios') {
+    const { texto, grade } = await textoDaGradeAgora(b);
+    await enviar(b, m.chat.id, texto, { ...opts, ...(grade ? { reply_markup: botoes(b.d, b.cfg) } : {}) });
+  } else if (cmd === 'clube' || cmd === 'fichas' || cmd === 'suporte') {
+    await enviar(b, m.chat.id, respostaDoBot(b.d, `/${cmd}`), { ...opts, ...(cmd === 'clube' ? { reply_markup: botoes(b.d, b.cfg, { adicionar: false }) } : {}) });
+  } else if (cmd === 'ajuda') {
+    await enviar(b, m.chat.id, ajudaDoGrupo(b.d, b.gcfg, b.temGrade), opts);
+  } else {
+    if (!(await souAdmin(b, m))) { await enviar(b, m.chat.id, 'Só um admin do grupo pode pausar ou ativar a grade do dia.', opts); return true; }
+    b.repo.update('telegram_grupos', grupo.id, { situacao: cmd === 'pausar' ? 'pausado' : 'ativo' });
+    gravarAuditoria(b.app.db, { tenantId: b.tenant.id, action: `telegram.grupo.${cmd}`, target: grupo.id, data: { origem: 'admin do grupo' } });
+    await enviar(b, m.chat.id, cmd === 'pausar'
+      ? 'Pronto: a grade do dia está pausada neste grupo. Para voltar, um admin manda /ativar. O /torneios continua funcionando.'
+      : `Pronto: a grade de torneios volta a chegar aqui todo dia às ${escHtml(b.gcfg.gradeHora)}.`, opts);
+  }
+  return true;
+}
+
+/** O bot entrou ou saiu de um grupo (canais e privado ficam de fora). */
+async function mudouMembro(b, u) {
+  const chat = u?.chat;
+  if (!chat || !GRUPOS.has(chat.type)) return false;
+  const dentro = DENTRO.has(u.new_chat_member?.status);
+  const antes = DENTRO.has(u.old_chat_member?.status);
+  if (dentro && !antes) {
+    const grupo = guardarGrupo(b.repo, chat, { situacao: 'ativo', ultimo_erro: null });
+    gravarAuditoria(b.app.db, { tenantId: b.tenant.id, action: 'telegram.grupo.entrar', target: grupo.id, data: { tipo: chat.type } });
+    try {
+      await enviar(b, chat.id, ajudaDoGrupo(b.d, b.gcfg, b.temGrade), { reply_markup: botoes(b.d, b.cfg, { adicionar: false }) });
+      const instante = new Date();
+      if (b.gcfg.gradeAtiva && passouDa(b.tz, instante, b.gcfg.gradeHora)) {
+        const grade = await obterGrade(b.app, b.tenant, { agora: instante });
+        const top = destaques(grade, instante, b.gcfg.destaques);
+        if (grade && top.length) await gradeParaGrupo(b, b.repo.get('telegram_grupos', grupo.id), mensagemDaGrade(b.d, grade, top, b.tz, instante), diaLocal(b.tz, instante));
+      }
+    } catch (e) {
+      b.repo.update('telegram_grupos', grupo.id, { ultimo_erro: esconder(e?.message || e, b.token).slice(0, 300) });
+    }
+    return true;
+  }
+  if (!dentro && antes) {
+    const grupo = guardarGrupo(b.repo, chat, { situacao: 'saiu' });
+    gravarAuditoria(b.app.db, { tenantId: b.tenant.id, action: 'telegram.grupo.sair', target: grupo.id, data: {} });
+    return true;
+  }
+  return false;
+}
+
+/** Lê as mensagens novas do bot (getUpdates) e responde no privado e nos grupos. Devolve { respondidas, noGrupo, grupos }. */
 export async function responderMensagens(app) {
   const linhas = app.db.prepare(`SELECT i.* FROM integrations i JOIN tenants t ON t.id = i.tenant_id
     WHERE i.kind = 'telegram' AND i.status = 'ativo' AND i.secret IS NOT NULL AND t.status = 'ativa'`).all();
   const ocupados = andamento(app);
-  let respondidas = 0;
+  const resumo = { respondidas: 0, noGrupo: 0, grupos: 0 };
   for (const row of linhas) {
     const chave = `bot:${row.tenant_id}`;
     if (ocupados.has(chave)) continue;
@@ -208,7 +388,8 @@ export async function responderMensagens(app) {
       if (!token) continue;
       const repo = scoped(app.db, row.tenant_id);
       const cfg = configDe(row);
-      const updates = await tg(app, token, 'getUpdates', { ...(cfg.updateOffset ? { offset: cfg.updateOffset } : {}), timeout: 0, limit: 50, allowed_updates: ['message'] });
+      const updates = await tg(app, token, 'getUpdates', { ...(cfg.updateOffset ? { offset: cfg.updateOffset } : {}), timeout: 0, limit: 50, allowed_updates: ['message', 'my_chat_member'] });
+      mapaDe(leituras, app).set(row.tenant_id, now());
       if (!Array.isArray(updates) || !updates.length) continue;
       const proximo = Math.max(cfg.updateOffset, ...updates.map((u) => Number(u.update_id) + 1).filter(Number.isFinite));
       // grava o offset ANTES de responder: se cair no meio, ninguém recebe a mesma resposta duas vezes
@@ -216,13 +397,29 @@ export async function responderMensagens(app) {
       if (!fresco || fresco.secret !== row.secret) continue;          // o token mudou enquanto líamos
       repo.update('integrations', row.id, { public_config: JSON.stringify({ ...(parse(fresco.public_config, {}) || {}), updateOffset: proximo }) });
       const tenant = app.db.prepare('SELECT * FROM tenants WHERE id = ?').get(row.tenant_id);
-      const d = dadosDaOperacao(app, tenant);
+      const temGrade = await gradeDisponivel(app);
+      const d = { ...dadosDaOperacao(app, tenant), temGrade };
+      const b = { app, token, tenant, repo, d, cfg, gcfg: configDosGrupos(repo), tz: fusoDe(tenant), temGrade };
       for (const u of updates) {
-        const m = u?.message;
-        if (!m || m.chat?.type !== 'private' || m.from?.is_bot || m.chat?.id == null) continue;
         try {
-          await tg(app, token, 'sendMessage', { chat_id: m.chat.id, text: respostaDoBot(d, m.text), parse_mode: 'HTML', link_preview_options: { is_disabled: true } });
-          respondidas++;
+          if (u?.my_chat_member) { if (await mudouMembro(b, u.my_chat_member)) resumo.grupos++; continue; }
+          const m = u?.message;
+          if (!m || m.chat?.id == null) continue;
+          if (m.migrate_to_chat_id && GRUPOS.has(m.chat.type)) {         // o grupo virou supergrupo e ganhou outro id
+            guardarGrupo(repo, m.chat, { situacao: 'migrou' });
+            guardarGrupo(repo, { id: m.migrate_to_chat_id, title: m.chat.title, type: 'supergroup' }, { situacao: 'ativo' });
+            resumo.grupos++;
+            continue;
+          }
+          if (m.from?.is_bot) continue;
+          if (m.chat.type === 'private') {
+            const cmd = (String(m.text || '').trim().split(/\s+/)[0] || '').toLowerCase().replace(/@[a-z0-9_]+$/, '');
+            const texto = ['/torneios', '/grade', '/hoje'].includes(cmd) ? (await textoDaGradeAgora(b)).texto : respostaDoBot(d, m.text);
+            await enviar(b, m.chat.id, texto);
+            resumo.respondidas++;
+          } else if (GRUPOS.has(m.chat.type)) {
+            if (await comandoNoGrupo(b, m)) resumo.noGrupo++;
+          }
         } catch (e) {
           console.error(`[telegram] não respondeu uma mensagem: ${esconder(e?.message || e, token)}`);
         }
@@ -236,23 +433,163 @@ export async function responderMensagens(app) {
       ocupados.delete(chave);
     }
   }
-  return { respondidas };
+  return resumo;
+}
+
+// ---------------------------------------------------------------- grade do dia nos grupos (e no canal, se ligado)
+
+const pausa = (app) => new Promise((r) => setTimeout(r, app.pausaTelegramMs ?? 150)); // o Telegram aceita ~30 mensagens/s no total
+
+/**
+ * Manda a grade do dia aos grupos ativos que ainda não receberam hoje, a partir do horário da operação.
+ * opts.tenantId: só uma operação; opts.ignorarHora: botão "mandar agora" do painel. Devolve { enviados, falhas, saiu, semGrade, canal }.
+ */
+export async function gradeNosGrupos(app, { agora = new Date(), tenantId = null, ignorarHora = false } = {}) {
+  const linhas = app.db.prepare(`SELECT i.* FROM integrations i JOIN tenants t ON t.id = i.tenant_id
+    WHERE i.kind = 'telegram' AND i.status = 'ativo' AND i.secret IS NOT NULL AND t.status = 'ativa' ${tenantId ? 'AND t.id = ?' : ''}`).all(...(tenantId ? [tenantId] : []));
+  const resumo = { enviados: 0, falhas: 0, saiu: 0, semGrade: 0, canal: false };
+  const ocupados = andamento(app);
+  for (const row of linhas) {
+    const chave = `grade:${row.tenant_id}`;
+    if (ocupados.has(chave)) continue;
+    ocupados.add(chave);
+    const token = abrirToken(app, row);
+    try {
+      if (!token) continue;
+      const repo = scoped(app.db, row.tenant_id);
+      const gcfg = configDosGrupos(repo);
+      const tenant = app.db.prepare('SELECT * FROM tenants WHERE id = ?').get(row.tenant_id);
+      const tz = fusoDe(tenant);
+      if (!gcfg.gradeAtiva || (!ignorarHora && !passouDa(tz, agora, gcfg.gradeHora))) continue;
+      const dia = diaLocal(tz, agora);
+      const cfg = configDe(row);
+      const grupos = repo.all('telegram_grupos', { situacao: 'ativo' }, { order: 'created_at ASC', limit: 1000, extra: 'ultima_grade IS NULL OR ultima_grade != ?', extraParams: [dia] });
+      const pub = parse(row.public_config, {}) || {};
+      const noCanal = gcfg.gradeNoCanal && CANAL.test(cfg.canal) && pub.gradeCanalDia !== dia;
+      if (!grupos.length && !noCanal) continue;
+      const grade = await obterGrade(app, tenant, { agora });
+      const top = destaques(grade, agora, gcfg.destaques);
+      if (!grade || !top.length) { resumo.semGrade++; continue; }
+      const b = { app, token, tenant, repo, d: { ...dadosDaOperacao(app, tenant), temGrade: true }, cfg, gcfg, tz };
+      const texto = mensagemDaGrade(b.d, grade, top, tz, agora);
+      let enviadosAqui = 0;
+      for (const g of grupos) {
+        const r = await gradeParaGrupo(b, g, texto, dia);
+        if (r === 'ok') { resumo.enviados++; enviadosAqui++; }
+        else if (r === 'saiu') resumo.saiu++;
+        else if (r === 'falhou') resumo.falhas++;
+        await pausa(app);
+      }
+      let canalOk = false;
+      if (noCanal) {
+        const fresco = repo.get('integrations', row.id);
+        repo.update('integrations', row.id, { public_config: JSON.stringify({ ...(parse(fresco.public_config, {}) || {}), gradeCanalDia: dia }) });
+        try {
+          const add = linkAdicionar(cfg);
+          await enviar(b, cfg.canal, `${texto}${add ? `\n\n➕ Quer esta grade no seu grupo todo dia? ${link(add, 'adicionar o bot')}` : ''}`);
+          canalOk = true;
+          resumo.canal = true;
+        } catch (e) {
+          const f = repo.get('integrations', row.id);
+          repo.update('integrations', row.id, { public_config: JSON.stringify({ ...(parse(f.public_config, {}) || {}), gradeCanalDia: pub.gradeCanalDia || null }),
+            last_error: `Grade no canal: ${esconder(e?.message || e, token).slice(0, 200)}` });
+          resumo.falhas++;
+        }
+      }
+      if (enviadosAqui || canalOk) gravarAuditoria(app.db, { tenantId: tenant.id, action: 'telegram.grade', target: dia, data: { grupos: enviadosAqui, canal: canalOk } });
+    } catch (e) {
+      console.error(`[telegram] grade nos grupos: ${esconder(e?.message || e, token)}`);
+    } finally {
+      ocupados.delete(chave);
+    }
+  }
+  return resumo;
 }
 
 // ---------------------------------------------------------------- laços
 
 export async function init(app) {
-  if (process.env.PORTAL_SEM_ROTINAS === '1' || process.env.NODE_TEST_CONTEXT || app.semRotinas) return null;
+  if (!rotinasLigadas(app)) return null;
   const pub = setInterval(() => { publicarVencidos(app).catch((e) => console.error(`[telegram] publicação: ${String(e?.message || e).slice(0, 200)}`)); }, 60_000);
   const bot = setInterval(() => { responderMensagens(app).catch((e) => console.error(`[telegram] respostas: ${String(e?.message || e).slice(0, 200)}`)); }, 10_000);
+  const grade = setInterval(() => { gradeNosGrupos(app).catch((e) => console.error(`[telegram] grade: ${String(e?.message || e).slice(0, 200)}`)); }, 60_000);
   pub.unref?.();
   bot.unref?.();
-  return { pub, bot };
+  grade.unref?.();
+  return { pub, bot, grade };
 }
 
 // ---------------------------------------------------------------- rotas do painel
 
+const grupoOut = (g) => ({ id: g.id, chatId: g.chat_id, titulo: g.titulo, tipo: g.tipo, situacao: g.situacao, ultimaGrade: g.ultima_grade, ultimoErro: g.ultimo_erro, desde: g.created_at });
+
+async function telaDosGrupos(app, tenant, repo) {
+  const row = integracao(repo);
+  const cfg = configDe(row);
+  const gcfg = configDosGrupos(repo);
+  const tz = fusoDe(tenant);
+  const temGrade = await gradeDisponivel(app);
+  const grupos = repo.all('telegram_grupos', {}, { order: 'updated_at DESC', limit: 500 });
+  const hoje = diaLocal(tz, new Date());
+  return {
+    config: gcfg, fuso: tz, conectado: row.status === 'ativo', estado: estadoDe(row), estadoLabel: ESTADOS[estadoDe(row)],
+    botUsuario: cfg.botUsuario || '', linkAdicionar: linkAdicionar(cfg), canal: cfg.canal || '',
+    gradeDisponivel: temGrade, ultimaLeitura: ultimaLeitura(app, tenant.id),
+    grupos: grupos.map(grupoOut),
+    contagem: { ativos: grupos.filter((g) => g.situacao === 'ativo').length, pausados: grupos.filter((g) => g.situacao === 'pausado').length,
+      receberamHoje: grupos.filter((g) => g.ultima_grade === hoje).length },
+    comandos: ['/torneios', '/clube', '/fichas', '/suporte', '/ajuda', '/pausar (admin)', '/ativar (admin)'],
+    ajuda: temGrade ? 'Para o bot entrar em grupos: no @BotFather, /setjoingroups → Enable. Depois mande o link "adicionar ao grupo".'
+      : 'A grade de torneios ainda não está ligada (falta o módulo de torneios). Os comandos /clube, /fichas e /suporte já funcionam nos grupos.',
+  };
+}
+
+const rotasDosGrupos = [
+  {
+    method: 'GET', path: '/api/t/:tenant/telegram/grupos', perm: 'integrations.read',
+    handler: ({ app, tenant, repo }) => telaDosGrupos(app, tenant, repo),
+  },
+  {
+    method: 'PUT', path: '/api/t/:tenant/telegram/grupos/config', perm: 'integrations.manage',
+    handler: async ({ app, tenant, repo, body, audit }) => {
+      const atual = lerConfig(repo, 'telegram_grupos', PADRAO_GRUPOS);
+      const novo = { ...atual };
+      if (body.gradeAtiva !== undefined) novo.gradeAtiva = Boolean(body.gradeAtiva);
+      if (body.gradeNoCanal !== undefined) novo.gradeNoCanal = Boolean(body.gradeNoCanal);
+      if (body.gradeHora !== undefined) { const h = horaOk(body.gradeHora); need(h, 400, 'Horário da grade inválido: use HH:MM.'); novo.gradeHora = h; }
+      if (body.destaques !== undefined) { const n = Math.round(Number(body.destaques)); need(n >= 3 && n <= 15, 400, 'Destaques: de 3 a 15 torneios.'); novo.destaques = n; }
+      gravarConfig(repo, 'telegram_grupos', novo);
+      audit('telegram.grupos.config', KIND, { gradeAtiva: novo.gradeAtiva, gradeHora: novo.gradeHora, gradeNoCanal: novo.gradeNoCanal });
+      return telaDosGrupos(app, tenant, repo);
+    },
+  },
+  {
+    method: 'PATCH', path: '/api/t/:tenant/telegram/grupos/:id', perm: 'integrations.manage',
+    handler: ({ repo, params, body, audit }) => {
+      const g = repo.get('telegram_grupos', String(params.id || ''));
+      need(g, 404, 'Grupo não encontrado.');
+      need(['ativo', 'pausado'].includes(body.situacao), 400, 'Situação inválida: use "ativo" ou "pausado".');
+      need(['ativo', 'pausado'].includes(g.situacao), 409, 'O bot não está mais neste grupo.');
+      const novo = repo.update('telegram_grupos', g.id, { situacao: body.situacao });
+      audit(`telegram.grupo.${body.situacao === 'ativo' ? 'ativar' : 'pausar'}`, g.id, { origem: 'painel' });
+      return { grupo: grupoOut(novo) };
+    },
+  },
+  {
+    method: 'POST', path: '/api/t/:tenant/telegram/grupos/grade', perm: 'integrations.manage',
+    handler: async ({ app, tenant, repo, audit }) => {
+      const row = integracao(repo);
+      need(row.status === 'ativo', 409, 'Conecte o Telegram em Integrações (Testar) antes de mandar a grade.');
+      need(await gradeDisponivel(app), 409, 'A grade de torneios ainda não está ligada nesta instalação.');
+      const r = await gradeNosGrupos(app, { tenantId: tenant.id, ignorarHora: true });
+      audit('telegram.grade.manual', KIND, r);
+      return { ok: true, ...r, nota: r.semGrade ? 'Sem torneios por começar hoje: nada foi mandado.' : 'Grupos que já receberam hoje não recebem de novo.' };
+    },
+  },
+];
+
 export const routes = [
+  ...rotasDosGrupos,
   {
     method: 'GET', path: '/api/t/:tenant/telegram', perm: 'integrations.read',
     handler: ({ repo }) => saida(integracao(repo)),
