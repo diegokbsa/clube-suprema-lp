@@ -118,3 +118,17 @@ O coordenador (Claude) revisa e faz o merge em `portal-afiliacao`.
   O relacionamento com a operação é o lead (`leads.contact_id`). Toda tabela nova de CRM (conversas, mensagens, tarefas) tem `tenant_id` **e** `contact_id`.
 - **Isolamento:** a operação só lê pessoas que tenham lead nela (ver `lib/modules/clientes.mjs`); a base inteira é só para o superadmin, por edição.
 - **Mudança de esquema em banco existente:** acrescente em `lib/migrations.mjs` (só adiciona coluna/índice, idempotente). Nunca apague.
+
+## Recursos vindos do suprema.blog (PA-152, 06/11/2026)
+
+- **Cadastro no app + Fichas 24h guiado** (`lib/modules/cadastro.mjs`, tabela `cadastros`): passos `conta_app`, `entrar_clube` e
+  `fichas24h` no catálogo de jornadas e o modelo `cadastro-app-fichas24h` (A = app primeiro, B = fichas primeiro). Rotas públicas do site:
+  `POST /cad/<jornada>/inicio`, `GET /cad/<id>/status` (a página consulta a cada 1,2 s), `POST /cad/<id>/id-app`. Cada cadastro vira lead
+  (variante + UTMs) e roda os ganchos `onLead`. A senha fica só na memória (30 min); CPF, celular e nascimento ficam só no aparelho.
+  Configurações da operação usadas: `inviteLink`, `chipsUrl`, `chipsHomeUrl`, `chipsClubName`, `agentId`, número do clube.
+- **Planilha do Google** (`lib/modules/planilha.mjs`, integração `google_sheets`): URL do app da Web do Apps Script no cofre; gancho `onLead`
+  manda cada lead uma vez (mesmos campos do `lib/sheets.js` antigo, `jornada-a/b` na indicação). Cartão em Integrações.
+- **Clarity e Google Ads** por site (`tracking.mjs`: `clarity`, `ads`, `adsLabel`; `site.js` e `medicao.js` só carregam depois do consentimento).
+- **Vídeos curtos** (`lib/modules/videos.mjs`, tabelas `videos` e `video_envios`): fila por operação e API do executor com o token de serviço
+  (`/api/service/videos/*`). Envio de arquivo pelo painel em `PUT /envio-video/<operação>/<vídeo>` (fora de `/api`, por causa do tamanho).
+  Guia do executor: `docs/executor-videos.md`.
