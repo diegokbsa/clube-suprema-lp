@@ -1,7 +1,7 @@
 // Script dos sites públicos: consentimento antes de qualquer medição, UTM no formulário, envio do lead sem recarregar e eventos padrão.
 (() => {
   const body = document.body;
-  const ids = { ga4: body.dataset.ga4, gtm: body.dataset.gtm, pixel: body.dataset.pixel };
+  const ids = { ga4: body.dataset.ga4, gtm: body.dataset.gtm, pixel: body.dataset.pixel, clarity: body.dataset.clarity, ads: body.dataset.ads, adsLabel: body.dataset.adsLabel };
   const KEY = 'pa.consent';
   const store = { get: (k) => { try { return localStorage.getItem(k); } catch { return null; } }, set: (k, v) => { try { localStorage.setItem(k, v); } catch { /* sem armazenamento */ } } };
   const queue = [];
@@ -25,6 +25,17 @@
       window.gtag('config', ids.ga4, { send_page_view: false }); // a visita sai abaixo, com event_id
       add(`https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(ids.ga4)}`);
     }
+    if (ids.ads) { // Google Ads: a mesma gtag.js serve as duas tags; sem GA4, carrega pela própria tag AW-
+      window.dataLayer = window.dataLayer || [];
+      if (!window.gtag) { window.gtag = function gtag() { window.dataLayer.push(arguments); }; window.gtag('js', new Date()); }
+      window.gtag('config', ids.ads);
+      if (!ids.ga4) add(`https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(ids.ads)}`);
+    }
+    if (ids.clarity) { // Microsoft Clarity: só aqui, depois do "aceitar"; dados marcados com data-clarity-mask não saem
+      const c = window.clarity = window.clarity || function clarity() { (c.q = c.q || []).push(arguments); };
+      add(`https://www.clarity.ms/tag/${encodeURIComponent(ids.clarity)}`);
+      window.clarity('consent');
+    }
     if (ids.pixel) {
       const f = window.fbq = function fbq() { f.callMethod ? f.callMethod.apply(f, arguments) : f.queue.push(arguments); };
       f.push = f; f.loaded = true; f.version = '2.0'; f.queue = [];
@@ -43,6 +54,12 @@
       if (map[name]) window.fbq('track', map[name], params, { eventID: id });
     }
     if (window.dataLayer && ids.gtm) window.dataLayer.push({ event: name, ...params, event_id: id });
+    if (window.gtag && ids.ads && ids.adsLabel && name === 'generate_lead') window.gtag('event', 'conversion', { send_to: `${ids.ads}/${ids.adsLabel}`, transaction_id: id });
+    if (window.clarity && ids.clarity) {
+      window.clarity('event', name);
+      if (params.variante) window.clarity('set', 'variante', String(params.variante));
+      if (params.jornada) window.clarity('set', 'jornada', String(params.jornada));
+    }
     mirror(name, id, params);
   }
   // O mesmo evento vai para o servidor com o MESMO event_id: é assim que a Conversions API da Meta evita contar duas vezes.

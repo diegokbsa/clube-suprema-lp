@@ -224,3 +224,8 @@ html.jx-open { overflow: hidden; }
 .consent p { margin: 0; flex: 1 1 260px; color: var(--muted); }
 .consent div { display: flex; gap: 8px; }
 body.mode-claro .b-cta.v-escuro .cta-box { color: #f4f2ec; }
+/* cadastro no app + Fichas 24h guiado (passos conta_app, entrar_clube e fichas24h) */
+.jx-body h3 { font-size: 1rem; margin: 18px 0 2px; }
+.jx-status .jx-copy { grid-template-columns: 22px 1fr auto; }
+.jx-status .jx-ok span { color: var(--primary); font-weight: 800; }
+.jx-status .jx-erro span { color: #e5484d; font-weight: 800; }

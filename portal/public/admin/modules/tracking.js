@@ -23,9 +23,9 @@ export async function render(el, ctx) {
     const instalados = d.integracoes.filter((i) => i.tipo === 'id' && i.instalado).length;
     const eventos7d = d.eventos.reduce((n, e) => n + e.navegador7d + e.servidor7d, 0);
     const deduplicados = d.recentes.filter((e) => e.source === 'navegador' && e.deduplicado).length;
-    return `<p class="muted" style="margin:0 0 16px">Identificadores por site, Conversions API da Meta e o que o portal recebeu de verdade.</p>
+    return `<p class="muted" style="margin:0 0 16px">Identificadores por site (GA4, GTM, Pixel, Clarity e Google Ads), Conversions API da Meta e o que o portal recebeu de verdade.</p>
       <div class="kpis">
-        <div class="card"><div class="muted">Identificadores instalados</div><strong style="font-size:22px">${instalados} de 3</strong><div class="muted" style="font-size:12px">ID colado no site</div></div>
+        <div class="card"><div class="muted">Identificadores instalados</div><strong style="font-size:22px">${instalados} de ${d.integracoes.filter((i) => i.tipo === 'id').length}</strong><div class="muted" style="font-size:12px">ID colado no site</div></div>
         <div class="card"><div class="muted">Contas conectadas</div><strong style="font-size:22px">${conectadas}</strong><div class="muted" style="font-size:12px">token validado com a plataforma</div></div>
         <div class="card"><div class="muted">Eventos em 7 dias</div><strong style="font-size:22px">${eventos7d}</strong><div class="muted" style="font-size:12px">navegador + servidor</div></div>
         <div class="card"><div class="muted">Pares deduplicados</div><strong style="font-size:22px">${deduplicados}</strong><div class="muted" style="font-size:12px">mesmo event_id nos dois lados</div></div>
@@ -58,14 +58,18 @@ export async function render(el, ctx) {
       <p class="muted" style="font-size:12.5px">Cada site tem os seus. Nenhum script carrega antes do visitante aceitar a medição (escolha guardada em <code>${esc(d.consentimento.chave)}</code>).</p>
       <div style="display:grid;gap:12px">${d.sites.map((s) => `<article class="list-item" data-site="${esc(s.id)}">
         <div class="row"><strong>${esc(s.name)}</strong><span class="pill">${esc(s.slug)}</span>
-          <span class="pill ${s.instalados ? 'ok' : ''}">${s.instalados} de 3 instalados</span><span class="spacer"></span>
+          <span class="pill ${s.instalados ? 'ok' : ''}">${s.instalados} de ${s.total || 5} instalados</span><span class="spacer"></span>
           <span class="muted" style="font-size:12px">${esc(s.url)}</span></div>
         ${s.externo ? '<div class="muted" style="font-size:12.5px">Site externo (redireciona): o portal não injeta script nele.</div>' : ''}
         <div class="grid2">
           <label class="field">GA4 (G-XXXXXXXXXX)<input data-id="ga4" value="${esc(s.ids.ga4)}" ${podeIds ? '' : 'disabled'} placeholder="G-XXXXXXXXXX"></label>
           <label class="field">GTM (GTM-XXXXXXX)<input data-id="gtm" value="${esc(s.ids.gtm)}" ${podeIds ? '' : 'disabled'} placeholder="GTM-XXXXXXX"></label>
           <label class="field">Meta Pixel (número)<input data-id="pixel" value="${esc(s.ids.pixel)}" ${podeIds ? '' : 'disabled'} placeholder="123456789012345"></label>
+          <label class="field">Microsoft Clarity (ID do projeto)<input data-id="clarity" value="${esc(s.ids.clarity || '')}" ${podeIds ? '' : 'disabled'} placeholder="abcd1234ef"></label>
+          <label class="field">Google Ads (tag AW-…)<input data-id="ads" value="${esc(s.ids.ads || '')}" ${podeIds ? '' : 'disabled'} placeholder="AW-123456789"></label>
+          <label class="field">Google Ads: rótulo da conversão do lead (opcional)<input data-id="adsLabel" value="${esc(s.ids.adsLabel || '')}" ${podeIds ? '' : 'disabled'} placeholder="AbC-dEfGh12"></label>
         </div>
+        <div class="muted" style="font-size:12.5px">Clarity: o ID fica em Configurações → Visão geral do projeto no clarity.microsoft.com. Google Ads: a tag AW- e o rótulo ficam em Metas → Conversões → a conversão do lead → Configuração da tag.</div>
         ${podeIds ? '<div class="row end"><button class="btn primary sm" type="button" data-salvar-site>Salvar identificadores</button></div>' : '<div class="muted" style="font-size:12.5px">Seu papel não permite alterar identificadores.</div>'}
       </article>`).join('')}</div></section>`;
   }

@@ -9,7 +9,7 @@ export const tables = ['paginas_proprias'];
 const CAMINHO = /^[a-z0-9-]{0,60}$/;
 const limpar = (c) => String(c ?? '').trim().replace(/^\/+|\/+$/g, '').toLowerCase();
 // HTML próprio usa script e estilo embutidos e Google Fonts; o resto continua fechado.
-export const CSP_PROPRIA = "default-src 'self'; img-src 'self' data: https:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://connect.facebook.net; connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com https://www.facebook.com; frame-ancestors 'none'; base-uri 'none'; form-action 'self'";
+export const CSP_PROPRIA = "default-src 'self'; img-src 'self' data: https:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://connect.facebook.net https://www.clarity.ms https://*.clarity.ms https://www.googleadservices.com https://googleads.g.doubleclick.net; connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com https://www.facebook.com https://*.clarity.ms https://www.google.com https://www.googleadservices.com https://googleads.g.doubleclick.net https://*.doubleclick.net; frame-src https://www.googletagmanager.com https://td.doubleclick.net; frame-ancestors 'none'; base-uri 'none'; form-action 'self'";
 
 /** Script que o portal acrescenta: quando o envio da página é válido, o e-mail vai para o CRM (com UTMs). Não muda a tela da página. */
 export function scriptCrm(siteId) {
@@ -27,13 +27,17 @@ fetch('/f/'+S,{method:'POST',headers:{'Content-Type':'application/json','Accept'
 },false)})();</script>`;
 }
 
-/** Tag da medição (GA4/Pixel com consentimento) a partir de site.tracking; vazia sem IDs. */
+/** Tag da medição (GA4, Pixel, Clarity e Google Ads, com consentimento) a partir de site.tracking; vazia sem IDs. */
 export function tagMedicao(site) {
   let t = {};
   try { t = JSON.parse(site?.tracking || '{}') || {}; } catch { t = {}; }
   const ga4 = /^G-[A-Z0-9]{4,12}$/.test(t.ga4 || '') ? t.ga4 : '';
   const pixel = /^\d{8,20}$/.test(t.pixel || '') ? t.pixel : '';
-  return ga4 || pixel ? `<script src="/assets/medicao.js" data-ga4="${ga4}" data-pixel="${pixel}" defer></script>` : '';
+  const clarity = /^[a-z0-9]{6,16}$/.test(t.clarity || '') ? t.clarity : '';
+  const ads = /^AW-\d{6,14}$/.test(t.ads || '') ? t.ads : '';
+  const adsLabel = ads && /^[A-Za-z0-9_-]{4,40}$/.test(t.adsLabel || '') ? t.adsLabel : '';
+  const extra = `${clarity ? ` data-clarity="${clarity}"` : ''}${ads ? ` data-ads="${ads}"` : ''}${adsLabel ? ` data-ads-label="${adsLabel}"` : ''}`;
+  return ga4 || pixel || clarity || ads ? `<script src="/assets/medicao.js" data-ga4="${ga4}" data-pixel="${pixel}"${extra} defer></script>` : '';
 }
 
 /** Documento pronto para servir: troca __SITE__ e põe a medição e o script do CRM antes de </body>. */

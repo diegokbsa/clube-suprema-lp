@@ -52,7 +52,13 @@ export const ID_RULES = {
   ga4: { rx: /^G-[A-Z0-9]{4,12}$/, label: 'Google Analytics 4 (ID de medição)', exemplo: 'G-XXXXXXXXXX' },
   gtm: { rx: /^GTM-[A-Z0-9]{4,10}$/, label: 'Google Tag Manager', exemplo: 'GTM-XXXXXXX' },
   pixel: { rx: /^\d{8,20}$/, label: 'Meta Pixel', exemplo: '123456789012345' },
+  clarity: { rx: /^[a-z0-9]{6,16}$/, label: 'Microsoft Clarity (ID do projeto)', exemplo: 'abcd1234ef' },
+  ads: { rx: /^AW-\d{6,14}$/, label: 'Google Ads (tag)', exemplo: 'AW-123456789' },
+  adsLabel: { rx: /^[A-Za-z0-9_-]{4,40}$/, label: 'Google Ads: rótulo da conversão do lead (opcional)', exemplo: 'AbC-dEfGh12' },
 };
+/** Identificadores que contam como "instalado" (o rótulo do Ads é complemento da tag, não um script). */
+export const ID_PRINCIPAIS = ['ga4', 'gtm', 'pixel', 'clarity', 'ads'];
+const KIND_DO_ID = { ga4: 'ga4', gtm: 'gtm', pixel: 'meta_pixel', clarity: 'clarity', ads: 'google_ads' };
 
 const ESTADOS = {
   ausente: 'Não configurado',
@@ -153,7 +159,7 @@ function diagnostico(app, { repo, canManage, origin }) {
       id: s.id, slug: s.slug, name: s.name, status: s.status, domain: s.domain || null,
       externo: Boolean(s.external_url),
       url: s.external_url || `${s.domain ? `https://${s.domain}` : `${origin}/s/${s.slug}`}`,
-      ids, instalados: Object.values(ids).filter(Boolean).length,
+      ids, instalados: ID_PRINCIPAIS.filter((k) => ids[k]).length, total: ID_PRINCIPAIS.length,
     };
   });
   const comId = (k) => porSite.filter((s) => s.ids[k]).map((s) => s.slug);
@@ -186,6 +192,18 @@ function diagnostico(app, { repo, canManage, origin }) {
             : temToken ? 'Token guardado no cofre, mas ainda não validado com a Meta.' : 'Sem token: integração pendente de configuração.',
       };
     })(),
+    ...['clarity', 'ads'].map((k) => {
+      const sitesComId = comId(k);
+      const semRotulo = k === 'ads' ? porSite.filter((s) => s.ids.ads && !s.ids.adsLabel).map((s) => s.slug) : [];
+      return {
+        kind: KIND_DO_ID[k], chave: k, label: ID_RULES[k].label, tipo: 'id', exemplo: ID_RULES[k].exemplo,
+        instalado: sitesComId.length > 0, conectada: false, estado: sitesComId.length ? 'instalado' : 'ausente',
+        estadoLabel: ESTADOS[sitesComId.length ? 'instalado' : 'ausente'], sites: sitesComId,
+        detalhe: !sitesComId.length ? 'Nenhum site desta operação tem esse identificador.'
+          : k === 'clarity' ? `ID colado em ${sitesComId.length} site(s). O Clarity só carrega depois do consentimento; os dados copiados na jornada ficam mascarados.`
+            : `Tag colada em ${sitesComId.length} site(s), só depois do consentimento.${semRotulo.length ? ` Sem rótulo de conversão em: ${semRotulo.join(', ')} (o lead não vira conversão no Ads).` : ' O lead vira conversão no Ads.'}`,
+      };
+    }),
   ];
 
   const d7 = dias(7);
@@ -208,7 +226,8 @@ function diagnostico(app, { repo, canManage, origin }) {
   for (const e of recentes) e.deduplicado = pares.has(e.eventId);
 
   const pendencias = [];
-  if (!porSite.some((s) => s.instalados)) pendencias.push('Nenhum site tem identificador de medição. Cole o GA4, o GTM ou o Pixel no site para começar a medir.');
+  if (!porSite.some((s) => s.instalados)) pendencias.push('Nenhum site tem identificador de medição. Cole o GA4, o GTM, o Pixel, o Clarity ou a tag do Google Ads no site para começar a medir.');
+  if (porSite.some((s) => s.ids.ads && !s.ids.adsLabel)) pendencias.push('A tag do Google Ads está instalada sem o rótulo de conversão do lead: o Ads recebe a visita (remarketing), mas não conta o lead como conversão.');
   if (comId('pixel').length && !integracoes[3].conectada) pendencias.push('O Pixel está instalado, mas a Conversions API ainda não: sem ela, os eventos do servidor não chegam à Meta.');
   if (temToken && capiRow.status !== 'conectada') pendencias.push('O token da Conversions API está guardado mas nunca foi validado. Use "Testar conexão".');
   if (capiCfg.testCode) pendencias.push(`A Conversions API está em modo de teste (${capiCfg.testCode}). Tire o código quando terminar de validar.`);
@@ -251,16 +270,21 @@ export const routes = [
       const antes = idsDoSite(site);
       const ids = {};
       for (const [k, r] of Object.entries(ID_RULES)) {
-        const v = String(body?.[k] ?? '').trim();
+        // campo que não veio no corpo mantém o valor salvo (telas antigas mandam só GA4, GTM e Pixel)
+        const v = String(body?.[k] ?? (k in (body || {}) ? '' : antes[k] || '')).trim();
         need(!v || r.rx.test(v), 400, `${r.label}: formato inválido. Exemplo: ${r.exemplo}.`);
         ids[k] = v;
       }
+      need(!ids.adsLabel || ids.ads, 400, 'O rótulo de conversão precisa da tag do Google Ads (AW-…) no mesmo site.');
       repo.update('sites', site.id, { tracking: JSON.stringify(ids) });
-      for (const [kind, v] of [['ga4', ids.ga4], ['gtm', ids.gtm], ['meta_pixel', ids.pixel]]) {
-        const row = integracao(repo, kind);
+      // integração por operação: "instalado" se algum site tem o ID (não só o último salvo)
+      const outros = repo.all('sites', {}, { order: 'created_at ASC' }).filter((x) => x.id !== site.id).map(idsDoSite);
+      for (const k of ID_PRINCIPAIS) {
+        const v = ids[k] || outros.find((o) => o[k])?.[k] || '';
+        const row = integracao(repo, KIND_DO_ID[k]);
         repo.update('integrations', row.id, {
           status: v ? 'instalado' : 'pendente',
-          public_config: JSON.stringify(v ? { id: v, site: site.id } : {}),
+          public_config: JSON.stringify(v ? { id: v, site: ids[k] ? site.id : null, ...(k === 'ads' ? { rotulo: Boolean(ids.adsLabel) } : {}) } : {}),
           last_check: now(),
         });
       }

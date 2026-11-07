@@ -1,5 +1,6 @@
-// Medição das páginas próprias e do blog (GA4 e Meta Pixel), só depois do consentimento (LGPD).
-// Uso: <script src="/assets/medicao.js" data-ga4="G-XXXX" data-pixel="123..." defer></script>
+// Medição das páginas próprias e do blog (GA4, Meta Pixel, Microsoft Clarity e Google Ads), só depois do consentimento (LGPD).
+// Uso: <script src="/assets/medicao.js" data-ga4="G-XXXX" data-pixel="123..." data-clarity="abcd1234" data-ads="AW-123" data-ads-label="rotulo" defer></script>
+// Google Ads: com o rótulo, o generate_lead também vira conversão do Ads (send_to AW-…/rótulo).
 // Eventos: visita (page_view automático), cta_click (WhatsApp, canal de fichas, link do clube) e generate_lead
 // (window.hpMedir('generate_lead'), chamado pelo envio do formulário ao CRM).
 (function () {
@@ -8,10 +9,16 @@
   var P = (eu && eu.getAttribute('data-pixel')) || '';
   if (!/^G-[A-Z0-9]{4,12}$/.test(G)) G = '';
   if (!/^\d{8,20}$/.test(P)) P = '';
+  var C = (eu && eu.getAttribute('data-clarity')) || '';
+  var A = (eu && eu.getAttribute('data-ads')) || '';
+  var AL = (eu && eu.getAttribute('data-ads-label')) || '';
+  if (!/^[a-z0-9]{6,16}$/.test(C)) C = '';
+  if (!/^AW-\d{6,14}$/.test(A)) A = '';
+  if (!A || !/^[A-Za-z0-9_-]{4,40}$/.test(AL)) AL = '';
   var CHAVE = 'pa.consent';
   var fila = [];
   window.hpMedir = function (nome, params) { fila.push([nome, params || {}]); };
-  if (!G && !P) return;
+  if (!G && !P && !C && !A) return;
   function ler() { try { return localStorage.getItem(CHAVE); } catch (e) { return null; } }
   function gravar(v) { try { localStorage.setItem(CHAVE, v); } catch (e) { /* modo privado */ } }
   var META = { generate_lead: 'Lead', cta_click: 'Contact', sign_up: 'CompleteRegistration' };
@@ -25,6 +32,19 @@
       window.gtag('js', new Date());
       window.gtag('config', G);
     }
+    if (A) {
+      window.dataLayer = window.dataLayer || [];
+      if (!window.gtag) { window.gtag = function () { window.dataLayer.push(arguments); }; window.gtag('js', new Date()); }
+      window.gtag('config', A);
+      if (!G) { var sa = document.createElement('script'); sa.async = true; sa.src = 'https://www.googletagmanager.com/gtag/js?id=' + A; document.head.appendChild(sa); }
+    }
+    if (C) {
+      /* eslint-disable */
+      (function (c, l, a, r, i, t, y) { c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments); };
+        t = l.createElement(r); t.async = 1; t.src = 'https://www.clarity.ms/tag/' + i; y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y); })(window, document, 'clarity', 'script', C);
+      /* eslint-enable */
+      window.clarity('consent');
+    }
     if (P) {
       /* eslint-disable */
       !function (f, b, e, v, n, t, s) { if (f.fbq) return; n = f.fbq = function () { n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments); };
@@ -36,6 +56,8 @@
     window.hpMedir = function (nome, params) {
       if (window.gtag) window.gtag('event', nome, params || {});
       if (window.fbq && META[nome]) window.fbq('track', META[nome]);
+      if (window.gtag && A && AL && nome === 'generate_lead') window.gtag('event', 'conversion', { send_to: A + '/' + AL });
+      if (window.clarity && C) window.clarity('event', nome);
     };
     fila.splice(0).forEach(function (e) { window.hpMedir(e[0], e[1]); });
   }
@@ -50,11 +72,13 @@
     if (destino) window.hpMedir('cta_click', { destino: destino });
   }, true);
 
+  var nomes = [(G || A) && 'Google', P && 'Meta', C && 'Microsoft Clarity'].filter(Boolean);
+  var quem = nomes.length > 1 ? nomes.slice(0, -1).join(', ') + ' e ' + nomes[nomes.length - 1] : nomes[0];
   function aviso() {
     var d = document.createElement('div');
     d.setAttribute('role', 'region'); d.setAttribute('aria-label', 'Aviso de cookies');
     d.style.cssText = 'position:fixed;left:12px;right:12px;bottom:12px;z-index:99998;max-width:640px;margin:auto;padding:14px 16px;border-radius:10px;background:#141110;color:#f7f1ea;border:1px solid #3a2618;box-shadow:0 10px 28px rgb(0 0 0/.5);font:500 14px/1.45 system-ui,-apple-system,Segoe UI,sans-serif;display:flex;flex-wrap:wrap;gap:10px;align-items:center';
-    d.innerHTML = '<span style="flex:1 1 260px">Usamos cookies de medição (Google Analytics) para entender o que funciona no site. Nada de dado de jogo ou senha.</span>'
+    d.innerHTML = '<span style="flex:1 1 260px">Usamos cookies de medição (' + quem + ') para entender o que funciona no site. Nada de dado de jogo ou senha.</span>'
       + '<button type="button" data-c="sim" style="cursor:pointer;border:0;border-radius:6px;padding:9px 14px;background:#f47b20;color:#150700;font:800 14px system-ui,sans-serif">Aceitar</button>'
       + '<button type="button" data-c="nao" style="cursor:pointer;border:1px solid #6b5a4c;border-radius:6px;padding:8px 13px;background:transparent;color:#f7f1ea;font:600 14px system-ui,sans-serif">Recusar</button>';
     d.addEventListener('click', function (e) {
