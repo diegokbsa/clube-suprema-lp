@@ -1,0 +1,16 @@
+{
+  "id": "plo-pot-limit-omaha-regras",
+  "tipo": "Regras do poker",
+  "titulo": "Como jogar Omaha (PLO)? A regra das duas cartas explicada #shorts",
+  "descricao": "No PLO você recebe 4 cartas, mas só pode usar exatamente 2, com 3 da mesa. E a aposta máxima é o tamanho do pote. No próximo vídeo: os termos de poker que você vai ouvir na mesa.\n\n18+ · Jogue com responsabilidade.\n\n#poker #pokeronline #omaha #plo #supremapoker",
+  "post": "plo-pot-limit-omaha-regras",
+  "cenas": [
+    { "tela": "Omaha: **4 cartas**, mas só vale usar 2", "fala": "No Omaha você recebe quatro cartas. Mas só pode usar duas.", "imagem": "public/img/app-mesa.webp" },
+    { "passo": 1, "tela": "Cada jogador recebe **4 cartas fechadas**", "fala": "A mão começa igual ao Hold'em, com blinds. A diferença é que cada jogador recebe quatro cartas." },
+    { "passo": 2, "tela": "Mão final: **2 da mão + 3 da mesa**", "fala": "Para montar a mão, você usa exatamente duas cartas da mão e três da mesa. Nem mais, nem menos." },
+    { "passo": 3, "tela": "Um coração na mão **não faz flush**", "fala": "Com quatro corações na mesa e só um na mão, não tem flush. Precisa de dois na mão." },
+    { "passo": 4, "tela": "Pot limit: aposta máxima = **o tamanho do pote**", "fala": "No PLO, a aposta máxima é o tamanho do pote. O botão de pote já faz essa conta." },
+    { "tela": "Ranking igual, mas **as mãos que ganham são mais fortes**", "fala": "O ranking das mãos é o mesmo do Hold'em, só que as mãos vencedoras costumam ser bem mais fortes." },
+    { "tela": "No próximo: **os termos do poker**. Segue o canal!", "fala": "No próximo vídeo, os termos de poker que você vai ouvir na mesa. Segue o canal!", "imagem": "public/img/app-mesa.webp" }
+  ]
+}
