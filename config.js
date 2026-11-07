@@ -14,6 +14,9 @@ export const config = {
   },
   // Sem token, o painel /admin só abre neste computador.
   adminToken: process.env.ADMIN_TOKEN || '',
+  // Tarefas de fundo (IndexNow, Telegram, Bluesky, grade das 9h, robô dos grupos, cópia na planilha): ligadas no Render
+  // e, no servidor Bigue, só quando TAREFAS_FUNDO=1 (o instalador liga na virada do domínio). TAREFAS_FUNDO=0 desliga em qualquer lugar.
+  tarefasFundo: process.env.TAREFAS_FUNDO ? process.env.TAREFAS_FUNDO === '1' : Boolean(process.env.RENDER),
 
   club: { id: '10001', name: 'Clube Suprema', agentId: '1439098' },
   supportWhatsapp: '5511952138293',
