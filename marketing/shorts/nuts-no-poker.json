@@ -1,0 +1,16 @@
+{
+  "id": "nuts-no-poker",
+  "tipo": "Regras do poker",
+  "titulo": "O que é nuts no poker? Como achar a melhor mão possível #shorts",
+  "descricao": "Nuts é a melhor mão possível com as cartas da mesa. Veja como achar o nuts e por que ele muda a cada carta. No próximo vídeo: etiqueta na mesa de poker online.\n\n18+ · Jogue com responsabilidade.\n\n#poker #pokeronline #texasholdem #supremapoker",
+  "post": "nuts-no-poker",
+  "cenas": [
+    { "tela": "Sua mão é a **melhor possível**?", "fala": "A sua mão é a melhor possível? É isso que chamam de nuts.", "imagem": "public/img/app-mesa.webp" },
+    { "tela": "Nuts = a **melhor mão** que a mesa permite", "fala": "Nuts é a melhor mão que alguém pode ter com as cartas da mesa. Quem tem o nuts não perde." },
+    { "passo": 1, "tela": "Mesa com **par**? Dá **quadra** e full house", "fala": "Primeiro, olhe se a mesa tem par. Mesa pareada permite quadra e full house." },
+    { "passo": 2, "tela": "**Três** do mesmo naipe? Dá **flush**", "fala": "Depois, conte os naipes. Com três cartas do mesmo naipe na mesa, o flush é possível." },
+    { "passo": 3, "tela": "Três cartas **próximas**? Dá **sequência**", "fala": "Por último, veja se três cartas cabem numa sequência. Se nada disso existir, o nuts é a trinca da carta mais alta." },
+    { "tela": "Cada carta nova **muda** o nuts", "fala": "E atenção: o nuts muda a cada carta. A melhor mão do flop pode perder no river." },
+    { "tela": "No próximo: **etiqueta na mesa**. Segue o canal!", "fala": "No próximo vídeo, a etiqueta da mesa de poker online. Segue o canal!", "imagem": "public/img/app-mesa.webp" }
+  ]
+}
