@@ -1,0 +1,52 @@
+{
+  "cor": "#128c4a",
+  "cor2": "#25d366",
+  "suave": "#f1fbf5",
+  "fonte": "Outfit",
+  "sigla": "Z",
+  "assunto": "automação de WhatsApp",
+  "h1": "Melhores ferramentas e cursos de automação de atendimento no WhatsApp",
+  "h1_html": "Melhores ferramentas e cursos de <em>automação no WhatsApp</em>",
+  "h1_seo": "Melhores automações de WhatsApp",
+  "sub": "Robôs, suítes e cursos de chatbot para atender mais rápido no WhatsApp, comparados por preço e por tamanho do negócio.",
+  "destaques": [
+    "lia-automacao",
+    "fluxbot",
+    "zap-suite",
+    "dotti"
+  ],
+  "melhor_para": {
+    "lia-automacao": "negócio que quer automatizar o atendimento",
+    "fluxbot": "quem quer montar fluxos de atendimento",
+    "zap-suite": "empresa que quer um pacote completo de ferramentas",
+    "dotti": "quem quer um robô para produzir conteúdo"
+  },
+  "passos": [
+    {
+      "t": "Liste as perguntas repetidas",
+      "d": "Horário, preço, endereço e status do pedido são as primeiras a automatizar."
+    },
+    {
+      "t": "Respeite as regras",
+      "d": "Opt-in e janela de 24 horas evitam bloqueio. Veja nosso guia antibanimento."
+    },
+    {
+      "t": "Deixe um humano por perto",
+      "d": "Robô bom passa para uma pessoa quando não sabe responder."
+    }
+  ],
+  "faq": [
+    {
+      "q": "Automação no WhatsApp pode bloquear meu número?",
+      "a": "Pode, se você mandar mensagem para quem não pediu. Siga a política de opt-in da Meta e veja nosso guia para evitar banimento."
+    },
+    {
+      "q": "Preciso da API oficial?",
+      "a": "Depende do volume e do tipo de mensagem. Nosso guia compara o WhatsApp Business com a API oficial e os custos."
+    },
+    {
+      "q": "Qual ferramenta escolher?",
+      "a": "Comece pelo seu volume de atendimento e pelo orçamento. O comparativo acima mostra preço e para quem cada uma serve."
+    }
+  ]
+}

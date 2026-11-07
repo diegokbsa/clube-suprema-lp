@@ -1,0 +1,276 @@
+{
+  "pack-achadinhos": {
+    "nome": "Pack Achadinhos Virais",
+    "tipo": "Pack de vídeos",
+    "preco": 37,
+    "img": "https://aws-assets.kiwify.com.br/DEhyPxJqQns3sog/WhatsApp-Image-2026-06-30-at-20.10.47_d45e48bd6bdc4265ab6fcb6478021eca.jpeg"
+  },
+  "carrosseis-achadinhos": {
+    "nome": "Carrosséis de Achadinhos",
+    "tipo": "Pack de carrosséis",
+    "preco": 97,
+    "img": "https://aws-assets.kiwify.com.br/OObGSEypwTjCTJW/NOVAS-CAPAS-PRODUTOS-KIWIFY-ENTREGA-4_f843df5d63a7458f881cceb391c51c31.png"
+  },
+  "zn-tiktok-shop": {
+    "nome": "Método ZN TikTok Shop",
+    "tipo": "Curso online",
+    "preco": 97,
+    "img": "https://aws-assets.kiwify.com.br/bsKCU9H6aGYK4nM/2af6dc72-5a2c-4298-9bfc-bfbf8bcea1ef_1fabeaf6b9ac43289072dee200035ac7.jpg"
+  },
+  "shopclub": {
+    "nome": "ShopClubAcademy",
+    "tipo": "Curso online",
+    "preco": 297,
+    "img": "https://aws-assets.kiwify.com.br/Knv2N1nGedXAtzD/C95E52E7-7615-4764-9217-919B2A053417_ea87eb09ef0b41ed9cc5c0df6b8920f7.png"
+  },
+  "ciencia-tiktok": {
+    "nome": "Ciência do TikTok Shop",
+    "tipo": "Curso online",
+    "preco": 497.89,
+    "img": "https://aws-assets.kiwify.com.br/69ID804zE89nypn/Captura-de-Tela-2025-11-30-as-22.12.21_d3675c54246b4bf9b8f70de307824282_7e09ceab7a984ff99fd9aaa2b08da47f.png"
+  },
+  "shopee-power": {
+    "nome": "Método Shopee Power",
+    "tipo": "Curso online"
+  },
+  "mega-box-sublimacao": {
+    "nome": "Mega Box 2027 · Artes para Sublimação e Estamparia",
+    "tipo": "Pacote de artes",
+    "preco": 197,
+    "img": "https://aws-assets.kiwify.com.br/1mGmw5D6wxsHUdU/img_0_grok-image-98ef19bd-89e6-457c-a3f2-8053486fbb8a_1243bd0fbfa14687b436954eac6d57de_87255348e87a463d8d29dece62010d93.jpg"
+  },
+  "gifts-da-isa": {
+    "nome": "Gifts da Isa · Empreenda em Casa",
+    "tipo": "Curso online",
+    "preco": 197,
+    "img": "https://aws-assets.kiwify.com.br/DTWDnB3917omwTK/empreenda-produto_14a1ad528b054e63b2828f3cc1e236e3.jpg"
+  },
+  "tufos-cola-fria": {
+    "nome": "Tufos de Luxo Cola Fria",
+    "tipo": "Curso online",
+    "preco": 197,
+    "img": "https://aws-assets.kiwify.com.br/zhnPhX25JxEGvy2/IMG_1502_f267bde0287c4228a9b545ff5f5fd39a.jpeg"
+  },
+  "adesiva-pro": {
+    "nome": "Adesiva Pro · App de figurinhas",
+    "tipo": "Aplicativo",
+    "preco": 47,
+    "img": "https://aws-assets.kiwify.com.br/DwKBIBLvz2leosq/Post-para-Instagram-curso-de-marketing-digital-bege-e-branco_1a40bee0f1bd4180be28f99c98421fdc.png"
+  },
+  "figurinhas-sweet": {
+    "nome": "Figurinhas Sweet Stories",
+    "tipo": "Pacote de figurinhas",
+    "preco": 39.9,
+    "img": "https://aws-assets.kiwify.com.br/ZGRmdxXwTg8kR30/74C72AFA-3635-42B1-B191-66AFB7434B1D_a71373b8d6ed4aa7a382d74b26f07289.png"
+  },
+  "rocadeiras": {
+    "nome": "Manutenções em Roçadeiras e Motosserras",
+    "tipo": "Curso online",
+    "preco": 297,
+    "img": "https://aws-assets.kiwify.com.br/RazMMuxgzAUGInJ/Curso-de-rocadeira_cb9c44ea45574e48a4065823aff851bb.png"
+  },
+  "ar-condicionado": {
+    "nome": "Treinamento de Ar-condicionado Automotivo e Agrícola 2.0",
+    "tipo": "Curso online",
+    "preco": 997,
+    "img": "https://aws-assets.kiwify.com.br/azoGd96mjxFDFTM/ChatGPT-Image-21-de-abr.-de-2026-17_31_51_f335c4b1ba0942edacabb5b62787e300_a4001a6062b642ddb68a6c3ddc702391.png"
+  },
+  "bmtech": {
+    "nome": "BmTech · Reparos Avançados de Displays",
+    "tipo": "Curso online",
+    "preco": 897,
+    "img": "https://aws-assets.kiwify.com.br/DyPvnPDqGIr750s/1000379393_d66ddc918152423e92eae21a4308ef81.png"
+  },
+  "frp-total": {
+    "nome": "Curso FRP Total 2026 · Reparo de Software de Celular",
+    "tipo": "Curso online",
+    "preco": 147,
+    "img": "https://aws-assets.kiwify.com.br/quzZHLNlXaTZrC0/Curso-FRP-2026_-Remocao-de-Conta-Google_eeb0eb54bd514385a7f60c9637ac88ef.png"
+  },
+  "mapa-fornecedores": {
+    "nome": "Mapa dos Fornecedores",
+    "tipo": "Lista de fornecedores",
+    "preco": 497,
+    "img": "https://aws-assets.kiwify.com.br/OsqpEkXJyms4IEb/RRRR_3d71a9b0290f46529b3725b394628ede.png"
+  },
+  "lojista-pack": {
+    "nome": "Lojista Pack",
+    "tipo": "Pack para lojistas",
+    "preco": 97,
+    "img": "https://aws-assets.kiwify.com.br/oBid9RcgI1EbgUI/4A534FAB-6BF0-4EC3-BF92-EA6F7D1F6EE3_f659c0c39f934707969dc12ebacbac22.jpeg"
+  },
+  "antes-do-leilao": {
+    "nome": "Workshop Antes do Leilão",
+    "tipo": "Workshop online",
+    "preco": 47,
+    "img": "https://aws-assets.kiwify.com.br/joY7uN8eOgvgUF7/Capa-Workshop-ADL_117359f740dd46a79ce9b5be4ac24af8.png"
+  },
+  "vivendo-acessorios": {
+    "nome": "Vivendo de Acessórios",
+    "tipo": "Curso online",
+    "preco": 297,
+    "img": "https://aws-assets.kiwify.com.br/czKfWScs36a7Aet/IMG_0788_c867f66484ab42d5808ce77d08aa7e8a.png"
+  },
+  "escola-da-ia": {
+    "nome": "Escola da IA",
+    "tipo": "Curso online",
+    "preco": 297,
+    "img": "https://aws-assets.kiwify.com.br/dlQwzBrfvXsR8D5/Banner-promocional-com-instrutor-em-destaque-4_6a4ee53c0a784fa1b315f7186ab9800d.png"
+  },
+  "promov-ai": {
+    "nome": "Promov.ai",
+    "tipo": "Ferramenta de IA",
+    "preco": 749.9,
+    "img": "https://aws-assets.kiwify.com.br/K0Tbsgq1yaM2VKI/promov-ai-300x250_ff4eb506bcda4691b34e0b2673fcd97e.png"
+  },
+  "ia-prostudio": {
+    "nome": "IA ProStudio",
+    "tipo": "Curso online",
+    "preco": 497,
+    "img": "https://aws-assets.kiwify.com.br/SDKY3O5FO81XEgZ/FUNDO-BRANCO_d9b282a1f9564a0e876d0ae722d9d580.png"
+  },
+  "prompts-ia-viral": {
+    "nome": "Prompts IA Viral",
+    "tipo": "Pacote de prompts",
+    "preco": 197,
+    "img": "https://aws-assets.kiwify.com.br/NzGItBsQNBIsoPk/2814_6f3612130f9943e9bef5d5c2aa72f7f0.png"
+  },
+  "clube-videos-ia": {
+    "nome": "Clube de Vídeos IA",
+    "tipo": "Clube de conteúdo",
+    "preco": 97,
+    "img": "https://aws-assets.kiwify.com.br/5jrARzwRPwSUaWK/capa-mobile-RHANI_87e0f20802a84ebe976646edcbe216e2.png"
+  },
+  "mm-creative-pro": {
+    "nome": "MM Creative Pro",
+    "tipo": "Curso online",
+    "preco": 647,
+    "img": "https://aws-assets.kiwify.com.br/6BFp97OavDi8YFr/MM-Creative-Pro-Kiwify_70b4651814bb4d2492720c001f529080.png"
+  },
+  "carrossel-lucrativo": {
+    "nome": "Método Carrossel Lucrativo",
+    "tipo": "Curso online",
+    "preco": 97,
+    "img": "https://aws-assets.kiwify.com.br/XkNpMaRrQWRfidT/capa-mobile-gii_087336f1fac34c58af1c95c3d8bc84cd.png"
+  },
+  "pack-posts-alta": {
+    "nome": "Pack Posts em Alta",
+    "tipo": "Pack de posts",
+    "preco": 18.99,
+    "img": "https://aws-assets.kiwify.com.br/sgKCmUWlF159fbP/Neutral-Aesthetic-Grid-Photo-Collage-December-Mood-Instagram-Post-2_496e63d81c4642e590ce5b0ad9881077.png"
+  },
+  "posts-virais": {
+    "nome": "Posts Virais",
+    "tipo": "Pack de posts",
+    "preco": 77,
+    "img": "https://aws-assets.kiwify.com.br/3ZiUpGk2aGHKLcz/jsnacks_1aa585f91b8c4a04822e618d54205590.png"
+  },
+  "criativei": {
+    "nome": "Criativei",
+    "tipo": "Curso online",
+    "preco": 147,
+    "img": "https://aws-assets.kiwify.com.br/SGH63GgLh6RJ2bq/produto-kiwifi_0455f13ab09045fdb2be7c8a7fd6dd74.png"
+  },
+  "transmissao-pro": {
+    "nome": "Transmissão ao Vivo PRO · Do Zero ao Avançado",
+    "tipo": "Curso online",
+    "preco": 97.9,
+    "img": "https://aws-assets.kiwify.com.br/9zY1kzsEriN1BYr/300x250-Curso-2026_97539276b60748868f16c68a38f88c54.png"
+  },
+  "crescer-sendo-gamer": {
+    "nome": "Crescer Sendo Gamer",
+    "tipo": "Curso online",
+    "preco": 339,
+    "img": "https://aws-assets.kiwify.com.br/voe8I8a5b4uXoNK/crescer-sendo-gamer-thumb-2_a1e922b9625946d9a1d637606d6e36bd.png"
+  },
+  "creator-hub": {
+    "nome": "Creator Hub",
+    "tipo": "Curso online",
+    "preco": 177,
+    "img": "https://aws-assets.kiwify.com.br/TtfWlf97MS7SRig/61e560f6-8ae1-4123-bba9-09379958f206_34f74fb3cb3e4d589739af694d1014d6.png"
+  },
+  "lucrando-youtube": {
+    "nome": "Método Lucrando com o YouTube 2027",
+    "tipo": "Curso online",
+    "preco": 37,
+    "img": "https://aws-assets.kiwify.com.br/DgN1rfMDfCPk6fF/kiwify-capa-produto-1200x1000_278d8aec94f24db8ae7097917f65be99.png"
+  },
+  "formula-afiliado-viral": {
+    "nome": "Fórmula Afiliado Viral",
+    "tipo": "Curso online",
+    "preco": 997,
+    "img": "https://aws-assets.kiwify.com.br/6lclbGYOw6gPoIp/KIWIFY---Imagem-do-Produto_2ea3ae09adc24b8dbec21b3dcfdc8706.png"
+  },
+  "sistema-afiliado-viral": {
+    "nome": "Sistema Afiliado Viral",
+    "tipo": "Curso online",
+    "preco": 497.9,
+    "img": "https://aws-assets.kiwify.com.br/6lclbGYOw6gPoIp/Sistema-Afiliado-Viral_-Tecnologia-e-Conversao_a24f38752a0742cb8f3aebff1c5f740c.png"
+  },
+  "afiliada-proposito": {
+    "nome": "Mentoria Afiliada com Propósito",
+    "tipo": "Mentoria",
+    "preco": 297,
+    "img": "https://aws-assets.kiwify.com.br/pvirj9o87EZzGmz/capa-do-curso-afiliada-com-proposito_1930278e4a7f479fa148bef9c34c2ca4.png"
+  },
+  "nova-elite": {
+    "nome": "A Nova Elite",
+    "tipo": "Curso online",
+    "preco": 997,
+    "img": "https://aws-assets.kiwify.com.br/xSdDQRC19nIsmIj/600X600_3f6046c66cfe4211a69fc9060f6ea7fa.jpg"
+  },
+  "milhas-3": {
+    "nome": "Comunidade Milhas 3.0",
+    "tipo": "Comunidade e curso",
+    "preco": 385,
+    "img": "https://aws-assets.kiwify.com.br/gDlcLu7ddGy0lEV/FAFA3B2B-2006-47E4-809D-4A4617041B3E_e951e80a2f4e4f209056ce8e50132425.jpeg"
+  },
+  "muito-mais-milhas": {
+    "nome": "Formação Muito Mais Milhas",
+    "tipo": "Curso online",
+    "preco": 897,
+    "img": "https://aws-assets.kiwify.com.br/Yiu3BR5p3XwgUAS/0111_1ea65f9319e543b0aa3f83147ea18481.png"
+  },
+  "espanha-2027": {
+    "nome": "Venha para Espanha 2027 · Completo",
+    "tipo": "Curso online",
+    "preco": 2850.49,
+    "img": "https://aws-assets.kiwify.com.br/C38IbEwwLdkyB4J/Captura-de-tela-2026-09-04-015415_51f274292b254ed0a5109eced3357283.png"
+  },
+  "fluency-fast": {
+    "nome": "Fluency Fast",
+    "tipo": "Curso de inglês",
+    "preco": 2900,
+    "img": "https://aws-assets.kiwify.com.br/XeaAykxGPehWvpL/IMG_5054_8f94e9fee0f84b5e85558d96866284a2.png"
+  },
+  "italiano-falar": {
+    "nome": "Italiano para Falar",
+    "tipo": "Curso de italiano",
+    "preco": 2799,
+    "img": "https://aws-assets.kiwify.com.br/iFzKwjP0dGWCL3a/Captura-de-Tela-2025-11-26-as-00.00.02_7f369faa657945eb826dd4de293664d2.png"
+  },
+  "lia-automacao": {
+    "nome": "Lia · Automação de atendimento",
+    "tipo": "Ferramenta de automação",
+    "preco": 997,
+    "img": "https://aws-assets.kiwify.com.br/qkwj0FZ3EyePMve/IMG_0294_8bec076d7aca43f5ad3997c949712bb7.png"
+  },
+  "fluxbot": {
+    "nome": "FluxBot",
+    "tipo": "Ferramenta de automação",
+    "preco": 326,
+    "img": "https://aws-assets.kiwify.com.br/F3STg4u0Fe5R0Js/8E393F4E-CB5F-4440-8A66-6DC0DD85CF93_0e19b5e20073449b9083c844a72e9cbf.png"
+  },
+  "zap-suite": {
+    "nome": "Zap Suite",
+    "tipo": "Pacote de ferramentas",
+    "preco": 6929.1,
+    "img": "https://aws-assets.kiwify.com.br/K0Tbsgq1yaM2VKI/fundo-zap-suite-kiwify-com_a7ef1844c7334235aa10611e7fc2dec4.png"
+  },
+  "dotti": {
+    "nome": "Robô DottiStudio",
+    "tipo": "Ferramenta",
+    "preco": 4000,
+    "img": "https://aws-assets.kiwify.com.br/DgN1rfMDfCPk6fF/A7C05866_ea47b9d6e32146df94c4ce488c8e873e.jpg"
+  }
+}

@@ -13,6 +13,7 @@ import { cleanTheme } from '../lib/templates.mjs';
 import { scoped, registerTable } from '../lib/repo.mjs';
 import { gravarPagina } from '../lib/modules/paginas.mjs';
 import { publishedData } from '../lib/modules/blog.mjs';
+import { renderHome, renderLista, renderPost } from './afiliacao-visual.mjs';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.join(HERE, '..');
@@ -27,6 +28,9 @@ if (!DADOS) { console.error('uso: node portal/tools/afiliacao-instalar.mjs --dad
 const lerJson = (f, padrao) => (fs.existsSync(f) ? JSON.parse(fs.readFileSync(f, 'utf8')) : padrao);
 const LINKS = lerJson(path.join(CONTEUDO, 'links.json'), {});
 const MEDICAO = lerJson(path.join(CONTEUDO, 'medicao.json'), {});
+const CATALOGO = lerJson(path.join(CONTEUDO, 'produtos.json'), {});
+const DADOS_VITRINE = { catalogo: CATALOGO, links: LINKS };
+const ATIVOS = new Set(Object.entries(LINKS).filter(([, v]) => v.status === 'ativo' && v.url).map(([k]) => k));
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
 /** Troca {{LINK:chave}} pelo link de afiliado (ou pela página do produto enquanto a afiliação está pendente) e
@@ -114,7 +118,22 @@ try {
       const pub = { ...base, status: 'publicado', scheduled_at: null, published_at: at, published_slug: a.slug, published_data: JSON.stringify(publishedData(base, at)) };
       if (!atual) { repo.insert('posts', pub); novos++; } else { repo.update('posts', atual.id, pub); atualizados++; }
     }
-    gravarPagina(repo, { siteId: site.id, caminho: '', html: homeHtml(info, lista, med.ga4, prefixo), titulo: info.nome, indexar: true });
+    const vitrine = lerJson(path.join(dir, 'vitrine.json'), null);
+    if (vitrine) {
+      // visual de venda: home comparativa, lista e cada post como página própria (mesmos endereços do blog)
+      const v = { ...vitrine, _ativos: ATIVOS };
+      gravarPagina(repo, { siteId: site.id, caminho: '', html: renderHome({ info, v, posts: lista, prefixo, dados: DADOS_VITRINE }), titulo: info.nome, indexar: true });
+      gravarPagina(repo, { siteId: site.id, caminho: 'blog', html: renderLista({ info, v, posts: lista, prefixo }), titulo: `Guias · ${info.nome}`, indexar: false });
+      for (const a of lista) {
+        const row = repo.get('posts', { site_id: site.id, slug: a.slug });
+        gravarPagina(repo, { siteId: site.id, caminho: `blog/${a.slug}`, titulo: a.title, indexar: false,
+          html: renderPost({ info, v, post: a, posts: lista, prefixo, dados: DADOS_VITRINE, aplicarLinks, publicado: row?.published_at, atualizado: row?.updated_at }) });
+      }
+      const ofertas = (vitrine.destaques || []).filter((k) => ATIVOS.has(k)).length;
+      passo(`${slugBlog}: visual de venda gravado (home, lista e ${lista.length} posts; ${ofertas} ofertas ativas na vitrine)`);
+    } else {
+      gravarPagina(repo, { siteId: site.id, caminho: '', html: homeHtml(info, lista, med.ga4, prefixo), titulo: info.nome, indexar: true });
+    }
     passo(`${slugBlog}: ${novos} posts novos, ${atualizados} atualizados, home gravada, medição ${tracking}`);
   }
   const pendentes = Object.entries(LINKS).filter(([, v]) => v.status !== 'ativo').map(([k]) => k);

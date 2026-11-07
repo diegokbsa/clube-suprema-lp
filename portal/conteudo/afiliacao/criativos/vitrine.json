@@ -1,0 +1,54 @@
+{
+  "cor": "#f2542d",
+  "cor2": "#f5a623",
+  "suave": "#fff7f2",
+  "fonte": "Bricolage Grotesque",
+  "sigla": "C",
+  "assunto": "criativos",
+  "h1": "Melhores packs de posts editáveis no Canva e cursos de criativos",
+  "h1_html": "Melhores packs de posts <em>editáveis no Canva</em> e cursos de criativos",
+  "h1_seo": "Melhores packs de posts editáveis Canva",
+  "sub": "Packs de posts, carrosséis e cursos de criativos comparados por preço e para quem servem.",
+  "destaques": [
+    "mm-creative-pro",
+    "carrossel-lucrativo",
+    "posts-virais",
+    "pack-posts-alta",
+    "criativei"
+  ],
+  "melhor_para": {
+    "mm-creative-pro": "quem quer aprender a criar criativos profissionais",
+    "carrossel-lucrativo": "quem quer vender com carrosséis no Instagram",
+    "posts-virais": "quem quer posts prontos para editar",
+    "pack-posts-alta": "quem quer um pack de posts de entrada, barato",
+    "criativei": "quem quer criar artes com mais rapidez"
+  },
+  "passos": [
+    {
+      "t": "Defina o objetivo",
+      "d": "Postar todo dia, vender um produto ou atender clientes: cada pack serve a um objetivo."
+    },
+    {
+      "t": "Edite no Canva",
+      "d": "Troque cores, fonte e foto para a sua marca. Pack bom é ponto de partida."
+    },
+    {
+      "t": "Meça e repita",
+      "d": "Veja quais posts dão mais salvamento e clique, e faça mais deles."
+    }
+  ],
+  "faq": [
+    {
+      "q": "Precisa de Canva Pro para usar os packs?",
+      "a": "Depende do pack. Confira na página oficial se os modelos funcionam no Canva grátis."
+    },
+    {
+      "q": "Pack de posts ou curso de criativos?",
+      "a": "O pack entrega peças prontas para hoje; o curso ensina a criar as suas. Quem posta muito costuma usar os dois."
+    },
+    {
+      "q": "Posso usar os posts para clientes?",
+      "a": "Leia a licença de cada pack. Alguns permitem uso para clientes e outros não."
+    }
+  ]
+}

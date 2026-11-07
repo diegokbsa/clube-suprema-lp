@@ -1,0 +1,54 @@
+{
+  "cor": "#ff5a2c",
+  "cor2": "#ff8a3d",
+  "suave": "#fff6f2",
+  "fonte": "Bricolage Grotesque",
+  "sigla": "A",
+  "assunto": "achadinhos",
+  "h1": "Os melhores cursos e packs para vender achadinhos na Shopee e no TikTok Shop",
+  "h1_html": "Os melhores cursos e packs para vender <em>achadinhos</em> na Shopee e no TikTok Shop",
+  "h1_seo": "Melhores cursos de achadinhos Shopee e TikTok Shop",
+  "sub": "Comparamos packs de vídeos, carrosséis e cursos de TikTok Shop pelo preço e pelo perfil de quem aproveita. Escolha em 2 minutos e vá direto para a página oficial.",
+  "destaques": [
+    "pack-achadinhos",
+    "zn-tiktok-shop",
+    "carrosseis-achadinhos",
+    "shopclub",
+    "ciencia-tiktok"
+  ],
+  "melhor_para": {
+    "pack-achadinhos": "quem quer começar a postar vídeos de achadinhos sem gravar do zero",
+    "zn-tiktok-shop": "quem quer aprender a vender como afiliado do TikTok Shop",
+    "carrosseis-achadinhos": "quem prefere postar carrosséis de achadinhos no Instagram",
+    "shopclub": "quem quer um curso focado em afiliado Shopee",
+    "ciencia-tiktok": "quem já posta e quer um curso mais completo de TikTok Shop"
+  },
+  "passos": [
+    {
+      "t": "Escolha o canal",
+      "d": "Shopee, TikTok Shop ou os dois: o pack de conteúdo serve para postar; o curso ensina a vender."
+    },
+    {
+      "t": "Comece pelo barato",
+      "d": "Um pack de entrada custa pouco e já tira você do zero hoje."
+    },
+    {
+      "t": "Poste todo dia por 30 dias",
+      "d": "Constância pesa mais do que o material. Meça o que dá clique e repita."
+    }
+  ],
+  "faq": [
+    {
+      "q": "Preciso aparecer nos vídeos de achadinhos?",
+      "a": "Não. Muita gente posta vídeos curtos só do produto, com texto na tela e narração ou música. Os packs de conteúdo existem justamente para isso."
+    },
+    {
+      "q": "Pack de vídeo ou curso: qual comprar primeiro?",
+      "a": "Se você nunca postou, o pack ajuda a começar já. Se já posta e não vende, um curso de TikTok Shop ou Shopee ensina estratégia. Muita gente usa os dois."
+    },
+    {
+      "q": "Os vídeos dos packs podem ser usados sem problema?",
+      "a": "Leia na página oficial de cada pack o que ele permite. Prefira vídeos próprios ou com licença clara e evite usar marca de terceiros sem autorização."
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "cor": "#7265ff",
+  "cor2": "#22d3ee",
+  "suave": "#f5f4ff",
+  "fonte": "Space Grotesk",
+  "sigla": "L",
+  "assunto": "live",
+  "h1": "Melhores cursos para começar a fazer live e crescer como streamer",
+  "h1_html": "Melhores cursos para começar a fazer <em>live</em> e crescer como streamer",
+  "h1_seo": "Melhores cursos para streamer",
+  "sub": "Cursos de transmissão ao vivo, YouTube e criação de conteúdo gamer comparados por preço e por fase do canal.",
+  "destaques": [
+    "transmissao-pro",
+    "crescer-sendo-gamer",
+    "creator-hub",
+    "lucrando-youtube"
+  ],
+  "melhor_para": {
+    "transmissao-pro": "quem quer configurar e fazer a primeira live do zero",
+    "crescer-sendo-gamer": "quem já faz live e quer crescer o canal gamer",
+    "creator-hub": "criador que quer organizar conteúdo e crescimento",
+    "lucrando-youtube": "quem quer focar no YouTube"
+  },
+  "passos": [
+    {
+      "t": "Monte o básico",
+      "d": "PC ou celular, OBS e um microfone razoável já bastam para a primeira live."
+    },
+    {
+      "t": "Tenha agenda fixa",
+      "d": "Dia e hora certos fazem o público voltar. Veja nosso guia do OBS."
+    },
+    {
+      "t": "Corte e poste",
+      "d": "Os melhores momentos da live viram Shorts e TikTok e trazem gente nova."
+    }
+  ],
+  "faq": [
+    {
+      "q": "Dá para fazer live pelo celular?",
+      "a": "Dá, e muita gente começa assim. Veja no nosso guia o que muda entre PC e celular."
+    },
+    {
+      "q": "Quanto preciso investir para começar?",
+      "a": "Dá para começar com o que você já tem. Os cursos ajudam a configurar e a não errar no começo."
+    },
+    {
+      "q": "Twitch, YouTube ou Kick?",
+      "a": "Cada plataforma tem regras e público diferentes. Comece por uma, aprenda e depois expanda."
+    }
+  ]
+}

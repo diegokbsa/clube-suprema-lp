@@ -1,0 +1,52 @@
+{
+  "cor": "#ef4e23",
+  "cor2": "#f59e0b",
+  "suave": "#fff6f1",
+  "fonte": "Manrope",
+  "sigla": "AV",
+  "assunto": "afiliado",
+  "h1": "Melhores cursos para ser afiliado de infoprodutos do zero",
+  "h1_html": "Melhores cursos para ser <em>afiliado</em> de infoprodutos do zero",
+  "h1_seo": "Melhores cursos para afiliados",
+  "sub": "Cursos e mentorias para quem quer vender como afiliado na Kiwify e na Hotmart, comparados por preço e por método.",
+  "destaques": [
+    "formula-afiliado-viral",
+    "sistema-afiliado-viral",
+    "afiliada-proposito",
+    "nova-elite"
+  ],
+  "melhor_para": {
+    "formula-afiliado-viral": "quem quer um método de afiliado com conteúdo viral",
+    "sistema-afiliado-viral": "quem quer um sistema de afiliado com conteúdo viral",
+    "afiliada-proposito": "quem prefere mentoria",
+    "nova-elite": "quem quer uma formação mais longa"
+  },
+  "passos": [
+    {
+      "t": "Escolha um canal",
+      "d": "Orgânico (Instagram, TikTok, blog) ou tráfego pago: cada curso ensina um caminho."
+    },
+    {
+      "t": "Escolha um produto",
+      "d": "Prefira produto com boa página de vendas, garantia e que você entenda."
+    },
+    {
+      "t": "Conte com meses, não dias",
+      "d": "Afiliado é trabalho: os primeiros resultados costumam levar tempo."
+    }
+  ],
+  "faq": [
+    {
+      "q": "Dá para ser afiliado sem aparecer?",
+      "a": "Dá. Há quem venda com blog, páginas de review ou vídeos sem rosto. Veja nosso guia do zero."
+    },
+    {
+      "q": "Curso de afiliado garante renda?",
+      "a": "Não. Nenhum curso garante venda. Desconfie de promessa de ganho rápido e confira a garantia de cada produto."
+    },
+    {
+      "q": "Kiwify ou Hotmart?",
+      "a": "As duas funcionam. O que importa é escolher bons produtos e ter um canal para divulgar."
+    }
+  ]
+}

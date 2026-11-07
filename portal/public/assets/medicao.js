@@ -62,12 +62,12 @@
     fila.splice(0).forEach(function (e) { window.hpMedir(e[0], e[1]); });
   }
 
-  // cliques que importam: WhatsApp, canal de fichas, link do clube, Instagram e Telegram
+  // cliques que importam: link de afiliado (Kiwify/Hotmart), WhatsApp, canal de fichas, link do clube, Instagram e Telegram
   document.addEventListener('click', function (e) {
     var a = e.target && e.target.closest ? e.target.closest('a[href]') : null;
     if (!a) return;
     var h = a.getAttribute('href') || '';
-    var destino = /wa\.me|whatsapp/i.test(h) ? 'whatsapp' : /fichas24horas/i.test(h) ? 'fichas' : /t\.me/i.test(h) ? 'telegram'
+    var destino = /kiwify\.(app|com\.br)|hotmart\.com|hotm\.art/i.test(h) ? 'afiliado' : /wa\.me|whatsapp/i.test(h) ? 'whatsapp' : /fichas24horas/i.test(h) ? 'fichas' : /t\.me/i.test(h) ? 'telegram'
       : /instagram\.com/i.test(h) ? 'instagram' : /facebook\.com/i.test(h) ? 'facebook' : '';
     if (destino) window.hpMedir('cta_click', { destino: destino });
   }, true);
@@ -78,7 +78,7 @@
     var d = document.createElement('div');
     d.setAttribute('role', 'region'); d.setAttribute('aria-label', 'Aviso de cookies');
     d.style.cssText = 'position:fixed;left:12px;right:12px;bottom:12px;z-index:99998;max-width:640px;margin:auto;padding:14px 16px;border-radius:10px;background:#141110;color:#f7f1ea;border:1px solid #3a2618;box-shadow:0 10px 28px rgb(0 0 0/.5);font:500 14px/1.45 system-ui,-apple-system,Segoe UI,sans-serif;display:flex;flex-wrap:wrap;gap:10px;align-items:center';
-    d.innerHTML = '<span style="flex:1 1 260px">Usamos cookies de medição (' + quem + ') para entender o que funciona no site. Nada de dado de jogo ou senha.</span>'
+    d.innerHTML = '<span style="flex:1 1 260px">Usamos cookies de medição (' + quem + ') para entender o que funciona no site. Nada de senha ou dado de pagamento.</span>'
       + '<button type="button" data-c="sim" style="cursor:pointer;border:0;border-radius:6px;padding:9px 14px;background:#f47b20;color:#150700;font:800 14px system-ui,sans-serif">Aceitar</button>'
       + '<button type="button" data-c="nao" style="cursor:pointer;border:1px solid #6b5a4c;border-radius:6px;padding:8px 13px;background:transparent;color:#f7f1ea;font:600 14px system-ui,sans-serif">Recusar</button>';
     d.addEventListener('click', function (e) {

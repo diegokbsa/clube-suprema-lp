@@ -1,0 +1,54 @@
+{
+  "cor": "#7c3aed",
+  "cor2": "#a855f7",
+  "suave": "#f8f5ff",
+  "fonte": "Sora",
+  "sigla": "IA",
+  "assunto": "IA",
+  "h1": "Melhores cursos de IA para pequenos negócios e criadores de conteúdo",
+  "h1_html": "Melhores cursos de <em>IA</em> para pequenos negócios e criadores de conteúdo",
+  "h1_seo": "Melhores cursos de IA para negócios",
+  "sub": "Cursos, prompts e vídeos com inteligência artificial comparados por preço e pelo uso no dia a dia.",
+  "destaques": [
+    "escola-da-ia",
+    "prompts-ia-viral",
+    "clube-videos-ia",
+    "ia-prostudio",
+    "promov-ai"
+  ],
+  "melhor_para": {
+    "escola-da-ia": "quem quer aprender a usar IA do básico ao avançado",
+    "prompts-ia-viral": "quem quer prompts prontos para criar conteúdo",
+    "clube-videos-ia": "quem quer criar vídeos com IA",
+    "ia-prostudio": "quem quer produzir conteúdo com IA",
+    "promov-ai": "quem quer usar IA para divulgar o próprio negócio"
+  },
+  "passos": [
+    {
+      "t": "Escolha uma tarefa",
+      "d": "Post, atendimento ou vídeo: comece pela tarefa que mais toma seu tempo."
+    },
+    {
+      "t": "Use o grátis primeiro",
+      "d": "Teste as IAs gratuitas com os prompts do nosso guia antes de pagar."
+    },
+    {
+      "t": "Invista quando travar",
+      "d": "Curso ou pacote de prompts vale quando você já sabe o que quer automatizar."
+    }
+  ],
+  "faq": [
+    {
+      "q": "Preciso pagar IA para usar no meu negócio?",
+      "a": "Não para começar. Muitas IAs têm plano grátis. Os cursos ajudam a usar melhor e mais rápido."
+    },
+    {
+      "q": "Curso de IA ou pacote de prompts?",
+      "a": "O curso ensina o método; o pacote de prompts entrega atalhos prontos. Para quem está começando, o curso costuma render mais."
+    },
+    {
+      "q": "IA substitui um designer ou redator?",
+      "a": "Ajuda a produzir mais rápido, mas revise sempre o resultado: fatos, marca e tom de voz continuam sendo responsabilidade sua."
+    }
+  ]
+}

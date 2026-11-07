@@ -1,0 +1,52 @@
+{
+  "cor": "#3b4fd8",
+  "cor2": "#5b6cf0",
+  "suave": "#f4f6ff",
+  "fonte": "Manrope",
+  "sigla": "F",
+  "assunto": "fornecedores",
+  "h1": "Listas de fornecedores e cursos para começar a revender com segurança",
+  "h1_html": "Listas de <em>fornecedores</em> e cursos para começar a revender com segurança",
+  "h1_seo": "Melhores listas de fornecedores para revenda",
+  "sub": "Listas de fornecedores, packs para lojistas e cursos de revenda, comparados por preço e por tipo de negócio.",
+  "destaques": [
+    "mapa-fornecedores",
+    "lojista-pack",
+    "vivendo-acessorios",
+    "antes-do-leilao"
+  ],
+  "melhor_para": {
+    "mapa-fornecedores": "quem quer uma lista de fornecedores para começar a revender",
+    "lojista-pack": "lojista que quer material pronto para vender mais",
+    "vivendo-acessorios": "quem quer revender acessórios",
+    "antes-do-leilao": "quem quer entender como comprar antes do leilão"
+  },
+  "passos": [
+    {
+      "t": "Escolha o nicho",
+      "d": "Roupa, acessório ou outro produto: o fornecedor certo depende do que você vai vender."
+    },
+    {
+      "t": "Valide antes de pagar",
+      "d": "CNPJ, Reclame Aqui e pedido pequeno de teste evitam golpe. Veja nosso guia."
+    },
+    {
+      "t": "Comece com pouco estoque",
+      "d": "Compre pouco, venda, recompre. O giro ensina mais que a planilha."
+    }
+  ],
+  "faq": [
+    {
+      "q": "Lista de fornecedores vale a pena?",
+      "a": "Pode economizar tempo de pesquisa, mas valide cada fornecedor (CNPJ, reputação e um pedido de teste) antes de comprar em quantidade."
+    },
+    {
+      "q": "Preciso de CNPJ para comprar no atacado?",
+      "a": "Muitos fornecedores pedem CNPJ ou um pedido mínimo. Confira as condições de cada um antes."
+    },
+    {
+      "q": "Como evitar golpe de fornecedor?",
+      "a": "Desconfie de preço muito abaixo do mercado, pague por meios rastreáveis e confira CNPJ e histórico. Nosso guia explica o passo a passo."
+    }
+  ]
+}

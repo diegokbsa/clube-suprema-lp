@@ -1,0 +1,52 @@
+{
+  "cor": "#0e9f4f",
+  "cor2": "#2fb85f",
+  "suave": "#f2fbf5",
+  "fonte": "Archivo",
+  "sigla": "O",
+  "assunto": "manutenção",
+  "h1": "Melhores cursos de manutenção: roçadeira, motosserra, ar-condicionado e celular",
+  "h1_html": "Melhores cursos de <em>manutenção</em>: roçadeira, motosserra, ar-condicionado e celular",
+  "h1_seo": "Melhores cursos de manutenção",
+  "sub": "Cursos práticos para consertar e abrir uma oficina, comparados por preço e pela área de atuação.",
+  "destaques": [
+    "rocadeiras",
+    "ar-condicionado",
+    "bmtech",
+    "frp-total"
+  ],
+  "melhor_para": {
+    "rocadeiras": "quem quer consertar roçadeiras e motosserras",
+    "ar-condicionado": "quem quer trabalhar com ar-condicionado de carros, caminhões e máquinas agrícolas",
+    "bmtech": "técnico de celular que quer aprender reparo avançado de telas",
+    "frp-total": "técnico de celular que quer aprender reparo de software e conta Google"
+  },
+  "passos": [
+    {
+      "t": "Escolha a área",
+      "d": "Pequenos motores, refrigeração automotiva ou celular: cada uma tem cliente e ferramenta diferentes."
+    },
+    {
+      "t": "Calcule a ferramenta",
+      "d": "Antes do curso, veja o que precisa comprar para começar a atender."
+    },
+    {
+      "t": "Comece atendendo perto",
+      "d": "Vizinhos, sítios e lojas da região são os primeiros clientes de quem conserta."
+    }
+  ],
+  "faq": [
+    {
+      "q": "Preciso de experiência para fazer esses cursos?",
+      "a": "Confira na página oficial de cada curso o nível exigido. Alguns são do zero e outros pedem base técnica."
+    },
+    {
+      "q": "Precisa de certificação para trabalhar com ar-condicionado?",
+      "a": "Depende da atividade. Veja no nosso guia o que dizem a NR-10, a NR-35 e a lei do PMOC antes de atender empresas."
+    },
+    {
+      "q": "Quanto custa começar uma oficina pequena?",
+      "a": "Varia com a área. O maior custo costuma ser a ferramenta; comece pelo básico e compre o resto conforme os serviços aparecem."
+    }
+  ]
+}

@@ -1,19 +1,169 @@
 {
-  "pack-achadinhos": { "status": "ativo", "url": "https://kiwify.app/f6ROblp?afid=WeVoiJ85" },
-  "carrosseis-achadinhos": { "status": "ativo", "url": "https://kiwify.app/VhonaQs?afid=jNdFB68c" },
-  "zn-tiktok-shop": { "status": "ativo", "url": "https://kiwify.app/XS25Q8y?afid=a3BdAdFD" },
-  "venda-shop": { "status": "pendente" }, "shopclub": { "status": "pendente" }, "shopee-power": { "status": "pendente" },
-  "mega-box-sublimacao": { "status": "ativo", "url": "https://kiwify.app/oXrVqRA?afid=dgDq0KTR" },
-  "gifts-da-isa": { "status": "ativo", "url": "https://kiwify.app/bdScoKx?afid=3h92BQvb" },
-  "adesiva-pro": { "status": "pendente" }, "figurinhas-sweet": { "status": "pendente" }, "tufos-cola-fria": { "status": "pendente" },
-  "rocadeiras": { "status": "pendente" }, "ar-condicionado": { "status": "pendente" }, "bmtech": { "status": "pendente" }, "frp-total": { "status": "pendente" },
-  "mapa-fornecedores": { "status": "pendente" }, "lojista-pack": { "status": "pendente" }, "vivendo-acessorios": { "status": "pendente" }, "antes-do-leilao": { "status": "pendente" },
-  "ia-prostudio": { "status": "pendente" }, "escola-da-ia": { "status": "pendente" }, "promov-ai": { "status": "pendente" }, "clube-videos-ia": { "status": "pendente" }, "prompts-ia-viral": { "status": "pendente" },
-  "mm-creative-pro": { "status": "ativo", "url": "https://pay.kiwify.com.br/FmQkkTB?afid=V8ciFwhX" },
-  "criativei": { "status": "pendente" }, "posts-virais": { "status": "pendente" }, "pack-posts-alta": { "status": "pendente" }, "carrossel-lucrativo": { "status": "pendente" },
-  "crescer-sendo-gamer": { "status": "ativo", "url": "https://kiwify.app/gZxbuAr?afid=oqVRjk8m" },
-  "transmissao-pro": { "status": "pendente" }, "lucrando-youtube": { "status": "pendente" }, "creator-hub": { "status": "pendente" },
-  "afiliada-proposito": { "status": "pendente" }, "nova-elite": { "status": "pendente" }, "sistema-afiliado-viral": { "status": "pendente" }, "formula-afiliado-viral": { "status": "pendente" },
-  "milhas-3": { "status": "pendente" }, "muito-mais-milhas": { "status": "pendente" }, "espanha-2027": { "status": "pendente" }, "fluency-fast": { "status": "pendente" }, "italiano-falar": { "status": "pendente" },
-  "dotti": { "status": "pendente" }, "zap-suite": { "status": "pendente" }, "lia-automacao": { "status": "pendente" }, "fluxbot": { "status": "pendente" }
+  "pack-achadinhos": {
+    "status": "ativo",
+    "url": "https://kiwify.app/f6ROblp?afid=WeVoiJ85"
+  },
+  "carrosseis-achadinhos": {
+    "status": "ativo",
+    "url": "https://kiwify.app/VhonaQs?afid=jNdFB68c"
+  },
+  "zn-tiktok-shop": {
+    "status": "ativo",
+    "url": "https://kiwify.app/XS25Q8y?afid=a3BdAdFD"
+  },
+  "venda-shop": {
+    "status": "pendente"
+  },
+  "shopclub": {
+    "status": "pendente"
+  },
+  "shopee-power": {
+    "status": "pendente"
+  },
+  "mega-box-sublimacao": {
+    "status": "ativo",
+    "url": "https://kiwify.app/oXrVqRA?afid=dgDq0KTR"
+  },
+  "gifts-da-isa": {
+    "status": "ativo",
+    "url": "https://kiwify.app/bdScoKx?afid=3h92BQvb"
+  },
+  "adesiva-pro": {
+    "status": "ativo",
+    "url": "https://kiwify.app/cNe7dPq?afid=QD1vGBfl"
+  },
+  "figurinhas-sweet": {
+    "status": "ativo",
+    "url": "https://kiwify.app/xUrH3AG?afid=opFWPovz"
+  },
+  "tufos-cola-fria": {
+    "status": "pendente"
+  },
+  "rocadeiras": {
+    "status": "pendente"
+  },
+  "ar-condicionado": {
+    "status": "ativo",
+    "url": "https://kiwify.app/4medKIu?afid=3Cjc2OCl"
+  },
+  "bmtech": {
+    "status": "pendente"
+  },
+  "frp-total": {
+    "status": "ativo",
+    "url": "https://pay.kiwify.com.br/biUEtyd?afid=I3bvxPjG"
+  },
+  "mapa-fornecedores": {
+    "status": "pendente"
+  },
+  "lojista-pack": {
+    "status": "ativo",
+    "url": "https://kiwify.app/r6kAa79?afid=SRSl2m6R"
+  },
+  "vivendo-acessorios": {
+    "status": "ativo",
+    "url": "https://kiwify.app/AHZioht?afid=ynIabotG"
+  },
+  "antes-do-leilao": {
+    "status": "ativo",
+    "url": "https://pay.kiwify.com.br/25Mb9lK?afid=sXcxH1LO"
+  },
+  "ia-prostudio": {
+    "status": "pendente"
+  },
+  "escola-da-ia": {
+    "status": "ativo",
+    "url": "https://kiwify.app/zxsuao9?afid=N80UuvzC"
+  },
+  "promov-ai": {
+    "status": "pendente"
+  },
+  "clube-videos-ia": {
+    "status": "ativo",
+    "url": "https://pay.kiwify.com.br/A5012hy?afid=9CN69sEJ"
+  },
+  "prompts-ia-viral": {
+    "status": "ativo",
+    "url": "https://kiwify.app/qY3tfTu?afid=fdY6dnEy"
+  },
+  "mm-creative-pro": {
+    "status": "ativo",
+    "url": "https://pay.kiwify.com.br/FmQkkTB?afid=V8ciFwhX"
+  },
+  "criativei": {
+    "status": "pendente"
+  },
+  "posts-virais": {
+    "status": "ativo",
+    "url": "https://kiwify.app/569CJ59?afid=uiq7zJKs"
+  },
+  "pack-posts-alta": {
+    "status": "pendente"
+  },
+  "carrossel-lucrativo": {
+    "status": "ativo",
+    "url": "https://pay.kiwify.com.br/MbThJ85?afid=F6XOCgEL"
+  },
+  "crescer-sendo-gamer": {
+    "status": "ativo",
+    "url": "https://kiwify.app/gZxbuAr?afid=oqVRjk8m"
+  },
+  "transmissao-pro": {
+    "status": "ativo",
+    "url": "https://kiwify.app/F0OB0et?afid=pSVneYwd"
+  },
+  "lucrando-youtube": {
+    "status": "pendente"
+  },
+  "creator-hub": {
+    "status": "ativo",
+    "url": "https://kiwify.app/sY2VbMu?afid=PJDCbNQH"
+  },
+  "afiliada-proposito": {
+    "status": "pendente"
+  },
+  "nova-elite": {
+    "status": "pendente"
+  },
+  "sistema-afiliado-viral": {
+    "status": "pendente"
+  },
+  "formula-afiliado-viral": {
+    "status": "pendente"
+  },
+  "milhas-3": {
+    "status": "ativo",
+    "url": "https://pay.kiwify.com.br/Tr8slMB?afid=3TkRYbQz"
+  },
+  "muito-mais-milhas": {
+    "status": "pendente"
+  },
+  "espanha-2027": {
+    "status": "ativo",
+    "url": "https://kiwify.app/3ssxHtq?afid=fGzWpJK1"
+  },
+  "fluency-fast": {
+    "status": "ativo",
+    "url": "https://pay.kiwify.com.br/ZeANidO?afid=pRGvGrPw"
+  },
+  "italiano-falar": {
+    "status": "pendente"
+  },
+  "dotti": {
+    "status": "pendente"
+  },
+  "zap-suite": {
+    "status": "pendente"
+  },
+  "lia-automacao": {
+    "status": "ativo",
+    "url": "https://pay.kiwify.com.br/zV7iU0Q?afid=NWaOF4CB"
+  },
+  "fluxbot": {
+    "status": "ativo",
+    "url": "https://pay.kiwify.com.br/YRUIGk8?afid=9wQL74Lc"
+  },
+  "ciencia-tiktok": {
+    "status": "pendente"
+  }
 }

@@ -1,0 +1,54 @@
+{
+  "cor": "#1771bb",
+  "cor2": "#0ea5e9",
+  "suave": "#f2f8fd",
+  "fonte": "Sora",
+  "sigla": "M",
+  "assunto": "milhas",
+  "h1": "Melhores cursos de milhas e de morar fora: comparativo",
+  "h1_html": "Melhores cursos de <em>milhas</em> e de morar fora: comparativo",
+  "h1_seo": "Melhores cursos de milhas",
+  "sub": "Comunidades e formações de milhas, cursos para morar na Espanha e idiomas, comparados por preço e por objetivo.",
+  "destaques": [
+    "milhas-3",
+    "muito-mais-milhas",
+    "espanha-2027",
+    "fluency-fast",
+    "italiano-falar"
+  ],
+  "melhor_para": {
+    "milhas-3": "quem quer comunidade de passagens baratas com curso de milhas",
+    "muito-mais-milhas": "quem quer uma formação completa de milhas",
+    "espanha-2027": "quem planeja morar na Espanha",
+    "fluency-fast": "quem quer aprender inglês para viajar ou morar fora",
+    "italiano-falar": "quem quer aprender italiano"
+  },
+  "passos": [
+    {
+      "t": "Junte com o que já gasta",
+      "d": "Cadastre-se nos programas grátis e concentre gastos num cartão que pontua."
+    },
+    {
+      "t": "Faça a conta antes",
+      "d": "Compare o custo do milheiro com a passagem em dinheiro. Nosso guia ensina."
+    },
+    {
+      "t": "Aprofunde quando fizer sentido",
+      "d": "Curso ou comunidade vale quando você já viaja ou quer emitir com frequência."
+    }
+  ],
+  "faq": [
+    {
+      "q": "Milha é viagem de graça?",
+      "a": "Não. Mesmo emitindo com pontos você paga taxas. O ganho está em pagar bem menos do que em dinheiro."
+    },
+    {
+      "q": "Curso de milhas vale a pena?",
+      "a": "Vale para quem viaja ou quer viajar com frequência e vai aplicar o método. Compare o preço com quanto você economizaria em uma ou duas emissões."
+    },
+    {
+      "q": "Preciso de cartão caro para juntar milhas?",
+      "a": "Não. Dá para começar com programas grátis e compras do dia a dia. Veja nosso guia do zero."
+    }
+  ]
+}

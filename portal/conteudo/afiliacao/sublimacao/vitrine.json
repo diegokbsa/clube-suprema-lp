@@ -1,0 +1,54 @@
+{
+  "cor": "#d6336c",
+  "cor2": "#f06595",
+  "suave": "#fff4f8",
+  "fonte": "Outfit",
+  "sigla": "S",
+  "assunto": "sublimação",
+  "h1": "Melhores artes e cursos de sublimação para vender personalizados em casa",
+  "h1_html": "Melhores artes e cursos de <em>sublimação</em> para vender personalizados em casa",
+  "h1_seo": "Melhores artes e cursos de sublimação",
+  "sub": "Pacotes de artes prontas para caneca e camiseta, kits e cursos de personalizados, comparados pelo preço e por quem aproveita mais.",
+  "destaques": [
+    "mega-box-sublimacao",
+    "gifts-da-isa",
+    "tufos-cola-fria",
+    "adesiva-pro",
+    "figurinhas-sweet"
+  ],
+  "melhor_para": {
+    "mega-box-sublimacao": "quem já tem prensa e quer artes prontas para caneca e camiseta",
+    "gifts-da-isa": "quem quer começar um negócio de presentes personalizados em casa",
+    "tufos-cola-fria": "quem quer aprender a técnica de tufos com cola fria",
+    "adesiva-pro": "quem quer criar figurinhas e adesivos personalizados",
+    "figurinhas-sweet": "quem quer figurinhas prontas para personalizar"
+  },
+  "passos": [
+    {
+      "t": "Defina o primeiro produto",
+      "d": "Caneca é o mais pedido para começar: arte, prensa e papel resolvem."
+    },
+    {
+      "t": "Tenha artes prontas",
+      "d": "Um pacote de artes poupa horas de criação e deixa você aceitar encomenda no mesmo dia."
+    },
+    {
+      "t": "Venda nas datas",
+      "d": "Dia das Mães, Natal e Páscoa concentram pedidos. Monte o catálogo antes."
+    }
+  ],
+  "faq": [
+    {
+      "q": "Preciso de prensa para usar as artes?",
+      "a": "Para sublimar caneca ou camiseta, sim: prensa, impressora com tinta sublimática e papel. As artes servem para qualquer equipamento."
+    },
+    {
+      "q": "Qual a medida da arte para caneca?",
+      "a": "Depende da caneca. Use a medida indicada pelo fabricante e meça a área de impressão antes; veja nosso guia sobre o tamanho da arte."
+    },
+    {
+      "q": "Dá para começar sem gastar muito?",
+      "a": "Dá para começar pequeno, com um pacote de artes e encomendas sob pedido, sem estoque. Confira os preços no comparativo."
+    }
+  ]
+}
