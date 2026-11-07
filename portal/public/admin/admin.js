@@ -99,13 +99,58 @@ function layout(route, inner) {
       <div class="logo">${logoMark()}<div>${esc(S.ed.name)}<small>${esc(S.me.user.isSuper ? 'Superadministrador' : S.tenant?.role || '')}</small></div></div>
       ${tenants.length ? `<label class="tenant-pick field">Operação<select id="tenant-pick">${S.tenant ? '' : '<option value="" selected disabled>Escolha uma operação</option>'}${tenants.map((t) => `<option value="${esc(t.slug)}" ${S.tenant?.slug === t.slug ? 'selected' : ''}>${esc(t.label)} · ${esc(t.name)}${t.demo ? ' (demo)' : ''}</option>`).join('')}</select></label>` : ''}
       <nav class="nav">${navLinks(route)}</nav>
-      <div class="side-foot"><div>${esc(S.me.user.name)}</div><div class="muted">${esc(S.me.user.email)}</div><div class="row" style="margin-top:8px"><button class="btn sm" id="logout" type="button">Sair</button></div></div>
+      <div class="side-foot"><div>${esc(S.me.user.name)}</div><div class="muted">${esc(S.me.user.email)}</div><div class="row" style="margin-top:8px"><button class="btn sm" id="logout" type="button">Sair</button></div>${seletorVisual()}</div>
     </aside><main class="main" id="main"><button class="btn sm menu-btn" id="menu-btn" type="button">☰ Menu</button>${inner}</main></div>`;
+  ligarSeletorVisual();
   $('#tenant-pick')?.addEventListener('change', (e) => { location.hash = `#/t/${e.target.value}`; });
   $('#logout').addEventListener('click', async () => { await api('POST', '/api/logout'); S.me = null; renderLogin(); });
   $('#menu-btn').addEventListener('click', () => $('#shell').classList.toggle('open'));
   return $('#main');
 }
+
+// ---------- visual do painel (lista e aplicação em /admin/visual.js) ----------
+const PV = () => window.PortalVisual || { lista: [], atual: () => 'original', aplicar: () => null };
+function seletorVisual() {
+  const v = PV();
+  if (!v.lista.length) return '';
+  const atual = v.atual();
+  const nome = v.lista.find((x) => x.id === atual)?.nome || '';
+  const itens = v.lista.map((x, i) => `<button type="button" role="menuitemradio" aria-checked="${x.id === atual}" aria-label="${esc(x.nome)}, ${esc(x.tipo)}" data-visual="${esc(x.id)}"><span class="n">${String(i).padStart(2, '0')}</span>`
+    + `<i style="background:${esc(x.fundo)}"><b style="background:${esc(x.acento)}"></b></i><span>${esc(x.nome)}<small>${esc(x.tipo)}</small></span></button>`).join('');
+  return `<div class="visual-pick"><button class="btn sm visual-btn" id="visual-btn" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="visual-menu">Visual <span id="visual-nome">${esc(nome)}</span></button>
+    <div class="visual-menu" id="visual-menu" role="menu" aria-label="Visual do painel" hidden><p>Visual do painel. A escolha fica salva neste aparelho.</p>${itens}</div></div>`;
+}
+function ligarSeletorVisual() {
+  const btn = $('#visual-btn');
+  const menu = $('#visual-menu');
+  if (!btn || !menu) return;
+  const fechar = () => { menu.hidden = true; btn.setAttribute('aria-expanded', 'false'); };
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    menu.hidden = !menu.hidden;
+    btn.setAttribute('aria-expanded', String(!menu.hidden));
+    if (!menu.hidden) $('[aria-checked="true"]', menu)?.focus();
+  });
+  menu.addEventListener('click', (e) => {
+    const b = e.target.closest('[data-visual]');
+    if (!b) return;
+    const v = PV().aplicar(b.dataset.visual, true);
+    $$('[data-visual]', menu).forEach((x) => x.setAttribute('aria-checked', String(x === b)));
+    $('#visual-nome').textContent = v?.nome || '';
+    fechar();
+    btn.focus();
+  });
+  menu.addEventListener('keydown', (e) => {
+    const itens = $$('[data-visual]', menu);
+    const i = itens.indexOf(document.activeElement);
+    if (e.key === 'ArrowDown' || e.key === 'ArrowUp') { e.preventDefault(); itens[(i + (e.key === 'ArrowDown' ? 1 : itens.length - 1)) % itens.length].focus(); }
+    if (e.key === 'Escape') { fechar(); btn.focus(); }
+  });
+}
+document.addEventListener('click', (e) => { // um só ouvinte: fecha o menu de visual ao clicar fora
+  const menu = $('#visual-menu');
+  if (menu && !menu.hidden && !menu.contains(e.target) && !e.target.closest('#visual-btn')) { menu.hidden = true; $('#visual-btn')?.setAttribute('aria-expanded', 'false'); }
+});
 
 // ---------- rotas ----------
 function parseRoute() {
@@ -150,12 +195,37 @@ async function viewCentral(r) {
     return;
   }
   const d = await api('GET', '/api/admin/overview');
-  const main = layout(r, `<div class="page-head"><div><h1>Visão geral</h1><p>${esc(S.ed.terms.operations)}, sites, leads e integrações.</p></div><span class="spacer"></span><a class="btn primary" href="#/nova">${esc(S.ed.terms.newOperation)}</a></div>
-    <div class="kpis">
-      <div class="kpi"><b>${d.totals.tenants}</b><span>operações</span></div>
-      <div class="kpi"><b>${d.totals.users}</b><span>usuários</span></div>
-      <div class="kpi"><b>${d.totals.leads30}</b><span>leads em 30 dias</span></div>
-      <div class="kpi"><b>${d.totals.conversions30}</b><span>conversões verificadas em 30 dias</span></div>
+  const integ = d.tenants.flatMap((t) => t.integrations.map((i) => ({ ...i, slug: t.slug })));
+  const pend = integ.filter((i) => i.status === 'pendente');
+  const comErro = integ.filter((i) => i.status === 'erro').length;
+  const configuradas = integ.length - pend.length - comErro;
+  const sites = d.tenants.reduce((s, t) => s + (t.sites || 0), 0);
+  const nOps = d.totals.tenants;
+  const hora = new Date().getHours();
+  const ola = hora < 12 ? 'Bom dia' : hora < 18 ? 'Boa tarde' : 'Boa noite';
+  const primeiro = String(S.me.user.name || '').trim().split(/\s+/)[0] || '';
+  const frase = `Nos últimos 30 dias os sites captaram <b>${plural(d.totals.leads30, 'lead', 'leads')}</b> e <b>${plural(d.totals.conversions30, 'conversão verificada', 'conversões verificadas')}</b>.`
+    + (pend.length ? ` <b>${plural(pend.length, 'integração', 'integrações')}</b> ainda ${pend.length === 1 ? 'espera' : 'esperam'} configuração.` : ' Todas as integrações estão configuradas.');
+  const linkPend = pend.length ? `#/t/${pend[0].slug}/integracoes` : '';
+  const kpi = (ic, rotulo, valor, legenda, cls = '', href = '') => {
+    const tag = href ? 'a' : 'div';
+    return `<${tag} class="kpi vg-k ${cls}"${href ? ` href="${esc(href)}"` : ''}><span class="kpi-top"><span class="kpi-ic">${ICONE[ic] || ''}</span>${esc(rotulo)}</span><b>${esc(valor)}</b><small>${esc(legenda)}</small></${tag}>`;
+  };
+  const porLeads = [...d.tenants].sort((a, b) => b.leads30 - a.leads30).slice(0, 8);
+  const maxLeads = Math.max(0, ...porLeads.map((t) => t.leads30));
+  const barras = maxLeads ? `<ul class="barras-h">${porLeads.map((t) => `<li><span>${esc(t.label)} · ${esc(t.name)}</span><b>${t.leads30}</b><span class="t"><i style="width:${(100 * t.leads30 / maxLeads).toFixed(1)}%"></i></span></li>`).join('')}</ul>`
+    : '<div class="empty">Nenhum lead nos últimos 30 dias. Os formulários dos sites enviam para cá.</div>';
+  const fatias = [['Pendente de configuração', pend.length, 'var(--s1)'], ['Configurada', configuradas, 'var(--s2)'], ['Com erro', comErro, 'var(--bad)']];
+  const main = layout(r, `<div class="page-head vg-ola"><div><h1>${esc(ola)}${primeiro ? `, ${esc(primeiro)}` : ''}</h1><p>${frase}</p></div><span class="spacer"></span><a class="btn primary" href="#/nova">${esc(S.ed.terms.newOperation)}</a></div>
+    <div class="kpis vg vg-kpis">
+      ${kpi('ok', 'Conversões verificadas', d.totals.conversions30, '30 dias · confirmadas por webhook ou atribuição', 'din')}
+      ${kpi('caixa', 'Leads', d.totals.leads30, '30 dias · formulários dos sites', 'din')}
+      ${kpi('loja', S.ed.terms.operations, nOps, `${plural(sites, 'site', 'sites')} · ${plural(d.totals.users, 'usuário', 'usuários')} no painel`)}
+      ${kpi('raio', 'Integrações pendentes', pend.length, `${configuradas} de ${integ.length} configuradas${comErro ? ` · ${comErro} com erro` : ''}`, pend.length ? 'aviso' : '', linkPend)}
+    </div>
+    <div class="vg-graf">
+      <div class="card"><div class="card-head"><h2>Leads por ${esc(S.ed.id === 'sx' ? 'clube' : 'operação')} · 30 dias</h2></div>${barras}</div>
+      <div class="card"><div class="card-head"><h2>Integrações por estado</h2></div>${integ.length ? `<div class="rosca-c">${roscaSvg(fatias, 'integrações')}${legendaRosca(fatias)}</div>` : '<div class="empty">Nenhuma integração ainda.</div>'}</div>
     </div>
     <div class="card"><div class="card-head"><h2>Operações</h2></div><div class="table-wrap"><table><thead><tr><th>Operação</th><th>Nicho</th><th>Sites</th><th>Leads 30d</th><th>Conversões 30d</th><th>Afiliados</th><th>Integrações</th></tr></thead><tbody>
       ${d.tenants.map((t) => {
@@ -171,6 +241,35 @@ async function viewCentral(r) {
       <div class="card"><div class="card-head"><h2>Custos de IA e serviços</h2></div><p class="muted">${esc(d.costs.note)}</p></div>
     </div>`);
   return main;
+}
+
+const plural = (n, um, varios) => `${Number(n).toLocaleString('pt-BR')} ${Number(n) === 1 ? um : varios}`;
+// ícones de traço (lucide, ISC), só os da visão geral
+const svgIc = (d) => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}</svg>`;
+const ICONE = {
+  ok: svgIc('<circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/>'),
+  caixa: svgIc('<path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/>'),
+  loja: svgIc('<path d="m2 7 4.41-4.41A2 2 0 0 1 7.83 2h8.34a2 2 0 0 1 1.42.59L22 7"/><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><path d="M2 7h20v3a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2z"/>'),
+  raio: svgIc('<path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/>'),
+};
+function roscaSvg(fatias, rotulo, tam = 150, traco = 16) {
+  const total = fatias.reduce((s, f) => s + f[1], 0);
+  const r = (tam - traco) / 2;
+  const c = 2 * Math.PI * r;
+  let acc = 0;
+  const segs = fatias.filter((f) => f[1] > 0).map(([nome, v, cor]) => {
+    const L = (c * v) / (total || 1);
+    const s = `<circle cx="${tam / 2}" cy="${tam / 2}" r="${r}" fill="none" stroke="${cor}" stroke-width="${traco}" stroke-dasharray="${Math.max(L - 2, 0.5).toFixed(2)} ${c.toFixed(2)}" stroke-dashoffset="${(-acc).toFixed(2)}" transform="rotate(-90 ${tam / 2} ${tam / 2})"><title>${esc(nome)}: ${v}</title></circle>`;
+    acc += L;
+    return s;
+  }).join('');
+  return `<svg viewBox="0 0 ${tam} ${tam}" width="${tam}" height="${tam}" role="img" aria-label="${esc(rotulo)}: ${total}"><circle cx="${tam / 2}" cy="${tam / 2}" r="${r}" fill="none" stroke="var(--bg)" stroke-width="${traco}"/>${segs}`
+    + `<text x="50%" y="${tam / 2 + 2}" text-anchor="middle" font-size="22" font-weight="750" fill="var(--ink-strong)" style="font-variant-numeric:tabular-nums">${total}</text>`
+    + `<text x="50%" y="${tam / 2 + 20}" text-anchor="middle" font-size="11.5" fill="var(--ink-3)">${esc(rotulo)}</text></svg>`;
+}
+function legendaRosca(fatias) {
+  const total = fatias.reduce((s, f) => s + f[1], 0) || 1;
+  return `<table class="legenda"><tbody>${fatias.map(([nome, v, cor]) => `<tr><td><i style="background:${cor}"></i>${esc(nome)}</td><td><b>${v}</b></td><td>${Math.round((100 * v) / total)}%</td></tr>`).join('')}</tbody></table>`;
 }
 
 function auditTable(rows, withTenant = false) {

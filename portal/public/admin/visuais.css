@@ -1,0 +1,260 @@
+/* Visuais do painel (07/11/2026). O padrão é "branco": fundo branco, detalhes no roxo da kbsa.app, menu lateral.
+   O botão "Visual", no rodapé do menu, troca entre estes; "original" (sem data-visual) mantém as cores da edição.
+   Só tokens e acabamento: as telas, os textos e o comportamento são os mesmos em todos os visuais.
+   Cada bloco declara --panel opaco (é o que o teste de contraste confere); o vidro usa --vidro por cima do chão. */
+
+/* séries do gráfico também no visual original (cores da edição) */
+:root { --s1: var(--brand); --s2: var(--ok); --s3: var(--gold); --num: var(--mono); }
+
+/* ---------- base comum a todos os visuais ---------- */
+:root[data-visual] {
+  --s1: #7f35da; --s2: #1baf7a; --s3: #eb6834; --s4: #2a78d6; --s5: #e87ba4; --s6: #eda100; --s-outros: #9a94ad;
+  --num: var(--font);
+}
+:root[data-visual] body { font-family: var(--font); -webkit-font-smoothing: antialiased; }
+:root[data-visual] ::selection { background: color-mix(in srgb, var(--brand) 28%, transparent); color: var(--ink-strong); }
+:root[data-visual] input, :root[data-visual] textarea { caret-color: var(--brand); }
+:root[data-visual] * { scrollbar-width: thin; scrollbar-color: var(--line-2) transparent; }
+:root[data-visual] .kpi b { font-family: var(--num); font-weight: 750; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+:root[data-visual] td, :root[data-visual] .kpi { font-variant-numeric: tabular-nums; }
+:root[data-visual] th { text-transform: none; letter-spacing: 0; font-size: 12px; }
+:root[data-visual] .nav a { border-left: 0; }
+:root[data-visual] .nav a.on { background: var(--rail-active); color: var(--rail-active-ink, #fff); box-shadow: 0 8px 18px -12px color-mix(in srgb, var(--rail-active) 80%, transparent); }
+:root[data-visual] .nav a:hover { color: var(--rail-ink); }
+:root[data-visual] .nav a.on:hover { color: var(--rail-active-ink, #fff); }
+:root[data-visual] .side .logo { color: var(--rail-strong, #f2f4f5); }
+:root[data-visual] .side select { color: var(--rail-ink); }
+:root[data-visual] .logo-mark { border-radius: calc(var(--radius) - 4px); }
+:root[data-visual] .card, :root[data-visual] .kpi { box-shadow: var(--shadow); }
+:root[data-visual] .login { background: var(--login-bg, var(--bg)); }
+
+/* menu lateral claro: branco, lavanda, planilha, relatório, profundo, quadro */
+:root[data-visual="branco"], :root[data-visual="lavanda"], :root[data-visual="planilha"], :root[data-visual="relatorio"], :root[data-visual="profundo"], :root[data-visual="quadro"] {
+  --rail-strong: var(--ink-strong);
+}
+:root[data-visual="branco"] .btn.gold, :root[data-visual="lavanda"] .btn.gold, :root[data-visual="planilha"] .btn.gold, :root[data-visual="relatorio"] .btn.gold,
+:root[data-visual="profundo"] .btn.gold, :root[data-visual="quadro"] .btn.gold { background: var(--ink-strong); border-color: var(--ink-strong); color: var(--panel); }
+
+/* ---------- 00 Branco (padrão) ---------- */
+:root[data-visual="branco"] {
+  --bg: #fbfaff; --panel: #ffffff; --input: #ffffff; --ink: #2a2440; --ink-strong: #160f29; --ink-2: #3e3657; --ink-3: #5b5472; --line: #eeeaf6; --line-2: #d9d2ea;
+  --brand: #7f35da; --brand-2: #6a24c4; --brand-ink: #ffffff; --gold: #7f35da; --gold-soft: #efe6fd;
+  --ok: #17704a; --ok-soft: #e1f2e9; --warn: #8a5200; --warn-soft: #fbefd9; --bad: #b3261e; --bad-soft: #fbe7e5; --info: #6a24c4; --info-soft: #efe6fd;
+  --rail: #ffffff; --rail-2: #f6f2fd; --rail-active: #7f35da; --rail-ink: #3e3657; --rail-muted: #5b5472; --rail-line: #ebe6f4;
+  --radius: 14px; --shadow: 0 1px 2px rgb(40 18 90 / .04), 0 10px 28px -20px rgb(60 25 130 / .22);
+  --font: 'Hanken Grotesk', system-ui, sans-serif; --mono: 'Fragment Mono', ui-monospace, monospace;
+  --login-bg: radial-gradient(ellipse at 50% -10%, #efe6fd 0%, #fbfaff 60%);
+  color-scheme: light;
+}
+:root[data-visual="branco"] .kpi-ic { background: var(--gold-soft); color: var(--brand-2); }
+:root[data-visual="branco"] .card-head h2::before { content: ""; display: inline-block; width: 6px; height: 6px; border-radius: 2px; background: var(--brand); margin-right: 8px; vertical-align: 3px; }
+
+/* ---------- 01 Vidro Lavanda ---------- */
+:root[data-visual="lavanda"] {
+  --bg: #f1eefa; --panel: #ffffff; --input: rgb(255 255 255 / .85); --ink: #2a2440; --ink-strong: #17122b; --ink-2: #433c5c; --ink-3: #5d5675; --line: #e2dcf2; --line-2: #c9c0e2;
+  --brand: #7f35da; --brand-2: #6a24c4; --brand-ink: #ffffff; --gold: #7f35da; --gold-soft: #efe6fd;
+  --ok: #17704a; --ok-soft: #e1f2e9; --warn: #8a5200; --warn-soft: #fbefd9; --bad: #b3261e; --bad-soft: #fbe7e5; --info: #6a24c4; --info-soft: #efe6fd;
+  --rail: rgb(255 255 255 / .54); --rail-2: rgb(127 53 218 / .08); --rail-active: #7f35da; --rail-ink: #433c5c; --rail-muted: #5d5675; --rail-line: #e2dcf2;
+  --vidro: rgb(255 255 255 / .58); --vidro-borda: rgb(255 255 255 / .9); --chao: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cpath fill='%23e3dafa' d='M0 0h38L14 100H0z'/%3E%3Cpath fill='%23ebe5fb' d='M52 0h48v46L30 62z'/%3E%3Cpath fill='%23e6defb' d='M40 70l60-16v46H62z'/%3E%3C/svg%3E");
+  --radius: 16px; --shadow: 0 1px 2px rgb(40 18 90 / .05), 0 12px 32px -18px rgb(60 25 130 / .28);
+  --font: 'Hanken Grotesk', system-ui, sans-serif; --mono: 'Fragment Mono', ui-monospace, monospace;
+  color-scheme: light;
+}
+
+/* ---------- 02 Ameixa à Noite ---------- */
+:root[data-visual="ameixa"] {
+  --bg: #05070b; --panel: #161128; --input: #110d1f; --ink: #e6e1f2; --ink-strong: #f2f0f8; --ink-2: #cdc7dd; --ink-3: #a69fbd; --line: #2a2440; --line-2: #3b3358;
+  --brand: #bc7aff; --brand-2: #d3a6ff; --brand-ink: #0b0614; --gold: #bc7aff; --gold-soft: #2a1748;
+  --ok: #5fd39a; --ok-soft: #12301f; --warn: #f0b45a; --warn-soft: #33270f; --bad: #ff8a80; --bad-soft: #3a1715; --info: #d3a6ff; --info-soft: #2a1748;
+  --rail: rgb(22 17 40 / .62); --rail-2: rgb(188 122 255 / .1); --rail-active: #bc7aff; --rail-active-ink: #0b0614; --rail-ink: #cdc7dd; --rail-muted: #a69fbd; --rail-line: #2a2440; --rail-strong: #f2f0f8;
+  --vidro: rgb(22 17 40 / .62); --vidro-borda: rgb(188 122 255 / .2); --chao: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cpath fill='%231f1240' d='M0 0h30L8 100H0z'/%3E%3Cpath fill='%23120c24' d='M44 0h56v52L24 66z'/%3E%3Cpath fill='%23170e30' d='M36 74l64-16v42H58z'/%3E%3C/svg%3E");
+  --s1: #ab6cf5; --s2: #199e70; --s3: #d95926; --s4: #3987e5; --s5: #d55181; --s6: #c98500; --s-outros: #6f6889;
+  --radius: 18px; --shadow: inset 0 1px 0 rgb(255 255 255 / .06), 0 24px 48px -28px #000;
+  --font: 'Schibsted Grotesk', system-ui, sans-serif; --mono: 'Fragment Mono', ui-monospace, monospace;
+  color-scheme: dark;
+}
+
+/* ---------- 03 Planilha Viva ---------- */
+:root[data-visual="planilha"] {
+  --bg: #f7f6fb; --panel: #ffffff; --input: #ffffff; --ink: #16131f; --ink-strong: #16131f; --ink-2: #3d3850; --ink-3: #5f5974; --line: #e3e0ec; --line-2: #cbc6da;
+  --brand: #6f2bd0; --brand-2: #5a20ad; --brand-ink: #ffffff; --gold: #6f2bd0; --gold-soft: #efe6fd;
+  --ok: #17704a; --ok-soft: #e1f2e9; --warn: #8a5200; --warn-soft: #fbefd9; --bad: #b3261e; --bad-soft: #fbe7e5; --info: #5a20ad; --info-soft: #efe6fd;
+  --rail: #ffffff; --rail-2: #f4f2f9; --rail-active: #efe6fd; --rail-active-ink: #5a20ad; --rail-ink: #3d3850; --rail-muted: #5f5974; --rail-line: #e3e0ec;
+  --radius: 6px; --shadow: none;
+  --font: 'IBM Plex Sans', system-ui, sans-serif; --mono: 'IBM Plex Mono', ui-monospace, monospace;
+  color-scheme: light;
+}
+:root[data-visual="planilha"] body { font-size: 13.5px; }
+:root[data-visual="planilha"] th, :root[data-visual="planilha"] td { padding: 7px 10px; }
+:root[data-visual="planilha"] .kpi b { font-size: 1.3rem; font-weight: 600; }
+
+/* ---------- 04 Relatório do Dia ---------- */
+:root[data-visual="relatorio"] {
+  --bg: #f6f5fa; --panel: #ffffff; --input: #ffffff; --ink: #1a1626; --ink-strong: #1a1626; --ink-2: #3f3a52; --ink-3: #5c566f; --line: #d9d5e4; --line-2: #1a1626;
+  --brand: #6a24c4; --brand-2: #561ba3; --brand-ink: #ffffff; --gold: #6a24c4; --gold-soft: #efe6fd;
+  --ok: #17704a; --ok-soft: #e1f2e9; --warn: #8a5200; --warn-soft: #fbefd9; --bad: #b3261e; --bad-soft: #fbe7e5; --info: #561ba3; --info-soft: #efe6fd;
+  --rail: #f6f5fa; --rail-2: #ffffff; --rail-active: #ffffff; --rail-active-ink: #6a24c4; --rail-ink: #3f3a52; --rail-muted: #5c566f; --rail-line: #d9d5e4;
+  --radius: 3px; --shadow: none; --num: 'Newsreader', Georgia, serif;
+  --font: 'Public Sans', system-ui, sans-serif; --mono: ui-monospace, Menlo, monospace;
+  color-scheme: light;
+}
+:root[data-visual="relatorio"] h1, :root[data-visual="relatorio"] h2 { font-family: 'Newsreader', Georgia, serif; font-weight: 500; letter-spacing: -0.015em; }
+:root[data-visual="relatorio"] h1 { font-size: 2.2rem; }
+:root[data-visual="relatorio"] .kpi b { font-weight: 500; font-size: 2.1rem; }
+:root[data-visual="relatorio"] .nav a.on { box-shadow: inset 0 0 0 1px var(--line); font-weight: 650; }
+
+/* ---------- 05 Vidro Profundo ---------- */
+:root[data-visual="profundo"] {
+  --bg: #e9dcfc; --panel: #f6f0ff; --input: rgb(255 255 255 / .8); --ink: #140f26; --ink-strong: #140f26; --ink-2: #30294a; --ink-3: #3d3656; --line: rgb(40 20 80 / .14); --line-2: rgb(40 20 80 / .28);
+  --brand: #6a24c4; --brand-2: #561ba3; --brand-ink: #ffffff; --gold: #6a24c4; --gold-soft: #efe6fd;
+  --ok: #0f5e3c; --ok-soft: #dff0e6; --warn: #704300; --warn-soft: #f8ecd2; --bad: #9c1f18; --bad-soft: #f8e1df; --info: #561ba3; --info-soft: #efe6fd;
+  --rail: rgb(255 255 255 / .62); --rail-2: rgb(255 255 255 / .6); --rail-active: #140f26; --rail-active-ink: #ffffff; --rail-ink: #30294a; --rail-muted: #3d3656; --rail-line: rgb(40 20 80 / .14);
+  --vidro: rgb(255 255 255 / .62); --vidro-borda: rgb(255 255 255 / .75); --chao: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cpath fill='%237f35da' d='M6 0h24l-8 100H0V40z'/%3E%3Cpath fill='%23bc7aff' d='M34 46L72 0h28v22L52 60z'/%3E%3Cpath fill='%232a1748' d='M40 64l18-4 42 28v12H66z'/%3E%3C/svg%3E");
+  --radius: 22px; --shadow: inset 0 1px 0 rgb(255 255 255 / .8), 0 30px 60px -30px rgb(50 10 120 / .45);
+  --font: 'Familjen Grotesk', system-ui, sans-serif; --mono: 'Fragment Mono', ui-monospace, monospace;
+  color-scheme: light;
+}
+
+/* ---------- 06 Console ---------- */
+:root[data-visual="console"] {
+  --bg: #0a0910; --panel: #121019; --input: #0f0d16; --ink: #ebe8f3; --ink-strong: #ffffff; --ink-2: #c3bdd3; --ink-3: #9c95b1; --line: #252033; --line-2: #383049;
+  --brand: #bc7aff; --brand-2: #d3a6ff; --brand-ink: #140a22; --gold: #bc7aff; --gold-soft: #2a1748;
+  --ok: #5fd39a; --ok-soft: #12301f; --warn: #f0b45a; --warn-soft: #33270f; --bad: #ff8a80; --bad-soft: #3a1715; --info: #d3a6ff; --info-soft: #2a1748;
+  --rail: #0a0910; --rail-2: #171421; --rail-active: #171421; --rail-active-ink: #ffffff; --rail-ink: #c3bdd3; --rail-muted: #9c95b1; --rail-line: #252033; --rail-strong: #ffffff;
+  --s1: #ab6cf5; --s2: #199e70; --s3: #d95926; --s4: #3987e5; --s5: #d55181; --s6: #c98500; --s-outros: #6f6889;
+  --radius: 6px; --shadow: none; --num: 'Geist Mono', ui-monospace, monospace;
+  --font: 'Geist', system-ui, sans-serif; --mono: 'Geist Mono', ui-monospace, monospace;
+  color-scheme: dark;
+}
+:root[data-visual="console"] .nav a.on { box-shadow: inset 2px 0 0 var(--brand); }
+:root[data-visual="console"] .kpi b { font-weight: 500; }
+
+/* ---------- 07 Quadro de Estados ---------- */
+:root[data-visual="quadro"] {
+  --bg: #f3f0fb; --panel: #ffffff; --input: #ffffff; --ink: #1a1530; --ink-strong: #1a1530; --ink-2: #423b5c; --ink-3: #5f5878; --line: #e2dcf2; --line-2: #cfc6e6;
+  --brand: #7f35da; --brand-2: #6a24c4; --brand-ink: #ffffff; --gold: #7f35da; --gold-soft: #efe6fd;
+  --ok: #17704a; --ok-soft: #e1f2e9; --warn: #8a5200; --warn-soft: #fbefd9; --bad: #b3261e; --bad-soft: #fbe7e5; --info: #6a24c4; --info-soft: #efe6fd;
+  --rail: #f3f0fb; --rail-2: #ffffff; --rail-active: #ffffff; --rail-active-ink: #6a24c4; --rail-ink: #423b5c; --rail-muted: #5f5878; --rail-line: #e2dcf2;
+  --radius: 16px; --shadow: 0 1px 0 rgb(60 25 130 / .04);
+  --font: 'Albert Sans', system-ui, sans-serif; --mono: 'Fragment Mono', ui-monospace, monospace;
+  color-scheme: light;
+}
+:root[data-visual="quadro"] .nav a.on { box-shadow: 0 0 0 1px var(--line); }
+
+/* ---------- 08 Bolso ---------- */
+:root[data-visual="bolso"] {
+  --bg: #0e0b16; --panel: #17121f; --input: #201a2b; --ink: #f4f1fa; --ink-strong: #ffffff; --ink-2: #cfc8de; --ink-3: #a69fbb; --line: #2a2338; --line-2: #3b3350;
+  --brand: #c08bff; --brand-2: #d9b5ff; --brand-ink: #160a26; --gold: #c08bff; --gold-soft: #2a1d3d;
+  --ok: #5fd39a; --ok-soft: #12301f; --warn: #f0b45a; --warn-soft: #33270f; --bad: #ff8a80; --bad-soft: #3a1715; --info: #d9b5ff; --info-soft: #2a1d3d;
+  --rail: #0e0b16; --rail-2: #17121f; --rail-active: #201a2b; --rail-active-ink: #ffffff; --rail-ink: #cfc8de; --rail-muted: #a69fbb; --rail-line: #2a2338; --rail-strong: #ffffff;
+  --s1: #ab6cf5; --s2: #199e70; --s3: #d95926; --s4: #3987e5; --s5: #d55181; --s6: #c98500; --s-outros: #6f6889;
+  --radius: 20px; --shadow: none;
+  --font: 'Onest', system-ui, sans-serif; --mono: 'Fragment Mono', ui-monospace, monospace;
+  color-scheme: dark;
+}
+:root[data-visual="bolso"] .btn { border-radius: 14px; }
+
+/* ---------- 09 Grade Suíça ---------- */
+:root[data-visual="suica"] {
+  --bg: #f5f5f8; --panel: #ffffff; --input: #ffffff; --ink: #05070b; --ink-strong: #05070b; --ink-2: #2a2c33; --ink-3: #4d4f58; --line: #c8c8d0; --line-2: #05070b;
+  --brand: #7f35da; --brand-2: #6a24c4; --brand-ink: #ffffff; --gold: #7f35da; --gold-soft: #efe6fd;
+  --ok: #0f6b42; --ok-soft: #e1f2e9; --warn: #7d4a00; --warn-soft: #fbefd9; --bad: #a8231b; --bad-soft: #fbe7e5; --info: #6a24c4; --info-soft: #efe6fd;
+  --rail: #05070b; --rail-2: #1a1c22; --rail-active: #7f35da; --rail-active-ink: #ffffff; --rail-ink: #e9e9ee; --rail-muted: #a3a5ae; --rail-line: #2a2c33; --rail-strong: #ffffff;
+  --s1: #05070b; --radius: 0px; --shadow: none;
+  --font: 'Archivo', system-ui, sans-serif; --mono: 'Fragment Mono', ui-monospace, monospace;
+  color-scheme: light;
+}
+:root[data-visual="suica"] .card, :root[data-visual="suica"] .kpi { border-color: var(--ink); }
+:root[data-visual="suica"] h1 { font-size: 2.6rem; font-weight: 800; font-stretch: 72%; letter-spacing: -0.03em; }
+:root[data-visual="suica"] h2 { font-weight: 800; font-stretch: 80%; font-size: 1.35rem; }
+:root[data-visual="suica"] .kpi b { font-size: 2.6rem; font-weight: 800; font-stretch: 68%; }
+:root[data-visual="suica"] .nav a { border-radius: 0; }
+
+/* ---------- 10 Observatório ---------- */
+:root[data-visual="observatorio"] {
+  --bg: #0d0a17; --panel: #19132c; --input: #140f24; --ink: #f1eef8; --ink-strong: #ffffff; --ink-2: #cbc4dc; --ink-3: #a39cba; --line: #2a2340; --line-2: #3a3058;
+  --brand: #bc7aff; --brand-2: #d3a6ff; --brand-ink: #140a22; --gold: #bc7aff; --gold-soft: #2a1748;
+  --ok: #5fd39a; --ok-soft: #12301f; --warn: #f0b45a; --warn-soft: #33270f; --bad: #ff8a80; --bad-soft: #3a1715; --info: #d3a6ff; --info-soft: #2a1748;
+  --rail: rgb(25 19 44 / .62); --rail-2: rgb(188 122 255 / .08); --rail-active: rgb(188 122 255 / .18); --rail-active-ink: #ffffff; --rail-ink: #cbc4dc; --rail-muted: #a39cba; --rail-line: #2a2340; --rail-strong: #f1eef8;
+  --vidro: rgb(25 19 44 / .62); --vidro-borda: rgb(188 122 255 / .16); --chao: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cpath fill='%231a1230' d='M64 0h36v30L48 52z'/%3E%3Cpath fill='%23150f28' d='M50 60l50-20v60H80z'/%3E%3Cpath fill='%231e1436' d='M0 0h6L2 100H0z'/%3E%3C/svg%3E");
+  --s1: #ab6cf5; --s2: #199e70; --s3: #d95926; --s4: #3987e5; --s5: #d55181; --s6: #c98500; --s-outros: #6f6889;
+  --radius: 14px; --shadow: none;
+  --font: 'Red Hat Display', system-ui, sans-serif; --mono: 'Red Hat Mono', ui-monospace, monospace;
+  color-scheme: dark;
+}
+
+/* ---------- vidro: lavanda, ameixa, profundo, observatório ---------- */
+:root[data-visual="lavanda"] body, :root[data-visual="ameixa"] body, :root[data-visual="profundo"] body, :root[data-visual="observatorio"] body {
+  background: var(--chao) center / 100% 100% no-repeat fixed, var(--bg);
+}
+:root[data-visual="lavanda"] :is(.card, .kpi, .side), :root[data-visual="ameixa"] :is(.card, .kpi, .side),
+:root[data-visual="profundo"] :is(.card, .kpi, .side), :root[data-visual="observatorio"] :is(.card, .kpi, .side) {
+  background: var(--vidro); border-color: var(--vidro-borda);
+  -webkit-backdrop-filter: blur(22px) saturate(1.4); backdrop-filter: blur(22px) saturate(1.4);
+}
+:root[data-visual="profundo"] :is(.card, .kpi, .side) { -webkit-backdrop-filter: blur(30px) saturate(1.6); backdrop-filter: blur(30px) saturate(1.6); }
+@media (min-width: 901px) {
+  :root[data-visual="lavanda"] .side, :root[data-visual="ameixa"] .side, :root[data-visual="profundo"] .side {
+    margin: 12px 0 12px 12px; height: calc(100vh - 24px); top: 12px; border-radius: 20px; border: 1px solid var(--vidro-borda);
+  }
+  :root[data-visual="lavanda"] .shell, :root[data-visual="ameixa"] .shell, :root[data-visual="profundo"] .shell { grid-template-columns: 260px 1fr; }
+}
+/* sem vidro de verdade (navegador antigo ou "reduzir transparência"): superfície opaca, mesmo contraste */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  :root:is([data-visual="lavanda"], [data-visual="ameixa"], [data-visual="profundo"], [data-visual="observatorio"]) :is(.card, .kpi, .side) { background: var(--panel); }
+}
+@media (prefers-reduced-transparency: reduce) {
+  :root:is([data-visual="lavanda"], [data-visual="ameixa"], [data-visual="profundo"], [data-visual="observatorio"]) :is(.card, .kpi, .side) { background: var(--panel); -webkit-backdrop-filter: none; backdrop-filter: none; }
+}
+
+/* ---------- visão geral nova (todas os visuais, inclusive o original) ---------- */
+.vg-ola { margin-bottom: 18px; }
+.vg-ola h1 { font-size: 1.75rem; letter-spacing: -0.02em; }
+.vg-ola p { margin: 6px 0 0; color: var(--ink-2); font-size: 1.05rem; max-width: 68ch; }
+.vg-ola p b { color: var(--ink-strong); font-weight: 700; font-variant-numeric: tabular-nums; }
+.vg-graf { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(280px, 1fr); gap: 14px; margin-bottom: 14px; }
+.vg-graf .card + .card { margin-top: 0; }
+.kpis.vg { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.kpi.vg-k { display: flex; flex-direction: column; gap: 2px; text-decoration: none; color: inherit; transition: transform .2s cubic-bezier(.2, .8, .2, 1), box-shadow .2s; }
+a.kpi.vg-k:hover, a.kpi.vg-k:focus-visible { transform: translateY(-3px); }
+.kpi-top { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; color: var(--ink-2); font-weight: 650; font-size: 12.5px; }
+.kpi-ic { width: 30px; height: 30px; border-radius: 9px; display: grid; place-items: center; background: var(--bg); color: var(--ink-2); flex: none; }
+.kpi-ic svg { width: 17px; height: 17px; }
+.kpi.vg-k b { font-size: 1.65rem; }
+.kpi.vg-k.din b { color: var(--brand-2); }
+.kpi.vg-k.aviso b { color: var(--warn); }
+.kpi.vg-k small { color: var(--ink-3); font-size: 12px; }
+.barras-h { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.barras-h li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 10px; font-size: 13px; }
+.barras-h .t { grid-column: 1 / -1; height: 10px; border-radius: 5px; background: var(--bg); overflow: hidden; }
+.barras-h .t i { display: block; height: 100%; border-radius: 5px; background: var(--s1, var(--brand)); min-width: 3px; }
+.barras-h b { font-variant-numeric: tabular-nums; }
+.rosca-c { display: flex; gap: 16px; align-items: center; }
+.rosca-c svg { flex: none; }
+.legenda { flex: 1; font-size: 13px; }
+.legenda td { padding: 6px 0; }
+.legenda td:first-child { display: flex; align-items: center; gap: 8px; }
+.legenda i { width: 9px; height: 9px; border-radius: 2px; flex: none; }
+.legenda td:nth-child(2), .legenda td:nth-child(3) { text-align: right; font-variant-numeric: tabular-nums; }
+.legenda td:nth-child(3) { color: var(--ink-3); width: 44px; }
+@media (max-width: 1100px) { .vg-graf { grid-template-columns: minmax(0, 1fr); } .kpis.vg { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 420px) { .rosca-c { flex-direction: column; align-items: stretch; } .rosca-c svg { align-self: center; } .kpi.vg-k b { font-size: 1.4rem; } }
+@media (prefers-reduced-motion: reduce) { .kpi.vg-k { transition: none; } a.kpi.vg-k:hover { transform: none; } }
+
+/* ---------- seletor de visual (rodapé do menu) ---------- */
+.visual-pick { margin-top: 8px; }
+.visual-btn { width: 100%; justify-content: space-between; }
+.visual-btn span { color: var(--rail-muted); font-weight: 500; }
+.visual-menu { position: fixed; left: 12px; bottom: 76px; width: 300px; max-width: calc(100vw - 24px); max-height: min(72vh, 600px); overflow: auto; z-index: 60;
+  background: var(--panel); color: var(--ink); border: 1px solid var(--line); border-radius: 14px; padding: 6px; box-shadow: 0 24px 60px -20px rgb(20 10 50 / .5); }
+.visual-menu[hidden] { display: none; }
+.visual-menu p { margin: 8px 10px 6px; font-size: 12px; color: var(--ink-3); }
+.visual-menu button { display: grid; grid-template-columns: 26px 28px 1fr; gap: 10px; align-items: center; width: 100%; padding: 8px 10px; border: 0; background: none; border-radius: 9px;
+  text-align: left; cursor: pointer; color: var(--ink-strong); font: 600 13px/1.25 var(--font); }
+.visual-menu button:hover { background: color-mix(in srgb, var(--brand) 8%, transparent); }
+.visual-menu button[aria-checked="true"] { background: var(--brand); color: var(--brand-ink); }
+.visual-menu button[aria-checked="true"] small, .visual-menu button[aria-checked="true"] .n { color: var(--brand-ink); }
+.visual-menu .n { color: var(--brand-2); font-weight: 800; font-variant-numeric: tabular-nums; }
+.visual-menu i { width: 28px; height: 20px; border-radius: 6px; border: 1px solid rgb(0 0 0 / .14); position: relative; overflow: hidden; }
+.visual-menu i b { position: absolute; right: 3px; bottom: 3px; width: 10px; height: 6px; border-radius: 2px; }
+.visual-menu small { display: block; font-weight: 500; font-size: 11.5px; color: var(--ink-3); }
