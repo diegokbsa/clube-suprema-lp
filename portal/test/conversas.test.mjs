@@ -288,10 +288,23 @@ test('contato compartilhado só recebe na operação os dados informados nela', 
   assert.equal(conversaListada.cliente.telefone, null);
 
   const repoLoja = scoped(P.db, loja.id);
-  assert.equal(P.db.prepare('SELECT lead_id FROM conversations WHERE id = ?').get(porEmail.data.conversa.id).lead_id, null);
-  assert.equal(P.db.prepare('SELECT lead_id FROM conversations WHERE id = ?').get(porTelefone.data.conversa.id).lead_id, null);
-  assert.equal(repoLoja.count('leads', { contact_id: segredoEmail }), 0, 'abrir conversa não cria lead na operação');
-  assert.equal(repoLoja.count('leads', { contact_id: segredoTelefone }), 0, 'abrir conversa não cria lead na operação');
+  const vinculoEmail = P.db.prepare('SELECT lead_id FROM conversations WHERE id = ?').get(porEmail.data.conversa.id);
+  const vinculoTelefone = P.db.prepare('SELECT lead_id FROM conversations WHERE id = ?').get(porTelefone.data.conversa.id);
+  assert.ok(vinculoEmail.lead_id, 'a conversa cria relação local com o contato');
+  assert.ok(vinculoTelefone.lead_id, 'a conversa cria relação local com o contato');
+  const leadEmail = repoLoja.get('leads', vinculoEmail.lead_id);
+  const leadTelefone = repoLoja.get('leads', vinculoTelefone.lead_id);
+  assert.equal(leadEmail.contact_id, segredoEmail);
+  assert.equal(leadEmail.email, 'email-segredo@clube.test');
+  assert.equal(leadEmail.name, null, 'o lead local não copia o nome global');
+  assert.equal(leadEmail.phone, null, 'o lead local não copia o telefone global');
+  assert.equal(leadTelefone.contact_id, segredoTelefone);
+  assert.equal(leadTelefone.phone, '5521966664321');
+  assert.equal(leadTelefone.email, null, 'o lead local não copia o e-mail global');
+  assert.equal(leadTelefone.name, null, 'o lead local não copia o nome global');
+  assert.equal(leadEmail.consent, 0, 'abrir conversa não concede consentimento de marketing');
+  assert.equal(repoLoja.count('leads', { contact_id: segredoEmail }), 1, 'não duplica a relação local');
+  assert.equal(repoLoja.count('leads', { contact_id: segredoTelefone }), 1, 'não duplica a relação local');
 });
 
 test('status, atendente e notas internas entram no histórico', async () => {

@@ -116,6 +116,19 @@ function contatoDaOperacao(repo, db, { contactId, email, phone, name }) {
   return id;
 }
 
+function criarLeadLocalDaConversa(repo, contactId, { email, phone, name }) {
+  const existente = leadDoContato(repo, contactId);
+  if (existente) return existente;
+  return repo.insert('leads', {
+    contact_id: contactId,
+    email: normEmail(email),
+    phone: normPhone(phone),
+    name: String(name || '').trim().slice(0, 80) || null,
+    stage: 'novo',
+    consent: 0,
+  });
+}
+
 function dadosLocaisContato(repo, { contactId, email, phone, name }) {
   if (contactId) {
     const lead = leadDoContato(repo, contactId);
@@ -296,13 +309,11 @@ export const routes = [
       };
       const conhecido = dados.contactId || contatoExistente(db, dados)?.id || null;
       const existente = conversaDaPessoa(repo, { channel: canal, contactId: conhecido, email: dados.email, phone: dados.phone });
-      let contato;
-      if (existente) {
-        contato = dadosLocaisContato(repo, { ...dados, contactId: existente.contact_id || conhecido });
-      } else {
-        const contatoId = contatoDaOperacao(repo, db, dados);
-        contato = dadosLocaisContato(repo, { ...dados, contactId: contatoId });
-      }
+      const contactId = dados.contactId
+        ? contatoDaOperacao(repo, db, dados)
+        : (existente?.contact_id || conhecido || contatoDaOperacao(repo, db, dados));
+      if (!dados.contactId) criarLeadLocalDaConversa(repo, contactId, dados);
+      const contato = dadosLocaisContato(repo, { ...dados, contactId });
       const { conversa } = acharOuAbrirConversa(repo, { channel: canal, externalId: null, contact: contato, subject: body.assunto, ownerId });
       registrarEvento(repo, conversa, 'aberta', { canal, por: 'painel' }, user.id);
       const primeira = texto(body.texto);
