@@ -99,14 +99,17 @@ export async function createApp({ db, origin = 'http://localhost:3400', secretKe
   const siteBySlug = (slug) => db.prepare('SELECT * FROM sites WHERE slug = ?').get(slug);
   const siteByHost = (host) => (host ? db.prepare('SELECT * FROM sites WHERE domain = ?').get(String(host).split(':')[0].toLowerCase()) : null);
   const tenantOf = (site) => db.prepare('SELECT * FROM tenants WHERE id = ?').get(site.tenant_id);
+  /** Site publicado num caminho de outro host (ex.: domain = "kbsa.app/milhas"). O Caddy do host reescreve
+   *  /milhas/* para /s/<slug>/* e manda X-Portal-Prefix: /milhas; aí links, canonical e sitemap saem em https://kbsa.app/milhas. */
+  const prefixoDoSite = (site) => { const m = /^([a-z0-9.-]+)(\/[a-z0-9-]+)$/.exec(String(site.domain || '')); return m ? { host: m[1], prefix: m[2] } : null; };
 
-  async function servePublicSite(req, res, site, rest, base) {
+  async function servePublicSite(req, res, site, rest, base, originOverride = null) {
     const tenant = tenantOf(site);
     if (!tenant || tenant.status !== 'ativa') return send(res, 404, 'Site não encontrado.');
     if (site.external_url) return send(res, 302, '', { Location: site.external_url });
     const repo = scoped(db, tenant.id);
     const pages = repo.all('pages', { site_id: site.id }, { order: 'position ASC' });
-    const siteOrigin = site.domain && !base ? `https://${site.domain}` : app.originOf(tenant.edition);
+    const siteOrigin = originOverride || (site.domain && !base ? `https://${site.domain}` : app.originOf(tenant.edition));
     if (rest === 'sitemap.xml') return send(res, 200, sitemapXml(siteOrigin, base, pages, app.sitemapExtras.flatMap((fn) => { try { return fn({ site, tenant, repo }) || []; } catch { return []; } })), { 'Content-Type': 'application/xml; charset=utf-8', 'Cache-Control': 'public, max-age=600' });
     if (rest === 'robots.txt') return send(res, 200, robotsTxt(siteOrigin, base), { 'Cache-Control': 'public, max-age=3600' });
     if (rest === `${app.seo.key(site)}.txt`) return send(res, 200, app.seo.key(site), { 'Cache-Control': 'public, max-age=86400' }); // chave IndexNow
@@ -263,7 +266,10 @@ export async function createApp({ db, origin = 'http://localhost:3400', secretKe
       if (m && (req.method === 'GET' || (req.method === 'POST' && app.publicRoutes.length))) { // POST só chega às rotas públicas de módulos (ex.: eventos da jornada)
         const site = siteBySlug(m[1]);
         if (!site) return send(res, 404, 'Site não encontrado.');
-        if (m[2] === undefined) return send(res, 301, '', { Location: `/s/${m[1]}/${url.search}` });
+        const pref = prefixoDoSite(site);
+        const viaPrefixo = pref && String(req.headers['x-portal-prefix'] || '') === pref.prefix;
+        if (m[2] === undefined) return send(res, 301, '', { Location: `${viaPrefixo ? pref.prefix : `/s/${m[1]}`}/${url.search}` });
+        if (viaPrefixo) return await servePublicSite(req, res, site, m[2], pref.prefix, `https://${pref.host}`);
         return await servePublicSite(req, res, site, m[2], `/s/${site.slug}`);
       }
       if ((m = /^\/f\/([0-9a-f-]{36})$/.exec(p)) && req.method === 'POST') return await submitLead(req, res, m[1]);
