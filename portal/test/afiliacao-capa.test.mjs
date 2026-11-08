@@ -59,9 +59,9 @@ test('instalador: "cover" vai para posts.cover_url, aparece no topo sem lazy, no
     assert.match(topoImg, /alt="Ilustração de um feed com três posts em grade"/);
     assert.match(topoImg, /width="1200" height="630"/);
     assert.ok(!/loading=/.test(topoImg), 'a capa não é lazy');
-    assert.match(pagina, /<meta property="og:image" content="https:\/\/kbsa\.app\/assets\/afiliacao\/criativos\/posts-virais-vale-a-pena-capa\.png"><meta name="twitter:card" content="summary_large_image">/);
+    assert.match(pagina, /<meta property="og:image" content="https:\/\/criativos\.blog\/assets\/afiliacao\/criativos\/posts-virais-vale-a-pena-capa\.png"><meta name="twitter:card" content="summary_large_image">/);
     const ld = JSON.parse(/<script type="application\/ld\+json">(.*?)<\/script>/s.exec(pagina)[1].replace(/\\u003c/g, '<'));
-    assert.equal(ld['@graph'][0].image, 'https://kbsa.app/assets/afiliacao/criativos/posts-virais-vale-a-pena-capa.png');
+    assert.equal(ld['@graph'][0].image, 'https://criativos.blog/assets/afiliacao/criativos/posts-virais-vale-a-pena-capa.png');
     assert.match(pagina, /<figure class="blog-fig"><img src="\/assets\/afiliacao\/criativos\/posts-virais-vale-a-pena-1\.png" alt="Esquema de carrossel em 5 telas" loading="lazy"/);
     assert.match(lista, /<img class="gc" src="\/assets\/afiliacao\/criativos\/posts-virais-vale-a-pena-capa\.png" alt="Ilustração de um feed/);
     assert.match(home, /class="gc" src="\/assets\/afiliacao\/criativos\/posts-virais-vale-a-pena-capa\.png"/);

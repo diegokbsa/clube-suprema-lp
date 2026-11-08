@@ -1,18 +1,38 @@
-# kbsa.app/<blog> -> Portal de Afiliação (edição Geral, 127.0.0.1:3400), operação "Afiliação" (PA-160).
+# Blogs de afiliado -> Portal de Afiliação (edição Geral, 127.0.0.1:3400), operação "Afiliação" (PA-160).
 # Vai para E:\LioraServidor\kbsa-deploy\caddy\rotas\afiliacao.caddy (importado pelo bloco :8082 do kbsa.app).
-# O portal serve o site em /s/af-<blog>/ e, com X-Portal-Prefix, gera links/canonical/sitemap em https://kbsa.app/<blog>.
+# Desde 08/11/2026 cada blog tem domínio próprio (site.json "dominio"; o túnel kbsa-bigue manda <dominio> e
+# www.<dominio> para :8082). O portal acha o site pelo Host (sites.domain) e gera links, canonical, sitemap e IndexNow
+# no domínio. www.<dominio> e o endereço antigo kbsa.app/<blog>/* vão para o domínio com 301, mantendo caminho e query.
+@af_dominios host fornecedores.blog sublima.casa criativos.blog ianapratica.blog achadinhosnapratica.blog oficinanapratica.blog modolive.blog afiliadodeverdade.blog milhas.blog atendefacil.blog
+handle @af_dominios {
+	reverse_proxy 127.0.0.1:3400 {
+		header_up X-Forwarded-Proto https
+	}
+}
+@af_www host www.fornecedores.blog www.sublima.casa www.criativos.blog www.ianapratica.blog www.achadinhosnapratica.blog www.oficinanapratica.blog www.modolive.blog www.afiliadodeverdade.blog www.milhas.blog www.atendefacil.blog
+handle @af_www {
+	redir https://{labels.1}.{labels.0}{uri} 301
+}
 @af_blogs {
 	host kbsa.app
 	path_regexp afb ^/(achadinhos|sublimacao|manutencao|fornecedores|ia|criativos|gamer|afiliado|milhas|automacao)(/.*)?$
 }
 handle @af_blogs {
-	rewrite * /s/af-{re.afb.1}{re.afb.2}
-	reverse_proxy 127.0.0.1:3400 {
-		header_up X-Portal-Prefix /{re.afb.1}
-		header_up X-Forwarded-Proto https
+	map {re.afb.1} {af_dominio} {
+		achadinhos achadinhosnapratica.blog
+		sublimacao sublima.casa
+		manutencao oficinanapratica.blog
+		fornecedores fornecedores.blog
+		ia ianapratica.blog
+		criativos criativos.blog
+		gamer modolive.blog
+		afiliado afiliadodeverdade.blog
+		milhas milhas.blog
+		automacao atendefacil.blog
 	}
+	redir https://{af_dominio}{re.afb.2}{?query} 301
 }
-# Arquivos e formulários públicos do portal usados por essas páginas (o kbsa.app estático não tem /assets, /f nem /r).
+# Arquivos e formulários públicos do portal ainda pedidos em kbsa.app (o kbsa.app estático não tem /assets, /f nem /r).
 @af_portal {
 	host kbsa.app
 	path /assets/* /f/* /r/*

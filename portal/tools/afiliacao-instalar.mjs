@@ -137,11 +137,24 @@ try {
     tenant = CLIENTE_UNICO ? base : clienteDoBlog(slugBlog, info, n + 1);
     clientes[slugBlog] = tenant.slug;
     const repo = scoped(db, tenant.id);
-    const dominio = `${HOST}/${slugBlog}`;
+    // Domínio próprio (site.json "dominio", ex.: "fornecedores.blog", desde 08/11/2026) ou o caminho antigo kbsa.app/<slug>.
+    // O site que estava no caminho antigo troca de domínio no lugar (mesmo id, posts, leads e cliques); o Caddy manda
+    // kbsa.app/<slug>/* para o domínio novo com 301.
+    const antigo = `${HOST}/${slugBlog}`;
+    const dominio = info.dominio ? String(info.dominio).trim().toLowerCase() : antigo;
+    if (!/^[a-z0-9.-]+(\/[a-z0-9-]+)?$/.test(dominio)) throw new Error(`${slugBlog}: domínio inválido em site.json: ${dominio}`);
     const prefixo = `https://${dominio}`;
     const med = MEDICAO[slugBlog] || {};
     const tracking = JSON.stringify(Object.fromEntries(Object.entries({ ga4: med.ga4, clarity: med.clarity }).filter(([, v]) => v)));
     let site = db.prepare('SELECT * FROM sites WHERE domain = ?').get(dominio);
+    if (!site && dominio !== antigo) {
+      site = db.prepare('SELECT * FROM sites WHERE domain = ?').get(antigo);
+      if (site) {
+        db.prepare('UPDATE sites SET domain = ? WHERE id = ?').run(dominio, site.id);
+        site = db.prepare('SELECT * FROM sites WHERE id = ?').get(site.id);
+        passo(`${antigo}: domínio trocado para ${dominio} (mesmo site, /s/${site.slug}/)`);
+      }
+    }
     if (site && site.tenant_id !== tenant.id) {
       if (site.tenant_id !== base.id) throw new Error(`${dominio} já está em outra operação`);
       const movidas = moverSite(site, tenant.id);
