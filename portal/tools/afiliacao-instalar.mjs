@@ -33,11 +33,17 @@ const DADOS_VITRINE = { catalogo: CATALOGO, links: LINKS };
 const ATIVOS = new Set(Object.entries(LINKS).filter(([, v]) => v.status === 'ativo' && v.url).map(([k]) => k));
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
-/** Troca {{LINK:chave}} pelo link de afiliado (ou pela página do produto enquanto a afiliação está pendente) e
- *  {{POST:slug}} pelo endereço público do post. Chave sem link vira o índice do blog, para não sair link quebrado. */
+/** Troca {{LINK:chave}} pelo link de afiliado e {{POST:slug}} pelo endereço público do post. Só afiliação ATIVA vira
+ *  link: produto pendente ou suspenso perde a caixa de oferta (:::cta) e o link vira texto comum, em todo lugar onde o
+ *  texto sai (página própria, post do módulo do blog e feed.xml). Volta sozinho quando o status passa a 'ativo'. */
 function aplicarLinks(texto, prefixo) {
   return String(texto)
-    .replace(/\{\{LINK:([a-z0-9-]+)\}\}/g, (_m, k) => LINKS[k]?.url || `${prefixo}/blog`)
+    .replace(/^:::cta[^\n]*\n([\s\S]*?)\n:::[ \t]*$\n?/gm, (b, corpo) => {
+      const k = /\{\{LINK:([a-z0-9-]+)\}\}/.exec(corpo)?.[1];
+      return k && !ATIVOS.has(k) ? '' : b;
+    })
+    .replace(/\[([^\]]+)\]\(\{\{LINK:([a-z0-9-]+)\}\}\)/g, (m, t, k) => (ATIVOS.has(k) ? m : t))
+    .replace(/\{\{LINK:([a-z0-9-]+)\}\}/g, (_m, k) => (ATIVOS.has(k) ? LINKS[k].url : `${prefixo}/blog`))
     .replace(/\{\{POST:([a-z0-9-]+)\}\}/g, (_m, s) => `${prefixo}/blog/${s}`);
 }
 
