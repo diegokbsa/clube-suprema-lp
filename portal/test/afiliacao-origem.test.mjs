@@ -45,3 +45,28 @@ test('instalador: nenhuma página nem post sai com link da Hotmart sem src', () 
     fs.rmSync(dados, { recursive: true, force: true });
   }
 });
+
+test('BigLinks: produto com "curto" sai por l.kbsa.app com src, utm e rel sponsored; sem "curto" nada muda', () => {
+  const raiz = fs.mkdtempSync(path.join(os.tmpdir(), 'afiliacao-curto-'));
+  try {
+    const conteudo = path.join(raiz, 'conteudo');
+    fs.cpSync(path.join(path.dirname(TOOL), '..', 'conteudo', 'afiliacao'), conteudo, { recursive: true });
+    const lf = path.join(conteudo, 'links.json');
+    const links = JSON.parse(fs.readFileSync(lf, 'utf8'));
+    const destino = links['posts-virais'].url;
+    links['posts-virais'].curto = 'https://l.kbsa.app/posts-virais';
+    fs.writeFileSync(lf, JSON.stringify(links));
+    const dados = path.join(raiz, 'dados'); fs.mkdirSync(dados);
+    const r = spawnSync(process.execPath, [TOOL, '--dados', dados, '--conteudo', conteudo], { encoding: 'utf8' });
+    assert.equal(JSON.parse(r.stdout.trim().split('\n').pop()).ok, true, r.stderr);
+    const db = openDb(path.join(dados, 'portal.db'));
+    const tudo = [...db.prepare('SELECT html AS t FROM paginas_proprias').all(), ...db.prepare('SELECT content AS t FROM posts').all()].map((x) => x.t).join('\n');
+    const pagina = db.prepare("SELECT html FROM paginas_proprias WHERE caminho = 'blog/posts-virais-vale-a-pena'").get()?.html || '';
+    db.close();
+    assert.ok(!tudo.includes(destino.split('?')[0]), 'o checkout do produto com link curto não aparece direto');
+    assert.match(pagina, /href="https:\/\/l\.kbsa\.app\/posts-virais\?src=criativos_posts_virais_vale_a_pena&(?:amp;)?utm_source=kbsa_blogs&(?:amp;)?utm_campaign=criativos_posts_virais_vale_a_pena" rel="sponsored nofollow noopener"/);
+    assert.match(tudo, /https:\/\/kiwify\.app\/[^"?\s]+\?afid=[^"\s]+&(?:amp;)?src=/, 'os outros produtos seguem direto ao checkout');
+  } finally {
+    fs.rmSync(raiz, { recursive: true, force: true });
+  }
+});

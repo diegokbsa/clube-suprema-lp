@@ -185,10 +185,13 @@ export function renderLista({ info, v, posts, prefixo }) {
 export function comOrigem(texto, origem) {
   const src = String(origem || '').toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_+|_+$/g, '').slice(0, 50);
   if (!src) return String(texto);
-  return String(texto).replace(/https:\/\/(?:go\.hotmart\.com|pay\.hotmart\.com|hotm\.art|(?:pay\.)?kiwify\.app|pay\.kiwify\.com\.br)\/[^\s"'<>)\]]*/g, (url) => {
+  return String(texto).replace(/https:\/\/(?:go\.hotmart\.com|pay\.hotmart\.com|hotm\.art|(?:pay\.)?kiwify\.app|pay\.kiwify\.com\.br|l\.kbsa\.app)\/[^\s"'<>)\]]*/g, (url) => {
     if (/[?&]src=/.test(url) || /[?&]amp;src=/.test(url)) return url;
     const [base, hash = ''] = url.split('#');
-    return `${base}${base.includes('?') ? '&' : '?'}src=${src}${hash ? `#${hash}` : ''}`;
+    // No link curto do BigLinks, a origem vai também como utm_campaign: o BigLinks sempre repassa utm_* ao destino e
+    // mostra a campanha no relatório; o src chega à Hotmart quando o workspace repassa os outros parâmetros.
+    const extra = /^https:\/\/l\.kbsa\.app\//.test(base) ? `&utm_source=kbsa_blogs&utm_campaign=${src}` : '';
+    return `${base}${base.includes('?') ? '&' : '?'}src=${src}${extra}${hash ? `#${hash}` : ''}`;
   });
 }
 
@@ -222,7 +225,7 @@ export function renderPost({ info, v, post, posts, prefixo, dados, aplicarLinks,
 <div><span class="k">Recomendação do guia</span><h4>${esc(p.nome)}</h4><div class="tx">${texto}</div><div class="ln">${p.preco ? `<span class="pr">${brl(p.preco)}</span>` : ''}<a class="btn" href="${esc(p.url)}" ${REL}>Ver na página oficial →</a></div></div></aside>`;
   });
   // links de afiliado no meio do texto: marcados como patrocinados e abrindo em outra aba
-  html = html.replace(/<a href="(https:\/\/(?:[a-z0-9-]+\.)*(?:kiwify\.app|kiwify\.com\.br|kiwify\.com|hotmart\.com|hotm\.art)[^"]*)"(?: rel="[^"]*")?(?: target="[^"]*")?>/g,`<a href="$1" ${REL}>`);
+  html = html.replace(/<a href="(https:\/\/(?:[a-z0-9-]+\.)*(?:kiwify\.app|kiwify\.com\.br|kiwify\.com|hotmart\.com|hotm\.art|l\.kbsa\.app)[^"]*)"(?: rel="[^"]*")?(?: target="[^"]*")?>/g,`<a href="$1" ${REL}>`);
   // índice pelos H2
   const h2 = [];
   html = html.replace(/<h2>(.*?)<\/h2>/g, (_m, t) => { const id = t.replace(/<[^>]+>/g, '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 60); h2.push([id, t]); return `<h2 id="${id}">${t}</h2>`; });

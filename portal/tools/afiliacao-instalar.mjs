@@ -32,6 +32,9 @@ if (!DADOS) { console.error('uso: node portal/tools/afiliacao-instalar.mjs --dad
 
 const lerJson = (f, padrao) => (fs.existsSync(f) ? JSON.parse(fs.readFileSync(f, 'utf8')) : padrao);
 const LINKS = lerJson(path.join(CONTEUDO, 'links.json'), {});
+// BigLinks: produto com link curto ("curto": "https://l.kbsa.app/<chave>") sai pelo encurtador, que conta o clique e manda
+// para o checkout ("url" vira "destino", só para referência). Sem "curto", o link vai direto ao checkout, como antes.
+for (const v of Object.values(LINKS)) if (v?.curto && /^https:\/\/l\.kbsa\.app\/[a-z0-9-]+$/.test(v.curto)) { v.destino = v.url; v.url = v.curto; }
 const MEDICAO = lerJson(path.join(CONTEUDO, 'medicao.json'), {});
 const CATALOGO = lerJson(path.join(CONTEUDO, 'produtos.json'), {});
 const DADOS_VITRINE = { catalogo: CATALOGO, links: LINKS };

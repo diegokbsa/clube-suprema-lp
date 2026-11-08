@@ -156,8 +156,8 @@ function inline(s) {
       const ok = (h.startsWith('/') && !h.startsWith('//')) || h.startsWith('#') || /^https:\/\/[^\s"'<>]+$/i.test(h);
       if (!ok) return txt;
       const fora = /^https:/i.test(h);
-      // Link de afiliado (Kiwify/Hotmart) leva "sponsored nofollow", como pede o Google.
-      const afiliado = /^https:\/\/([a-z0-9-]+\.)*(kiwify\.(app|com\.br)|hotmart\.com|hotm\.art)(\/|$)/i.test(h);
+      // Link de afiliado (Kiwify/Hotmart, ou o link curto l.kbsa.app do BigLinks) leva "sponsored nofollow", como pede o Google.
+      const afiliado = /^https:\/\/([a-z0-9-]+\.)*(kiwify\.(app|com\.br)|hotmart\.com|hotm\.art)(\/|$)|^https:\/\/l\.kbsa\.app\//i.test(h);
       const rel = afiliado ? 'sponsored nofollow noopener' : 'noopener';
       return `<a href="${esc(h)}"${fora ? ` rel="${rel}" target="_blank"` : ''}>${txt}</a>`;
     });
