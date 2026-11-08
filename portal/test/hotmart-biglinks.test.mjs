@@ -13,6 +13,7 @@ fs.writeFileSync(path.join(pasta, 'chave.txt'), 'bl_sk_chavedeteste123\n');
 process.env.HOTMART_HOTTOK_ARQUIVO = path.join(pasta, 'hottok.txt');
 process.env.BIGLINKS_CHAVE_ARQUIVO = path.join(pasta, 'chave.txt');
 process.env.BIGLINKS_API = 'https://biglinks.teste/api/v1';
+process.env.HOTMART_ENSAIO_ARQUIVO = path.join(pasta, 'sem-ensaio.txt'); // o arquivo real do servidor não vale nos testes
 
 const enviados = [];
 let respostaBigLinks = 201;
@@ -88,7 +89,7 @@ test('receptor: modo ensaio confere e registra, sem mandar nada ao BigLinks', as
     assert.equal(r.data.ensaio, true);
     assert.equal(enviados.length, 0);
     assert.equal((await enviar(aviso('PURCHASE_APPROVED'), 'errado')).status, 401, 'o ensaio também exige o hottok');
-  } finally { fs.rmSync(flag, { force: true }); }
+  } finally { fs.rmSync(flag, { force: true }); process.env.HOTMART_ENSAIO_ARQUIVO = path.join(pasta, 'sem-ensaio.txt'); }
 });
 
 test('receptor: evento sem interesse é ignorado; falha do BigLinks devolve 502 para a Hotmart tentar de novo', async () => {
