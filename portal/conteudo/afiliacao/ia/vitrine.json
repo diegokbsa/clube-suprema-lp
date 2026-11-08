@@ -16,7 +16,9 @@
     "ia-prostudio",
     "promov-ai",
     "hm-curso-de-ia",
-    "hm-ia-renda-extra"
+    "hm-ia-renda-extra",
+    "ck-prompts-ia-premium",
+    "ck-crie-ai"
   ],
   "melhor_para": {
     "escola-da-ia": "quem quer aprender a usar IA do básico ao avançado",
@@ -25,7 +27,9 @@
     "ia-prostudio": "quem quer produzir conteúdo com IA",
     "promov-ai": "quem quer usar IA para divulgar o próprio negócio",
     "hm-curso-de-ia": "quem quer entender e usar IA do zero",
-    "hm-ia-renda-extra": "quem quer oferecer serviços com ChatGPT"
+    "hm-ia-renda-extra": "quem quer oferecer serviços com ChatGPT",
+    "ck-prompts-ia-premium": "quem quer prompts prontos para criar conteúdo",
+    "ck-crie-ai": "quem quer um gerador de prompts"
   },
   "passos": [
     {

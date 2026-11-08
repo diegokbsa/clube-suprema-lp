@@ -391,5 +391,131 @@
     "preco": 97,
     "img": "https://static-media.hotmart.com/H0-HDOf_Q9Egti9Y9X7MhpJFw5A=/filters:background_color(white)/hotmart/product_pictures/a7a29b07-0a82-473d-b992-b9357185c852/Copiadeversao304.png",
     "plataforma": "Hotmart"
+  },
+  "ck-papelariaon": {
+    "nome": "PapelariaON · Gestão de Papelaria Personalizada",
+    "tipo": "Sistema online",
+    "preco": 97,
+    "img": "https://cdn-checkout.cakto.com.br/products/favicon_-_Copia.png"
+  },
+  "ck-identidade-visual": {
+    "nome": "Identidade Visual Completa (brasões personalizados)",
+    "tipo": "Curso online",
+    "preco": 120,
+    "img": "https://cdn-checkout.cakto.com.br/products/07a3d766-1850-48d5-a33e-8af1d7a5b743.png"
+  },
+  "ck-mapa-das-fabricas": {
+    "nome": "Mapa das Fábricas",
+    "tipo": "Aplicativo",
+    "preco": 79.9,
+    "img": "https://cdn-checkout.cakto.com.br/products/ChatGPT_Image_17_12_2025_09_59_37.png"
+  },
+  "ck-lista-fornecedores-bras": {
+    "nome": "Lista de Fornecedores do Brás (+400)",
+    "tipo": "Lista digital",
+    "preco": 67,
+    "img": "https://cdn-checkout.cakto.com.br/products/inbound7119010449264114821.jpg"
+  },
+  "ck-top50-fornecedores-25": {
+    "nome": "Top 50 Fornecedores da 25 de Março",
+    "tipo": "Lista digital",
+    "preco": 149.9,
+    "img": "https://cdn-checkout.cakto.com.br/products/ac293faa-0e9b-4ea1-b108-c68f252c84f4.png"
+  },
+  "ck-bookpack-canva": {
+    "nome": "BookPack · +300 Templates Canva",
+    "tipo": "Pack de templates",
+    "preco": 36.01,
+    "img": "https://cdn-checkout.cakto.com.br/products/bfa69092-5b05-483d-b0ca-8a11c857580c.png"
+  },
+  "ck-carrosseis-que-vendem": {
+    "nome": "Carrosséis Que Vendem",
+    "tipo": "Curso online",
+    "preco": 47,
+    "img": "https://cdn-checkout.cakto.com.br/products/974e37e2-9732-4202-9f59-ee8375f55334.png"
+  },
+  "ck-prompts-ia-premium": {
+    "nome": "Prompts IA Premium 5.0",
+    "tipo": "Comunidade de prompts",
+    "preco": 37,
+    "img": "https://cdn-checkout.cakto.com.br/products/ca0f80e1-7a30-4d8f-8db5-072b27421b53.jpg"
+  },
+  "ck-crie-ai": {
+    "nome": "CRIE.AI · gerador de prompts",
+    "tipo": "Software",
+    "preco": 247,
+    "img": "https://cdn-checkout.cakto.com.br/products/b34c5f8b-aac8-4db5-b7c9-cad0e3595da7.png"
+  },
+  "ck-lucre-com-shopee": {
+    "nome": "Treinamento Lucre com Shopee",
+    "tipo": "Curso online",
+    "preco": 147,
+    "img": "https://cdn-checkout.cakto.com.br/products/fotocapacakto.png"
+  },
+  "ck-ia-academy-tiktok": {
+    "nome": "IA Academy · conteúdo para TikTok Shop",
+    "tipo": "Curso online",
+    "preco": 97,
+    "img": "https://cdn-checkout.cakto.com.br/products/9a53998d-63fb-4171-a36f-5908d6309e0b.png"
+  },
+  "ck-manutencao-celulares": {
+    "nome": "Manutenção de Celulares + Reparo em Placas",
+    "tipo": "Curso online",
+    "preco": 197,
+    "img": "https://cdn-checkout.cakto.com.br/products/image_TFdUT09.png"
+  },
+  "ck-eletro-pro": {
+    "nome": "Eletro Pro · Elétrica Residencial",
+    "tipo": "Curso online",
+    "preco": 27,
+    "img": "https://cdn-checkout.cakto.com.br/products/2fa49de6-2d66-4d26-8fbc-19dbfc385a75.png"
+  },
+  "ck-youtube-turbo": {
+    "nome": "Projeto YouTube Turbo",
+    "tipo": "Curso online",
+    "preco": 47,
+    "img": "https://cdn-checkout.cakto.com.br/products/35b95c44-dcae-483a-8ea6-abb413d209e5.png"
+  },
+  "ck-auto-live-shop": {
+    "nome": "Auto Live Shop · assistente de live",
+    "tipo": "Software",
+    "preco": 297,
+    "img": "https://cdn-checkout.cakto.com.br/products/86394d8e-ef9a-4127-93de-ec3ce5535554.webp"
+  },
+  "ck-darkplanner": {
+    "nome": "DarkPlanner · gestão de canais no YouTube",
+    "tipo": "Software",
+    "preco": 997.9,
+    "img": "https://cdn-checkout.cakto.com.br/products/78abc694-2a82-41e9-8d45-22bf5fae4348.png"
+  },
+  "ck-prime-box-pro": {
+    "nome": "Prime Box Pro · link da bio que vende",
+    "tipo": "Software",
+    "preco": 36.01,
+    "img": "https://cdn-checkout.cakto.com.br/products/capaprimebox.png"
+  },
+  "ck-nomade-club": {
+    "nome": "Nomade Club · mentoria de ofertas e tráfego",
+    "tipo": "Mentoria",
+    "preco": 97.9,
+    "img": "https://cdn-checkout.cakto.com.br/products/f7ae4f28-9d76-4d5c-9721-effd1db95e05.png"
+  },
+  "ck-speakai-ingles": {
+    "nome": "Método SpeakAI · Inglês Fácil",
+    "tipo": "App de inglês",
+    "preco": 57,
+    "img": "https://cdn-checkout.cakto.com.br/products/91a6b059-9ebc-4dd2-a268-3b92e7da6a55.png"
+  },
+  "ck-whatsify-pro": {
+    "nome": "Whatsify Pro · extensão de vendas no WhatsApp Web",
+    "tipo": "Software",
+    "preco": 297,
+    "img": "https://cdn-checkout.cakto.com.br/products/Whatsify_Logo.jpeg"
+  },
+  "ck-crm-whatsapp-codigo": {
+    "nome": "Código-fonte CRM de WhatsApp e Agentes de IA",
+    "tipo": "Código-fonte",
+    "preco": 658.99,
+    "img": "https://cdn-checkout.cakto.com.br/products/5507b3dc-ff09-436a-a2b0-2b64b083c6a6.png"
   }
 }

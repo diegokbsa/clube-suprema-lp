@@ -14,14 +14,18 @@
     "fluxbot",
     "zap-suite",
     "dotti",
-    "hm-guia-vendas-whatsapp"
+    "hm-guia-vendas-whatsapp",
+    "ck-whatsify-pro",
+    "ck-crm-whatsapp-codigo"
   ],
   "melhor_para": {
     "lia-automacao": "negócio que quer automatizar o atendimento",
     "fluxbot": "quem quer montar fluxos de atendimento",
     "zap-suite": "empresa que quer um pacote completo de ferramentas",
     "dotti": "quem quer um robô para produzir conteúdo",
-    "hm-guia-vendas-whatsapp": "quem vende pelo WhatsApp e Instagram e quer um roteiro"
+    "hm-guia-vendas-whatsapp": "quem vende pelo WhatsApp e Instagram e quer um roteiro",
+    "ck-whatsify-pro": "quem vende pelo WhatsApp Web e quer automatizar mensagens",
+    "ck-crm-whatsapp-codigo": "quem quer ter o próprio CRM de WhatsApp com agentes de IA"
   },
   "passos": [
     {

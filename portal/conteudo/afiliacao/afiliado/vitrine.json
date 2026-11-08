@@ -14,14 +14,18 @@
     "sistema-afiliado-viral",
     "afiliada-proposito",
     "nova-elite",
-    "hm-academia-do-afiliado"
+    "hm-academia-do-afiliado",
+    "ck-prime-box-pro",
+    "ck-nomade-club"
   ],
   "melhor_para": {
     "formula-afiliado-viral": "quem quer um método de afiliado com conteúdo viral",
     "sistema-afiliado-viral": "quem quer um sistema de afiliado com conteúdo viral",
     "afiliada-proposito": "quem prefere mentoria",
     "nova-elite": "quem quer uma formação mais longa",
-    "hm-academia-do-afiliado": "quem quer aprender o básico de afiliado na Hotmart"
+    "hm-academia-do-afiliado": "quem quer aprender o básico de afiliado na Hotmart",
+    "ck-prime-box-pro": "quem quer um link da bio que organize as ofertas",
+    "ck-nomade-club": "quem quer mentoria semanal de ofertas e tráfego"
   },
   "passos": [
     {

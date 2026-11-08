@@ -14,14 +14,20 @@
     "lojista-pack",
     "vivendo-acessorios",
     "antes-do-leilao",
-    "hm-importando-laces"
+    "hm-importando-laces",
+    "ck-mapa-das-fabricas",
+    "ck-lista-fornecedores-bras",
+    "ck-top50-fornecedores-25"
   ],
   "melhor_para": {
     "mapa-fornecedores": "quem quer uma lista de fornecedores para começar a revender",
     "lojista-pack": "lojista que quer material pronto para vender mais",
     "vivendo-acessorios": "quem quer revender acessórios",
     "antes-do-leilao": "quem quer entender como comprar antes do leilão",
-    "hm-importando-laces": "quem quer importar e revender laces"
+    "hm-importando-laces": "quem quer importar e revender laces",
+    "ck-mapa-das-fabricas": "quem quer contato direto de importadores e fábricas do Brás e da 25 de Março",
+    "ck-lista-fornecedores-bras": "quem quer começar a revender roupas do Brás",
+    "ck-top50-fornecedores-25": "quem quer fornecedores da 25 de Março já testados"
   },
   "passos": [
     {

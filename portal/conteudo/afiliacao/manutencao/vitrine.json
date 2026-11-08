@@ -16,7 +16,9 @@
     "frp-total",
     "hm-vivendo-de-ar-condicionado",
     "hm-formula-ar-condicionado",
-    "hm-conserto-de-celulares"
+    "hm-conserto-de-celulares",
+    "ck-manutencao-celulares",
+    "ck-eletro-pro"
   ],
   "melhor_para": {
     "rocadeiras": "quem quer consertar roçadeiras e motosserras",
@@ -25,7 +27,9 @@
     "frp-total": "técnico de celular que quer aprender reparo de software e conta Google",
     "hm-vivendo-de-ar-condicionado": "quem quer trabalhar com instalação de ar-condicionado",
     "hm-formula-ar-condicionado": "quem quer uma formação completa em ar-condicionado",
-    "hm-conserto-de-celulares": "quem quer começar no conserto de celular"
+    "hm-conserto-de-celulares": "quem quer começar no conserto de celular",
+    "ck-manutencao-celulares": "quem quer aprender conserto de celular e placa",
+    "ck-eletro-pro": "quem quer aprender elétrica residencial do básico"
   },
   "passos": [
     {

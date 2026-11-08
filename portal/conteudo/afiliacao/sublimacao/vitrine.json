@@ -16,7 +16,9 @@
     "adesiva-pro",
     "figurinhas-sweet",
     "hm-negocio-de-canecas",
-    "hm-catalogo-papelaria"
+    "hm-catalogo-papelaria",
+    "ck-papelariaon",
+    "ck-identidade-visual"
   ],
   "melhor_para": {
     "mega-box-sublimacao": "quem já tem prensa e quer artes prontas para caneca e camiseta",
@@ -25,7 +27,9 @@
     "adesiva-pro": "quem quer criar figurinhas e adesivos personalizados",
     "figurinhas-sweet": "quem quer figurinhas prontas para personalizar",
     "hm-negocio-de-canecas": "quem quer montar um negócio de canecas",
-    "hm-catalogo-papelaria": "quem quer um catálogo pronto de papelaria personalizada"
+    "hm-catalogo-papelaria": "quem quer um catálogo pronto de papelaria personalizada",
+    "ck-papelariaon": "quem já vende personalizados e quer organizar pedidos, clientes e catálogo",
+    "ck-identidade-visual": "quem quer criar brasões e artes personalizadas para vender"
   },
   "passos": [
     {

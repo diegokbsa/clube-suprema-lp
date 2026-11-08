@@ -16,7 +16,9 @@
     "pack-posts-alta",
     "criativei",
     "hm-design-canva-profissional",
-    "hm-designerpro"
+    "hm-designerpro",
+    "ck-bookpack-canva",
+    "ck-carrosseis-que-vendem"
   ],
   "melhor_para": {
     "mm-creative-pro": "quem quer aprender a criar criativos profissionais",
@@ -25,7 +27,9 @@
     "pack-posts-alta": "quem quer um pack de posts de entrada, barato",
     "criativei": "quem quer criar artes com mais rapidez",
     "hm-design-canva-profissional": "quem quer dominar o Canva para posts e artes",
-    "hm-designerpro": "quem quer criar artes no Photoshop"
+    "hm-designerpro": "quem quer criar artes no Photoshop",
+    "ck-bookpack-canva": "quem quer templates prontos no Canva",
+    "ck-carrosseis-que-vendem": "quem quer criar carrosséis com IA para vender"
   },
   "passos": [
     {
