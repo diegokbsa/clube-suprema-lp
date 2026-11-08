@@ -272,5 +272,124 @@
     "tipo": "Ferramenta",
     "preco": 4000,
     "img": "https://aws-assets.kiwify.com.br/DgN1rfMDfCPk6fF/A7C05866_ea47b9d6e32146df94c4ce488c8e873e.jpg"
+  },
+  "hm-tiktok-shop-do-zero": {
+    "nome": "TikTok Shop do Zero — o guia prático",
+    "tipo": "Guia em vídeo",
+    "preco": 72.84,
+    "img": "https://static-media.hotmart.com/jwwJXNeq_rQLRhrB4VTdIeh_tss=/filters:background_color(white)/hotmart/product_pictures/91dc0eac-64f5-47db-9145-1a790e7c7368/IMG_9783.jpeg",
+    "plataforma": "Hotmart"
+  },
+  "hm-negocio-de-canecas": {
+    "nome": "Meu Negócio de Canecas Personalizadas",
+    "tipo": "Curso online",
+    "preco": 1158.75,
+    "img": "https://static-media.hotmart.com/vhv1C6vaOSu8KpU56jT0qr7x8ps=/filters:background_color(white)/hotmart/product_pictures/6d9f3d00-3010-4c37-aa7e-a30ceb09a8d6/CURSOMNCP.jpg",
+    "plataforma": "Hotmart"
+  },
+  "hm-catalogo-papelaria": {
+    "nome": "Catálogo Papelaria Personalizada",
+    "tipo": "Catálogo digital",
+    "preco": 19.9,
+    "img": "https://static-media.hotmart.com/YJ_8hz5aNpNc5ySZ-AKCnrS4GIQ=/filters:background_color(white)/hotmart/product_pictures/d72e4aba-286e-4397-969d-bcb71221e085/capashotmart2.png",
+    "plataforma": "Hotmart"
+  },
+  "hm-vivendo-de-ar-condicionado": {
+    "nome": "Vivendo de Ar Condicionado",
+    "tipo": "Curso online",
+    "preco": 197,
+    "img": "https://static-media.hotmart.com/9GfbHs6CCSbmcW8t6cL0QUki53A=/filters:background_color(white)/hotmart/product_pictures/df66b87d-b810-4424-9daa-ac6a2e743a43/TAMBVIVENDODEARCONDICIONADO02.png",
+    "plataforma": "Hotmart"
+  },
+  "hm-formula-ar-condicionado": {
+    "nome": "A Fórmula do Ar Condicionado",
+    "tipo": "Curso online",
+    "preco": 2988,
+    "img": "https://static-media.hotmart.com/7EMH1VDb542tFgkF7daj57kweYg=/filters:background_color(white)/hotmart/product_pictures/e8dbaa7c-5a7e-4c1b-96bf-931055b972f8/PostInstagramLanamentodeCursoOnline13.png",
+    "plataforma": "Hotmart"
+  },
+  "hm-conserto-de-celulares": {
+    "nome": "Curso Conserto de Celulares Josael",
+    "tipo": "Curso online",
+    "preco": 97,
+    "img": "https://static-media.hotmart.com/ttnnCwrkivRtSmQeu2LzuGWN6L8=/filters:background_color(white)/hotmart/product_pictures/6a3823eb-99b2-48b0-bfac-5ed671b7ff3d/Designsemnome.png",
+    "plataforma": "Hotmart"
+  },
+  "hm-curso-de-milhas": {
+    "nome": "Curso de Milhas",
+    "tipo": "Curso online",
+    "preco": 129.92,
+    "img": "https://static-media.hotmart.com/EDEG3G6FPuvJy8sr93QGCB3Cj0E=/filters:background_color(white)/hotmart/product_pictures/ff14bfec-2649-477a-b918-505b02fac7f5/CursodeMilhasnasNuvens.png",
+    "plataforma": "Hotmart"
+  },
+  "hm-mente-de-viajante": {
+    "nome": "Mente de Viajante",
+    "tipo": "Curso online",
+    "preco": 457,
+    "img": "https://static-media.hotmart.com/lB63w_ycLG0lcjN8UJQoOyg7Viw=/filters:background_color(white)/hotmart/product_pictures/f9a1c283-40f9-478c-82ef-2c9e237343fa/MV_HM.jpg",
+    "plataforma": "Hotmart"
+  },
+  "hm-viver-de-youtube": {
+    "nome": "Viver de YouTube",
+    "tipo": "Curso online",
+    "preco": 297,
+    "img": "https://static-media.hotmart.com/uBYUJlxuRpz2g0yv3nxWdXZHvYg=/filters:background_color(white)/hotmart/product_pictures/ee6b0317-0d5d-4399-9e45-a361611aea7b/92459432_536951730578237_3440637015937253376_n.png",
+    "plataforma": "Hotmart"
+  },
+  "hm-streamer-do-zero": {
+    "nome": "Streamer do Zero",
+    "tipo": "Curso online",
+    "preco": 497,
+    "img": "https://static-media.hotmart.com/IJ4sOAzk366C_Pfi77L8zFV_x7Q=/filters:background_color(white)/hotmart/product_pictures/0a3a256b-3f1f-4521-a1fb-bf94d722362e/IMG7600x480.png",
+    "plataforma": "Hotmart"
+  },
+  "hm-curso-de-ia": {
+    "nome": "Curso de Inteligência Artificial",
+    "tipo": "Curso online",
+    "preco": 197,
+    "img": "https://static-media.hotmart.com/f-FRZxgvwDaTpmpew897VEiSpjw=/filters:background_color(white)/hotmart/product_pictures/7d4c9359-d210-454a-8a38-a832ab9d8b0f/Imagem1.png",
+    "plataforma": "Hotmart"
+  },
+  "hm-ia-renda-extra": {
+    "nome": "IA para Renda Extra Imediata",
+    "tipo": "E-book",
+    "preco": 65,
+    "img": "https://static-media.hotmart.com/Z4yFnbV3LzDpCViBQa_ImrULTUs=/filters:background_color(white)/hotmart/product_pictures/c3775aa5-466c-4a00-877b-22f7617a22d5/5568CECC3F3A4D7BAA6D15DA1B87B4DA.png",
+    "plataforma": "Hotmart"
+  },
+  "hm-academia-do-afiliado": {
+    "nome": "Academia do Afiliado",
+    "tipo": "Curso online",
+    "preco": 197,
+    "img": "https://static-media.hotmart.com/ZK7ityy8JADiOq1JUNRdzG18Kb8=/filters:background_color(white)/hotmart/product_pictures/96343adb-5dd1-4406-bf99-a037a89a590c/LogoAA.jpg",
+    "plataforma": "Hotmart"
+  },
+  "hm-guia-vendas-whatsapp": {
+    "nome": "Guia de Vendas pelo WhatsApp e Instagram",
+    "tipo": "E-book",
+    "preco": 16,
+    "img": "https://static-media.hotmart.com/GgQj6cb8WqD0aGE-F9Tj-KYhibE=/filters:background_color(white)/hotmart/product_pictures/711002de-1aea-47d3-8a01-c683669dde7e/CapaparadigulgacaoEbook.png",
+    "plataforma": "Hotmart"
+  },
+  "hm-design-canva-profissional": {
+    "nome": "Design Canva Profissional",
+    "tipo": "Curso online",
+    "preco": 147,
+    "img": "https://static-media.hotmart.com/NTQHrHLPhACmFX1nLBbMd-DP-NQ=/filters:background_color(white)/hotmart/product_pictures/a9cbc23c-fb2b-4ea3-88a3-e74c84e3c61e/CanvaProfissional.png",
+    "plataforma": "Hotmart"
+  },
+  "hm-designerpro": {
+    "nome": "DesignerPro (Photoshop)",
+    "tipo": "Curso online",
+    "preco": 67,
+    "img": "https://static-media.hotmart.com/p-OR7XGqgRGlpOapQeBHHZLOr00=/filters:background_color(white)/hotmart/product_pictures/d51b8a8c-55c5-48e4-85b1-3a6f5e07212c/1234.png",
+    "plataforma": "Hotmart"
+  },
+  "hm-importando-laces": {
+    "nome": "Importando Laces 3.0",
+    "tipo": "Curso online",
+    "preco": 97,
+    "img": "https://static-media.hotmart.com/H0-HDOf_Q9Egti9Y9X7MhpJFw5A=/filters:background_color(white)/hotmart/product_pictures/a7a29b07-0a82-473d-b992-b9357185c852/Copiadeversao304.png",
+    "plataforma": "Hotmart"
   }
 }

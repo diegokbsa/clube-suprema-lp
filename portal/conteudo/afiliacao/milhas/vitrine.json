@@ -14,14 +14,18 @@
     "muito-mais-milhas",
     "espanha-2027",
     "fluency-fast",
-    "italiano-falar"
+    "italiano-falar",
+    "hm-curso-de-milhas",
+    "hm-mente-de-viajante"
   ],
   "melhor_para": {
     "milhas-3": "quem quer comunidade de passagens baratas com curso de milhas",
     "muito-mais-milhas": "quem quer uma formação completa de milhas",
     "espanha-2027": "quem planeja morar na Espanha",
     "fluency-fast": "quem quer aprender inglês para viajar ou morar fora",
-    "italiano-falar": "quem quer aprender italiano"
+    "italiano-falar": "quem quer aprender italiano",
+    "hm-curso-de-milhas": "quem está começando com milhas",
+    "hm-mente-de-viajante": "quem quer viajar gastando menos"
   },
   "passos": [
     {

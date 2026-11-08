@@ -13,13 +13,17 @@
     "transmissao-pro",
     "crescer-sendo-gamer",
     "creator-hub",
-    "lucrando-youtube"
+    "lucrando-youtube",
+    "hm-viver-de-youtube",
+    "hm-streamer-do-zero"
   ],
   "melhor_para": {
     "transmissao-pro": "quem quer configurar e fazer a primeira live do zero",
     "crescer-sendo-gamer": "quem já faz live e quer crescer o canal gamer",
     "creator-hub": "criador que quer organizar conteúdo e crescimento",
-    "lucrando-youtube": "quem quer focar no YouTube"
+    "lucrando-youtube": "quem quer focar no YouTube",
+    "hm-viver-de-youtube": "quem quer montar e crescer um canal no YouTube",
+    "hm-streamer-do-zero": "quem quer começar a fazer lives"
   },
   "passos": [
     {

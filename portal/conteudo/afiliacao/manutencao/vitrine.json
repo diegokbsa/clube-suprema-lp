@@ -13,13 +13,19 @@
     "rocadeiras",
     "ar-condicionado",
     "bmtech",
-    "frp-total"
+    "frp-total",
+    "hm-vivendo-de-ar-condicionado",
+    "hm-formula-ar-condicionado",
+    "hm-conserto-de-celulares"
   ],
   "melhor_para": {
     "rocadeiras": "quem quer consertar roçadeiras e motosserras",
     "ar-condicionado": "quem quer trabalhar com ar-condicionado de carros, caminhões e máquinas agrícolas",
     "bmtech": "técnico de celular que quer aprender reparo avançado de telas",
-    "frp-total": "técnico de celular que quer aprender reparo de software e conta Google"
+    "frp-total": "técnico de celular que quer aprender reparo de software e conta Google",
+    "hm-vivendo-de-ar-condicionado": "quem quer trabalhar com instalação de ar-condicionado",
+    "hm-formula-ar-condicionado": "quem quer uma formação completa em ar-condicionado",
+    "hm-conserto-de-celulares": "quem quer começar no conserto de celular"
   },
   "passos": [
     {

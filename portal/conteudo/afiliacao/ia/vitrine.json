@@ -14,14 +14,18 @@
     "prompts-ia-viral",
     "clube-videos-ia",
     "ia-prostudio",
-    "promov-ai"
+    "promov-ai",
+    "hm-curso-de-ia",
+    "hm-ia-renda-extra"
   ],
   "melhor_para": {
     "escola-da-ia": "quem quer aprender a usar IA do básico ao avançado",
     "prompts-ia-viral": "quem quer prompts prontos para criar conteúdo",
     "clube-videos-ia": "quem quer criar vídeos com IA",
     "ia-prostudio": "quem quer produzir conteúdo com IA",
-    "promov-ai": "quem quer usar IA para divulgar o próprio negócio"
+    "promov-ai": "quem quer usar IA para divulgar o próprio negócio",
+    "hm-curso-de-ia": "quem quer entender e usar IA do zero",
+    "hm-ia-renda-extra": "quem quer oferecer serviços com ChatGPT"
   },
   "passos": [
     {

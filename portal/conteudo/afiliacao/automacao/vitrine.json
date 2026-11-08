@@ -13,13 +13,15 @@
     "lia-automacao",
     "fluxbot",
     "zap-suite",
-    "dotti"
+    "dotti",
+    "hm-guia-vendas-whatsapp"
   ],
   "melhor_para": {
     "lia-automacao": "negócio que quer automatizar o atendimento",
     "fluxbot": "quem quer montar fluxos de atendimento",
     "zap-suite": "empresa que quer um pacote completo de ferramentas",
-    "dotti": "quem quer um robô para produzir conteúdo"
+    "dotti": "quem quer um robô para produzir conteúdo",
+    "hm-guia-vendas-whatsapp": "quem vende pelo WhatsApp e Instagram e quer um roteiro"
   },
   "passos": [
     {

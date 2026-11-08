@@ -13,13 +13,15 @@
     "mapa-fornecedores",
     "lojista-pack",
     "vivendo-acessorios",
-    "antes-do-leilao"
+    "antes-do-leilao",
+    "hm-importando-laces"
   ],
   "melhor_para": {
     "mapa-fornecedores": "quem quer uma lista de fornecedores para começar a revender",
     "lojista-pack": "lojista que quer material pronto para vender mais",
     "vivendo-acessorios": "quem quer revender acessórios",
-    "antes-do-leilao": "quem quer entender como comprar antes do leilão"
+    "antes-do-leilao": "quem quer entender como comprar antes do leilão",
+    "hm-importando-laces": "quem quer importar e revender laces"
   },
   "passos": [
     {

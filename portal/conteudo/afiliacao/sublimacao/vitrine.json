@@ -14,14 +14,18 @@
     "gifts-da-isa",
     "tufos-cola-fria",
     "adesiva-pro",
-    "figurinhas-sweet"
+    "figurinhas-sweet",
+    "hm-negocio-de-canecas",
+    "hm-catalogo-papelaria"
   ],
   "melhor_para": {
     "mega-box-sublimacao": "quem já tem prensa e quer artes prontas para caneca e camiseta",
     "gifts-da-isa": "quem quer começar um negócio de presentes personalizados em casa",
     "tufos-cola-fria": "quem quer aprender a técnica de tufos com cola fria",
     "adesiva-pro": "quem quer criar figurinhas e adesivos personalizados",
-    "figurinhas-sweet": "quem quer figurinhas prontas para personalizar"
+    "figurinhas-sweet": "quem quer figurinhas prontas para personalizar",
+    "hm-negocio-de-canecas": "quem quer montar um negócio de canecas",
+    "hm-catalogo-papelaria": "quem quer um catálogo pronto de papelaria personalizada"
   },
   "passos": [
     {

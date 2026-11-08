@@ -13,13 +13,15 @@
     "formula-afiliado-viral",
     "sistema-afiliado-viral",
     "afiliada-proposito",
-    "nova-elite"
+    "nova-elite",
+    "hm-academia-do-afiliado"
   ],
   "melhor_para": {
     "formula-afiliado-viral": "quem quer um método de afiliado com conteúdo viral",
     "sistema-afiliado-viral": "quem quer um sistema de afiliado com conteúdo viral",
     "afiliada-proposito": "quem prefere mentoria",
-    "nova-elite": "quem quer uma formação mais longa"
+    "nova-elite": "quem quer uma formação mais longa",
+    "hm-academia-do-afiliado": "quem quer aprender o básico de afiliado na Hotmart"
   },
   "passos": [
     {
