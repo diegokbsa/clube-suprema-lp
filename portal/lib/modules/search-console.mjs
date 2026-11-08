@@ -337,7 +337,7 @@ export const routes = [
   },
   {
     method: 'PUT', path: '/api/t/:tenant/search-console/bing', perm: 'integrations.manage',
-    handler: ({ app, repo, body, audit }) => {
+    handler: ({ app, origin, repo, body, audit }) => {
       const row = integration(repo, BING_KIND, true);
       const before = sealedData(app, row);
       const apiKey = body?.apiKey === undefined ? before.apiKey : text(body.apiKey, 512);
@@ -347,7 +347,7 @@ export const routes = [
       saveSecret(app, repo, row, secrets, { status: mudou ? 'pendente' : row.status,
         last_check: mudou ? now() : row.last_check, last_error: mudou ? null : row.last_error, public_config: JSON.stringify({}) });
       audit('search_console.bing.configurar', BING_KIND, { chaveConfigurada: Boolean(apiKey) });
-      return { ok: true, bing: painel(app, app.origin, repo).bing, nota: apiKey ? 'Chave protegida no cofre. O Bing fica conectado após aceitar um envio de sitemap.' : 'Bing Webmaster Tools pendente de configuração.' };
+      return { ok: true, bing: painel(app, origin, repo).bing, nota: apiKey ? 'Chave protegida no cofre. O Bing fica conectado após aceitar um envio de sitemap.' : 'Bing Webmaster Tools pendente de configuração.' };
     },
   },
   {
