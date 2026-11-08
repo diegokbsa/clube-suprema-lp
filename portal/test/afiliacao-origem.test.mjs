@@ -35,12 +35,15 @@ test('instalador: nenhuma página nem post sai com link da Hotmart sem src', () 
       ...db.prepare('SELECT slug AS onde, content AS t FROM posts').all(),
     ];
     db.close();
-    const links = textos.flatMap(({ onde, t }) => [...t.matchAll(/https:\/\/(?:go\.hotmart\.com|pay\.hotmart\.com|hotm\.art|(?:pay\.)?kiwify\.app|pay\.kiwify\.com\.br)\/[^\s"'<>)\]]*/g)].map((m) => [onde, m[0]]));
-    assert.ok(links.length > 0, 'deveria haver links da Hotmart nas páginas');
+    // conteúdo real: link de checkout direto ou link curto do BigLinks, conforme o links.json do momento
+    const links = textos.flatMap(({ onde, t }) => [...t.matchAll(/https:\/\/(?:go\.hotmart\.com|pay\.hotmart\.com|hotm\.art|(?:pay\.)?kiwify\.app|pay\.kiwify\.com\.br|l\.kbsa\.app)\/[^\s"'<>)\]]*/g)].map((m) => [onde, m[0]]));
+    assert.ok(links.length > 0, 'deveria haver links de afiliado nas páginas');
     const sem = links.filter(([, u]) => !/[?&]src=[a-z0-9_]+/.test(u));
-    assert.deepEqual(sem, [], 'link da Hotmart sem src');
+    assert.deepEqual(sem, [], 'link de afiliado sem src');
     assert.ok(links.some(([, u]) => /src=[a-z]+_home/.test(u)), 'a home marca a origem como <blog>_home');
-    assert.ok(links.some(([o, u]) => o !== '' && /kiwify/.test(u)), 'posts com Kiwify também levam src');
+    assert.ok(links.some(([o]) => o !== ''), 'posts também levam src');
+    const curtosSemCampanha = links.filter(([, u]) => u.startsWith('https://l.kbsa.app/') && !/utm_campaign=[a-z0-9_]+/.test(u));
+    assert.deepEqual(curtosSemCampanha, [], 'link curto sem utm_campaign');
   } finally {
     fs.rmSync(dados, { recursive: true, force: true });
   }
@@ -53,6 +56,7 @@ test('BigLinks: produto com "curto" sai por l.kbsa.app com src, utm e rel sponso
     fs.cpSync(path.join(path.dirname(TOOL), '..', 'conteudo', 'afiliacao'), conteudo, { recursive: true });
     const lf = path.join(conteudo, 'links.json');
     const links = JSON.parse(fs.readFileSync(lf, 'utf8'));
+    for (const v of Object.values(links)) delete v.curto; // só este produto com link curto; os outros, direto
     const destino = links['posts-virais'].url;
     links['posts-virais'].curto = 'https://l.kbsa.app/posts-virais';
     fs.writeFileSync(lf, JSON.stringify(links));
