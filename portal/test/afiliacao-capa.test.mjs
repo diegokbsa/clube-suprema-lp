@@ -40,6 +40,10 @@ test('instalador: "cover" vai para posts.cover_url, aparece no topo sem lazy, no
     Object.assign(post, { cover: capa, coverAlt: 'Ilustração de um feed com três posts em grade' });
     post.content = post.content.replace(/\n\n/, '\n\n![Esquema de carrossel em 5 telas](/assets/afiliacao/criativos/posts-virais-vale-a-pena-1.png)\n\n');
     fs.writeFileSync(path.join(dir, arq), JSON.stringify(post));
+    // um post sem "cover" (todos os do repositório já têm capa gerada por tools/afiliacao-capas.mjs)
+    const outro = fs.readdirSync(dir).find((f) => f !== arq);
+    const semCover = JSON.parse(fs.readFileSync(path.join(dir, outro), 'utf8')); delete semCover.cover; delete semCover.coverAlt;
+    fs.writeFileSync(path.join(dir, outro), JSON.stringify(semCover));
     const dados = path.join(raiz, 'dados'); fs.mkdirSync(dados);
     const r = spawnSync(process.execPath, [TOOL, '--dados', dados, '--conteudo', conteudo], { encoding: 'utf8' });
     const saida = JSON.parse(r.stdout.trim().split('\n').pop());
@@ -59,7 +63,8 @@ test('instalador: "cover" vai para posts.cover_url, aparece no topo sem lazy, no
     assert.match(topoImg, /alt="Ilustração de um feed com três posts em grade"/);
     assert.match(topoImg, /width="1200" height="630"/);
     assert.ok(!/loading=/.test(topoImg), 'a capa não é lazy');
-    assert.match(pagina, /<meta property="og:image" content="https:\/\/criativos\.blog\/assets\/afiliacao\/criativos\/posts-virais-vale-a-pena-capa\.png"><meta name="twitter:card" content="summary_large_image">/);
+    assert.match(pagina, /<meta property="og:image" content="https:\/\/criativos\.blog\/assets\/afiliacao\/criativos\/posts-virais-vale-a-pena-capa\.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">/);
+    assert.match(pagina, /<meta name="twitter:card" content="summary_large_image">/);
     const ld = JSON.parse(/<script type="application\/ld\+json">(.*?)<\/script>/s.exec(pagina)[1].replace(/\\u003c/g, '<'));
     assert.equal(ld['@graph'][0].image, 'https://criativos.blog/assets/afiliacao/criativos/posts-virais-vale-a-pena-capa.png');
     assert.match(pagina, /<figure class="blog-fig"><img src="\/assets\/afiliacao\/criativos\/posts-virais-vale-a-pena-1\.png" alt="Esquema de carrossel em 5 telas" loading="lazy"/);
