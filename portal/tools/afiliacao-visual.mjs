@@ -3,7 +3,13 @@
 // mais vendem como afiliado nesses nichos: resposta pronta acima da dobra, ficha igual para todo produto (foto, tipo,
 // preço, para quem é, botão), tabela com botão em cada linha, "como escolhemos", FAQ, data de atualização e um único
 // botão de destaque por tela. Só usa dado real do produto (nome, tipo, preço e foto do marketplace).
-import { htmlText, faqDoTexto, faqLd } from '../lib/modules/blog.mjs';
+import { htmlText, faqDoTexto, faqLd, IMG_LOCAL, dimensoesImagem } from '../lib/modules/blog.mjs';
+
+/** Capa do post (campo "cover": /assets/afiliacao/<blog>/<slug>-capa.png). Só caminho local de imagem; senão null. */
+export const capaDo = (post) => (IMG_LOCAL.test(String(post?.cover || '')) ? String(post.cover) : null);
+/** Endereço absoluto da capa para og:image/Article.image: mesma origem do blog (kbsa.app/assets/... cai no portal). */
+const capaAbs = (capa, prefixo) => (capa ? `${new URL(prefixo).origin}${capa}` : null);
+const capaCard = (p) => { const c = capaDo(p); if (!c) return ''; const [w, h] = dimensoesImagem(c, [1200, 630]); return `<img class="gc" src="${esc(c)}" alt="${esc(p.coverAlt || '')}" loading="lazy" decoding="async" width="${w}" height="${h}">`; };
 
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const brl = (v) => (Number.isFinite(Number(v)) ? Number(v).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: Number(v) % 1 ? 2 : 0 }) : '');
@@ -56,6 +62,9 @@ h2{font:800 clamp(1.6rem,3.4vw,2.3rem)/1.15 var(--fh);letter-spacing:-.025em;mar
 .guias{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:16px}
 .guia{display:flex;flex-direction:column;gap:8px;padding:22px;background:#fff;border:1px solid var(--line);border-radius:var(--r);text-decoration:none;color:var(--ink);transition:border-color .15s,transform .15s}
 .guia:hover{border-color:var(--a);transform:translateY(-2px)}.guia .k{font-size:.78rem;font-weight:800;color:var(--a);text-transform:uppercase;letter-spacing:.05em}
+.guia .gc{margin:-22px -22px 6px;width:calc(100% + 44px);max-width:none;height:auto;aspect-ratio:1200/630;object-fit:cover;border-radius:var(--r) var(--r) 0 0}
+.capa{margin:22px 0 0}.capa img{width:100%;height:auto;border-radius:var(--r);border:1px solid var(--line)}
+.txt .blog-fig{margin:1.6em 0}.txt .blog-fig img{width:100%;height:auto;border-radius:12px;border:1px solid var(--line)}
 .guia h3{font:750 1.2rem/1.28 var(--fh);margin:0}.guia p{margin:0;color:var(--mut);font-size:.98rem;line-height:1.55}.guia .vm{margin-top:auto;font-weight:700;color:var(--a);font-size:.95rem}
 .passos{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:16px;counter-reset:p}
 .passo{padding:22px;border-radius:var(--r);background:#fff;border:1px solid var(--line)}.passo:before{counter-increment:p;content:counter(p);display:grid;place-items:center;width:38px;height:38px;border-radius:10px;background:var(--a);color:#fff;font:800 1.05rem var(--fh);margin-bottom:12px}
@@ -151,7 +160,7 @@ export function renderHome({ info, v, posts, prefixo, dados }) {
   ] };
   const linhas = prods.map((p) => `<tr><td><div class="nm">${p.img ? `<img src="${esc(p.img)}" alt="" loading="lazy" width="52" height="52">` : ''}<span>${esc(p.nome)}</span></div></td>
 <td class="esc">${esc(cap(v.melhor_para?.[p.chave] || p.tipo || ''))}</td><td>${p.preco ? brl(p.preco) : '—'}</td><td><a class="btn sm" href="${esc(p.url)}" ${REL}>Ver →</a></td></tr>`).join('');
-  const guias = posts.map((p) => `<a class="guia" href="${prefixo}/blog/${esc(p.slug)}"><span class="k">${esc(p.category || info.categoria)}</span><h3>${esc(p.title)}</h3><p>${esc(p.excerpt)}</p><span class="vm">Ler o guia →</span></a>`).join('');
+  const guias = posts.map((p) => `<a class="guia" href="${prefixo}/blog/${esc(p.slug)}">${capaCard(p)}<span class="k">${esc(p.category || info.categoria)}</span><h3>${esc(p.title)}</h3><p>${esc(p.excerpt)}</p><span class="vm">Ler o guia →</span></a>`).join('');
   return `${head({ titulo, desc, canonical, v, ld })}<body>${topo(info, prefixo, v)}
 <main><div class="hero"><div class="w"><span class="selo"><b></b>Atualizado em ${dataBr()}</span>
 <h1>${v.h1_html || esc(v.h1)}</h1><p class="sub">${esc(v.sub || info.tagline)}</p>
@@ -171,7 +180,7 @@ ${prods[0] ? `<div class="fixo"><span><b>${esc(prods[0].nome)}</b>${prods[0].pre
 /** Lista de guias (/blog). */
 export function renderLista({ info, v, posts, prefixo }) {
   const canonical = `${prefixo}/blog`;
-  const guias = posts.map((p) => `<a class="guia" href="${prefixo}/blog/${esc(p.slug)}"><span class="k">${esc(p.category || info.categoria)}</span><h3>${esc(p.title)}</h3><p>${esc(p.excerpt)}</p><span class="vm">Ler o guia →</span></a>`).join('');
+  const guias = posts.map((p) => `<a class="guia" href="${prefixo}/blog/${esc(p.slug)}">${capaCard(p)}<span class="k">${esc(p.category || info.categoria)}</span><h3>${esc(p.title)}</h3><p>${esc(p.excerpt)}</p><span class="vm">Ler o guia →</span></a>`).join('');
   const ld = { '@context': 'https://schema.org', '@type': 'CollectionPage', name: `Guias · ${info.nome}`, url: canonical, inLanguage: 'pt-BR',
     hasPart: posts.map((p) => ({ '@type': 'Article', headline: p.title, url: `${prefixo}/blog/${p.slug}` })) };
   return `${head({ titulo: `Guias ${v.assunto ? `de ${v.assunto} ` : ''}· ${info.nome}`, desc: info.descricao, canonical, v, ld })}<body>${topo(info, prefixo, v)}
@@ -231,24 +240,29 @@ export function renderPost({ info, v, post, posts, prefixo, dados, aplicarLinks,
   html = html.replace(/<h2>(.*?)<\/h2>/g, (_m, t) => { const id = t.replace(/<[^>]+>/g, '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 60); h2.push([id, t]); return `<h2 id="${id}">${t}</h2>`; });
   const faq = faqDoTexto(post.content);
   const outros = posts.filter((p) => p.slug !== post.slug);
+  // capa própria do post manda no og:image e no Article.image; sem capa, segue a foto do produto principal
+  const capa = capaDo(post);
+  const [cw, ch] = capa ? dimensoesImagem(capa, [1200, 630]) : [];
+  const imagem = capaAbs(capa, prefixo) || principal?.img || null;
   const ld = { '@context': 'https://schema.org', '@graph': [
     { '@type': 'Article', headline: post.title, description: post.seoDescription || post.excerpt, inLanguage: 'pt-BR', mainEntityOfPage: canonical, url: canonical,
       datePublished: publicado, dateModified: atualizado || publicado, author: { '@type': 'Organization', name: info.autor || `Equipe ${info.nome}`, url: `${prefixo}/` },
-      publisher: { '@type': 'Organization', name: info.nome, url: `${prefixo}/` }, ...(principal?.img ? { image: principal.img } : {}) },
+      publisher: { '@type': 'Organization', name: info.nome, url: `${prefixo}/` }, ...(imagem ? { image: imagem } : {}) },
     { '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: info.nome, item: `${prefixo}/` },
       { '@type': 'ListItem', position: 2, name: 'Guias', item: `${prefixo}/blog` }, { '@type': 'ListItem', position: 3, name: post.title, item: canonical }] },
     ...(faq.length ? [faqLd(faq, `${canonical}#faq`)] : []),
   ] };
   const titulo = `${post.seoTitle || post.title} · ${info.nome}`;
-  return `${head({ titulo, desc: post.seoDescription || post.excerpt, canonical, v: { ...v, imagem: principal?.img || v.imagem }, ld, og: 'article' })}<body>${topo(info, prefixo, v)}
+  return `${head({ titulo, desc: post.seoDescription || post.excerpt, canonical, v: { ...v, imagem: imagem || v.imagem }, ld, og: 'article' })}<body>${topo(info, prefixo, v)}
 <main><div class="w"><div class="grade"><article>
 <div class="bc"><a href="${prefixo}/">${esc(info.nome)}</a> › <a href="${prefixo}/blog">Guias</a> › ${esc(post.category || info.categoria)}</div>
 <h1 style="font-size:clamp(1.9rem,4.4vw,3rem)">${esc(post.title)}</h1>
 <div class="meta"><span>Por ${esc(info.autor || `Equipe ${info.nome}`)}</span><span>Atualizado em ${dataBr(atualizado || publicado)}</span><span>${minutos(post.content)} min de leitura</span></div>
+${capa ? `<figure class="capa"><img src="${esc(capa)}" alt="${esc(post.coverAlt || post.title)}" width="${cw}" height="${ch}" fetchpriority="high" decoding="async"></figure>` : ''}
 ${post.excerpt ? `<div class="rapida"><b>Resposta rápida</b><p>${esc(post.excerpt)}</p></div>` : ''}
 ${h2.length > 2 ? `<nav class="indice" aria-label="Neste guia"><b>Neste guia</b><ol>${h2.map(([id, t]) => `<li><a href="#${id}">${t}</a></li>`).join('')}</ol></nav>` : ''}
 <div class="txt">${html}</div>
-${outros.length ? `<section style="padding:30px 0 0"><h2 style="font-size:1.5rem">Continue lendo</h2><div class="guias">${outros.slice(0, 3).map((p) => `<a class="guia" href="${prefixo}/blog/${esc(p.slug)}"><span class="k">${esc(p.category || info.categoria)}</span><h3>${esc(p.title)}</h3><span class="vm">Ler →</span></a>`).join('')}</div></section>` : ''}
+${outros.length ? `<section style="padding:30px 0 0"><h2 style="font-size:1.5rem">Continue lendo</h2><div class="guias">${outros.slice(0, 3).map((p) => `<a class="guia" href="${prefixo}/blog/${esc(p.slug)}">${capaCard(p)}<span class="k">${esc(p.category || info.categoria)}</span><h3>${esc(p.title)}</h3><span class="vm">Ler →</span></a>`).join('')}</div></section>` : ''}
 </article><aside class="lado" aria-label="Recomendação">${principal ? cardProduto(principal, { rotulo: 'Indicado neste guia', um: true, melhor: v.melhor_para?.[principal.chave] }) : ''}
 <a class="btn lin" href="${prefixo}/#comparativo">Ver o comparativo completo</a></aside></div>
 <section style="padding-top:10px">${captura(info, v)}</section></div></main>${rodape(info)}

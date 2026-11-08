@@ -1,4 +1,7 @@
 // Blog editorial por operação. A API e a agenda mantêm rascunhos separados da versão pública.
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { HttpError } from '../http.mjs';
 import { can } from '../auth.mjs';
 import { esc } from '../blocks.mjs';
@@ -150,6 +153,7 @@ const FECHA_CAIXA = /^:::\s*$/;
 
 function inline(s) {
   return esc(s)
+    .replace(/!\[([^\]]*)\]\(([^)\s]+?)\)/g, '$1') // imagem no meio da frase não vira "!<a>": fica só o texto alternativo
     .replace(/\*\*([^*]+?)\*\*/g, '<strong>$1</strong>')
     .replace(/\[([^\]]+?)\]\(([^)\s]+?)\)/g, (m, txt, href) => {
       const h = href.replace(/&amp;/g, '&');
@@ -214,11 +218,35 @@ export function faqLd(faq, id = '') {
     mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) };
 }
 
+// Imagem do próprio portal (portal/public/assets/...): só caminho local, sem "..", com extensão de imagem.
+const PUBLIC_DIR = fileURLToPath(new URL('../../public/', import.meta.url));
+export const IMG_LOCAL = /^\/assets\/(?:[a-z0-9_-]+\/)*[a-z0-9_.-]+\.(?:png|jpe?g|webp)$/i;
+const dimCache = new Map();
+/** Largura e altura reais do PNG (cabeçalho IHDR); outro formato ou arquivo ausente usa o padrão informado. */
+export function dimensoesImagem(src, padrao = [1200, 675]) {
+  if (dimCache.has(src)) return dimCache.get(src);
+  let wh = padrao;
+  try {
+    const fd = fs.openSync(path.join(PUBLIC_DIR, src.replace(/^\/+/, '')), 'r');
+    const b = Buffer.alloc(24); fs.readSync(fd, b, 0, 24, 0); fs.closeSync(fd);
+    if (b.toString('latin1', 1, 4) === 'PNG') wh = [b.readUInt32BE(16), b.readUInt32BE(20)];
+  } catch { /* arquivo ainda não copiado: fica o padrão */ }
+  dimCache.set(src, wh);
+  return wh;
+}
+/** "![alt](/assets/...)" sozinho na linha: figura com alt, tamanho e carregamento preguiçoso. */
+function figuraHtml(alt, src) {
+  const [w, h] = dimensoesImagem(src);
+  return `<figure class="blog-fig"><img src="${esc(src)}" alt="${esc(alt)}" loading="lazy" decoding="async" width="${w}" height="${h}"></figure>`;
+}
+
 function blocosHtml(value) {
   const out = [];
   for (const bloco of String(value || '').split(/\n{2,}/)) {
     const linhas = bloco.split('\n').map((l) => l.trimEnd()).filter((l) => l.trim());
     if (!linhas.length) continue;
+    const img = linhas.length === 1 && /^!\[([^\]]*)\]\(([^)\s]+)\)$/.exec(linhas[0].trim());
+    if (img) { if (IMG_LOCAL.test(img[2])) out.push(figuraHtml(img[1].trim(), img[2])); continue; } // imagem de fora não entra
     const t = /^(#{2,3})\s+(.+)$/.exec(linhas[0].trim());
     if (t && linhas.length === 1) { const n = t[1].length; out.push(`<h${n}>${inline(t[2])}</h${n}>`); continue; }
     if (linhas.every((l) => /^\s*[-*]\s+/.test(l))) { out.push(`<ul>${linhas.map((l) => `<li>${inline(l.replace(/^\s*[-*]\s+/, ''))}</li>`).join('')}</ul>`); continue; }
@@ -297,6 +325,7 @@ export function head({ site, origin, base, title, description, canonical, image,
       .blog-content strong{color:var(--text)}.blog-back{display:inline-block;margin-top:24px;color:var(--primary);font-weight:650;text-decoration:none}
       .blog-related{margin:34px 0 0;padding-top:20px;border-top:1px solid var(--border)}.blog-related h2{font:650 1.3rem/1.25 var(--font-head,var(--font));margin:0 0 12px}.blog-related ul{padding-left:20px}.blog-related li{margin:10px 0}.blog-related a{color:var(--primary);font-weight:650}.blog-related p{margin:3px 0;color:var(--muted)}
       .blog-tags{display:flex;gap:7px;flex-wrap:wrap;margin:12px 0}.blog-tags span{border:1px solid var(--border);border-radius:999px;padding:2px 9px;color:var(--muted);font-size:.8rem}
+      .blog-fig{margin:1.6em 0}.blog-fig img{width:100%;height:auto;border-radius:var(--radius)}
       .blog-box{margin:0 0 1.4em;padding:16px 18px;border:1px solid var(--border);border-left:4px solid var(--primary);border-radius:var(--radius);background:var(--surface)}
       .blog-box p:last-child,.blog-box ul:last-child,.blog-box ol:last-child{margin-bottom:0}.blog-box-title{display:block;margin:0 0 6px;font-weight:700;color:var(--text)}
       .blog-box-cta,.blog-box-dica{border-left-color:var(--accent,var(--primary))}

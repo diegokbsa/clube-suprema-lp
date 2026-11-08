@@ -17,10 +17,11 @@ import { cleanTheme } from '../lib/templates.mjs';
 import { scoped, registerTable } from '../lib/repo.mjs';
 import { gravarPagina } from '../lib/modules/paginas.mjs';
 import { publishedData } from '../lib/modules/blog.mjs';
-import { renderHome, renderLista, renderPost, comOrigem } from './afiliacao-visual.mjs';
+import { renderHome, renderLista, renderPost, comOrigem, capaDo } from './afiliacao-visual.mjs';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.join(HERE, '..');
+const PUBLICO = path.join(ROOT, 'public');
 const ARGS = process.argv.slice(2);
 const opt = (k) => { const i = ARGS.indexOf(k); return i >= 0 ? ARGS[i + 1] : null; };
 const DADOS = opt('--dados');
@@ -166,9 +167,13 @@ try {
       const a = lerJson(path.join(dir, 'posts', f), null);
       if (!a?.slug || !a?.content) continue;
       lista.push(a);
+      // capa e imagens internas precisam existir em portal/public (copiar junto no recorte do Bigue)
+      for (const src of [capaDo(a), ...[...String(a.content).matchAll(/!\[[^\]]*\]\(([^)\s]+)\)/g)].map((m) => m[1])].filter(Boolean)) {
+        if (!fs.existsSync(path.join(PUBLICO, src.replace(/^\/+/, '')))) passo(`aviso: ${slugBlog}/${a.slug} usa ${src}, que não está em portal/public`);
+      }
       const base = { site_id: site.id, title: String(a.title).slice(0, 120), slug: a.slug, excerpt: String(a.excerpt || '').slice(0, 300),
         content: comOrigem(aplicarLinks(a.content, prefixo), `${slugBlog}-${a.slug}`), category: String(a.category || info.categoria || 'Geral').slice(0, 80),
-        tags: JSON.stringify((a.tags || []).slice(0, 20)), author: info.autor || `Equipe ${info.nome}`, cover_url: null,
+        tags: JSON.stringify((a.tags || []).slice(0, 20)), author: info.autor || `Equipe ${info.nome}`, cover_url: capaDo(a),
         seo_title: String(a.seoTitle || '').slice(0, 70), seo_description: String(a.seoDescription || '').slice(0, 170) };
       const atual = repo.get('posts', { site_id: site.id, slug: a.slug });
       const at = atual?.published_at || now();
