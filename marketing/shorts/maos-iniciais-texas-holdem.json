@@ -1,0 +1,16 @@
+{
+  "id": "maos-iniciais-texas-holdem",
+  "tipo": "Dica rápida",
+  "titulo": "Quais mãos jogar no poker? O guia do pré-flop por posição #shorts",
+  "descricao": "As mãos iniciais mais fortes do Texas Hold'em, por que a posição muda o que você joga e o erro número um de quem está começando. No próximo vídeo: pot odds e outs.\n\n18+ · Jogue com responsabilidade.\n\n#poker #pokeronline #texasholdem #supremapoker",
+  "post": "maos-iniciais-texas-holdem",
+  "cenas": [
+    { "tela": "Você joga **mãos demais**? Quase todo mundo joga.", "fala": "Você joga mãos demais? Calma, quase todo iniciante joga.", "imagem": "public/img/app-mesa.webp" },
+    { "passo": 1, "tela": "Topo da lista: **A-A, K-K, Q-Q e A-K**", "fala": "No topo da lista estão os pares altos e o ás com rei. Essas você aumenta de qualquer cadeira." },
+    { "passo": 2, "tela": "**Cartas altas e conectadas** valem mais", "fala": "Depois vêm cartas altas e cartas vizinhas, que formam sequência com mais facilidade." },
+    { "passo": 3, "tela": "Mesmo naipe **ajuda pouco**", "fala": "Mesmo naipe ajuda, mas pouco. Uma mão fraca do mesmo naipe continua fraca." },
+    { "passo": 4, "tela": "**UTG**: poucas mãos. **Botão**: bem mais", "fala": "E olhe a posição. No UTG, jogue poucas mãos e fortes. No botão, dá para abrir bem mais." },
+    { "tela": "Fora da sua faixa? **Fold** sem dó", "fala": "Se a mão não está na sua faixa, é fold. Esperar a próxima não custa nada." },
+    { "tela": "No próximo: **pot odds e outs**. Segue o canal!", "fala": "No próximo vídeo, pot odds e outs, a conta para pagar ou largar. Segue o canal!", "imagem": "public/img/app-mesa.webp" }
+  ]
+}

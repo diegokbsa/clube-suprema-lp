@@ -25,7 +25,7 @@ Fichas 24h por PIX, depósito não caiu, Suprema Poker é confiável, formatos d
 - [x] 2026-11-07 nuts-no-poker | O que é ter o nuts e como saber se a sua mão é a melhor possível | o que é nuts no poker
 - [x] 2026-11-08 etiqueta-no-poker-online | Etiqueta na mesa de poker online: tempo de ação, chat e slowroll | regras de etiqueta poker
 ## Estratégia para iniciantes
-- [ ] maos-iniciais-texas-holdem | Quais mãos jogar no pré-flop: um guia simples por posição | mãos iniciais poker
+- [x] 2026-11-08 maos-iniciais-texas-holdem | Quais mãos jogar no pré-flop: um guia simples por posição | mãos iniciais poker
 - [ ] erros-de-iniciante-no-poker | 10 erros de iniciante no poker online e como evitar | erros de iniciante poker
 - [ ] pot-odds-e-outs | Pot odds e outs: a conta rápida para pagar ou largar | como calcular pot odds
 - [ ] projetos-flush-draw-gutshot | Projetos no poker: flush draw, sequência aberta e gutshot | o que é gutshot
