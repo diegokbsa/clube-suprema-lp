@@ -77,6 +77,20 @@ test('receptor: compra chega ao BigLinks sem nenhum dado do comprador', async ()
   assert.ok(!tudo.includes('bl_sk_'), 'a chave não vai para a auditoria');
 });
 
+test('receptor: modo ensaio confere e registra, sem mandar nada ao BigLinks', async () => {
+  const flag = path.join(pasta, 'ensaio.txt');
+  process.env.HOTMART_ENSAIO_ARQUIVO = flag;
+  fs.writeFileSync(flag, 'sim');
+  try {
+    enviados.length = 0;
+    const r = await enviar(aviso('PURCHASE_APPROVED'));
+    assert.equal(r.status, 200);
+    assert.equal(r.data.ensaio, true);
+    assert.equal(enviados.length, 0);
+    assert.equal((await enviar(aviso('PURCHASE_APPROVED'), 'errado')).status, 401, 'o ensaio também exige o hottok');
+  } finally { fs.rmSync(flag, { force: true }); }
+});
+
 test('receptor: evento sem interesse é ignorado; falha do BigLinks devolve 502 para a Hotmart tentar de novo', async () => {
   enviados.length = 0;
   const ign = await enviar(aviso('PURCHASE_BILLET_PRINTED'));
