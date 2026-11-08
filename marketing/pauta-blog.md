@@ -23,7 +23,7 @@ Fichas 24h por PIX, depósito não caiu, Suprema Poker é confiável, formatos d
 - [x] 2026-11-07 plo-pot-limit-omaha-regras | PLO (Pot Limit Omaha): regras e diferenças para o Hold'em | como jogar omaha poker
 - [x] 2026-11-07 glossario-de-poker | Glossário de poker: os termos que você vai ouvir na mesa | termos de poker
 - [x] 2026-11-07 nuts-no-poker | O que é ter o nuts e como saber se a sua mão é a melhor possível | o que é nuts no poker
-- [ ] etiqueta-no-poker-online | Etiqueta na mesa de poker online: tempo de ação, chat e slowroll | regras de etiqueta poker
+- [x] 2026-11-08 etiqueta-no-poker-online | Etiqueta na mesa de poker online: tempo de ação, chat e slowroll | regras de etiqueta poker
 ## Estratégia para iniciantes
 - [ ] maos-iniciais-texas-holdem | Quais mãos jogar no pré-flop: um guia simples por posição | mãos iniciais poker
 - [ ] erros-de-iniciante-no-poker | 10 erros de iniciante no poker online e como evitar | erros de iniciante poker

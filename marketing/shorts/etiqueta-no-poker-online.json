@@ -1,0 +1,16 @@
+{
+  "id": "etiqueta-no-poker-online",
+  "tipo": "Dica rápida",
+  "titulo": "Etiqueta no poker online: tempo de ação, chat e slowroll #shorts",
+  "descricao": "As boas maneiras da mesa de poker online: tempo de ação, chat e por que o slowroll irrita. No próximo vídeo: quais mãos jogar no pré-flop.\n\n18+ · Jogue com responsabilidade.\n\n#poker #pokeronline #texasholdem #supremapoker",
+  "post": "etiqueta-no-poker-online",
+  "cenas": [
+    { "tela": "Você está **irritando** a mesa?", "fala": "Você pode estar irritando a mesa sem perceber.", "imagem": "public/img/app-mesa.webp" },
+    { "passo": 1, "tela": "Mão simples? **Decida rápido**", "fala": "Primeiro, o tempo. Mão simples, decisão rápida. Guarde o pensamento longo para as decisões difíceis." },
+    { "passo": 2, "tela": "Chat é para **gg** e **nh**, não para provocar", "fala": "Segundo, o chat. Cumprimente e elogie, mas não provoque nem dê aula para quem perdeu." },
+    { "passo": 3, "tela": "Não comente mão **em andamento**", "fala": "Terceiro, não comente uma mão que ainda está sendo jogada. Espere ela acabar." },
+    { "passo": 4, "tela": "Ganhou? **Mostre logo**. Nada de slowroll", "fala": "E o mais importante: com a mão vencedora, mostre logo. Demorar de propósito é slowroll, e isso pega muito mal." },
+    { "tela": "Combinar jogada é **trapaça**", "fala": "Agora, combinar jogadas com outro jogador não é falta de educação. É trapaça." },
+    { "tela": "No próximo: **mãos do pré-flop**. Segue o canal!", "fala": "No próximo vídeo, quais mãos jogar no pré-flop. Segue o canal!", "imagem": "public/img/app-mesa.webp" }
+  ]
+}
