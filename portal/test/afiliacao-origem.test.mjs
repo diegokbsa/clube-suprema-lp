@@ -20,6 +20,8 @@ test('comOrigem: marca checkout, preserva imagem, src existente e âncora', () =
   const img = 'https://static-media.hotmart.com/foto.png';
   assert.equal(comOrigem(`<img src="${img}">`, 'b'), `<img src="${img}">`);
   assert.equal(comOrigem('https://go.hotmart.com/U1', 'Blog Ação/Teste'), 'https://go.hotmart.com/U1?src=blog-a-o-teste');
+  assert.equal(comOrigem('https://kiwify.app/AbC?afid=x', 'b'), 'https://kiwify.app/AbC?afid=x&src=b');
+  assert.equal(comOrigem('https://pay.kiwify.com.br/Xy', 'b'), 'https://pay.kiwify.com.br/Xy?src=b');
 });
 
 test('instalador: nenhuma página nem post sai com link da Hotmart sem src', () => {
@@ -33,11 +35,12 @@ test('instalador: nenhuma página nem post sai com link da Hotmart sem src', () 
       ...db.prepare('SELECT slug AS onde, content AS t FROM posts').all(),
     ];
     db.close();
-    const links = textos.flatMap(({ onde, t }) => [...t.matchAll(/https:\/\/(?:go\.hotmart\.com|pay\.hotmart\.com|hotm\.art)\/[^\s"'<>)\]]*/g)].map((m) => [onde, m[0]]));
+    const links = textos.flatMap(({ onde, t }) => [...t.matchAll(/https:\/\/(?:go\.hotmart\.com|pay\.hotmart\.com|hotm\.art|(?:pay\.)?kiwify\.app|pay\.kiwify\.com\.br)\/[^\s"'<>)\]]*/g)].map((m) => [onde, m[0]]));
     assert.ok(links.length > 0, 'deveria haver links da Hotmart nas páginas');
     const sem = links.filter(([, u]) => !/[?&]src=[a-z0-9_-]+/.test(u));
     assert.deepEqual(sem, [], 'link da Hotmart sem src');
     assert.ok(links.some(([, u]) => /src=blog-[a-z]+-home|src=[a-z]+-home/.test(u)), 'a home marca a origem como <blog>-home');
+    assert.ok(links.some(([o, u]) => o !== '' && /kiwify/.test(u)), 'posts com Kiwify também levam src');
   } finally {
     fs.rmSync(dados, { recursive: true, force: true });
   }
