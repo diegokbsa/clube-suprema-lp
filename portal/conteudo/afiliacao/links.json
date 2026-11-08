@@ -5,7 +5,7 @@
   },
   "carrosseis-achadinhos": {
     "status": "ativo",
-    "url": "https://kiwify.app/VhonaQs?afid=jNdFB68c"
+    "url": "https://pay.kiwify.com.br/qqzDCDE?afid=jNdFB68c"
   },
   "zn-tiktok-shop": {
     "status": "ativo",
@@ -22,7 +22,7 @@
   },
   "mega-box-sublimacao": {
     "status": "ativo",
-    "url": "https://kiwify.app/oXrVqRA?afid=dgDq0KTR"
+    "url": "https://pay.kiwify.com.br/x4bnitI?afid=dgDq0KTR"
   },
   "gifts-da-isa": {
     "status": "ativo",
@@ -34,7 +34,7 @@
   },
   "figurinhas-sweet": {
     "status": "ativo",
-    "url": "https://kiwify.app/xUrH3AG?afid=opFWPovz"
+    "url": "https://pay.kiwify.com.br/Gbxt1jd?afid=opFWPovz"
   },
   "tufos-cola-fria": {
     "status": "pendente"
@@ -50,15 +50,16 @@
     "status": "pendente"
   },
   "frp-total": {
-    "status": "ativo",
-    "url": "https://pay.kiwify.com.br/biUEtyd?afid=I3bvxPjG"
+    "status": "suspenso",
+    "url": "https://pay.kiwify.com.br/biUEtyd?afid=I3bvxPjG",
+    "motivo": "remove o bloqueio antirroubo do Google (FRP)"
   },
   "mapa-fornecedores": {
     "status": "pendente"
   },
   "lojista-pack": {
     "status": "ativo",
-    "url": "https://kiwify.app/r6kAa79?afid=SRSl2m6R"
+    "url": "https://pay.kiwify.com.br/58NbCoG?afid=SRSl2m6R"
   },
   "vivendo-acessorios": {
     "status": "ativo",
@@ -139,8 +140,9 @@
     "status": "pendente"
   },
   "espanha-2027": {
-    "status": "ativo",
-    "url": "https://kiwify.app/3ssxHtq?afid=fGzWpJK1"
+    "status": "suspenso",
+    "url": "https://kiwify.app/3ssxHtq?afid=fGzWpJK1",
+    "motivo": "aulas sobre trabalhar e alugar sem documento"
   },
   "fluency-fast": {
     "status": "ativo",
@@ -156,12 +158,14 @@
     "status": "pendente"
   },
   "lia-automacao": {
-    "status": "ativo",
-    "url": "https://pay.kiwify.com.br/zV7iU0Q?afid=NWaOF4CB"
+    "status": "suspenso",
+    "url": "https://pay.kiwify.com.br/zV7iU0Q?afid=NWaOF4CB",
+    "motivo": "postagem em massa no Shopee Vídeo"
   },
   "fluxbot": {
-    "status": "ativo",
-    "url": "https://pay.kiwify.com.br/YRUIGk8?afid=9wQL74Lc"
+    "status": "suspenso",
+    "url": "https://pay.kiwify.com.br/YRUIGk8?afid=9wQL74Lc",
+    "motivo": "disparo em massa no WhatsApp"
   },
   "ciencia-tiktok": {
     "status": "pendente"
