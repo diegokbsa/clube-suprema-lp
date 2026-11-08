@@ -72,7 +72,8 @@ export const routes = [
       if (!ev) return { status: 200, body: { ok: true, ignorado: String(body?.event || '') } };
       // modo ensaio (o "Enviar teste" da Hotmart manda vendas falsas): com o arquivo presente, confere e registra, mas
       // não manda nada ao BigLinks. Só o formato do aviso vai para a auditoria, sem dado do comprador.
-      if (fs.existsSync(process.env.HOTMART_ENSAIO_ARQUIVO || 'D:/hotmart-modo-ensaio.txt')) {
+      // O "Enviar teste" da Hotmart usa sempre o produto id 0 ("Produto test postback2", visto em 08/11/2026): é ensaio.
+      if (ev.properties.produto_id === '0' || fs.existsSync(process.env.HOTMART_ENSAIO_ARQUIVO || 'D:/hotmart-modo-ensaio.txt')) {
         const ensaio = { evento: ev.event_name, aviso: String(body?.event || ''), transacao: ev.transaction_id, produto_id: ev.properties.produto_id, produto: ev.properties.produto, src: ev.properties.src, com_clique: Boolean(ev.click_id), valor: ev.value, valor_e: ev.properties.valor_e };
         writeAudit(db, { action: 'hotmart.ensaio', data: ensaio });
         return { status: 200, body: { ok: true, ensaio: true, ...ensaio } };

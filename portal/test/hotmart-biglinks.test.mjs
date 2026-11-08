@@ -92,6 +92,15 @@ test('receptor: modo ensaio confere e registra, sem mandar nada ao BigLinks', as
   } finally { fs.rmSync(flag, { force: true }); process.env.HOTMART_ENSAIO_ARQUIVO = path.join(pasta, 'sem-ensaio.txt'); }
 });
 
+test('receptor: aviso de teste da Hotmart (produto id 0) nunca vira venda', async () => {
+  enviados.length = 0;
+  const teste = aviso('PURCHASE_APPROVED'); teste.data.product = { id: 0, name: 'Produto test postback2' };
+  const r = await enviar(teste);
+  assert.equal(r.status, 200);
+  assert.equal(r.data.ensaio, true);
+  assert.equal(enviados.length, 0);
+});
+
 test('receptor: evento sem interesse é ignorado; falha do BigLinks devolve 502 para a Hotmart tentar de novo', async () => {
   enviados.length = 0;
   const ign = await enviar(aviso('PURCHASE_BILLET_PRINTED'));
