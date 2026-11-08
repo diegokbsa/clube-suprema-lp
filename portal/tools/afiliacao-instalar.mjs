@@ -17,7 +17,7 @@ import { cleanTheme } from '../lib/templates.mjs';
 import { scoped, registerTable } from '../lib/repo.mjs';
 import { gravarPagina } from '../lib/modules/paginas.mjs';
 import { publishedData } from '../lib/modules/blog.mjs';
-import { renderHome, renderLista, renderPost } from './afiliacao-visual.mjs';
+import { renderHome, renderLista, renderPost, comOrigem } from './afiliacao-visual.mjs';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.join(HERE, '..');
@@ -164,7 +164,7 @@ try {
       if (!a?.slug || !a?.content) continue;
       lista.push(a);
       const base = { site_id: site.id, title: String(a.title).slice(0, 120), slug: a.slug, excerpt: String(a.excerpt || '').slice(0, 300),
-        content: aplicarLinks(a.content, prefixo), category: String(a.category || info.categoria || 'Geral').slice(0, 80),
+        content: comOrigem(aplicarLinks(a.content, prefixo), `${slugBlog}-${a.slug}`), category: String(a.category || info.categoria || 'Geral').slice(0, 80),
         tags: JSON.stringify((a.tags || []).slice(0, 20)), author: info.autor || `Equipe ${info.nome}`, cover_url: null,
         seo_title: String(a.seoTitle || '').slice(0, 70), seo_description: String(a.seoDescription || '').slice(0, 170) };
       const atual = repo.get('posts', { site_id: site.id, slug: a.slug });
@@ -176,17 +176,17 @@ try {
     if (vitrine) {
       // visual de venda: home comparativa, lista e cada post como página própria (mesmos endereços do blog)
       const v = { ...vitrine, _ativos: ATIVOS };
-      gravarPagina(repo, { siteId: site.id, caminho: '', html: renderHome({ info, v, posts: lista, prefixo, dados: DADOS_VITRINE }), titulo: info.nome, indexar: true });
+      gravarPagina(repo, { siteId: site.id, caminho: '', html: comOrigem(renderHome({ info, v, posts: lista, prefixo, dados: DADOS_VITRINE }), `${slugBlog}-home`), titulo: info.nome, indexar: true });
       gravarPagina(repo, { siteId: site.id, caminho: 'blog', html: renderLista({ info, v, posts: lista, prefixo }), titulo: `Guias · ${info.nome}`, indexar: false });
       for (const a of lista) {
         const row = repo.get('posts', { site_id: site.id, slug: a.slug });
         gravarPagina(repo, { siteId: site.id, caminho: `blog/${a.slug}`, titulo: a.title, indexar: false,
-          html: renderPost({ info, v, post: a, posts: lista, prefixo, dados: DADOS_VITRINE, aplicarLinks, publicado: row?.published_at, atualizado: row?.updated_at }) });
+          html: comOrigem(renderPost({ info, v, post: a, posts: lista, prefixo, dados: DADOS_VITRINE, aplicarLinks, publicado: row?.published_at, atualizado: row?.updated_at }), `${slugBlog}-${a.slug}`) });
       }
       const ofertas = (vitrine.destaques || []).filter((k) => ATIVOS.has(k)).length;
       passo(`${slugBlog}: visual de venda gravado (home, lista e ${lista.length} posts; ${ofertas} ofertas ativas na vitrine)`);
     } else {
-      gravarPagina(repo, { siteId: site.id, caminho: '', html: homeHtml(info, lista, med.ga4, prefixo), titulo: info.nome, indexar: true });
+      gravarPagina(repo, { siteId: site.id, caminho: '', html: comOrigem(homeHtml(info, lista, med.ga4, prefixo), `${slugBlog}-home`), titulo: info.nome, indexar: true });
     }
     passo(`${slugBlog}: ${novos} posts novos, ${atualizados} atualizados, home gravada, medição ${tracking}`);
   }

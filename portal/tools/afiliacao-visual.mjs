@@ -179,6 +179,19 @@ export function renderLista({ info, v, posts, prefixo }) {
 <section><div class="w"><div class="guias">${guias}</div></div></section><section><div class="w">${captura(info, v)}</div></section></main>${rodape(info)}</body></html>`;
 }
 
+/** Marca a origem em todo link de checkout/afiliado da Hotmart (go./pay.hotmart.com e hotm.art) com ?src=<origem>, para a
+ *  venda aparecer no filtro "Origem (SRC)" da Hotmart dizendo de qual blog e post veio. Não mexe em imagem da Hotmart
+ *  (static/media), nem em link que já tem src. A origem fica só com [a-z0-9_-], até 50 caracteres. */
+export function comOrigem(texto, origem) {
+  const src = String(origem || '').toLowerCase().replace(/[^a-z0-9_-]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 50);
+  if (!src) return String(texto);
+  return String(texto).replace(/https:\/\/(?:go\.hotmart\.com|pay\.hotmart\.com|hotm\.art)\/[^\s"'<>)\]]*/g, (url) => {
+    if (/[?&]src=/.test(url) || /[?&]amp;src=/.test(url)) return url;
+    const [base, hash = ''] = url.split('#');
+    return `${base}${base.includes('?') ? '&' : '?'}src=${src}${hash ? `#${hash}` : ''}`;
+  });
+}
+
 /** Troca as caixas :::cta que têm link de afiliado por uma ficha do produto (foto, preço, botão). */
 function comOfertas(md, dados, linkDe) {
   return String(md).replace(/^:::cta[^\n]*\n([\s\S]*?)\n:::[ \t]*$/gm, (bloco, corpo) => {
