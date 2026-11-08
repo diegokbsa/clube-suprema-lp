@@ -181,9 +181,9 @@ export function renderLista({ info, v, posts, prefixo }) {
 
 /** Marca a origem em todo link de checkout/afiliado da Hotmart (go./pay.hotmart.com, hotm.art) e da Kiwify (kiwify.app, pay.kiwify.com.br) com ?src=<origem>, para a
  *  venda aparecer no filtro "Origem (SRC)" da Hotmart dizendo de qual blog e post veio. Não mexe em imagem da Hotmart
- *  (static/media), nem em link que já tem src. A origem fica só com [a-z0-9_-], até 50 caracteres. */
+ *  (static/media), nem em link que já tem src. A origem fica só com [a-z0-9_], até 50 caracteres: a Hotmart apaga o hífen do src (testado em 08/11/2026), o sublinhado fica. */
 export function comOrigem(texto, origem) {
-  const src = String(origem || '').toLowerCase().replace(/[^a-z0-9_-]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 50);
+  const src = String(origem || '').toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_+|_+$/g, '').slice(0, 50);
   if (!src) return String(texto);
   return String(texto).replace(/https:\/\/(?:go\.hotmart\.com|pay\.hotmart\.com|hotm\.art|(?:pay\.)?kiwify\.app|pay\.kiwify\.com\.br)\/[^\s"'<>)\]]*/g, (url) => {
     if (/[?&]src=/.test(url) || /[?&]amp;src=/.test(url)) return url;
