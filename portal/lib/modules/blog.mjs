@@ -156,7 +156,10 @@ function inline(s) {
       const ok = (h.startsWith('/') && !h.startsWith('//')) || h.startsWith('#') || /^https:\/\/[^\s"'<>]+$/i.test(h);
       if (!ok) return txt;
       const fora = /^https:/i.test(h);
-      return `<a href="${esc(h)}"${fora ? ' rel="noopener" target="_blank"' : ''}>${txt}</a>`;
+      // Link de afiliado (Kiwify/Hotmart) leva "sponsored nofollow", como pede o Google.
+      const afiliado = /^https:\/\/([a-z0-9-]+\.)*(kiwify\.(app|com\.br)|hotmart\.com|hotm\.art)(\/|$)/i.test(h);
+      const rel = afiliado ? 'sponsored nofollow noopener' : 'noopener';
+      return `<a href="${esc(h)}"${fora ? ` rel="${rel}" target="_blank"` : ''}>${txt}</a>`;
     });
 }
 
@@ -355,7 +358,7 @@ function blogFeed({ res, send, site, repo, base, origin }) {
     const timestamp = Date.parse(post.publishedAt || '');
     const pubDate = Number.isFinite(timestamp) ? new Date(timestamp).toUTCString() : '';
     return `<item><title>${xmlText(post.title)}</title><link>${xmlText(link)}</link><guid isPermaLink="true">${xmlText(link)}</guid>${pubDate ? `<pubDate>${xmlText(pubDate)}</pubDate>` : ''}
-      <description>${xmlText(post.seoDescription || post.excerpt || '')}</description><content:encoded>${xmlText(post.content)}</content:encoded></item>`;
+      <description>${xmlText(post.seoDescription || post.excerpt || '')}</description><content:encoded>${xmlText(htmlText(post.content))}</content:encoded></item>`;
   }).join('');
   const latest = Date.parse(posts[0]?.dateModified || posts[0]?.publishedAt || '');
   const lastBuildDate = Number.isFinite(latest) ? `<lastBuildDate>${new Date(latest).toUTCString()}</lastBuildDate>` : '';

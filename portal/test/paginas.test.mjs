@@ -77,3 +77,11 @@ test('buscadores: o superadmin registra a verificação do Search Console e do B
   assert.throws(() => r.handler({ repo, params: { kind: 'meta_pixel' }, body: {}, audit: () => {} }), /Só Google Search Console/);
   assert.equal(r.super, true);
 });
+
+test('link de afiliado no texto leva rel sponsored; feed sai em HTML, sem :::cta cru', () => {
+  const h = htmlText(':::cta Veja a oferta\nCompre pelo [site](https://pay.kiwify.com.br/abc?afid=x).\n:::\n\nE [outro](https://hotpoker.club/).');
+  assert.match(h, /<a href="https:\/\/pay\.kiwify\.com\.br\/abc\?afid=x" rel="sponsored nofollow noopener" target="_blank">site<\/a>/);
+  assert.match(h, /<a href="https:\/\/hotpoker\.club\/" rel="noopener" target="_blank">outro<\/a>/);
+  assert.doesNotMatch(h, /:::/);
+  assert.doesNotMatch(htmlText('[falso](https://kiwify.app.mal.com/x)'), /sponsored/);
+});

@@ -143,7 +143,7 @@ try {
     passo(`${slugBlog}: ${novos} posts novos, ${atualizados} atualizados, home gravada, medição ${tracking}`);
   }
   const pendentes = Object.entries(LINKS).filter(([, v]) => v.status !== 'ativo').map(([k]) => k);
-  if (pendentes.length) passo(`links ainda sem afiliação ativa (apontam para a página do produto): ${pendentes.join(', ')}`);
+  if (pendentes.length) passo(`links ainda sem afiliação ativa (sem caixa de oferta; o link vira texto): ${pendentes.join(', ')}`);
   audit(db, { tenantId: tenant.id, action: 'afiliacao.instalar', target: tenant.id, data: { blogs: blogs.length } });
   if (SECO) passo('ensaio (--seco): rodou numa cópia do banco; o original não mudou');
   console.log(JSON.stringify({ ok: true, tenant: tenant.id, blogs, relato }));
