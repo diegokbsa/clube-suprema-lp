@@ -2,12 +2,16 @@
 // Conteúdo em portal/conteudo/afiliacao/: links.json (chave -> link de afiliado), medicao.json (slug -> GA4/Clarity),
 // e uma pasta por blog com site.json e posts/*.json. Idempotente: rodar de novo atualiza site, home, medição e o texto
 // dos posts (reaplica links novos) sem duplicar nada.
-//   node portal/tools/afiliacao-instalar.mjs --dados <pasta de dados do portal> [--seco] [--host kbsa.app]
+// Desde 08/11/2026 (Kbsa: "1 cliente pra cada"), cada blog é uma operação (cliente) própria no painel, blog-<slug>;
+// um blog que estava na operação única "Afiliação" é movido para a dele com tudo o que pende do site (posts,
+// páginas, leads, cliques...). Quem era membro da "Afiliação" vira membro de cada cliente, com o mesmo papel.
+// --cliente-unico mantém o jeito antigo (todos os blogs numa operação só).
+//   node portal/tools/afiliacao-instalar.mjs --dados <pasta de dados do portal> [--seco] [--host kbsa.app] [--cliente-unico]
 import fs from 'node:fs';
 import path from 'node:path';
 import os from 'node:os';
 import { fileURLToPath } from 'node:url';
-import { openDb, now } from '../lib/db.mjs';
+import { openDb, now, tx } from '../lib/db.mjs';
 import { createTenant, audit } from '../lib/tenants.mjs';
 import { cleanTheme } from '../lib/templates.mjs';
 import { scoped, registerTable } from '../lib/repo.mjs';
@@ -21,6 +25,7 @@ const ARGS = process.argv.slice(2);
 const opt = (k) => { const i = ARGS.indexOf(k); return i >= 0 ? ARGS[i + 1] : null; };
 const DADOS = opt('--dados');
 const SECO = ARGS.includes('--seco');
+const CLIENTE_UNICO = ARGS.includes('--cliente-unico');
 const HOST = opt('--host') || 'kbsa.app';
 const CONTEUDO = opt('--conteudo') || path.join(ROOT, 'conteudo', 'afiliacao');
 if (!DADOS) { console.error('uso: node portal/tools/afiliacao-instalar.mjs --dados <pasta de dados> [--seco] [--host kbsa.app]'); process.exit(2); }
@@ -83,19 +88,62 @@ try {
       settings: { tagline: 'Blogs de afiliado do Kbsa', timezone: 'America/Sao_Paulo' } }));
     passo(`operação criada: Afiliação (${tenant.slug}), id ${tenant.id}`);
   } else passo(`operação já existia: ${tenant.slug}`);
-  const repo = scoped(db, tenant.id);
+  const base = tenant;
   const tema = cleanTheme({ primary: '#5b4bd5', accent: '#5b4bd5', font: 'Inter', fontHead: 'Inter', radius: 10 });
 
+  // tabelas com tenant_id e a coluna que as liga ao site (direto ou por página/jornada/lead do site)
+  const colunas = (t) => db.prepare(`PRAGMA table_info(${t})`).all().map((c) => c.name);
+  const tabelas = db.prepare("SELECT name FROM sqlite_master WHERE type = 'table'").all().map((r) => r.name).filter((t) => t !== 'sites' && colunas(t).includes('tenant_id'));
+  /** Move um site e tudo o que pende dele de uma operação para outra, numa transação. */
+  function moverSite(site, para) {
+    return tx(db, () => {
+      const de = site.tenant_id; let linhas = 0;
+      for (const t of tabelas) {
+        const c = colunas(t);
+        const onde = c.includes('site_id') ? 'site_id = @s'
+          : c.includes('page_id') ? 'page_id IN (SELECT id FROM pages WHERE site_id = @s)'
+          : c.includes('journey_id') ? 'journey_id IN (SELECT id FROM journeys WHERE site_id = @s)'
+          : c.includes('lead_id') ? 'lead_id IN (SELECT id FROM leads WHERE site_id = @s)' : null;
+        if (onde) linhas += db.prepare(`UPDATE ${t} SET tenant_id = @para WHERE tenant_id = @de AND ${onde}`).run({ para, de, s: site.id }).changes;
+      }
+      db.prepare('UPDATE sites SET tenant_id = ? WHERE id = ?').run(para, site.id);
+      return linhas;
+    });
+  }
+  /** Operação (cliente) de cada blog: blog-<slug>, com os mesmos membros da operação base. */
+  function clienteDoBlog(slugBlog, info, n) {
+    const slug = `blog-${slugBlog}`;
+    let t = db.prepare("SELECT * FROM tenants WHERE edition = 'geral' AND slug = ?").get(slug);
+    if (!t) {
+      ({ tenant: t } = createTenant(db, { name: String(info.nome || slugBlog), number: String(90010 + n), niche: 'criador', slug, edition: 'geral',
+        settings: { tagline: info.tagline || '', timezone: 'America/Sao_Paulo' } }));
+      passo(`cliente criado: ${t.name} (${slug}), id ${t.id}`);
+    }
+    for (const m of db.prepare('SELECT user_id, role FROM memberships WHERE tenant_id = ?').all(base.id)) {
+      db.prepare('INSERT OR IGNORE INTO memberships (user_id, tenant_id, role) VALUES (?, ?, ?)').run(m.user_id, t.id, m.role);
+    }
+    return t;
+  }
+
   const blogs = fs.readdirSync(CONTEUDO, { withFileTypes: true }).filter((d) => d.isDirectory() && fs.existsSync(path.join(CONTEUDO, d.name, 'site.json'))).map((d) => d.name).sort();
-  for (const slugBlog of blogs) {
+  const clientes = {};
+  for (const [n, slugBlog] of blogs.entries()) {
     const dir = path.join(CONTEUDO, slugBlog);
     const info = lerJson(path.join(dir, 'site.json'), {});
+    tenant = CLIENTE_UNICO ? base : clienteDoBlog(slugBlog, info, n + 1);
+    clientes[slugBlog] = tenant.slug;
+    const repo = scoped(db, tenant.id);
     const dominio = `${HOST}/${slugBlog}`;
     const prefixo = `https://${dominio}`;
     const med = MEDICAO[slugBlog] || {};
     const tracking = JSON.stringify(Object.fromEntries(Object.entries({ ga4: med.ga4, clarity: med.clarity }).filter(([, v]) => v)));
     let site = db.prepare('SELECT * FROM sites WHERE domain = ?').get(dominio);
-    if (site && site.tenant_id !== tenant.id) throw new Error(`${dominio} já está em outra operação`);
+    if (site && site.tenant_id !== tenant.id) {
+      if (site.tenant_id !== base.id) throw new Error(`${dominio} já está em outra operação`);
+      const movidas = moverSite(site, tenant.id);
+      site = db.prepare('SELECT * FROM sites WHERE id = ?').get(site.id);
+      passo(`${dominio}: movido da operação ${base.slug} para ${tenant.slug} (${movidas} linhas junto)`);
+    }
     const seo = JSON.stringify({ title: `${info.nome} · ${info.tagline}`.slice(0, 70), description: String(info.descricao || '').slice(0, 160) });
     if (!site) {
       let slug = `af-${slugBlog}`;
@@ -144,9 +192,9 @@ try {
   }
   const pendentes = Object.entries(LINKS).filter(([, v]) => v.status !== 'ativo').map(([k]) => k);
   if (pendentes.length) passo(`links ainda sem afiliação ativa (sem caixa de oferta; o link vira texto): ${pendentes.join(', ')}`);
-  audit(db, { tenantId: tenant.id, action: 'afiliacao.instalar', target: tenant.id, data: { blogs: blogs.length } });
+  audit(db, { tenantId: base.id, action: 'afiliacao.instalar', target: base.id, data: { blogs: blogs.length, clientes } });
   if (SECO) passo('ensaio (--seco): rodou numa cópia do banco; o original não mudou');
-  console.log(JSON.stringify({ ok: true, tenant: tenant.id, blogs, relato }));
+  console.log(JSON.stringify({ ok: true, tenant: base.id, clientes, blogs, relato }));
 } catch (e) {
   console.log(JSON.stringify({ ok: false, erro: e.message, relato }));
   process.exitCode = 1;
