@@ -1,0 +1,50 @@
+{
+  "itens": [
+    {
+      "nome": "Ring light 30 cm com tripé 2,1 m",
+      "preco": 48.99,
+      "preco_conferido_em": "2026-11-09",
+      "loja": "Shopee",
+      "link": "{{LINK:sp-afi-ring-light-30}}",
+      "imagem": "https://down-zl-br.img.susercontent.com/file/sg-11134201-824ha-menfu27m5p1jfb@resize_w450_nl",
+      "nota": "Nota 4,75 em 24.224 avaliações na Shopee."
+    },
+    {
+      "nome": "Microfone de lapela sem fio duplo",
+      "preco": 67.99,
+      "preco_conferido_em": "2026-11-09",
+      "loja": "Shopee",
+      "link": "{{LINK:sp-afi-lapela-duplo}}",
+      "imagem": "https://down-zl-br.img.susercontent.com/file/br-11134207-7r98o-mazmlk0w1ytr62@resize_w450_nl",
+      "nota": "Nota 4,82 em 11.380 avaliações na Shopee."
+    },
+    {
+      "nome": "Tripé de celular e bastão de selfie até 1,8 m",
+      "preco": 54.99,
+      "preco_conferido_em": "2026-11-09",
+      "loja": "Shopee",
+      "link": "{{LINK:sp-afi-tripe-selfie}}",
+      "imagem": "https://down-zl-br.img.susercontent.com/file/br-11134207-81ztc-mk1x0wpsptz69d@resize_w450_nl",
+      "nota": "Nota 4,92 em 5.835 avaliações na Shopee."
+    },
+    {
+      "nome": "Celular Xiaomi Redmi 15C 4 GB + 128 GB (loja oficial)",
+      "preco": 1020.57,
+      "preco_conferido_em": "2026-11-09",
+      "loja": "Shopee",
+      "link": "{{LINK:sp-afi-redmi-15c}}",
+      "imagem": "https://down-zl-br.img.susercontent.com/file/br-11134207-81z1k-mgcct0bhqq6d85@resize_w450_nl",
+      "nota": "Nota 4,89 em 586 avaliações na Shopee."
+    },
+    {
+      "nome": "Celular Samsung Galaxy A17 4G (loja oficial)",
+      "preco": 1000.35,
+      "preco_conferido_em": "2026-11-09",
+      "loja": "Shopee",
+      "link": "{{LINK:sp-afi-galaxy-a17}}",
+      "imagem": "https://down-zl-br.img.susercontent.com/file/sg-11134201-825zr-mlzc40k04irk4b@resize_w450_nl",
+      "nota": "Nota 4,95 em 328 avaliações na Shopee."
+    }
+  ],
+  "atualizado": "2026-11-09"
+}

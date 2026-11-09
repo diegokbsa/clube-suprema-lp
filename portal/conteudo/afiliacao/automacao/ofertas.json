@@ -1,0 +1,32 @@
+{
+  "itens": [
+    {
+      "nome": "Headset com microfone USB",
+      "preco": 49.98,
+      "preco_conferido_em": "2026-11-09",
+      "loja": "Shopee",
+      "link": "{{LINK:sp-ate-headset-usb}}",
+      "imagem": "https://down-zl-br.img.susercontent.com/file/br-11134207-820lx-mok07e710e1270@resize_w450_nl",
+      "nota": "Nota 4,72 em 16.967 avaliações na Shopee."
+    },
+    {
+      "nome": "Suporte de celular de mesa em alumínio, giratório",
+      "preco": 12.99,
+      "preco_conferido_em": "2026-11-09",
+      "loja": "Shopee",
+      "link": "{{LINK:sp-ate-suporte-mesa}}",
+      "imagem": "https://down-zl-br.img.susercontent.com/file/br-11134207-820m1-msabhqtytq86fb@resize_w450_nl",
+      "nota": "Nota 4,86 em 2.091 avaliações na Shopee."
+    },
+    {
+      "nome": "Celular Xiaomi Redmi 15C 4 GB + 128 GB (loja oficial)",
+      "preco": 1020.57,
+      "preco_conferido_em": "2026-11-09",
+      "loja": "Shopee",
+      "link": "{{LINK:sp-ate-redmi-15c}}",
+      "imagem": "https://down-zl-br.img.susercontent.com/file/br-11134207-81z1k-mgcct0bhqq6d85@resize_w450_nl",
+      "nota": "Nota 4,89 em 586 avaliações na Shopee."
+    }
+  ],
+  "atualizado": "2026-11-09"
+}

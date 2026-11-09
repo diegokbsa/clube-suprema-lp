@@ -9,7 +9,18 @@
   "h1_html": "Melhores ferramentas e cursos de <em>automação no WhatsApp</em>",
   "h1_seo": "Melhores automações de WhatsApp",
   "sub": "Robôs, suítes e cursos de chatbot para atender mais rápido no WhatsApp, comparados por preço e por tamanho do negócio.",
-  "destaques": ["ck-crm-whatsapp-codigo", "hm-guia-vendas-whatsapp", "ck-whatsify-pro", "lia-automacao", "fluxbot", "zap-suite", "dotti"],
+  "destaques": [
+    "ck-crm-whatsapp-codigo",
+    "hm-guia-vendas-whatsapp",
+    "ck-whatsify-pro",
+    "lia-automacao",
+    "fluxbot",
+    "zap-suite",
+    "dotti",
+    "sp-ate-suporte-mesa",
+    "sp-ate-headset-usb",
+    "sp-ate-redmi-15c"
+  ],
   "melhor_para": {
     "lia-automacao": "negócio que quer automatizar o atendimento",
     "fluxbot": "quem quer montar fluxos de atendimento",
@@ -17,7 +28,10 @@
     "dotti": "quem quer um robô para produzir conteúdo",
     "hm-guia-vendas-whatsapp": "quem vende pelo WhatsApp e Instagram e quer um roteiro",
     "ck-whatsify-pro": "quem vende pelo WhatsApp Web e quer automatizar mensagens",
-    "ck-crm-whatsapp-codigo": "quem quer ter o próprio CRM de WhatsApp com agentes de IA"
+    "ck-crm-whatsapp-codigo": "quem quer ter o próprio CRM de WhatsApp com agentes de IA",
+    "sp-ate-suporte-mesa": "quem atende no celular e quer as mãos livres",
+    "sp-ate-headset-usb": "quem faz atendimento por ligação ou áudio no computador",
+    "sp-ate-redmi-15c": "quem quer um celular só para o WhatsApp da empresa"
   },
   "passos": [
     {
@@ -69,5 +83,14 @@
   "inscricao": {
     "blog": "automacao",
     "brinde": "Checklist de 15 pontos para automatizar o atendimento no WhatsApp"
+  },
+  "kit": {
+    "titulo": "Comece com o kit básico do atendimento",
+    "texto": "A extensão para vender pelo WhatsApp Web e o que deixa o atendimento confortável no dia a dia.",
+    "itens": [
+      "ck-whatsify-pro",
+      "sp-ate-suporte-mesa",
+      "sp-ate-headset-usb"
+    ]
   }
 }

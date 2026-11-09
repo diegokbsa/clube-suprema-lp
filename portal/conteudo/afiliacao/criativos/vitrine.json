@@ -21,7 +21,9 @@
     "ck-bookpack-canva",
     "sp-cri-huion-h430p",
     "sp-cri-huion-h420",
-    "sp-cri-mesa-luz"
+    "sp-cri-mesa-luz",
+    "sp-cri-mini-estudio",
+    "sp-cri-ring-light-30"
   ],
   "melhor_para": {
     "mm-creative-pro": "quem quer aprender a criar criativos profissionais",
@@ -35,7 +37,10 @@
     "ck-carrosseis-que-vendem": "quem quer criar carrosséis com IA para vender",
     "sp-cri-huion-h430p": "quem quer desenhar e editar com caneta",
     "sp-cri-huion-h420": "quem quer a mesa digitalizadora mais compacta",
-    "sp-cri-mesa-luz": "quem copia e cobre desenho no papel"
+    "sp-cri-mesa-luz": "quem copia e cobre desenho no papel",
+    "sp-cri-mini-estudio": "quem fotografa produto pequeno para post e anúncio",
+    "sp-cri-ring-light-30": "quem grava vídeo e foto com o celular",
+    "sp-cri-tripe-selfie": "quem quer o celular firme para foto e vídeo"
   },
   "passos": [
     {
@@ -87,5 +92,15 @@
   "inscricao": {
     "blog": "criativos",
     "brinde": "Checklist de 13 pontos para um criativo que converte"
+  },
+  "kit": {
+    "titulo": "Comece com o kit básico de criação",
+    "texto": "Um pack para criar mais rápido, uma mesa digitalizadora para desenhar e um mini estúdio para fotografar o produto.",
+    "itens": [
+      "posts-virais",
+      "sp-cri-huion-h420",
+      "sp-cri-mini-estudio",
+      "sp-cri-ring-light-30"
+    ]
   }
 }

@@ -98,5 +98,15 @@
   "inscricao": {
     "blog": "sublimacao",
     "brinde": "Kit de 20 artes para sublimação + checklist de primeira prensada"
+  },
+  "kit": {
+    "titulo": "Comece com o kit básico da sublimação",
+    "texto": "Artes prontas para vender e o necessário para sublimar as primeiras canecas (a impressora com tinta sublimática fica à parte).",
+    "itens": [
+      "mega-box-sublimacao",
+      "sp-sub-prensa-caneca",
+      "sp-sub-canecas-12",
+      "sp-sub-papel-livesub"
+    ]
   }
 }

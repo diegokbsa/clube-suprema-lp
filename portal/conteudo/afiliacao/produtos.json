@@ -901,5 +901,245 @@
     "img": "https://down-zl-br.img.susercontent.com/file/br-11134207-820la-mra2udm0j47a9e@resize_w450_nl",
     "preco_nota": "na Shopee em 09/11/2026",
     "cta": "Ver na Shopee"
+  },
+  "sp-for-niimbot-d110": {
+    "nome": "Impressora de etiquetas térmica Niimbot D110 (loja oficial)",
+    "tipo": "Etiquetas",
+    "preco": 80.99,
+    "img": "https://down-zl-br.img.susercontent.com/file/cn-11134207-820l4-mqqyuei3h6v43a@resize_w450_nl",
+    "preco_nota": "na Shopee em 09/11/2026",
+    "cta": "Ver na Shopee"
+  },
+  "sp-for-niimbot-b21": {
+    "nome": "Impressora de etiquetas térmica Niimbot B21 (loja oficial)",
+    "tipo": "Etiquetas",
+    "preco": 167.99,
+    "img": "https://down-zl-br.img.susercontent.com/file/cn-11134207-820l4-mey44hhrqs5de3@resize_w450_nl",
+    "preco_nota": "na Shopee em 09/11/2026",
+    "cta": "Ver na Shopee"
+  },
+  "sp-for-envelope-100": {
+    "nome": "100 envelopes de segurança para envio",
+    "tipo": "Embalagem",
+    "preco": 11.0,
+    "img": "https://down-zl-br.img.susercontent.com/file/br-11134207-7r98o-m04x4d7lq0kpe4@resize_w450_nl",
+    "preco_nota": "na Shopee em 09/11/2026",
+    "cta": "Ver na Shopee"
+  },
+  "sp-for-envelope-1000": {
+    "nome": "Kit 1.000 envelopes de segurança",
+    "tipo": "Embalagem",
+    "preco": 54.88,
+    "img": "https://down-zl-br.img.susercontent.com/file/sg-11134201-820oa-mnbppxyoglc61f@resize_w450_nl",
+    "preco_nota": "na Shopee em 09/11/2026",
+    "cta": "Ver na Shopee"
+  },
+  "sp-for-sacolas-100": {
+    "nome": "100 sacolas plásticas para loja",
+    "tipo": "Embalagem",
+    "preco": 23.02,
+    "img": "https://down-zl-br.img.susercontent.com/file/br-11134207-7r98o-m5ztoiove37659@resize_w450_nl",
+    "preco_nota": "na Shopee em 09/11/2026",
+    "cta": "Ver na Shopee"
+  },
+  "sp-for-caixas-papelao": {
+    "nome": "Caixas de papelão para envio (kit)",
+    "tipo": "Embalagem",
+    "preco": 26.97,
+    "img": "https://down-zl-br.img.susercontent.com/file/br-11134207-820mg-mt9wnnjtsoht56@resize_w450_nl",
+    "preco_nota": "na Shopee em 09/11/2026",
+    "cta": "Ver na Shopee"
+  },
+  "sp-for-fita-adesiva": {
+    "nome": "Kit 5 fitas adesivas largas 500 m",
+    "tipo": "Embalagem",
+    "preco": 45.9,
+    "img": "https://down-zl-br.img.susercontent.com/file/br-11134207-7r98o-lqxept1jslql76@resize_w450_nl",
+    "preco_nota": "na Shopee em 09/11/2026",
+    "cta": "Ver na Shopee"
+  },
+  "sp-cri-mini-estudio": {
+    "nome": "Mini estúdio fotográfico com luz LED",
+    "tipo": "Foto de produto",
+    "preco": 79.99,
+    "img": "https://down-zl-br.img.susercontent.com/file/cb5edd3da5586356c681d783b9bcf754@resize_w450_nl",
+    "preco_nota": "na Shopee em 09/11/2026",
+    "cta": "Ver na Shopee"
+  },
+  "sp-cri-ring-light-30": {
+    "nome": "Ring light 30 cm com tripé 2,1 m",
+    "tipo": "Iluminação",
+    "preco": 48.99,
+    "img": "https://down-zl-br.img.susercontent.com/file/sg-11134201-824ha-menfu27m5p1jfb@resize_w450_nl",
+    "preco_nota": "na Shopee em 09/11/2026",
+    "cta": "Ver na Shopee"
+  },
+  "sp-cri-tripe-selfie": {
+    "nome": "Tripé de celular e bastão de selfie até 1,8 m",
+    "tipo": "Tripé",
+    "preco": 54.99,
+    "img": "https://down-zl-br.img.susercontent.com/file/br-11134207-81ztc-mk1x0wpsptz69d@resize_w450_nl",
+    "preco_nota": "na Shopee em 09/11/2026",
+    "cta": "Ver na Shopee"
+  },
+  "sp-ia-lapela-duplo": {
+    "nome": "Microfone de lapela sem fio duplo",
+    "tipo": "Áudio",
+    "preco": 67.99,
+    "img": "https://down-zl-br.img.susercontent.com/file/br-11134207-7r98o-mazmlk0w1ytr62@resize_w450_nl",
+    "preco_nota": "na Shopee em 09/11/2026",
+    "cta": "Ver na Shopee"
+  },
+  "sp-ia-lapela-kit2": {
+    "nome": "Kit 2 microfones de lapela sem fio",
+    "tipo": "Áudio",
+    "preco": 53.99,
+    "img": "https://down-zl-br.img.susercontent.com/file/br-11134207-7r98o-mdesk52d36bd2f@resize_w450_nl",
+    "preco_nota": "na Shopee em 09/11/2026",
+    "cta": "Ver na Shopee"
+  },
+  "sp-ia-tripe-selfie": {
+    "nome": "Tripé de celular e bastão de selfie até 1,8 m",
+    "tipo": "Tripé",
+    "preco": 54.99,
+    "img": "https://down-zl-br.img.susercontent.com/file/br-11134207-81ztc-mk1x0wpsptz69d@resize_w450_nl",
+    "preco_nota": "na Shopee em 09/11/2026",
+    "cta": "Ver na Shopee"
+  },
+  "sp-ia-webcam-360": {
+    "nome": "Webcam Full HD 1080p giratória com microfone",
+    "tipo": "Vídeo",
+    "preco": 33.39,
+    "img": "https://down-zl-br.img.susercontent.com/file/sg-11134201-82618-mk4ye2ybngudc3@resize_w450_nl",
+    "preco_nota": "na Shopee em 09/11/2026",
+    "cta": "Ver na Shopee"
+  },
+  "sp-ia-mic-usb": {
+    "nome": "Microfone condensador USB com tripé",
+    "tipo": "Áudio",
+    "preco": 37.49,
+    "img": "https://down-zl-br.img.susercontent.com/file/br-11134207-820m3-mtfe18whnzepca@resize_w450_nl",
+    "preco_nota": "na Shopee em 09/11/2026",
+    "cta": "Ver na Shopee"
+  },
+  "sp-mil-mala-bordo": {
+    "nome": "Mala de bordo em ABS com rodas giratórias",
+    "tipo": "Bagagem",
+    "preco": 145.99,
+    "img": "https://down-zl-br.img.susercontent.com/file/br-11134207-820lh-mq7vuda3itc1d4@resize_w450_nl",
+    "preco_nota": "na Shopee em 09/11/2026",
+    "cta": "Ver na Shopee"
+  },
+  "sp-mil-organizador-7": {
+    "nome": "Kit 7 bolsas organizadoras para mala",
+    "tipo": "Organização",
+    "preco": 28.99,
+    "img": "https://down-zl-br.img.susercontent.com/file/br-11134207-7r98o-lungd923nxqs3c@resize_w450_nl",
+    "preco_nota": "na Shopee em 09/11/2026",
+    "cta": "Ver na Shopee"
+  },
+  "sp-mil-adaptador-viagem": {
+    "nome": "Adaptador de tomada universal para viagem",
+    "tipo": "Viagem",
+    "preco": 12.86,
+    "img": "https://down-zl-br.img.susercontent.com/file/br-11134207-81z1k-me5v9ilfdp8ib6@resize_w450_nl",
+    "preco_nota": "na Shopee em 09/11/2026",
+    "cta": "Ver na Shopee"
+  },
+  "sp-mil-almofada-h": {
+    "nome": "Almofada de pescoço em H para viagem",
+    "tipo": "Viagem",
+    "preco": 45.0,
+    "img": "https://down-zl-br.img.susercontent.com/file/br-11134207-820lp-mq92u2x8pla9a9@resize_w450_nl",
+    "preco_nota": "na Shopee em 09/11/2026",
+    "cta": "Ver na Shopee"
+  },
+  "sp-afi-redmi-15c": {
+    "nome": "Celular Xiaomi Redmi 15C 4 GB + 128 GB (loja oficial)",
+    "tipo": "Celular",
+    "preco": 1020.57,
+    "img": "https://down-zl-br.img.susercontent.com/file/br-11134207-81z1k-mgcct0bhqq6d85@resize_w450_nl",
+    "preco_nota": "na Shopee em 09/11/2026",
+    "cta": "Ver na Shopee"
+  },
+  "sp-afi-galaxy-a17": {
+    "nome": "Celular Samsung Galaxy A17 4G (loja oficial)",
+    "tipo": "Celular",
+    "preco": 1000.35,
+    "img": "https://down-zl-br.img.susercontent.com/file/sg-11134201-825zr-mlzc40k04irk4b@resize_w450_nl",
+    "preco_nota": "na Shopee em 09/11/2026",
+    "cta": "Ver na Shopee"
+  },
+  "sp-afi-tripe-selfie": {
+    "nome": "Tripé de celular e bastão de selfie até 1,8 m",
+    "tipo": "Tripé",
+    "preco": 54.99,
+    "img": "https://down-zl-br.img.susercontent.com/file/br-11134207-81ztc-mk1x0wpsptz69d@resize_w450_nl",
+    "preco_nota": "na Shopee em 09/11/2026",
+    "cta": "Ver na Shopee"
+  },
+  "sp-afi-lapela-duplo": {
+    "nome": "Microfone de lapela sem fio duplo",
+    "tipo": "Áudio",
+    "preco": 67.99,
+    "img": "https://down-zl-br.img.susercontent.com/file/br-11134207-7r98o-mazmlk0w1ytr62@resize_w450_nl",
+    "preco_nota": "na Shopee em 09/11/2026",
+    "cta": "Ver na Shopee"
+  },
+  "sp-afi-ring-light-30": {
+    "nome": "Ring light 30 cm com tripé 2,1 m",
+    "tipo": "Iluminação",
+    "preco": 48.99,
+    "img": "https://down-zl-br.img.susercontent.com/file/sg-11134201-824ha-menfu27m5p1jfb@resize_w450_nl",
+    "preco_nota": "na Shopee em 09/11/2026",
+    "cta": "Ver na Shopee"
+  },
+  "sp-ate-suporte-mesa": {
+    "nome": "Suporte de celular de mesa em alumínio, giratório",
+    "tipo": "Suporte",
+    "preco": 12.99,
+    "img": "https://down-zl-br.img.susercontent.com/file/br-11134207-820m1-msabhqtytq86fb@resize_w450_nl",
+    "preco_nota": "na Shopee em 09/11/2026",
+    "cta": "Ver na Shopee"
+  },
+  "sp-ate-headset-usb": {
+    "nome": "Headset com microfone USB",
+    "tipo": "Áudio",
+    "preco": 49.98,
+    "img": "https://down-zl-br.img.susercontent.com/file/br-11134207-820lx-mok07e710e1270@resize_w450_nl",
+    "preco_nota": "na Shopee em 09/11/2026",
+    "cta": "Ver na Shopee"
+  },
+  "sp-ate-redmi-15c": {
+    "nome": "Celular Xiaomi Redmi 15C 4 GB + 128 GB (loja oficial)",
+    "tipo": "Celular",
+    "preco": 1020.57,
+    "img": "https://down-zl-br.img.susercontent.com/file/br-11134207-81z1k-mgcct0bhqq6d85@resize_w450_nl",
+    "preco_nota": "na Shopee em 09/11/2026",
+    "cta": "Ver na Shopee"
+  },
+  "sp-ach-ring-light-30": {
+    "nome": "Ring light 30 cm com tripé 2,1 m",
+    "tipo": "Iluminação",
+    "preco": 48.99,
+    "img": "https://down-zl-br.img.susercontent.com/file/sg-11134201-824ha-menfu27m5p1jfb@resize_w450_nl",
+    "preco_nota": "na Shopee em 09/11/2026",
+    "cta": "Ver na Shopee"
+  },
+  "sp-ach-tripe-selfie": {
+    "nome": "Tripé de celular e bastão de selfie até 1,8 m",
+    "tipo": "Tripé",
+    "preco": 54.99,
+    "img": "https://down-zl-br.img.susercontent.com/file/br-11134207-81ztc-mk1x0wpsptz69d@resize_w450_nl",
+    "preco_nota": "na Shopee em 09/11/2026",
+    "cta": "Ver na Shopee"
+  },
+  "sp-ach-lapela-duplo": {
+    "nome": "Microfone de lapela sem fio duplo",
+    "tipo": "Áudio",
+    "preco": 67.99,
+    "img": "https://down-zl-br.img.susercontent.com/file/br-11134207-7r98o-mazmlk0w1ytr62@resize_w450_nl",
+    "preco_nota": "na Shopee em 09/11/2026",
+    "cta": "Ver na Shopee"
   }
 }

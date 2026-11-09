@@ -1,0 +1,41 @@
+{
+  "itens": [
+    {
+      "nome": "Kit 7 bolsas organizadoras para mala",
+      "preco": 28.99,
+      "preco_conferido_em": "2026-11-09",
+      "loja": "Shopee",
+      "link": "{{LINK:sp-mil-organizador-7}}",
+      "imagem": "https://down-zl-br.img.susercontent.com/file/br-11134207-7r98o-lungd923nxqs3c@resize_w450_nl",
+      "nota": "Nota 4,88 em 71.379 avaliações na Shopee."
+    },
+    {
+      "nome": "Mala de bordo em ABS com rodas giratórias",
+      "preco": 145.99,
+      "preco_conferido_em": "2026-11-09",
+      "loja": "Shopee",
+      "link": "{{LINK:sp-mil-mala-bordo}}",
+      "imagem": "https://down-zl-br.img.susercontent.com/file/br-11134207-820lh-mq7vuda3itc1d4@resize_w450_nl",
+      "nota": "Nota 4,85 em 14.762 avaliações na Shopee."
+    },
+    {
+      "nome": "Adaptador de tomada universal para viagem",
+      "preco": 12.86,
+      "preco_conferido_em": "2026-11-09",
+      "loja": "Shopee",
+      "link": "{{LINK:sp-mil-adaptador-viagem}}",
+      "imagem": "https://down-zl-br.img.susercontent.com/file/br-11134207-81z1k-me5v9ilfdp8ib6@resize_w450_nl",
+      "nota": "Nota 4,95 em 12.323 avaliações na Shopee."
+    },
+    {
+      "nome": "Almofada de pescoço em H para viagem",
+      "preco": 45.0,
+      "preco_conferido_em": "2026-11-09",
+      "loja": "Shopee",
+      "link": "{{LINK:sp-mil-almofada-h}}",
+      "imagem": "https://down-zl-br.img.susercontent.com/file/br-11134207-820lp-mq92u2x8pla9a9@resize_w450_nl",
+      "nota": "Nota 4,85 em 3.200 avaliações na Shopee."
+    }
+  ],
+  "atualizado": "2026-11-09"
+}

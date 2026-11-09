@@ -96,5 +96,15 @@
   "inscricao": {
     "blog": "manutencao",
     "brinde": "Checklist de 15 pontos de manutenção preventiva para oficina e frota"
+  },
+  "kit": {
+    "titulo": "Comece com o kit básico da oficina",
+    "texto": "Um curso de elétrica residencial e as três ferramentas que você vai usar desde o primeiro serviço.",
+    "itens": [
+      "ck-eletro-pro",
+      "sp-man-multimetro-md180l",
+      "sp-man-alicate-mdy400",
+      "sp-man-jogo-catraca"
+    ]
   }
 }

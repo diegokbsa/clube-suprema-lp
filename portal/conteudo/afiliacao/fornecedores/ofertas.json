@@ -1,0 +1,68 @@
+{
+  "itens": [
+    {
+      "nome": "100 sacolas plásticas para loja",
+      "preco": 23.02,
+      "preco_conferido_em": "2026-11-09",
+      "loja": "Shopee",
+      "link": "{{LINK:sp-for-sacolas-100}}",
+      "imagem": "https://down-zl-br.img.susercontent.com/file/br-11134207-7r98o-m5ztoiove37659@resize_w450_nl",
+      "nota": "Nota 4,84 em 19.089 avaliações na Shopee."
+    },
+    {
+      "nome": "100 envelopes de segurança para envio",
+      "preco": 11.0,
+      "preco_conferido_em": "2026-11-09",
+      "loja": "Shopee",
+      "link": "{{LINK:sp-for-envelope-100}}",
+      "imagem": "https://down-zl-br.img.susercontent.com/file/br-11134207-7r98o-m04x4d7lq0kpe4@resize_w450_nl",
+      "nota": "Nota 4,93 em 9.560 avaliações na Shopee."
+    },
+    {
+      "nome": "Impressora de etiquetas térmica Niimbot D110 (loja oficial)",
+      "preco": 80.99,
+      "preco_conferido_em": "2026-11-09",
+      "loja": "Shopee",
+      "link": "{{LINK:sp-for-niimbot-d110}}",
+      "imagem": "https://down-zl-br.img.susercontent.com/file/cn-11134207-820l4-mqqyuei3h6v43a@resize_w450_nl",
+      "nota": "Nota 4,97 em 3.181 avaliações na Shopee."
+    },
+    {
+      "nome": "Impressora de etiquetas térmica Niimbot B21 (loja oficial)",
+      "preco": 167.99,
+      "preco_conferido_em": "2026-11-09",
+      "loja": "Shopee",
+      "link": "{{LINK:sp-for-niimbot-b21}}",
+      "imagem": "https://down-zl-br.img.susercontent.com/file/cn-11134207-820l4-mey44hhrqs5de3@resize_w450_nl",
+      "nota": "Nota 4,96 em 3.346 avaliações na Shopee."
+    },
+    {
+      "nome": "Caixas de papelão para envio (kit)",
+      "preco": 26.97,
+      "preco_conferido_em": "2026-11-09",
+      "loja": "Shopee",
+      "link": "{{LINK:sp-for-caixas-papelao}}",
+      "imagem": "https://down-zl-br.img.susercontent.com/file/br-11134207-820mg-mt9wnnjtsoht56@resize_w450_nl",
+      "nota": "Nota 4,95 em 3.662 avaliações na Shopee."
+    },
+    {
+      "nome": "Kit 5 fitas adesivas largas 500 m",
+      "preco": 45.9,
+      "preco_conferido_em": "2026-11-09",
+      "loja": "Shopee",
+      "link": "{{LINK:sp-for-fita-adesiva}}",
+      "imagem": "https://down-zl-br.img.susercontent.com/file/br-11134207-7r98o-lqxept1jslql76@resize_w450_nl",
+      "nota": "Nota 4,81 em 3.562 avaliações na Shopee."
+    },
+    {
+      "nome": "Kit 1.000 envelopes de segurança",
+      "preco": 54.88,
+      "preco_conferido_em": "2026-11-09",
+      "loja": "Shopee",
+      "link": "{{LINK:sp-for-envelope-1000}}",
+      "imagem": "https://down-zl-br.img.susercontent.com/file/sg-11134201-820oa-mnbppxyoglc61f@resize_w450_nl",
+      "nota": "Nota 4,92 em 1.301 avaliações na Shopee."
+    }
+  ],
+  "atualizado": "2026-11-09"
+}

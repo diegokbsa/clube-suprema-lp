@@ -101,5 +101,15 @@
   "inscricao": {
     "blog": "gamer",
     "brinde": "Checklist de 11 pontos para sua primeira live organizada"
+  },
+  "kit": {
+    "titulo": "Comece com o kit básico da live",
+    "texto": "Um curso de transmissão e o trio que mais muda a live: microfone, luz e placa de captura.",
+    "itens": [
+      "transmissao-pro",
+      "sp-gam-mic-usb",
+      "sp-gam-ring-light-30",
+      "sp-gam-captura-4k"
+    ]
   }
 }

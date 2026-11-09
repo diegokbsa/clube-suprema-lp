@@ -9,7 +9,20 @@
   "h1_html": "Melhores cursos de <em>milhas</em> e de morar fora: comparativo",
   "h1_seo": "Melhores cursos de milhas",
   "sub": "Comunidades e formações de milhas, cursos para morar na Espanha e idiomas, comparados por preço e por objetivo.",
-  "destaques": ["milhas-3", "hm-curso-de-milhas", "fluency-fast", "muito-mais-milhas", "espanha-2027", "italiano-falar", "hm-mente-de-viajante", "ck-speakai-ingles"],
+  "destaques": [
+    "milhas-3",
+    "hm-curso-de-milhas",
+    "fluency-fast",
+    "muito-mais-milhas",
+    "espanha-2027",
+    "italiano-falar",
+    "hm-mente-de-viajante",
+    "ck-speakai-ingles",
+    "sp-mil-mala-bordo",
+    "sp-mil-organizador-7",
+    "sp-mil-adaptador-viagem",
+    "sp-mil-almofada-h"
+  ],
   "melhor_para": {
     "milhas-3": "quem quer comunidade de passagens baratas com curso de milhas",
     "muito-mais-milhas": "quem quer uma formação completa de milhas",
@@ -18,7 +31,11 @@
     "italiano-falar": "quem quer aprender italiano",
     "hm-curso-de-milhas": "quem está começando com milhas",
     "hm-mente-de-viajante": "quem quer viajar gastando menos",
-    "ck-speakai-ingles": "quem entende um pouco de inglês mas trava na hora de falar"
+    "ck-speakai-ingles": "quem entende um pouco de inglês mas trava na hora de falar",
+    "sp-mil-mala-bordo": "quem quer viajar só com a bagagem de mão",
+    "sp-mil-organizador-7": "quem quer a mala organizada",
+    "sp-mil-adaptador-viagem": "quem vai para país com outra tomada",
+    "sp-mil-almofada-h": "quem encara voo longo ou ônibus"
   },
   "passos": [
     {
@@ -70,5 +87,15 @@
   "inscricao": {
     "blog": "milhas",
     "brinde": "Checklist de 24 passos para sua primeira emissão com milhas"
+  },
+  "kit": {
+    "titulo": "Comece com o kit básico do viajante",
+    "texto": "Um curso para juntar e usar milhas e o que evita taxa de bagagem e aperto na viagem.",
+    "itens": [
+      "hm-curso-de-milhas",
+      "sp-mil-mala-bordo",
+      "sp-mil-organizador-7",
+      "sp-mil-adaptador-viagem"
+    ]
   }
 }

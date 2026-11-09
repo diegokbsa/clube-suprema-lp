@@ -226,6 +226,19 @@ function captura(info, v) {
 const faqHtml = (faq) => `<div class="faq">${faq.map((f) => `<details><summary>${esc(f.q)}</summary><p>${esc(f.a)}</p></details>`).join('')}</div>`;
 
 /** Home: comparativo "os melhores X em ANO" com destaques, tabela, passos, guias, captura e FAQ. */
+/** "Comece com o kit básico" (09/11/2026, Kbsa: digital + físico que faça sentido): vitrine.json
+ *  "kit": {"titulo", "texto", "itens": [chaves]}, de 2 a 4 itens (1 digital + 2 a 3 físicos). Só entra item com afiliação ativa;
+ *  com menos de 2 o bloco some. Mostra a soma dos preços, a data da conferência e o aviso de comissão. */
+export function kitBasico(v, dados) {
+  const itens = (v.kit?.itens || []).map((k) => produto(k, dados)).filter(Boolean).slice(0, 4);
+  if (itens.length < 2) return '';
+  const soma = itens.reduce((s, p) => s + (Number(p.preco) || 0), 0);
+  const tipo = (p) => (p.chave.startsWith('sp-') ? 'Físico' : 'Digital');
+  return `<section id="kit" class="alt"><div class="w"><h2>${esc(v.kit.titulo || 'Comece com o kit básico')}</h2><p class="lead">${esc(v.kit.texto || 'O curso para aprender e o que você precisa ter à mão para começar.')}</p>
+<div class="picks n3">${itens.map((p) => cardProduto(p, { rotulo: tipo(p), melhor: v.melhor_para?.[p.chave], nivel: 'h3' })).join('')}</div>
+<p class="lead" style="margin:18px 0 0">Kit completo por cerca de <b>${brl(soma)}</b>, somando os preços conferidos em ${dataBr()}. Os preços mudam: confira em cada loja. São links de afiliado: se você comprar por eles, recebemos uma comissão, sem custo extra.</p></div></section>`;
+}
+
 export function renderHome({ info, v, posts, prefixo, dados }) {
   const prods = (v.destaques || []).map((k) => produto(k, dados)).filter(Boolean);
   const menor = prods.filter((p) => p.preco).reduce((m, p) => (!m || p.preco < m.preco ? p : m), null);
@@ -248,6 +261,7 @@ export function renderHome({ info, v, posts, prefixo, dados }) {
 <h1>${esc(v.h1)}</h1><p class="sub">${esc(v.sub || info.tagline)}</p>
 <div class="meta"><span>Por ${esc(info.autor || `Equipe ${info.nome}`)}</span><span>Atualizado em ${dataBr()}</span>${prods.length ? `<span>${prods.length} opções comparadas por preço e para quem servem</span>` : ''}</div>
 <div class="picks n${Math.min(prods.length, 3)}">${prods.slice(0, 3).map((p, i) => cardProduto(p, { rotulo: rotulo(p, i), um: i === 0, primeiro: i === 0, melhor: v.melhor_para?.[p.chave] })).join('')}</div></div></div>
+${kitBasico(v, dados)}
 ${prods.length ? `<section id="comparativo"><div class="w"><h2>${esc(v.tabela_titulo || 'Comparativo lado a lado')}</h2><p class="lead">${esc(v.tabela_texto || 'Preço da página oficial e o perfil de quem aproveita mais cada opção. Clique para conferir o conteúdo e a garantia antes de decidir.')}</p>
 <div class="tabw"><table class="tab"><thead><tr><th>Opção</th><th class="esc">Para quem é</th><th>Preço</th><th></th></tr></thead><tbody>${linhas}</tbody></table></div></div></section>` : ''}
 ${v.passos?.length ? `<section class="alt"><div class="w"><h2>${esc(v.passos_titulo || 'Como escolher em 3 passos')}</h2><p class="lead">${esc(v.passos_texto || '')}</p>

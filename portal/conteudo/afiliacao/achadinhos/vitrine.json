@@ -44,7 +44,10 @@
     "sp-ach-suporte-parede": "quem quer organizar controle, celular e miudezas na parede",
     "sp-ach-utensilios-silicone": "quem quer utensílios que não riscam a panela",
     "sp-ach-saboneteira": "quem quer organizar a pia do banheiro",
-    "sp-ach-garrafa-termica": "quem quer um kit de café para casa ou presente"
+    "sp-ach-garrafa-termica": "quem quer um kit de café para casa ou presente",
+    "sp-ach-ring-light-30": "quem grava achadinho em casa e precisa de luz",
+    "sp-ach-tripe-selfie": "quem grava achadinho com o celular",
+    "sp-ach-lapela-duplo": "quem grava review falando"
   },
   "passos": [
     {
@@ -96,5 +99,15 @@
   "inscricao": {
     "blog": "achadinhos",
     "brinde": "Planner de 30 dias de postagem de achadinhos + checklist do vídeo"
+  },
+  "kit": {
+    "titulo": "Comece com o kit básico para gravar achadinhos",
+    "texto": "Um curso para aprender o método e o mínimo para gravar o produto com luz, celular firme e áudio limpo.",
+    "itens": [
+      "ck-ia-academy-tiktok",
+      "sp-ach-ring-light-30",
+      "sp-ach-tripe-selfie",
+      "sp-ach-lapela-duplo"
+    ]
   }
 }

@@ -9,7 +9,21 @@
   "h1_html": "Melhores cursos de <em>IA</em> para pequenos negócios e criadores de conteúdo",
   "h1_seo": "Melhores cursos de IA para negócios",
   "sub": "Cursos, prompts e vídeos com inteligência artificial comparados por preço e pelo uso no dia a dia.",
-  "destaques": ["ck-prompts-ia-premium", "hm-ia-renda-extra", "prompts-ia-viral", "escola-da-ia", "clube-videos-ia", "ia-prostudio", "promov-ai", "hm-curso-de-ia", "ck-crie-ai"],
+  "destaques": [
+    "ck-prompts-ia-premium",
+    "hm-ia-renda-extra",
+    "prompts-ia-viral",
+    "escola-da-ia",
+    "clube-videos-ia",
+    "ia-prostudio",
+    "promov-ai",
+    "hm-curso-de-ia",
+    "ck-crie-ai",
+    "sp-ia-lapela-duplo",
+    "sp-ia-mic-usb",
+    "sp-ia-webcam-360",
+    "sp-ia-tripe-selfie"
+  ],
   "melhor_para": {
     "escola-da-ia": "quem quer aprender a usar IA do básico ao avançado",
     "prompts-ia-viral": "quem quer prompts prontos para criar conteúdo",
@@ -19,7 +33,12 @@
     "hm-curso-de-ia": "quem quer entender e usar IA do zero",
     "hm-ia-renda-extra": "quem quer oferecer serviços com ChatGPT",
     "ck-prompts-ia-premium": "quem quer prompts prontos para criar conteúdo",
-    "ck-crie-ai": "quem quer um gerador de prompts"
+    "ck-crie-ai": "quem quer um gerador de prompts",
+    "sp-ia-lapela-duplo": "quem grava vídeo falando e quer áudio limpo",
+    "sp-ia-lapela-kit2": "quem grava em dupla ou entrevista",
+    "sp-ia-tripe-selfie": "quem grava vídeo curto com o celular",
+    "sp-ia-webcam-360": "quem grava aula ou reunião no computador",
+    "sp-ia-mic-usb": "quem grava narração no computador"
   },
   "passos": [
     {
@@ -71,5 +90,15 @@
   "inscricao": {
     "blog": "ia",
     "brinde": "Checklist de 10 passos para usar IA no trabalho com segurança"
+  },
+  "kit": {
+    "titulo": "Comece com o kit básico para criar vídeo com IA",
+    "texto": "Prompts prontos para o roteiro e o mínimo para gravar a sua parte com áudio e imagem limpos.",
+    "itens": [
+      "ck-prompts-ia-premium",
+      "sp-ia-lapela-duplo",
+      "sp-ia-tripe-selfie",
+      "sp-ia-webcam-360"
+    ]
   }
 }

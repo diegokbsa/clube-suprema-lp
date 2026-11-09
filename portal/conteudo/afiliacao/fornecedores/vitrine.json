@@ -9,7 +9,20 @@
   "h1_html": "Listas de <em>fornecedores</em> e cursos para começar a revender com segurança",
   "h1_seo": "Melhores listas de fornecedores para revenda",
   "sub": "Listas de fornecedores, packs para lojistas e cursos de revenda, comparados por preço e por tipo de negócio.",
-  "destaques": ["ck-mapa-das-fabricas", "vivendo-acessorios", "lojista-pack", "mapa-fornecedores", "antes-do-leilao", "hm-importando-laces", "ck-lista-fornecedores-bras", "ck-top50-fornecedores-25"],
+  "destaques": [
+    "ck-mapa-das-fabricas",
+    "vivendo-acessorios",
+    "lojista-pack",
+    "mapa-fornecedores",
+    "antes-do-leilao",
+    "hm-importando-laces",
+    "ck-lista-fornecedores-bras",
+    "ck-top50-fornecedores-25",
+    "sp-for-niimbot-d110",
+    "sp-for-envelope-100",
+    "sp-for-sacolas-100",
+    "sp-for-caixas-papelao"
+  ],
   "melhor_para": {
     "mapa-fornecedores": "quem quer uma lista de fornecedores para começar a revender",
     "lojista-pack": "lojista que quer material pronto para vender mais",
@@ -18,7 +31,14 @@
     "hm-importando-laces": "quem quer importar e revender laces",
     "ck-mapa-das-fabricas": "quem quer contato direto de importadores e fábricas do Brás e da 25 de Março",
     "ck-lista-fornecedores-bras": "quem quer começar a revender roupas do Brás",
-    "ck-top50-fornecedores-25": "quem quer fornecedores da 25 de Março já testados"
+    "ck-top50-fornecedores-25": "quem quer fornecedores da 25 de Março já testados",
+    "sp-for-niimbot-d110": "quem quer imprimir etiqueta de produto e de preço no celular",
+    "sp-for-niimbot-b21": "quem etiqueta muito produto e quer etiqueta maior",
+    "sp-for-envelope-100": "quem está fazendo os primeiros envios",
+    "sp-for-envelope-1000": "quem já envia todo dia e quer pagar menos por envelope",
+    "sp-for-sacolas-100": "quem entrega na mão ou tem loja física",
+    "sp-for-caixas-papelao": "quem envia peça que amassa no envelope",
+    "sp-for-fita-adesiva": "quem fecha caixa todo dia"
   },
   "passos": [
     {
@@ -70,5 +90,15 @@
   "inscricao": {
     "blog": "fornecedores",
     "brinde": "Checklist de 34 pontos para testar um fornecedor antes de comprar"
+  },
+  "kit": {
+    "titulo": "Comece com o kit básico de quem revende",
+    "texto": "O mapa para achar fornecedor e o essencial para etiquetar, embalar e enviar o primeiro pedido.",
+    "itens": [
+      "ck-mapa-das-fabricas",
+      "sp-for-niimbot-d110",
+      "sp-for-envelope-100",
+      "sp-for-sacolas-100"
+    ]
   }
 }
