@@ -234,3 +234,11 @@ dialog.gm-demo:not([open]) { display: none; }
 dialog.gm-demo.celular .gm-demo-palco { padding: 16px 0; }
 dialog.gm-demo.celular iframe { width: 390px; max-width: 100%; border-radius: 22px; box-shadow: 0 0 0 10px #111, var(--shadow); }
 @media (max-width: 700px) { .gm-tela { display: none; } dialog.gm-demo { width: 100vw; height: 100dvh; border-radius: 0; } }
+/* miniaturas de sites e páginas (só layout; cores pelas variáveis do visual) */
+.mini-grade{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}
+.mini-card{display:flex;flex-direction:column;gap:10px;margin:0}
+.mini{display:block;width:100%;height:auto;aspect-ratio:16/10;object-fit:cover;object-position:top;border-radius:calc(var(--radius) - 4px);border:1px solid var(--line);background:var(--panel)}
+.mini-espera{display:grid;place-items:center;font-size:.8rem;color:var(--ink-3)}
+.mini-info{display:flex;flex-direction:column;gap:2px;min-width:0}.mini-info .mono{font-size:.78rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mini-site{display:block;max-width:420px;margin:4px 0 14px}
+.mini-linha{display:inline-block;vertical-align:middle;margin-right:10px}.mini.mini-sm{width:72px;border-radius:6px}

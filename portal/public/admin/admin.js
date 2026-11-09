@@ -79,7 +79,8 @@ function navLinks(route) {
     const add = (hash, label, perm, on, extra = '') => { if (!perm || can(perm)) items.push([`#/t/${t.slug}${hash}`, label, on, extra]); };
     add('', 'Painel', 'tenant.read', v === 'dash');
     add('/ia', 'Conectar sua IA', 'ai.connect', v === 'ia');
-    add('/site', 'Sites e páginas', 'site.read', v === 'site' || v === 'editor');
+    add('/site', 'Sites', 'site.read', v === 'site');
+    add('/paginas', 'Páginas', 'site.read', v === 'paginas' || v === 'editor');
     add('/seo', 'SEO', 'site.read', v === 'seo');
     add('/leads', 'Leads e CRM', 'leads.read', v === 'leads');
     add('/afiliados', 'Afiliados', 'affiliates.read', v === 'afiliados');
@@ -165,7 +166,7 @@ function parseRoute() {
   if (parts[0] === 't') {
     const slug = parts[1];
     const sub = parts[2] || '';
-    const views = { '': 'dash', site: 'site', editor: 'editor', seo: 'seo', ia: 'ia', leads: 'leads', afiliados: 'afiliados', integracoes: 'integracoes', usuarios: 'usuarios', calendario: 'calendario', auditoria: 'auditoria', config: 'config', m: 'module' };
+    const views = { '': 'dash', site: 'site', paginas: 'paginas', editor: 'editor', seo: 'seo', ia: 'ia', leads: 'leads', afiliados: 'afiliados', integracoes: 'integracoes', usuarios: 'usuarios', calendario: 'calendario', auditoria: 'auditoria', config: 'config', m: 'module' };
     return { view: views[sub] || 'dash', slug, id: parts[3], module: sub === 'm' ? parts[3] : null };
   }
   return { view: 'central' };
@@ -182,7 +183,7 @@ async function route() {
   }
   if (r.view === 'dash' && S.tenant && !can('tenant.read') && can('ai.connect')) { location.hash = `#/t/${S.tenant.slug}/ia`; return; } // afiliado
   const views = { central: viewCentral, nova: viewNova, insights: viewInsights, acessos: viewAcessos, clientes: viewBaseClientes, migracao: viewMigracaoFila, dash: viewDash, site: viewSite, editor: viewEditor, seo: viewSeo, ia: viewIa, leads: viewLeads, afiliados: viewAfiliados,
-    integracoes: viewIntegracoes, usuarios: viewUsuarios, calendario: viewCalendario, auditoria: viewAuditoria, config: viewConfig, module: viewModule };
+    integracoes: viewIntegracoes, usuarios: viewUsuarios, paginas: viewPaginas, calendario: viewCalendario, auditoria: viewAuditoria, config: viewConfig, module: viewModule };
   try {
     await (views[r.view] || viewCentral)(r);
   } catch (e) {
@@ -568,6 +569,88 @@ async function viewDash(r) {
         : '<div class="empty">Nenhum lead ainda. Os formulários do site enviam para cá, com a origem de cada contato.</div>'}</div>`);
 }
 
+// ---------- miniaturas de sites e páginas + nova página a partir de modelo (pedido do Kbsa, 09/11/2026) ----------
+// As capturas saem de /api/t/<slug>/miniaturas (rascunho atual, Chrome sem tela no servidor, refeitas quando a página muda).
+const miniImg = (url, alt, cls = 'mini') => (url ? `<img class="${cls}" src="${esc(url)}" alt="${esc(alt)}" loading="lazy" decoding="async" width="480" height="300">`
+  : `<span class="${cls} mini-espera" role="img" aria-label="Miniatura sendo gerada">Gerando miniatura</span>`);
+const homeDe = (s) => s.pages.find((p) => !p.slug) || s.pages[0];
+const thumbSite = (s, m) => m.sites[s.id] || (homeDe(s) && m.paginas[homeDe(s).id]) || null;
+
+/** Põe a miniatura no topo de cada site e na primeira coluna de cada página da tela Sites. */
+async function decorarSites(main, slug, sites) {
+  let m;
+  try { m = await api('GET', `/api/t/${slug}/miniaturas`); } catch { return; }
+  for (const s of sites) {
+    const card = $(`[data-site="${s.id}"]`, main);
+    if (!card) continue;
+    const head = $('.card-head', card);
+    head?.insertAdjacentHTML('afterend', `<a class="mini-site" href="${esc(s.url)}" target="_blank" rel="noopener" aria-label="Abrir ${esc(s.name)}">${miniImg(thumbSite(s, m), `Captura de ${s.name}`)}</a>`);
+    for (const p of s.pages) {
+      const cel = $(`a[href$="/editor/${p.id}"]`, card)?.closest('tr')?.firstElementChild;
+      cel?.insertAdjacentHTML('afterbegin', `<span class="mini-linha">${miniImg(m.paginas[p.id], `Captura de ${p.title}`, 'mini mini-sm')}</span>`);
+    }
+  }
+}
+
+/** Diálogo "Nova página": galeria dos modelos do nicho (com demo grande), escolha da página do modelo, ou página em branco. */
+async function dialogoNovaPagina(dlg, slug, sites) {
+  const meta = await api('GET', `/api/meta?niche=${encodeURIComponent(S.tenant.niche)}`);
+  const escolha = { template: null, pagina: '' };
+  dlg.classList.add('wide');
+  dlg.innerHTML = `<form method="dialog" id="np"><div class="gm-cab"><div><h2>Nova página</h2><p class="muted">Comece de uma página pronta de um modelo (clique na imagem para ver a demo) ou de uma página em branco. Nada é publicado até você publicar.</p></div>
+      <button class="btn" value="cancel" aria-label="Fechar">Fechar</button></div>
+    <div class="grid2"><label class="field">Nome da página<input id="np-titulo" maxlength="80" placeholder="Ex.: Promoção de novembro"></label>
+      ${sites.length > 1 ? `<label class="field">Site<select id="np-site">${sites.filter((s) => !s.externalUrl).map((s) => `<option value="${esc(s.id)}">${esc(s.name)}</option>`).join('')}</select></label>` : ''}</div>
+    <div id="np-galeria" class="gm"></div>
+    <p class="err" id="np-err"></p><div class="row end gm-pe"><span class="muted" id="np-sel">Nenhum modelo escolhido.</span><label class="field" id="np-pg-campo" style="display:none">Página do modelo<select id="np-pg"></select></label>
+      <span class="spacer"></span><button class="btn" type="button" id="np-branco">Página em branco</button><button class="btn primary" id="np-go" type="button" disabled>Criar página</button></div></form>`;
+  galeriaModelos($('#np-galeria', dlg), { templates: meta.templates, demoBase: `/api/t/${encodeURIComponent(slug)}/modelos/`, onEscolher: (id) => {
+    const t = meta.templates.find((x) => x.id === id);
+    escolha.template = id || null;
+    $('#np-go', dlg).disabled = !t;
+    $('#np-sel', dlg).textContent = t ? `Modelo: ${t.name.replace(/\s*\(edição SX\)\s*$/, '')}` : 'Nenhum modelo escolhido.';
+    $("#np-pg-campo", dlg).style.display = t ? "" : "none";
+    if (t) {
+      $('#np-pg', dlg).innerHTML = t.pages.map((p) => `<option value="${esc(p.slug)}">${esc(p.title)}</option>`).join('');
+      escolha.pagina = t.pages[0]?.slug || '';
+    }
+  } });
+  $('#np-pg', dlg).addEventListener('change', (e) => { escolha.pagina = e.target.value; });
+  const site = () => $('#np-site', dlg)?.value || sites.find((s) => !s.externalUrl)?.id;
+  const criar = async (deModelo) => {
+    const title = $('#np-titulo', dlg).value.trim();
+    try {
+      const res = deModelo
+        ? await api('POST', `/api/t/${slug}/sites/${site()}/pages/de-modelo`, { template: escolha.template, pagina: escolha.pagina, title: title || undefined })
+        : await api('POST', `/api/t/${slug}/sites/${site()}/pages`, { title: title || 'Nova página' });
+      dlg.close();
+      location.hash = `#/t/${slug}/editor/${res.page.id}`;
+    } catch (e) { $('#np-err', dlg).textContent = e.message; }
+  };
+  $('#np-go', dlg).addEventListener('click', () => criar(true));
+  $('#np-branco', dlg).addEventListener('click', () => criar(false));
+  dlg.addEventListener('close', () => dlg.classList.toggle('wide', false), { once: true });
+  dlg.showModal();
+}
+
+/** Tela Páginas: todas as páginas da operação em cards com a miniatura do rascunho atual. */
+async function viewPaginas(r) {
+  const slug = S.tenant.slug;
+  const [{ sites }, m] = await Promise.all([api('GET', `/api/t/${slug}/sites`), api('GET', `/api/t/${slug}/miniaturas`).catch(() => ({ paginas: {}, sites: {} }))]);
+  const internos = sites.filter((s) => !s.externalUrl);
+  const paginas = internos.flatMap((s) => s.pages.map((p) => ({ ...p, site: s })));
+  const situacao = (p) => (p.published ? (p.dirty ? '<span class="pill warn">Publicada, com alterações</span>' : statusPill('publicado')) : statusPill('rascunho'));
+  const main = layout(r, `<div class="page-head"><div><h1>Páginas</h1><p>${plural(paginas.length, 'página', 'páginas')} em ${plural(internos.length, 'site', 'sites')}. A imagem mostra o rascunho atual e se atualiza quando a página muda.</p></div><span class="spacer"></span>
+      ${can('site.edit') && internos.length ? '<button class="btn primary" type="button" id="nova-pagina">Nova página</button>' : ''}</div>
+    ${paginas.length ? `<div class="mini-grade">${paginas.map((p) => `<article class="card mini-card">
+        <a href="#/t/${esc(slug)}/editor/${esc(p.id)}" aria-label="Editar ${esc(p.title)}">${miniImg(m.paginas[p.id], `Captura de ${p.title}`)}</a>
+        <div class="mini-info"><strong>${esc(p.title)}</strong><span class="muted mono">${esc(p.site.domain || p.site.slug)}/${esc(p.slug)}</span></div>
+        <div class="row">${situacao(p)}<span class="spacer"></span><a class="btn sm primary" href="#/t/${esc(slug)}/editor/${esc(p.id)}">Editar</a></div></article>`).join('')}</div>`
+    : `<div class="empty">${internos.length ? 'Nenhuma página ainda.' : 'Crie um site em Sites para começar a ter páginas.'}</div>`}
+    <dialog id="dlg"></dialog>`);
+  $('#nova-pagina', main)?.addEventListener('click', () => dialogoNovaPagina($('#dlg', main), slug, internos));
+}
+
 // ---------- galeria de modelos (Novo site e criação de operação) ----------
 // Miniatura em /admin/modelos/<id>.jpg (sem ela, fica a amostra de cores); "Ver demo" abre o modelo inteiro, navegável, por cima da tela.
 const OBJETIVOS = [['torneios', 'Torneios', /torneio|agenda/], ['fichas', 'Fichas', /fichas/], ['conteudo', 'Conteúdo', /blog|educativ|curso/],
@@ -647,7 +730,7 @@ async function viewSite(r) {
   const { sites } = await api('GET', `/api/t/${S.tenant.slug}/sites`);
   const meta = await api('GET', `/api/meta?niche=${encodeURIComponent(S.tenant.niche)}`);
   const slug = S.tenant.slug;
-  const main = layout(r, `<div class="page-head"><div><h1>Sites e páginas</h1><p>Edite por blocos, veja a prévia e publique quando estiver pronto.</p></div><span class="spacer"></span>
+  const main = layout(r, `<div class="page-head"><div><h1>Sites</h1><p>Edite por blocos, veja a prévia e publique quando estiver pronto. Cada página também aparece em Páginas.</p></div><span class="spacer"></span>
       ${can('site.edit') ? '<button class="btn" type="button" id="new-site">Novo site</button>' : ''}</div>
     ${sites.length ? sites.map((s) => `<div class="card" data-site="${esc(s.id)}"><div class="card-head"><h2>${esc(s.name)}</h2>${statusPill(s.status)}<span class="spacer"></span>
         <a class="btn sm" href="${esc(s.url)}" target="_blank" rel="noopener">Abrir site ↗</a>${can('site.edit') && !s.externalUrl ? `<button class="btn sm" type="button" data-settings="${esc(s.id)}">Aparência, SEO e mensuração</button>` : ''}</div>
@@ -665,12 +748,8 @@ async function viewSite(r) {
     toast('Página duplicada.');
     location.hash = `#/t/${slug}/editor/${res.page.id}`;
   }));
-  $$('[data-newpage]', main).forEach((b) => b.addEventListener('click', async () => {
-    const title = prompt('Nome da nova página');
-    if (!title) return;
-    const res = await api('POST', `/api/t/${slug}/sites/${b.dataset.newpage}/pages`, { title });
-    location.hash = `#/t/${slug}/editor/${res.page.id}`;
-  }));
+  $$('[data-newpage]', main).forEach((b) => b.addEventListener('click', () => dialogoNovaPagina(dlg, slug, sites.filter((s) => s.id === b.dataset.newpage))));
+  decorarSites(main, slug, sites);
   $('#new-site')?.addEventListener('click', () => {
     let escolhido = null;
     dlg.classList.add('wide');
