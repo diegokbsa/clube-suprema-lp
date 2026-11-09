@@ -103,7 +103,7 @@ test('Black Friday 2026: faixa, menu e rodapé só no blog com o post BF e só a
   const { blackFriday, BF_ATE } = await import('../tools/afiliacao-visual.mjs');
   const arq = path.join(C, 'milhas', 'posts', '99-teste-bf.json');
   const b = blog('milhas');
-  assert.equal(blackFriday(b.v, b.prefixo), fs.readdirSync(path.join(C, 'milhas', 'posts')).some((f) => /black-friday/.test(f)) ? blackFriday(b.v, b.prefixo) : null);
+  assert.deepEqual(blackFriday(b.v, b.prefixo), fs.readdirSync(path.join(C, 'milhas', 'posts')).some((f) => /black-friday/.test(f)) ? blackFriday(b.v, b.prefixo) : null);
   fs.writeFileSync(arq, JSON.stringify({ slug: 'black-friday-2026-ofertas-de-milhas', title: 'BF', content: 'x' }));
   try {
     const bf = blackFriday(b.v, b.prefixo, Date.parse('2026-11-20T12:00:00Z'));

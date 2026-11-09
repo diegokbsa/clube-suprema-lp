@@ -18,8 +18,10 @@ const absoluta = (src, prefixo) => (src && src.startsWith('/') ? `${new URL(pref
 /** Capa do post (campo "cover": /assets/afiliacao/<blog>/<slug>-capa.png). Só caminho local de imagem; senão null. */
 export const capaDo = (post) => (IMG_LOCAL.test(String(post?.cover || '')) ? String(post.cover) : null);
 /** Endereço absoluto da capa para og:image/Article.image: mesma origem do blog (kbsa.app/assets/... cai no portal). */
-const capaAbs = (capa, prefixo) => (capa ? `${new URL(prefixo).origin}${capa}` : null);
-const capaCard = (p, primeiro = false) => { const c = capaDo(p); if (!c) return ''; const [w, h] = dimensoesImagem(c, [1200, 630]); return `<img class="gc" src="${esc(c)}" alt="${esc(p.coverAlt || '')}" ${primeiro ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async" width="${w}" height="${h}">`; };
+/** Versão no endereço da imagem local (data do arquivo): a capa regerada aparece na hora, sem esperar o cache de 4 h do Cloudflare. */
+export const comVersao = (src) => { try { return `${src}?v=${Math.floor(fs.statSync(path.join(PUBLICO, src.replace(/^\/+/, ''))).mtimeMs / 1000).toString(36)}`; } catch { return src; } };
+const capaAbs = (capa, prefixo) => (capa ? `${new URL(prefixo).origin}${comVersao(capa)}` : null);
+const capaCard = (p, primeiro = false) => { const c = capaDo(p); if (!c) return ''; const [w, h] = dimensoesImagem(c, [1200, 630]); return `<img class="gc" src="${esc(comVersao(c))}" alt="${esc(p.coverAlt || '')}" ${primeiro ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async" width="${w}" height="${h}">`; };
 
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const brl = (v) => (Number.isFinite(Number(v)) ? Number(v).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: Number(v) % 1 ? 2 : 0 }) : '');
@@ -280,7 +282,7 @@ export function renderLista({ info, v, posts, prefixo }) {
   const guias = posts.map((p, i) => `<a class="guia" href="${prefixo}/blog/${esc(p.slug)}">${capaCard(p, i === 0) || `<span class="gx" aria-hidden="true">${esc(info.nome)}</span>`}<div><span class="k">${esc(p.category || info.categoria)}</span><h3>${esc(p.title)}</h3><p>${esc(frase(p.excerpt, 170))}</p></div></a>`).join('');
   const ld = { '@context': 'https://schema.org', '@type': 'CollectionPage', name: `Guias · ${info.nome}`, url: canonical, inLanguage: 'pt-BR',
     hasPart: posts.map((p) => ({ '@type': 'Article', headline: p.title, url: `${prefixo}/blog/${p.slug}` })) };
-  return `${head({ titulo: `Guias ${v.assunto ? `de ${v.assunto} ` : ''}· ${info.nome}`, desc: info.descricao, canonical, v: { ...v, imagem: v.imagem || capaAbs(capaDo(posts[0]), prefixo), lcp: capaDo(posts[0]) }, ld })}<body>${topo(info, prefixo, v)}
+  return `${head({ titulo: `Guias ${v.assunto ? `de ${v.assunto} ` : ''}· ${info.nome}`, desc: info.descricao, canonical, v: { ...v, imagem: v.imagem || capaAbs(capaDo(posts[0]), prefixo), lcp: capaDo(posts[0]) && comVersao(capaDo(posts[0])) }, ld })}<body>${topo(info, prefixo, v)}
 <main><div class="hero"><div class="w"><h1>Guias do ${esc(info.nome)}</h1><p class="sub">${esc(info.tagline)}</p><div class="meta"><span>${posts.length} guias</span><span>Atualizado em ${dataBr()}</span></div></div></div>
 <section><div class="w"><div class="guias dest">${guias}</div></div></section><section><div class="w">${captura(info, v)}</div></section></main>${rodape(info, prefixo, v)}</body></html>`;
 }
@@ -430,7 +432,7 @@ export function renderPost({ info, v, post, posts, prefixo, dados, aplicarLinks,
 <div class="bc"><a href="${prefixo}/">${esc(info.nome)}</a> › <a href="${prefixo}/blog">Guias</a> › ${esc(post.category || info.categoria)}</div>
 <h1 style="font-size:clamp(1.9rem,4.4vw,3rem)">${esc(post.title)}</h1>
 <div class="meta"><span>Por <a href="${prefixo}/autor" rel="author">${esc(info.autor || `Equipe ${info.nome}`)}</a></span>${publicado ? `<span>Publicado em <time datetime="${esc(String(publicado).slice(0, 10))}">${dataBr(publicado)}</time></span>` : ''}<span>Atualizado em <time datetime="${esc(String(atualizado || publicado || '').slice(0, 10))}">${dataBr(atualizado || publicado)}</time></span><span>${minutos(post.content)} min de leitura</span>${capa ? `<a class="story" href="${prefixo}/stories/${esc(post.slug)}">Ver em story</a>` : ''}</div>
-${capa ? `<figure class="capa"><img src="${esc(capa)}" alt="${esc(post.coverAlt || post.title)}" width="${cw}" height="${ch}" fetchpriority="high" decoding="async"></figure>` : ''}
+${capa ? `<figure class="capa"><img src="${esc(comVersao(capa))}" alt="${esc(post.coverAlt || post.title)}" width="${cw}" height="${ch}" fetchpriority="high" decoding="async"></figure>` : ''}
 ${resposta ? `<div class="rapida"><b>Resposta rápida</b><p>${esc(resposta)}</p></div>` : ''}
 ${comparados.length >= 2 ? tabelaMelhor(comparados, v) : principal ? escolhaTopo(principal, chaves.includes(principal.chave) ? 'Nossa escolha neste guia' : `Indicado pelo ${info.nome}`, v.melhor_para?.[principal.chave]) : ''}
 ${h2.length > 2 ? `<nav class="indice" aria-label="Neste guia"><b>Neste guia</b><ol>${h2.map(([id, t]) => `<li><a href="#${id}">${t}</a></li>`).join('')}</ol></nav>` : ''}
@@ -518,8 +520,8 @@ export function renderStory({ info, v, post, prefixo, dados }) {
   const origem = new URL(prefixo).origin;
   const url = `${prefixo}/stories/${post.slug}`;
   const guia = `${prefixo}/blog/${post.slug}`;
-  const poster = `${origem}${posterDa(capa)}`;
-  const logo = `${origem}${logoDa(capa)}`;
+  const poster = `${origem}${comVersao(posterDa(capa))}`;
+  const logo = `${origem}${comVersao(logoDa(capa))}`;
   const chaves = [...String(post.content).matchAll(/\{\{LINK:([a-z0-9-]+)\}\}/g)].map((m) => m[1]);
   const p = [...chaves, ...(v.destaques || [])].map((k) => produto(k, dados)).find(Boolean);
   const resposta = frase(post.resposta || post.excerpt, 260);

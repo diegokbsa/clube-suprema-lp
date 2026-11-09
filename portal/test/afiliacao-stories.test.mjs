@@ -33,7 +33,7 @@ test('stories: gravadas em AMP depois do instalador, indexáveis e idempotentes'
       const p = paginas[0];
       assert.ok(ehAmp(p.html) && p.indexar === 1);
       assert.match(p.html, new RegExp(`<link rel="canonical" href="https://${p.domain.replace(/\./g, '\\.')}/${p.caminho}">`));
-      assert.match(p.html, /poster-portrait-src="https:\/\/[^"]+-story\.webp"/);
+      assert.match(p.html, /poster-portrait-src="https:\/\/[^"]+-story\.webp(\?v=[a-z0-9]+)?"/);
       assert.ok(!/<script(?! async| type="application\/ld\+json")/.test(p.html), 'só scripts do AMP e JSON-LD');
       assert.equal(montar(p.html, { id: p.site_id }), p.html, 'nada injetado na página AMP');
       const site = db.prepare('SELECT * FROM sites WHERE id = ?').get(p.site_id);

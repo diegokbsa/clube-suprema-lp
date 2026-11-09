@@ -43,6 +43,14 @@ const PROMPTS = lerJson(path.join(CONTEUDO, 'capas-prompts.json'), {});
 const TMP = fs.mkdtempSync(path.join(os.tmpdir(), 'afiliacao-capas-'));
 const hash = (f) => crypto.createHash('sha1').update(fs.readFileSync(f)).digest('hex');
 const semente = (s) => parseInt(crypto.createHash('md5').update(s).digest('hex').slice(0, 7), 16);
+// Trava: duas execuções juntas disputam a GPU (8 GB) e geram as mesmas fotos. Trava com mais de 3 h é considerada abandonada.
+const TRAVA = path.join(os.tmpdir(), 'afiliacao-capas.trava');
+if (fs.existsSync(TRAVA) && Date.now() - fs.statSync(TRAVA).mtimeMs < 3 * 3600_000) {
+  console.log(`REPROVADO: outra execução do afiliacao-capas.mjs está rodando (${fs.readFileSync(TRAVA, 'utf8')}); espere ela terminar.`);
+  process.exit(1);
+}
+fs.writeFileSync(TRAVA, `pid ${process.pid} desde ${new Date().toISOString()}`);
+process.on('exit', () => { try { if (fs.readFileSync(TRAVA, 'utf8').startsWith(`pid ${process.pid} `)) fs.rmSync(TRAVA); } catch { /* já saiu */ } });
 
 /** Cena padrão por blog, para post novo sem descritivo (o título entra junto; a semente muda por post). */
 const CENA = {
