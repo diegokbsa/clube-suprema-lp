@@ -12,6 +12,10 @@ const limpar = (c) => String(c ?? '').trim().replace(/^\/+|\/+$/g, '').toLowerCa
 // HTML próprio usa script e estilo embutidos e Google Fonts; o resto continua fechado.
 export const CSP_PROPRIA = "default-src 'self'; img-src 'self' data: https:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self' 'unsafe-inline' https://pagead2.googlesyndication.com https://*.adtrafficquality.google https://partner.googleadservices.com https://www.googletagservices.com https://www.googletagmanager.com https://connect.facebook.net https://www.clarity.ms https://*.clarity.ms https://www.googleadservices.com https://googleads.g.doubleclick.net; connect-src 'self' https://pagead2.googlesyndication.com https://*.adtrafficquality.google https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com https://www.facebook.com https://*.clarity.ms https://www.google.com https://www.googleadservices.com https://googleads.g.doubleclick.net https://*.doubleclick.net; frame-src https://www.googletagmanager.com https://googleads.g.doubleclick.net https://*.googlesyndication.com https://*.adtrafficquality.google https://td.doubleclick.net; frame-ancestors 'none'; base-uri 'none'; form-action 'self'";
 
+/** Página AMP (Web Story, <html ⚡> ou <html amp>): o AMP proíbe script próprio, então nada é injetado e a CSP libera só o runtime do AMP. */
+export const ehAmp = (html) => /<html[^>]*\s(⚡|amp)(?=[\s>=])/i.test(String(html).slice(0, 400));
+export const CSP_AMP = "default-src 'self'; img-src 'self' data: https:; style-src 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src https://cdn.ampproject.org; connect-src 'self' https://cdn.ampproject.org; worker-src blob:; frame-ancestors 'none'; base-uri 'none'";
+
 /** Script que o portal acrescenta: quando o envio da página é válido, o e-mail vai para o CRM (com UTMs). Não muda a tela da página. */
 export function scriptCrm(siteId) {
   return `<script>(function(){var S=${JSON.stringify(String(siteId))};var RE=/^[^@\\s]+@[^@\\s]+\\.[^@\\s]{2,}$/;
@@ -46,6 +50,7 @@ export function montar(html, siteOuId) {
   const site = typeof siteOuId === 'object' && siteOuId ? siteOuId : { id: siteOuId };
   const siteId = site.id;
   const doc = String(html).replace(/__SITE__/g, String(siteId));
+  if (ehAmp(doc)) return doc;
   const s = tagMedicao(site) + scriptCrm(siteId);
   return /<\/body>/i.test(doc) ? doc.replace(/<\/body>(?![\s\S]*<\/body>)/i, `${s}</body>`) : `${doc}${s}`;
 }
@@ -57,7 +62,7 @@ export function paginaPropria({ req, site, repo, rest }) {
   if (!CAMINHO.test(caminho)) return null;
   const p = repo.get('paginas_proprias', { site_id: site.id, caminho });
   if (!p) return null;
-  return { status: 200, body: montar(p.html, site), headers: { 'Content-Type': 'text/html; charset=utf-8', 'Content-Security-Policy': CSP_PROPRIA,
+  return { status: 200, body: montar(p.html, site), headers: { 'Content-Type': 'text/html; charset=utf-8', 'Content-Security-Policy': ehAmp(p.html) ? CSP_AMP : CSP_PROPRIA,
     'X-Content-Type-Options': 'nosniff', 'Referrer-Policy': 'strict-origin-when-cross-origin', 'Cache-Control': 'public, max-age=120' } };
 }
 

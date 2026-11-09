@@ -29,6 +29,9 @@ const minutos = (md) => Math.max(3, Math.round(String(md || '').split(/\s+/).len
 const frase = (t, max) => { const s = String(t || ''); if (s.length <= max) return s; const c = s.slice(0, max); const i = Math.max(c.lastIndexOf('. '), c.lastIndexOf('! '), c.lastIndexOf('? ')); return i > 80 ? c.slice(0, i + 1) : `${c.slice(0, c.lastIndexOf(' '))}…`; };
 const cap = (t) => { const s = String(t || ''); return s ? s[0].toUpperCase() + s.slice(1) : s; };
 const REL = 'rel="sponsored nofollow noopener" target="_blank"';
+/** Família para o Google Fonts. Fonte de peso único (Young Serif só tem 400) vai sem peso: pedir 700 derruba o pedido inteiro (HTTP 400) e nenhuma fonte carrega. */
+export const PESO_UNICO = new Set(['Young Serif']);
+export const familiaFonte = (f, pesos) => { const n = f || 'Archivo'; const q = encodeURIComponent(n).replace(/%20/g, '+'); return PESO_UNICO.has(n) ? q : `${q}:wght@${pesos}`; };
 
 /** Produto pronto para a vitrine: dado do catálogo + link (de afiliado se ativo; senão a página de vendas). */
 export function produto(chave, { catalogo, links }) {
@@ -143,7 +146,7 @@ function head({ titulo, desc, canonical, v, ld, og }) {
 <meta property="og:description" content="${esc(desc).slice(0, 200)}"><meta property="og:url" content="${esc(canonical)}"><meta property="og:locale" content="pt_BR">
 ${v.imagem ? `<meta property="og:image" content="${esc(v.imagem)}">${/-capa\.(png|jpe?g|webp)$/.test(v.imagem) ? '<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">' : ''}<meta property="og:image:alt" content="${esc(titulo)}"><meta name="twitter:card" content="summary_large_image">` : '<meta name="twitter:card" content="summary">'}${v.lcp ? `<link rel="preload" as="image" href="${esc(v.lcp)}" fetchpriority="high">` : ''}
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-${((u) => `<link rel="preload" as="style" href="${u}" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="${u}"></noscript>`)(`https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;700&amp;family=${encodeURIComponent(v.fonte || 'Archivo').replace(/%20/g, '+')}:wght@600;700&amp;display=swap`)}
+${((u) => `<link rel="preload" as="style" href="${u}" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="${u}"></noscript>`)(`https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;700&amp;family=${familiaFonte(v.fonte, '600;700')}&amp;display=swap`)}
 <meta name="theme-color" content="${esc(v.cor)}">${adsenseTag(v._adsense)}<style>${css(v)}</style>
 ${ld ? `<script type="application/ld+json">${JSON.stringify(ld).replace(/</g, '\\u003c')}</script>` : ''}</head>`;
 }
@@ -430,4 +433,65 @@ ${it.nota ? `<div class="pq">${esc(it.nota)}</div>` : ''}
 <main><div class="hero"><div class="w"><span class="selo"><b></b>${itens.length ? `Atualizado em ${esc(dataBr(ofertas.atualizado || itens[0].preco_conferido_em))}` : 'Em preparação'}</span>
 <h1>Ofertas do dia</h1><p class="sub">Cada preço aparece com a data em que foi conferido. Alguns links são de afiliado: se você comprar por eles, recebemos uma comissão, sem custo extra para você.</p></div></div>
 <section><div class="w">${itens.length ? `<div class="picks">${cards}</div>` : vazio}</div></section></main>${rodape(info, prefixo)}</body></html>`;
+}
+
+// ---- Web Story (AMP) de cada post, em <domínio>/stories/<slug> (09/11/2026): Google Discover e busca de imagens ----
+const AMP_BOILERPLATE = '<style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>';
+const plano = (md) => String(md || '').replace(/\{\{[A-Z]+:[a-z0-9-]+\}\}/g, '').replace(/!\[[^\]]*\]\([^)]*\)/g, '').replace(/\[([^\]]+)\]\([^)]*\)/g, '$1')
+  .replace(/[*_`>#]+/g, '').replace(/\s+/g, ' ').trim();
+/** Intertítulos do post com a primeira frase de cada um (sem FAQ, Fontes nem caixas de oferta). */
+export function trechosDoPost(content, max = 3) {
+  const out = [];
+  for (const bloco of String(content || '').replace(/\r/g, '').replace(/^:::[\s\S]*?^:::[ \t]*$/gm, '').split(/^##\s+/m).slice(1)) {
+    const [titulo, ...resto] = bloco.split('\n');
+    if (/perguntas|fontes|refer[eê]ncias/i.test(titulo)) continue;
+    const par = resto.map((l) => l.trim()).find((l) => l && !/^(#|!\[|\||-{3})/.test(l));
+    if (par) out.push({ t: plano(titulo), d: frase(plano(par.replace(/^([-*]|\d+[.)])\s+/, '')), 190) });
+    if (out.length >= max) break;
+  }
+  return out;
+}
+/** Imagens da story a partir da capa do post: pôster vertical (<slug>-story.webp) e logo do blog (logo.webp), geradas por afiliacao-capas.mjs. */
+export const posterDa = (capa) => (capa ? capa.replace(/-capa\.(png|jpe?g|webp)$/, '-story.webp') : null);
+export const logoDa = (capa) => (capa ? capa.replace(/\/[^/]+$/, '/logo.webp') : null);
+
+/** Web Story AMP do post: capa, resposta rápida, até 3 intertítulos, produto indicado (link de afiliado) e o guia completo. Null sem capa. */
+export function renderStory({ info, v, post, prefixo, dados }) {
+  const capa = capaDo(post);
+  if (!capa) return null;
+  const origem = new URL(prefixo).origin;
+  const url = `${prefixo}/stories/${post.slug}`;
+  const guia = `${prefixo}/blog/${post.slug}`;
+  const poster = `${origem}${posterDa(capa)}`;
+  const logo = `${origem}${logoDa(capa)}`;
+  const chaves = [...String(post.content).matchAll(/\{\{LINK:([a-z0-9-]+)\}\}/g)].map((m) => m[1]);
+  const p = [...chaves, ...(v.destaques || [])].map((k) => produto(k, dados)).find(Boolean);
+  const resposta = frase(post.resposta || post.excerpt, 260);
+  const trechos = trechosDoPost(post.content);
+  const desc = post.seoDescription || post.excerpt || '';
+  const ld = { '@context': 'https://schema.org', '@type': 'Article', headline: post.title, description: desc, url, mainEntityOfPage: url, inLanguage: 'pt-BR',
+    image: [poster, `${origem}${capa}`], author: { '@type': 'Organization', name: info.autor || `Equipe ${info.nome}`, url: `${prefixo}/` },
+    publisher: { '@type': 'Organization', name: info.nome, url: `${prefixo}/`, logo: { '@type': 'ImageObject', url: logo, width: 192, height: 192 } } };
+  const pagina = (id, corpo, extra = '') => `<amp-story-page id="${id}"><amp-story-grid-layer template="vertical" class="tx">${corpo}</amp-story-grid-layer>${extra}</amp-story-page>`;
+  const link = (href, texto, patrocinado) => `<amp-story-page-outlink layout="nodisplay" theme="custom" cta-accent-element="background" cta-accent-color="${esc(v.cor)}"><a href="${esc(href)}"${patrocinado ? ' rel="sponsored nofollow"' : ''}>${esc(texto)}</a></amp-story-page-outlink>`;
+  return `<!doctype html><html ⚡ lang="pt-BR"><head><meta charset="utf-8"><title>${esc(post.title)} · ${esc(info.nome)}</title>
+<link rel="canonical" href="${esc(url)}"><meta name="viewport" content="width=device-width"><meta name="description" content="${esc(desc).slice(0, 160)}">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<script async src="https://cdn.ampproject.org/v0.js"></script><script async custom-element="amp-story" src="https://cdn.ampproject.org/v0/amp-story-1.0.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;700&amp;family=${familiaFonte(v.fonte, '700')}&amp;display=swap" rel="stylesheet">
+${AMP_BOILERPLATE}
+<style amp-custom>amp-story{font-family:'Atkinson Hyperlegible Next',sans-serif;color:#fff}
+.tx{background:${v.cor};padding:56px 28px 96px;align-content:center}
+.k{font-size:15px;font-weight:700;letter-spacing:.02em;opacity:.9;margin:0 0 10px}
+h1,h2{font-family:'${v.fonte || 'Archivo'}',sans-serif;font-weight:700;line-height:1.1;margin:0 0 16px}h1{font-size:34px}h2{font-size:30px}
+p{font-size:20px;line-height:1.45;margin:0}.pr{font-size:28px;font-weight:700;margin-top:12px}
+.ft{background:#fff;border-radius:14px;padding:16px;margin-bottom:22px}.m{font-size:16px;font-weight:700;margin-top:22px}</style>
+<script type="application/ld+json">${JSON.stringify(ld).replace(/</g, '\\u003c')}</script></head><body>
+<amp-story standalone title="${esc(post.title)}" publisher="${esc(info.nome)}" publisher-logo-src="${esc(logo)}" poster-portrait-src="${esc(poster)}">
+<amp-story-page id="capa"><amp-story-grid-layer template="fill"><amp-img src="${esc(poster)}" width="720" height="960" layout="responsive" alt="${esc(post.coverAlt || post.title)}"></amp-img></amp-story-grid-layer></amp-story-page>
+${resposta ? pagina('resposta', `<div><p class="k">Resposta rápida</p><h1>${esc(post.title)}</h1><p>${esc(resposta)}</p></div>`) : ''}
+${trechos.map((x, i) => pagina(`parte-${i + 1}`, `<div><p class="k">${i + 1} de ${trechos.length}</p><h2>${esc(x.t)}</h2><p>${esc(x.d)}</p></div>`)).join('\n')}
+${p ? pagina('oferta', `<div>${p.img ? `<div class="ft"><amp-img src="${esc(absoluta(p.img, prefixo))}" width="600" height="375" layout="responsive" alt="${esc(p.nome)}"></amp-img></div>` : ''}<p class="k">${chaves.includes(p.chave) ? 'Indicado neste guia' : `Indicado pelo ${esc(info.nome)}`}</p><h2>${esc(p.nome)}</h2>${p.preco ? `<p class="pr">${brl(p.preco)}</p>` : ''}<p class="m">Link de afiliado: confira preço e garantia na página oficial.</p></div>`, link(p.url, 'Ver oferta', true)) : ''}
+${pagina('guia', `<div><p class="k">${esc(info.nome)}</p><h2>Leia o guia completo</h2><p>${esc(frase(desc, 200))}</p></div>`, link(guia, 'Abrir o guia'))}
+</amp-story></body></html>`;
 }
