@@ -344,8 +344,24 @@ function blogIndex({ res, send, site, repo, base, origin }) {
   const cards = posts.map((post) => `<article class="blog-card">${post.coverUrl ? `<img src="${esc(post.coverUrl)}" alt="${esc(post.title)}" loading="lazy">` : ''}
     <div class="blog-card-body"><span class="blog-meta">${esc(post.category)} · ${esc(post.author)}</span><h2><a href="${esc(`${base}/blog/${encodeURIComponent(post.slug)}`)}">${esc(post.title)}</a></h2>
     <p>${esc(post.excerpt || post.seoDescription)}</p><time class="blog-meta" datetime="${esc(post.publishedAt || '')}">${esc(post.publishedAt ? new Date(post.publishedAt).toLocaleDateString('pt-BR') : '')}</time></div></article>`).join('');
-  const title = `Blog · ${site.name}`;
-  return sendHtml(send, res, `${head({ site, origin, base, title, description: `Artigos e informações de ${site.name}.`, canonical: '/blog', image: '' })}<body><main class="blog-wrap">
+  // SEO do índice (09/11/2026): título e descrição com o tema do site, og:image da capa mais nova e CollectionPage/ItemList.
+  const seo = parse(site.seo, {});
+  const title = `Blog ${site.name}: guias, dicas e novidades`.slice(0, 70);
+  const base_desc = String(seo.description || '').trim();
+  const description = (base_desc.length >= 70 ? base_desc
+    : `Guias, dicas e novidades de ${site.name}: ${posts.length} artigo${posts.length === 1 ? '' : 's'} publicado${posts.length === 1 ? '' : 's'}, do básico ao avançado.`).slice(0, 160);
+  const capa = posts.find((p) => p.coverUrl)?.coverUrl;
+  const blogUrl = absoluteSiteUrl(origin, base, '/blog');
+  const structuredData = { '@context': 'https://schema.org', '@graph': [
+    { '@type': 'CollectionPage', '@id': `${blogUrl}#blog`, url: blogUrl, name: title, description, inLanguage: 'pt-BR',
+      isPartOf: { '@type': 'WebSite', name: site.name, url: absoluteSiteUrl(origin, base, '/') },
+      mainEntity: { '@type': 'ItemList', itemListElement: posts.slice(0, 50).map((p, i) => ({ '@type': 'ListItem', position: i + 1,
+        url: absoluteSiteUrl(origin, base, `/blog/${encodeURIComponent(p.slug)}`), name: p.title })) } },
+    { '@type': 'BreadcrumbList', itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Início', item: absoluteSiteUrl(origin, base, '/') },
+      { '@type': 'ListItem', position: 2, name: 'Blog', item: blogUrl }] },
+  ] };
+  return sendHtml(send, res, `${head({ site, origin, base, title, description, canonical: '/blog', image: capa ? absoluteAssetUrl(origin, capa) : '', structuredData, ogType: 'website' })}<body><main class="blog-wrap">
     <nav class="blog-top"><a class="blog-brand" href="${esc(`${base}/`)}">${esc(site.name)}</a><a href="${esc(`${base}/`)}">Página inicial</a></nav>
     <header class="blog-intro"><h1>Blog</h1><p>Artigos e informações publicados por ${esc(site.name)}.</p></header>
     ${posts.length ? `<section class="blog-list" aria-label="Artigos publicados">${cards}</section>` : '<div class="blog-empty">Ainda não há artigos publicados.</div>'}
