@@ -28,7 +28,10 @@ const SESSION_COOKIE = 'pa_sess';
 
 const ADMIN_CSP = "default-src 'self'; img-src 'self' data: https:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; frame-src 'self'; frame-ancestors 'none'; base-uri 'none'; form-action 'self'";
 const ADS_TXT_PADRAO = '# ads.txt: aguardando o ID do publisher do Google AdSense (a linha entra quando a conta for aprovada)\n';
-const SITE_CSP = "default-src 'self'; img-src 'self' data: https:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self' https://www.googletagmanager.com https://connect.facebook.net https://www.clarity.ms https://*.clarity.ms https://www.googleadservices.com https://googleads.g.doubleclick.net; connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com https://www.facebook.com https://*.clarity.ms https://www.google.com https://www.googleadservices.com https://googleads.g.doubleclick.net https://*.doubleclick.net; frame-src https://www.googletagmanager.com https://td.doubleclick.net; frame-ancestors 'self'; base-uri 'none'; form-action 'self'";
+const MIDIA_LONGA = new Set(['.webp', '.avif', '.png', '.jpg', '.jpeg', '.gif', '.svg', '.ico', '.woff', '.woff2']);
+/** Ícone padrão do site (evita o 404 de /favicon.ico que o navegador pede sozinho): inicial do nome num quadrado. */
+const faviconSvg = (nome) => { const l = (String(nome || '').trim()[0] || 'K').toUpperCase().replace(/[<>&"']/g, ''); return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" rx="7" fill="#1f2430"/><text x="16" y="22" font-family="Arial,sans-serif" font-size="18" font-weight="700" fill="#fff" text-anchor="middle">${l}</text></svg>`; };
+const SITE_CSP = "default-src 'self'; img-src 'self' data: https:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self' https://www.googletagmanager.com https://connect.facebook.net https://www.clarity.ms https://*.clarity.ms https://www.googleadservices.com https://googleads.g.doubleclick.net https://static.cloudflareinsights.com; connect-src 'self' https://cloudflareinsights.com https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com https://www.facebook.com https://*.clarity.ms https://www.google.com https://www.googleadservices.com https://googleads.g.doubleclick.net https://*.doubleclick.net; frame-src https://www.googletagmanager.com https://td.doubleclick.net; frame-ancestors 'self'; base-uri 'none'; form-action 'self'";
 
 export async function createApp({ db, origin = 'http://localhost:3400', secretKey = 'dev-only-change-me', modulesDir = path.join(HERE, 'lib', 'modules'), fetchImpl, editionId, serviceToken,
   origins = {}, portEditions = {} } = {}) {
@@ -113,6 +116,7 @@ export async function createApp({ db, origin = 'http://localhost:3400', secretKe
     const pages = repo.all('pages', { site_id: site.id }, { order: 'position ASC' });
     const siteOrigin = originOverride || (site.domain && !base ? `https://${site.domain}` : app.originOf(tenant.edition));
     if (rest === 'sitemap.xml') return send(res, 200, sitemapXml(siteOrigin, base, pages, app.sitemapExtras.flatMap((fn) => { try { return fn({ site, tenant, repo }) || []; } catch { return []; } })), { 'Content-Type': 'application/xml; charset=utf-8', 'Cache-Control': 'public, max-age=600' });
+    if (rest === 'favicon.ico') return send(res, 200, faviconSvg(site.name), { 'Content-Type': 'image/svg+xml', 'Cache-Control': 'public, max-age=86400', 'X-Content-Type-Options': 'nosniff' });
     if (rest === 'robots.txt') return send(res, 200, robotsTxt(siteOrigin, base), { 'Cache-Control': 'public, max-age=3600' });
     // ads.txt na raiz do domínio: lê <pasta de dados>/ads.txt; sem o arquivo, serve só comentário (válido, sem vendedor autorizado).
     if (rest === 'ads.txt') {
@@ -211,7 +215,9 @@ export async function createApp({ db, origin = 'http://localhost:3400', secretKe
     const full = path.normalize(path.join(PUBLIC, file));
     if (!full.startsWith(PUBLIC) || !fs.existsSync(full) || !fs.statSync(full).isFile()) return send(res, 404, 'Não encontrado.');
     const ext = path.extname(full);
-    const headers = { 'Content-Type': MIME[ext] || 'application/octet-stream', 'Cache-Control': ext === '.html' ? 'no-store' : 'no-cache', 'X-Content-Type-Options': 'nosniff' };
+    // imagens e fontes de /assets mudam de nome (ou ganham ?v=) quando mudam: 30 dias; JS/CSS/HTML continuam revalidando
+    const midia = file.startsWith('assets/') && MIDIA_LONGA.has(ext.toLowerCase());
+    const headers = { 'Content-Type': MIME[ext] || 'application/octet-stream', 'Cache-Control': ext === '.html' ? 'no-store' : (midia ? 'public, max-age=2592000, stale-while-revalidate=86400' : 'no-cache'), 'X-Content-Type-Options': 'nosniff' };
     if (ext === '.html') Object.assign(headers, { 'Content-Security-Policy': ADMIN_CSP, 'X-Frame-Options': 'DENY', 'Referrer-Policy': 'same-origin' });
     res.writeHead(200, headers);
     fs.createReadStream(full).pipe(res);

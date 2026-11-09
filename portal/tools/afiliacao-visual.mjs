@@ -8,6 +8,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { institucional, ROTULO, PAGINAS, emailDe } from './afiliacao-institucional.mjs';
 import { htmlText, faqDoTexto, faqLd, IMG_LOCAL, dimensoesImagem } from '../lib/modules/blog.mjs';
+import { nomeVariante } from './afiliacao-variantes.mjs';
 
 const PUBLICO = path.join(path.dirname(fileURLToPath(import.meta.url)), '..', 'public');
 /** Foto do produto servida pelo próprio Portal (webp de 600 px gerado por tools/afiliacao-capas.mjs), em vez da original da Hotmart/Kiwify,
@@ -20,8 +21,19 @@ export const capaDo = (post) => (IMG_LOCAL.test(String(post?.cover || '')) ? Str
 /** Endereço absoluto da capa para og:image/Article.image: mesma origem do blog (kbsa.app/assets/... cai no portal). */
 /** Versão no endereço da imagem local (data do arquivo): a capa regerada aparece na hora, sem esperar o cache de 4 h do Cloudflare. */
 export const comVersao = (src) => { try { return `${src}?v=${Math.floor(fs.statSync(path.join(PUBLICO, src.replace(/^\/+/, ''))).mtimeMs / 1000).toString(36)}`; } catch { return src; } };
+/** Versão menor da imagem local gerada por tools/afiliacao-variantes.mjs (assets/afiliacao/r/...), ou null se não existe. */
+export const variante = (src, w) => {
+  const rel = String(src || '').replace(/\?.*$/, '');
+  if (!rel.startsWith('/assets/afiliacao/') || !/\.webp$/i.test(rel)) return null;
+  const v = `/assets/afiliacao/${nomeVariante(rel.slice('/assets/afiliacao/'.length), w)}`;
+  return fs.existsSync(path.join(PUBLICO, v.slice(1))) ? comVersao(v) : null;
+};
+/** Miniatura: a variante da largura pedida, senão a original. */
+const mini = (src, w) => variante(src, w) || src;
+/** srcset com a variante (quando existe) e a original, para o navegador do celular baixar a menor. */
+const srcset = (src, w, wOrig, sizes) => { const m = variante(src, w); return m ? ` srcset="${esc(m)} ${w}w, ${esc(src)} ${wOrig}w" sizes="${sizes}"` : ''; };
 const capaAbs = (capa, prefixo) => (capa ? `${new URL(prefixo).origin}${comVersao(capa)}` : null);
-const capaCard = (p, primeiro = false) => { const c = capaDo(p); if (!c) return ''; const [w, h] = dimensoesImagem(c, [1200, 630]); return `<img class="gc" src="${esc(comVersao(c))}" alt="${esc(p.coverAlt || '')}" ${primeiro ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async" width="${w}" height="${h}">`; };
+const capaCard = (p, primeiro = false) => { const c = capaDo(p); if (!c) return ''; const [w, h] = dimensoesImagem(c, [1200, 630]); return `<img class="gc" src="${esc(comVersao(c))}"${srcset(c, 600, w, '(max-width: 640px) 92vw, 400px')} alt="${esc(p.coverAlt || '')}" ${primeiro ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async" width="${w}" height="${h}">`; };
 
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const brl = (v) => (Number.isFinite(Number(v)) ? Number(v).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: Number(v) % 1 ? 2 : 0 }) : '');
@@ -189,7 +201,7 @@ ${/^https:\/\/l\.kbsa\.app\/[a-z0-9-]+/.test(v.telegram || '') ? `<a class="tel"
 
 function cardProduto(p, { rotulo, um, melhor, primeiro, nivel = 'h2' }) {
   return `<article class="card">
-<div class="ft">${p.img ? `<img src="${esc(p.img)}" alt="${esc(p.nome)}" ${primeiro ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async" width="600" height="375">` : ''}</div>
+<div class="ft">${p.img ? `<img src="${esc(p.img)}"${srcset(p.img, 400, 600, '(max-width: 440px) 92vw, 400px')} alt="${esc(p.nome)}" ${primeiro ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async" width="600" height="375">` : ''}</div>
 <div class="cp">${rotulo ? `<span class="tag${um ? ' um' : ''}">${esc(rotulo)}</span>` : ''}<span class="tp">${esc(p.tipo || 'Curso online')}</span><${nivel} class="cn">${esc(p.nome)}</${nivel}>
 ${p.preco ? `<div class="pr">${brl(p.preco)} <small>${esc(p.preco_nota || 'na página oficial')}</small></div>` : ''}
 ${melhor ? `<div class="pq"><b>Para quem é:</b> ${esc(melhor)}</div>` : ''}
@@ -256,7 +268,7 @@ export function renderHome({ info, v, posts, prefixo, dados }) {
     { '@type': 'ItemList', name: v.h1, itemListElement: prods.map((p, i) => ({ '@type': 'ListItem', position: i + 1, name: p.nome, url: p.url })) },
     ...(faq.length ? [faqLd(faq.map((f) => ({ q: f.q, a: f.a })), `${canonical}#faq`)] : []),
   ] };
-  const linhas = prods.map((p) => `<tr><td><div class="nm">${p.img ? `<img src="${esc(p.img)}" alt="" loading="lazy" width="52" height="52">` : ''}<span>${esc(p.nome)}</span></div></td>
+  const linhas = prods.map((p) => `<tr><td><div class="nm">${p.img ? `<img src="${esc(mini(p.img, 160))}" alt="" loading="lazy" decoding="async" width="52" height="52">` : ''}<span>${esc(p.nome)}</span></div></td>
 <td class="esc">${esc(cap(v.melhor_para?.[p.chave] || p.tipo || ''))}</td><td>${p.preco ? brl(p.preco) : '—'}</td><td><a class="btn sm" href="${esc(p.url)}" ${REL}>Ver oferta</a></td></tr>`).join('');
   const guias = posts.map((p) => `<a class="guia" href="${prefixo}/blog/${esc(p.slug)}">${capaCard(p) || `<span class="gx" aria-hidden="true">${esc(info.nome)}</span>`}<div><span class="k">${esc(p.category || info.categoria)}</span><h3>${esc(p.title)}</h3><p>${esc(frase(p.excerpt, 170))}</p></div></a>`).join('');
   return `${head({ titulo, desc, canonical, v: { ...v, imagem: v.imagem || capaHome, lcp: prods[0]?.img }, ld })}<body>${topo(info, prefixo, v)}
@@ -266,7 +278,7 @@ export function renderHome({ info, v, posts, prefixo, dados }) {
 <div class="picks n${Math.min(prods.length, 3)}">${prods.slice(0, 3).map((p, i) => cardProduto(p, { rotulo: rotulo(p, i), um: i === 0, primeiro: i === 0, melhor: v.melhor_para?.[p.chave] })).join('')}</div></div></div>
 ${kitBasico(v, dados)}
 ${prods.length ? `<section id="comparativo"><div class="w"><h2>${esc(v.tabela_titulo || 'Comparativo lado a lado')}</h2><p class="lead">${esc(v.tabela_texto || 'Preço da página oficial e o perfil de quem aproveita mais cada opção. Clique para conferir o conteúdo e a garantia antes de decidir.')}</p>
-<div class="tabw"><table class="tab"><thead><tr><th>Opção</th><th class="esc">Para quem é</th><th>Preço</th><th></th></tr></thead><tbody>${linhas}</tbody></table></div></div></section>` : ''}
+<div class="tabw"><table class="tab"><thead><tr><th>Opção</th><th class="esc">Para quem é</th><th>Preço</th><th>Oferta</th></tr></thead><tbody>${linhas}</tbody></table></div></div></section>` : ''}
 ${v.passos?.length ? `<section class="alt"><div class="w"><h2>${esc(v.passos_titulo || 'Como escolher em 3 passos')}</h2><p class="lead">${esc(v.passos_texto || '')}</p>
 <div class="passos">${v.passos.map((s) => `<div class="passo"><h3>${esc(s.t)}</h3><p>${esc(s.d)}</p></div>`).join('')}</div></div></section>` : ''}
 <section><div class="w"><h2>${esc(v.guias_titulo || 'Guias para decidir sem cair em promessa')}</h2><p class="lead">${esc(frase(info.home_intro || info.descricao, 280))}</p><div class="guias dest">${guias}</div></div></section>
@@ -359,16 +371,16 @@ export function deOutrosBlogs(info, post, n = 2) {
 
 // ---- Conversão no post: caixa no topo, tabela "melhor escolha" nos comparativos e CTA no meio do texto ----
 function ofertaHtml(p, textoHtml, rotulo = 'Recomendação do guia') {
-  return `<aside class="oferta">${p.img ? `<img src="${esc(p.img)}" alt="${esc(p.nome)}" loading="lazy" width="150" height="150">` : '<span></span>'}
+  return `<aside class="oferta">${p.img ? `<img src="${esc(mini(p.img, 400))}" alt="${esc(p.nome)}" loading="lazy" decoding="async" width="150" height="150">` : '<span></span>'}
 <div><span class="k">${esc(rotulo)}</span><p class="on">${esc(p.nome)}</p><div class="tx">${textoHtml}</div><div class="ln">${p.preco ? `<span class="pr">${brl(p.preco)}</span>` : ''}<a class="btn" href="${esc(p.url)}" ${REL}>Ver na página oficial</a></div></div></aside>`;
 }
 function escolhaTopo(p, rotulo, melhor) {
-  return `<aside class="escolha" aria-label="${esc(rotulo)}">${p.img ? `<img src="${esc(p.img)}" alt="${esc(p.nome)}" loading="lazy" decoding="async" width="84" height="84">` : '<span></span>'}
+  return `<aside class="escolha" aria-label="${esc(rotulo)}">${p.img ? `<img src="${esc(mini(p.img, 160))}" alt="${esc(p.nome)}" loading="lazy" decoding="async" width="84" height="84">` : '<span></span>'}
 <div><span class="k">${esc(rotulo)}</span><p class="on">${esc(p.nome)}</p>${melhor ? `<p class="pq">Para quem é: ${esc(melhor)}</p>` : ''}</div>
 <div class="ac">${p.preco ? `<span class="pr">${brl(p.preco)}</span>` : '<span></span>'}<a class="btn sm" href="${esc(p.url)}" ${REL}>${esc(p.cta || 'Ver oferta')}</a></div></aside>`;
 }
 function tabelaMelhor(prods, v) {
-  const linhas = prods.map((p, i) => `<tr><td><div class="nm">${p.img ? `<img src="${esc(p.img)}" alt="" loading="lazy" width="52" height="52">` : ''}<span>${esc(p.nome)}${i === 0 ? '<span class="tag">Melhor escolha</span>' : ''}</span></div></td>
+  const linhas = prods.map((p, i) => `<tr><td><div class="nm">${p.img ? `<img src="${esc(mini(p.img, 160))}" alt="" loading="lazy" decoding="async" width="52" height="52">` : ''}<span>${esc(p.nome)}${i === 0 ? '<span class="tag">Melhor escolha</span>' : ''}</span></div></td>
 <td class="esc">${esc(cap(v.melhor_para?.[p.chave] || p.tipo || ''))}</td><td>${p.preco ? brl(p.preco) : '—'}</td><td><a class="btn sm" href="${esc(p.url)}" ${REL}>Ver oferta</a></td></tr>`).join('');
   return `<div class="melhor"><b class="mt">Melhor escolha por perfil</b><div class="tabw"><table class="tab"><thead><tr><th>Opção</th><th class="esc">Para quem é</th><th>Preço</th><th>Oferta</th></tr></thead><tbody>${linhas}</tbody></table></div></div>`;
 }
@@ -432,7 +444,7 @@ export function renderPost({ info, v, post, posts, prefixo, dados, aplicarLinks,
 <div class="bc"><a href="${prefixo}/">${esc(info.nome)}</a> › <a href="${prefixo}/blog">Guias</a> › ${esc(post.category || info.categoria)}</div>
 <h1 style="font-size:clamp(1.9rem,4.4vw,3rem)">${esc(post.title)}</h1>
 <div class="meta"><span>Por <a href="${prefixo}/autor" rel="author">${esc(info.autor || `Equipe ${info.nome}`)}</a></span>${publicado ? `<span>Publicado em <time datetime="${esc(String(publicado).slice(0, 10))}">${dataBr(publicado)}</time></span>` : ''}<span>Atualizado em <time datetime="${esc(String(atualizado || publicado || '').slice(0, 10))}">${dataBr(atualizado || publicado)}</time></span><span>${minutos(post.content)} min de leitura</span>${capa ? `<a class="story" href="${prefixo}/stories/${esc(post.slug)}">Ver em story</a>` : ''}</div>
-${capa ? `<figure class="capa"><img src="${esc(comVersao(capa))}" alt="${esc(post.coverAlt || post.title)}" width="${cw}" height="${ch}" fetchpriority="high" decoding="async"></figure>` : ''}
+${capa ? `<figure class="capa"><img src="${esc(comVersao(capa))}"${srcset(capa, 600, cw, '(max-width: 760px) 100vw, 760px')} alt="${esc(post.coverAlt || post.title)}" width="${cw}" height="${ch}" fetchpriority="high" decoding="async"></figure>` : ''}
 ${resposta ? `<div class="rapida"><b>Resposta rápida</b><p>${esc(resposta)}</p></div>` : ''}
 ${comparados.length >= 2 ? tabelaMelhor(comparados, v) : principal ? escolhaTopo(principal, chaves.includes(principal.chave) ? 'Nossa escolha neste guia' : `Indicado pelo ${info.nome}`, v.melhor_para?.[principal.chave]) : ''}
 ${h2.length > 2 ? `<nav class="indice" aria-label="Neste guia"><b>Neste guia</b><ol>${h2.map(([id, t]) => `<li><a href="#${id}">${t}</a></li>`).join('')}</ol></nav>` : ''}
