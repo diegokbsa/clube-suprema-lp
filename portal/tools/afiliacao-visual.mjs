@@ -178,7 +178,7 @@ ${melhor ? `<div class="pq"><b>Para quem é:</b> ${esc(melhor)}</div>` : ''}
 /** Newsletter dos blogs (sessão Canais próprios): brinde + posts da semana, inscrição em kbsa.app/inscricoes (LGPD: consentimento
  *  desmarcado, campo "site" isca anti-robô). Fica DESLIGADO até a rota pública responder (/inscricoes/saude 200); ligado, o e-mail
  *  vai para a newsletter e continua indo para o CRM do Portal (o script do Portal escuta o mesmo envio). */
-export const INSCRICOES_NO_AR = false;
+export const INSCRICOES_NO_AR = true;
 const INSCREVER = 'https://kbsa.app/inscricoes/inscrever';
 const SCRIPT_INSCRICAO = `<script>document.querySelectorAll('form.inscricao').forEach(function(f){f.addEventListener('submit',function(ev){ev.preventDefault();
 var m=f.querySelector('.ins-msg'),b=f.querySelector('button');if(!f.email.value||!f.consentimento.checked){m.textContent='Preencha o e-mail e marque o consentimento.';return}
