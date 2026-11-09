@@ -71,3 +71,15 @@ test('post: caixa no topo ou tabela "melhor escolha", CTA no meio, relacionados 
   assert.ok(comparativos > 0, 'algum post comparativo com tabela');
   assert.ok(entreBlogs > 0, 'algum post com link para outro blog');
 });
+
+test('rodapé: canal do Telegram do blog pelo BigLinks, com src próprio que o comOrigem não troca', async () => {
+  const { comOrigem } = await import('../tools/afiliacao-visual.mjs');
+  for (const slug of fs.readdirSync(C).filter((d) => fs.existsSync(path.join(C, d, 'vitrine.json')))) {
+    const b = blog(slug);
+    if (!b.v.telegram) continue;
+    const html = comOrigem(renderHome(b), `${slug}-home`);
+    assert.ok(html.includes(`href="${b.v.telegram.replace(/&/g, '&amp;')}"`), `${slug}: link do Telegram intacto`);
+    assert.match(b.v.telegram, /^https:\/\/l\.kbsa\.app\/tel-[a-z]+-[a-z0-9]+\?src=telegram_/);
+    assert.ok(b.v.telegram.endsWith(`src=telegram_${slug}&utm_source=kbsa_blogs&utm_campaign=telegram_${slug}`), `${slug}: origem do clique`);
+  }
+});

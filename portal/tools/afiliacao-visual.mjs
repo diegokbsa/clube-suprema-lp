@@ -95,7 +95,7 @@ h2{font:700 clamp(1.55rem,3vw,2.2rem)/1.15 var(--fh);letter-spacing:-.02em;margi
 .cap{display:grid;grid-template-columns:1.2fr 1fr;gap:28px;align-items:center;padding:34px;border-radius:var(--r);background:var(--ink);color:#fff}
 .cap h2{color:#fff}.cap p{margin:0;color:#d5d8de}.cap form{display:flex;flex-direction:column;gap:10px}
 .cap input[type=email]{padding:15px 16px;border-radius:8px;border:0;font:400 1rem var(--fb)}.cap label{display:flex;gap:8px;font-size:.85rem;color:#d5d8de;align-items:flex-start}
-footer{padding:40px 0 110px;border-top:1px solid var(--line);color:var(--mut);font-size:.9rem}footer .w{display:grid;gap:10px;max-width:none}footer span{max-width:80ch}footer .rod{display:flex;flex-wrap:wrap;gap:6px 18px}footer .rod a{color:var(--ink)}
+footer{padding:40px 0 110px;border-top:1px solid var(--line);color:var(--mut);font-size:.9rem}footer .w{display:grid;gap:10px;max-width:none}footer span{max-width:80ch}footer .rod{display:flex;flex-wrap:wrap;gap:6px 18px}footer .rod a{color:var(--ink)}footer .tel{justify-self:start;display:inline-flex;align-items:center;padding:10px 16px;border-radius:8px;border:1.5px solid var(--a);color:var(--deep);font-weight:700;text-decoration:none}footer .tel:hover{background:var(--tint)}
 /* post */
 .bc{font-size:.88rem;color:var(--mut);margin-bottom:10px}.bc a{color:var(--mut)}
 .grade{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:56px;align-items:start;padding:40px 0 20px}
@@ -157,10 +157,11 @@ function topo(info, prefixo, v) {
 ${(v.destaques || []).some((k) => !v._ativos || v._ativos.has(k)) ?`<a class="btn sm" href="${prefixo}/#comparativo">${esc(v.cta_topo || 'Ver os melhores')}</a>` : ''}</div></header>`;
 }
 
-function rodape(info, prefixo = '') {
+function rodape(info, prefixo = '', v = {}) {
   const nav = PAGINAS.map((p) => `<a href="${prefixo}/${p}">${esc(ROTULO[p])}</a>`).join('');
   return `<footer><div class="w"><strong>${esc(info.nome)}</strong><span>${esc(info.descricao)}</span>
 <nav class="rod" aria-label="Institucional">${nav}</nav>
+${/^https:\/\/l\.kbsa\.app\/[a-z0-9-]+/.test(v.telegram || '') ? `<a class="tel" href="${esc(v.telegram)}" rel="noopener" target="_blank">Entre no canal do ${esc(info.nome)} no Telegram</a>` : ''}
 <span><b>Transparência:</b> alguns links deste site são de afiliado. Se você comprar por eles, recebemos uma comissão, sem custo extra para você. Isso não muda a ordem nem o que escrevemos; confira sempre na página oficial o conteúdo, o preço e a garantia antes de comprar. <a href="${prefixo}/aviso-de-afiliados">Saiba mais</a>.</span>
 <span>Contato: <a href="mailto:${esc(emailDe(info, String(prefixo).replace(/^https?:\/\//, '')))}">${esc(emailDe(info, String(prefixo).replace(/^https?:\/\//, '')))}</a> · © ${ANO} ${esc(info.nome)} · Conteúdo informativo, sem promessa de resultado.</span></div></footer>`;
 }
@@ -214,7 +215,7 @@ ${v.passos?.length ? `<section class="alt"><div class="w"><h2>${esc(v.passos_tit
 <section><div class="w"><h2>${esc(v.guias_titulo || 'Guias para decidir sem cair em promessa')}</h2><p class="lead">${esc(frase(info.home_intro || info.descricao, 280))}</p><div class="guias dest">${guias}</div></div></section>
 <section class="alt"><div class="w"><h2>Como escolhemos</h2><p class="lead" style="margin-bottom:0">${esc(v.metodo || 'Comparamos o que cada produto mostra na página oficial: o tipo de conteúdo, o preço e para quem ele foi feito. Não aceitamos pagamento para mudar a ordem. Quando a página do produto muda, atualizamos o comparativo e a data no topo.')}</p></div></section>
 ${faq.length ? `<section id="duvidas"><div class="w"><h2>Perguntas frequentes</h2>${faqHtml(faq)}</div></section>` : ''}
-<section><div class="w">${captura(info, v)}</div></section></main>${rodape(info, prefixo)}
+<section><div class="w">${captura(info, v)}</div></section></main>${rodape(info, prefixo, v)}
 ${prods[0] ? `<div class="fixo"><span><b>${esc(prods[0].nome)}</b>${prods[0].preco ? brl(prods[0].preco) : ''}</span><a class="btn sm" href="${esc(prods[0].url)}" ${REL}>Ver oferta</a></div>` : ''}</body></html>`;
 }
 
@@ -226,7 +227,7 @@ export function renderLista({ info, v, posts, prefixo }) {
     hasPart: posts.map((p) => ({ '@type': 'Article', headline: p.title, url: `${prefixo}/blog/${p.slug}` })) };
   return `${head({ titulo: `Guias ${v.assunto ? `de ${v.assunto} ` : ''}· ${info.nome}`, desc: info.descricao, canonical, v: { ...v, imagem: v.imagem || capaAbs(capaDo(posts[0]), prefixo), lcp: capaDo(posts[0]) }, ld })}<body>${topo(info, prefixo, v)}
 <main><div class="hero"><div class="w"><h1>Guias do ${esc(info.nome)}</h1><p class="sub">${esc(info.tagline)}</p><div class="meta"><span>${posts.length} guias</span><span>Atualizado em ${dataBr()}</span></div></div></div>
-<section><div class="w"><div class="guias dest">${guias}</div></div></section><section><div class="w">${captura(info, v)}</div></section></main>${rodape(info, prefixo)}</body></html>`;
+<section><div class="w"><div class="guias dest">${guias}</div></div></section><section><div class="w">${captura(info, v)}</div></section></main>${rodape(info, prefixo, v)}</body></html>`;
 }
 
 /** Marca a origem em todo link de checkout/afiliado da Hotmart (go./pay.hotmart.com, hotm.art) e da Kiwify (kiwify.app, pay.kiwify.com.br) com ?src=<origem>, para a
@@ -384,7 +385,7 @@ ${outros.length ? `<section style="padding:30px 0 0"><h2 style="font-size:1.5rem
 ${vizinhos.length ? `<section class="viz"><h2 style="font-size:1.5rem">Do mesmo assunto nos nossos outros blogs</h2><ul>${vizinhos.map((x) => `<li><a href="${esc(x.url)}">${esc(x.title)}</a><span>${esc(x.blog)}</span></li>`).join('')}</ul></section>` : ''}
 </article><aside class="lado" aria-label="Recomendação">${principal ? cardProduto(principal, { rotulo: 'Indicado neste guia', um: true, nivel: 'p', melhor: v.melhor_para?.[principal.chave] }) : ''}
 <a class="btn lin" href="${prefixo}/#comparativo">Ver o comparativo completo</a></aside></div>
-<section style="padding-top:10px">${captura(info, v)}</section></div></main>${rodape(info, prefixo)}
+<section style="padding-top:10px">${captura(info, v)}</section></div></main>${rodape(info, prefixo, v)}
 ${principal ? `<div class="fixo"><span><b>${esc(principal.nome)}</b>${principal.preco ? brl(principal.preco) : ''}</span><a class="btn sm" href="${esc(principal.url)}" ${REL}>Ver oferta</a></div>` : ''}</body></html>`;
 }
 
@@ -398,7 +399,7 @@ export function renderInstitucional({ pag, info, v, prefixo, posts = [], medicao
     isPartOf: { '@type': 'WebSite', name: info.nome, url: `${prefixo}/` }, ...(pag === 'autor' || pag === 'sobre' ? { about: { '@type': 'Organization', name: info.autor || `Equipe ${info.nome}`, url: `${prefixo}/autor`, email: emailDe(info, dominio) } } : {}) };
   return `${head({ titulo: t.titulo, desc: t.desc, canonical, v: { ...v, imagem: v.imagem || null, lcp: null }, ld })}<body>${topo(info, prefixo, v)}
 <main><div class="hero"><div class="w"><h1>${esc(t.titulo.replace(/ · .*$/, ''))}</h1><p class="sub">${esc(t.sub || '')}</p></div></div>
-<section><div class="w"><div class="txt">${corpo}</div></div></section></main>${rodape(info, prefixo)}</body></html>`;
+<section><div class="w"><div class="txt">${corpo}</div></div></section></main>${rodape(info, prefixo, v)}</body></html>`;
 }
 
 /** Lojas aceitas como link direto nas ofertas (além do {{LINK:chave}} de produto ativo e do curto l.kbsa.app). */
@@ -432,7 +433,7 @@ ${it.nota ? `<div class="pq">${esc(it.nota)}</div>` : ''}
   return `${head({ titulo, desc, canonical, v: { ...v, imagem: v.imagem || null, lcp: null }, ld })}<body>${topo(info, prefixo, v)}
 <main><div class="hero"><div class="w"><span class="selo"><b></b>${itens.length ? `Atualizado em ${esc(dataBr(ofertas.atualizado || itens[0].preco_conferido_em))}` : 'Em preparação'}</span>
 <h1>Ofertas do dia</h1><p class="sub">Cada preço aparece com a data em que foi conferido. Alguns links são de afiliado: se você comprar por eles, recebemos uma comissão, sem custo extra para você.</p></div></div>
-<section><div class="w">${itens.length ? `<div class="picks">${cards}</div>` : vazio}</div></section></main>${rodape(info, prefixo)}</body></html>`;
+<section><div class="w">${itens.length ? `<div class="picks">${cards}</div>` : vazio}</div></section></main>${rodape(info, prefixo, v)}</body></html>`;
 }
 
 // ---- Web Story (AMP) de cada post, em <domínio>/stories/<slug> (09/11/2026): Google Discover e busca de imagens ----
