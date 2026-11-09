@@ -48,6 +48,8 @@ const css = (v) => `
 ::selection{background:color-mix(in srgb,var(--a) 28%,#fff);color:var(--ink)}:focus-visible{outline:3px solid var(--a);outline-offset:3px;border-radius:4px}
 a{color:var(--deep);text-underline-offset:.18em;text-decoration-thickness:1px}img{max-width:100%;display:block}.w{width:min(1160px,calc(100% - 32px));margin:0 auto}
 .top{position:sticky;top:0;z-index:20;background:#fff;border-bottom:1px solid var(--line)}
+.bf{background:var(--ink);color:#fff;font-size:.92rem}.bf .w{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;padding:9px 0}.bf b{font-weight:700}.bf span{color:#d5d8de}
+.bf a{color:#fff;font-weight:700;text-decoration:underline;text-underline-offset:.18em;margin-left:auto}.bf a:hover{text-decoration-thickness:2px}
 .top .w{display:flex;align-items:center;justify-content:space-between;gap:16px;height:64px}
 .marca{display:flex;align-items:center;gap:10px;font:700 1.15rem/1 var(--fh);color:var(--ink);text-decoration:none;letter-spacing:-.01em;min-width:0}
 .marca i{flex:none;width:12px;height:22px;border-radius:2px;background:var(--a)}
@@ -151,16 +153,32 @@ ${((u) => `<link rel="preload" as="style" href="${u}" onload="this.onload=null;t
 ${ld ? `<script type="application/ld+json">${JSON.stringify(ld).replace(/</g, '\\u003c')}</script>` : ''}</head>`;
 }
 
+// ---- Black Friday 2026 (pedido do Kbsa via Big, 09/11): faixa no topo de todas as páginas + link no menu e no rodapé ----
+// Só aparece no blog que já tem o post "black-friday-2026-ofertas-de-<blog>" e até 01/12/2026 (23:59 de Brasília): a página
+// gravada depois disso sai sem a faixa, e um script curto tira a faixa de páginas gravadas antes quando o prazo passa.
+export const BF_ATE = Date.parse('2026-12-02T03:00:00Z');
+export function blackFriday(v, prefixo, agora = Date.now()) {
+  const blog = v.inscricao?.blog;
+  if (!blog || agora >= BF_ATE) return null;
+  const slug = `black-friday-2026-ofertas-de-${blog}`;
+  const dir = path.join(CONTEUDO, blog, 'posts');
+  const existe = fs.existsSync(dir) && fs.readdirSync(dir).some((f) => f.endsWith('.json') && (() => { try { return JSON.parse(fs.readFileSync(path.join(dir, f), 'utf8')).slug === slug; } catch { return false; } })());
+  return existe ? { url: `${prefixo}/blog/${slug}`, nicho: v.assunto || '' } : null;
+}
+const faixaBF = (bf) => (bf ? `<div class="bf" data-ate="${BF_ATE}"><div class="w"><b>Black Friday 2026</b><span>Ofertas${bf.nicho ? ` de ${esc(bf.nicho)}` : ''} conferidas pelo blog.</span><a href="${esc(bf.url)}">Ver a página</a></div></div>
+<script>(function(){var b=document.currentScript.previousElementSibling;if(Date.now()>=+b.dataset.ate)b.remove()})()</script>` : '');
+
 function topo(info, prefixo, v) {
-  return `<header class="top"><div class="w"><a class="marca" href="${prefixo}/"><i aria-hidden="true"></i>${esc(info.nome)}</a>
-<nav aria-label="Principal"><a href="${prefixo}/#comparativo">Comparativo</a><a href="${prefixo}/blog">Guias</a><a href="${prefixo}/#duvidas">Dúvidas</a></nav>
+  const bf = blackFriday(v, prefixo);
+  return `${faixaBF(bf)}<header class="top"><div class="w"><a class="marca" href="${prefixo}/"><i aria-hidden="true"></i>${esc(info.nome)}</a>
+<nav aria-label="Principal">${bf ? `<a href="${esc(bf.url)}">Black Friday</a>` : ''}<a href="${prefixo}/#comparativo">Comparativo</a><a href="${prefixo}/blog">Guias</a><a href="${prefixo}/#duvidas">Dúvidas</a></nav>
 ${(v.destaques || []).some((k) => !v._ativos || v._ativos.has(k)) ?`<a class="btn sm" href="${prefixo}/#comparativo">${esc(v.cta_topo || 'Ver os melhores')}</a>` : ''}</div></header>`;
 }
 
 function rodape(info, prefixo = '', v = {}) {
   const nav = PAGINAS.map((p) => `<a href="${prefixo}/${p}">${esc(ROTULO[p])}</a>`).join('');
   return `<footer><div class="w"><strong>${esc(info.nome)}</strong><span>${esc(info.descricao)}</span>
-<nav class="rod" aria-label="Institucional">${nav}</nav>
+<nav class="rod" aria-label="Institucional">${((bf) => (bf ? `<a href="${esc(bf.url)}">Black Friday 2026</a>` : ''))(blackFriday(v, prefixo))}${nav}</nav>
 ${/^https:\/\/l\.kbsa\.app\/[a-z0-9-]+/.test(v.telegram || '') ? `<a class="tel" href="${esc(v.telegram)}" rel="noopener" target="_blank">Entre no canal do ${esc(info.nome)} no Telegram</a>` : ''}
 <span><b>Transparência:</b> alguns links deste site são de afiliado. Se você comprar por eles, recebemos uma comissão, sem custo extra para você. Isso não muda a ordem nem o que escrevemos; confira sempre na página oficial o conteúdo, o preço e a garantia antes de comprar. <a href="${prefixo}/aviso-de-afiliados">Saiba mais</a>.</span>
 <span>Contato: <a href="mailto:${esc(emailDe(info, String(prefixo).replace(/^https?:\/\//, '')))}">${esc(emailDe(info, String(prefixo).replace(/^https?:\/\//, '')))}</a> · © ${ANO} ${esc(info.nome)} · Conteúdo informativo, sem promessa de resultado.</span></div></footer>`;

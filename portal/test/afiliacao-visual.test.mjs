@@ -98,3 +98,22 @@ test('newsletter: formulário LGPD pronto e desligado até a rota /inscricoes re
     assert.equal(renderHome(b).includes('form class="inscricao"'), INSCRICOES_NO_AR, `${slug}: só aparece quando ligado`);
   }
 });
+
+test('Black Friday 2026: faixa, menu e rodapé só no blog com o post BF e só até 01/12', async () => {
+  const { blackFriday, BF_ATE } = await import('../tools/afiliacao-visual.mjs');
+  const arq = path.join(C, 'milhas', 'posts', '99-teste-bf.json');
+  const b = blog('milhas');
+  assert.equal(blackFriday(b.v, b.prefixo), fs.readdirSync(path.join(C, 'milhas', 'posts')).some((f) => /black-friday/.test(f)) ? blackFriday(b.v, b.prefixo) : null);
+  fs.writeFileSync(arq, JSON.stringify({ slug: 'black-friday-2026-ofertas-de-milhas', title: 'BF', content: 'x' }));
+  try {
+    const bf = blackFriday(b.v, b.prefixo, Date.parse('2026-11-20T12:00:00Z'));
+    assert.equal(bf.url, `${b.prefixo}/blog/black-friday-2026-ofertas-de-milhas`);
+    assert.equal(blackFriday(b.v, b.prefixo, BF_ATE), null, 'some depois de 01/12');
+    const html = renderHome(blog('milhas'));
+    if (Date.now() < BF_ATE) {
+      assert.match(html, /<div class="bf" data-ate="\d+">/);
+      assert.ok((html.match(/black-friday-2026-ofertas-de-milhas/g) || []).length >= 3, 'faixa, menu e rodapé');
+    }
+    assert.ok(!renderHome(blog('gamer')).includes('class="bf"') || fs.readdirSync(path.join(C, 'gamer', 'posts')).some((f) => /black-friday/.test(f)), 'blog sem post BF não ganha faixa');
+  } finally { fs.rmSync(arq, { force: true }); }
+});
