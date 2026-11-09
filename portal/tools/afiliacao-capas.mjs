@@ -13,6 +13,7 @@
 //   --refazer        redesenha capas e pôsteres (as fotos ficam)
 //   --refazer-fotos  gera as fotos de novo (cuidado: ~18 s por foto na GPU)
 //   --sem-gerar      não chama o WanGP (só desenha com as fotos que já existem)
+//   --refazer-foto blog/slug,...  refaz foto, capa e pôster só desses posts (a foto nova passa pelo OCR: com texto, tenta outra semente)
 // Precisa do Chrome (sem tela) e do ffmpeg no PATH. A GPU fica livre das 02:50 às 04:45 (rotina de vídeo da madrugada).
 import fs from 'node:fs';
 import os from 'node:os';
@@ -30,6 +31,7 @@ const opt = (k) => { const i = ARGS.indexOf(k); return i >= 0 ? ARGS[i + 1] : nu
 const REFAZER = ARGS.includes('--refazer') || ARGS.includes('--refazer-fotos');
 const REFAZER_FOTOS = ARGS.includes('--refazer-fotos');
 const SEM_GERAR = ARGS.includes('--sem-gerar');
+const REFAZER_ALVO = new Set(String(opt('--refazer-foto') || '').split(',').filter(Boolean)); // blog/slug,... (foto, capa e pôster só desses)
 const CHROME = process.env.CHROME_PATH || ['C:/Program Files/Google/Chrome/Application/chrome.exe', '/usr/bin/google-chrome', '/usr/bin/chromium']
   .find((c) => fs.existsSync(c));
 if (!CHROME) throw new Error('Chrome não encontrado (defina CHROME_PATH).');
@@ -78,14 +80,46 @@ async function fotoProduto(chave) {
   return destino;
 }
 
-/** Gera as fotos que faltam numa chamada só do WanGP (o modelo carrega uma vez). */
+// O Z-Image Turbo roda sem guidance (CFG 0), então o prompt negativo não pesa: o "sem texto" vai no próprio descritivo
+// e o OCR do Windows confere depois (placa, prancheta, embalagem e tela saem com letras falsas, que entregam cara de IA).
+const SEM_TEXTO = ', every surface plain and unlabeled, blank paper, no writing, no signage, no printed words, no letters';
+const OCR = path.join(path.dirname(fileURLToPath(import.meta.url)), 'ocr-windows.ps1');
+/** Fotos com texto legível pelo OCR (palavra de 4 letras ou mais), ampliadas 2x antes da leitura. Fora do Windows, nada é reprovado. */
+function comTexto(fotos) {
+  if (process.platform !== 'win32' || !fotos.length) return new Map();
+  const dir = path.join(TMP, `ocr-${Math.random().toString(36).slice(2)}`); fs.mkdirSync(dir);
+  const pngs = fotos.map((f, i) => { const p = path.join(dir, `${i}.png`); execFileSync('ffmpeg', ['-y', '-loglevel', 'error', '-i', f, '-vf', 'scale=1920:-1:flags=lanczos', p]); return p; });
+  const r = spawnSync('powershell', ['-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', OCR, ...pngs], { encoding: 'utf8', maxBuffer: 1 << 26 });
+  const achados = new Map();
+  for (const linha of String(r.stdout).trim().split(/\r?\n/)) {
+    let j; try { j = JSON.parse(linha); } catch { continue; }
+    const i = pngs.indexOf(j.arquivo);
+    const palavras = (j.palavras || []).filter((w) => /[A-Za-zÀ-ú]{4,}/.test(w));
+    if (i >= 0 && palavras.length) achados.set(fotos[i], palavras.join(' '));
+  }
+  return achados;
+}
+
+/** Gera as fotos pedidas e refaz (outra semente, até 3 tentativas) as que o OCR acusar com texto. */
 function gerarFotos(pedidos) {
+  let resto = pedidos;
+  for (let tentativa = 0; tentativa < 3 && resto.length; tentativa++) {
+    gerarLote(resto.map((p) => ({ ...p, seed: tentativa ? semente(`${p.id}:${tentativa}`) : p.seed })));
+    const ruins = comTexto(resto.map((p) => p.destino).filter((f) => fs.existsSync(f)));
+    for (const [f, t] of ruins) console.log(`foto com texto (tentativa ${tentativa + 1}): ${path.basename(f)} -> "${t.slice(0, 60)}"`);
+    resto = resto.filter((p) => ruins.has(p.destino));
+  }
+  for (const p of resto) { fs.rmSync(p.destino, { force: true }); console.log(`aviso: ${p.id} continua com texto depois de 3 tentativas; troque o descritivo`); }
+}
+
+/** Uma chamada só do WanGP para o lote (o modelo carrega uma vez). */
+function gerarLote(pedidos) {
   if (!pedidos.length) return;
   const h = new Date().getHours() * 60 + new Date().getMinutes();
   if (h >= 170 && h < 285) throw new Error('02:50-04:45 é da rotina de vídeo da madrugada; rode depois.');
   if (!fs.existsSync(path.join(WANGP, 'app', 'wgp.py'))) throw new Error(`WanGP não encontrado em ${WANGP} (use --sem-gerar para só desenhar).`);
-  const dir = path.join(TMP, 'wangp'); fs.mkdirSync(dir, { recursive: true });
-  const fila = pedidos.map((p) => ({ model_type: 'z_image', prompt: p.prompt, negative_prompt: 'text, letters, numbers, watermark, logo, brand, people, person, face, hands, money',
+  const dir = path.join(TMP, `wangp-${Math.random().toString(36).slice(2)}`); fs.mkdirSync(dir, { recursive: true });
+  const fila = pedidos.map((p) => ({ model_type: 'z_image', prompt: p.prompt.replace(/,?\s*no text, no people\s*$/i, '') + SEM_TEXTO + ', no people', negative_prompt: 'text, letters, words, numbers, watermark, logo, brand, people, person, face, hands, money',
     resolution: '1280x720', num_inference_steps: 8, guidance_scale: 0, seed: p.seed }));
   fs.writeFileSync(path.join(dir, 'fila.json'), JSON.stringify(fila, null, 1));
   console.log(`gerando ${fila.length} fotos no WanGP (~${Math.ceil(fila.length * 18 / 60) + 1} min)...`);
@@ -165,7 +199,7 @@ for (const blog of blogs) {
     if (post?.slug && post?.title) lista.push({ blog, post, arq: path.join(dirPosts, f), i, foto: path.join(PUBLICO, blog, 'fotos', `${post.slug}.webp`) });
   });
 }
-const faltam = lista.filter((x) => REFAZER_FOTOS || !fs.existsSync(x.foto))
+const faltam = lista.filter((x) => REFAZER_FOTOS || REFAZER_ALVO.has(`${x.blog}/${x.post.slug}`) || !fs.existsSync(x.foto))
   .map((x) => ({ id: `${x.blog}/${x.post.slug}`, prompt: promptDe(x.blog, x.post), seed: semente(`${x.blog}/${x.post.slug}`), destino: x.foto }));
 if (faltam.length && !SEM_GERAR) gerarFotos(faltam);
 
@@ -185,7 +219,7 @@ for (const blog of blogs) {
     if (vistos.has(h)) erros.push(`${blog}/${post.slug}: mesma foto de ${vistos.get(h)}`); else vistos.set(h, post.slug);
     const capa = path.join(PUBLICO, blog, `${post.slug}-capa.webp`);
     const story = path.join(PUBLICO, blog, `${post.slug}-story.webp`);
-    if (REFAZER || !fs.existsSync(capa) || !fs.existsSync(story)) {
+    if (REFAZER || REFAZER_ALVO.has(`${blog}/${post.slug}`) || !fs.existsSync(capa) || !fs.existsSync(story)) {
       const chave = [...String(post.content).matchAll(/\{\{LINK:([a-z0-9-]+)\}\}/g)].map((m) => m[1]).find((k) => links[k]?.status === 'ativo');
       const prod = chave ? await fotoProduto(chave) : null;
       const dados = { layout: x.i % 4, titulo: post.title, blog: info.nome, v, foto: x.foto, prod };
