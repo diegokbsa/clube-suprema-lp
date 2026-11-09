@@ -27,6 +27,15 @@
 :root[data-visual] .logo-mark { border-radius: calc(var(--radius) - 4px); }
 :root[data-visual] .card, :root[data-visual] .kpi { box-shadow: var(--shadow); }
 :root[data-visual] .login { background: var(--login-bg, var(--bg)); }
+/* login (09/11): sombra na cor do visual em vez do preto pesado; nos de vidro, o chão com as formas e o cartão de vidro */
+:root[data-visual] .login form { box-shadow: var(--shadow, 0 1px 2px rgb(40 18 90 / .05), 0 18px 44px -24px rgb(60 25 130 / .3)); border: 1px solid var(--line); }
+:root[data-visual="lavanda"] .login, :root[data-visual="ameixa"] .login, :root[data-visual="profundo"] .login, :root[data-visual="observatorio"] .login {
+  background: var(--chao) center / 100% 100% no-repeat fixed, var(--bg);
+}
+:root[data-visual="lavanda"] .login form, :root[data-visual="ameixa"] .login form, :root[data-visual="profundo"] .login form, :root[data-visual="observatorio"] .login form {
+  background: var(--vidro); border-color: var(--vidro-borda);
+  -webkit-backdrop-filter: blur(22px) saturate(1.4); backdrop-filter: blur(22px) saturate(1.4);
+}
 
 /* menu lateral claro: branco, lavanda, planilha, relatório, profundo, quadro */
 :root[data-visual="branco"], :root[data-visual="lavanda"], :root[data-visual="planilha"], :root[data-visual="relatorio"], :root[data-visual="profundo"], :root[data-visual="quadro"] {
