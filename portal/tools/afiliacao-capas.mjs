@@ -64,10 +64,10 @@ function storyHtml({ titulo, blog, cor, fonte, foto }) {
   return `<!doctype html><html><head><meta charset="utf-8">
 <link href="https://fonts.googleapis.com/css2?family=${familia}${PESO_UNICO.has(fonte) ? '' : ':wght@700'}&family=Atkinson+Hyperlegible+Next:wght@700&display=block" rel="stylesheet">
 <style>*{margin:0;box-sizing:border-box}html,body{width:720px;height:960px;overflow:hidden}
-body{background:${cor};color:#fff;display:flex;flex-direction:column;font-family:'Atkinson Hyperlegible Next',sans-serif;padding:48px}
-.f{background:#fff;border-radius:16px;height:420px;display:grid;place-items:center;padding:28px;margin-bottom:44px}
+body{background:${cor};color:#fff;display:flex;flex-direction:column;font-family:'Atkinson Hyperlegible Next',sans-serif;padding:56px 108px}
+.f{background:#fff;border-radius:16px;height:380px;display:grid;place-items:center;padding:28px;margin-bottom:44px}
 .f img{max-width:100%;max-height:100%;object-fit:contain;border-radius:8px}
-h1{font:700 ${titulo.length > 72 ? 46 : titulo.length > 52 ? 52 : 60}px/1.06 '${fonte}',sans-serif;letter-spacing:-.015em;text-wrap:balance;flex:1}
+h1{font:700 ${titulo.length > 72 ? 36 : titulo.length > 52 ? 40 : 46}px/1.06 '${fonte}',sans-serif;letter-spacing:-.015em;text-wrap:balance;flex:1}
 .m{display:flex;align-items:center;gap:14px;font-size:28px}.m i{width:12px;height:32px;background:#fff;border-radius:2px}</style></head>
 <body>${foto ? `<div class="f"><img src="${pathToFileURL(foto).href}" alt=""></div>` : ''}<h1>${esc(titulo)}</h1><div class="m"><i></i>${esc(blog)}</div></body></html>`;
 }
