@@ -70,8 +70,9 @@ export function readSession(db, token) {
   if (!token) return null;
   const s = db.prepare('SELECT * FROM sessions WHERE token = ?').get(sha(token));
   if (!s || s.expires_at < Date.now()) return null;
-  const user = db.prepare('SELECT id, email, name, is_super FROM users WHERE id = ?').get(s.user_id);
-  return user ? { user, csrf: s.csrf } : null;
+  const u = db.prepare('SELECT * FROM users WHERE id = ?').get(s.user_id);
+  if (!u || u.ativo === 0) return null; // desativado perde a sessão na hora
+  return { user: { id: u.id, email: u.email, name: u.name, is_super: u.is_super }, csrf: s.csrf };
 }
 export function dropSession(db, token) {
   if (token) db.prepare('DELETE FROM sessions WHERE token = ?').run(sha(token));

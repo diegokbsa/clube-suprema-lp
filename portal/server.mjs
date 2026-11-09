@@ -72,8 +72,9 @@ export async function createApp({ db, origin = 'http://localhost:3400', secretKe
     const email = String(body.email || '').trim().toLowerCase();
     if (!loginLimit(`${ip}|${email}`)) throw new HttpError(429, 'Muitas tentativas. Espere 15 minutos.');
     const u = db.prepare('SELECT * FROM users WHERE email = ?').get(email);
-    if (!u || !checkPassword(body.password, u.pass)) throw new HttpError(401, 'E-mail ou senha incorretos.');
+    if (!u || u.ativo === 0 || !checkPassword(body.password, u.pass)) throw new HttpError(401, 'E-mail ou senha incorretos.'); // desativado: mesma resposta, não revela a conta
     const s = createSession(db, u.id);
+    try { db.prepare('UPDATE users SET ultimo_acesso = ? WHERE id = ?').run(now(), u.id); } catch { /* coluna criada pelo módulo usuarios */ }
     writeAudit(db, { userId: u.id, action: 'sessao.entrar', data: { ip } });
     res.setHeader('Set-Cookie', cookie(SESSION_COOKIE, s.token, { maxAge: s.maxAge, secure, sameSite: 'Strict' }));
     return { ok: true, csrf: s.csrf };

@@ -70,6 +70,7 @@ function navLinks(route) {
     items.push(['#/nova', S.ed.terms.newOperation, route.view === 'nova']);
     items.push(['#/clientes', 'Base de clientes', route.view === 'clientes']);
     items.push(['#/insights', 'Insights de IA', route.view === 'insights']);
+    items.push(['#/acessos', 'Usuários e acessos', route.view === 'acessos']);
     if (S.ed.id === 'sx') items.push(['#/migracao', 'Trilha de migração', route.view === 'migracao']); // PA-140: fila de candidaturas
   }
   if (t) {
@@ -158,6 +159,7 @@ function parseRoute() {
   if (!parts.length) return { view: 'central' };
   if (parts[0] === 'nova') return { view: 'nova' };
   if (parts[0] === 'insights') return { view: 'insights' };
+  if (parts[0] === 'acessos') return { view: 'acessos' };
   if (parts[0] === 'clientes') return { view: 'clientes' };
   if (parts[0] === 'migracao') return { view: 'migracao' };
   if (parts[0] === 't') {
@@ -179,7 +181,7 @@ async function route() {
     if (S.me.tenants[0]) { location.hash = `#/t/${S.me.tenants[0].slug}`; return; }
   }
   if (r.view === 'dash' && S.tenant && !can('tenant.read') && can('ai.connect')) { location.hash = `#/t/${S.tenant.slug}/ia`; return; } // afiliado
-  const views = { central: viewCentral, nova: viewNova, insights: viewInsights, clientes: viewBaseClientes, migracao: viewMigracaoFila, dash: viewDash, site: viewSite, editor: viewEditor, seo: viewSeo, ia: viewIa, leads: viewLeads, afiliados: viewAfiliados,
+  const views = { central: viewCentral, nova: viewNova, insights: viewInsights, acessos: viewAcessos, clientes: viewBaseClientes, migracao: viewMigracaoFila, dash: viewDash, site: viewSite, editor: viewEditor, seo: viewSeo, ia: viewIa, leads: viewLeads, afiliados: viewAfiliados,
     integracoes: viewIntegracoes, usuarios: viewUsuarios, calendario: viewCalendario, auditoria: viewAuditoria, config: viewConfig, module: viewModule };
   try {
     await (views[r.view] || viewCentral)(r);
@@ -300,6 +302,69 @@ async function viewBaseClientes(r) {
   const go = () => { location.hash = `#/clientes?q=${encodeURIComponent($('#bq').value)}`; };
   $('#bbusca', main).addEventListener('click', go);
   $('#bq', main).addEventListener('keydown', (e) => { if (e.key === 'Enter') go(); });
+}
+
+// ---------- usuários e acessos (superadmin): convite de uso único, redefinir senha, desativar ----------
+async function viewAcessos(r) {
+  if (!S.me.user.isSuper) { location.hash = '#/'; return; }
+  const d = await api('GET', '/api/admin/usuarios');
+  const papelDe = (u) => (u.super ? d.papeis.super : u.operacoes.length ? u.operacoes.map((o) => `${S.meta.roles[o.papel] || o.papel} em ${plural(o.n, 'operação', 'operações')}`).join(', ') : 'Sem operação');
+  const linha = (u) => `<tr class="${u.ativo ? '' : 'muted'}"><td><strong>${esc(u.nome)}</strong><br><span class="muted">${esc(u.email)}</span></td>
+    <td>${esc(papelDe(u))}</td><td class="mono">${u.ultimoAcesso ? fmtDate(u.ultimoAcesso) : '<span class="muted">Nunca entrou</span>'}</td>
+    <td>${u.ativo ? '<span class="pill">Ativo</span>' : '<span class="pill">Desativado</span>'}</td>
+    <td class="row end">${u.id === S.me.user.id ? '<span class="muted">Você</span>' : u.ativo
+    ? `<button class="btn sm" type="button" data-redef="${esc(u.id)}">Redefinir senha</button><button class="btn sm danger" type="button" data-desat="${esc(u.id)}" data-email="${esc(u.email)}">Desativar</button>`
+    : `<button class="btn sm" type="button" data-ativar="${esc(u.id)}">Reativar</button>`}</td></tr>`;
+  const conv = (c) => `<tr><td>${esc(c.email)}</td><td>${esc(d.papeis[c.papel] || '')}</td><td class="mono">${fmtDate(c.expiraEm)}</td>
+    <td class="row end"><button class="btn sm" type="button" data-reenviar="${esc(c.id)}">Gerar link novo</button><button class="btn sm danger" type="button" data-cancelar="${esc(c.id)}">Cancelar</button></td></tr>`;
+  const main = layout(r, `<div class="page-head"><div><h1>Usuários e acessos</h1><p>Quem entra no painel de ${esc(S.ed.name)}. O convite gera um link de uso único, válido por 48 horas: a pessoa abre o link e cria a própria senha. Ninguém mais vê a senha.</p></div></div>
+    <div class="card"><div class="card-head"><h2>Convidar alguém</h2></div>
+      <form id="fconv" class="row" style="flex-wrap:wrap;align-items:flex-end;gap:12px">
+        <label class="field" style="min-width:240px;flex:1">E-mail<input name="email" type="email" required autocomplete="off" placeholder="pessoa@empresa.com"></label>
+        <label class="field" style="min-width:180px">Nome (opcional)<input name="nome" maxlength="80" autocomplete="off"></label>
+        <label class="field">Papel<select name="papel">${Object.entries(d.papeis).map(([k, v]) => `<option value="${esc(k)}"${k === 'admin' ? ' selected' : ''}>${esc(v)}</option>`).join('')}</select></label>
+        <button class="btn primary" type="submit">Gerar link de convite</button></form>
+      <p class="muted" style="margin:10px 0 0">Superadministrador vê e muda tudo, em todas as operações. Administrador e editor entram em todas as operações de ${esc(S.ed.name)}; ajuste depois em cada operação, em Usuários.</p>
+      <div id="link-box" hidden style="margin-top:16px"></div></div>
+    ${d.convites.length ? `<div class="card"><div class="card-head"><h2>Convites esperando aceite (${d.convites.length})</h2></div><div class="table-wrap"><table><thead><tr><th>E-mail</th><th>Papel</th><th>Vale até</th><th></th></tr></thead><tbody>${d.convites.map(conv).join('')}</tbody></table></div></div>` : ''}
+    <div class="card"><div class="card-head"><h2>Usuários (${d.usuarios.length})</h2></div><div class="table-wrap"><table><thead><tr><th>Pessoa</th><th>Papel</th><th>Último acesso</th><th>Situação</th><th></th></tr></thead><tbody>${d.usuarios.map(linha).join('')}</tbody></table></div></div>`);
+  const mostrarLink = (titulo, res) => {
+    const box = $('#link-box'); // a tela foi redesenhada: busca no documento atual
+    box.hidden = false;
+    box.innerHTML = `<p><strong>${esc(titulo)}</strong> Copie e mande para <b>${esc(res.convite.email)}</b> por WhatsApp ou e-mail. O link vale uma vez só, até ${fmtDate(res.convite.expiraEm)}, e não volta a aparecer aqui.</p>
+      <div class="row"><input id="link-val" readonly value="${esc(res.link)}" style="flex:1;font-family:var(--mono, monospace)" aria-label="Link de convite"><button class="btn primary" type="button" id="link-copiar">Copiar link</button></div>`;
+    $('#link-copiar', box).addEventListener('click', async () => {
+      const inp = $('#link-val', box);
+      try { await navigator.clipboard.writeText(inp.value); } catch { inp.select(); document.execCommand('copy'); }
+      toast('Link copiado.');
+    });
+    $('#link-val', box).select();
+    box.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  };
+  $('#fconv', main).addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const f = new FormData(e.target);
+    try {
+      const res = await api('POST', '/api/admin/usuarios/convites', { email: f.get('email'), nome: f.get('nome'), papel: f.get('papel') });
+      await viewAcessos(r);
+      mostrarLink('Convite criado.', res);
+    } catch (err) { toast(err.message, true); }
+  });
+  main.addEventListener('click', async (e) => {
+    const b = e.target.closest('button[data-redef],button[data-desat],button[data-ativar],button[data-reenviar],button[data-cancelar]');
+    if (!b) return;
+    try {
+      if (b.dataset.redef) { const res = await api('POST', `/api/admin/usuarios/${b.dataset.redef}/redefinicao`); await viewAcessos(r); mostrarLink('Link para redefinir a senha criado.', res); return; }
+      if (b.dataset.reenviar) { const res = await api('POST', `/api/admin/convites/${b.dataset.reenviar}/reenviar`); await viewAcessos(r); mostrarLink('Link novo criado; o anterior deixou de valer.', res); return; }
+      if (b.dataset.desat) {
+        if (!confirm(`Desativar ${b.dataset.email}? A pessoa sai do painel na hora e não consegue mais entrar até ser reativada.`)) return;
+        await api('POST', `/api/admin/usuarios/${b.dataset.desat}/desativar`); toast('Usuário desativado.');
+      }
+      if (b.dataset.ativar) { await api('POST', `/api/admin/usuarios/${b.dataset.ativar}/ativar`); toast('Usuário reativado.'); }
+      if (b.dataset.cancelar) { await api('POST', `/api/admin/convites/${b.dataset.cancelar}/cancelar`); toast('Convite cancelado.'); }
+      await viewAcessos(r);
+    } catch (err) { toast(err.message, true); }
+  });
 }
 
 // ---------- insights do pesquisador de IA ----------
