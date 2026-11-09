@@ -146,16 +146,16 @@
   --vao: clamp(14px, 1.6vw, 22px);
   --foco: var(--tinta);
 
-  /* rasgo de papel: tira de 320px com borda deslocada por ruído só na vertical (emenda sem degrau) */
-  --rasgo-b: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='18'%3E%3Cfilter id='r' filterUnits='userSpaceOnUse' x='0' y='-30' width='320' height='80'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.03 .02' numOctaves='3' seed='4' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .5 0 1 0 0 0 0 0 0 0 0 0 0 0 0 1'/%3E%3CfeDisplacementMap in='SourceGraphic' scale='16' xChannelSelector='R' yChannelSelector='G'/%3E%3C/filter%3E%3Crect x='0' y='-30' width='320' height='39' filter='url(%23r)'/%3E%3C/svg%3E");
-  --rasgo-c: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='18'%3E%3Cfilter id='r' filterUnits='userSpaceOnUse' x='0' y='-30' width='320' height='80'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.034 .02' numOctaves='3' seed='11' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .5 0 1 0 0 0 0 0 0 0 0 0 0 0 0 1'/%3E%3CfeDisplacementMap in='SourceGraphic' scale='16' xChannelSelector='R' yChannelSelector='G'/%3E%3C/filter%3E%3Crect x='0' y='9' width='320' height='40' filter='url(%23r)'/%3E%3C/svg%3E");
+  /* texturas em webp geradas do SVG original (feTurbulence pesava ~0,4 s de pintura; 09/11/2026). rasgo de papel: tira de 320px com borda deslocada por ruído só na vertical (emenda sem degrau) */
+  --rasgo-b: url("/assets/hot-poker/tex/rasgo-b.webp?v=1");
+  --rasgo-c: url("/assets/hot-poker/tex/rasgo-c.webp?v=1");
   /* grão do papel (pintas escuras bem leves) */
-  --grao: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .5 -.2'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23g)'/%3E%3C/svg%3E");
+  --grao: url("/assets/hot-poker/tex/grao.webp?v=1");
   /* pintas claras: papel aparecendo por baixo da tinta preta */
-  --falha: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='f' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.65' numOctaves='3' seed='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1.6 -.95'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23f)'/%3E%3C/svg%3E");
+  --falha: url("/assets/hot-poker/tex/falha.webp?v=1");
   /* reboco do muro: manchas largas + grão fino */
-  --reboco: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='640' height='640'%3E%3Cfilter id='m' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.005' numOctaves='5' seed='9' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .32 -.13'/%3E%3C/filter%3E%3Crect width='640' height='640' filter='url(%23m)'/%3E%3C/svg%3E");
-  --areia: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='a' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' seed='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .9 -.3'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23a)'/%3E%3C/svg%3E");
+  --reboco: url("/assets/hot-poker/tex/reboco.webp?v=1");
+  --areia: url("/assets/hot-poker/tex/areia.webp?v=1");
 }
 
 *, *::before, *::after { box-sizing: border-box; }
