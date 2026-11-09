@@ -44,3 +44,30 @@ test('lista: a 1a capa não é lazy e vira og:image', () => {
   assert.ok(/fetchpriority="high"/.test(capa) && !/loading=/.test(capa));
   assert.match(html, /<meta property="og:image" content="https:\/\/kbsa\.app\/assets\/afiliacao\/gamer\//);
 });
+
+test('post: caixa no topo ou tabela "melhor escolha", CTA no meio, relacionados e links entre blogs', async () => {
+  const { renderPost, relacionados, deOutrosBlogs } = await import('../tools/afiliacao-visual.mjs');
+  const aplicarLinks = (t, pre) => String(t).replace(/\{\{LINK:([a-z0-9-]+)\}\}/g, (_m, k) => dados.links[k]?.url || `${pre}/blog`).replace(/\{\{POST:([a-z0-9-]+)\}\}/g, (_m, s) => `${pre}/blog/${s}`);
+  let comparativos = 0; let entreBlogs = 0;
+  for (const slug of fs.readdirSync(C).filter((d) => fs.existsSync(path.join(C, d, 'vitrine.json')))) {
+    const b = blog(slug);
+    for (const post of b.posts) {
+      const html = renderPost({ ...b, post, aplicarLinks, publicado: '2026-11-08T10:00:00Z', atualizado: '2026-11-09T10:00:00Z' });
+      const temProduto = /class="fixo"/.test(html);
+      if (!temProduto) continue;
+      assert.ok(/class="(escolha|melhor)"/.test(html), `${slug}/${post.slug}: caixa ou tabela no topo`);
+      assert.ok(html.indexOf('class="rapida"') < html.search(/class="(escolha|melhor)"/), `${slug}/${post.slug}: resposta rápida antes da oferta`);
+      if (/class="melhor"/.test(html)) comparativos++;
+      assert.ok(/class="oferta"/.test(html), `${slug}/${post.slug}: CTA no meio do texto`);
+      assert.match(html, /"@type":"Article"[^]*"dateModified"/, `${slug}/${post.slug}: Article com data`);
+      assert.match(html, /Atualizado em <time datetime=/, `${slug}/${post.slug}: data de atualização visível`);
+      const rel = relacionados(post, b.posts);
+      assert.ok(!rel.some((p) => p.slug === post.slug) && rel.length <= 3);
+      const viz = deOutrosBlogs(b.info, post);
+      assert.ok(viz.length <= 2 && viz.every((x) => /^https:\/\//.test(x.url) && !x.url.startsWith(b.prefixo)));
+      if (viz.length) entreBlogs++;
+    }
+  }
+  assert.ok(comparativos > 0, 'algum post comparativo com tabela');
+  assert.ok(entreBlogs > 0, 'algum post com link para outro blog');
+});

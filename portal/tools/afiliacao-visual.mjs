@@ -107,11 +107,18 @@ article{min-width:0}
 .txt .blog-box p:last-child{margin:0}.txt .blog-box-dica{background:var(--tint)}
 .oferta{display:grid;grid-template-columns:160px minmax(0,1fr);gap:20px;align-items:center;margin:0 0 1.6em;padding:18px;border:1px solid var(--line);border-radius:var(--r);background:#fff;box-shadow:0 8px 24px -16px rgba(21,23,28,.25)}
 .oferta img{width:160px;height:120px;border-radius:6px;object-fit:contain;background:var(--soft)}.oferta .k{font-size:.85rem;font-weight:700;color:var(--deep)}
-.oferta h4{font:700 1.2rem/1.25 var(--fh);margin:2px 0 4px}.oferta .tx{font-size:.98rem;color:var(--mut);margin:0 0 12px;line-height:1.55}.oferta .tx p{margin:0}
+.oferta h4,.oferta .on{font:700 1.2rem/1.25 var(--fh);margin:2px 0 4px}.oferta .tx{font-size:.98rem;color:var(--mut);margin:0 0 12px;line-height:1.55}.oferta .tx p{margin:0}
 .oferta .ln{display:flex;flex-wrap:wrap;align-items:center;gap:14px}.oferta .pr{font:700 1.3rem var(--fh);font-variant-numeric:tabular-nums}
 .lado{position:sticky;top:88px;display:grid;gap:12px}.lado .card .ft{aspect-ratio:16/10}
+.escolha{display:none;grid-template-columns:84px minmax(0,1fr);gap:14px;align-items:center;margin:0 0 22px;padding:14px;border:1.5px solid var(--a);border-radius:var(--r);background:#fff}
+.escolha img{width:84px;height:84px;object-fit:contain;border-radius:6px;background:var(--soft)}.escolha .k{font-size:.82rem;font-weight:700;color:var(--deep)}
+.escolha .on{font:700 1.08rem/1.25 var(--fh);margin:2px 0}.escolha .pq{margin:0;font-size:.9rem;color:var(--mut);line-height:1.45}
+.escolha .ac{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;gap:12px}.escolha .pr{font:700 1.2rem var(--fh);font-variant-numeric:tabular-nums}.escolha .btn{flex:1;max-width:260px}
+.melhor{margin:0 0 26px}.melhor .mt{display:block;font:700 1.1rem/1.2 var(--fh);margin-bottom:10px}.melhor .tag{display:inline-block;margin-top:4px;padding:2px 8px;border-radius:5px;background:var(--a);color:#fff;font-size:.78rem;font-weight:700}
+.melhor .nm span{display:flex;flex-direction:column;align-items:flex-start}.story{color:var(--deep);font-weight:700}
+.viz{padding:30px 0 0}.viz ul{margin:0;padding:0;list-style:none;display:grid;gap:10px}.viz li{padding:14px 16px;border:1px solid var(--line);border-radius:var(--r)}.viz li span{display:block;font-size:.85rem;color:var(--mut)}.viz a{font-weight:700;color:var(--ink)}
 .fixo{display:none}
-@media(max-width:920px){.grade{grid-template-columns:1fr;gap:0}.lado{position:static;margin-top:20px}.top nav{display:none}
+@media(max-width:920px){.escolha{display:grid}.grade{grid-template-columns:1fr;gap:0}.lado{position:static;margin-top:20px}.top nav{display:none}
 .picks{grid-template-columns:1fr}.guias{grid-template-columns:repeat(2,minmax(0,1fr))}
 .cap{grid-template-columns:1fr;padding:24px}.tab .esc{display:none}
 .fixo{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:30;gap:12px;align-items:center;justify-content:space-between;padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:#fff;border-top:1px solid var(--line);box-shadow:0 -6px 20px -12px rgba(21,23,28,.3)}
@@ -246,11 +253,74 @@ function comOfertas(md, dados, linkDe) {
   });
 }
 
+// ---- Links internos e entre os nossos blogs (09/11/2026, pedido "100 vendas por dia"): por assunto, nunca em massa ----
+const PARADAS = new Set('para como qual quais mais menos sobre entre guia guias melhor melhores vale pena passo antes depois quando onde voce seus suas esse essa isso este esta tudo cada fazer zero preco comecar completo iniciante iniciantes dicas escolher mesmo forma formas jeito ideias lista erros vem'.split(' '));
+const termos = (p) => new Set(`${p.title} ${(p.tags || []).join(' ')}`.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+  .split(/[^a-z0-9]+/).filter((t) => t.length > 3 && !PARADAS.has(t) && !/^\d+$/.test(t)));
+const chavesDe = (p) => new Set([...String(p.content || '').matchAll(/\{\{LINK:([a-z0-9-]+)\}\}/g)].map((m) => m[1]));
+const comuns = (a, b) => { let n = 0; for (const t of b) if (a.has(t)) n++; return n; };
+/** Posts do mesmo blog mais parecidos: termos do título/tags, produto em comum (peso 3) e mesma categoria. */
+export function relacionados(post, posts, n = 3) {
+  const ta = termos(post); const ca = chavesDe(post);
+  return posts.filter((p) => p.slug !== post.slug)
+    .map((p, i) => [comuns(ta, termos(p)) + 3 * comuns(ca, chavesDe(p)) + (post.category && p.category === post.category ? 1 : 0), -i, p])
+    .sort((x, y) => y[0] - x[0] || y[1] - x[1]).slice(0, n).map((x) => x[2]);
+}
+/** Blogs vizinhos (público que se cruza). Só daqui saem links entre blogs, e só quando o assunto do post combina. */
+export const VIZINHOS = { achadinhos: ['sublimacao', 'fornecedores', 'criativos', 'milhas'], sublimacao: ['achadinhos', 'fornecedores', 'criativos'],
+  fornecedores: ['achadinhos', 'sublimacao', 'afiliado'], afiliado: ['criativos', 'automacao', 'ia', 'fornecedores'], criativos: ['afiliado', 'ia', 'sublimacao', 'achadinhos'],
+  automacao: ['ia', 'afiliado', 'criativos'], ia: ['automacao', 'criativos', 'afiliado', 'gamer'], gamer: ['criativos', 'ia'], manutencao: ['fornecedores'], milhas: ['achadinhos', 'afiliado'] };
+const CONTEUDO = path.join(PUBLICO, '..', 'conteudo', 'afiliacao');
+let indice = null;
+function indiceBlogs() {
+  if (indice) return indice;
+  indice = {};
+  for (const b of fs.existsSync(CONTEUDO) ? fs.readdirSync(CONTEUDO) : []) {
+    const f = path.join(CONTEUDO, b, 'site.json'); const dp = path.join(CONTEUDO, b, 'posts');
+    if (!fs.existsSync(f) || !fs.existsSync(dp)) continue;
+    const info = JSON.parse(fs.readFileSync(f, 'utf8'));
+    const posts = fs.readdirSync(dp).filter((x) => x.endsWith('.json')).map((x) => {
+      try { const p = JSON.parse(fs.readFileSync(path.join(dp, x), 'utf8')); return p?.slug && p?.title ? { slug: p.slug, title: p.title, t: termos(p) } : null; } catch { return null; }
+    }).filter(Boolean);
+    indice[b] = { nome: info.nome, origem: info.dominio ? `https://${info.dominio}` : `https://kbsa.app/${b}`, posts };
+  }
+  return indice;
+}
+/** Até n posts de blogs vizinhos com pelo menos 2 termos em comum com o post (1 por blog). */
+export function deOutrosBlogs(info, post, n = 2) {
+  const idx = indiceBlogs();
+  const meu = Object.keys(idx).find((b) => idx[b].nome === info.nome);
+  if (!meu) return [];
+  const ta = termos(post);
+  return (VIZINHOS[meu] || []).map((b) => idx[b] && idx[b].posts.map((p) => [comuns(ta, p.t), p, b]).sort((x, y) => y[0] - x[0])[0]).filter((x) => x && x[0] >= 2)
+    .sort((x, y) => y[0] - x[0]).slice(0, n).map(([, p, b]) => ({ url: `${idx[b].origem}/blog/${p.slug}`, title: p.title, blog: idx[b].nome }));
+}
+
+// ---- Conversão no post: caixa no topo, tabela "melhor escolha" nos comparativos e CTA no meio do texto ----
+function ofertaHtml(p, textoHtml, rotulo = 'Recomendação do guia') {
+  return `<aside class="oferta">${p.img ? `<img src="${esc(p.img)}" alt="${esc(p.nome)}" loading="lazy" width="150" height="150">` : '<span></span>'}
+<div><span class="k">${esc(rotulo)}</span><p class="on">${esc(p.nome)}</p><div class="tx">${textoHtml}</div><div class="ln">${p.preco ? `<span class="pr">${brl(p.preco)}</span>` : ''}<a class="btn" href="${esc(p.url)}" ${REL}>Ver na página oficial</a></div></div></aside>`;
+}
+function escolhaTopo(p, rotulo, melhor) {
+  return `<aside class="escolha" aria-label="${esc(rotulo)}">${p.img ? `<img src="${esc(p.img)}" alt="${esc(p.nome)}" loading="lazy" decoding="async" width="84" height="84">` : '<span></span>'}
+<div><span class="k">${esc(rotulo)}</span><p class="on">${esc(p.nome)}</p>${melhor ? `<p class="pq">Para quem é: ${esc(melhor)}</p>` : ''}</div>
+<div class="ac">${p.preco ? `<span class="pr">${brl(p.preco)}</span>` : '<span></span>'}<a class="btn sm" href="${esc(p.url)}" ${REL}>${esc(p.cta || 'Ver oferta')}</a></div></aside>`;
+}
+function tabelaMelhor(prods, v) {
+  const linhas = prods.map((p, i) => `<tr><td><div class="nm">${p.img ? `<img src="${esc(p.img)}" alt="" loading="lazy" width="52" height="52">` : ''}<span>${esc(p.nome)}${i === 0 ? '<span class="tag">Melhor escolha</span>' : ''}</span></div></td>
+<td class="esc">${esc(cap(v.melhor_para?.[p.chave] || p.tipo || ''))}</td><td>${p.preco ? brl(p.preco) : '—'}</td><td><a class="btn sm" href="${esc(p.url)}" ${REL}>Ver oferta</a></td></tr>`).join('');
+  return `<div class="melhor"><b class="mt">Melhor escolha por perfil</b><div class="tabw"><table class="tab"><thead><tr><th>Opção</th><th class="esc">Para quem é</th><th>Preço</th><th>Oferta</th></tr></thead><tbody>${linhas}</tbody></table></div></div>`;
+}
+
 /** Post: resposta rápida, índice, ficha de produto no lugar das caixas de oferta, lateral fixa e barra no celular. */
 export function renderPost({ info, v, post, posts, prefixo, dados, aplicarLinks, publicado, atualizado }) {
   const canonical = `${prefixo}/blog/${post.slug}`;
   const chaves = [...String(post.content).matchAll(/\{\{LINK:([a-z0-9-]+)\}\}/g)].map((m) => m[1]);
-  const principal = [...chaves, ...(v.destaques || [])].map((k) => produto(k, dados)).find(Boolean);
+  // sem produto no texto: o destaque do blog mais ligado ao assunto do post (empate fica com a ordem da vitrine)
+  const tp = termos(post);
+  const destaques = (v.destaques || []).map((k, i) => [k, i, comuns(tp, termos({ title: `${dados.catalogo[k]?.nome || ''} ${v.melhor_para?.[k] || ''}` }))])
+    .sort((a, b) => b[2] - a[2] || a[1] - b[1]).map(([k]) => k);
+  const principal = [...chaves, ...destaques].map((k) => produto(k, dados)).find(Boolean);
   // produto sem afiliação ativa: a caixa de oferta sai e o link vira texto comum (volta sozinho quando for aprovado)
   let md = String(post.content)
     .replace(/^:::cta[^\n]*\n([\s\S]*?)\n:::[ \t]*$/gm, (b, corpo) => { const k = /\{\{LINK:([a-z0-9-]+)\}\}/.exec(corpo)?.[1]; return k && !produto(k, dados) ? '' : b; })
@@ -261,16 +331,26 @@ export function renderPost({ info, v, post, posts, prefixo, dados, aplicarLinks,
   html = html.replace(/<p>\u0000OFERTA:([a-z0-9-]+):([A-Za-z0-9+/=]+)\u0000<\/p>|\u0000OFERTA:([a-z0-9-]+):([A-Za-z0-9+/=]+)\u0000/g, (_m, k1, b1, k2, b2) => {
     const p = produto(k1 || k2, dados);
     const texto = htmlText(aplicarLinks(Buffer.from(b1 || b2, 'base64').toString('utf8'), prefixo));
-    return `<aside class="oferta">${p.img ? `<img src="${esc(p.img)}" alt="${esc(p.nome)}" loading="lazy" width="150" height="150">` : '<span></span>'}
-<div><span class="k">Recomendação do guia</span><h4>${esc(p.nome)}</h4><div class="tx">${texto}</div><div class="ln">${p.preco ? `<span class="pr">${brl(p.preco)}</span>` : ''}<a class="btn" href="${esc(p.url)}" ${REL}>Ver na página oficial</a></div></div></aside>`;
+    return ofertaHtml(p, texto);
   });
   // links de afiliado no meio do texto: marcados como patrocinados e abrindo em outra aba
   html = html.replace(/<a href="(https:\/\/(?:[a-z0-9-]+\.)*(?:kiwify\.app|kiwify\.com\.br|kiwify\.com|hotmart\.com|hotm\.art|l\.kbsa\.app)[^"]*)"(?: rel="[^"]*")?(?: target="[^"]*")?>/g,`<a href="$1" ${REL}>`);
   // índice pelos H2
   const h2 = [];
   html = html.replace(/<h2>(.*?)<\/h2>/g, (_m, t) => { const id = t.replace(/<[^>]+>/g, '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 60); h2.push([id, t]); return `<h2 id="${id}">${t}</h2>`; });
+  // CTA no meio do texto quando o post não tem caixa de oferta: antes do intertítulo do meio (fora de FAQ e Fontes)
+  const meio = h2.filter(([, t]) => !/perguntas|fontes|refer[eê]ncias/i.test(t));
+  if (principal && !html.includes('class="oferta"') && meio.length >= 3) {
+    const [id] = meio[Math.floor(meio.length / 2)];
+    const melhor = v.melhor_para?.[principal.chave];
+    const rot = chaves.includes(principal.chave) ? 'Recomendação do guia' : `Indicado pelo ${info.nome}`;
+    html = html.replace(`<h2 id="${id}">`, `${ofertaHtml(principal, `<p>${esc(cap(melhor ? `para quem é: ${melhor}` : principal.tipo || ''))}</p>`, rot)}<h2 id="${id}">`);
+  }
+  const comparados = [...new Set(post.comparar || chaves)].map((k) => produto(k, dados)).filter(Boolean);
   const faq = faqDoTexto(post.content);
-  const outros = posts.filter((p) => p.slug !== post.slug);
+  const outros = relacionados(post, posts);
+  const vizinhos = deOutrosBlogs(info, post);
+  const resposta = frase(post.resposta || post.excerpt, 340);
   // capa própria do post manda no og:image e no Article.image; sem capa, segue a foto do produto principal
   const capa = capaDo(post);
   const [cw, ch] = capa ? dimensoesImagem(capa, [1200, 630]) : [];
@@ -278,7 +358,9 @@ export function renderPost({ info, v, post, posts, prefixo, dados, aplicarLinks,
   const ld = { '@context': 'https://schema.org', '@graph': [
     { '@type': 'Article', headline: post.title, description: post.seoDescription || post.excerpt, inLanguage: 'pt-BR', mainEntityOfPage: canonical, url: canonical,
       datePublished: publicado, dateModified: atualizado || publicado, author: { '@type': 'Organization', name: info.autor || `Equipe ${info.nome}`, url: `${prefixo}/autor` },
-      publisher: { '@type': 'Organization', name: info.nome, url: `${prefixo}/` }, ...(imagem ? { image: imagem } : {}) },
+      publisher: { '@type': 'Organization', name: info.nome, url: `${prefixo}/` }, isPartOf: { '@type': 'WebSite', name: info.nome, url: `${prefixo}/` },
+      wordCount: String(post.content).split(/\s+/).length, speakable: { '@type': 'SpeakableSpecification', cssSelector: ['h1', '.rapida'] },
+      ...(imagem ? { image: imagem } : {}) },
     { '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: info.nome, item: `${prefixo}/` },
       { '@type': 'ListItem', position: 2, name: 'Guias', item: `${prefixo}/blog` }, { '@type': 'ListItem', position: 3, name: post.title, item: canonical }] },
     ...(faq.length ? [faqLd(faq, `${canonical}#faq`)] : []),
@@ -288,13 +370,15 @@ export function renderPost({ info, v, post, posts, prefixo, dados, aplicarLinks,
 <main><div class="w"><div class="grade"><article>
 <div class="bc"><a href="${prefixo}/">${esc(info.nome)}</a> › <a href="${prefixo}/blog">Guias</a> › ${esc(post.category || info.categoria)}</div>
 <h1 style="font-size:clamp(1.9rem,4.4vw,3rem)">${esc(post.title)}</h1>
-<div class="meta"><span>Por <a href="${prefixo}/autor" rel="author">${esc(info.autor || `Equipe ${info.nome}`)}</a></span>${publicado ? `<span>Publicado em <time datetime="${esc(String(publicado).slice(0, 10))}">${dataBr(publicado)}</time></span>` : ''}<span>Atualizado em <time datetime="${esc(String(atualizado || publicado || '').slice(0, 10))}">${dataBr(atualizado || publicado)}</time></span><span>${minutos(post.content)} min de leitura</span></div>
+<div class="meta"><span>Por <a href="${prefixo}/autor" rel="author">${esc(info.autor || `Equipe ${info.nome}`)}</a></span>${publicado ? `<span>Publicado em <time datetime="${esc(String(publicado).slice(0, 10))}">${dataBr(publicado)}</time></span>` : ''}<span>Atualizado em <time datetime="${esc(String(atualizado || publicado || '').slice(0, 10))}">${dataBr(atualizado || publicado)}</time></span><span>${minutos(post.content)} min de leitura</span>${capa ? `<a class="story" href="${prefixo}/stories/${esc(post.slug)}">Ver em story</a>` : ''}</div>
 ${capa ? `<figure class="capa"><img src="${esc(capa)}" alt="${esc(post.coverAlt || post.title)}" width="${cw}" height="${ch}" fetchpriority="high" decoding="async"></figure>` : ''}
-${post.excerpt ? `<div class="rapida"><b>Resposta rápida</b><p>${esc(post.excerpt)}</p></div>` : ''}
+${resposta ? `<div class="rapida"><b>Resposta rápida</b><p>${esc(resposta)}</p></div>` : ''}
+${comparados.length >= 2 ? tabelaMelhor(comparados, v) : principal ? escolhaTopo(principal, chaves.includes(principal.chave) ? 'Nossa escolha neste guia' : `Indicado pelo ${info.nome}`, v.melhor_para?.[principal.chave]) : ''}
 ${h2.length > 2 ? `<nav class="indice" aria-label="Neste guia"><b>Neste guia</b><ol>${h2.map(([id, t]) => `<li><a href="#${id}">${t}</a></li>`).join('')}</ol></nav>` : ''}
 <div class="txt">${html}</div>
 ${(v.fontes || []).length ? `<section class="fontes" style="padding:30px 0 0"><h2 style="font-size:1.5rem">Fontes para conferir por conta própria</h2><p>Referências oficiais e confiáveis sobre o tema deste blog. Confira sempre a versão mais recente antes de decidir.</p><ul>${v.fontes.map((f) => `<li><a href="${esc(f.u)}" rel="noopener" target="_blank">${esc(f.t)}</a></li>`).join('')}</ul></section>` : ''}
-${outros.length ? `<section style="padding:30px 0 0"><h2 style="font-size:1.5rem">Continue lendo</h2><div class="guias">${outros.slice(0, 3).map((p) => `<a class="guia" href="${prefixo}/blog/${esc(p.slug)}">${capaCard(p)}<span class="k">${esc(p.category || info.categoria)}</span><h3>${esc(p.title)}</h3></a>`).join('')}</div></section>` : ''}
+${outros.length ? `<section style="padding:30px 0 0"><h2 style="font-size:1.5rem">Continue lendo</h2><div class="guias">${outros.map((p) => `<a class="guia" href="${prefixo}/blog/${esc(p.slug)}">${capaCard(p)}<span class="k">${esc(p.category || info.categoria)}</span><h3>${esc(p.title)}</h3></a>`).join('')}</div></section>` : ''}
+${vizinhos.length ? `<section class="viz"><h2 style="font-size:1.5rem">Do mesmo assunto nos nossos outros blogs</h2><ul>${vizinhos.map((x) => `<li><a href="${esc(x.url)}">${esc(x.title)}</a><span>${esc(x.blog)}</span></li>`).join('')}</ul></section>` : ''}
 </article><aside class="lado" aria-label="Recomendação">${principal ? cardProduto(principal, { rotulo: 'Indicado neste guia', um: true, nivel: 'p', melhor: v.melhor_para?.[principal.chave] }) : ''}
 <a class="btn lin" href="${prefixo}/#comparativo">Ver o comparativo completo</a></aside></div>
 <section style="padding-top:10px">${captura(info, v)}</section></div></main>${rodape(info, prefixo)}
