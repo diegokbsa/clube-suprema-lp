@@ -62,6 +62,7 @@ h1{font:700 clamp(2rem,4.6vw,3.4rem)/1.08 var(--fh);letter-spacing:-.025em;margi
 .sub{font-size:1.2rem;color:var(--mut);max-width:62ch;margin:0 0 18px}.meta{display:flex;flex-wrap:wrap;gap:4px 18px;color:var(--mut);font-size:.9rem}.meta span+span:before{content:'';display:inline-block;width:4px;height:4px;border-radius:50%;background:currentColor;margin:0 10px 3px -10px;opacity:.6}
 .picks{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin-top:34px}
 .picks.n1,.picks.n2{grid-template-columns:1fr}
+.picks.k4{grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
 .card{position:relative;display:flex;flex-direction:column;background:#fff;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;box-shadow:0 1px 2px rgba(21,23,28,.05),0 8px 24px -16px rgba(21,23,28,.22)}
 .card .ft{aspect-ratio:16/10;background:#fff;border-bottom:1px solid var(--line);overflow:hidden;display:grid;place-items:center}.card .ft img{width:100%;height:100%;object-fit:cover}
 .picks.n1 .card,.picks.n2 .card{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr)}
@@ -124,11 +125,11 @@ article{min-width:0}
 .viz{padding:30px 0 0}.viz ul{margin:0;padding:0;list-style:none;display:grid;gap:10px}.viz li{padding:14px 16px;border:1px solid var(--line);border-radius:var(--r)}.viz li span{display:block;font-size:.85rem;color:var(--mut)}.viz a{font-weight:700;color:var(--ink)}
 .fixo{display:none}
 @media(max-width:920px){.escolha{display:grid}.grade{grid-template-columns:1fr;gap:0}.lado{position:static;margin-top:20px}.top nav{display:none}
-.picks{grid-template-columns:1fr}.guias{grid-template-columns:repeat(2,minmax(0,1fr))}
+.picks{grid-template-columns:1fr}.guias{grid-template-columns:repeat(2,minmax(0,1fr))}.picks.k4{grid-template-columns:repeat(2,minmax(0,1fr))}
 .cap{grid-template-columns:1fr;padding:24px}.tab .esc{display:none}
 .fixo{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:30;gap:12px;align-items:center;justify-content:space-between;padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:#fff;border-top:1px solid var(--line);box-shadow:0 -6px 20px -12px rgba(21,23,28,.3)}
 .fixo span{font-size:.85rem;line-height:1.3;color:var(--mut);min-width:0}.fixo span b{display:block;color:var(--ink);font-size:.95rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}}
-@media(max-width:640px){body{font-size:17px}.hero .w{padding:34px 0 30px}section{padding:42px 0}.guias,.guias.dest .guia:first-child{grid-template-columns:1fr}
+@media(max-width:640px){.picks.k4{grid-template-columns:1fr}body{font-size:17px}.hero .w{padding:34px 0 30px}section{padding:42px 0}.guias,.guias.dest .guia:first-child{grid-template-columns:1fr}
 .picks.n1 .card,.picks.n2 .card{grid-template-columns:1fr}.picks.n1 .card .ft,.picks.n2 .card .ft{border-right:0;border-bottom:1px solid var(--line);max-height:240px}
 .oferta{grid-template-columns:1fr}.oferta img{width:100%;height:auto;aspect-ratio:16/10}.top .btn.sm{padding:9px 12px}
 .tab th:nth-child(3),.tab td:nth-child(3){display:none}.tab th,.tab td{padding:12px 10px}}
@@ -235,7 +236,7 @@ export function kitBasico(v, dados) {
   const soma = itens.reduce((s, p) => s + (Number(p.preco) || 0), 0);
   const tipo = (p) => (p.chave.startsWith('sp-') ? 'Físico' : 'Digital');
   return `<section id="kit" class="alt"><div class="w"><h2>${esc(v.kit.titulo || 'Comece com o kit básico')}</h2><p class="lead">${esc(v.kit.texto || 'O curso para aprender e o que você precisa ter à mão para começar.')}</p>
-<div class="picks n3">${itens.map((p) => cardProduto(p, { rotulo: tipo(p), melhor: v.melhor_para?.[p.chave], nivel: 'h3' })).join('')}</div>
+<div class="picks n3${itens.length === 4 ? ' k4' : ''}">${itens.map((p) => cardProduto(p, { rotulo: tipo(p), melhor: v.melhor_para?.[p.chave], nivel: 'h3' })).join('')}</div>
 <p class="lead" style="margin:18px 0 0">Kit completo por cerca de <b>${brl(soma)}</b>, somando os preços conferidos em ${dataBr()}. Os preços mudam: confira em cada loja. São links de afiliado: se você comprar por eles, recebemos uma comissão, sem custo extra.</p></div></section>`;
 }
 
