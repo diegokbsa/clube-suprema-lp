@@ -83,3 +83,18 @@ test('rodapé: canal do Telegram do blog pelo BigLinks, com src próprio que o c
     assert.ok(b.v.telegram.endsWith(`src=telegram_${slug}&utm_source=kbsa_blogs&utm_campaign=telegram_${slug}`), `${slug}: origem do clique`);
   }
 });
+
+test('newsletter: formulário LGPD pronto e desligado até a rota /inscricoes responder', async () => {
+  const { inscricao, INSCRICOES_NO_AR } = await import('../tools/afiliacao-visual.mjs');
+  for (const slug of fs.readdirSync(C).filter((d) => fs.existsSync(path.join(C, d, 'vitrine.json')))) {
+    const b = blog(slug);
+    assert.equal(b.v.inscricao?.blog, slug, `${slug}: vitrine.inscricao.blog`);
+    assert.ok(b.v.inscricao?.brinde, `${slug}: título do brinde`);
+    const f = inscricao(b.info, b.v);
+    assert.ok(f.includes(`data-blog="${slug}"`) && f.includes('https://kbsa.app/inscricoes/inscrever'));
+    assert.match(f, /<input name="consentimento" type="checkbox" required>/, 'consentimento desmarcado');
+    assert.ok(!/checked/.test(f.replace(/\.checked/g, '')), 'nada vem marcado');
+    assert.match(f, /<input class="isca" name="site" tabindex="-1"/);
+    assert.equal(renderHome(b).includes('form class="inscricao"'), INSCRICOES_NO_AR, `${slug}: só aparece quando ligado`);
+  }
+});

@@ -75,5 +75,9 @@
       "u": "https://www.sebrae.com.br"
     }
   ],
-  "telegram": "https://l.kbsa.app/tel-achad-a7fe7e?src=telegram_achadinhos&utm_source=kbsa_blogs&utm_campaign=telegram_achadinhos"
+  "telegram": "https://l.kbsa.app/tel-achad-a7fe7e?src=telegram_achadinhos&utm_source=kbsa_blogs&utm_campaign=telegram_achadinhos",
+  "inscricao": {
+    "blog": "achadinhos",
+    "brinde": "Planner de 30 dias de postagem de achadinhos + checklist do vídeo"
+  }
 }

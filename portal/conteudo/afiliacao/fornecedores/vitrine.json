@@ -75,5 +75,9 @@
       "u": "https://www.sebrae.com.br"
     }
   ],
-  "telegram": "https://l.kbsa.app/tel-forne-a7fe7e?src=telegram_fornecedores&utm_source=kbsa_blogs&utm_campaign=telegram_fornecedores"
+  "telegram": "https://l.kbsa.app/tel-forne-a7fe7e?src=telegram_fornecedores&utm_source=kbsa_blogs&utm_campaign=telegram_fornecedores",
+  "inscricao": {
+    "blog": "fornecedores",
+    "brinde": "Checklist de 34 pontos para testar um fornecedor antes de comprar"
+  }
 }

@@ -77,5 +77,9 @@
       "u": "https://www.procon.sp.gov.br"
     }
   ],
-  "telegram": "https://l.kbsa.app/tel-manut-a7fe7e?src=telegram_manutencao&utm_source=kbsa_blogs&utm_campaign=telegram_manutencao"
+  "telegram": "https://l.kbsa.app/tel-manut-a7fe7e?src=telegram_manutencao&utm_source=kbsa_blogs&utm_campaign=telegram_manutencao",
+  "inscricao": {
+    "blog": "manutencao",
+    "brinde": "Checklist de 15 pontos de manutenção preventiva para oficina e frota"
+  }
 }

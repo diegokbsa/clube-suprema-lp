@@ -73,5 +73,9 @@
       "u": "https://www.sebrae.com.br"
     }
   ],
-  "telegram": "https://l.kbsa.app/tel-autom-a7fe7e?src=telegram_automacao&utm_source=kbsa_blogs&utm_campaign=telegram_automacao"
+  "telegram": "https://l.kbsa.app/tel-autom-a7fe7e?src=telegram_automacao&utm_source=kbsa_blogs&utm_campaign=telegram_automacao",
+  "inscricao": {
+    "blog": "automacao",
+    "brinde": "Checklist de 15 pontos para automatizar o atendimento no WhatsApp"
+  }
 }

@@ -94,7 +94,7 @@ h2{font:700 clamp(1.55rem,3vw,2.2rem)/1.15 var(--fh);letter-spacing:-.02em;margi
 .faq summary:after{content:'';flex:none;width:10px;height:10px;margin-top:8px;border-right:2px solid var(--ink);border-bottom:2px solid var(--ink);transform:rotate(45deg);transition:transform .2s}.faq details[open] summary:after{transform:rotate(225deg)}.faq details p{margin:0 0 18px;color:var(--mut);max-width:70ch}
 .cap{display:grid;grid-template-columns:1.2fr 1fr;gap:28px;align-items:center;padding:34px;border-radius:var(--r);background:var(--ink);color:#fff}
 .cap h2{color:#fff}.cap p{margin:0;color:#d5d8de}.cap form{display:flex;flex-direction:column;gap:10px}
-.cap input[type=email]{padding:15px 16px;border-radius:8px;border:0;font:400 1rem var(--fb)}.cap label{display:flex;gap:8px;font-size:.85rem;color:#d5d8de;align-items:flex-start}
+.cap input[type=email]{padding:15px 16px;border-radius:8px;border:0;font:400 1rem var(--fb)}.cap label{display:flex;gap:8px;font-size:.85rem;color:#d5d8de;align-items:flex-start}.cap label.em{font-size:.9rem;font-weight:700;color:#fff}.cap .isca{position:absolute;left:-9999px}.cap .ins-msg{margin:0;font-size:.9rem;color:#fff;min-height:1.3em}
 footer{padding:40px 0 110px;border-top:1px solid var(--line);color:var(--mut);font-size:.9rem}footer .w{display:grid;gap:10px;max-width:none}footer span{max-width:80ch}footer .rod{display:flex;flex-wrap:wrap;gap:6px 18px}footer .rod a{color:var(--ink)}footer .tel{justify-self:start;display:inline-flex;align-items:center;padding:10px 16px;border-radius:8px;border:1.5px solid var(--a);color:var(--deep);font-weight:700;text-decoration:none}footer .tel:hover{background:var(--tint)}
 /* post */
 .bc{font-size:.88rem;color:var(--mut);margin-bottom:10px}.bc a{color:var(--mut)}
@@ -175,7 +175,29 @@ ${melhor ? `<div class="pq"><b>Para quem é:</b> ${esc(melhor)}</div>` : ''}
 <a class="btn" href="${esc(p.url)}" ${REL}>${esc(p.cta || 'Ver na página oficial')}</a><span class="nota">Preço e condições conferidos em ${dataBr()}</span></div></article>`;
 }
 
+/** Newsletter dos blogs (sessão Canais próprios): brinde + posts da semana, inscrição em kbsa.app/inscricoes (LGPD: consentimento
+ *  desmarcado, campo "site" isca anti-robô). Fica DESLIGADO até a rota pública responder (/inscricoes/saude 200); ligado, o e-mail
+ *  vai para a newsletter e continua indo para o CRM do Portal (o script do Portal escuta o mesmo envio). */
+export const INSCRICOES_NO_AR = false;
+const INSCREVER = 'https://kbsa.app/inscricoes/inscrever';
+const SCRIPT_INSCRICAO = `<script>document.querySelectorAll('form.inscricao').forEach(function(f){f.addEventListener('submit',function(ev){ev.preventDefault();
+var m=f.querySelector('.ins-msg'),b=f.querySelector('button');if(!f.email.value||!f.consentimento.checked){m.textContent='Preencha o e-mail e marque o consentimento.';return}
+b.disabled=true;m.textContent='Enviando...';fetch('${INSCREVER}',{method:'POST',headers:{'Content-Type':'application/json'},
+body:JSON.stringify({email:f.email.value,blog:f.dataset.blog,consentimento:f.consentimento.checked?'1':'',site:f.site.value})})
+.then(function(r){return r.json()}).then(function(j){m.textContent=j.ok?(j.mensagem||'Pronto! Confira seu e-mail.'):(j.erro||'Não foi possível agora.');if(j.ok)f.reset();b.disabled=false})
+.catch(function(){m.textContent='Falha de conexão. Tente de novo.';b.disabled=false})})});</script>`;
+export function inscricao(info, v) {
+  const { blog, brinde } = v.inscricao;
+  return `<div class="cap"><div><h2>Receba grátis: ${esc(brinde)}</h2><p>PDF para baixar e, toda semana, os posts novos e as melhores ofertas do nicho.</p></div>
+<form class="inscricao" data-blog="${esc(blog)}" novalidate><label class="em" for="ins-email">Seu melhor e-mail</label>
+<input id="ins-email" name="email" type="email" required autocomplete="email" inputmode="email" placeholder="seu@email.com">
+<input class="isca" name="site" tabindex="-1" autocomplete="off" aria-hidden="true">
+<label><input name="consentimento" type="checkbox" required> <span>Concordo em receber e-mails deste blog (brinde, novos posts e ofertas). Posso sair a qualquer momento, com 1 clique, em qualquer e-mail. Dados usados só para isso (LGPD).</span></label>
+<button class="btn" type="submit">Quero o brinde</button><p class="ins-msg" role="status" aria-live="polite"></p></form></div>${SCRIPT_INSCRICAO}`;
+}
+
 function captura(info, v) {
+  if (INSCRICOES_NO_AR && v.inscricao?.blog && v.inscricao?.brinde) return inscricao(info, v);
   return `<div class="cap"><div><h2>${esc(v.isca_titulo || `Receba os próximos guias do ${info.nome}`)}</h2><p>${esc(v.isca_texto || 'Um e-mail quando sair guia novo ou mudar algum preço do comparativo. Sem spam: sai com um clique.')}</p></div>
 <form method="post" onsubmit="event.preventDefault();this.querySelector('button').textContent='Pronto! Você está na lista.';">
 <input type="email" name="email" placeholder="seu@email.com" required autocomplete="email" aria-label="Seu e-mail">
