@@ -9,17 +9,7 @@
   "h1_html": "Melhores cursos de <em>manutenção</em>: roçadeira, motosserra, ar-condicionado e celular",
   "h1_seo": "Melhores cursos de manutenção",
   "sub": "Cursos práticos para consertar e abrir uma oficina, comparados por preço e pela área de atuação.",
-  "destaques": [
-    "rocadeiras",
-    "ar-condicionado",
-    "bmtech",
-    "frp-total",
-    "hm-vivendo-de-ar-condicionado",
-    "hm-formula-ar-condicionado",
-    "hm-conserto-de-celulares",
-    "ck-manutencao-celulares",
-    "ck-eletro-pro"
-  ],
+  "destaques": ["hm-formula-ar-condicionado", "ar-condicionado", "ck-eletro-pro", "rocadeiras", "bmtech", "frp-total", "hm-vivendo-de-ar-condicionado", "hm-conserto-de-celulares", "ck-manutencao-celulares"],
   "melhor_para": {
     "rocadeiras": "quem quer consertar roçadeiras e motosserras",
     "ar-condicionado": "quem quer trabalhar com ar-condicionado de carros, caminhões e máquinas agrícolas",

@@ -9,15 +9,7 @@
   "h1_html": "Melhores cursos para ser <em>afiliado</em> de infoprodutos do zero",
   "h1_seo": "Melhores cursos para afiliados",
   "sub": "Cursos e mentorias para quem quer vender como afiliado na Kiwify e na Hotmart, comparados por preço e por método.",
-  "destaques": [
-    "formula-afiliado-viral",
-    "sistema-afiliado-viral",
-    "afiliada-proposito",
-    "nova-elite",
-    "hm-academia-do-afiliado",
-    "ck-prime-box-pro",
-    "ck-nomade-club"
-  ],
+  "destaques": ["hm-academia-do-afiliado", "ck-prime-box-pro", "formula-afiliado-viral", "sistema-afiliado-viral", "afiliada-proposito", "nova-elite", "ck-nomade-club"],
   "melhor_para": {
     "formula-afiliado-viral": "quem quer um método de afiliado com conteúdo viral",
     "sistema-afiliado-viral": "quem quer um sistema de afiliado com conteúdo viral",

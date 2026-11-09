@@ -9,17 +9,7 @@
   "h1_html": "Melhores cursos para começar a fazer <em>live</em> e crescer como streamer",
   "h1_seo": "Melhores cursos para streamer",
   "sub": "Cursos de transmissão ao vivo, YouTube e criação de conteúdo gamer comparados por preço e por fase do canal.",
-  "destaques": [
-    "transmissao-pro",
-    "crescer-sendo-gamer",
-    "creator-hub",
-    "lucrando-youtube",
-    "hm-viver-de-youtube",
-    "hm-streamer-do-zero",
-    "ck-youtube-turbo",
-    "ck-auto-live-shop",
-    "ck-darkplanner"
-  ],
+  "destaques": ["ck-auto-live-shop", "ck-darkplanner", "transmissao-pro", "crescer-sendo-gamer", "creator-hub", "lucrando-youtube", "hm-viver-de-youtube", "hm-streamer-do-zero", "ck-youtube-turbo"],
   "melhor_para": {
     "transmissao-pro": "quem quer configurar e fazer a primeira live do zero",
     "crescer-sendo-gamer": "quem já faz live e quer crescer o canal gamer",

@@ -9,17 +9,7 @@
   "h1_html": "Melhores packs de posts <em>editáveis no Canva</em> e cursos de criativos",
   "h1_seo": "Melhores packs de posts editáveis Canva",
   "sub": "Packs de posts, carrosséis e cursos de criativos comparados por preço e para quem servem.",
-  "destaques": [
-    "mm-creative-pro",
-    "carrossel-lucrativo",
-    "posts-virais",
-    "pack-posts-alta",
-    "criativei",
-    "hm-design-canva-profissional",
-    "hm-designerpro",
-    "ck-bookpack-canva",
-    "ck-carrosseis-que-vendem"
-  ],
+  "destaques": ["posts-virais", "mm-creative-pro", "ck-carrosseis-que-vendem", "carrossel-lucrativo", "pack-posts-alta", "criativei", "hm-design-canva-profissional", "hm-designerpro", "ck-bookpack-canva"],
   "melhor_para": {
     "mm-creative-pro": "quem quer aprender a criar criativos profissionais",
     "carrossel-lucrativo": "quem quer vender com carrosséis no Instagram",

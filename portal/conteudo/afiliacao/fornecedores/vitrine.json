@@ -9,16 +9,7 @@
   "h1_html": "Listas de <em>fornecedores</em> e cursos para começar a revender com segurança",
   "h1_seo": "Melhores listas de fornecedores para revenda",
   "sub": "Listas de fornecedores, packs para lojistas e cursos de revenda, comparados por preço e por tipo de negócio.",
-  "destaques": [
-    "mapa-fornecedores",
-    "lojista-pack",
-    "vivendo-acessorios",
-    "antes-do-leilao",
-    "hm-importando-laces",
-    "ck-mapa-das-fabricas",
-    "ck-lista-fornecedores-bras",
-    "ck-top50-fornecedores-25"
-  ],
+  "destaques": ["ck-mapa-das-fabricas", "vivendo-acessorios", "lojista-pack", "mapa-fornecedores", "antes-do-leilao", "hm-importando-laces", "ck-lista-fornecedores-bras", "ck-top50-fornecedores-25"],
   "melhor_para": {
     "mapa-fornecedores": "quem quer uma lista de fornecedores para começar a revender",
     "lojista-pack": "lojista que quer material pronto para vender mais",

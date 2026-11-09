@@ -9,17 +9,7 @@
   "h1_html": "Melhores cursos de <em>IA</em> para pequenos negócios e criadores de conteúdo",
   "h1_seo": "Melhores cursos de IA para negócios",
   "sub": "Cursos, prompts e vídeos com inteligência artificial comparados por preço e pelo uso no dia a dia.",
-  "destaques": [
-    "escola-da-ia",
-    "prompts-ia-viral",
-    "clube-videos-ia",
-    "ia-prostudio",
-    "promov-ai",
-    "hm-curso-de-ia",
-    "hm-ia-renda-extra",
-    "ck-prompts-ia-premium",
-    "ck-crie-ai"
-  ],
+  "destaques": ["ck-prompts-ia-premium", "hm-ia-renda-extra", "prompts-ia-viral", "escola-da-ia", "clube-videos-ia", "ia-prostudio", "promov-ai", "hm-curso-de-ia", "ck-crie-ai"],
   "melhor_para": {
     "escola-da-ia": "quem quer aprender a usar IA do básico ao avançado",
     "prompts-ia-viral": "quem quer prompts prontos para criar conteúdo",

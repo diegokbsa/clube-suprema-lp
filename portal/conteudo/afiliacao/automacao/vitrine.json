@@ -9,15 +9,7 @@
   "h1_html": "Melhores ferramentas e cursos de <em>automação no WhatsApp</em>",
   "h1_seo": "Melhores automações de WhatsApp",
   "sub": "Robôs, suítes e cursos de chatbot para atender mais rápido no WhatsApp, comparados por preço e por tamanho do negócio.",
-  "destaques": [
-    "lia-automacao",
-    "fluxbot",
-    "zap-suite",
-    "dotti",
-    "hm-guia-vendas-whatsapp",
-    "ck-whatsify-pro",
-    "ck-crm-whatsapp-codigo"
-  ],
+  "destaques": ["ck-crm-whatsapp-codigo", "hm-guia-vendas-whatsapp", "ck-whatsify-pro", "lia-automacao", "fluxbot", "zap-suite", "dotti"],
   "melhor_para": {
     "lia-automacao": "negócio que quer automatizar o atendimento",
     "fluxbot": "quem quer montar fluxos de atendimento",
