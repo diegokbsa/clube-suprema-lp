@@ -58,5 +58,23 @@
       "q": "IA substitui um designer ou redator?",
       "a": "Ajuda a produzir mais rápido, mas revise sempre o resultado: fatos, marca e tom de voz continuam sendo responsabilidade sua."
     }
+  ],
+  "fontes": [
+    {
+      "t": "ANPD: Autoridade Nacional de Proteção de Dados",
+      "u": "https://www.gov.br/anpd/pt-br"
+    },
+    {
+      "t": "Lei Geral de Proteção de Dados (Lei 13.709/2018)",
+      "u": "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm"
+    },
+    {
+      "t": "NIST: gestão de riscos de IA",
+      "u": "https://www.nist.gov/itl/ai-risk-management-framework"
+    },
+    {
+      "t": "Lei de Direitos Autorais (Lei 9.610/1998)",
+      "u": "https://www.planalto.gov.br/ccivil_03/leis/l9610.htm"
+    }
   ]
 }

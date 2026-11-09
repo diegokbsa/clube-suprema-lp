@@ -54,5 +54,23 @@
       "q": "Kiwify ou Hotmart?",
       "a": "As duas funcionam. O que importa é escolher bons produtos e ter um canal para divulgar."
     }
+  ],
+  "fontes": [
+    {
+      "t": "Central de ajuda da Hotmart",
+      "u": "https://help.hotmart.com/pt-BR"
+    },
+    {
+      "t": "CONAR: autorregulamentação publicitária",
+      "u": "http://www.conar.org.br"
+    },
+    {
+      "t": "Receita Federal",
+      "u": "https://www.gov.br/receitafederal/pt-br"
+    },
+    {
+      "t": "Sebrae: conteúdo para pequenos negócios",
+      "u": "https://www.sebrae.com.br"
+    }
   ]
 }

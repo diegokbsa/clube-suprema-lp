@@ -293,6 +293,7 @@ ${capa ? `<figure class="capa"><img src="${esc(capa)}" alt="${esc(post.coverAlt 
 ${post.excerpt ? `<div class="rapida"><b>Resposta rápida</b><p>${esc(post.excerpt)}</p></div>` : ''}
 ${h2.length > 2 ? `<nav class="indice" aria-label="Neste guia"><b>Neste guia</b><ol>${h2.map(([id, t]) => `<li><a href="#${id}">${t}</a></li>`).join('')}</ol></nav>` : ''}
 <div class="txt">${html}</div>
+${(v.fontes || []).length ? `<section class="fontes" style="padding:30px 0 0"><h2 style="font-size:1.5rem">Fontes para conferir por conta própria</h2><p>Referências oficiais e confiáveis sobre o tema deste blog. Confira sempre a versão mais recente antes de decidir.</p><ul>${v.fontes.map((f) => `<li><a href="${esc(f.u)}" rel="noopener" target="_blank">${esc(f.t)}</a></li>`).join('')}</ul></section>` : ''}
 ${outros.length ? `<section style="padding:30px 0 0"><h2 style="font-size:1.5rem">Continue lendo</h2><div class="guias">${outros.slice(0, 3).map((p) => `<a class="guia" href="${prefixo}/blog/${esc(p.slug)}">${capaCard(p)}<span class="k">${esc(p.category || info.categoria)}</span><h3>${esc(p.title)}</h3></a>`).join('')}</div></section>` : ''}
 </article><aside class="lado" aria-label="Recomendação">${principal ? cardProduto(principal, { rotulo: 'Indicado neste guia', um: true, nivel: 'p', melhor: v.melhor_para?.[principal.chave] }) : ''}
 <a class="btn lin" href="${prefixo}/#comparativo">Ver o comparativo completo</a></aside></div>

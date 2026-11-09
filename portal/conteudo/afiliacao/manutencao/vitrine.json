@@ -58,5 +58,23 @@
       "q": "Quanto custa começar uma oficina pequena?",
       "a": "Varia com a área. O maior custo costuma ser a ferramenta; comece pelo básico e compre o resto conforme os serviços aparecem."
     }
+  ],
+  "fontes": [
+    {
+      "t": "Anatel: direitos e regras de telecomunicações",
+      "u": "https://www.gov.br/anatel/pt-br"
+    },
+    {
+      "t": "Inmetro: segurança de produtos",
+      "u": "https://www.gov.br/inmetro/pt-br"
+    },
+    {
+      "t": "Código de Defesa do Consumidor (Lei 8.078/1990)",
+      "u": "https://www.planalto.gov.br/ccivil_03/leis/l8078compilado.htm"
+    },
+    {
+      "t": "Procon-SP",
+      "u": "https://www.procon.sp.gov.br"
+    }
   ]
 }
