@@ -45,10 +45,10 @@ function lum(hex) {
 const contraste = (a, b) => { const [x, y] = [lum(a), lum(b)].sort((p, q) => q - p); return (x + 0.05) / (y + 0.05); };
 const hex = (v) => /^#[0-9a-f]{6}$/i.test(v || '');
 
-test('visual.js: começa no branco, lembra a escolha e aceita ?visual= sem salvar', () => {
+test('visual.js: começa no vidro lavanda, lembra a escolha e aceita ?visual= sem salvar', () => {
   let r = carregarVisual();
-  assert.equal(r.api.padrao, 'branco');
-  assert.equal(r.dataset.visual, 'branco', 'sem nada salvo, o painel abre no branco');
+  assert.equal(r.api.padrao, 'lavanda');
+  assert.equal(r.dataset.visual, 'lavanda', 'sem nada salvo, o painel abre no vidro lavanda');
   assert.equal(r.api.lista.length, 12, '11 visuais + o original da edição');
   assert.ok(r.api.lista.some((v) => v.id === 'original'));
   r.api.aplicar('ameixa', true);
@@ -63,7 +63,7 @@ test('visual.js: começa no branco, lembra a escolha e aceita ?visual= sem salva
   assert.equal(r.api.atual(), 'suica', 'o botão mostra o visual da prévia');
   assert.equal(r.guardado.get('portal.visual'), 'console', 'a prévia não troca a escolha salva');
   r = carregarVisual({ salvo: 'nao-existe' });
-  assert.equal(r.dataset.visual, 'branco', 'valor desconhecido cai no padrão');
+  assert.equal(r.dataset.visual, 'lavanda', 'valor desconhecido cai no padrão');
 });
 
 test('visuais.css: cada visual da lista tem tokens completos', () => {

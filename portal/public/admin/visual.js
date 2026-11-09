@@ -3,8 +3,8 @@
 // "original" volta às cores da edição (SX areia/petróleo, Geral verde/dourado).
 (function () {
   var LISTA = [
-    { id: 'branco', nome: 'Branco', tipo: 'claro · padrão', fundo: '#ffffff', acento: '#7f35da' },
-    { id: 'lavanda', nome: 'Vidro Lavanda', tipo: 'claro · vidro', fundo: '#f1eefa', acento: '#7f35da', fonte: 'Hanken+Grotesk:wght@400..800' },
+    { id: 'branco', nome: 'Branco', tipo: 'claro', fundo: '#ffffff', acento: '#7f35da' },
+    { id: 'lavanda', nome: 'Vidro Lavanda', tipo: 'claro · vidro · padrão', fundo: '#f1eefa', acento: '#7f35da', fonte: 'Hanken+Grotesk:wght@400..800' },
     { id: 'ameixa', nome: 'Ameixa à Noite', tipo: 'escuro · vidro', fundo: '#05070b', acento: '#bc7aff', fonte: 'Schibsted+Grotesk:wght@400..800' },
     { id: 'planilha', nome: 'Planilha Viva', tipo: 'claro · denso', fundo: '#f7f6fb', acento: '#6f2bd0', fonte: 'IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500' },
     { id: 'relatorio', nome: 'Relatório do Dia', tipo: 'claro · editorial', fundo: '#f6f5fa', acento: '#6a24c4', fonte: 'Newsreader:opsz,wght@6..72,400..700&family=Public+Sans:wght@400..700' },
@@ -17,7 +17,7 @@
     { id: 'original', nome: 'Original da edição', tipo: 'cores da SX ou da Geral', fundo: '#e7e4de', acento: '#3aa8c9' },
   ];
   var CHAVE = 'portal.visual';
-  var PADRAO = 'branco';
+  var PADRAO = 'lavanda'; // Kbsa, 09/11/2026: "colocar glass" (vidro como padrão, botão para trocar)
   var raiz = document.documentElement;
   var emUso = PADRAO;
 
