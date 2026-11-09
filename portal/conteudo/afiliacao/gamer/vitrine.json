@@ -9,7 +9,23 @@
   "h1_html": "Melhores cursos para começar a fazer <em>live</em> e crescer como streamer",
   "h1_seo": "Melhores cursos para streamer",
   "sub": "Cursos de transmissão ao vivo, YouTube e criação de conteúdo gamer comparados por preço e por fase do canal.",
-  "destaques": ["ck-auto-live-shop", "ck-darkplanner", "transmissao-pro", "crescer-sendo-gamer", "creator-hub", "lucrando-youtube", "hm-viver-de-youtube", "hm-streamer-do-zero", "ck-youtube-turbo"],
+  "destaques": [
+    "ck-auto-live-shop",
+    "ck-darkplanner",
+    "transmissao-pro",
+    "crescer-sendo-gamer",
+    "creator-hub",
+    "lucrando-youtube",
+    "hm-viver-de-youtube",
+    "hm-streamer-do-zero",
+    "ck-youtube-turbo",
+    "sp-gam-kit-youtuber",
+    "sp-gam-ring-light-30",
+    "sp-gam-captura-4k",
+    "sp-gam-mic-keedi",
+    "sp-gam-kit-v8-bm800",
+    "sp-gam-mic-usb"
+  ],
   "melhor_para": {
     "transmissao-pro": "quem quer configurar e fazer a primeira live do zero",
     "crescer-sendo-gamer": "quem já faz live e quer crescer o canal gamer",
@@ -19,7 +35,21 @@
     "hm-streamer-do-zero": "quem quer começar a fazer lives",
     "ck-youtube-turbo": "quem está começando um canal no YouTube",
     "ck-auto-live-shop": "quem faz live de vendas e quer automatizar a moderação",
-    "ck-darkplanner": "quem quer organizar a produção de canais no YouTube"
+    "ck-darkplanner": "quem quer organizar a produção de canais no YouTube",
+    "sp-gam-kit-youtuber": "quem grava com o celular e precisa de luz e tripé",
+    "sp-gam-ring-light-30": "quem quer iluminar o rosto na live",
+    "sp-gam-ring-light-18": "quem grava com mais de um celular",
+    "sp-gam-mic-keedi": "quem quer microfone, braço e interface num kit só",
+    "sp-gam-kit-v8-bm800": "quem faz live no celular com efeitos de voz",
+    "sp-gam-mic-usb": "quem quer melhorar o áudio sem interface",
+    "sp-gam-mic-rgb": "quem faz live no PC e quer microfone condensador",
+    "sp-gam-braco-mic": "quem quer tirar o microfone da mesa",
+    "sp-gam-kit-mic-mesa": "quem grava podcast na mesa",
+    "sp-gam-webcam-360": "quem precisa de câmera para live no PC",
+    "sp-gam-webcam-fullhd": "quem quer webcam Full HD barata",
+    "sp-gam-captura-4k": "quem transmite console ou câmera pelo PC",
+    "sp-gam-easycap": "quem quer capturar vídeo analógico no notebook",
+    "sp-gam-captura-60fps": "quem quer capturar o console a 60 fps"
   },
   "passos": [
     {

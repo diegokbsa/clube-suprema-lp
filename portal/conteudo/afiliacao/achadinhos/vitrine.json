@@ -9,7 +9,22 @@
   "h1_html": "Os melhores cursos e packs para vender <em>achadinhos</em> na Shopee e no TikTok Shop",
   "h1_seo": "Melhores cursos de achadinhos Shopee e TikTok Shop",
   "sub": "Comparamos packs de vídeos, carrosséis e cursos de TikTok Shop pelo preço e pelo perfil de quem aproveita. Escolha em 2 minutos e vá direto para a página oficial.",
-  "destaques": ["ck-ia-academy-tiktok", "pack-achadinhos", "zn-tiktok-shop", "carrosseis-achadinhos", "shopclub", "ciencia-tiktok", "hm-tiktok-shop-do-zero", "ck-lucre-com-shopee"],
+  "destaques": [
+    "ck-ia-academy-tiktok",
+    "pack-achadinhos",
+    "zn-tiktok-shop",
+    "carrosseis-achadinhos",
+    "shopclub",
+    "ciencia-tiktok",
+    "hm-tiktok-shop-do-zero",
+    "ck-lucre-com-shopee",
+    "sp-ach-mop-centrifuga",
+    "sp-ach-cesto-dobravel",
+    "sp-ach-mini-processador",
+    "sp-ach-luminaria-solar",
+    "sp-ach-copo-termico",
+    "sp-ach-utensilios-bambu"
+  ],
   "melhor_para": {
     "pack-achadinhos": "quem quer começar a postar vídeos de achadinhos sem gravar do zero",
     "zn-tiktok-shop": "quem quer aprender a vender como afiliado do TikTok Shop",
@@ -18,7 +33,18 @@
     "ciencia-tiktok": "quem já posta e quer um curso mais completo de TikTok Shop",
     "hm-tiktok-shop-do-zero": "quem vai começar a vender como afiliado no TikTok Shop",
     "ck-lucre-com-shopee": "quem quer um passo a passo de afiliado Shopee",
-    "ck-ia-academy-tiktok": "quem quer criar conteúdo para TikTok Shop sem aparecer"
+    "ck-ia-academy-tiktok": "quem quer criar conteúdo para TikTok Shop sem aparecer",
+    "sp-ach-mop-centrifuga": "quem quer limpar o chão sem torcer pano",
+    "sp-ach-cesto-dobravel": "quem precisa guardar roupa e brinquedo sem ocupar espaço",
+    "sp-ach-mini-processador": "quem pica alho, cebola e tempero todo dia",
+    "sp-ach-luminaria-solar": "quem quer luz no quintal ou na garagem sem fiação",
+    "sp-ach-copo-termico": "quem leva bebida gelada ou quente para o trabalho",
+    "sp-ach-utensilios-bambu": "quem está montando a cozinha",
+    "sp-ach-camera-lampada": "quem quer vigiar a casa instalando no bocal da lâmpada",
+    "sp-ach-suporte-parede": "quem quer organizar controle, celular e miudezas na parede",
+    "sp-ach-utensilios-silicone": "quem quer utensílios que não riscam a panela",
+    "sp-ach-saboneteira": "quem quer organizar a pia do banheiro",
+    "sp-ach-garrafa-termica": "quem quer um kit de café para casa ou presente"
   },
   "passos": [
     {

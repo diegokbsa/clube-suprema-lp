@@ -9,7 +9,20 @@
   "h1_html": "Melhores packs de posts <em>editáveis no Canva</em> e cursos de criativos",
   "h1_seo": "Melhores packs de posts editáveis Canva",
   "sub": "Packs de posts, carrosséis e cursos de criativos comparados por preço e para quem servem.",
-  "destaques": ["posts-virais", "mm-creative-pro", "ck-carrosseis-que-vendem", "carrossel-lucrativo", "pack-posts-alta", "criativei", "hm-design-canva-profissional", "hm-designerpro", "ck-bookpack-canva"],
+  "destaques": [
+    "posts-virais",
+    "mm-creative-pro",
+    "ck-carrosseis-que-vendem",
+    "carrossel-lucrativo",
+    "pack-posts-alta",
+    "criativei",
+    "hm-design-canva-profissional",
+    "hm-designerpro",
+    "ck-bookpack-canva",
+    "sp-cri-huion-h430p",
+    "sp-cri-huion-h420",
+    "sp-cri-mesa-luz"
+  ],
   "melhor_para": {
     "mm-creative-pro": "quem quer aprender a criar criativos profissionais",
     "carrossel-lucrativo": "quem quer vender com carrosséis no Instagram",
@@ -19,7 +32,10 @@
     "hm-design-canva-profissional": "quem quer dominar o Canva para posts e artes",
     "hm-designerpro": "quem quer criar artes no Photoshop",
     "ck-bookpack-canva": "quem quer templates prontos no Canva",
-    "ck-carrosseis-que-vendem": "quem quer criar carrosséis com IA para vender"
+    "ck-carrosseis-que-vendem": "quem quer criar carrosséis com IA para vender",
+    "sp-cri-huion-h430p": "quem quer desenhar e editar com caneta",
+    "sp-cri-huion-h420": "quem quer a mesa digitalizadora mais compacta",
+    "sp-cri-mesa-luz": "quem copia e cobre desenho no papel"
   },
   "passos": [
     {

@@ -517,5 +517,389 @@
     "tipo": "Código-fonte",
     "preco": 658.99,
     "img": "https://cdn-checkout.cakto.com.br/products/5507b3dc-ff09-436a-a2b0-2b64b083c6a6.png"
+  },
+  "sp-ach-mop-centrifuga": {
+    "nome": "Mop giratório com balde centrífuga 14 L",
+    "tipo": "Limpeza",
+    "preco": 69.9,
+    "img": "https://down-zl-br.img.susercontent.com/file/br-11134207-7r98o-mbnxm1i5f5ndcc@resize_w450_nl",
+    "preco_nota": "na Shopee em 09/11/2026",
+    "cta": "Ver na Shopee"
+  },
+  "sp-ach-cesto-dobravel": {
+    "nome": "Cesto de roupa dobrável 40x70 cm",
+    "tipo": "Organização",
+    "preco": 14.99,
+    "img": "https://down-zl-br.img.susercontent.com/file/sg-11134201-8259y-muyst4850bnk97@resize_w450_nl",
+    "preco_nota": "na Shopee em 09/11/2026",
+    "cta": "Ver na Shopee"
+  },
+  "sp-ach-mini-processador": {
+    "nome": "Mini processador elétrico sem fio 250 ml",
+    "tipo": "Cozinha",
+    "preco": 22.99,
+    "img": "https://down-zl-br.img.susercontent.com/file/br-11134207-820mg-mnxpmvljjwucb8@resize_w450_nl",
+    "preco_nota": "na Shopee em 09/11/2026",
+    "cta": "Ver na Shopee"
+  },
+  "sp-ach-luminaria-solar": {
+    "nome": "Luminária solar de parede com sensor de movimento",
+    "tipo": "Casa",
+    "preco": 20.88,
+    "img": "https://down-zl-br.img.susercontent.com/file/sg-11134201-825b9-msuv9j38rl6t71@resize_w450_nl",
+    "preco_nota": "na Shopee em 09/11/2026",
+    "cta": "Ver na Shopee"
+  },
+  "sp-ach-copo-termico": {
+    "nome": "Copo térmico inox 1,2 L Romantic Crown",
+    "tipo": "Cozinha",
+    "preco": 34.98,
+    "img": "https://down-zl-br.img.susercontent.com/file/br-11134207-820lw-mrsfn2n1nkec7c@resize_w450_nl",
+    "preco_nota": "na Shopee em 09/11/2026",
+    "cta": "Ver na Shopee"
+  },
+  "sp-ach-utensilios-bambu": {
+    "nome": "Kit 12 utensílios de cozinha em silicone e bambu",
+    "tipo": "Cozinha",
+    "preco": 29.99,
+    "img": "https://down-zl-br.img.susercontent.com/file/sg-11134201-7rdx1-m1egwx31u1x61f@resize_w450_nl",
+    "preco_nota": "na Shopee em 09/11/2026",
+    "cta": "Ver na Shopee"
+  },
+  "sp-ach-camera-lampada": {
+    "nome": "Câmera de segurança Wi-Fi 360° tipo lâmpada",
+    "tipo": "Gadget",
+    "preco": 49.99,
+    "img": "https://down-zl-br.img.susercontent.com/file/br-11134211-7qukw-lgb8duzxj96u19@resize_w450_nl",
+    "preco_nota": "na Shopee em 09/11/2026",
+    "cta": "Ver na Shopee"
+  },
+  "sp-ach-suporte-parede": {
+    "nome": "Suporte de parede multiuso com caixa organizadora",
+    "tipo": "Organização",
+    "preco": 9.89,
+    "img": "https://down-zl-br.img.susercontent.com/file/sg-11134201-8258x-msf4mu1o9q1124@resize_w450_nl",
+    "preco_nota": "na Shopee em 09/11/2026",
+    "cta": "Ver na Shopee"
+  },
+  "sp-ach-utensilios-silicone": {
+    "nome": "Kit 12 utensílios de cozinha em silicone",
+    "tipo": "Cozinha",
+    "preco": 32.99,
+    "img": "https://down-zl-br.img.susercontent.com/file/sg-11134201-822yi-mo9vhd7fb9jge1@resize_w450_nl",
+    "preco_nota": "na Shopee em 09/11/2026",
+    "cta": "Ver na Shopee"
+  },
+  "sp-ach-saboneteira": {
+    "nome": "Saboneteira com dispenser e suporte para banheiro",
+    "tipo": "Banheiro",
+    "preco": 14.9,
+    "img": "https://down-zl-br.img.susercontent.com/file/sg-11134201-7rbku-m5tbdjexw5348a@resize_w450_nl",
+    "preco_nota": "na Shopee em 09/11/2026",
+    "cta": "Ver na Shopee"
+  },
+  "sp-ach-garrafa-termica": {
+    "nome": "Garrafa térmica inox 500 ml + 3 xícaras",
+    "tipo": "Cozinha",
+    "preco": 24.98,
+    "img": "https://down-zl-br.img.susercontent.com/file/sg-11134201-7rfgr-m9srcfiqmq8s1a@resize_w450_nl",
+    "preco_nota": "na Shopee em 09/11/2026",
+    "cta": "Ver na Shopee"
+  },
+  "sp-sub-epson-l3250": {
+    "nome": "Impressora Epson EcoTank L3250 (multifuncional)",
+    "tipo": "Impressora",
+    "preco": 1249.0,
+    "img": "https://down-zl-br.img.susercontent.com/file/br-11134207-820m7-mudgrjdfk3y86b@resize_w450_nl",
+    "preco_nota": "na Shopee em 09/11/2026",
+    "cta": "Ver na Shopee"
+  },
+  "sp-sub-epson-l3250-wifi": {
+    "nome": "Impressora Epson EcoTank L3250 Wi-Fi",
+    "tipo": "Impressora",
+    "preco": 1221.0,
+    "img": "https://down-zl-br.img.susercontent.com/file/br-11134207-7r98o-m72exme79v0n6f@resize_w450_nl",
+    "preco_nota": "na Shopee em 09/11/2026",
+    "cta": "Ver na Shopee"
+  },
+  "sp-sub-canecas-36": {
+    "nome": "Caneca Live branca 325 ml para sublimação (36 un.)",
+    "tipo": "Insumo",
+    "preco": 398.96,
+    "img": "https://down-zl-br.img.susercontent.com/file/br-11134207-81ztc-mkce1xf4nablcc@resize_w450_nl",
+    "preco_nota": "na Shopee em 09/11/2026",
+    "cta": "Ver na Shopee"
+  },
+  "sp-sub-canecas-12": {
+    "nome": "Kit 12 canecas brancas de cerâmica para sublimação",
+    "tipo": "Insumo",
+    "preco": 129.8,
+    "img": "https://down-zl-br.img.susercontent.com/file/br-11134201-820lg-mqyoihfr9n2cbb@resize_w450_nl",
+    "preco_nota": "na Shopee em 09/11/2026",
+    "cta": "Ver na Shopee"
+  },
+  "sp-sub-camisetas-2": {
+    "nome": "2 camisetas brancas 100% poliéster para sublimação",
+    "tipo": "Insumo",
+    "preco": 33.49,
+    "img": "https://down-zl-br.img.susercontent.com/file/br-11134207-7r98o-m7lol5mhrn2sad@resize_w450_nl",
+    "preco_nota": "na Shopee em 09/11/2026",
+    "cta": "Ver na Shopee"
+  },
+  "sp-sub-prensa-mecolour": {
+    "nome": "Prensa térmica de canecas e squeezes Mecolour",
+    "tipo": "Prensa",
+    "preco": 409.0,
+    "img": "https://down-zl-br.img.susercontent.com/file/br-11134207-7r98o-lntso6wesl2h54@resize_w450_nl",
+    "preco_nota": "na Shopee em 09/11/2026",
+    "cta": "Ver na Shopee"
+  },
+  "sp-sub-camiseta-lisa": {
+    "nome": "Camiseta branca lisa 100% poliéster para sublimação",
+    "tipo": "Insumo",
+    "preco": 16.99,
+    "img": "https://down-zl-br.img.susercontent.com/file/br-11134207-820l5-mtqprnf5jqwz5a@resize_w450_nl",
+    "preco_nota": "na Shopee em 09/11/2026",
+    "cta": "Ver na Shopee"
+  },
+  "sp-sub-prensa-caneca": {
+    "nome": "Prensa térmica de canecas 11 oz portátil",
+    "tipo": "Prensa",
+    "preco": 339.0,
+    "img": "https://down-zl-br.img.susercontent.com/file/br-11134207-820le-mu7q79mt1wjmf8@resize_w450_nl",
+    "preco_nota": "na Shopee em 09/11/2026",
+    "cta": "Ver na Shopee"
+  },
+  "sp-sub-papel-livesub": {
+    "nome": "Papel sublimático secagem rápida Live Sub (100 folhas)",
+    "tipo": "Insumo",
+    "preco": 38.15,
+    "img": "https://down-zl-br.img.susercontent.com/file/br-11134207-81z1k-midcgzdlio7581@resize_w450_nl",
+    "preco_nota": "na Shopee em 09/11/2026",
+    "cta": "Ver na Shopee"
+  },
+  "sp-sub-tinta-genesis": {
+    "nome": "Tinta sublimática Genesis kit 4 cores",
+    "tipo": "Insumo",
+    "preco": 153.0,
+    "img": "https://down-zl-br.img.susercontent.com/file/br-11134207-820m0-mtpbpks6t81v9f@resize_w450_nl",
+    "preco_nota": "na Shopee em 09/11/2026",
+    "cta": "Ver na Shopee"
+  },
+  "sp-sub-papel-masterprint": {
+    "nome": "Papel sublimático MasterPrint 100 folhas 100 g",
+    "tipo": "Insumo",
+    "preco": 39.9,
+    "img": "https://down-zl-br.img.susercontent.com/file/br-11134207-81z1k-mh7zoj9eftac97@resize_w450_nl",
+    "preco_nota": "na Shopee em 09/11/2026",
+    "cta": "Ver na Shopee"
+  },
+  "sp-man-jogo-catraca": {
+    "nome": "Jogo de chave catraca 40/46 peças com maleta",
+    "tipo": "Ferramenta",
+    "preco": 28.99,
+    "img": "https://down-zl-br.img.susercontent.com/file/br-11134207-820l9-mqt86n8incape7@resize_w450_nl",
+    "preco_nota": "na Shopee em 09/11/2026",
+    "cta": "Ver na Shopee"
+  },
+  "sp-man-parafusadeira-21v": {
+    "nome": "Parafusadeira e furadeira de impacto sem fio 21 V",
+    "tipo": "Ferramenta",
+    "preco": 115.98,
+    "img": "https://down-zl-br.img.susercontent.com/file/br-11134207-820m8-mlczxisdlt6sf6@resize_w450_nl",
+    "preco_nota": "na Shopee em 09/11/2026",
+    "cta": "Ver na Shopee"
+  },
+  "sp-man-multimetro-md180l": {
+    "nome": "Multímetro digital MD-180L com bipe",
+    "tipo": "Medição",
+    "preco": 29.98,
+    "img": "https://down-zl-br.img.susercontent.com/file/br-11134201-23030-7z2rw0w086nv16@resize_w450_nl",
+    "preco_nota": "na Shopee em 09/11/2026",
+    "cta": "Ver na Shopee"
+  },
+  "sp-man-alicate-mdy400": {
+    "nome": "Alicate amperímetro MD-Y400",
+    "tipo": "Medição",
+    "preco": 34.9,
+    "img": "https://down-zl-br.img.susercontent.com/file/br-11134207-820lm-mt9mu4gsitxecd@resize_w450_nl",
+    "preco_nota": "na Shopee em 09/11/2026",
+    "cta": "Ver na Shopee"
+  },
+  "sp-man-multimetro-autorange": {
+    "nome": "Multímetro digital auto range True RMS",
+    "tipo": "Medição",
+    "preco": 99.99,
+    "img": "https://down-zl-br.img.susercontent.com/file/cn-11134207-7ras8-mab32jdhy6dz44@resize_w450_nl",
+    "preco_nota": "na Shopee em 09/11/2026",
+    "cta": "Ver na Shopee"
+  },
+  "sp-man-minipa-et3200": {
+    "nome": "Alicate amperímetro Minipa ET-3200",
+    "tipo": "Medição",
+    "preco": 159.9,
+    "img": "https://down-zl-br.img.susercontent.com/file/br-11134207-820lt-muc1agivhipv51@resize_w450_nl",
+    "preco_nota": "na Shopee em 09/11/2026",
+    "cta": "Ver na Shopee"
+  },
+  "sp-man-multimetro-dt830": {
+    "nome": "Multímetro digital DT-830 com pontas de teste",
+    "tipo": "Medição",
+    "preco": 19.99,
+    "img": "https://down-zl-br.img.susercontent.com/file/br-11134207-7r98o-lnhii9d1joh506@resize_w450_nl",
+    "preco_nota": "na Shopee em 09/11/2026",
+    "cta": "Ver na Shopee"
+  },
+  "sp-man-estacao-retrabalho": {
+    "nome": "Estação de solda e retrabalho 2 em 1 Dobevi",
+    "tipo": "Solda",
+    "preco": 205.99,
+    "img": "https://down-zl-br.img.susercontent.com/file/br-11134207-81z1k-mi1b71rgkumb51@resize_w450_nl",
+    "preco_nota": "na Shopee em 09/11/2026",
+    "cta": "Ver na Shopee"
+  },
+  "sp-man-kit-solda": {
+    "nome": "Kit ferro de solda 60 W com 15 peças",
+    "tipo": "Solda",
+    "preco": 58.98,
+    "img": "https://down-zl-br.img.susercontent.com/file/sg-11134201-7rava-mao97g1zylqo65@resize_w450_nl",
+    "preco_nota": "na Shopee em 09/11/2026",
+    "cta": "Ver na Shopee"
+  },
+  "sp-gam-kit-youtuber": {
+    "nome": "Kit youtuber: ring light com tripé 2,10 m",
+    "tipo": "Iluminação",
+    "preco": 71.89,
+    "img": "https://down-zl-br.img.susercontent.com/file/sg-11134201-7rdyf-m00i59yxarqvdd@resize_w450_nl",
+    "preco_nota": "na Shopee em 09/11/2026",
+    "cta": "Ver na Shopee"
+  },
+  "sp-gam-ring-light-30": {
+    "nome": "Ring light 30 cm com tripé 2,1 m",
+    "tipo": "Iluminação",
+    "preco": 48.99,
+    "img": "https://down-zl-br.img.susercontent.com/file/sg-11134201-824ha-menfu27m5p1jfb@resize_w450_nl",
+    "preco_nota": "na Shopee em 09/11/2026",
+    "cta": "Ver na Shopee"
+  },
+  "sp-gam-ring-light-18": {
+    "nome": "Ring light 18\" com suporte para 3 celulares",
+    "tipo": "Iluminação",
+    "preco": 145.99,
+    "img": "https://down-zl-br.img.susercontent.com/file/1a3b538aa2099591454ca451ccd8a22c@resize_w450_nl",
+    "preco_nota": "na Shopee em 09/11/2026",
+    "cta": "Ver na Shopee"
+  },
+  "sp-gam-mic-keedi": {
+    "nome": "Microfone Keedi MIC800 com braço e interface",
+    "tipo": "Áudio",
+    "preco": 157.14,
+    "img": "https://down-zl-br.img.susercontent.com/file/sg-11134201-824h8-meorqv19io79ab@resize_w450_nl",
+    "preco_nota": "na Shopee em 09/11/2026",
+    "cta": "Ver na Shopee"
+  },
+  "sp-gam-kit-v8-bm800": {
+    "nome": "Kit interface V8 + microfone BM800 com braço",
+    "tipo": "Áudio",
+    "preco": 189.88,
+    "img": "https://down-zl-br.img.susercontent.com/file/sg-11134201-824hn-meorqak5kydha7@resize_w450_nl",
+    "preco_nota": "na Shopee em 09/11/2026",
+    "cta": "Ver na Shopee"
+  },
+  "sp-gam-mic-usb": {
+    "nome": "Microfone condensador USB com tripé",
+    "tipo": "Áudio",
+    "preco": 37.49,
+    "img": "https://down-zl-br.img.susercontent.com/file/br-11134207-820m3-mtfe18whnzepca@resize_w450_nl",
+    "preco_nota": "na Shopee em 09/11/2026",
+    "cta": "Ver na Shopee"
+  },
+  "sp-gam-mic-rgb": {
+    "nome": "Microfone condensador gamer RGB",
+    "tipo": "Áudio",
+    "preco": 112.59,
+    "img": "https://down-zl-br.img.susercontent.com/file/sg-11134201-7rdwp-lzsfksvs9jfuf5@resize_w450_nl",
+    "preco_nota": "na Shopee em 09/11/2026",
+    "cta": "Ver na Shopee"
+  },
+  "sp-gam-braco-mic": {
+    "nome": "Braço articulado de mesa para microfone",
+    "tipo": "Áudio",
+    "preco": 44.98,
+    "img": "https://down-zl-br.img.susercontent.com/file/br-11134207-820m2-mor7zjew9t6rcf@resize_w450_nl",
+    "preco_nota": "na Shopee em 09/11/2026",
+    "cta": "Ver na Shopee"
+  },
+  "sp-gam-kit-mic-mesa": {
+    "nome": "Kit microfone condensador de mesa",
+    "tipo": "Áudio",
+    "preco": 94.88,
+    "img": "https://down-zl-br.img.susercontent.com/file/br-11134207-7qukw-ljlem205fs4m53@resize_w450_nl",
+    "preco_nota": "na Shopee em 09/11/2026",
+    "cta": "Ver na Shopee"
+  },
+  "sp-gam-webcam-360": {
+    "nome": "Webcam Full HD 1080p giratória com microfone",
+    "tipo": "Vídeo",
+    "preco": 33.39,
+    "img": "https://down-zl-br.img.susercontent.com/file/sg-11134201-82618-mk4ye2ybngudc3@resize_w450_nl",
+    "preco_nota": "na Shopee em 09/11/2026",
+    "cta": "Ver na Shopee"
+  },
+  "sp-gam-webcam-fullhd": {
+    "nome": "Webcam Full HD 1080p com microfone",
+    "tipo": "Vídeo",
+    "preco": 29.99,
+    "img": "https://down-zl-br.img.susercontent.com/file/sg-11134201-7rdvd-mcnmvcbe54xs96@resize_w450_nl",
+    "preco_nota": "na Shopee em 09/11/2026",
+    "cta": "Ver na Shopee"
+  },
+  "sp-gam-captura-4k": {
+    "nome": "Placa de captura HDMI 4K USB 3.0",
+    "tipo": "Vídeo",
+    "preco": 79.0,
+    "img": "https://down-zl-br.img.susercontent.com/file/br-11134207-7r98o-m7jwwqkk00qa9b@resize_w450_nl",
+    "preco_nota": "na Shopee em 09/11/2026",
+    "cta": "Ver na Shopee"
+  },
+  "sp-gam-easycap": {
+    "nome": "Placa de captura USB EasyCap",
+    "tipo": "Vídeo",
+    "preco": 35.0,
+    "img": "https://down-zl-br.img.susercontent.com/file/f28d7682eaa3e18d4150ae61d7dace43@resize_w450_nl",
+    "preco_nota": "na Shopee em 09/11/2026",
+    "cta": "Ver na Shopee"
+  },
+  "sp-gam-captura-60fps": {
+    "nome": "Placa de captura 4K/1080p 60 fps USB 3.0",
+    "tipo": "Vídeo",
+    "preco": 78.9,
+    "img": "https://down-zl-br.img.susercontent.com/file/br-11134207-81ztc-mjra6ztninsy49@resize_w450_nl",
+    "preco_nota": "na Shopee em 09/11/2026",
+    "cta": "Ver na Shopee"
+  },
+  "sp-cri-huion-h430p": {
+    "nome": "Mesa digitalizadora Huion H430P",
+    "tipo": "Mesa digitalizadora",
+    "preco": 158.99,
+    "img": "https://down-zl-br.img.susercontent.com/file/723cf3423e30ee4434ad493d627dba33@resize_w450_nl",
+    "preco_nota": "na Shopee em 09/11/2026",
+    "cta": "Ver na Shopee"
+  },
+  "sp-cri-huion-h420": {
+    "nome": "Mesa digitalizadora Huion H420 (OSU)",
+    "tipo": "Mesa digitalizadora",
+    "preco": 144.76,
+    "img": "https://down-zl-br.img.susercontent.com/file/cn-11134207-820l4-mo9fqhnxckjyd9@resize_w450_nl",
+    "preco_nota": "na Shopee em 09/11/2026",
+    "cta": "Ver na Shopee"
+  },
+  "sp-cri-mesa-luz": {
+    "nome": "Mesa de luz LED A4 para desenho",
+    "tipo": "Desenho",
+    "preco": 29.99,
+    "img": "https://down-zl-br.img.susercontent.com/file/br-11134207-820la-mra2udm0j47a9e@resize_w450_nl",
+    "preco_nota": "na Shopee em 09/11/2026",
+    "cta": "Ver na Shopee"
   }
 }

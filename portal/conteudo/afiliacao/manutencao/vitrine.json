@@ -9,7 +9,23 @@
   "h1_html": "Melhores cursos de <em>manutenção</em>: roçadeira, motosserra, ar-condicionado e celular",
   "h1_seo": "Melhores cursos de manutenção",
   "sub": "Cursos práticos para consertar e abrir uma oficina, comparados por preço e pela área de atuação.",
-  "destaques": ["hm-formula-ar-condicionado", "ar-condicionado", "ck-eletro-pro", "rocadeiras", "bmtech", "frp-total", "hm-vivendo-de-ar-condicionado", "hm-conserto-de-celulares", "ck-manutencao-celulares"],
+  "destaques": [
+    "hm-formula-ar-condicionado",
+    "ar-condicionado",
+    "ck-eletro-pro",
+    "rocadeiras",
+    "bmtech",
+    "frp-total",
+    "hm-vivendo-de-ar-condicionado",
+    "hm-conserto-de-celulares",
+    "ck-manutencao-celulares",
+    "sp-man-jogo-catraca",
+    "sp-man-parafusadeira-21v",
+    "sp-man-multimetro-md180l",
+    "sp-man-alicate-mdy400",
+    "sp-man-multimetro-autorange",
+    "sp-man-minipa-et3200"
+  ],
   "melhor_para": {
     "rocadeiras": "quem quer consertar roçadeiras e motosserras",
     "ar-condicionado": "quem quer trabalhar com ar-condicionado de carros, caminhões e máquinas agrícolas",
@@ -19,7 +35,16 @@
     "hm-formula-ar-condicionado": "quem quer uma formação completa em ar-condicionado",
     "hm-conserto-de-celulares": "quem quer começar no conserto de celular",
     "ck-manutencao-celulares": "quem quer aprender conserto de celular e placa",
-    "ck-eletro-pro": "quem quer aprender elétrica residencial do básico"
+    "ck-eletro-pro": "quem quer aprender elétrica residencial do básico",
+    "sp-man-jogo-catraca": "quem quer um jogo de soquetes básico para casa e carro",
+    "sp-man-parafusadeira-21v": "quem fura parede e monta móvel",
+    "sp-man-multimetro-md180l": "quem está começando a medir tensão e continuidade",
+    "sp-man-alicate-mdy400": "quem mede corrente sem desligar o circuito",
+    "sp-man-multimetro-autorange": "quem quer medir com escala automática e True RMS",
+    "sp-man-minipa-et3200": "quem quer um alicate amperímetro de marca conhecida",
+    "sp-man-multimetro-dt830": "quem quer o multímetro mais simples para o kit",
+    "sp-man-estacao-retrabalho": "quem conserta placa e precisa de soprador",
+    "sp-man-kit-solda": "quem vai soldar fio e componente de vez em quando"
   },
   "passos": [
     {

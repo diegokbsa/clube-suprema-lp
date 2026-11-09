@@ -9,7 +9,23 @@
   "h1_html": "Melhores artes e cursos de <em>sublimação</em> para vender personalizados em casa",
   "h1_seo": "Melhores artes e cursos de sublimação",
   "sub": "Pacotes de artes prontas para caneca e camiseta, kits e cursos de personalizados, comparados pelo preço e por quem aproveita mais.",
-  "destaques": ["mega-box-sublimacao", "gifts-da-isa", "adesiva-pro", "tufos-cola-fria", "figurinhas-sweet", "hm-negocio-de-canecas", "hm-catalogo-papelaria", "ck-papelariaon", "ck-identidade-visual"],
+  "destaques": [
+    "mega-box-sublimacao",
+    "gifts-da-isa",
+    "adesiva-pro",
+    "tufos-cola-fria",
+    "figurinhas-sweet",
+    "hm-negocio-de-canecas",
+    "hm-catalogo-papelaria",
+    "ck-papelariaon",
+    "ck-identidade-visual",
+    "sp-sub-epson-l3250",
+    "sp-sub-papel-livesub",
+    "sp-sub-canecas-36",
+    "sp-sub-canecas-12",
+    "sp-sub-camisetas-2",
+    "sp-sub-prensa-mecolour"
+  ],
   "melhor_para": {
     "mega-box-sublimacao": "quem já tem prensa e quer artes prontas para caneca e camiseta",
     "gifts-da-isa": "quem quer começar um negócio de presentes personalizados em casa",
@@ -19,7 +35,18 @@
     "hm-negocio-de-canecas": "quem quer montar um negócio de canecas",
     "hm-catalogo-papelaria": "quem quer um catálogo pronto de papelaria personalizada",
     "ck-papelariaon": "quem já vende personalizados e quer organizar pedidos, clientes e catálogo",
-    "ck-identidade-visual": "quem quer criar brasões e artes personalizadas para vender"
+    "ck-identidade-visual": "quem quer criar brasões e artes personalizadas para vender",
+    "sp-sub-epson-l3250": "quem vai começar a sublimar com impressora de tanque",
+    "sp-sub-epson-l3250-wifi": "quem quer a L3250 com envio pelo Wi-Fi",
+    "sp-sub-canecas-36": "quem já vende e compra caneca em caixa fechada",
+    "sp-sub-canecas-12": "quem está testando os primeiros pedidos",
+    "sp-sub-camisetas-2": "quem quer testar sublimação em camiseta",
+    "sp-sub-prensa-mecolour": "quem sublima caneca, squeeze e copo",
+    "sp-sub-camiseta-lisa": "quem precisa de camiseta de poliéster avulsa",
+    "sp-sub-prensa-caneca": "quem quer uma prensa só para canecas de 11 oz",
+    "sp-sub-papel-livesub": "quem quer papel de secagem rápida",
+    "sp-sub-tinta-genesis": "quem vai abastecer a impressora com tinta sublimática",
+    "sp-sub-papel-masterprint": "quem quer papel 100 g para caneca e camiseta"
   },
   "passos": [
     {
