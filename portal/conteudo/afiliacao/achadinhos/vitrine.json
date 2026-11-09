@@ -56,5 +56,23 @@
       "q": "Os vídeos dos packs podem ser usados sem problema?",
       "a": "Leia na página oficial de cada pack o que ele permite. Prefira vídeos próprios ou com licença clara e evite usar marca de terceiros sem autorização."
     }
+  ],
+  "fontes": [
+    {
+      "t": "Código de Defesa do Consumidor (Lei 8.078/1990)",
+      "u": "https://www.planalto.gov.br/ccivil_03/leis/l8078compilado.htm"
+    },
+    {
+      "t": "Consumidor.gov.br: reclamação gratuita contra empresas",
+      "u": "https://consumidor.gov.br"
+    },
+    {
+      "t": "Procon-SP",
+      "u": "https://www.procon.sp.gov.br"
+    },
+    {
+      "t": "Sebrae: conteúdo para pequenos negócios",
+      "u": "https://www.sebrae.com.br"
+    }
   ]
 }

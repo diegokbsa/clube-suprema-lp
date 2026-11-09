@@ -58,5 +58,23 @@
       "q": "Posso usar os posts para clientes?",
       "a": "Leia a licença de cada pack. Alguns permitem uso para clientes e outros não."
     }
+  ],
+  "fontes": [
+    {
+      "t": "Lei de Direitos Autorais (Lei 9.610/1998)",
+      "u": "https://www.planalto.gov.br/ccivil_03/leis/l9610.htm"
+    },
+    {
+      "t": "CONAR: autorregulamentação publicitária",
+      "u": "http://www.conar.org.br"
+    },
+    {
+      "t": "Central de ajuda para empresas da Meta",
+      "u": "https://www.facebook.com/business/help"
+    },
+    {
+      "t": "Sebrae: conteúdo para pequenos negócios",
+      "u": "https://www.sebrae.com.br"
+    }
   ]
 }

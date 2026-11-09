@@ -56,5 +56,23 @@
       "q": "Como evitar golpe de fornecedor?",
       "a": "Desconfie de preço muito abaixo do mercado, pague por meios rastreáveis e confira CNPJ e histórico. Nosso guia explica o passo a passo."
     }
+  ],
+  "fontes": [
+    {
+      "t": "Receita Federal: consulta de CNPJ",
+      "u": "https://solucoes.receita.fazenda.gov.br/servicos/cnpjreva/cnpjreva_solicitacao.asp"
+    },
+    {
+      "t": "Código de Defesa do Consumidor (Lei 8.078/1990)",
+      "u": "https://www.planalto.gov.br/ccivil_03/leis/l8078compilado.htm"
+    },
+    {
+      "t": "Consumidor.gov.br: reclamação gratuita contra empresas",
+      "u": "https://consumidor.gov.br"
+    },
+    {
+      "t": "Sebrae: conteúdo para pequenos negócios",
+      "u": "https://www.sebrae.com.br"
+    }
   ]
 }
