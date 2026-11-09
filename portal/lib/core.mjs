@@ -53,7 +53,7 @@ export const coreRoutes = [
       const rows = user.is_super ? db.prepare('SELECT * FROM tenants WHERE edition = ? ORDER BY created_at').all(edition.id).map((t) => ({ t, role: 'super' }))
         : db.prepare('SELECT t.*, m.role FROM memberships m JOIN tenants t ON t.id = m.tenant_id WHERE m.user_id = ? AND t.edition = ? ORDER BY t.created_at').all(user.id, edition.id)
           .map((t) => ({ t, role: t.role }));
-      return { user: { id: user.id, email: user.email, name: user.name, isSuper: Boolean(user.is_super) }, csrf,
+      return { user: { id: user.id, email: user.email, name: user.name, isSuper: Boolean(user.is_super), trocarSenha: Boolean(user.trocar_senha) }, csrf,
         tenants: rows.map(({ t, role }) => ({ ...publicTenant(t), role, perms: permsOf(user, role === 'super' ? null : role) })) };
     },
   },

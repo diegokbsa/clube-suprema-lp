@@ -4,11 +4,12 @@
 //     muda (updated_at mais novo que o arquivo); site com domínio próprio ou site externo ganha a captura da home pública;
 //   - as imagens ficam fora da pasta pública (<PORTAL_DATA_DIR>/miniaturas) e só saem pela API, para quem pode ver o site
 //     (rascunho não vaza);
-//   - a geração roda em segundo plano, uma captura por vez, a cada 5 minutos; sem Chrome na máquina, nada acontece.
+//   - a geração roda em segundo plano, uma captura por vez: páginas que mudaram (checagem a cada 15 min) e sites uma vez por dia,
+//     das 02h às 03h; a árvore do Chrome é encerrada no fim de cada captura. Sem Chrome na máquina, nada acontece.
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
-import { execFile } from 'node:child_process';
+import { execFile, spawnSync } from 'node:child_process';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { HttpError } from '../http.mjs';
 import { parse } from '../db.mjs';
@@ -31,23 +32,44 @@ export function capturar(url, destino, chrome = CHROME) {
   fs.mkdirSync(path.dirname(destino), { recursive: true });
   const perfil = fs.mkdtempSync(path.join(os.tmpdir(), 'mini-'));
   const tmp = `${destino}.tmp.jpeg`;
-  return new Promise((ok) => execFile(chrome, ['--headless=new', `--user-data-dir=${perfil}`, '--disable-gpu', '--hide-scrollbars', '--no-first-run', '--window-size=1280,800',
-    '--force-device-scale-factor=0.375', '--virtual-time-budget=8000', `--screenshot=${tmp}`, url], { timeout: 60_000, windowsHide: true }, () => {
-    let gravou = false;
-    try { if (fs.existsSync(tmp) && fs.statSync(tmp).size > 2000) { fs.renameSync(tmp, destino); gravou = true; } } catch { /* fica sem */ }
-    try { fs.rmSync(tmp, { force: true }); fs.rmSync(perfil, { recursive: true, force: true }); } catch { /* temporário */ }
-    ok(gravou);
-  }));
+  return new Promise((ok) => {
+    const filho = execFile(chrome, ['--headless=new', `--user-data-dir=${perfil}`, '--disable-gpu', '--hide-scrollbars', '--no-first-run', '--no-default-browser-check',
+      '--disable-extensions', '--disable-background-networking', '--window-size=1280,800', '--force-device-scale-factor=0.375', '--virtual-time-budget=8000', `--screenshot=${tmp}`, url],
+    { windowsHide: true }, () => fim());
+    // timeout próprio: no Windows o Chrome deixa filhos (renderer, gpu, utility) vivos se só o pai morre, e eles enchem o
+    // desktop da sessão 0 do Bigue (erro 0xC0000142). Por isso a árvore inteira é encerrada, sempre, ao terminar e no timeout.
+    const relogio = setTimeout(() => fim(), 60_000);
+    let feito = false;
+    function fim() {
+      if (feito) return;
+      feito = true;
+      clearTimeout(relogio);
+      matarArvore(filho.pid);
+      let gravou = false;
+      try { if (fs.existsSync(tmp) && fs.statSync(tmp).size > 2000) { fs.renameSync(tmp, destino); gravou = true; } } catch { /* fica sem */ }
+      setTimeout(() => { try { fs.rmSync(tmp, { force: true }); fs.rmSync(perfil, { recursive: true, force: true }); } catch { /* temporário */ } }, 2000);
+      ok(gravou);
+    }
+  });
+}
+/** Encerra o processo e todos os filhos (no Windows, taskkill /T /F; fora dele, o grupo). Sem erro se já saiu. */
+export function matarArvore(pid) {
+  if (!pid) return;
+  try {
+    if (process.platform === 'win32') spawnSync('taskkill', ['/T', '/F', '/PID', String(pid)], { windowsHide: true, stdio: 'ignore', timeout: 15_000 });
+    else process.kill(pid, 'SIGKILL');
+  } catch { /* já saiu */ }
 }
 
 /** O que precisa de captura agora: páginas com rascunho mais novo que a miniatura e sites com home pública sem miniatura recente. */
-export function pendentes(db, limite = 15) {
+export function pendentes(db, limite = 15, { sites = true } = {}) {
   const fila = [];
   for (const p of db.prepare('SELECT p.id, p.updated_at, p.tenant_id FROM pages p ORDER BY p.updated_at DESC').all()) {
     const f = arquivoDe('pagina', p.id);
     if (!fs.existsSync(f) || fs.statSync(f).mtimeMs < Date.parse(p.updated_at || 0)) fila.push({ tipo: 'pagina', id: p.id, tenantId: p.tenant_id });
     if (fila.length >= limite) return fila;
   }
+  if (!sites) return fila;
   for (const s of db.prepare('SELECT id, domain, external_url FROM sites WHERE external_url IS NOT NULL OR domain IS NOT NULL').all()) {
     const f = arquivoDe('site', s.id);
     if (!fs.existsSync(f) || Date.now() - fs.statSync(f).mtimeMs > 24 * 3600_000) fila.push({ tipo: 'site', id: s.id, url: s.external_url || `https://${s.domain}/` });
@@ -57,9 +79,9 @@ export function pendentes(db, limite = 15) {
 }
 
 /** Gera as miniaturas pendentes, uma por vez. A página sai do rascunho (prévia do construtor) com <base> para os arquivos. */
-export async function gerarPendentes(app, { limite = 15, chrome = CHROME } = {}) {
+export async function gerarPendentes(app, { limite = 15, chrome = CHROME, sites = true } = {}) {
   let feitas = 0;
-  for (const item of pendentes(app.db, limite)) {
+  for (const item of pendentes(app.db, limite, { sites })) {
     let url = item.url;
     let tmpHtml = null;
     if (item.tipo === 'pagina') {
@@ -81,13 +103,17 @@ export async function gerarPendentes(app, { limite = 15, chrome = CHROME } = {})
 export function init(app) {
   if (process.env.NODE_TEST_CONTEXT || process.env.PORTAL_SEM_MINIATURAS || !CHROME) return;
   let rodando = false;
-  const ciclo = async () => {
+  let ciclo;
+  // O Chrome só abre quando há trabalho: página cujo rascunho mudou (a checagem é só uma consulta ao banco, a cada 15 min)
+  // e, uma vez por dia, de madrugada (02h às 03h), a home pública dos sites. Uma captura por vez, árvore do Chrome encerrada no fim.
+  ciclo = async () => {
     if (rodando) return;
     rodando = true;
-    try { await gerarPendentes(app); } catch (e) { console.warn(`[miniaturas] ${e.message}`); } finally { rodando = false; }
+    const h = new Date().getHours();
+    try { await gerarPendentes(app, { sites: h === 2 }); } catch (e) { console.warn(`[miniaturas] ${e.message}`); } finally { rodando = false; }
   };
-  setTimeout(ciclo, 60_000).unref?.();
-  setInterval(ciclo, 5 * 60_000).unref?.();
+  setTimeout(ciclo, 2 * 60_000).unref?.();
+  setInterval(ciclo, 15 * 60_000).unref?.();
 }
 
 export const routes = [

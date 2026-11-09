@@ -232,6 +232,8 @@ export async function createApp({ db, origin = 'http://localhost:3400', secretKe
       if (!ctx.user) throw new HttpError(401, 'Entre para continuar.');
       if (req.method !== 'GET' && req.headers['x-csrf'] !== session.csrf) throw new HttpError(403, 'Sessão expirada. Recarregue a página.');
     }
+    // senha definida por outra pessoa com "pedir troca no primeiro acesso": só entra, sai e troca a senha até trocar
+    if (ctx.user?.trocar_senha && !['/api/me', '/api/meta', '/api/logout', '/api/conta/senha', '/api/edition'].includes(url.pathname)) throw new HttpError(403, 'Troque a senha para continuar.');
     if (route.super && !ctx.user?.is_super) throw new HttpError(403, 'Só o superadministrador pode fazer isso.');
     if (params.tenant) {
       const t = db.prepare('SELECT * FROM tenants WHERE id = ? OR slug = ?').get(params.tenant, params.tenant);

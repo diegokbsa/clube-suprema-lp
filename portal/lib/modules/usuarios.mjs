@@ -9,7 +9,7 @@
 // em que o convite foi criado; a tela de usuários de cada operação continua ajustando caso a caso).
 import { randomBytes, createHash } from 'node:crypto';
 import { HttpError, readBody, decodeBody, rateLimiter, clientIp } from '../http.mjs';
-import { hashPassword, passwordProblem } from '../auth.mjs';
+import { hashPassword, passwordProblem, checkPassword } from '../auth.mjs';
 import { id as newId, now } from '../db.mjs';
 
 export const VALIDADE_H = 48;
@@ -26,6 +26,7 @@ export function init(app) {
   if (!c.includes('ativo')) db.exec('ALTER TABLE users ADD COLUMN ativo INTEGER NOT NULL DEFAULT 1');
   if (!c.includes('ultimo_acesso')) db.exec('ALTER TABLE users ADD COLUMN ultimo_acesso TEXT');
   if (!c.includes('desativado_em')) db.exec('ALTER TABLE users ADD COLUMN desativado_em TEXT');
+  if (!c.includes('trocar_senha')) db.exec('ALTER TABLE users ADD COLUMN trocar_senha INTEGER NOT NULL DEFAULT 0');
   db.exec(`CREATE TABLE IF NOT EXISTS convites_acesso (
     id TEXT PRIMARY KEY, token_hash TEXT NOT NULL UNIQUE, tipo TEXT NOT NULL, email TEXT NOT NULL, nome TEXT, papel TEXT,
     user_id TEXT, edicao TEXT NOT NULL, criado_por TEXT, criado_em TEXT NOT NULL, expira_em INTEGER NOT NULL, usado_em TEXT, cancelado_em TEXT)`);
@@ -52,12 +53,12 @@ function encerrarAcessos(db, userId) {
 export const routes = [
   {
     method: 'GET', path: '/api/admin/usuarios', super: true, handler: ({ db, edition }) => {
-      const users = db.prepare('SELECT id, email, name, is_super, ativo, ultimo_acesso, created_at FROM users ORDER BY ativo DESC, email').all();
+      const users = db.prepare('SELECT id, email, name, is_super, ativo, ultimo_acesso, created_at, trocar_senha FROM users ORDER BY ativo DESC, email').all();
       const papeis = db.prepare('SELECT m.user_id, m.role, COUNT(*) n FROM memberships m JOIN tenants t ON t.id = m.tenant_id WHERE t.edition = ? GROUP BY m.user_id, m.role').all(edition.id);
       const pendentes = db.prepare('SELECT * FROM convites_acesso WHERE usado_em IS NULL AND cancelado_em IS NULL AND expira_em > ? ORDER BY criado_em DESC').all(Date.now());
       return {
         papeis: PAPEIS,
-        usuarios: users.map((u) => ({ id: u.id, email: u.email, nome: u.name, super: Boolean(u.is_super), ativo: u.ativo !== 0, ultimoAcesso: u.ultimo_acesso, criadoEm: u.created_at,
+        usuarios: users.map((u) => ({ id: u.id, email: u.email, nome: u.name, super: Boolean(u.is_super), ativo: u.ativo !== 0, trocarSenha: Boolean(u.trocar_senha), ultimoAcesso: u.ultimo_acesso, criadoEm: u.created_at,
           operacoes: papeis.filter((p) => p.user_id === u.id).map((p) => ({ papel: p.role, n: p.n })), convitePendente: pendentes.some((c) => c.email === u.email) })),
         convites: pendentes.filter((c) => c.tipo === 'convite').map(publico),
       };
@@ -121,6 +122,57 @@ export const routes = [
       const r = db.prepare('UPDATE users SET ativo = 1, desativado_em = NULL WHERE id = ?').run(params.id);
       need(r.changes, 404, 'Usuário não encontrado.');
       audit('usuario.ativar', params.id);
+      return { ok: true };
+    },
+  },
+  {
+    // superadmin cria o acesso já com senha (sem link): a senha chega só como hash; a auditoria diz só que foi definida
+    method: 'POST', path: '/api/admin/usuarios/criar', super: true, handler: ({ db, body, user, edition, audit }) => {
+      const email = String(body.email || '').trim().toLowerCase();
+      need(EMAIL.test(email), 400, 'E-mail inválido.');
+      need(PAPEIS[body.papel], 400, 'Escolha o papel: superadministrador, administrador ou editor.');
+      const p = passwordProblem(body.senha);
+      need(!p, 400, p);
+      const existente = db.prepare('SELECT id, ativo FROM users WHERE email = ?').get(email);
+      need(!existente || existente.ativo === 0, 409, 'Esse e-mail já tem acesso. Para trocar a senha, use "Definir senha" na lista.');
+      const nome = String(body.nome || '').trim().slice(0, 80) || email;
+      const trocar = body.trocar !== false ? 1 : 0;
+      const quando = now();
+      let id = existente?.id;
+      if (id) db.prepare('UPDATE users SET pass = ?, name = ?, ativo = 1, desativado_em = NULL, is_super = ?, trocar_senha = ? WHERE id = ?').run(hashPassword(body.senha), nome, body.papel === 'super' ? 1 : 0, trocar, id);
+      else { id = newId(); db.prepare('INSERT INTO users (id, email, name, pass, is_super, created_at, trocar_senha) VALUES (?, ?, ?, ?, ?, ?, ?)').run(id, email, nome, hashPassword(body.senha), body.papel === 'super' ? 1 : 0, quando, trocar); }
+      if (body.papel !== 'super') for (const t of db.prepare('SELECT id FROM tenants WHERE edition = ?').all(edition.id)) {
+        db.prepare('INSERT INTO memberships (user_id, tenant_id, role) VALUES (?, ?, ?) ON CONFLICT(user_id, tenant_id) DO UPDATE SET role = excluded.role').run(id, t.id, body.papel);
+      }
+      db.prepare('UPDATE convites_acesso SET cancelado_em = ? WHERE email = ? AND usado_em IS NULL AND cancelado_em IS NULL').run(quando, email);
+      audit('usuario.criar_com_senha', id, { email, papel: body.papel, senha: 'definida pelo superadmin', trocarNoPrimeiroAcesso: Boolean(trocar) });
+      return { status: 201, body: { usuario: { id, email, nome } } };
+    },
+  },
+  {
+    method: 'POST', path: '/api/admin/usuarios/:id/senha', super: true, handler: ({ db, params, body, user, audit }) => {
+      const u = db.prepare('SELECT id, email, ativo FROM users WHERE id = ?').get(params.id);
+      need(u, 404, 'Usuário não encontrado.');
+      need(u.ativo !== 0, 409, 'Reative o usuário antes de definir a senha.');
+      const p = passwordProblem(body.senha);
+      need(!p, 400, p);
+      const trocar = body.trocar !== false && u.id !== user.id ? 1 : 0;
+      db.prepare('UPDATE users SET pass = ?, trocar_senha = ? WHERE id = ?').run(hashPassword(body.senha), trocar, u.id);
+      if (u.id !== user.id) encerrarAcessos(db, u.id); // a sessão aberta com a senha antiga cai
+      audit('usuario.senha_definida', u.id, { email: u.email, senha: 'definida pelo superadmin', trocarNoPrimeiroAcesso: Boolean(trocar) });
+      return { ok: true };
+    },
+  },
+  {
+    // a própria pessoa troca a senha (obrigatório quando o superadmin definiu com "pedir troca no primeiro acesso")
+    method: 'POST', path: '/api/conta/senha', handler: ({ db, body, user, audit }) => {
+      const u = db.prepare('SELECT pass FROM users WHERE id = ?').get(user.id);
+      need(checkPassword(body.atual, u?.pass), 400, 'A senha atual não confere.');
+      const p = passwordProblem(body.nova);
+      need(!p, 400, p);
+      need(body.nova !== body.atual, 400, 'Escolha uma senha diferente da atual.');
+      db.prepare('UPDATE users SET pass = ?, trocar_senha = 0 WHERE id = ?').run(hashPassword(body.nova), user.id);
+      audit('usuario.senha_trocada', user.id, { pelaPropriaPessoa: true });
       return { ok: true };
     },
   },

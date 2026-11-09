@@ -89,3 +89,30 @@ test('desativar derruba a sessão e o login; redefinição troca a senha e inval
     await client(p.url).login('b@teste.local', 'senha-c-2026x');
   } finally { await p.close(); }
 });
+
+test('senha definida pelo superadmin: entra, é obrigado a trocar, troca e entra com a nova; senha fora da auditoria', async () => {
+  const p = await startPortal();
+  try {
+    const su = client(p.url); await su.login('super@teste.local', 'senha-forte-123');
+    assert.equal((await su.req('POST', '/api/admin/usuarios/criar', { email: 'c@teste.local', papel: 'super', senha: 'curta' })).status, 400, 'senha fraca');
+    const cr = await su.req('POST', '/api/admin/usuarios/criar', { email: 'c@teste.local', nome: 'C', papel: 'super', senha: 'provisoria-2026', trocar: true });
+    assert.equal(cr.status, 201);
+    const c = client(p.url); await c.login('c@teste.local', 'provisoria-2026');
+    assert.equal((await c.req('GET', '/api/me')).data.user.trocarSenha, true);
+    assert.equal((await c.req('GET', '/api/admin/usuarios')).status, 403, 'bloqueado até trocar');
+    assert.equal((await c.req('POST', '/api/conta/senha', { atual: 'errada-2026x', nova: 'definitiva-2026' })).status, 400);
+    assert.equal((await c.req('POST', '/api/conta/senha', { atual: 'provisoria-2026', nova: 'definitiva-2026' })).status, 200);
+    assert.equal((await c.req('GET', '/api/admin/usuarios')).status, 200, 'liberado depois de trocar');
+    assert.equal((await client(p.url).req('POST', '/api/login', { email: 'c@teste.local', password: 'provisoria-2026' })).status, 401, 'provisória não vale mais');
+    await client(p.url).login('c@teste.local', 'definitiva-2026');
+
+    const id = cr.data.usuario.id;
+    assert.equal((await su.req('POST', `/api/admin/usuarios/${id}/senha`, { senha: 'outra-senha-2026', trocar: false })).status, 200);
+    assert.equal((await c.req('GET', '/api/me')).status, 401, 'sessão antiga cai quando o superadmin define senha');
+    const c2 = client(p.url); await c2.login('c@teste.local', 'outra-senha-2026');
+    assert.equal((await c2.req('GET', '/api/me')).data.user.trocarSenha, false, 'sem pedir troca quando desmarcado');
+    const aud = JSON.stringify(p.db.prepare('SELECT * FROM audit').all());
+    for (const s of ['provisoria-2026', 'definitiva-2026', 'outra-senha-2026']) assert.ok(!aud.includes(s), `senha ${s} fora da auditoria`);
+    assert.match(aud, /definida pelo superadmin/);
+  } finally { await p.close(); }
+});

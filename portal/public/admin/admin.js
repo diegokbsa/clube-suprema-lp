@@ -314,7 +314,7 @@ async function viewAcessos(r) {
     <td>${esc(papelDe(u))}</td><td class="mono">${u.ultimoAcesso ? fmtDate(u.ultimoAcesso) : '<span class="muted">Nunca entrou</span>'}</td>
     <td>${u.ativo ? '<span class="pill">Ativo</span>' : '<span class="pill">Desativado</span>'}</td>
     <td class="row end">${u.id === S.me.user.id ? '<span class="muted">Você</span>' : u.ativo
-    ? `<button class="btn sm" type="button" data-redef="${esc(u.id)}">Redefinir senha</button><button class="btn sm danger" type="button" data-desat="${esc(u.id)}" data-email="${esc(u.email)}">Desativar</button>`
+    ? `<button class="btn sm" type="button" data-definir="${esc(u.id)}" data-email="${esc(u.email)}">Definir senha</button><button class="btn sm" type="button" data-redef="${esc(u.id)}">Redefinir senha (link)</button><button class="btn sm danger" type="button" data-desat="${esc(u.id)}" data-email="${esc(u.email)}">Desativar</button>`
     : `<button class="btn sm" type="button" data-ativar="${esc(u.id)}">Reativar</button>`}</td></tr>`;
   const conv = (c) => `<tr><td>${esc(c.email)}</td><td>${esc(d.papeis[c.papel] || '')}</td><td class="mono">${fmtDate(c.expiraEm)}</td>
     <td class="row end"><button class="btn sm" type="button" data-reenviar="${esc(c.id)}">Gerar link novo</button><button class="btn sm danger" type="button" data-cancelar="${esc(c.id)}">Cancelar</button></td></tr>`;
@@ -324,7 +324,13 @@ async function viewAcessos(r) {
         <label class="field" style="min-width:240px;flex:1">E-mail<input name="email" type="email" required autocomplete="off" placeholder="pessoa@empresa.com"></label>
         <label class="field" style="min-width:180px">Nome (opcional)<input name="nome" maxlength="80" autocomplete="off"></label>
         <label class="field">Papel<select name="papel">${Object.entries(d.papeis).map(([k, v]) => `<option value="${esc(k)}"${k === 'admin' ? ' selected' : ''}>${esc(v)}</option>`).join('')}</select></label>
-        <button class="btn primary" type="submit">Gerar link de convite</button></form>
+        <button class="btn primary" type="submit" id="conv-go">Gerar link de convite</button>
+        <label class="row" style="flex-basis:100%;gap:8px;align-items:center"><input type="checkbox" name="definir" id="conv-definir"> Definir a senha agora (sem link)</label>
+        <div id="conv-senha" class="row" style="display:none;flex-basis:100%;flex-wrap:wrap;gap:12px;align-items:flex-end">
+          <label class="field" style="min-width:200px">Senha<input name="senha" type="password" minlength="10" autocomplete="new-password"></label>
+          <label class="field" style="min-width:200px">Confirmar senha<input name="senha2" type="password" minlength="10" autocomplete="new-password"></label>
+          <label class="row" style="gap:8px;align-items:center"><input type="checkbox" name="trocar" checked> Pedir troca no primeiro acesso</label>
+          <p class="muted" style="flex-basis:100%;margin:0">Pelo menos 10 caracteres, misturando letras e números. Passe a senha à pessoa por um canal seu; ela não fica guardada em lugar nenhum além do login.</p></div></form>
       <p class="muted" style="margin:10px 0 0">Superadministrador vê e muda tudo, em todas as operações. Administrador e editor entram em todas as operações de ${esc(S.ed.name)}; ajuste depois em cada operação, em Usuários.</p>
       <div id="link-box" hidden style="margin-top:16px"></div></div>
     ${d.convites.length ? `<div class="card"><div class="card-head"><h2>Convites esperando aceite (${d.convites.length})</h2></div><div class="table-wrap"><table><thead><tr><th>E-mail</th><th>Papel</th><th>Vale até</th><th></th></tr></thead><tbody>${d.convites.map(conv).join('')}</tbody></table></div></div>` : ''}
@@ -342,19 +348,31 @@ async function viewAcessos(r) {
     $('#link-val', box).select();
     box.scrollIntoView({ behavior: 'smooth', block: 'center' });
   };
+  $('#conv-definir', main).addEventListener('change', (e) => {
+    $('#conv-senha', main).style.display = e.target.checked ? '' : 'none';
+    $('#conv-go', main).textContent = e.target.checked ? 'Criar acesso com esta senha' : 'Gerar link de convite';
+  });
   $('#fconv', main).addEventListener('submit', async (e) => {
     e.preventDefault();
     const f = new FormData(e.target);
     try {
+      if (f.get('definir')) {
+        if (f.get('senha') !== f.get('senha2')) { toast('As duas senhas não são iguais.', true); return; }
+        await api('POST', '/api/admin/usuarios/criar', { email: f.get('email'), nome: f.get('nome'), papel: f.get('papel'), senha: f.get('senha'), trocar: Boolean(f.get('trocar')) });
+        toast(f.get('trocar') ? 'Acesso criado. No primeiro login a pessoa vai trocar a senha.' : 'Acesso criado com a senha definida.');
+        await viewAcessos(r);
+        return;
+      }
       const res = await api('POST', '/api/admin/usuarios/convites', { email: f.get('email'), nome: f.get('nome'), papel: f.get('papel') });
       await viewAcessos(r);
       mostrarLink('Convite criado.', res);
     } catch (err) { toast(err.message, true); }
   });
   main.addEventListener('click', async (e) => {
-    const b = e.target.closest('button[data-redef],button[data-desat],button[data-ativar],button[data-reenviar],button[data-cancelar]');
+    const b = e.target.closest('button[data-definir],button[data-redef],button[data-desat],button[data-ativar],button[data-reenviar],button[data-cancelar]');
     if (!b) return;
     try {
+      if (b.dataset.definir) { dialogoDefinirSenha(b.dataset.definir, b.dataset.email, () => viewAcessos(r)); return; }
       if (b.dataset.redef) { const res = await api('POST', `/api/admin/usuarios/${b.dataset.redef}/redefinicao`); await viewAcessos(r); mostrarLink('Link para redefinir a senha criado.', res); return; }
       if (b.dataset.reenviar) { const res = await api('POST', `/api/admin/convites/${b.dataset.reenviar}/reenviar`); await viewAcessos(r); mostrarLink('Link novo criado; o anterior deixou de valer.', res); return; }
       if (b.dataset.desat) {
@@ -365,6 +383,51 @@ async function viewAcessos(r) {
       if (b.dataset.cancelar) { await api('POST', `/api/admin/convites/${b.dataset.cancelar}/cancelar`); toast('Convite cancelado.'); }
       await viewAcessos(r);
     } catch (err) { toast(err.message, true); }
+  });
+}
+
+/** Superadmin define a senha de alguém na tela (vai só como hash; a auditoria registra só que foi definida). */
+function dialogoDefinirSenha(id, email, depois) {
+  const dlg = document.createElement('dialog');
+  dlg.innerHTML = `<form method="dialog" id="ds"><h2>Definir senha</h2><p class="muted">Para <b>${esc(email)}</b>. As sessões abertas com a senha antiga são encerradas.</p>
+    <label class="field">Senha nova<input name="senha" type="password" minlength="10" autocomplete="new-password" required></label>
+    <label class="field">Confirmar senha<input name="senha2" type="password" minlength="10" autocomplete="new-password" required></label>
+    <label class="row" style="gap:8px;align-items:center;margin:10px 0"><input type="checkbox" name="trocar" checked> Pedir troca no primeiro acesso</label>
+    <p class="muted">Pelo menos 10 caracteres, misturando letras e números.</p><p class="err" id="ds-err"></p>
+    <div class="row end"><button class="btn" value="cancel" type="button" id="ds-cancelar">Cancelar</button><button class="btn primary" type="submit">Salvar senha</button></div></form>`;
+  document.body.appendChild(dlg);
+  const fechar = () => { dlg.close(); dlg.remove(); };
+  $('#ds-cancelar', dlg).addEventListener('click', fechar);
+  dlg.addEventListener('cancel', fechar);
+  $('#ds', dlg).addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const f = new FormData(e.target);
+    if (f.get('senha') !== f.get('senha2')) { $('#ds-err', dlg).textContent = 'As duas senhas não são iguais.'; return; }
+    try {
+      await api('POST', `/api/admin/usuarios/${id}/senha`, { senha: f.get('senha'), trocar: Boolean(f.get('trocar')) });
+      fechar(); toast('Senha definida.'); depois();
+    } catch (err) { $('#ds-err', dlg).textContent = err.message; }
+  });
+  dlg.showModal();
+}
+
+/** Primeiro acesso com senha definida por outra pessoa: troca obrigatória antes de usar o painel. */
+function renderTrocaSenha() {
+  app.className = '';
+  app.innerHTML = `<div class="login"><form id="troca-form">
+    <div class="logo">${logoMark()}<div>${esc(S.ed.name)}<small>Primeiro acesso</small></div></div>
+    <h2 style="margin:6px 0 4px">Troque sua senha</h2><p class="muted" style="margin:0 0 10px">A senha que você usou foi definida por outra pessoa. Escolha uma só sua para continuar.</p>
+    <label class="field">Senha atual<input name="atual" type="password" autocomplete="current-password" required></label>
+    <label class="field">Senha nova<input name="nova" type="password" minlength="10" autocomplete="new-password" required></label>
+    <label class="field">Repita a senha nova<input name="nova2" type="password" minlength="10" autocomplete="new-password" required></label>
+    <p class="muted">Pelo menos 10 caracteres, misturando letras e números.</p><p class="err" id="troca-err"></p>
+    <button class="btn primary" type="submit">Salvar e entrar</button><button class="btn" type="button" id="troca-sair" style="margin-top:8px">Sair</button></form></div>`;
+  $('#troca-sair').addEventListener('click', async () => { await api('POST', '/api/logout'); S.me = null; renderLogin(); });
+  $('#troca-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const f = new FormData(e.target);
+    if (f.get('nova') !== f.get('nova2')) { $('#troca-err').textContent = 'As duas senhas novas não são iguais.'; return; }
+    try { await api('POST', '/api/conta/senha', { atual: f.get('atual'), nova: f.get('nova') }); toast('Senha trocada.'); boot(); } catch (err) { $('#troca-err').textContent = err.message; }
   });
 }
 
@@ -1188,6 +1251,7 @@ async function boot() {
     S.meta = await api('GET', '/api/meta');
     applyEdition(S.meta.edition);
   } catch { return; }
+  if (S.me.user.trocarSenha) { renderTrocaSenha(); return; }
   route();
 }
 window.addEventListener('hashchange', route);
