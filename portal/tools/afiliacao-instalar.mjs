@@ -17,7 +17,9 @@ import { cleanTheme } from '../lib/templates.mjs';
 import { scoped, registerTable } from '../lib/repo.mjs';
 import { gravarPagina } from '../lib/modules/paginas.mjs';
 import { publishedData } from '../lib/modules/blog.mjs';
-import { renderHome, renderLista, renderPost, renderInstitucional, comOrigem, capaDo } from './afiliacao-visual.mjs';
+import { renderHome, renderLista, renderPost, renderInstitucional, renderOfertas, comOrigem, capaDo } from './afiliacao-visual.mjs';
+// blogs de produto físico com página /ofertas mesmo antes do ofertas.json (estado "em breve")
+const BLOGS_OFERTAS = new Set(['achadinhos', 'sublimacao', 'manutencao', 'gamer']);
 import { PAGINAS } from './afiliacao-institucional.mjs';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
@@ -209,6 +211,15 @@ try {
       }
       for (const pag of PAGINAS) {
         gravarPagina(repo, { siteId: site.id, caminho: pag, html: renderInstitucional({ pag, info, v, prefixo, posts: lista, medicao: med }), titulo: pag, indexar: true });
+      }
+      // Ofertas do dia (plano de 100 vendas/dia, item 5): blogs de produto físico, ou qualquer blog com ofertas.json.
+      // Sem item válido a página mostra "Em breve" e fica fora do sitemap; com itens, entra (indexar).
+      const arqOfertas = lerJson(path.join(dir, 'ofertas.json'), null);
+      if (arqOfertas || BLOGS_OFERTAS.has(slugBlog)) {
+        const html = renderOfertas({ info, v, ofertas: arqOfertas || { itens: [] }, prefixo, dados: DADOS_VITRINE });
+        const nItens = (html.match(/<article class="card">/g) || []).length;
+        gravarPagina(repo, { siteId: site.id, caminho: 'ofertas', html: comOrigem(html, `${slugBlog}-ofertas`), titulo: `Ofertas · ${info.nome}`, indexar: nItens > 0 });
+        passo(`${slugBlog}: página de ofertas gravada (${nItens} itens válidos de ${(arqOfertas?.itens || []).length})`);
       }
       const ofertas = (vitrine.destaques || []).filter((k) => ATIVOS.has(k)).length;
       passo(`${slugBlog}: visual de venda gravado (home, lista e ${lista.length} posts; ${ofertas} ofertas ativas na vitrine)`);

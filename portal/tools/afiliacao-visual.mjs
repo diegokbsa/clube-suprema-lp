@@ -313,3 +313,37 @@ export function renderInstitucional({ pag, info, v, prefixo, posts = [], medicao
 <main><div class="hero"><div class="w"><h1>${esc(t.titulo.replace(/ · .*$/, ''))}</h1><p class="sub">${esc(t.sub || '')}</p></div></div>
 <section><div class="w"><div class="txt">${corpo}</div></div></section></main>${rodape(info, prefixo)}</body></html>`;
 }
+
+/** Lojas aceitas como link direto nas ofertas (além do {{LINK:chave}} de produto ativo e do curto l.kbsa.app). */
+const LOJAS = /^https:\/\/([a-z0-9-]+\.)*(shopee\.com\.br|shp\.ee|mercadolivre\.com\.br|mercadolivre\.com|mercadolibre\.com|amazon\.com\.br|amzn\.to|magazineluiza\.com\.br|magalu\.com|l\.kbsa\.app)(\/|$)/i;
+
+/** Link de uma oferta: {{LINK:chave}} só de produto ativo; URL direta só https de loja conhecida. Senão null (item some). */
+export function linkOferta(link, dados) {
+  const s = String(link || '').trim();
+  const m = /^\{\{LINK:([a-z0-9-]+)\}\}$/.exec(s);
+  if (m) return produto(m[1], dados)?.url || null;
+  return LOJAS.test(s) && !/["'<>\s]/.test(s) ? s : null;
+}
+
+/** Ofertas do dia (<domínio>/ofertas): preço e data da conferência visíveis, link patrocinado, estado vazio "em breve".
+ *  Lê ofertas.json do blog: {"atualizado":"ISO","itens":[{nome, preco, preco_conferido_em, loja, link, imagem, nota}]}. */
+export function renderOfertas({ info, v, ofertas, prefixo, dados }) {
+  const canonical = `${prefixo}/ofertas`;
+  const itens = (ofertas?.itens || []).map((it) => ({ ...it, url: linkOferta(it.link, dados) }))
+    .filter((it) => it.nome && it.url && Number.isFinite(Number(it.preco)) && it.preco_conferido_em);
+  const img = (s) => (IMG_LOCAL.test(String(s || '')) || /^https:\/\/[^\s"'<>]+$/.test(String(s || '')) ? String(s) : null);
+  const cards = itens.map((it) => `<article class="card"><div class="ft">${img(it.imagem) ? `<img src="${esc(img(it.imagem))}" alt="${esc(it.nome)}" loading="lazy" width="600" height="450">` : ''}</div>
+<div class="cp"><span class="tp">${esc(it.loja || 'Loja parceira')}</span><h3>${esc(it.nome)}</h3>
+<div class="pr">${brl(it.preco)} <small>preço conferido em ${esc(dataBr(it.preco_conferido_em))}</small></div>
+${it.nota ? `<div class="pq">${esc(it.nota)}</div>` : ''}
+<a class="btn" href="${esc(it.url)}" ${REL}>Ver na loja →</a><span class="nota">O preço pode mudar a qualquer momento; confira na loja antes de comprar.</span></div></article>`).join('');
+  const titulo = `Ofertas do dia · ${info.nome}`;
+  const desc = `Ofertas selecionadas pelo ${info.nome}, com o preço e a data em que foi conferido. Preços mudam: confira sempre na loja.`;
+  const ld = { '@context': 'https://schema.org', '@type': 'CollectionPage', name: titulo, url: canonical, inLanguage: 'pt-BR',
+    ...(itens.length ? { mainEntity: { '@type': 'ItemList', itemListElement: itens.map((it, i) => ({ '@type': 'ListItem', position: i + 1, name: it.nome })) } } : {}) };
+  const vazio = `<div class="cap" style="grid-template-columns:1fr"><div><h2>Em breve</h2><p>Estamos conferindo preços e lojas. As primeiras ofertas aparecem aqui assim que cada preço for verificado na loja.</p></div></div>`;
+  return `${head({ titulo, desc, canonical, v: { ...v, imagem: v.imagem || null, lcp: null }, ld })}<body>${topo(info, prefixo, v)}
+<main><div class="hero"><div class="w"><span class="selo"><b></b>${itens.length ? `Atualizado em ${esc(dataBr(ofertas.atualizado || itens[0].preco_conferido_em))}` : 'Em preparação'}</span>
+<h1>Ofertas do dia</h1><p class="sub">Cada preço aparece com a data em que foi conferido. Alguns links são de afiliado: se você comprar por eles, recebemos uma comissão, sem custo extra para você.</p></div></div>
+<section><div class="w">${itens.length ? `<div class="picks">${cards}</div>` : vazio}</div></section></main>${rodape(info, prefixo)}</body></html>`;
+}
