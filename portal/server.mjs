@@ -27,6 +27,7 @@ const MIME = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; cha
 const SESSION_COOKIE = 'pa_sess';
 
 const ADMIN_CSP = "default-src 'self'; img-src 'self' data: https:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; frame-src 'self'; frame-ancestors 'none'; base-uri 'none'; form-action 'self'";
+const ADS_TXT_PADRAO = '# ads.txt: aguardando o ID do publisher do Google AdSense (a linha entra quando a conta for aprovada)\n';
 const SITE_CSP = "default-src 'self'; img-src 'self' data: https:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self' https://www.googletagmanager.com https://connect.facebook.net https://www.clarity.ms https://*.clarity.ms https://www.googleadservices.com https://googleads.g.doubleclick.net; connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com https://www.facebook.com https://*.clarity.ms https://www.google.com https://www.googleadservices.com https://googleads.g.doubleclick.net https://*.doubleclick.net; frame-src https://www.googletagmanager.com https://td.doubleclick.net; frame-ancestors 'self'; base-uri 'none'; form-action 'self'";
 
 export async function createApp({ db, origin = 'http://localhost:3400', secretKey = 'dev-only-change-me', modulesDir = path.join(HERE, 'lib', 'modules'), fetchImpl, editionId, serviceToken,
@@ -112,6 +113,12 @@ export async function createApp({ db, origin = 'http://localhost:3400', secretKe
     const siteOrigin = originOverride || (site.domain && !base ? `https://${site.domain}` : app.originOf(tenant.edition));
     if (rest === 'sitemap.xml') return send(res, 200, sitemapXml(siteOrigin, base, pages, app.sitemapExtras.flatMap((fn) => { try { return fn({ site, tenant, repo }) || []; } catch { return []; } })), { 'Content-Type': 'application/xml; charset=utf-8', 'Cache-Control': 'public, max-age=600' });
     if (rest === 'robots.txt') return send(res, 200, robotsTxt(siteOrigin, base), { 'Cache-Control': 'public, max-age=3600' });
+    // ads.txt na raiz do domínio: lê <pasta de dados>/ads.txt; sem o arquivo, serve só comentário (válido, sem vendedor autorizado).
+    if (rest === 'ads.txt') {
+      let corpo = ADS_TXT_PADRAO;
+      try { const f = path.join(process.env.PORTAL_DATA_DIR || path.join(HERE, 'data'), 'ads.txt'); if (fs.existsSync(f)) corpo = fs.readFileSync(f, 'utf8'); } catch { /* serve o padrão */ }
+      return send(res, 200, corpo, { 'Content-Type': 'text/plain; charset=utf-8', 'Cache-Control': 'public, max-age=3600' });
+    }
     if (rest === `${app.seo.key(site)}.txt`) return send(res, 200, app.seo.key(site), { 'Cache-Control': 'public, max-age=86400' }); // chave IndexNow
     for (const fn of app.paginasProprias) { // HTML próprio do site (raiz e páginas extras) vence o construtor
       const out = fn({ req, site, tenant, repo, rest, base, origin: siteOrigin });

@@ -6,6 +6,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { institucional, ROTULO, PAGINAS, emailDe } from './afiliacao-institucional.mjs';
 import { htmlText, faqDoTexto, faqLd, IMG_LOCAL, dimensoesImagem } from '../lib/modules/blog.mjs';
 
 const PUBLICO = path.join(path.dirname(fileURLToPath(import.meta.url)), '..', 'public');
@@ -91,7 +92,7 @@ h2{font:700 clamp(1.55rem,3vw,2.2rem)/1.15 var(--fh);letter-spacing:-.02em;margi
 .cap{display:grid;grid-template-columns:1.2fr 1fr;gap:28px;align-items:center;padding:34px;border-radius:var(--r);background:var(--ink);color:#fff}
 .cap h2{color:#fff}.cap p{margin:0;color:#d5d8de}.cap form{display:flex;flex-direction:column;gap:10px}
 .cap input[type=email]{padding:15px 16px;border-radius:8px;border:0;font:400 1rem var(--fb)}.cap label{display:flex;gap:8px;font-size:.85rem;color:#d5d8de;align-items:flex-start}
-footer{padding:40px 0 110px;border-top:1px solid var(--line);color:var(--mut);font-size:.9rem}footer .w{display:grid;gap:10px;max-width:none}footer span{max-width:80ch}
+footer{padding:40px 0 110px;border-top:1px solid var(--line);color:var(--mut);font-size:.9rem}footer .w{display:grid;gap:10px;max-width:none}footer span{max-width:80ch}footer .rod{display:flex;flex-wrap:wrap;gap:6px 18px}footer .rod a{color:var(--ink)}
 /* post */
 .bc{font-size:.88rem;color:var(--mut);margin-bottom:10px}.bc a{color:var(--mut)}
 .grade{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:56px;align-items:start;padding:40px 0 20px}
@@ -121,6 +122,13 @@ article{min-width:0}
 .tab th:nth-child(3),.tab td:nth-child(3){display:none}.tab th,.tab td{padding:12px 10px}}
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
 `;
+/** Espaço do script do Google AdSense, DESLIGADO até a aprovação: só sai com adsense.json {cliente:"ca-pub-<16 dígitos>", ativo:true}
+ *  (veja passo a passo em 03-PROJECTS/Active/adsense-blogs.md). Desligado, não carrega nada de terceiros. */
+export function adsenseTag(a) {
+  if (!a || a.ativo !== true || !/^ca-pub-\d{16}$/.test(String(a.cliente || ''))) return '<!-- adsense: desligado até a aprovação -->';
+  return `<meta name="google-adsense-account" content="${esc(a.cliente)}"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${esc(a.cliente)}" crossorigin="anonymous"></script>`;
+}
+
 function head({ titulo, desc, canonical, v, ld, og }) {
   return `<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>${esc(titulo)}</title><meta name="description" content="${esc(desc).slice(0, 160)}"><link rel="canonical" href="${esc(canonical)}">
@@ -129,7 +137,7 @@ function head({ titulo, desc, canonical, v, ld, og }) {
 ${v.imagem ? `<meta property="og:image" content="${esc(v.imagem)}">${/-capa\.(png|jpe?g|webp)$/.test(v.imagem) ? '<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">' : ''}<meta property="og:image:alt" content="${esc(titulo)}"><meta name="twitter:card" content="summary_large_image">` : '<meta name="twitter:card" content="summary">'}${v.lcp ? `<link rel="preload" as="image" href="${esc(v.lcp)}" fetchpriority="high">` : ''}
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 ${((u) => `<link rel="preload" as="style" href="${u}" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="${u}"></noscript>`)(`https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;700&amp;family=${encodeURIComponent(v.fonte || 'Archivo').replace(/%20/g, '+')}:wght@600;700&amp;display=swap`)}
-<meta name="theme-color" content="${esc(v.cor)}"><style>${css(v)}</style>
+<meta name="theme-color" content="${esc(v.cor)}">${adsenseTag(v._adsense)}<style>${css(v)}</style>
 ${ld ? `<script type="application/ld+json">${JSON.stringify(ld).replace(/</g, '\\u003c')}</script>` : ''}</head>`;
 }
 
@@ -139,10 +147,12 @@ function topo(info, prefixo, v) {
 ${(v.destaques || []).some((k) => !v._ativos || v._ativos.has(k)) ?`<a class="btn sm" href="${prefixo}/#comparativo">${esc(v.cta_topo || 'Ver os melhores')}</a>` : ''}</div></header>`;
 }
 
-function rodape(info) {
+function rodape(info, prefixo = '') {
+  const nav = PAGINAS.map((p) => `<a href="${prefixo}/${p}">${esc(ROTULO[p])}</a>`).join('');
   return `<footer><div class="w"><strong>${esc(info.nome)}</strong><span>${esc(info.descricao)}</span>
-<span><b>Transparência:</b> alguns links deste site são de afiliado. Se você comprar por eles, recebemos uma comissão, sem custo extra para você. Isso não muda a ordem nem o que escrevemos; confira sempre na página oficial o conteúdo, o preço e a garantia antes de comprar.</span>
-<span>© ${ANO} ${esc(info.nome)} · Conteúdo informativo, sem promessa de resultado.</span></div></footer>`;
+<nav class="rod" aria-label="Institucional">${nav}</nav>
+<span><b>Transparência:</b> alguns links deste site são de afiliado. Se você comprar por eles, recebemos uma comissão, sem custo extra para você. Isso não muda a ordem nem o que escrevemos; confira sempre na página oficial o conteúdo, o preço e a garantia antes de comprar. <a href="${prefixo}/aviso-de-afiliados">Saiba mais</a>.</span>
+<span>Contato: <a href="mailto:${esc(emailDe(info, String(prefixo).replace(/^https?:\/\//, '')))}">${esc(emailDe(info, String(prefixo).replace(/^https?:\/\//, '')))}</a> · © ${ANO} ${esc(info.nome)} · Conteúdo informativo, sem promessa de resultado.</span></div></footer>`;
 }
 
 function cardProduto(p, { rotulo, um, melhor, primeiro, nivel = 'h2' }) {
@@ -194,7 +204,7 @@ ${v.passos?.length ? `<section class="alt"><div class="w"><h2>${esc(v.passos_tit
 <section><div class="w"><h2>${esc(v.guias_titulo || 'Guias para decidir sem cair em promessa')}</h2><p class="lead">${esc(frase(info.home_intro || info.descricao, 280))}</p><div class="guias dest">${guias}</div></div></section>
 <section class="alt"><div class="w"><h2>Como escolhemos</h2><p class="lead" style="margin-bottom:0">${esc(v.metodo || 'Comparamos o que cada produto mostra na página oficial: o tipo de conteúdo, o preço e para quem ele foi feito. Não aceitamos pagamento para mudar a ordem. Quando a página do produto muda, atualizamos o comparativo e a data no topo.')}</p></div></section>
 ${faq.length ? `<section id="duvidas"><div class="w"><h2>Perguntas frequentes</h2>${faqHtml(faq)}</div></section>` : ''}
-<section><div class="w">${captura(info, v)}</div></section></main>${rodape(info)}
+<section><div class="w">${captura(info, v)}</div></section></main>${rodape(info, prefixo)}
 ${prods[0] ? `<div class="fixo"><span><b>${esc(prods[0].nome)}</b>${prods[0].preco ? brl(prods[0].preco) : ''}</span><a class="btn sm" href="${esc(prods[0].url)}" ${REL}>Ver oferta</a></div>` : ''}</body></html>`;
 }
 
@@ -206,7 +216,7 @@ export function renderLista({ info, v, posts, prefixo }) {
     hasPart: posts.map((p) => ({ '@type': 'Article', headline: p.title, url: `${prefixo}/blog/${p.slug}` })) };
   return `${head({ titulo: `Guias ${v.assunto ? `de ${v.assunto} ` : ''}· ${info.nome}`, desc: info.descricao, canonical, v: { ...v, imagem: v.imagem || capaAbs(capaDo(posts[0]), prefixo), lcp: capaDo(posts[0]) }, ld })}<body>${topo(info, prefixo, v)}
 <main><div class="hero"><div class="w"><h1>Guias do ${esc(info.nome)}</h1><p class="sub">${esc(info.tagline)}</p><div class="meta"><span>${posts.length} guias</span><span>Atualizado em ${dataBr()}</span></div></div></div>
-<section><div class="w"><div class="guias dest">${guias}</div></div></section><section><div class="w">${captura(info, v)}</div></section></main>${rodape(info)}</body></html>`;
+<section><div class="w"><div class="guias dest">${guias}</div></div></section><section><div class="w">${captura(info, v)}</div></section></main>${rodape(info, prefixo)}</body></html>`;
 }
 
 /** Marca a origem em todo link de checkout/afiliado da Hotmart (go./pay.hotmart.com, hotm.art) e da Kiwify (kiwify.app, pay.kiwify.com.br) com ?src=<origem>, para a
@@ -267,7 +277,7 @@ export function renderPost({ info, v, post, posts, prefixo, dados, aplicarLinks,
   const imagem = capaAbs(capa, prefixo) || absoluta(principal?.img, prefixo);
   const ld = { '@context': 'https://schema.org', '@graph': [
     { '@type': 'Article', headline: post.title, description: post.seoDescription || post.excerpt, inLanguage: 'pt-BR', mainEntityOfPage: canonical, url: canonical,
-      datePublished: publicado, dateModified: atualizado || publicado, author: { '@type': 'Organization', name: info.autor || `Equipe ${info.nome}`, url: `${prefixo}/` },
+      datePublished: publicado, dateModified: atualizado || publicado, author: { '@type': 'Organization', name: info.autor || `Equipe ${info.nome}`, url: `${prefixo}/autor` },
       publisher: { '@type': 'Organization', name: info.nome, url: `${prefixo}/` }, ...(imagem ? { image: imagem } : {}) },
     { '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: info.nome, item: `${prefixo}/` },
       { '@type': 'ListItem', position: 2, name: 'Guias', item: `${prefixo}/blog` }, { '@type': 'ListItem', position: 3, name: post.title, item: canonical }] },
@@ -278,7 +288,7 @@ export function renderPost({ info, v, post, posts, prefixo, dados, aplicarLinks,
 <main><div class="w"><div class="grade"><article>
 <div class="bc"><a href="${prefixo}/">${esc(info.nome)}</a> › <a href="${prefixo}/blog">Guias</a> › ${esc(post.category || info.categoria)}</div>
 <h1 style="font-size:clamp(1.9rem,4.4vw,3rem)">${esc(post.title)}</h1>
-<div class="meta"><span>Por ${esc(info.autor || `Equipe ${info.nome}`)}</span><span>Atualizado em ${dataBr(atualizado || publicado)}</span><span>${minutos(post.content)} min de leitura</span></div>
+<div class="meta"><span>Por <a href="${prefixo}/autor" rel="author">${esc(info.autor || `Equipe ${info.nome}`)}</a></span>${publicado ? `<span>Publicado em <time datetime="${esc(String(publicado).slice(0, 10))}">${dataBr(publicado)}</time></span>` : ''}<span>Atualizado em <time datetime="${esc(String(atualizado || publicado || '').slice(0, 10))}">${dataBr(atualizado || publicado)}</time></span><span>${minutos(post.content)} min de leitura</span></div>
 ${capa ? `<figure class="capa"><img src="${esc(capa)}" alt="${esc(post.coverAlt || post.title)}" width="${cw}" height="${ch}" fetchpriority="high" decoding="async"></figure>` : ''}
 ${post.excerpt ? `<div class="rapida"><b>Resposta rápida</b><p>${esc(post.excerpt)}</p></div>` : ''}
 ${h2.length > 2 ? `<nav class="indice" aria-label="Neste guia"><b>Neste guia</b><ol>${h2.map(([id, t]) => `<li><a href="#${id}">${t}</a></li>`).join('')}</ol></nav>` : ''}
@@ -286,6 +296,19 @@ ${h2.length > 2 ? `<nav class="indice" aria-label="Neste guia"><b>Neste guia</b>
 ${outros.length ? `<section style="padding:30px 0 0"><h2 style="font-size:1.5rem">Continue lendo</h2><div class="guias">${outros.slice(0, 3).map((p) => `<a class="guia" href="${prefixo}/blog/${esc(p.slug)}">${capaCard(p)}<span class="k">${esc(p.category || info.categoria)}</span><h3>${esc(p.title)}</h3></a>`).join('')}</div></section>` : ''}
 </article><aside class="lado" aria-label="Recomendação">${principal ? cardProduto(principal, { rotulo: 'Indicado neste guia', um: true, nivel: 'p', melhor: v.melhor_para?.[principal.chave] }) : ''}
 <a class="btn lin" href="${prefixo}/#comparativo">Ver o comparativo completo</a></aside></div>
-<section style="padding-top:10px">${captura(info, v)}</section></div></main>${rodape(info)}
+<section style="padding-top:10px">${captura(info, v)}</section></div></main>${rodape(info, prefixo)}
 ${principal ? `<div class="fixo"><span><b>${esc(principal.nome)}</b>${principal.preco ? brl(principal.preco) : ''}</span><a class="btn sm" href="${esc(principal.url)}" ${REL}>Ver oferta</a></div>` : ''}</body></html>`;
+}
+
+/** Página obrigatória (sobre, contato, privacidade, termos, aviso-de-afiliados, autor), com o mesmo tema do blog. */
+export function renderInstitucional({ pag, info, v, prefixo, posts = [], medicao = {} }) {
+  const dominio = String(prefixo).replace(/^https?:\/\//, '');
+  const t = institucional(pag, { info, dominio, medicao, posts });
+  const canonical = `${prefixo}/${pag}`;
+  const corpo = t.html.replace(/href="\/(?!\/)/g, `href="${prefixo}/`);
+  const ld = { '@context': 'https://schema.org', '@type': pag === 'sobre' ? 'AboutPage' : pag === 'contato' ? 'ContactPage' : 'WebPage', name: t.titulo, url: canonical, inLanguage: 'pt-BR',
+    isPartOf: { '@type': 'WebSite', name: info.nome, url: `${prefixo}/` }, ...(pag === 'autor' || pag === 'sobre' ? { about: { '@type': 'Organization', name: info.autor || `Equipe ${info.nome}`, url: `${prefixo}/autor`, email: emailDe(info, dominio) } } : {}) };
+  return `${head({ titulo: t.titulo, desc: t.desc, canonical, v: { ...v, imagem: v.imagem || null, lcp: null }, ld })}<body>${topo(info, prefixo, v)}
+<main><div class="hero"><div class="w"><h1>${esc(t.titulo.replace(/ · .*$/, ''))}</h1><p class="sub">${esc(t.sub || '')}</p></div></div>
+<section><div class="w"><div class="txt">${corpo}</div></div></section></main>${rodape(info, prefixo)}</body></html>`;
 }

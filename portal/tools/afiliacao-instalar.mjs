@@ -17,7 +17,8 @@ import { cleanTheme } from '../lib/templates.mjs';
 import { scoped, registerTable } from '../lib/repo.mjs';
 import { gravarPagina } from '../lib/modules/paginas.mjs';
 import { publishedData } from '../lib/modules/blog.mjs';
-import { renderHome, renderLista, renderPost, comOrigem, capaDo } from './afiliacao-visual.mjs';
+import { renderHome, renderLista, renderPost, renderInstitucional, comOrigem, capaDo } from './afiliacao-visual.mjs';
+import { PAGINAS } from './afiliacao-institucional.mjs';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.join(HERE, '..');
@@ -36,6 +37,8 @@ const LINKS = lerJson(path.join(CONTEUDO, 'links.json'), {});
 // BigLinks: produto com link curto ("curto": "https://l.kbsa.app/<chave>") sai pelo encurtador, que conta o clique e manda
 // para o checkout ("url" vira "destino", só para referência). Sem "curto", o link vai direto ao checkout, como antes.
 for (const v of Object.values(LINKS)) if (v?.curto && /^https:\/\/l\.kbsa\.app\/[a-z0-9-]+$/.test(v.curto)) { v.destino = v.url; v.url = v.curto; }
+// AdSense: <pasta de dados>/adsense.json {cliente:"ca-pub-...", ativo:true|false}; sem o arquivo, o espaço do script fica desligado.
+const ADSENSE = lerJson(path.join(DADOS, 'adsense.json'), { ativo: false });
 const MEDICAO = lerJson(path.join(CONTEUDO, 'medicao.json'), {});
 const CATALOGO = lerJson(path.join(CONTEUDO, 'produtos.json'), {});
 const DADOS_VITRINE = { catalogo: CATALOGO, links: LINKS };
@@ -196,13 +199,16 @@ try {
     const vitrine = lerJson(path.join(dir, 'vitrine.json'), null);
     if (vitrine) {
       // visual de venda: home comparativa, lista e cada post como página própria (mesmos endereços do blog)
-      const v = { ...vitrine, _ativos: ATIVOS };
+      const v = { ...vitrine, _ativos: ATIVOS, _adsense: ADSENSE };
       gravarPagina(repo, { siteId: site.id, caminho: '', html: comOrigem(renderHome({ info, v, posts: lista, prefixo, dados: DADOS_VITRINE }), `${slugBlog}-home`), titulo: info.nome, indexar: true });
       gravarPagina(repo, { siteId: site.id, caminho: 'blog', html: renderLista({ info, v, posts: lista, prefixo }), titulo: `Guias · ${info.nome}`, indexar: false });
       for (const a of lista) {
         const row = repo.get('posts', { site_id: site.id, slug: a.slug });
         gravarPagina(repo, { siteId: site.id, caminho: `blog/${a.slug}`, titulo: a.title, indexar: false,
           html: comOrigem(renderPost({ info, v, post: a, posts: lista, prefixo, dados: DADOS_VITRINE, aplicarLinks, publicado: row?.published_at, atualizado: row?.updated_at }), `${slugBlog}-${a.slug}`) });
+      }
+      for (const pag of PAGINAS) {
+        gravarPagina(repo, { siteId: site.id, caminho: pag, html: renderInstitucional({ pag, info, v, prefixo, posts: lista, medicao: med }), titulo: pag, indexar: true });
       }
       const ofertas = (vitrine.destaques || []).filter((k) => ATIVOS.has(k)).length;
       passo(`${slugBlog}: visual de venda gravado (home, lista e ${lista.length} posts; ${ofertas} ofertas ativas na vitrine)`);
