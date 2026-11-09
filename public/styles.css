@@ -235,10 +235,11 @@ main { max-width: 1120px; margin: 0 auto; padding: 0 var(--side); }
   display: block; width: 100%; height: auto;
   filter: drop-shadow(0 30px 60px rgba(0, 0, 0, .7));
 }
-.phone-mesa { position: absolute; inset: 0; opacity: 0; animation: phone-in 1.4s var(--ease) 1.8s forwards; }
+/* .01 em vez de 0: invisível a olho nu, mas o navegador já conta a mesa como pintada (LCP do PageSpeed no celular) */
+.phone-mesa { position: absolute; inset: 0; opacity: .01; animation: phone-in 1.4s var(--ease) 1.8s forwards; }
 .phone-abertura { animation: phone-out 1.4s var(--ease) 1.8s forwards; }
 @keyframes float { 0%, 100% { transform: translateY(0) rotate(-1deg); } 50% { transform: translateY(-14px) rotate(1deg); } }
-@keyframes phone-in { from { opacity: 0; transform: scale(.96); } to { opacity: 1; transform: none; } }
+@keyframes phone-in { from { opacity: .01; transform: scale(.96); } to { opacity: 1; transform: none; } }
 @keyframes phone-out { from { opacity: 1; } to { opacity: 0; } }
 .pill { position: absolute; opacity: 0; animation: pill-in .7s var(--ease) both; }
 .pill-pix { left: -4%; top: 24%; animation-delay: 2.5s; }
