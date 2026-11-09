@@ -243,9 +243,10 @@
     "curto": "https://l.kbsa.app/hm-ia-renda-extra"
   },
   "hm-academia-do-afiliado": {
-    "status": "ativo",
+    "status": "suspenso",
     "url": "https://go.hotmart.com/O108392960M",
-    "curto": "https://l.kbsa.app/hm-academia-do-afiliado"
+    "curto": "https://l.kbsa.app/hm-academia-do-afiliado",
+    "motivo": "destino 404 em 09/11/2026 (copymaster.leadpages.co/academia-afiliado)"
   },
   "hm-guia-vendas-whatsapp": {
     "status": "ativo",
@@ -261,9 +262,10 @@
     "status": "pendente"
   },
   "hm-importando-laces": {
-    "status": "ativo",
+    "status": "suspenso",
     "url": "https://go.hotmart.com/S108392963N",
-    "curto": "https://l.kbsa.app/hm-importando-laces"
+    "curto": "https://l.kbsa.app/hm-importando-laces",
+    "motivo": "destino fora do ar em 09/11/2026 (irlainetavares.com.br não abre)"
   },
   "ck-papelariaon": {
     "status": "ativo",
