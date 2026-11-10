@@ -316,10 +316,13 @@ const SCRIPT_VISITAS = '<script>(function(){var n=navigator,d=document,l=locatio
   + 'function v(){setTimeout(function(){s("v")},400)}d.readyState=="complete"?v():addEventListener("load",v);'
   + 'd.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest("a[href]");'
   + 'a&&a.host&&a.host!=l.host&&/^http/.test(a.protocol)&&s("c",(a.host+a.pathname).slice(0,120))},!0)})()</script>';
+// Minilytics (mini.kbsa.app, fork sem cookie, pedido do Kbsa 09/11/2026): tag defer com o id do suprema.blog.
+const SCRIPT_MINILYTICS = '<script defer data-website-id="94260f12380fdbaa" src="https://mini.kbsa.app/js/script.js"></script>';
 const comVisitas = (html) => {
   const s = String(html);
   const i = s.toLowerCase().lastIndexOf('</body>');
-  return i < 0 ? s + SCRIPT_VISITAS : s.slice(0, i) + SCRIPT_VISITAS + s.slice(i);
+  const tags = SCRIPT_VISITAS + SCRIPT_MINILYTICS;
+  return i < 0 ? s + tags : s.slice(0, i) + tags + s.slice(i);
 };
 
 async function repassarVisita(req, res) {
