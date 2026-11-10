@@ -3,6 +3,7 @@
 // (POST /f/<site> com UTMs) e troca __SITE__ pelo id do site. Páginas com indexar=1 entram no sitemap.
 import { HttpError } from '../http.mjs';
 import { now } from '../db.mjs';
+import { tagVisitas } from './visitas.mjs';
 
 export const tables = ['paginas_proprias'];
 
@@ -51,7 +52,7 @@ export function montar(html, siteOuId) {
   const siteId = site.id;
   const doc = String(html).replace(/__SITE__/g, String(siteId));
   if (ehAmp(doc)) return doc;
-  const s = tagMedicao(site) + scriptCrm(siteId);
+  const s = tagMedicao(site) + scriptCrm(siteId) + tagVisitas(site); // contador sem cookie: vazio quando só veio o id
   return /<\/body>/i.test(doc) ? doc.replace(/<\/body>(?![\s\S]*<\/body>)/i, `${s}</body>`) : `${doc}${s}`;
 }
 

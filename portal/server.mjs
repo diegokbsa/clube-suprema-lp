@@ -262,6 +262,8 @@ export async function createApp({ db, origin = 'http://localhost:3400', secretKe
     try {
       const p = url.pathname;
       if (p === '/healthz') return send(res, 200, { ok: true, at: now() });
+      // contador de visitas sem cookie (lib/modules/visitas.mjs): beacon de qualquer site, em /pa/v ou <prefixo>/pa/v
+      if (req.method === 'POST' && (p === '/pa/v' || p.endsWith('/pa/v')) && app.registrarVisita) return await app.registrarVisita(req, res);
       if (p.startsWith('/api/hooks/') && req.method === 'POST') {
         const m = /^\/api\/hooks\/([^/]+)\/conversion\/?$/.exec(p);
         if (m) return await conversionHook(req, res, decodeURIComponent(m[1]));
