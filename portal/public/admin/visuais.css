@@ -60,7 +60,7 @@
 
 /* ---------- 01 Vidro Lavanda ---------- */
 :root[data-visual="lavanda"] {
-  --bg: #f1eefa; --panel: #ffffff; --input: rgb(255 255 255 / .85); --ink: #2a2440; --ink-strong: #17122b; --ink-2: #433c5c; --ink-3: #5d5675; --line: #e2dcf2; --line-2: #c9c0e2;
+  --bg: #fbfaff; --panel: #ffffff; --input: rgb(255 255 255 / .85); --ink: #2a2440; --ink-strong: #17122b; --ink-2: #433c5c; --ink-3: #5d5675; --line: #e2dcf2; --line-2: #c9c0e2;
   --brand: #7f35da; --brand-2: #6a24c4; --brand-ink: #ffffff; --gold: #7f35da; --gold-soft: #efe6fd;
   --ok: #17704a; --ok-soft: #e1f2e9; --warn: #8a5200; --warn-soft: #fbefd9; --bad: #b3261e; --bad-soft: #fbe7e5; --info: #6a24c4; --info-soft: #efe6fd;
   --rail: rgb(255 255 255 / .54); --rail-2: rgb(127 53 218 / .08); --rail-active: #7f35da; --rail-ink: #433c5c; --rail-muted: #5d5675; --rail-line: #e2dcf2;

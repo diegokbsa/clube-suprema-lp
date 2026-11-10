@@ -48,6 +48,8 @@ const hex = (v) => /^#[0-9a-f]{6}$/i.test(v || '');
 test('visual.js: começa no vidro lavanda, lembra a escolha e aceita ?visual= sem salvar', () => {
   let r = carregarVisual();
   assert.equal(r.api.padrao, 'lavanda');
+  assert.equal(r.api.lista[0].id, 'lavanda', 'o 1º da lista é o vidro branco e roxo');
+  assert.ok(r.api.lista.filter((v) => v.id !== 'original').length >= 8, 'pelo menos 8 modelos');
   assert.equal(r.dataset.visual, 'lavanda', 'sem nada salvo, o painel abre no vidro lavanda');
   assert.equal(r.api.lista.length, 12, '11 visuais + o original da edição');
   assert.ok(r.api.lista.some((v) => v.id === 'original'));
