@@ -88,3 +88,12 @@ test('beacon: visita real grava (sem IP), curl com UA de robô e sem Origin não
   assert.ok(pn.data.descartes.robo >= 2 && pn.data.descartes.origem >= 2);
   assert.equal(typeof pn.data.biglinks.ok, 'boolean');
 });
+
+test('Minilytics: tag defer com o id do domínio, nada para domínio fora da lista, CSP libera mini.kbsa.app', async () => {
+  const { tagMinilytics } = await import('../lib/minilytics.mjs');
+  const { CSP_PROPRIA } = await import('../lib/modules/paginas.mjs');
+  assert.match(tagMinilytics({ domain: 'milhas.blog' }), /^<script defer data-website-id="5ad204a428f1592f" src="https:\/\/mini\.kbsa\.app\/js\/script\.js"><\/script>$/);
+  assert.equal(tagMinilytics({ domain: 'outro.com' }), '');
+  assert.match(CSP_PROPRIA, /script-src[^;]*https:\/\/mini\.kbsa\.app/);
+  assert.match(CSP_PROPRIA, /connect-src[^;]*https:\/\/mini\.kbsa\.app/);
+});
