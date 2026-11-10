@@ -299,8 +299,42 @@ function serveStatic(req, res, url) {
       : pathname.startsWith('/img/') ? 'public, max-age=2592000, stale-while-revalidate=86400'
         : 'no-cache';
     res.writeHead(200, { 'Content-Type': TYPES[path.extname(file)] || 'application/octet-stream', 'Cache-Control': cache });
-    res.end(buf);
+    // páginas do site ganham o contador de visitas; o painel (admin.html) e a verificação do Google não
+    const pagina = path.extname(file) === '.html' && !/^[/](admin|google[0-9a-f]+)\.html$/.test(pathname);
+    res.end(pagina ? comVisitas(buf.toString('utf8')) : buf);
   });
+}
+
+// Contador de visitas sem cookie do Portal (portal/lib/modules/visitas.mjs, pedido do Kbsa em 09/11/2026: "liga").
+// Script inline de ~650 bytes, depois do "load": manda um sendBeacon para /pa/v, que este servidor repassa ao Portal no mesmo Bigue.
+// Sem cookie, sem IP gravado; o GA4 e o Clarity continuam como estão.
+const PORTAL_VISITAS = process.env.PORTAL_VISITAS_URL || 'http://127.0.0.1:3400/pa/v';
+const SCRIPT_VISITAS = '<script>(function(){var n=navigator,d=document,l=location,K="suprema.blog",E="/pa/v";if(n.webdriver||d.visibilityState=="prerender")return;'
+  + 'function s(t,x){var q=new URLSearchParams(l.search),j=JSON.stringify({k:K,t:t,p:l.pathname,r:t=="v"?d.referrer:"",'
+  + 'u:[q.get("utm_source"),q.get("utm_medium"),q.get("utm_campaign")],w:innerWidth,x:x});'
+  + 'try{n.sendBeacon?n.sendBeacon(E,j):fetch(E,{method:"POST",body:j,keepalive:!0})}catch(_){}}'
+  + 'function v(){setTimeout(function(){s("v")},400)}d.readyState=="complete"?v():addEventListener("load",v);'
+  + 'd.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest("a[href]");'
+  + 'a&&a.host&&a.host!=l.host&&/^http/.test(a.protocol)&&s("c",(a.host+a.pathname).slice(0,120))},!0)})()</script>';
+const comVisitas = (html) => {
+  const s = String(html);
+  const i = s.toLowerCase().lastIndexOf('</body>');
+  return i < 0 ? s + SCRIPT_VISITAS : s.slice(0, i) + SCRIPT_VISITAS + s.slice(i);
+};
+
+async function repassarVisita(req, res) {
+  res.writeHead(204, { 'Cache-Control': 'no-store' });
+  res.end();
+  try {
+    const chunks = [];
+    let size = 0;
+    for await (const c of req) { size += c.length; if (size > 4000) return; chunks.push(c); }
+    const h = { 'Content-Type': 'text/plain;charset=UTF-8', 'User-Agent': String(req.headers['user-agent'] || '') };
+    if (req.headers.origin) h.Origin = String(req.headers.origin);
+    h['CF-Connecting-IP'] = String(req.headers['cf-connecting-ip'] || req.socket.remoteAddress || '');
+    if (req.headers['cf-ipcountry']) h['CF-IPCountry'] = String(req.headers['cf-ipcountry']);
+    await fetch(PORTAL_VISITAS, { method: 'POST', headers: h, body: Buffer.concat(chunks), signal: AbortSignal.timeout(3000) });
+  } catch { /* o Portal fora do ar não pode afetar a LP */ }
 }
 
 // Páginas geradas no servidor: blog, sitemap, feed e llms.txt (ver lib/blog.js).
@@ -310,7 +344,7 @@ function servePage(req, res, url) {
     res.end(req.method === 'HEAD' ? undefined : body);
     return true;
   };
-  const html = (body, status) => send(body, 'text/html; charset=utf-8', status);
+  const html = (body, status) => send(comVisitas(body), 'text/html; charset=utf-8', status);
   const p = url.pathname;
   if (p === '/blog') return html(renderBlogIndex());
   if (p === '/blog/feed.xml') return send(renderFeed(), 'application/rss+xml; charset=utf-8');
@@ -331,7 +365,7 @@ async function serveTorneios(req, res, txt = false) {
   const grade = await getGrade();
   const page = txt ? renderTorneiosTxt(grade) : renderTorneios(grade);
   res.writeHead(200, { 'Content-Type': txt ? 'text/plain; charset=utf-8' : 'text/html; charset=utf-8', 'Cache-Control': 'public, max-age=120' });
-  res.end(req.method === 'HEAD' ? undefined : page);
+  res.end(req.method === 'HEAD' ? undefined : (txt ? page : comVisitas(page)));
 }
 
 const server = http.createServer(async (req, res) => {
@@ -346,6 +380,7 @@ const server = http.createServer(async (req, res) => {
     return res.end();
   }
 
+  if (req.method === 'POST' && url.pathname === '/pa/v') return repassarVisita(req, res);
   if (!url.pathname.startsWith('/api/')) {
     if (req.method !== 'GET' && req.method !== 'HEAD') {
       res.writeHead(405);
