@@ -174,7 +174,7 @@ const CSS = `.grade-resumo{max-width:760px;margin:0 auto 22px;text-align:center;
   .grade-fonte{max-width:860px;margin:0 auto 26px;color:var(--muted);font-size:.9rem}.grade-faq{max-width:860px;margin:0 auto 26px}.grade-faq details{border-top:1px solid var(--border);padding:10px 0}
   .grade-faq summary{cursor:pointer;font-weight:650}.grade-cta{max-width:860px;margin:0 auto}.grade-cta a.btn-cta{display:inline-block;margin-top:6px;padding:10px 16px;border-radius:var(--radius);background:var(--primary);color:var(--primary-text,#fff);font-weight:700;text-decoration:none}`;
 
-function paginaTorneios({ site, tenant, base, origin, grade, cfg, agora }) {
+function paginaTorneios({ site, tenant, base, origin, grade, cfg, agora, imagem = '' }) {
   const vars = templateVars(tenant, parse(tenant.settings, {}) || {});
   const home = absoluteSiteUrl(origin, base, '/');
   const canonical = absoluteSiteUrl(origin, base, '/torneios');
@@ -221,7 +221,7 @@ function paginaTorneios({ site, tenant, base, origin, grade, cfg, agora }) {
     ${faq.length ? `<section class="grade-faq" aria-labelledby="faq-torneios"><h2 id="faq-torneios">Perguntas sobre os torneios de hoje</h2>${faq.map((f) => `<details><summary>${esc(f.q)}</summary><p>${esc(f.a)}</p></details>`).join('')}</section>` : ''}
     <aside class="blog-box blog-box-cta grade-cta"><strong class="blog-box-title">Quer jogar esses torneios?</strong><p>Os torneios da ${esc(cfg.nome)} ficam no lobby do ${esc(vars.unitLabel || site.name)}. Entre pelo link oficial e comece hoje.</p><a class="btn-cta" href="${esc(`${base}/baixar`)}">Entrar no clube</a></aside>
     </main>${abertosAgora.length ? '<script src="/assets/contagem.js" defer></script>' : ''}</body></html>`;
-  return `${head({ site, origin, base, title: titulo, description: descricao, canonical: '/torneios', image: '', structuredData: ld, ogType: 'website', extraCss: CSS })}${corpo}`;
+  return `${head({ site, origin, base, title: titulo, description: descricao, canonical: '/torneios', image: imagem, structuredData: ld, ogType: 'website', extraCss: CSS })}${corpo}`;
 }
 
 function textoTorneios({ site, tenant, base, origin, grade, cfg, agora }) {
@@ -245,6 +245,16 @@ ${grade.eventos.map(linha).join('\n')}
 `;
 }
 
+/** Imagem de compartilhamento da página: a do SEO do site ou, sem ela, o og:image que a página inicial própria já publica (SEO de 10/11). */
+function imagemDoSite({ site, app }) {
+  try {
+    const seo = JSON.parse(site.seo || '{}');
+    if (/^https:\/\//.test(seo.image || '')) return seo.image;
+    const raiz = app?.db?.prepare("SELECT html FROM paginas_proprias WHERE site_id = ? AND caminho = ''").get(site.id);
+    return /<meta property="og:image" content="(https:\/\/[^"]+)"/.exec(raiz?.html || '')?.[1] || '';
+  } catch { return ''; }
+}
+
 async function servir(ctx, txt) {
   const { req, res, send, tenant } = ctx;
   if (req.method !== 'GET' && req.method !== 'HEAD') return false;
@@ -253,7 +263,7 @@ async function servir(ctx, txt) {
   const agora = new Date();
   let grade = null;
   try { grade = await buscarGrade(cfg.liga, { agora, fetchImpl: ctx.app.fetchImpl || globalThis.fetch }); } catch { grade = null; }
-  const dados = { ...ctx, grade, cfg, agora };
+  const dados = { ...ctx, grade, cfg, agora, imagem: imagemDoSite(ctx) };
   if (txt) return send(res, 200, textoTorneios(dados), { 'Content-Type': 'text/plain; charset=utf-8', 'X-Content-Type-Options': 'nosniff', 'Cache-Control': 'public, max-age=120' });
   sendHtml(send, res, paginaTorneios(dados));
   return undefined;

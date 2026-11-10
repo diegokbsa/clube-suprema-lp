@@ -156,12 +156,21 @@ export function adsenseTag(a) {
   return `<meta name="google-adsense-account" content="${esc(a.cliente)}"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${esc(a.cliente)}" crossorigin="anonymous"></script>`;
 }
 
+/** Title da aba e do Google: até ~60 caracteres. Se "título · nome do blog" passar disso, fica só o título (o og:title segue completo). */
+export const tituloCurto = (t) => { const x = String(t || ''); const i = x.lastIndexOf(' · '); return x.length > 60 && i > 0 ? x.slice(0, i) : x; };
+/** Imagem de compartilhamento padrão do blog: a capa do guia mais recente com capa; sem guias, o logo (logo.webp do blog). */
+function imagemPadrao(v, prefixo, posts = []) {
+  const p = [...posts].reverse().find((x) => capaDo(x));
+  if (p) return capaAbs(capaDo(p), prefixo);
+  return v.inscricao?.blog ? `${new URL(prefixo).origin}${comVersao(`/assets/afiliacao/${v.inscricao.blog}/logo.webp`)}` : null;
+}
+
 function head({ titulo, desc, canonical, v, ld, og }) {
   return `<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>${esc(titulo)}</title><meta name="description" content="${esc(desc).slice(0, 160)}"><link rel="canonical" href="${esc(canonical)}">
+<title>${esc(tituloCurto(titulo))}</title><meta name="description" content="${esc(desc).slice(0, 160)}"><link rel="canonical" href="${esc(canonical)}">
 <meta name="robots" content="index,follow,max-image-preview:large"><meta property="og:type" content="${og || 'website'}"><meta property="og:title" content="${esc(titulo)}">
 <meta property="og:description" content="${esc(desc).slice(0, 200)}"><meta property="og:url" content="${esc(canonical)}"><meta property="og:locale" content="pt_BR">
-${v.imagem ? `<meta property="og:image" content="${esc(v.imagem)}">${/-capa\.(png|jpe?g|webp)$/.test(v.imagem) ? '<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">' : ''}<meta property="og:image:alt" content="${esc(titulo)}"><meta name="twitter:card" content="summary_large_image">` : '<meta name="twitter:card" content="summary">'}${v.lcp ? `<link rel="preload" as="image" href="${esc(v.lcp)}" fetchpriority="high">` : ''}
+${v.imagem ? `<meta property="og:image" content="${esc(v.imagem)}">${/-capa\.(png|jpe?g|webp)(\?|$)/.test(v.imagem) ? '<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">' : ''}<meta property="og:image:alt" content="${esc(titulo)}"><meta name="twitter:card" content="summary_large_image">` : '<meta name="twitter:card" content="summary">'}${v.lcp ? `<link rel="preload" as="image" href="${esc(v.lcp)}" fetchpriority="high">` : ''}
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 ${((u) => `<link rel="preload" as="style" href="${u}" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="${u}"></noscript>`)(`https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;700&amp;family=${familiaFonte(v.fonte, '600;700')}&amp;display=swap`)}
 <meta name="theme-color" content="${esc(v.cor)}">${adsenseTag(v._adsense)}<style>${css(v)}</style>
@@ -466,7 +475,7 @@ export function renderInstitucional({ pag, info, v, prefixo, posts = [], medicao
   const corpo = t.html.replace(/href="\/(?!\/)/g, `href="${prefixo}/`);
   const ld = { '@context': 'https://schema.org', '@type': pag === 'sobre' ? 'AboutPage' : pag === 'contato' ? 'ContactPage' : 'WebPage', name: t.titulo, url: canonical, inLanguage: 'pt-BR',
     isPartOf: { '@type': 'WebSite', name: info.nome, url: `${prefixo}/` }, ...(pag === 'autor' || pag === 'sobre' ? { about: { '@type': 'Organization', name: info.autor || `Equipe ${info.nome}`, url: `${prefixo}/autor`, email: emailDe(info, dominio) } } : {}) };
-  return `${head({ titulo: t.titulo, desc: t.desc, canonical, v: { ...v, imagem: v.imagem || null, lcp: null }, ld })}<body>${topo(info, prefixo, v)}
+  return `${head({ titulo: t.titulo, desc: t.desc, canonical, v: { ...v, imagem: v.imagem || imagemPadrao(v, prefixo, posts), lcp: null }, ld })}<body>${topo(info, prefixo, v)}
 <main><div class="hero"><div class="w"><h1>${esc(t.titulo.replace(/ · .*$/, ''))}</h1><p class="sub">${esc(t.sub || '')}</p></div></div>
 <section><div class="w"><div class="txt">${corpo}</div></div></section></main>${rodape(info, prefixo, v)}</body></html>`;
 }
@@ -499,7 +508,7 @@ ${it.nota ? `<div class="pq">${esc(it.nota)}</div>` : ''}
   const ld = { '@context': 'https://schema.org', '@type': 'CollectionPage', name: titulo, url: canonical, inLanguage: 'pt-BR',
     ...(itens.length ? { mainEntity: { '@type': 'ItemList', itemListElement: itens.map((it, i) => ({ '@type': 'ListItem', position: i + 1, name: it.nome })) } } : {}) };
   const vazio = `<div class="cap" style="grid-template-columns:1fr"><div><h2>Em breve</h2><p>Estamos conferindo preços e lojas. As primeiras ofertas aparecem aqui assim que cada preço for verificado na loja.</p></div></div>`;
-  return `${head({ titulo, desc, canonical, v: { ...v, imagem: v.imagem || null, lcp: null }, ld })}<body>${topo(info, prefixo, v)}
+  return `${head({ titulo, desc, canonical, v: { ...v, imagem: v.imagem || imagemPadrao(v, prefixo), lcp: null }, ld })}<body>${topo(info, prefixo, v)}
 <main><div class="hero"><div class="w"><span class="selo"><b></b>${itens.length ? `Atualizado em ${esc(dataBr(ofertas.atualizado || itens[0].preco_conferido_em))}` : 'Em preparação'}</span>
 <h1>Ofertas do dia</h1><p class="sub">Cada preço aparece com a data em que foi conferido. Alguns links são de afiliado: se você comprar por eles, recebemos uma comissão, sem custo extra para você.</p></div></div>
 <section><div class="w">${itens.length ? `<div class="picks">${cards}</div>` : vazio}</div></section></main>${rodape(info, prefixo, v)}</body></html>`;
@@ -544,9 +553,10 @@ export function renderStory({ info, v, post, prefixo, dados }) {
     publisher: { '@type': 'Organization', name: info.nome, url: `${prefixo}/`, logo: { '@type': 'ImageObject', url: logo, width: 192, height: 192 } } };
   const pagina = (id, corpo, extra = '') => `<amp-story-page id="${id}"><amp-story-grid-layer template="vertical" class="tx">${corpo}</amp-story-grid-layer>${extra}</amp-story-page>`;
   const link = (href, texto, patrocinado) => `<amp-story-page-outlink layout="nodisplay" theme="custom" cta-accent-element="background" cta-accent-color="${esc(v.cor)}"><a href="${esc(href)}"${patrocinado ? ' rel="sponsored nofollow"' : ''}>${esc(texto)}</a></amp-story-page-outlink>`;
-  return `<!doctype html><html ⚡ lang="pt-BR"><head><meta charset="utf-8"><title>${esc(post.title)} · ${esc(info.nome)}</title>
+  return `<!doctype html><html ⚡ lang="pt-BR"><head><meta charset="utf-8"><title>${esc(tituloCurto(`${post.seoTitle || post.title} · ${info.nome}`))}</title>
 <link rel="canonical" href="${esc(url)}"><meta name="viewport" content="width=device-width"><meta name="description" content="${esc(desc).slice(0, 160)}">
 <meta name="robots" content="index,follow,max-image-preview:large">
+<meta property="og:type" content="article"><meta property="og:title" content="${esc(post.title)}"><meta property="og:description" content="${esc(desc).slice(0, 200)}"><meta property="og:url" content="${esc(url)}"><meta property="og:locale" content="pt_BR"><meta property="og:site_name" content="${esc(info.nome)}"><meta property="og:image" content="${esc(`${origem}${comVersao(capa)}`)}"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="${esc(post.coverAlt || post.title)}"><meta name="twitter:card" content="summary_large_image">
 <script async src="https://cdn.ampproject.org/v0.js"></script><script async custom-element="amp-story" src="https://cdn.ampproject.org/v0/amp-story-1.0.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;700&amp;family=${familiaFonte(v.fonte, '700')}&amp;display=swap" rel="stylesheet">
 ${AMP_BOILERPLATE}
