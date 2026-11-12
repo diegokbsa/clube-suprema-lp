@@ -72,13 +72,16 @@ test('post: caixa no topo ou tabela "melhor escolha", CTA no meio, relacionados 
   assert.ok(entreBlogs > 0, 'algum post com link para outro blog');
 });
 
-test('rodapé: canal do Telegram do blog pelo BigLinks, com src próprio que o comOrigem não troca', async () => {
+// 12/11/2026: o botão sai sem o src fixo da vitrine; o comOrigem põe o da página (site_post), que o BigLinks grava na coluna src.
+// O canal continua no próprio link (slug tel-*), e o destino t.me guarda o src=telegram_<blog> dele (o link não repassa parâmetros).
+test('rodapé: canal do Telegram do blog pelo BigLinks, com o src da página e nofollow', async () => {
   const { comOrigem } = await import('../tools/afiliacao-visual.mjs');
   for (const slug of fs.readdirSync(C).filter((d) => fs.existsSync(path.join(C, d, 'vitrine.json')))) {
     const b = blog(slug);
     if (!b.v.telegram) continue;
     const html = comOrigem(renderHome(b), `${slug}-home`);
-    assert.ok(html.includes(`href="${b.v.telegram.replace(/&/g, '&amp;')}"`), `${slug}: link do Telegram intacto`);
+    const base = b.v.telegram.split('?')[0];
+    assert.ok(html.includes(`href="${base}?src=${slug}_home&utm_source=kbsa_blogs&utm_campaign=${slug}_home" rel="nofollow noopener"`), `${slug}: link do Telegram com a origem da página`);
     assert.match(b.v.telegram, /^https:\/\/l\.kbsa\.app\/tel-[a-z]+-[a-z0-9]+\?src=telegram_/);
     assert.ok(b.v.telegram.endsWith(`src=telegram_${slug}&utm_source=kbsa_blogs&utm_campaign=telegram_${slug}`), `${slug}: origem do clique`);
   }

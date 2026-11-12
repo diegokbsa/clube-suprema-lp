@@ -203,7 +203,7 @@ function rodape(info, prefixo = '', v = {}) {
   const nav = PAGINAS.map((p) => `<a href="${prefixo}/${p}">${esc(ROTULO[p])}</a>`).join('');
   return `<footer><div class="w"><strong>${esc(info.nome)}</strong><span>${esc(info.descricao)}</span>
 <nav class="rod" aria-label="Institucional">${((bf) => (bf ? `<a href="${esc(bf.url)}">Black Friday 2026</a>` : ''))(blackFriday(v, prefixo))}${nav}</nav>
-${/^https:\/\/l\.kbsa\.app\/[a-z0-9-]+/.test(v.telegram || '') ? `<a class="tel" href="${esc(v.telegram)}" rel="noopener" target="_blank">Entre no canal do ${esc(info.nome)} no Telegram</a>` : ''}
+${/^https:\/\/l\.kbsa\.app\/[a-z0-9-]+/.test(v.telegram || '') ? `<a class="tel" href="${esc(String(v.telegram).split('?')[0])}" rel="nofollow noopener" target="_blank">Entre no canal do ${esc(info.nome)} no Telegram</a>` : ''}
 <span><b>Transparência:</b> alguns links deste site são de afiliado. Se você comprar por eles, recebemos uma comissão, sem custo extra para você. Isso não muda a ordem nem o que escrevemos; confira sempre na página oficial o conteúdo, o preço e a garantia antes de comprar. <a href="${prefixo}/aviso-de-afiliados">Saiba mais</a>.</span>
 <span>Contato: <a href="mailto:${esc(emailDe(info, String(prefixo).replace(/^https?:\/\//, '')))}">${esc(emailDe(info, String(prefixo).replace(/^https?:\/\//, '')))}</a> · © ${ANO} ${esc(info.nome)} · Conteúdo informativo, sem promessa de resultado.</span></div></footer>`;
 }

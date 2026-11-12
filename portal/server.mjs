@@ -8,6 +8,7 @@ import { randomBytes } from 'node:crypto';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { openDb, parse, now } from './lib/db.mjs';
 import { scoped, registerTable } from './lib/repo.mjs';
+import { comBigLinks } from './lib/biglinks-saida.mjs';
 import { HttpError, compile, parseCookies, cookie, readBody, decodeBody, send, rateLimiter, clientIp } from './lib/http.mjs';
 import { readSession, createSession, dropSession, membership, can, checkPassword, createUser, hmac, safeEqualHex, vault } from './lib/auth.mjs';
 import { coreRoutes } from './lib/core.mjs';
@@ -125,22 +126,24 @@ export async function createApp({ db, origin = 'http://localhost:3400', secretKe
       return send(res, 200, corpo, { 'Content-Type': 'text/plain; charset=utf-8', 'Cache-Control': 'public, max-age=3600' });
     }
     if (rest === `${app.seo.key(site)}.txt`) return send(res, 200, app.seo.key(site), { 'Cache-Control': 'public, max-age=86400' }); // chave IndexNow
+    // BigLinks na saída: botões de conversão mapeados em conteudo/biglinks-destinos.json saem por l.kbsa.app (hotpoker.club).
+    const sendSite = (r, status, corpo, cab = {}) => send(r, status, typeof corpo === 'string' && /text\/html/i.test(String(cab['Content-Type'] || '')) ? comBigLinks(corpo, site.domain, rest) : corpo, cab);
     for (const fn of app.paginasProprias) { // HTML próprio do site (raiz e páginas extras) vence o construtor
       const out = fn({ req, site, tenant, repo, rest, base, origin: siteOrigin });
-      if (out) return send(res, out.status, req.method === 'HEAD' ? '' : out.body, out.headers);
+      if (out) return sendSite(res, out.status, req.method === 'HEAD' ? '' : out.body, out.headers);
     }
     for (const r of app.publicRoutes) { // a rota pode devolver false para deixar o caminho seguir (ex.: /torneios desligado cai na página do construtor)
       const params = r.match(`/${rest}`);
       if (!params) continue;
-      const out = await r.handler({ req, res, db, app, site, tenant, repo, base, params, pages, origin: siteOrigin, send });
+      const out = await r.handler({ req, res, db, app, site, tenant, repo, base, params, pages, origin: siteOrigin, send: sendSite });
       if (out !== false) return out;
     }
-    if (req.method !== 'GET') return send(res, 405, 'Método não permitido.');
+    if (req.method !== 'GET') return sendSite(res, 405, 'Método não permitido.');
     const slug = String(rest || '').replace(/\/$/, '');
     const page = pages.find((p) => p.slug === slug);
-    if (!page || !page.published) return send(res, 404, renderNotFound(site), { 'Content-Type': 'text/html; charset=utf-8' });
+    if (!page || !page.published) return sendSite(res, 404, renderNotFound(site), { 'Content-Type': 'text/html; charset=utf-8' });
     const html = renderPage({ site, page, blocks: await prontos(tenant, parse(page.published, [])), tenant, base, origin: siteOrigin, pages });
-    return send(res, 200, html, { 'Content-Type': 'text/html; charset=utf-8', 'Content-Security-Policy': SITE_CSP, 'Cache-Control': 'public, max-age=60' });
+    return sendSite(res, 200, html, { 'Content-Type': 'text/html; charset=utf-8', 'Content-Security-Policy': SITE_CSP, 'Cache-Control': 'public, max-age=60' });
   }
 
   async function submitLead(req, res, siteId) {

@@ -1,0 +1,17 @@
+{
+ "_leia": "Destino exato do href -> slug do BigLinks (l.kbsa.app/<slug>). Aplicado na saida por lib/biglinks-saida.mjs. Criado em 12/11/2026.",
+ "hotpoker.club": {
+  "_prefixo": "hotpoker",
+  "https://wa.me/5511952138293?text=Oi!%20Venho%20do%20clube%2033548%2C%20agente%20768286%2C%20e%20gostaria%20de%20suporte.": "hp-wa-suporte",
+  "https://supremapoker.onelink.me/xDgV?deep_link_value=eyJsaW5rdHlwZSI6MSwiY2x1YmlkIjozMzU0OCwiYWdlbnRpZCI6NzY4Mjg2LCJwbGF5ZXJpZCI6NzY4Mjg2LCJjcmVhdGV0aW1lIjoiMTc5NDAwNzYxNTcyNSJ9": "hp-app-onelink",
+  "https://www.instagram.com/hotpoker.agent": "hp-ig",
+  "https://www.facebook.com/share/g/1KJNHrXUSF/": "hp-fb-grupo",
+  "https://app.fichas24horas.com.br/signup": "hp-f24-signup",
+  "https://www.supremapoker.net/": "sx-app-site",
+  "https://apps.apple.com/br/app/suprema-poker/id1583176410": "sx-app-ios",
+  "https://play.google.com/store/apps/details?id=com.opt.supremapoker&hl=pt_BR": "sx-app-android",
+  "https://security.supremapoker.com.br/download": "sx-app-download",
+  "https://apps.apple.com/br/app/fichas-24-horas/id6469055865": "sx-f24-ios",
+  "https://play.google.com/store/apps/details?id=com.mycompany.fichas24horas&hl=pt_BR": "sx-f24-android"
+ }
+}

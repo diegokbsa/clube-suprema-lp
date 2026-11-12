@@ -217,18 +217,128 @@ export async function resumoBigLinks(app, de, ate) {
   return v;
 }
 
-// ---------------------------------------------------------------- resumo em arquivo (relatório das 8h)
+// ---------------------------------------------------------------- placar diário (cliques do BigLinks × visitas)
+// Pedido do Kbsa em 12/11/2026. O BigLinks grava o src de cada clique (site_post, posto pelo comOrigem e pelo
+// biglinks-saida) e marca o clique de gente (Referer ou Sec-Fetch-User). Aqui o src vira site, post e canal, e junta
+// com as visitas do contador. A taxa é cliques de gente ÷ visitas: os cliques de robô ficam de fora da conta.
 
-export function resumoDiario(db, hoje = diaDe()) {
-  const ontem = somaDias(hoje, -1);
-  const um = (dia) => { const r = relatorio(db, dia, dia); return { dia, ...r.total, internas: r.internas, porSite: r.porSite, origens: r.origens.slice(0, 5), posts: r.porPost.slice(0, 5) }; };
-  return { gerado_em: new Date().toISOString(), fonte: 'Portal, contador próprio sem cookie (tabela visitas)', ontem: um(ontem), hoje: um(hoje) };
+const EXTERNOS = { telegram: 'telegram', instagram: 'instagram', ig: 'instagram', pinterest: 'pinterest', pin: 'pinterest', email: 'email', whatsapp: 'whatsapp', tiktok: 'tiktok', facebook: 'facebook' };
+
+/** Prefixo do src -> domínio. Blogs "af-<x>" usam "<x>"; hotpoker usa "hotpoker"; suprema.blog fica fora do banco. */
+export function prefixosDosSites(db) {
+  const m = { suprema: 'suprema.blog' };
+  try {
+    for (const s of db.prepare('SELECT slug, domain FROM sites WHERE domain IS NOT NULL').all()) {
+      const dom = String(s.domain).toLowerCase();
+      if (/^af-[a-z0-9-]+$/.test(s.slug)) m[s.slug.slice(3).replace(/-/g, '_')] = dom;
+      else m[String(s.slug).replace(/[^a-z0-9]/g, '')] = dom;
+    }
+  } catch { /* banco sem sites (teste) */ }
+  return m;
 }
 
-function gravarResumo(db, dir) {
+/** "achadinhos_cinco_achadinhos" -> {site, post, canal:'site'}; "achadinhos_story_x" -> canal 'story';
+ *  "telegram_achadinhos" -> canal 'telegram' (clique vindo do canal, não do site); sem prefixo conhecido -> canal 'outro'. */
+export function lerSrc(src, prefixos) {
+  const t = String(src || '').split('_').filter(Boolean);
+  if (!t.length) return { site: null, post: null, canal: 'sem src' };
+  if (EXTERNOS[t[0]]) return { site: prefixos[t[1]] || null, post: t.slice(2).join('_') || null, canal: EXTERNOS[t[0]] };
+  for (let n = Math.min(3, t.length); n >= 1; n--) { // prefixo pode ter sublinhado: do mais longo ao mais curto
+    const site = prefixos[t.slice(0, n).join('_')];
+    if (!site) continue;
+    let resto = t.slice(n);
+    let canal = 'site';
+    if (resto[0] === 'story') { canal = 'story'; resto = resto.slice(1); }
+    return { site, post: resto.join('_') || 'home', canal };
+  }
+  return { site: null, post: null, canal: 'outro' };
+}
+
+const tokenDe = (caminho) => {
+  const c = String(caminho || '/').replace(/^\/+|\/+$/g, '');
+  return !c ? 'home' : c.replace(/^blog\//, '').toLowerCase().replace(/[^a-z0-9]+/g, '_');
+};
+
+/** Placar de um dia: `linhas` vêm do GET /analytics/origens do BigLinks ({dia, src, link, cliques, humanos}). */
+export function placarDoDia(db, linhas, dia, prefixos = prefixosDosSites(db)) {
+  const vis = db.prepare("SELECT site, caminho, COUNT(*) n FROM visitas WHERE dia = ? AND tipo = 'v' AND interno = 0 GROUP BY 1, 2").all(dia);
+  const porSite = new Map(); const porPost = new Map(); const porCanal = new Map();
+  const doSite = (site) => { const s = porSite.get(site) || { site, visitas: 0, cliques: 0, humanos: 0 }; porSite.set(site, s); return s; };
+  for (const v of vis) {
+    doSite(v.site).visitas += v.n;
+    const k = `${v.site}|${tokenDe(v.caminho)}`;
+    const p = porPost.get(k) || { site: v.site, post: tokenDe(v.caminho), caminho: v.caminho, visitas: 0, cliques: 0, humanos: 0 };
+    p.visitas += v.n; porPost.set(k, p);
+  }
+  let cliques = 0; let humanos = 0;
+  for (const l of (linhas || []).filter((x) => x.dia === dia)) {
+    const c = Number(l.cliques || 0); const h = Number(l.humanos || 0);
+    cliques += c; humanos += h;
+    const o = lerSrc(l.src, prefixos);
+    const ca = porCanal.get(o.canal) || { canal: o.canal, cliques: 0, humanos: 0 }; ca.cliques += c; ca.humanos += h; porCanal.set(o.canal, ca);
+    if (!o.site) continue;
+    const s = doSite(o.site); s.cliques += c; s.humanos += h;
+    if (o.canal !== 'site' && o.canal !== 'story') continue;
+    // o src do post é cortado (50 caracteres no comOrigem): casa pelo começo do caminho
+    const chave = [...porPost.keys()].find((k) => {
+      if (!k.startsWith(`${o.site}|`)) return false;
+      const t = k.slice(o.site.length + 1);
+      return t === o.post || (o.post.length >= 12 && (t.startsWith(o.post) || o.post.startsWith(t)));
+    }) || `${o.site}|${o.post}`;
+    const p = porPost.get(chave) || { site: o.site, post: o.post, caminho: null, visitas: 0, cliques: 0, humanos: 0 };
+    p.cliques += c; p.humanos += h; porPost.set(chave, p);
+  }
+  const pct = (h, v) => (v ? Math.round((h / v) * 1000) / 10 : null);
+  const visitas = vis.reduce((a, v) => a + v.n, 0);
+  const ord = (a, b) => b.humanos - a.humanos || b.cliques - a.cliques || (b.visitas || 0) - (a.visitas || 0);
+  return {
+    dia,
+    regra: 'cliques = aceitos no BigLinks; humanos = com Referer ou Sec-Fetch-User; taxa = humanos ÷ visitas (%)',
+    total: { visitas, cliques, humanos, taxa: pct(humanos, visitas) },
+    porSite: [...porSite.values()].map((x) => ({ ...x, taxa: pct(x.humanos, x.visitas) })).sort(ord),
+    porPost: [...porPost.values()].filter((x) => x.cliques || x.visitas).map((x) => ({ ...x, taxa: pct(x.humanos, x.visitas) })).sort(ord).slice(0, 20),
+    porCanal: [...porCanal.values()].sort(ord),
+  };
+}
+
+const cacheOrigens = new Map();
+/** GET /analytics/origens do BigLinks (cache de 10 min). Sem chave ou sem resposta: ok false e linhas []. */
+export async function origensBigLinks(app, de, ate) {
+  const chave = lerArq(process.env.BIGLINKS_CHAVE_ARQUIVO || 'D:/biglinks-chave.txt');
+  if (!chave) return { ok: false, motivo: 'sem chave do BigLinks neste servidor', linhas: [] };
+  const k = `${de}|${ate}`;
+  const c = cacheOrigens.get(k);
+  if (c && Date.now() - c.em < 600_000) return c.v;
+  const api = (process.env.BIGLINKS_API || 'https://kbsa.app/biglinks/api/v1').replace(/\/$/, '');
+  let v;
   try {
+    const r = await (app.fetchImpl || fetch)(`${api}/analytics/origens?de=${de}&ate=${ate}`, { headers: { Authorization: `Bearer ${chave}`, 'User-Agent': 'portal-kbsa/placar' }, signal: AbortSignal.timeout(8000) });
+    const j = await r.json().catch(() => null);
+    v = r.status === 200 && Array.isArray(j?.dados?.linhas) ? { ok: true, linhas: j.dados.linhas } : { ok: false, motivo: `BigLinks respondeu ${r.status}`, linhas: [] };
+  } catch (e) { v = { ok: false, motivo: `BigLinks fora do ar (${String(e?.message || e).slice(0, 80)})`, linhas: [] }; }
+  cacheOrigens.set(k, { em: Date.now(), v });
+  return v;
+}
+
+// ---------------------------------------------------------------- resumo em arquivo (relatório das 8h)
+
+export function resumoDiario(db, hoje = diaDe(), origens = null) {
+  const ontem = somaDias(hoje, -1);
+  const um = (dia) => {
+    const r = relatorio(db, dia, dia);
+    const base = { dia, ...r.total, internas: r.internas, porSite: r.porSite, origens: r.origens.slice(0, 5), posts: r.porPost.slice(0, 5) };
+    return origens?.ok ? { ...base, placar: placarDoDia(db, origens.linhas, dia) } : base;
+  };
+  return { gerado_em: new Date().toISOString(), fonte: `Portal, contador próprio sem cookie (tabela visitas)${origens?.ok ? ' + BigLinks (cliques por src)' : ''}`,
+    ...(origens && !origens.ok ? { placar_indisponivel: origens.motivo } : {}), ontem: um(ontem), hoje: um(hoje) };
+}
+
+async function gravarResumo(app, dir) {
+  try {
+    const hoje = diaDe();
+    const origens = await origensBigLinks(app, somaDias(hoje, -1), hoje);
     const f = path.join(dir, 'visitas-resumo.json');
-    fs.writeFileSync(`${f}.tmp`, JSON.stringify(resumoDiario(db), null, 1));
+    fs.writeFileSync(`${f}.tmp`, JSON.stringify(resumoDiario(app.db, hoje, origens), null, 1));
     fs.renameSync(`${f}.tmp`, f);
   } catch (e) { console.warn(`[visitas] resumo não gravado: ${e.message}`); }
 }
@@ -240,8 +350,8 @@ export async function init(app) {
   app.registrarVisita = (req, res) => registrarVisita(app.db, req, res);
   const dir = process.env.PORTAL_DATA_DIR;
   if (dir && !process.env.NODE_TEST_CONTEXT) {
-    setTimeout(() => gravarResumo(app.db, dir), 20_000).unref();
-    setInterval(() => gravarResumo(app.db, dir), 600_000).unref();
+    setTimeout(() => gravarResumo(app, dir), 20_000).unref();
+    setInterval(() => gravarResumo(app, dir), 600_000).unref();
   }
 }
 
@@ -255,8 +365,9 @@ export const routes = [
       const dias = Math.min(90, Math.max(1, Number(query.dias) || 14));
       const de = diaOk(query.de) ? query.de : somaDias(ate, -(dias - 1));
       const r = relatorio(db, de, ate);
-      const bl = await resumoBigLinks(app, de, ate);
-      return { ...r, hoje, ontem: somaDias(hoje, -1), biglinks: bl, descartes: { ...descartes },
+      const [bl, og] = await Promise.all([resumoBigLinks(app, de, ate), origensBigLinks(app, somaDias(ate, -1), ate)]);
+      const placar = og.ok ? { ontem: placarDoDia(db, og.linhas, somaDias(ate, -1)), hoje: placarDoDia(db, og.linhas, ate) } : { indisponivel: og.motivo };
+      return { ...r, hoje, ontem: somaDias(hoje, -1), biglinks: bl, placar, descartes: { ...descartes },
         regras: 'Sem cookie e sem IP. Visitante = hash do dia (sal diário só na memória). Robôs, navegador sem tela e a nossa rede ficam fora.' };
     },
   },

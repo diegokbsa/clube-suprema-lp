@@ -203,14 +203,14 @@ try {
       // visual de venda: home comparativa, lista e cada post como página própria (mesmos endereços do blog)
       const v = { ...vitrine, _ativos: ATIVOS, _adsense: ADSENSE };
       gravarPagina(repo, { siteId: site.id, caminho: '', html: comOrigem(renderHome({ info, v, posts: lista, prefixo, dados: DADOS_VITRINE }), `${slugBlog}-home`), titulo: info.nome, indexar: true });
-      gravarPagina(repo, { siteId: site.id, caminho: 'blog', html: renderLista({ info, v, posts: lista, prefixo }), titulo: `Guias · ${info.nome}`, indexar: false });
+      gravarPagina(repo, { siteId: site.id, caminho: 'blog', html: comOrigem(renderLista({ info, v, posts: lista, prefixo }), `${slugBlog}-blog`), titulo: `Guias · ${info.nome}`, indexar: false });
       for (const a of lista) {
         const row = repo.get('posts', { site_id: site.id, slug: a.slug });
         gravarPagina(repo, { siteId: site.id, caminho: `blog/${a.slug}`, titulo: a.title, indexar: false,
           html: comOrigem(renderPost({ info, v, post: a, posts: lista, prefixo, dados: DADOS_VITRINE, aplicarLinks, publicado: row?.published_at, atualizado: row?.updated_at }), `${slugBlog}-${a.slug}`) });
       }
       for (const pag of PAGINAS) {
-        gravarPagina(repo, { siteId: site.id, caminho: pag, html: renderInstitucional({ pag, info, v, prefixo, posts: lista, medicao: med }), titulo: pag, indexar: true });
+        gravarPagina(repo, { siteId: site.id, caminho: pag, html: comOrigem(renderInstitucional({ pag, info, v, prefixo, posts: lista, medicao: med }), `${slugBlog}-${pag}`), titulo: pag, indexar: true });
       }
       // Ofertas do dia (plano de 100 vendas/dia, item 5): blogs de produto físico, ou qualquer blog com ofertas.json.
       // Sem item válido a página mostra "Em breve" e fica fora do sitemap; com itens, entra (indexar).
