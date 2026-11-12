@@ -1141,5 +1141,47 @@
     "img": "https://down-zl-br.img.susercontent.com/file/br-11134207-7r98o-mazmlk0w1ytr62@resize_w450_nl",
     "preco_nota": "na Shopee em 09/11/2026",
     "cta": "Ver na Shopee"
+  },
+  "ck-fabrica-de-reels": {
+    "nome": "Fábrica de Reels · editor de vídeos em lote",
+    "tipo": "Software",
+    "preco": 149.9,
+    "img": "https://cdn-checkout.cakto.com.br/products/f75f6bfb-b782-4560-85c8-a3a46629f086.png"
+  },
+  "ck-restauracao-plasticos": {
+    "nome": "Curso de restauração de plásticos e carenagens",
+    "tipo": "Curso online",
+    "preco": 19.97,
+    "img": "https://cdn-checkout.cakto.com.br/products/capa_Aspp2HS.jpg"
+  },
+  "ck-maquina-preguica-3d": {
+    "nome": "Máquina Preguiça 3D · vídeos animados com IA",
+    "tipo": "Software",
+    "preco": 47.9,
+    "img": "https://cdn-checkout.cakto.com.br/products/1c56e2a4-b5f0-469b-b236-d784b88ea4c7.png"
+  },
+  "ck-larissa-whatsapp": {
+    "nome": "Direct Line · assistente de rotina no WhatsApp (Larissa)",
+    "tipo": "App",
+    "preco": 67.9,
+    "img": "https://cdn-checkout.cakto.com.br/products/5c2b8799-a09c-46b8-9b75-ef6d5d45d1c5.png"
+  },
+  "ck-ia-musica-plus": {
+    "nome": "IA Música Plus"
+  },
+  "ck-sameday-templates": {
+    "nome": "Sameday Mobile Templates"
+  },
+  "ck-edicao-video-ia": {
+    "nome": "Edição de Vídeo com I.A"
+  },
+  "ck-notifiquei": {
+    "nome": "Notifiquei · respostas automáticas no Instagram"
+  },
+  "ck-crieai-app": {
+    "nome": "CRIEAI.APP · software de prompts"
+  },
+  "ck-enaus-criative": {
+    "nome": "Enaus Criative (anual)"
   }
 }

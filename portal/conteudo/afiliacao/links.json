@@ -44,7 +44,8 @@
     "curto": "https://l.kbsa.app/figurinhas-sweet"
   },
   "tufos-cola-fria": {
-    "status": "pendente"
+    "status": "pendente",
+    "pedido_em": "2026-11-12"
   },
   "rocadeiras": {
     "status": "pendente"
@@ -55,7 +56,8 @@
     "curto": "https://l.kbsa.app/ar-condicionado"
   },
   "bmtech": {
-    "status": "pendente"
+    "status": "pendente",
+    "pedido_em": "2026-11-12"
   },
   "frp-total": {
     "status": "suspenso",
@@ -171,7 +173,8 @@
     "curto": "https://l.kbsa.app/fluency-fast"
   },
   "italiano-falar": {
-    "status": "pendente"
+    "status": "pendente",
+    "pedido_em": "2026-11-12"
   },
   "dotti": {
     "status": "pendente"
@@ -755,5 +758,49 @@
     "status": "ativo",
     "url": "https://s.shopee.com.br/LofPINpOa",
     "curto": "https://l.kbsa.app/sp-ach-lapela-duplo"
+  },
+  "ck-fabrica-de-reels": {
+    "status": "ativo",
+    "url": "https://pay.cakto.com.br/7zvcyx6?affiliate=DuPWqK26",
+    "curto": "https://l.kbsa.app/ck-fabrica-de-reels"
+  },
+  "ck-restauracao-plasticos": {
+    "status": "ativo",
+    "url": "https://pay.cakto.com.br/p7sdpt5?affiliate=6isSkUp7",
+    "curto": "https://l.kbsa.app/ck-restauracao-plasticos"
+  },
+  "ck-maquina-preguica-3d": {
+    "status": "ativo",
+    "url": "https://pay.cakto.com.br/gi85qta?affiliate=BjLS8kgU",
+    "curto": "https://l.kbsa.app/ck-maquina-preguica-3d"
+  },
+  "ck-larissa-whatsapp": {
+    "status": "ativo",
+    "url": "https://pay.cakto.com.br/jsq8f7z?affiliate=rUNXQSPt",
+    "curto": "https://l.kbsa.app/ck-larissa-whatsapp"
+  },
+  "ck-ia-musica-plus": {
+    "status": "pendente",
+    "pedido_em": "2026-11-12"
+  },
+  "ck-sameday-templates": {
+    "status": "pendente",
+    "pedido_em": "2026-11-12"
+  },
+  "ck-edicao-video-ia": {
+    "status": "pendente",
+    "pedido_em": "2026-11-12"
+  },
+  "ck-notifiquei": {
+    "status": "pendente",
+    "pedido_em": "2026-11-12"
+  },
+  "ck-crieai-app": {
+    "status": "pendente",
+    "pedido_em": "2026-11-12"
+  },
+  "ck-enaus-criative": {
+    "status": "pendente",
+    "pedido_em": "2026-11-12"
   }
 }
