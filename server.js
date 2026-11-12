@@ -9,6 +9,7 @@ import { store } from './lib/store.js';
 import * as flow from './lib/orchestrator.js';
 import { createLead, recordLeadEvent, leadsOverview } from './lib/leads.js';
 import { validateSignup, validateLead } from './public/shared/validate.js';
+import { comBigLinks } from './lib/biglinks.js';
 import { renderBlogIndex, renderBlogPost, renderNotFound, renderSitemap, renderFeed, renderLlms, renderLlmsFull, renderAbout, renderTorneios, renderTorneiosTxt } from './lib/blog.js';
 import { getGrade } from './lib/torneios.js';
 import { announceNewPosts, shareNewPosts, shareDailyGrade } from './lib/novos-posts.js';
@@ -301,7 +302,7 @@ function serveStatic(req, res, url) {
     res.writeHead(200, { 'Content-Type': TYPES[path.extname(file)] || 'application/octet-stream', 'Cache-Control': cache });
     // páginas do site ganham o contador de visitas; o painel (admin.html) e a verificação do Google não
     const pagina = path.extname(file) === '.html' && !/^[/](admin|google[0-9a-f]+)\.html$/.test(pathname);
-    res.end(pagina ? comVisitas(buf.toString('utf8')) : buf);
+    res.end(pagina ? comVisitas(buf.toString('utf8'), url.pathname) : buf);
   });
 }
 
@@ -318,8 +319,9 @@ const SCRIPT_VISITAS = '<script>(function(){var n=navigator,d=document,l=locatio
   + 'a&&a.host&&a.host!=l.host&&/^http/.test(a.protocol)&&s("c",(a.host+a.pathname).slice(0,120))},!0)})()</script>';
 // Minilytics (mini.kbsa.app, fork sem cookie, pedido do Kbsa 09/11/2026): tag defer com o id do suprema.blog.
 const SCRIPT_MINILYTICS = '<script defer data-website-id="94260f12380fdbaa" src="https://mini.kbsa.app/js/script.js"></script>';
-const comVisitas = (html) => {
-  const s = String(html);
+// BigLinks na saída (lib/biglinks.js): botões de conversão por l.kbsa.app com src=suprema_<página>.
+const comVisitas = (html, pathname = '/') => {
+  const s = comBigLinks(html, pathname);
   const i = s.toLowerCase().lastIndexOf('</body>');
   const tags = SCRIPT_VISITAS + SCRIPT_MINILYTICS;
   return i < 0 ? s + tags : s.slice(0, i) + tags + s.slice(i);
@@ -347,7 +349,7 @@ function servePage(req, res, url) {
     res.end(req.method === 'HEAD' ? undefined : body);
     return true;
   };
-  const html = (body, status) => send(comVisitas(body), 'text/html; charset=utf-8', status);
+  const html = (body, status) => send(comVisitas(body, url.pathname), 'text/html; charset=utf-8', status);
   const p = url.pathname;
   if (p === '/blog') return html(renderBlogIndex());
   if (p === '/blog/feed.xml') return send(renderFeed(), 'application/rss+xml; charset=utf-8');
@@ -368,7 +370,7 @@ async function serveTorneios(req, res, txt = false) {
   const grade = await getGrade();
   const page = txt ? renderTorneiosTxt(grade) : renderTorneios(grade);
   res.writeHead(200, { 'Content-Type': txt ? 'text/plain; charset=utf-8' : 'text/html; charset=utf-8', 'Cache-Control': 'public, max-age=120' });
-  res.end(req.method === 'HEAD' ? undefined : (txt ? page : comVisitas(page)));
+  res.end(req.method === 'HEAD' ? undefined : (txt ? page : comVisitas(page, '/torneios')));
 }
 
 const server = http.createServer(async (req, res) => {

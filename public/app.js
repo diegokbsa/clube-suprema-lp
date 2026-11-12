@@ -181,7 +181,9 @@ function bindDynamic(root = document) {
   const { club, links } = state.config;
   $$('[data-wa]', root).forEach((a) => { a.href = waLink(a.dataset.wa); });
   $$('[data-link]', root).forEach((a) => { a.href = links[a.dataset.link]; });
-  $$('[data-buy]', root).forEach((a) => { a.href = links.buyChips; });
+  // Comprar fichas sai pelo BigLinks (l.kbsa.app/sx-f24-auto), com a etapa da LP no src (pedido do Kbsa em 12/11/2026).
+  const fichas = links.buyChips === 'https://fichas24horas.com.br/auto-atendimento' ? `https://l.kbsa.app/sx-f24-auto?src=suprema_lp_${String(state.view || 'home').replace(/[^a-z0-9]+/gi, '_').toLowerCase()}` : links.buyChips;
+  $$('[data-buy]', root).forEach((a) => { a.href = fichas; });
   $$('[data-bind="club-line"]', root).forEach((el) => { el.textContent = `ID ${club.id}`; });
   $$('[data-bind="club-id"]', root).forEach((el) => { el.textContent = club.id; });
   $$('[data-bind="agent-id"]', root).forEach((el) => { el.textContent = club.agentId; });
