@@ -288,16 +288,25 @@ ${ld ? `<script type="application/ld+json">${JSON.stringify(ld).replace(/</g, '\
 
 // ---- Black Friday 2026 (pedido do Kbsa via Big, 09/11): faixa no topo de todas as páginas + link no menu e no rodapé ----
 // Só aparece no blog que já tem o post "black-friday-2026-ofertas-de-<blog>" e até 01/12/2026 (23:59 de Brasília).
+// 12/11/2026 (Mesa de Copy/Big, revisão do AdSense): a mesma faixa nos 10 blogs parecia rede em escala. O texto agora vem do
+// próprio post de BF: campo "faixa" (texto) ou, sem ele, o título do post; "faixa": false tira a faixa e o item do menu (fica
+// só o link no rodapé, com o título do post), para a página de BF que virou guia.
 export const BF_ATE = Date.parse('2026-12-02T03:00:00Z');
 export function blackFriday(v, prefixo, agora = Date.now()) {
   const blog = v.inscricao?.blog;
   if (!blog || agora >= BF_ATE) return null;
   const slug = `black-friday-2026-ofertas-de-${blog}`;
   const dir = path.join(CONTEUDO, blog, 'posts');
-  const existe = fs.existsSync(dir) && fs.readdirSync(dir).some((f) => f.endsWith('.json') && (() => { try { return JSON.parse(fs.readFileSync(path.join(dir, f), 'utf8')).slug === slug; } catch { return false; } })());
-  return existe ? { url: `${prefixo}/blog/${slug}`, nicho: v.assunto || '' } : null;
+  if (!fs.existsSync(dir)) return null;
+  for (const f of fs.readdirSync(dir).filter((x) => x.endsWith('.json'))) {
+    let p; try { p = JSON.parse(fs.readFileSync(path.join(dir, f), 'utf8')); } catch { continue; }
+    if (p?.slug !== slug || p.redirect) continue;
+    const titulo = String(p.title || 'Black Friday 2026');
+    return { url: `${prefixo}/blog/${slug}`, titulo, faixa: p.faixa === false ? null : (typeof p.faixa === 'string' && p.faixa.trim() ? p.faixa.trim() : titulo) };
+  }
+  return null;
 }
-const faixaBF = (bf) => (bf ? `<div class="bf" data-ate="${BF_ATE}"><div class="w"><b>Black Friday 2026</b><span>Ofertas${bf.nicho ? ` de ${esc(bf.nicho)}` : ''} com preço conferido e data.</span><a href="${esc(bf.url)}">Ver a seleção</a></div></div>
+const faixaBF = (bf) => (bf?.faixa ? `<div class="bf" data-ate="${BF_ATE}"><div class="w"><span>${esc(bf.faixa)}</span><a href="${esc(bf.url)}">Ler o guia</a></div></div>
 <script>(function(){var b=document.currentScript.previousElementSibling;if(Date.now()>=+b.dataset.ate)b.remove()})()</script>` : '');
 
 const ICONE_MODO = '<svg class="sol" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6"/></svg><svg class="lua" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.6A8.2 8.2 0 0 1 9.4 4a8.2 8.2 0 1 0 10.6 10.6Z"/></svg>';
@@ -309,7 +318,7 @@ function topo(info, prefixo, v, atual = '', pl = plantaDe(blogDe(v)).home) {
   const voz = vozDe(v, info);
   const nav = [[`${prefixo}/blog`, 'Guias', 'blog'], [`${prefixo}/#comece`, 'Comece por aqui', ''], [`${prefixo}/#fichas`, 'Fichas de compra', ''], [`${prefixo}/autor`, `Quem é ${voz.ele === 'a' ? 'a' : 'o'} ${voz.curto}`, 'autor']];
   return `${faixaBF(bf)}<header class="top top-${pl}"><div class="w"><a class="marca" href="${prefixo}/">${esc(info.nome)}<b>com ${esc(voz.curto)}</b></a>
-<nav aria-label="Principal">${bf ? `<a href="${esc(bf.url)}">Black Friday</a>` : ''}${nav.map(([h, t, k]) => `<a href="${h}"${k && k === atual ? ' aria-current="page"' : ''}>${esc(t)}</a>`).join('')}</nav>
+<nav aria-label="Principal">${bf?.faixa ? `<a href="${esc(bf.url)}">Black Friday</a>` : ''}${nav.map(([h, t, k]) => `<a href="${h}"${k && k === atual ? ' aria-current="page"' : ''}>${esc(t)}</a>`).join('')}</nav>
 <button class="modo" type="button" aria-label="Alternar modo claro ou escuro">${ICONE_MODO}</button></div></header>${SCRIPT_MODO}`;
 }
 
@@ -318,7 +327,7 @@ function rodape(info, prefixo = '', v = {}) {
   const voz = vozDe(v, info);
   const email = emailDe(info, String(prefixo).replace(/^https?:\/\//, ''));
   return `<footer><div class="w"><strong>${esc(info.nome)}</strong><span>${esc(info.descricao)}</span>
-<nav class="rod" aria-label="Institucional"><a href="${prefixo}/blog">Todos os guias</a>${((bf) => (bf ? `<a href="${esc(bf.url)}">Black Friday 2026</a>` : ''))(blackFriday(v, prefixo))}${nav}</nav>
+<nav class="rod" aria-label="Institucional"><a href="${prefixo}/blog">Todos os guias</a>${((bf) => (bf ? `<a href="${esc(bf.url)}">${esc(bf.titulo)}</a>` : ''))(blackFriday(v, prefixo))}${nav}</nav>
 <span>${esc(voz.nome)} é ${voz.ele === 'a' ? 'uma personagem criada' : 'um personagem criado'} com IA para dar voz ao blog: ${voz.ele === 'a' ? 'ela' : 'ele'} compara a ficha e as fontes de cada produto e não afirma ter testado nada.</span>
 <span><b>Transparência:</b> alguns links deste site são de afiliado. Se você comprar por eles, recebemos uma comissão, sem custo extra para você. Isso não muda a ordem nem o que escrevemos; confira sempre na página oficial o conteúdo, o preço e a garantia antes de comprar. <a href="${prefixo}/aviso-de-afiliados">Saiba mais</a>.</span>
 <span>Contato: <!--email_off--><a href="mailto:${esc(email)}">${esc(email)}</a><!--/email_off--> · © ${ANO} ${esc(info.nome)} · Conteúdo informativo, sem promessa de resultado.</span></div></footer>`;

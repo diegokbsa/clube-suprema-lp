@@ -140,3 +140,27 @@ test('plantas: pelo menos 3 de home e 3 de post, e nenhum par home+post repetido
   const pares = v.map((x) => `${x.home}${x.post}`);
   assert.equal(new Set(pares).size, pares.length, pares.join(' '));
 });
+
+test('Black Friday: texto da faixa vem do post (faixa ou título) e "faixa": false tira faixa e menu', async () => {
+  const { blackFriday } = await import('../tools/afiliacao-visual.mjs');
+  const arq = path.join(C, 'milhas', 'posts', '98-teste-bf-faixa.json');
+  const antes = fs.readdirSync(path.join(C, 'milhas', 'posts')).filter((f) => /black-friday/.test(f));
+  if (antes.length) return; // o blog já tem post de BF: o teste com arquivo falso confundiria os dois
+  const b = blog('milhas'); const quando = Date.parse('2026-11-20T12:00:00Z');
+  try {
+    fs.writeFileSync(arq, JSON.stringify({ slug: 'black-friday-2026-ofertas-de-milhas', title: 'Título do Rafa', content: 'x' }));
+    assert.equal(blackFriday(b.v, b.prefixo, quando).faixa, 'Título do Rafa');
+    fs.writeFileSync(arq, JSON.stringify({ slug: 'black-friday-2026-ofertas-de-milhas', title: 'Título do Rafa', faixa: 'Faz a conta da Black Friday comigo', content: 'x' }));
+    assert.equal(blackFriday(b.v, b.prefixo, quando).faixa, 'Faz a conta da Black Friday comigo');
+    fs.writeFileSync(arq, JSON.stringify({ slug: 'black-friday-2026-ofertas-de-milhas', title: 'Guia', faixa: false, content: 'x' }));
+    const bf = blackFriday(b.v, b.prefixo, quando);
+    assert.equal(bf.faixa, null); assert.equal(bf.titulo, 'Guia');
+  } finally { fs.rmSync(arq, { force: true }); }
+});
+
+test('Black Friday: nenhum blog com o mesmo texto de faixa', async () => {
+  const { blackFriday } = await import('../tools/afiliacao-visual.mjs');
+  const textos = fs.readdirSync(C).filter((d) => fs.existsSync(path.join(C, d, 'vitrine.json')))
+    .map((d) => blackFriday(blog(d).v, blog(d).prefixo, Date.parse('2026-11-20T12:00:00Z'))?.faixa).filter(Boolean);
+  assert.equal(new Set(textos).size, textos.length, textos.join(' | '));
+});
