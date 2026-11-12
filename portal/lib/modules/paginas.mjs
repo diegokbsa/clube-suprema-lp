@@ -57,6 +57,10 @@ export function montar(html, siteOuId) {
   return /<\/body>/i.test(doc) ? doc.replace(/<\/body>(?![\s\S]*<\/body>)/i, `${s}</body>`) : `${doc}${s}`;
 }
 
+/** Documento de redirecionamento gravado como página própria: o primeiro meta diz para onde vai (301). */
+export const REDIRECT = /^<!doctype html><html><head><meta name="portal-redirect" content="(\/[^"<>\s]*)">/;
+export const htmlRedirect = (destino) => `<!doctype html><html><head><meta name="portal-redirect" content="${String(destino).replace(/"/g, '')}"><meta name="robots" content="noindex"><link rel="canonical" href="${String(destino).replace(/"/g, '')}"></head><body><a href="${String(destino).replace(/"/g, '')}">Este guia mudou de endereço</a></body></html>`;
+
 /** Gancho do núcleo (servePublicSite): devolve a resposta quando o caminho tem página própria. */
 export function paginaPropria({ req, site, repo, rest }) {
   if (req.method !== 'GET' && req.method !== 'HEAD') return null;
@@ -64,6 +68,9 @@ export function paginaPropria({ req, site, repo, rest }) {
   if (!CAMINHO.test(caminho)) return null;
   const p = repo.get('paginas_proprias', { site_id: site.id, caminho });
   if (!p) return null;
+  // post fundido em outro (campo "redirect" do JSON, afiliacao-instalar): 301 para o destino, fora do sitemap
+  const r = REDIRECT.exec(p.html.slice(0, 300));
+  if (r) return { status: 301, body: '', headers: { Location: r[1].replace(/&amp;/g, '&'), 'Cache-Control': 'public, max-age=3600' } };
   return { status: 200, body: montar(p.html, site), headers: { 'Content-Type': 'text/html; charset=utf-8', 'Content-Security-Policy': ehAmp(p.html) ? CSP_AMP : CSP_PROPRIA,
     'X-Content-Type-Options': 'nosniff', 'Referrer-Policy': 'strict-origin-when-cross-origin', 'Cache-Control': 'public, max-age=120' } };
 }

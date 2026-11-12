@@ -487,7 +487,7 @@ function indiceBlogs() {
     if (!fs.existsSync(f) || !fs.existsSync(dp)) continue;
     const info = JSON.parse(fs.readFileSync(f, 'utf8'));
     const posts = fs.readdirSync(dp).filter((x) => x.endsWith('.json')).map((x) => {
-      try { const p = JSON.parse(fs.readFileSync(path.join(dp, x), 'utf8')); return p?.slug && p?.title ? { slug: p.slug, title: p.title, t: termos(p) } : null; } catch { return null; }
+      try { const p = JSON.parse(fs.readFileSync(path.join(dp, x), 'utf8')); return p?.slug && p?.title && !p.redirect ? { slug: p.slug, title: p.title, t: termos(p) } : null; } catch { return null; }
     }).filter(Boolean);
     indice[b] = { nome: info.nome, origem: info.dominio ? `https://${info.dominio}` : `https://kbsa.app/${b}`, posts };
   }
@@ -524,6 +524,16 @@ var f=document.querySelector('.fixo'),c=document.querySelector('.post-cab');if(f
 var l=[].slice.call(document.querySelectorAll('.lado .indice a'));if(!l.length||!('IntersectionObserver'in window))return;var m={};l.forEach(function(a){m[a.hash.slice(1)]=a});
 var io=new IntersectionObserver(function(es){es.forEach(function(e){if(!e.isIntersecting)return;l.forEach(function(a){a.classList.remove('agora')});var a=m[e.target.id];if(a)a.classList.add('agora')})},{rootMargin:'0px 0px -70% 0px'});
 [].forEach.call(document.querySelectorAll('.txt h2[id]'),function(h){io.observe(h)})})()</script>`;
+
+/** Autor do Article: a voz do blog como Person, declarada como personagem editorial criado com IA (padrão V2 da Mesa de Copy);
+ *  blog sem tema assina como a equipe (Organization). */
+function autorLd(info, v, prefixo) {
+  const t = temaDe(blogDe(v), v);
+  if (!t.voz) return { '@type': 'Organization', name: info.autor || `Equipe ${info.nome}`, url: `${prefixo}/autor` };
+  return { '@type': 'Person', name: t.voz.nome, url: `${prefixo}/autor`, jobTitle: cap(t.voz.papel),
+    description: `${t.voz.nome} é ${t.voz.ele === 'a' ? 'a personagem editorial criada' : 'o personagem editorial criado'} com IA para o ${info.nome}, revisado pela equipe do blog. Compara fichas e fontes; não afirma ter testado produtos.`,
+    worksFor: { '@type': 'Organization', name: info.nome, url: `${prefixo}/` } };
+}
 
 /** Post: cabeça com linha fina e ficha de conferência, capa, etiqueta/tabela no topo, índice, texto, assinatura da voz,
  *  relacionados; na lateral (computador) o índice que acompanha e a etiqueta do produto; no celular a barra de oferta. */
@@ -575,7 +585,7 @@ export function renderPost({ info, v, post, posts, prefixo, dados, aplicarLinks,
   const imagem = capaAbs(capa, prefixo) || absoluta(principal?.img, prefixo);
   const ld = { '@context': 'https://schema.org', '@graph': [
     { '@type': 'Article', headline: post.title, description: post.seoDescription || post.excerpt, inLanguage: 'pt-BR', mainEntityOfPage: canonical, url: canonical,
-      datePublished: publicado, dateModified: atualizado || publicado, author: { '@type': 'Organization', name: info.autor || `Equipe ${info.nome}`, url: `${prefixo}/autor` },
+      datePublished: publicado, dateModified: atualizado || publicado, author: autorLd(info, v, prefixo),
       publisher: { '@type': 'Organization', name: info.nome, url: `${prefixo}/` }, isPartOf: { '@type': 'WebSite', name: info.nome, url: `${prefixo}/` },
       wordCount: String(post.content).split(/\s+/).length, speakable: { '@type': 'SpeakableSpecification', cssSelector: ['h1', '.rapida'] },
       ...(imagem ? { image: imagem } : {}) },

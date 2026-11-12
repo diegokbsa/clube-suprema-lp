@@ -15,7 +15,7 @@ import { openDb, now, tx } from '../lib/db.mjs';
 import { createTenant, audit } from '../lib/tenants.mjs';
 import { cleanTheme } from '../lib/templates.mjs';
 import { scoped, registerTable } from '../lib/repo.mjs';
-import { gravarPagina } from '../lib/modules/paginas.mjs';
+import { gravarPagina, htmlRedirect } from '../lib/modules/paginas.mjs';
 import { publishedData } from '../lib/modules/blog.mjs';
 import { renderHome, renderLista, renderPost, renderInstitucional, renderOfertas, comOrigem, capaDo } from './afiliacao-visual.mjs';
 // blogs de produto físico com página /ofertas mesmo antes do ofertas.json (estado "em breve")
@@ -189,9 +189,22 @@ try {
     const arquivos = fs.existsSync(path.join(dir, 'posts')) ? fs.readdirSync(path.join(dir, 'posts')).filter((f) => f.endsWith('.json')).sort() : [];
     const lista = [];
     let novos = 0; let atualizados = 0;
+    // Post fundido (Mesa de Copy, 12/11/2026): {"slug":"antigo","redirect":"slug-destino"} responde 301 para /blog/<destino>,
+    // sai do sitemap, da home e dos relacionados. O destino tem de ser um post deste blog que continua no ar.
+    const todos = arquivos.map((f) => lerJson(path.join(dir, 'posts', f), null)).filter((x) => x?.slug);
+    const vivos = new Set(todos.filter((x) => !x.redirect).map((x) => x.slug));
+    const redirecionados = [];
+    for (const a of todos.filter((x) => x.redirect)) {
+      if (!/^[a-z0-9-]+$/.test(String(a.redirect)) || !vivos.has(a.redirect)) { passo(`aviso: ${slugBlog}/${a.slug} redireciona para "${a.redirect}", que não é post vivo deste blog: ignorado`); continue; }
+      const atual = repo.get('posts', { site_id: site.id, slug: a.slug });
+      if (atual) repo.update('posts', atual.id, { status: 'rascunho', scheduled_at: null, published_at: null, published_slug: null, published_data: null });
+      gravarPagina(repo, { siteId: site.id, caminho: `blog/${a.slug}`, html: htmlRedirect(`/blog/${a.redirect}`), titulo: `301 para ${a.redirect}`, indexar: false });
+      redirecionados.push(a.slug);
+    }
+    if (redirecionados.length) passo(`${slugBlog}: ${redirecionados.length} posts fundidos com 301 (${redirecionados.join(', ')})`);
     for (const f of arquivos) {
       const a = lerJson(path.join(dir, 'posts', f), null);
-      if (!a?.slug || !a?.content) continue;
+      if (!a?.slug || !a?.content || redirecionados.includes(a.slug)) continue;
       lista.push(a);
       // capa e imagens internas precisam existir em portal/public (copiar junto no recorte do Bigue)
       for (const src of [capaDo(a), ...[...String(a.content).matchAll(/!\[[^\]]*\]\(([^)\s]+)\)/g)].map((m) => m[1])].filter(Boolean)) {

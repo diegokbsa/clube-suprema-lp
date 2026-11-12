@@ -46,7 +46,7 @@ try {
     const mudadas = [];
     for (const f of fs.readdirSync(dir).filter((x) => x.endsWith('.json')).sort()) {
       const post = lerJson(path.join(dir, f), null);
-      if (!post?.slug || !post?.content) continue;
+      if (!post?.slug || !post?.content || post.redirect) continue; // post fundido (301) não ganha story
       const html = renderStory({ info, v, post, prefixo, dados: DADOS_VITRINE });
       if (!html) continue; // sem capa, sem story
       if (!fs.existsSync(path.join(PUBLICO, posterDa(post.cover).replace(/^\/+/, '')))) { semImagem++; continue; } // pôster ainda não gerado
