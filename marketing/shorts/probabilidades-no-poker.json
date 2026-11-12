@@ -1,0 +1,16 @@
+{
+  "id": "probabilidades-no-poker",
+  "tipo": "Dica rápida",
+  "titulo": "Quantas vezes sai trinca no flop? As chances reais do poker #shorts",
+  "descricao": "Par na mão, trinca no flop, flush draw e o que completa até o river: as probabilidades que todo jogador de Texas Hold'em deveria saber. No próximo vídeo: o que é range.\n\n18+ · Jogue com responsabilidade.\n\n#poker #pokeronline #texasholdem #supremapoker",
+  "post": "probabilidades-no-poker",
+  "cenas": [
+    { "tela": "Seu par vira trinca? **Quase nunca**", "fala": "Você tem par na mão e espera a trinca no flop. Sabe quantas vezes isso acontece?", "imagem": "public/img/app-mesa.webp" },
+    { "passo": 1, "tela": "Par na mão: **1 a cada 17** mãos", "fala": "Primeiro, receber um par já é raro: uma vez a cada dezessete mãos." },
+    { "passo": 2, "tela": "Trinca no flop: **11,8%**", "fala": "Com o par na mão, a trinca ou melhor sai em onze vírgula oito por cento dos flops. Uma vez a cada oito e meio." },
+    { "passo": 3, "tela": "Cartas diferentes erram **2 em 3** flops", "fala": "Com duas cartas diferentes, você erra o flop duas vezes em cada três. Errar é o normal." },
+    { "passo": 4, "tela": "Flush draw no flop: **35%** até o river", "fala": "E o flush draw no flop completa até o river em trinta e cinco por cento das vezes, se você vir as duas cartas." },
+    { "passo": 5, "tela": "Avalie a **decisão**, não o resultado", "fala": "Probabilidade não é resultado. Oitenta por cento ainda perde uma vez a cada cinco." },
+    { "tela": "No próximo: **o que é range**. Segue o canal!", "fala": "No próximo vídeo, o que é range e por que pensar em faixas de mãos. Segue o canal!", "imagem": "public/img/app-mesa.webp" }
+  ]
+}

@@ -29,7 +29,7 @@ Fichas 24h por PIX, depósito não caiu, Suprema Poker é confiável, formatos d
 - [x] 2026-11-11 erros-de-iniciante-no-poker | 10 erros de iniciante no poker online e como evitar | erros de iniciante poker
 - [x] 2026-11-12 pot-odds-e-outs | Pot odds e outs: a conta rápida para pagar ou largar | como calcular pot odds
 - [x] 2026-11-12 projetos-flush-draw-gutshot | Projetos no poker: flush draw, sequência aberta e gutshot | o que é gutshot
-- [ ] probabilidades-no-poker | Probabilidades no poker: chances de par, trinca e flush | probabilidade poker
+- [x] 2026-11-12 probabilidades-no-poker | Probabilidades no poker: chances de par, trinca e flush | probabilidade poker
 - [ ] o-que-e-range | O que é range e por que pensar em faixas de mãos | o que é range no poker
 - [ ] continuation-bet-c-bet | C-bet (continuation bet): quando apostar de novo no flop | o que é c-bet
 - [ ] 3bet-e-4bet | 3-bet e 4-bet: o que são e quando usar | o que é 3bet
