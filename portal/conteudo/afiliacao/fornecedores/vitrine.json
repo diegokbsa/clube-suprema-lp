@@ -10,7 +10,6 @@
   "h1_seo": "Melhores listas de fornecedores para revenda",
   "sub": "Listas de fornecedores, packs para lojistas e cursos de revenda, comparados por preço e por tipo de negócio.",
   "destaques": [
-    "ck-mapa-das-fabricas",
     "vivendo-acessorios",
     "lojista-pack",
     "mapa-fornecedores",
@@ -29,7 +28,6 @@
     "vivendo-acessorios": "quem quer revender acessórios",
     "antes-do-leilao": "quem quer entender como comprar antes do leilão",
     "hm-importando-laces": "quem quer importar e revender laces",
-    "ck-mapa-das-fabricas": "quem quer contato direto de importadores e fábricas do Brás e da 25 de Março",
     "ck-lista-fornecedores-bras": "quem quer começar a revender roupas do Brás",
     "ck-top50-fornecedores-25": "quem quer fornecedores da 25 de Março já testados",
     "sp-for-niimbot-d110": "quem quer imprimir etiqueta de produto e de preço no celular",
@@ -95,7 +93,6 @@
     "titulo": "Comece com o kit básico de quem revende",
     "texto": "O mapa para achar fornecedor e o essencial para etiquetar, embalar e enviar o primeiro pedido.",
     "itens": [
-      "ck-mapa-das-fabricas",
       "sp-for-niimbot-d110",
       "sp-for-envelope-100",
       "sp-for-sacolas-100"
