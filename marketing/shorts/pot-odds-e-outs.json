@@ -1,0 +1,16 @@
+{
+  "id": "pot-odds-e-outs",
+  "tipo": "Dica rápida",
+  "titulo": "Pot odds e outs: a conta de 10 segundos para pagar ou largar #shorts",
+  "descricao": "Como calcular pot odds e outs de cabeça: o preço do call, a contagem de outs e a regra do 2 e do 4. No próximo vídeo: flush draw, sequência aberta e gutshot.\n\n18+ · Jogue com responsabilidade.\n\n#poker #pokeronline #texasholdem #supremapoker",
+  "post": "pot-odds-e-outs",
+  "cenas": [
+    { "tela": "Pagar ou largar? **Faça a conta**", "fala": "Pagar ou largar o projeto? Dá para decidir com uma conta de dez segundos.", "imagem": "public/img/app-mesa.webp" },
+    { "passo": 1, "tela": "Call ÷ **pote final** = chance mínima", "fala": "Primeiro, o preço. Divida o seu call pelo pote final, já com a aposta e o seu call." },
+    { "passo": 2, "tela": "Meio pote pede **25%**", "fala": "Pote de cem, aposta de cinquenta. Você paga cinquenta para um pote de duzentos: precisa vencer vinte e cinco por cento." },
+    { "passo": 3, "tela": "Conte os **outs**: flush draw = **9**", "fala": "Depois, conte os outs, as cartas que completam a sua mão. Quatro do mesmo naipe dão nove outs." },
+    { "passo": 4, "tela": "Outs **×2** uma carta, **×4** duas", "fala": "Multiplique por dois com uma carta por vir, e por quatro com duas cartas, só se não houver mais apostas." },
+    { "passo": 5, "tela": "Chance **maior** que o preço? **Pague**", "fala": "Se a sua chance passa do preço, pague. Se fica abaixo, largue." },
+    { "tela": "No próximo: **gutshot e flush draw**. Segue o canal!", "fala": "No próximo vídeo, flush draw, sequência aberta e gutshot. Segue o canal!", "imagem": "public/img/app-mesa.webp" }
+  ]
+}
