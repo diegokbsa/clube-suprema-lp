@@ -49,9 +49,19 @@ const isoDia = (d) => d.toISOString().slice(0, 10);
 const diasAtras = (n, base = new Date()) => { const d = new Date(base); d.setUTCDate(d.getUTCDate() - n); return isoDia(d); };
 const horaSp = (d = new Date()) => Number(new Intl.DateTimeFormat('en-GB', { timeZone: 'America/Sao_Paulo', hour: '2-digit', hour12: false }).format(d));
 
-/** Nossos domínios: os sites do Portal com domínio próprio (sem caminho) de operações ativas, mais os extras. */
-export function dominios(db) {
-  const lista = new Set(DOMINIOS_EXTRAS);
+/** Blogs da Fábrica (estáticos, fora do Portal): cópia do rede.json em <dados>/search-console/rede-fabrica.json; entra quem tem `dominio`. */
+export function dominiosFabrica(dir = process.env.PORTAL_DATA_DIR) {
+  if (!dir) return [];
+  try {
+    const rede = JSON.parse(fs.readFileSync(path.join(dir, 'search-console', 'rede-fabrica.json'), 'utf8'));
+    const itens = Array.isArray(rede?.blogs) ? rede.blogs : Object.values(rede?.blogs || {});
+    return [...new Set(itens.map((b) => semWww(String(b?.dominio || '').trim().replace(/^https?:\/\//, '').replace(/\/.*$/, ''))).filter((d) => /^[a-z0-9.-]+\.[a-z]{2,}$/.test(d)))];
+  } catch { return []; }
+}
+
+/** Nossos domínios: os sites do Portal com domínio próprio (sem caminho) de operações ativas, os extras e os da Fábrica. */
+export function dominios(db, dir = process.env.PORTAL_DATA_DIR) {
+  const lista = new Set([...DOMINIOS_EXTRAS, ...dominiosFabrica(dir)]);
   for (const r of db.prepare(`SELECT s.domain FROM sites s JOIN tenants t ON t.id = s.tenant_id
       WHERE s.domain IS NOT NULL AND s.domain NOT LIKE '%/%' AND s.domain LIKE '%.%' AND t.status = 'ativa'`).all()) lista.add(semWww(r.domain));
   return [...lista].sort();
@@ -200,18 +210,23 @@ export function resumoGeral(db, estado) {
       bing7: s.bing.length ? somaJanela(s.bing.map((x) => ({ ...x, posicao: null })), s.bing.at(-1).dia, 7) : null,
       topConsultas: (s.google.findLast?.((x) => x.consultas?.length)?.consultas || []).slice(0, 10) };
   });
-  const blogs = blocos.filter((b) => /\.(blog|casa)$/.test(b.dominio) && b.dominio !== 'suprema.blog' && b.estado === 'ok');
+  const fabrica = new Set(estado.fabrica || []);
+  for (const b of blocos) b.origem = fabrica.has(b.dominio) ? 'fabrica' : 'portal';
+  const blogs = blocos.filter((b) => b.origem === 'portal' && /\.(blog|casa)$/.test(b.dominio) && b.dominio !== 'suprema.blog' && b.estado === 'ok');
+  const daFabrica = blocos.filter((b) => b.origem === 'fabrica' && b.estado === 'ok');
+  const medianas = (xs) => ({
+    n: xs.length,
+    impressoes7: mediana(xs.map((b) => b.ultimos7?.impressoes)), cliques7: mediana(xs.map((b) => b.ultimos7?.cliques)),
+    impressoes28: mediana(xs.map((b) => b.ultimos28?.impressoes)), cliques28: mediana(xs.map((b) => b.ultimos28?.cliques)),
+    posicao28: mediana(xs.map((b) => b.ultimos28?.posicao)), indexadas: mediana(xs.map((b) => b.indexacao?.indexadas)),
+  });
   return {
     gerado_em: new Date().toISOString(),
     fonte: 'Portal sc-historico (Search Console API + Bing Webmaster API), coleta diária a partir das 05h',
     formato: 'impressoes/cliques/ctr/posicao por dia (fuso do Google), consultas = top 50 por impressões no dia, indexadas = URLs do sitemap com veredito PASS na inspeção',
     dominios: blocos,
-    medianasBlogs: {
-      n: blogs.length,
-      impressoes7: mediana(blogs.map((b) => b.ultimos7?.impressoes)), cliques7: mediana(blogs.map((b) => b.ultimos7?.cliques)),
-      impressoes28: mediana(blogs.map((b) => b.ultimos28?.impressoes)), cliques28: mediana(blogs.map((b) => b.ultimos28?.cliques)),
-      posicao28: mediana(blogs.map((b) => b.ultimos28?.posicao)), indexadas: mediana(blogs.map((b) => b.indexacao?.indexadas)),
-    },
+    medianasBlogs: medianas(blogs),      // os 10 blogs de afiliado do Portal
+    medianasFabrica: medianas(daFabrica), // blogs da Fábrica (rede-fabrica.json), à parte
     pendencias: estado.pendencias,
     log: estado.log.slice(-40),
   };
@@ -229,7 +244,7 @@ export async function coletar(app, { dir = process.env.PORTAL_DATA_DIR, inspecio
     const anota = (t) => { log.push(`${new Date().toISOString()} ${t}`); };
     const pendencias = [];
     const estadoDominios = [];
-    const lista = dominios(app.db);
+    const lista = dominios(app.db, dir);
     // Google: junta as propriedades que cada conexão enxerga
     const mapa = new Map();
     for (const row of conexoesGoogle(app)) {
@@ -271,7 +286,7 @@ export async function coletar(app, { dir = process.env.PORTAL_DATA_DIR, inspecio
       }
     } else pendencias.push({ tipo: 'bing_sem_chave', passo: 'Opcional: colar a chave da API do Bing Webmaster no painel do Portal → Search Console (bing.com/webmasters → Configurações → API).' });
     progresso('exportando');
-    const estado = { dominios: estadoDominios, pendencias, log };
+    const estado = { dominios: estadoDominios, pendencias, log, fabrica: dominiosFabrica(dir) };
     ultimaColeta = { dia: hoje, em: new Date().toISOString(), ok: estadoDominios.filter((d) => d.estado === 'ok').length, total: lista.length };
     if (dir) exportar(app.db, dir, estado);
     return { ...ultimaColeta, estado };

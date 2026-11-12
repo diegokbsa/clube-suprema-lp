@@ -67,3 +67,20 @@ test('coleta: série, 50 consultas, inspeção do sitemap, pendência do domíni
   assert.ok(!JSON.stringify(resumo).includes('tok'), 'token não vai para o arquivo');
   fs.rmSync(dir, { recursive: true, force: true });
 });
+
+test('Fábrica: rede-fabrica.json entra na lista só com dominio preenchido e fica fora da mediana dos 10', async () => {
+  const { dominiosFabrica, resumoGeral } = await import('../lib/modules/sc-historico.mjs');
+  const { openDb } = await import('../lib/db.mjs');
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'sc-fab-'));
+  fs.mkdirSync(path.join(dir, 'search-console'));
+  fs.writeFileSync(path.join(dir, 'search-console', 'rede-fabrica.json'), JSON.stringify({ blogs: {
+    a: { id: 'a', dominio: '' }, b: { id: 'b', dominio: 'https://www.disparocerto.blog/' }, c: { id: 'c', dominio: 'ruim' } } }));
+  assert.deepEqual(dominiosFabrica(dir), ['disparocerto.blog']);
+  const db = openDb(':memory:');
+  db.exec((await import('../lib/modules/sc-historico.mjs')).SCHEMA_SQL);
+  const r = resumoGeral(db, { dominios: [{ dominio: 'disparocerto.blog', estado: 'ok' }, { dominio: 'milhas.blog', estado: 'ok' }], pendencias: [], log: [], fabrica: ['disparocerto.blog'] });
+  assert.equal(r.medianasBlogs.n, 1);
+  assert.equal(r.medianasFabrica.n, 1);
+  assert.equal(r.dominios.find((x) => x.dominio === 'disparocerto.blog').origem, 'fabrica');
+  fs.rmSync(dir, { recursive: true, force: true });
+});
