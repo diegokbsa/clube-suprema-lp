@@ -59,12 +59,13 @@ test('post: caixa no topo ou tabela "melhor escolha", CTA no meio, relacionados 
     const b = blog(slug);
     for (const post of b.posts) {
       const html = renderPost({ ...b, post, aplicarLinks, publicado: '2026-11-08T10:00:00Z', atualizado: '2026-11-09T10:00:00Z' });
-      const temProduto = /class="fixo"/.test(html);
-      if (!temProduto) continue;
-      assert.ok(/class="(escolha|melhor)[ "]/.test(html), `${slug}/${post.slug}: caixa ou tabela no topo`);
-      assert.ok(html.indexOf('rapida"') > 0 && html.indexOf('rapida"') < html.search(/class="(escolha|melhor)[ "]/), `${slug}/${post.slug}: resposta rápida antes da oferta`);
-      if (/class="melhor"/.test(html)) comparativos++;
-      assert.ok(/class="oferta"/.test(html), `${slug}/${post.slug}: CTA no meio do texto`);
+      // oferta com menor destaque: no máximo 1 bloco, depois do 1º intertítulo, nunca no topo; sem barra fixa nem cartão lateral
+      const blocos = (html.match(/<aside class="oferta"|<div class="melhor">/g) || []).length;
+      assert.ok(blocos <= 1, `${slug}/${post.slug}: ${blocos} blocos de oferta`);
+      assert.ok(!/class="fixo"|class="escolha/.test(html), `${slug}/${post.slug}: sem barra fixa nem caixa no topo`);
+      if (blocos) assert.ok(html.search(/<aside class="oferta"|<div class="melhor">/) > html.indexOf('<h2 id='), `${slug}/${post.slug}: oferta depois do começo do texto`);
+      if (/<div class="melhor">/.test(html)) comparativos++;
+      if (!blocos) continue;
       assert.match(html, /"@type":"Article"[^]*"dateModified"/, `${slug}/${post.slug}: Article com data`);
       assert.match(html, /Atualizado em<\/dt><dd><time datetime=/, `${slug}/${post.slug}: data de atualização visível`);
       assert.match(html, /<div class="assina">[^]*com IA/, `${slug}/${post.slug}: assinatura da voz`);

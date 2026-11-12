@@ -200,21 +200,18 @@ footer .rod{display:flex;flex-wrap:wrap;gap:6px 18px}footer .rod a{color:var(--t
 .indice-m{display:none;margin:0 0 26px;border:1px solid var(--linha);border-radius:var(--r);background:var(--papel)}.indice-m summary{cursor:pointer;padding:14px 16px;font-weight:700;list-style:none}.indice-m summary::-webkit-details-marker{display:none}.indice-m ol{margin:0;padding:0 16px 14px 34px}.indice-m li{margin:6px 0}.indice-m a{color:var(--tinta)}
 .card{border:1px solid var(--linha);border-radius:var(--r);background:var(--papel);overflow:hidden}.card .of-cab{padding:8px 14px}.etq img{width:100%;aspect-ratio:16/10;object-fit:cover;background:var(--fundo)}
 .card .cp{padding:14px 16px 16px;display:grid;gap:6px}.card .on{font:var(--ft) calc(1.1rem*var(--k))/1.22 var(--fh);margin:0}.card .pq{margin:0;font-size:.9rem;color:var(--suave);line-height:1.45}.card .pr{font:var(--ft) calc(1.35rem*var(--k))/1 var(--fh);font-variant-numeric:tabular-nums;margin-top:4px}.card .pr small{display:block;font:400 .76rem var(--fb);color:var(--suave);margin-top:4px}.card .btn{margin-top:6px}
-.escolha{display:none;margin:0 0 24px}.melhor{margin:0 0 30px}.melhor .mt{display:flex;justify-content:space-between;align-items:center;gap:10px;font:var(--ft) calc(1.1rem*var(--k)) var(--fh);margin-bottom:6px}
+.melhor{margin:0 0 30px}.melhor .mt{display:flex;justify-content:space-between;align-items:center;gap:10px;font:var(--ft) calc(1.1rem*var(--k)) var(--fh);margin-bottom:6px}
 .melhor .tag{display:inline-block;margin-top:4px;padding:2px 7px;border-radius:3px;background:var(--m);color:var(--sm);font:700 .74rem var(--fb)}
 .mais{padding:20px 0 0}.mais h2{font-size:calc(1.45rem*var(--k));margin-bottom:18px}
 .viz ul{margin:0;padding:0;list-style:none;display:grid;gap:10px}.viz li{padding:14px 16px;border:1px solid var(--linha);border-radius:var(--r);background:var(--papel)}.viz li span{display:block;font-size:.84rem;color:var(--suave)}.viz a{font-weight:700;color:var(--tinta)}
-.fixo{display:none}
-@media(max-width:960px){.post-g{grid-template-columns:1fr;gap:0}.lado{display:none}.indice-m,.escolha{display:block}.top nav{display:none}
-.hoje,.duas,.assine{grid-template-columns:1fr}.abre-g{grid-template-columns:1fr;grid-template-areas:'cab' 'hoje' 'voz';gap:28px}.hoje{gap:18px}.duas{gap:40px}.trilha{grid-template-columns:1fr;gap:22px}.guias{grid-template-columns:repeat(2,minmax(0,1fr))}
-.fixo{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:30;gap:12px;align-items:center;justify-content:space-between;padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:var(--papel);border-top:1px solid var(--linha);box-shadow:0 -8px 24px -14px rgb(0 0 0/.35);transform:translateY(110%);transition:transform .35s cubic-bezier(.16,1,.3,1)}
-.fixo.on{transform:none}.fixo span{font-size:.84rem;line-height:1.3;color:var(--suave);min-width:0}.fixo span b{display:block;color:var(--tinta);font-size:.95rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}}
+@media(max-width:960px){.post-g{grid-template-columns:1fr;gap:0}.lado{display:none}.indice-m{display:block}.top nav{display:none}
+.hoje,.duas,.assine{grid-template-columns:1fr}.abre-g{grid-template-columns:1fr;grid-template-areas:'cab' 'hoje' 'voz';gap:28px}.hoje{gap:18px}.duas{gap:40px}.trilha{grid-template-columns:1fr;gap:22px}.guias{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:640px){body{font-size:1rem}.w{width:calc(100% - 32px)}.sec{padding:42px 0}.abre{padding:28px 0 36px}.marca b{display:none}
 .guias,.guias.dest .guia:first-child,.series{grid-template-columns:1fr}.of-g{grid-template-columns:84px minmax(0,1fr);gap:14px}.of-g img{width:84px;height:84px}
 .tab thead{display:none}.tab tr{display:grid;grid-template-columns:1fr auto;align-items:center;gap:10px 12px;padding:14px 0;border-bottom:1px solid var(--linha)}.tab td{padding:0;border:0}.tab td:first-child{grid-column:1/-1}.tab td:nth-child(2){display:none}.tab .nm img{width:48px;height:48px}
 h1{font-size:calc(2rem*var(--k))}.abre .sub{font-size:1.05rem}.ficha dl{gap:6px 18px}.txt{font-size:1.06rem}.cap,.tel{padding:24px}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{transition:none!important;animation:none!important}}
-@media print{.top,.lado,.fixo,.progresso,.assine,footer{display:none}}
+@media print{.top,.lado,.progresso,.assine,footer{display:none}}
 `;
 };
 
@@ -391,7 +388,7 @@ export function renderHome({ info, v, posts, prefixo, dados, maisLidos = [] }) {
   const lidos = maisLidos.map((s) => posts.find((p) => p.slug === s)).filter(Boolean).slice(0, 5);
   const series = seriesDo(blog, posts);
   const recentesHtml = ordem.filter((p) => p !== hoje).slice(0, 6).map((p) => `<a class="guia" href="${link(p)}">${capaCard(p, false, undefined, blog) || `<span class="gx" aria-hidden="true">${esc(info.nome)}</span>`}<span class="k">${esc(p.category || info.categoria)}</span><h3>${esc(p.title)}</h3></a>`).join('');
-  const fichas = prods.slice(0, 6);
+  const fichas = prods.slice(0, 4); // menor destaque: até 4 fichas, depois do conteúdo
   const linhas = fichas.map((p) => `<tr><td><div class="nm">${p.img ? `<img src="${esc(mini(p.img, 160))}" alt="" loading="lazy" decoding="async" width="52" height="52">` : ''}<span>${esc(p.nome)}<small>${esc(p.tipo || '')}</small></span></div></td>
 <td>${esc(cap(v.melhor_para?.[p.chave] || ''))}</td><td>${p.preco ? brl(p.preco) : '—'}</td><td><a class="btn sm" href="${esc(p.url)}" ${REL}>Ver oferta</a></td></tr>`).join('');
   return `${head({ titulo, desc, canonical, v: { ...v, imagem: v.imagem || capaHome, lcp: imHoje?.src || null, lcpSrcset: imHoje?.set || null, lcpSizes: sizesHoje }, ld })}<body>${topo(info, prefixo, v)}
@@ -510,10 +507,6 @@ function ofertaHtml(p, textoHtml, rotulo = 'Recomendação do guia') {
   return `<aside class="oferta" aria-label="Publicidade: ${esc(p.nome)}">${cabOferta(rotulo)}<div class="of-g">${p.img ? `<img src="${esc(mini(p.img, 400))}" alt="${esc(p.nome)}" loading="lazy" decoding="async" width="150" height="150">` : '<span></span>'}
 <div><p class="on">${esc(p.nome)}</p><div class="tx">${textoHtml}</div><div class="ln">${p.preco ? `<span class="pr">${brl(p.preco)}<small>conferido em ${dataCurta()} na página oficial</small></span>` : ''}<a class="btn" href="${esc(p.url)}" ${REL}>Ver na página oficial</a></div></div></div></aside>`;
 }
-function escolhaTopo(p, rotulo, melhor) {
-  return `<aside class="escolha oferta" aria-label="${esc(rotulo)}">${cabOferta(rotulo)}<div class="of-g">${p.img ? `<img src="${esc(mini(p.img, 160))}" alt="${esc(p.nome)}" loading="lazy" decoding="async" width="84" height="84">` : '<span></span>'}
-<div><p class="on">${esc(p.nome)}</p>${melhor ? `<div class="tx"><p>Para quem é: ${esc(melhor)}</p></div>` : ''}<div class="ln">${p.preco ? `<span class="pr">${brl(p.preco)}</span>` : ''}<a class="btn sm" href="${esc(p.url)}" ${REL}>${esc(p.cta || 'Ver oferta')}</a></div></div></div></aside>`;
-}
 function tabelaMelhor(prods, v) {
   const linhas = prods.map((p, i) => `<tr><td><div class="nm">${p.img ? `<img src="${esc(mini(p.img, 160))}" alt="" loading="lazy" decoding="async" width="52" height="52">` : ''}<span>${esc(p.nome)}${i === 0 ? '<small><span class="tag">Melhor escolha</span></small>' : ''}</span></div></td>
 <td>${esc(cap(v.melhor_para?.[p.chave] || p.tipo || ''))}</td><td>${p.preco ? brl(p.preco) : '—'}</td><td><a class="btn sm" href="${esc(p.url)}" ${REL}>Ver oferta</a></td></tr>`).join('');
@@ -522,7 +515,6 @@ function tabelaMelhor(prods, v) {
 
 // Índice que acompanha a leitura, "continue de onde parou" na home e barra de oferta no celular só depois do topo do post.
 const SCRIPT_POST = (blog, url, titulo) => `<script>(function(){try{localStorage.setItem('parou:${blog}',JSON.stringify({s:${JSON.stringify(url)},t:${JSON.stringify(titulo).replace(/</g, '\\u003c')}}))}catch(e){}
-var f=document.querySelector('.fixo'),c=document.querySelector('.post-cab');if(f&&c&&'IntersectionObserver'in window)new IntersectionObserver(function(e){f.classList.toggle('on',!e[0].isIntersecting)}).observe(c);
 var l=[].slice.call(document.querySelectorAll('.lado .indice a'));if(!l.length||!('IntersectionObserver'in window))return;var m={};l.forEach(function(a){m[a.hash.slice(1)]=a});
 var io=new IntersectionObserver(function(es){es.forEach(function(e){if(!e.isIntersecting)return;l.forEach(function(a){a.classList.remove('agora')});var a=m[e.target.id];if(a)a.classList.add('agora')})},{rootMargin:'0px 0px -70% 0px'});
 [].forEach.call(document.querySelectorAll('.txt h2[id]'),function(h){io.observe(h)})})()</script>`;
@@ -568,15 +560,22 @@ export function renderPost({ info, v, post, posts, prefixo, dados, aplicarLinks,
   // índice pelos H2
   const h2 = [];
   html = html.replace(/<h2>(.*?)<\/h2>/g, (_m, t) => { const id = t.replace(/<[^>]+>/g, '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 60); h2.push([id, t]); return `<h2 id="${id}">${t}</h2>`; });
-  // etiqueta no meio do texto quando o post não tem caixa de oferta: antes do intertítulo do meio (fora de FAQ e Fontes)
-  const meio = h2.filter(([, t]) => !/perguntas|fontes|refer[eê]ncias/i.test(t));
-  if (principal && !html.includes('class="oferta"') && meio.length >= 3) {
-    const [id] = meio[Math.floor(meio.length / 2)];
-    const melhor = v.melhor_para?.[principal.chave];
-    const rot = chaves.includes(principal.chave) ? 'Recomendação do guia' : `Indicado pelo ${info.nome}`;
-    html = html.replace(`<h2 id="${id}">`, `${ofertaHtml(principal, `<p>${esc(cap(melhor ? `para quem é: ${melhor}` : principal.tipo || ''))}</p>`, rot)}<h2 id="${id}">`);
-  }
+  // Oferta com menor destaque (ordem do Kbsa, 12/11/2026, "com menor destaque nos blogs"; política do AdSense contra página com mais
+  // promoção que conteúdo): no máximo 1 bloco de oferta por post, depois do conteúdo útil, com "Publicidade" no próprio bloco.
+  // Sem barra fixa, sem oferta no topo e sem cartão lateral. Caixa :::cta do texto vale como o bloco (as seguintes saem).
+  // Comparativo (2+ produtos ativos): a tabela "melhor escolha por perfil" é o bloco único e as caixas soltas saem.
   const comparados = [...new Set(post.comparar || chaves)].map((k) => produto(k, dados)).filter(Boolean);
+  let caixas = 0;
+  html = html.replace(/<aside class="oferta"[\s\S]*?<\/aside>/g, (m) => (comparados.length >= 2 || caixas++ ? '' : m));
+  if (!caixas && (principal || comparados.length >= 2)) {
+    const melhor = principal && v.melhor_para?.[principal.chave];
+    const rot = principal && chaves.includes(principal.chave) ? 'Recomendação do guia' : `Indicado pelo ${info.nome}`;
+    const bloco = comparados.length >= 2 ? tabelaMelhor(comparados, v) : ofertaHtml(principal, `<p>${esc(cap(melhor ? `para quem é: ${melhor}` : principal.tipo || ''))}</p>`, rot);
+    // lugar: logo depois da seção "o que conferir"; sem ela, antes de Fontes/Perguntas; sem esses, no fim do texto
+    const iConf = h2.findIndex(([, t]) => /conferir/i.test(t));
+    const depois = iConf >= 0 ? h2[iConf + 1] : h2.find(([, t]) => /perguntas|fontes|refer[eê]ncias/i.test(t));
+    html = depois ? html.replace(`<h2 id="${depois[0]}">`, `${bloco}<h2 id="${depois[0]}">`) : `${html}${bloco}`;
+  }
   const faq = faqDoTexto(post.content);
   const outros = relacionados(post, posts);
   const vizinhos = deOutrosBlogs(info, post);
@@ -598,7 +597,6 @@ export function renderPost({ info, v, post, posts, prefixo, dados, aplicarLinks,
   const titulo = `${post.seoTitle || post.title} · ${info.nome}`;
   const indiceItens = h2.map(([id, t]) => `<li><a href="#${id}">${t}</a></li>`).join('');
   const quando = atualizado || publicado;
-  const topoOferta = comparados.length >= 2 ? tabelaMelhor(comparados, v) : principal ? escolhaTopo(principal, chaves.includes(principal.chave) ? 'Escolha deste guia' : `Indicado pelo ${info.nome}`, v.melhor_para?.[principal.chave]) : '';
   return `${head({ titulo, desc: post.seoDescription || post.excerpt, canonical, v: { ...v, imagem: imagem || v.imagem, lcp: im?.src || null, lcpSrcset: im?.set || null, lcpSizes: '(max-width: 960px) 92vw, 836px' }, ld, og: 'article' })}<body><div class="progresso" aria-hidden="true"></div>${topo(info, prefixo, v)}
 <main><article class="w"><header class="post-cab"><div class="bc"><a href="${prefixo}/">${esc(info.nome)}</a> › <a href="${prefixo}/blog">Guias</a> › ${esc(post.category || info.categoria)}</div>
 <h1>${esc(post.title)}</h1>
@@ -606,16 +604,15 @@ ${resposta ? `<p class="linha-fina rapida">${esc(resposta)}</p>` : ''}
 <div class="ficha">${carimbo(voz, quando)}<dl><div><dt>Por</dt><dd><a href="${prefixo}/autor" rel="author">${esc(voz.nome)}</a></dd></div>${publicado ? `<div><dt>Publicado</dt><dd><time datetime="${esc(String(publicado).slice(0, 10))}">${dataBr(publicado)}</time></dd></div>` : ''}<div><dt>Atualizado em</dt><dd><time datetime="${esc(String(quando || '').slice(0, 10))}">${dataBr(quando)}</time></dd></div><div><dt>Leitura</dt><dd class="num">${minutos(post.content)} min</dd></div>${capa ? `<div><dt>Resumo</dt><dd><a href="${prefixo}/stories/${esc(post.slug)}">Ver em story</a></dd></div>` : ''}</dl></div>
 ${im ? `<figure class="capa">${imgTag(im, (post.coverAlt || post.title).replace(/^Capa do guia: /, ''), { primeiro: true, sizes: '(max-width: 960px) 92vw, 836px', cls: 'fh' })}</figure>` : ''}</header>
 <div class="post-g"><div class="corpo">${h2.length > 2 ? `<details class="indice-m"><summary>Neste guia (${h2.length} partes)</summary><ol>${indiceItens}</ol></details>` : ''}
-${topoOferta}
 <div class="txt">${html}</div>
 <div class="assina">${carimbo(voz, quando)}<div><b><a href="${prefixo}/autor" rel="author" style="color:inherit">${esc(voz.nome)}</a></b><p>${esc(cap(voz.papel))}. ${esc(voz.nome)} é ${voz.ele === 'a' ? 'uma personagem criada' : 'um personagem criado'} com IA: confere a ficha e as fontes e não afirma ter testado. Este conteúdo pode conter links de afiliado; se você comprar por eles, o blog recebe uma comissão, sem custo extra para você.</p></div></div>
 ${(v.fontes || []).length ? `<section class="mais fontes"><h2>Fontes para conferir por conta própria</h2><ul>${v.fontes.map((f) => `<li><a href="${esc(f.u)}" rel="noopener" target="_blank">${esc(f.t)}</a></li>`).join('')}</ul></section>` : ''}
 ${outros.length ? `<section class="mais"><h2>Continue lendo</h2><div class="guias">${outros.map((p) => `<a class="guia" href="${prefixo}/blog/${esc(p.slug)}">${capaCard(p, false, undefined, blog)}<span class="k">${esc(p.category || info.categoria)}</span><h3>${esc(p.title)}</h3></a>`).join('')}</div></section>` : ''}
 ${vizinhos.length ? `<section class="mais viz"><h2>Do mesmo assunto nos nossos outros blogs</h2><ul>${vizinhos.map((x) => `<li><a href="${esc(x.url)}">${esc(x.title)}</a><span>${esc(x.blog)}</span></li>`).join('')}</ul></section>` : ''}
-</div><aside class="lado" aria-label="Neste guia e indicação">${h2.length > 2 ? `<nav class="indice" aria-label="Neste guia"><b>Neste guia</b><ol>${indiceItens}</ol></nav>` : ''}
-${principal ? cardProduto(principal, { rotulo: 'Indicado neste guia', nivel: 'p', melhor: v.melhor_para?.[principal.chave] }) : ''}</aside></div>
+</div><aside class="lado" aria-label="Neste guia">${h2.length > 2 ? `<nav class="indice" aria-label="Neste guia"><b>Neste guia</b><ol>${indiceItens}</ol></nav>` : ''}
+</aside></div>
 <section class="sec" id="assine" style="border:0;padding-top:30px">${assineHtml(info, v)}</section></article></main>${rodape(info, prefixo, v)}
-${principal ? `<div class="fixo"><span><b>${esc(principal.nome)}</b>${principal.preco ? `${brl(principal.preco)} · ` : ''}Publicidade</span><a class="btn sm" href="${esc(principal.url)}" ${REL}>Ver oferta</a></div>` : ''}${SCRIPT_POST(blog, canonical, post.title)}</body></html>`;
+${SCRIPT_POST(blog, canonical, post.title)}</body></html>`;
 }
 
 /** Página obrigatória (sobre, contato, privacidade, termos, aviso-de-afiliados, autor), com o mesmo tema do blog.
