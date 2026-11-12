@@ -221,8 +221,9 @@ h1{font-size:calc(2rem*var(--k))}.abre .sub{font-size:1.05rem}.ficha dl{gap:6px 
 /** Espaço do script do Google AdSense, DESLIGADO até a aprovação: só sai com adsense.json {cliente:"ca-pub-<16 dígitos>", ativo:true}. */
 export function adsenseTag(a) {
   if (!a || a.ativo !== true || !/^ca-pub-\d{16}$/.test(String(a.cliente || ''))) return '<!-- adsense: desligado até a aprovação -->';
-  // type="depois": o carregador do Portal (paginas.mjs, CARREGAR_DEPOIS) ativa o script depois do "load"; o meta continua no HTML.
-  return `<meta name="google-adsense-account" content="${esc(a.cliente)}"><script type="depois" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${esc(a.cliente)}" crossorigin="anonymous"></script>`;
+  // Imediato no <head> enquanto os 10 blogs estão na revisão do AdSense (pedido da sessão AdSense, 12/11/2026: o revisor lê o HTML).
+  // Depois da aprovação pode voltar a type="depois" (carregador do Portal, CARREGAR_DEPOIS em paginas.mjs), que ganha no PageSpeed.
+  return `<meta name="google-adsense-account" content="${esc(a.cliente)}"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${esc(a.cliente)}" crossorigin="anonymous"></script>`;
 }
 
 /** Title da aba e do Google: até ~60 caracteres. Se "título · nome do blog" passar disso, fica só o título (o og:title segue completo). */
