@@ -1183,5 +1183,95 @@
   },
   "ck-enaus-criative": {
     "nome": "Enaus Criative (anual)"
+  },
+  "kw-sublimacao-jardel": {
+    "nome": "Curso de Sublimação Jardel Atacadão",
+    "tipo": "Curso online",
+    "preco": 297,
+    "img": "https://s3.amazonaws.com/aws-assets.kiwify.com.br/2hdCGqoTb1jHPEq/Capa-Curso_c2956027253145eda368f1299cd3a2f4.png"
+  },
+  "kw-curso-sublimacao": {
+    "nome": "Curso de Sublimação",
+    "tipo": "Curso online",
+    "preco": 69.99,
+    "img": "https://storage.googleapis.com/assets.kiwify.com.br/b338fCQ8b8eix25/RECEBER_5bcc0688ad0349b985dcd224b4c4eccc.png"
+  },
+  "kw-canva-criativo": {
+    "nome": "Curso Canva Criativo · Ana Flor Design",
+    "tipo": "Curso online",
+    "preco": 199,
+    "img": "https://aws-assets.kiwify.com.br/rABYVbDcgiYMzVI/img-px_e2c451cd089c4f25a26e5eacea0be25d.png"
+  },
+  "kw-sistema-ias": {
+    "nome": "Sistema IAs · domine a inteligência artificial",
+    "tipo": "Curso online",
+    "preco": 149.99,
+    "img": "https://aws-assets.kiwify.com.br/hquIat88YJ9PRJB/ChatGPT-Image-17-de-mar.-de-2026-08_17_00_20a438dd83df460e982f8c5252aced85.png"
+  },
+  "kw-zap-ia": {
+    "nome": "Zap.IA · assistente de IA no WhatsApp",
+    "tipo": "Software",
+    "preco": 97,
+    "img": "https://aws-assets.kiwify.com.br/5EL5mRXCqFjGt7D/Logo-marca_078633b2277849f48fb47f011678c9fc.png"
+  },
+  "kw-typebot": {
+    "nome": "Curso de Typebot Advanced + 100 funis",
+    "tipo": "Curso online",
+    "preco": 129,
+    "img": "https://s3.amazonaws.com/aws-assets.kiwify.com.br/vhCDDy55CSycHt7/80-de-comissao_231f8e4a1a0348d99e6c4f5510433d5a.png"
+  },
+  "kw-vim-milhas": {
+    "nome": "VIM · Viagens Inteligentes com Milhas",
+    "tipo": "Curso online",
+    "preco": 297,
+    "img": "https://aws-assets.kiwify.com.br/jNgvCvaTGiNv4Xf/NOVO-1-Logo-Curso-Milhas-Aereas_1dbd245ac2334694870a041c308f1e59.png"
+  },
+  "kw-may-milhas": {
+    "nome": "Curso May Milhas",
+    "tipo": "Curso online",
+    "preco": 215,
+    "img": "https://aws-assets.kiwify.com.br/0ijXowHJw7vPcwR/Capa-Consultoria-Kiwify_1279773adfec41629081c8b6e40aec95.png"
+  },
+  "kw-triade-milhas": {
+    "nome": "Tríade das Milhas",
+    "tipo": "Curso online",
+    "preco": 279.9,
+    "img": "https://aws-assets.kiwify.com.br/ahNLhJm80r9Hk0T/capa-triade_b14c43be10264f1788fb7924672b0956.jpg"
+  },
+  "kw-instalacao-ar": {
+    "nome": "Curso de Instalação de Ar Condicionado na Prática",
+    "tipo": "Curso online",
+    "preco": 97,
+    "img": "https://s3.amazonaws.com/aws-assets.kiwify.com.br/9zwiLH6oiZrYcFP/Ar-condicionado-quadrado_47fd6021dfc344a4a6f491337a73e36a.png"
+  },
+  "kw-tiktok-shop-ia": {
+    "nome": "Vender com IA no TikTok Shop",
+    "tipo": "Curso online",
+    "preco": 139.9,
+    "img": "https://aws-assets.kiwify.com.br/5bZLni32HT4U7yh/5FBF6D04-7925-4A06-9B99-345569653FB8_0ccf4ce8f66e4f728d962946e3d522ed.png"
+  },
+  "kw-ugc-creator": {
+    "nome": "UGC Creator em 15 dias + TikTok Shop",
+    "tipo": "Curso online",
+    "preco": 397,
+    "img": "https://aws-assets.kiwify.com.br/RRGyDj1HhlCfXey/Logo_2c11f548e7714229a92731ec3e015a1d.png"
+  },
+  "kw-fornecedores-semijoias": {
+    "nome": "Lista de Fornecedores de Semijoias e Prata",
+    "tipo": "Lista digital",
+    "preco": 37,
+    "img": "https://aws-assets.kiwify.com.br/vFGPpBrw7DEbHUv/Post-Instagram-Lancamento-de-Infoproduto-e-Curso-Online_7bc3c10b213b40e0b18ee62805cb9f9c.png"
+  },
+  "kw-canva-legend": {
+    "nome": "Canva Legend"
+  },
+  "kw-chatbot-whatsapp": {
+    "nome": "Como criar um chatbot para WhatsApp sem mensalidade"
+  },
+  "kw-curadoria-bras": {
+    "nome": "Curadoria Secreta do Brás"
+  },
+  "kw-canal-criativo": {
+    "nome": "Canal Criativo · app de figurinhas"
   }
 }
