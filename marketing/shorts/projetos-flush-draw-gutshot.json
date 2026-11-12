@@ -1,0 +1,16 @@
+{
+  "id": "projetos-flush-draw-gutshot",
+  "tipo": "Regras do poker",
+  "titulo": "Gutshot, flush draw e sequência aberta: quantos outs cada um tem? #shorts",
+  "descricao": "Os três projetos mais comuns do poker: flush draw com 9 outs, sequência aberta com 8 e gutshot com 4. No próximo vídeo: probabilidades de par, trinca e flush.\n\n18+ · Jogue com responsabilidade.\n\n#poker #pokeronline #texasholdem #supremapoker",
+  "post": "projetos-flush-draw-gutshot",
+  "cenas": [
+    { "tela": "Falta **uma carta**. Vale pagar?", "fala": "Falta só uma carta para fechar a mão. Mas quantas cartas te servem?", "imagem": "public/img/app-mesa.webp" },
+    { "passo": 1, "tela": "**Flush draw**: 4 do naipe = **9 outs**", "fala": "Flush draw: quatro cartas do mesmo naipe. Sobram nove no baralho, então são nove outs." },
+    { "passo": 2, "tela": "**Sequência aberta**: duas pontas = **8 outs**", "fala": "Sequência aberta: sete, oito, nove e dez. Fecha com seis ou com valete. Oito outs." },
+    { "passo": 3, "tela": "**Gutshot**: falta a do meio = **4 outs**", "fala": "Gutshot: seis, oito, nove e dez. Só o sete fecha. Apenas quatro outs." },
+    { "passo": 4, "tela": "Do flop ao river: **35%**, **31%**, **17%**", "fala": "Do flop até o river, sem mais apostas, eles fecham perto de trinta e cinco, trinta e um e dezessete por cento." },
+    { "passo": 5, "tela": "Gutshot sozinho? Aposta grande = **fold**", "fala": "Por isso, gutshot sozinho contra aposta grande quase sempre é fold." },
+    { "tela": "No próximo: **probabilidades**. Segue o canal!", "fala": "No próximo vídeo, as chances de par, trinca e flush. Segue o canal!", "imagem": "public/img/app-mesa.webp" }
+  ]
+}
