@@ -228,9 +228,10 @@
     "status": "pendente"
   },
   "hm-viver-de-youtube": {
-    "status": "ativo",
+    "status": "suspenso",
     "url": "https://go.hotmart.com/K108392957I",
-    "curto": "https://l.kbsa.app/hm-viver-de-youtube"
+    "curto": "https://l.kbsa.app/hm-viver-de-youtube",
+    "motivo": "produto suspenso pelo produtor em 12/11/2026 (o link cai em outro curso, src=ead_curso_suspenso)"
   },
   "hm-streamer-do-zero": {
     "status": "pendente"
