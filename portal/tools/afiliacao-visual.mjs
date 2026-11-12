@@ -429,7 +429,7 @@ export function renderHome({ info, v, posts, prefixo, dados, maisLidos = [] }) {
   const faq = v.faq || [];
   const ld = { '@context': 'https://schema.org', '@graph': [
     { '@type': 'WebSite', '@id': `${canonical}#site`, url: canonical, name: info.nome, inLanguage: 'pt-BR', description: desc },
-    { '@type': 'ItemList', name: v.h1, itemListElement: prods.map((p, i) => ({ '@type': 'ListItem', position: i + 1, name: p.nome, url: p.url })) },
+    { '@type': 'ItemList', name: v.h1, itemListElement: prods.map((p, i) => ({ '@type': 'ListItem', position: i + 1, name: p.nome })) },
     ...(faq.length ? [faqLd(faq.map((f) => ({ q: f.q, a: f.a })), `${canonical}#faq`)] : []),
   ] };
   const link = (p) => `${prefixo}/blog/${esc(p.slug)}`;
@@ -441,7 +441,7 @@ export function renderHome({ info, v, posts, prefixo, dados, maisLidos = [] }) {
   const lidos = maisLidos.map((s) => posts.find((p) => p.slug === s)).filter(Boolean).slice(0, 5);
   const series = seriesDo(blog, posts);
   const outros = ordem.filter((p) => p !== hoje);
-  const fichas = prods.slice(0, 4); // menor destaque: até 4 fichas, depois do conteúdo
+  const fichas = prods.filter((p) => posts.some((x) => String(x.content || '').includes(`{{LINK:${p.chave}}}`))).slice(0, 4); // menor destaque: até 4 fichas, depois do conteúdo, só de produto com guia
   const sec = (corpo, extra = '') => `<section class="sec"${extra}><div class="w">${corpo}</div></section>`;
   const iaVoz = `${esc(voz.nome)} é ${voz.ele === 'a' ? 'uma personagem criada' : 'um personagem criado'} com IA. Compara ficha e fontes; não diz que testou.`;
 
@@ -482,11 +482,15 @@ export function renderHome({ info, v, posts, prefixo, dados, maisLidos = [] }) {
       : `<div class="guias${forma === 'duas' ? ' g2' : ''}">${l.map((p) => `<a class="guia" href="${link(p)}">${capaCard(p, false, forma === 'duas' ? '(max-width: 640px) 92vw, 580px' : undefined, blog) || `<span class="gx" aria-hidden="true">${esc(info.nome)}</span>`}<span class="k">${esc(p.category || info.categoria)}</span><h3>${esc(p.title)}</h3>${forma === 'duas' ? `<p>${esc(frase(p.excerpt, 150))}</p>` : ''}</a>`).join('')}</div>`;
     return `<h2>Saiu esta semana</h2><p class="lead">${esc(frase(info.home_intro || info.descricao, 200))}</p>${corpo}<p style="margin:26px 0 0"><a class="btn lin" href="${prefixo}/blog">Ver todos os ${posts.length} guias</a></p>`;
   };
-  const linhasFicha = fichas.map((p) => `<tr><td><div class="nm">${p.img ? `<img src="${esc(mini(p.img, 160))}" alt="" loading="lazy" decoding="async" width="52" height="52">` : ''}<span>${esc(p.nome)}<small>${esc(p.tipo || '')}</small></span></div></td>
-<td>${esc(cap(v.melhor_para?.[p.chave] || ''))}</td><td>${p.preco ? brl(p.preco) : '—'}</td><td><a class="btn sm" href="${esc(p.url)}" ${REL}>Ver oferta</a></td></tr>`).join('');
-  const fichasHtml = fichas.length ? `<section class="sec" id="fichas"><div class="w ficha-tab" style="padding-top:22px"><div class="ficha-cab"><div><h2>${esc(v.tabela_titulo_novo || `Fichas de compra ${voz.ele === 'a' ? 'da' : 'do'} ${voz.curto}`)}</h2><p class="lead" style="margin:0">${esc(v.tabela_texto || 'Para quem cada opção serve e o preço da página oficial. Clique para conferir o conteúdo e a garantia antes de decidir.')}</p></div><span class="pub">Publicidade · links de afiliado</span></div>
-<div class="tabw"><table class="tab"><thead><tr><th>Opção</th><th>Para quem é</th><th>Preço</th><th>Oferta</th></tr></thead><tbody>${linhasFicha}</tbody></table></div>
-<p class="nota">Preços conferidos em ${dataBr()} na página oficial de cada produto. Eles mudam: confira antes de comprar. Se você comprar por estes links, o blog recebe uma comissão, sem custo extra.</p>
+  // Fichas da home levam à análise do produto no próprio blog, não ao link de afiliado (sessão BigLinks, 12/11/2026: robôs
+  // clicavam em massa nos botões da home; o link de afiliado fica no post, onde quem clica já leu o contexto). Produto sem
+  // guia que fale dele não entra nas fichas.
+  const guiaDo = (chave) => { const c = posts.filter((x) => String(x.content || '').includes(`{{LINK:${chave}}}`)); return c.find((x) => /vale a pena|funciona|review|o que conferir|como avaliar/i.test(x.title)) || c[0] || null; };
+  const linhasFicha = fichas.map((p) => [p, guiaDo(p.chave)]).filter(([, g]) => g).map(([p, g]) => `<tr><td><div class="nm">${p.img ? `<img src="${esc(mini(p.img, 160))}" alt="" loading="lazy" decoding="async" width="52" height="52">` : ''}<span>${esc(p.nome)}<small>${esc(p.tipo || '')}</small></span></div></td>
+<td>${esc(cap(v.melhor_para?.[p.chave] || ''))}</td><td>${p.preco ? brl(p.preco) : '—'}</td><td><a class="btn sm lin" href="${link(g)}">Ler a análise</a></td></tr>`).join('');
+  const fichasHtml = fichas.length ? `<section class="sec" id="fichas"><div class="w ficha-tab" style="padding-top:22px"><div class="ficha-cab"><div><h2>${esc(v.tabela_titulo_novo || `Fichas de compra ${voz.ele === 'a' ? 'da' : 'do'} ${voz.curto}`)}</h2><p class="lead" style="margin:0">${esc(v.tabela_texto || 'Para quem cada opção serve e o preço da página oficial. Clique para conferir o conteúdo e a garantia antes de decidir.')}</p></div></div>
+<div class="tabw"><table class="tab"><thead><tr><th>Opção</th><th>Para quem é</th><th>Preço</th><th>Análise</th></tr></thead><tbody>${linhasFicha}</tbody></table></div>
+<p class="nota">Preços conferidos em ${dataBr()} na página oficial de cada produto; eles mudam. Cada análise explica para quem o produto serve e o que conferir antes de comprar. Os links de compra ficam dentro das análises e são de afiliado: se você comprar por eles, o blog recebe uma comissão, sem custo extra.</p>
 ${kitBasico(v, dados)}</div></section>` : '';
   const assine = `<section class="sec" id="assine"><div class="w">${assineHtml(info, v)}</div></section>`;
   const faqSec = faq.length ? `<section class="sec" id="duvidas"><div class="w"><h2 style="margin-bottom:16px">Perguntas frequentes</h2>${faqHtml(faq)}</div></section>` : '';
