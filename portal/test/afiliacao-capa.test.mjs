@@ -58,18 +58,19 @@ test('instalador: "cover" vai para posts.cover_url, aparece no topo sem lazy, no
     db.close();
     assert.equal(row.cover_url, capa);
     assert.ok(semCapa > 0, 'post sem "cover" continua com cover_url nulo');
+    // 12/11/2026: no site entra a foto própria do post, sem o título gravado (fotos/<slug>.webp); a capa com título fica no og:image
+    const foto = '/assets/afiliacao/criativos/fotos/posts-virais-vale-a-pena.webp';
     const topoImg = /<figure class="capa"><img ([^>]+)><\/figure>/.exec(pagina)?.[1] || '';
-    assert.match(topoImg, /src="\/assets\/afiliacao\/criativos\/posts-virais-vale-a-pena-capa\.png"/);
+    assert.ok(topoImg.includes(`src="${foto}?v=`), topoImg);
     assert.match(topoImg, /alt="Ilustração de um feed com três posts em grade"/);
-    assert.match(topoImg, /width="1200" height="630"/);
-    assert.ok(!/loading=/.test(topoImg), 'a capa não é lazy');
+    assert.match(topoImg, /width="960" height="540"/);
+    assert.ok(!/loading=/.test(topoImg) && /fetchpriority="high"/.test(topoImg), 'a foto do topo não é lazy');
     assert.match(pagina, /<meta property="og:image" content="https:\/\/criativos\.blog\/assets\/afiliacao\/criativos\/posts-virais-vale-a-pena-capa\.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">/);
     assert.match(pagina, /<meta name="twitter:card" content="summary_large_image">/);
     const ld = JSON.parse(/<script type="application\/ld\+json">(.*?)<\/script>/s.exec(pagina)[1].replace(/\\u003c/g, '<'));
     assert.equal(ld['@graph'][0].image, 'https://criativos.blog/assets/afiliacao/criativos/posts-virais-vale-a-pena-capa.png');
     assert.match(pagina, /<figure class="blog-fig"><img src="\/assets\/afiliacao\/criativos\/posts-virais-vale-a-pena-1\.png" alt="Esquema de carrossel em 5 telas" loading="lazy"/);
-    assert.match(lista, /<img class="gc" src="\/assets\/afiliacao\/criativos\/posts-virais-vale-a-pena-capa\.png" alt="Ilustração de um feed/);
-    assert.match(home, /class="gc" src="\/assets\/afiliacao\/criativos\/posts-virais-vale-a-pena-capa\.png"/);
+    assert.match(lista, /<img class="gc" src="\/assets\/afiliacao\/criativos\/fotos\/posts-virais-vale-a-pena\.webp\?v=[a-z0-9]+" [^>]*alt="Ilustração de um feed/);
   } finally {
     fs.rmSync(raiz, { recursive: true, force: true });
   }

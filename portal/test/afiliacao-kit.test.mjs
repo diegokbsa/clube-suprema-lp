@@ -21,7 +21,7 @@ const dados = {
 test('kit básico: digital e físico rotulados, soma dos preços, aviso de comissão e link patrocinado', () => {
   const html = kitBasico({ kit: { itens: ['curso-x', 'sp-a', 'sp-b', 'sp-off'] } }, dados);
   assert.match(html, /Comece com o kit básico/);
-  assert.equal((html.match(/<article class="card">/g) || []).length, 3, 'item sem afiliação ativa fica de fora');
+  assert.equal((html.match(/<tr><td>/g) || []).length, 3, 'item sem afiliação ativa fica de fora');
   assert.match(html, /<span class="tag">Digital<\/span>/);
   assert.equal((html.match(/<span class="tag">Físico<\/span>/g) || []).length, 2);
   assert.match(html, /R\$\s?565,80/);

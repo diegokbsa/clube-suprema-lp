@@ -45,6 +45,14 @@ const MEDICAO = lerJson(path.join(CONTEUDO, 'medicao.json'), {});
 const CATALOGO = lerJson(path.join(CONTEUDO, 'produtos.json'), {});
 const DADOS_VITRINE = { catalogo: CATALOGO, links: LINKS };
 const ATIVOS = new Set(Object.entries(LINKS).filter(([, v]) => v.status === 'ativo' && v.url).map(([k]) => k));
+/** Posts mais lidos do blog nos últimos 30 dias pelo contador do Portal (visitas de gente, fora da rede interna), para a home.
+ *  Sem a tabela (banco antigo) ou sem visita, lista vazia: a seção "Mais lidos" só aparece com 3 posts ou mais. */
+function maisLidos(dominio) {
+  try {
+    return db.prepare("SELECT caminho, COUNT(*) n FROM visitas WHERE site = ? AND tipo = 'v' AND interno = 0 AND caminho LIKE '/blog/_%' AND dia >= date('now', '-30 day') GROUP BY caminho HAVING n >= 2 ORDER BY n DESC LIMIT 5")
+      .all(dominio).map((r) => r.caminho.replace(/^\/blog\//, '').replace(/[/?#].*$/, ''));
+  } catch { return []; }
+}
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
 /** Troca {{LINK:chave}} pelo link de afiliado e {{POST:slug}} pelo endereço público do post. Só afiliação ATIVA vira
@@ -197,12 +205,13 @@ try {
       const at = atual?.published_at || now();
       const pub = { ...base, status: 'publicado', scheduled_at: null, published_at: at, published_slug: a.slug, published_data: JSON.stringify(publishedData(base, at)) };
       if (!atual) { repo.insert('posts', pub); novos++; } else { repo.update('posts', atual.id, pub); atualizados++; }
+      a._publicado = at; // a home e a lista ordenam por publicação (a numeração dos arquivos não é cronológica)
     }
     const vitrine = lerJson(path.join(dir, 'vitrine.json'), null);
     if (vitrine) {
       // visual de venda: home comparativa, lista e cada post como página própria (mesmos endereços do blog)
       const v = { ...vitrine, _ativos: ATIVOS, _adsense: ADSENSE };
-      gravarPagina(repo, { siteId: site.id, caminho: '', html: comOrigem(renderHome({ info, v, posts: lista, prefixo, dados: DADOS_VITRINE }), `${slugBlog}-home`), titulo: info.nome, indexar: true });
+      gravarPagina(repo, { siteId: site.id, caminho: '', html: comOrigem(renderHome({ info, v, posts: lista, prefixo, dados: DADOS_VITRINE, maisLidos: maisLidos(dominio) }), `${slugBlog}-home`), titulo: info.nome, indexar: true });
       gravarPagina(repo, { siteId: site.id, caminho: 'blog', html: comOrigem(renderLista({ info, v, posts: lista, prefixo }), `${slugBlog}-blog`), titulo: `Guias · ${info.nome}`, indexar: false });
       for (const a of lista) {
         const row = repo.get('posts', { site_id: site.id, slug: a.slug });

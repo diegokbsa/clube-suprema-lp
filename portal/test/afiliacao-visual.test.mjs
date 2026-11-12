@@ -13,16 +13,22 @@ const dados = { catalogo: j(path.join(C, 'produtos.json')), links: j(path.join(C
 const blog = (slug) => ({ info: j(path.join(C, slug, 'site.json')), v: j(path.join(C, slug, 'vitrine.json')),
   posts: fs.readdirSync(path.join(C, slug, 'posts')).sort().map((f) => j(path.join(C, slug, 'posts', f))), prefixo: `https://kbsa.app/${slug}`, dados });
 
-test('home: og:image, 1a foto sem lazy, card conforme o número de produtos e sem marcas de IA', () => {
+test('home: og:image, foto do destaque sem lazy, voz assinando, Publicidade nas fichas e sem marcas de IA', () => {
   for (const slug of fs.readdirSync(C).filter((d) => fs.existsSync(path.join(C, d, 'site.json')))) {
     const html = renderHome(blog(slug));
     assert.match(html, /<meta property="og:image" content="https:\/\//, `${slug}: home com og:image`);
-    assert.match(html, /<div class="picks n[123]">/, `${slug}: classe do número de produtos`);
     assert.ok(!html.includes('→'), `${slug}: sem seta nos botões`);
     assert.ok(!/class="selo"/.test(html), `${slug}: sem pílula acima do título`);
-    const imgs = [...html.matchAll(/<div class="ft"><img ([^>]+)>/g)].map((m) => m[1]);
-    assert.ok(imgs.length && /fetchpriority="high"/.test(imgs[0]) && !/loading=/.test(imgs[0]), `${slug}: 1a foto é a do LCP`);
-    assert.ok(imgs.slice(1).every((a) => /loading="lazy"/.test(a)), `${slug}: as outras fotos são lazy`);
+    const imgs = [...html.matchAll(/<img ([^>]+)>/g)].map((m) => m[1]);
+    const lcp = imgs.filter((a) => /fetchpriority="high"/.test(a));
+    assert.equal(lcp.length, 1, `${slug}: uma imagem de LCP só`);
+    assert.ok(!/loading=/.test(lcp[0]), `${slug}: a foto do destaque não é lazy`);
+    assert.ok(imgs.filter((a) => !/fetchpriority/.test(a)).every((a) => /loading="lazy"/.test(a)), `${slug}: as outras imagens são lazy`);
+    assert.match(html, /<link rel="preload" as="image" href="[^"]+" (imagesrcset="[^"]+" imagesizes="[^"]+" )?fetchpriority="high">/, `${slug}: preload da foto do destaque`);
+    assert.match(html, /<aside class="voz"[^]*com IA/, `${slug}: voz do blog declarada como personagem de IA`);
+    assert.match(html, /<span class="pub">Publicidade/, `${slug}: rótulo de publicidade nas fichas`);
+    assert.match(html, /@font-face\{font-family:'Titulo';src:url\(\/assets\/fontes\/[a-z-]+\.woff2\)/, `${slug}: fonte servida pelo Portal`);
+    assert.ok(!/fonts\.googleapis/.test(html), `${slug}: sem Google Fonts na página`);
     const niveis = [...html.matchAll(/<h([1-6])/g)].map((m) => Number(m[1]));
     niveis.forEach((n, i) => assert.ok(i === 0 || n <= niveis[i - 1] + 1, `${slug}: título h${n} depois de h${niveis[i - 1]}`));
   }
@@ -33,14 +39,14 @@ test('foto local do produto entra no lugar da original quando o webp existe', ()
   if (!chave) return; // sem fotos geradas neste checkout
   const slug = fs.readdirSync(C).find((d) => fs.existsSync(path.join(C, d, 'vitrine.json')) && j(path.join(C, d, 'vitrine.json')).destaques?.includes(chave));
   if (!slug) return;
-  assert.ok(renderHome(blog(slug)).includes(`src="/assets/afiliacao/produtos/${chave}.webp"`));
+  const html = renderHome(blog(slug));
+  assert.ok(html.includes(`/assets/afiliacao/produtos/${chave}.webp`) || html.includes(`/assets/afiliacao/r/produtos/${chave}-`), 'foto local (ou a variante dela)');
 });
 
-test('lista: a 1a capa não é lazy e vira og:image', () => {
+test('lista: a 1a imagem não é lazy e a capa vira og:image', () => {
   const b = blog('gamer');
   const html = renderLista(b);
   const capa = /<img class="gc" ([^>]+)>/.exec(html)?.[1] || '';
-  if (!b.posts[0].cover) return;
   assert.ok(/fetchpriority="high"/.test(capa) && !/loading=/.test(capa));
   assert.match(html, /<meta property="og:image" content="https:\/\/kbsa\.app\/assets\/afiliacao\/gamer\//);
 });
@@ -55,12 +61,14 @@ test('post: caixa no topo ou tabela "melhor escolha", CTA no meio, relacionados 
       const html = renderPost({ ...b, post, aplicarLinks, publicado: '2026-11-08T10:00:00Z', atualizado: '2026-11-09T10:00:00Z' });
       const temProduto = /class="fixo"/.test(html);
       if (!temProduto) continue;
-      assert.ok(/class="(escolha|melhor)"/.test(html), `${slug}/${post.slug}: caixa ou tabela no topo`);
-      assert.ok(html.indexOf('class="rapida"') < html.search(/class="(escolha|melhor)"/), `${slug}/${post.slug}: resposta rápida antes da oferta`);
+      assert.ok(/class="(escolha|melhor)[ "]/.test(html), `${slug}/${post.slug}: caixa ou tabela no topo`);
+      assert.ok(html.indexOf('rapida"') > 0 && html.indexOf('rapida"') < html.search(/class="(escolha|melhor)[ "]/), `${slug}/${post.slug}: resposta rápida antes da oferta`);
       if (/class="melhor"/.test(html)) comparativos++;
       assert.ok(/class="oferta"/.test(html), `${slug}/${post.slug}: CTA no meio do texto`);
       assert.match(html, /"@type":"Article"[^]*"dateModified"/, `${slug}/${post.slug}: Article com data`);
-      assert.match(html, /Atualizado em <time datetime=/, `${slug}/${post.slug}: data de atualização visível`);
+      assert.match(html, /Atualizado em<\/dt><dd><time datetime=/, `${slug}/${post.slug}: data de atualização visível`);
+      assert.match(html, /<div class="assina">[^]*com IA/, `${slug}/${post.slug}: assinatura da voz`);
+      assert.ok((html.match(/<span class="pub">Publicidade<\/span>/g) || []).length >= 1, `${slug}/${post.slug}: oferta com "Publicidade"`);
       const rel = relacionados(post, b.posts);
       assert.ok(!rel.some((p) => p.slug === post.slug) && rel.length <= 3);
       const viz = deOutrosBlogs(b.info, post);
