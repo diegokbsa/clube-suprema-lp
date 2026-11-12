@@ -41,6 +41,26 @@ Texto corrido: Atkinson Hyperlegible Next (variável 200–800, com itálico). F
   checklist de quadradinhos, etiqueta de oferta com "Publicidade" e preço com data, assinatura da voz, relacionados.
 - **Barra de oferta no celular:** só aparece depois do topo do post sair da tela.
 
+## Plantas (12/11/2026, para os blogs não terem a mesma estrutura)
+`PLANTAS` em `afiliacao-temas.mjs`; nenhum par home+post se repete (teste em `afiliacao-visual.test.mjs`).
+
+| Home | Como é | Blogs |
+|---|---|---|
+| a, edição | voz ao lado do título, destaque 7/5, trilha em 3 colunas, mais lidos + séries, grade de 6 | afiliado, automacao |
+| b, revista | topo centrado, foto do destaque larga (21:9), lista de linhas com lateral fixa (voz + séries), trilha com fotos | sublimacao, gamer, milhas |
+| c, almanaque | barra do topo invertida, sem foto na 1ª dobra, trilha numerada grande, destaque em ficha, índice lateral fixo | fornecedores, ia, manutencao |
+| d, perguntas | o leitor escolhe o assunto (séries em blocos) logo abaixo do título, destaque invertido, grade de 2, voz em faixa | achadinhos, criativos |
+
+| Post | Como é | Blogs |
+|---|---|---|
+| 1 | índice à direita | milhas, automacao |
+| 2 | índice à esquerda | fornecedores, afiliado |
+| 3 | revista: foto larga primeiro, cabeçalho e coluna centrados, índice aberto | sublimacao, achadinhos, manutencao |
+| 4 | cabeçalho dividido (texto + foto 4:3), índice em chips | criativos, ia, gamer |
+
+Oferta com menor destaque em todas: 1 bloco por post depois do conteúdo útil, sem barra fixa nem cartão lateral; home com até 4 fichas no fim.
+Aviso de cookies (`medicao.js`): nos blogs vira faixa baixa no rodapé com as cores do tema.
+
 ## Movimento
 Um momento só: o carimbo "carimba" ao abrir o post (0,55 s, ease-out). Barra de progresso de leitura por scroll-timeline
 (sem JS). Zoom leve na foto do destaque. Tudo some com `prefers-reduced-motion`.
