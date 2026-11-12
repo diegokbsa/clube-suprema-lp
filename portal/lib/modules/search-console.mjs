@@ -7,13 +7,13 @@ import { siteBase } from '../seo.mjs';
 
 export const nav = { id: 'search-console', label: 'Search Console', perm: 'integrations.read' };
 
-const GOOGLE_KIND = 'google_search_console';
-const BING_KIND = 'bing_webmaster';
+export const GOOGLE_KIND = 'google_search_console';
+export const BING_KIND = 'bing_webmaster';
 const GOOGLE_SCOPE = 'https://www.googleapis.com/auth/webmasters';
 const GOOGLE_AUTH = 'https://accounts.google.com/o/oauth2/v2/auth';
 const GOOGLE_TOKEN = 'https://oauth2.googleapis.com/token';
-const GOOGLE_API = 'https://www.googleapis.com/webmasters/v3';
-const GOOGLE_INSPECT = 'https://searchconsole.googleapis.com/v1/urlInspection/index:inspect';
+export const GOOGLE_API = 'https://www.googleapis.com/webmasters/v3';
+export const GOOGLE_INSPECT = 'https://searchconsole.googleapis.com/v1/urlInspection/index:inspect';
 const BING_SUBMIT = 'https://ssl.bing.com/webmaster/api.svc/json/SubmitFeed';
 const STATE_TTL_MS = 10 * 60_000;
 const googleStates = new Map();
@@ -27,7 +27,7 @@ const object = (value) => {
 const fetcher = (app) => app.fetchImpl || globalThis.fetch;
 const integration = (repo, kind, create = false) => repo.get('integrations', { kind })
   || (create ? repo.insert('integrations', { kind, status: 'pendente', public_config: '{}' }) : null);
-const sealedData = (app, row) => {
+export const sealedData = (app, row) => {
   try { return object(row?.secret ? app.vault.open(row.secret) : null); }
   catch { return {}; }
 };
@@ -100,7 +100,7 @@ async function googleAccessToken(app, repo, row, { forceRefresh = false } = {}) 
   return { token: secrets.accessToken, secrets };
 }
 
-async function googleRequest(app, repo, row, url, init = {}) {
+export async function googleRequest(app, repo, row, url, init = {}) {
   let auth = await googleAccessToken(app, repo, row);
   const call = (token) => fetcher(app)(url, {
     ...init,
