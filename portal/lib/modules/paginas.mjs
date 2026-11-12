@@ -47,13 +47,20 @@ export function tagMedicao(site) {
   return ga4 || pixel || clarity || ads ? `<script src="/assets/medicao.js" data-ga4="${ga4}" data-pixel="${pixel}"${extra} defer></script>` : '';
 }
 
+/** Marca no <head> das páginas que adiam os scripts externos e o carregador que os ativa depois do "load" (1 por 1, na ordem). */
+export const DEPOIS = /<meta name="scripts-depois" content="1">/;
+export const CARREGAR_DEPOIS = `<script>addEventListener('load',function(){setTimeout(function(){[].forEach.call(document.querySelectorAll('script[type=depois]'),function(o){var n=document.createElement('script');[].forEach.call(o.attributes,function(a){if(a.name!=='type')n.setAttribute(a.name,a.value)});if(o.text)n.text=o.text;o.parentNode.replaceChild(n,o)})},50)})</script>`;
+
 /** Documento pronto para servir: troca __SITE__ e põe a medição e o script do CRM antes de </body>. */
 export function montar(html, siteOuId) {
   const site = typeof siteOuId === 'object' && siteOuId ? siteOuId : { id: siteOuId };
   const siteId = site.id;
   const doc = String(html).replace(/__SITE__/g, String(siteId));
   if (ehAmp(doc)) return doc;
-  const s = tagMedicao(site) + scriptCrm(siteId) + tagVisitas(site) + tagMinilytics(site); // contadores sem cookie: vazios quando só veio o id
+  let s = tagMedicao(site) + scriptCrm(siteId) + tagVisitas(site) + tagMinilytics(site); // contadores sem cookie: vazios quando só veio o id
+  // Página que pede scripts depois (blogs de afiliado, 12/11/2026): todo script externo só baixa depois do "load". No PageSpeed,
+  // script que começa antes da primeira pintura entra na conta dela (0,2 s reais viravam 1,7 s simulados no celular).
+  if (DEPOIS.test(doc.slice(0, 3000))) s = s.replace(/<script(?=[^>]*\ssrc=)/g, '<script type="depois"') + CARREGAR_DEPOIS;
   return /<\/body>/i.test(doc) ? doc.replace(/<\/body>(?![\s\S]*<\/body>)/i, `${s}</body>`) : `${doc}${s}`;
 }
 

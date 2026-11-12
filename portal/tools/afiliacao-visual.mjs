@@ -221,7 +221,8 @@ h1{font-size:calc(2rem*var(--k))}.abre .sub{font-size:1.05rem}.ficha dl{gap:6px 
 /** Espaço do script do Google AdSense, DESLIGADO até a aprovação: só sai com adsense.json {cliente:"ca-pub-<16 dígitos>", ativo:true}. */
 export function adsenseTag(a) {
   if (!a || a.ativo !== true || !/^ca-pub-\d{16}$/.test(String(a.cliente || ''))) return '<!-- adsense: desligado até a aprovação -->';
-  return `<meta name="google-adsense-account" content="${esc(a.cliente)}"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${esc(a.cliente)}" crossorigin="anonymous"></script>`;
+  // type="depois": o carregador do Portal (paginas.mjs, CARREGAR_DEPOIS) ativa o script depois do "load"; o meta continua no HTML.
+  return `<meta name="google-adsense-account" content="${esc(a.cliente)}"><script type="depois" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${esc(a.cliente)}" crossorigin="anonymous"></script>`;
 }
 
 /** Title da aba e do Google: até ~60 caracteres. Se "título · nome do blog" passar disso, fica só o título (o og:title segue completo). */
@@ -239,7 +240,7 @@ function head({ titulo, desc, canonical, v, ld, og }) {
   const t = temaDe(blogDe(v), v);
   return `<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>${esc(tituloCurto(titulo))}</title><meta name="description" content="${esc(desc).slice(0, 160)}"><link rel="canonical" href="${esc(canonical)}">
-<meta name="robots" content="index,follow,max-image-preview:large"><meta property="og:type" content="${og || 'website'}"><meta property="og:title" content="${esc(titulo)}">
+<meta name="robots" content="index,follow,max-image-preview:large"><meta name="scripts-depois" content="1"><meta property="og:type" content="${og || 'website'}"><meta property="og:title" content="${esc(titulo)}">
 <meta property="og:description" content="${esc(desc).slice(0, 200)}"><meta property="og:url" content="${esc(canonical)}"><meta property="og:locale" content="pt_BR">
 ${v.imagem ? `<meta property="og:image" content="${esc(v.imagem)}">${/-capa\.(png|jpe?g|webp)(\?|$)/.test(v.imagem) ? '<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">' : ''}<meta property="og:image:alt" content="${esc(titulo)}"><meta name="twitter:card" content="summary_large_image">` : '<meta name="twitter:card" content="summary">'}
 ${v.lcp ? `<link rel="preload" as="image" href="${esc(v.lcp)}"${v.lcpSrcset ? ` imagesrcset="${esc(v.lcpSrcset)}" imagesizes="${esc(v.lcpSizes || '100vw')}"` : ''} fetchpriority="high">` : ''}
@@ -282,7 +283,7 @@ function rodape(info, prefixo = '', v = {}) {
 <nav class="rod" aria-label="Institucional"><a href="${prefixo}/blog">Todos os guias</a>${((bf) => (bf ? `<a href="${esc(bf.url)}">Black Friday 2026</a>` : ''))(blackFriday(v, prefixo))}${nav}</nav>
 <span>${esc(voz.nome)} é ${voz.ele === 'a' ? 'uma personagem criada' : 'um personagem criado'} com IA para dar voz ao blog: ${voz.ele === 'a' ? 'ela' : 'ele'} compara a ficha e as fontes de cada produto e não afirma ter testado nada.</span>
 <span><b>Transparência:</b> alguns links deste site são de afiliado. Se você comprar por eles, recebemos uma comissão, sem custo extra para você. Isso não muda a ordem nem o que escrevemos; confira sempre na página oficial o conteúdo, o preço e a garantia antes de comprar. <a href="${prefixo}/aviso-de-afiliados">Saiba mais</a>.</span>
-<span>Contato: <a href="mailto:${esc(email)}">${esc(email)}</a> · © ${ANO} ${esc(info.nome)} · Conteúdo informativo, sem promessa de resultado.</span></div></footer>`;
+<span>Contato: <!--email_off--><a href="mailto:${esc(email)}">${esc(email)}</a><!--/email_off--> · © ${ANO} ${esc(info.nome)} · Conteúdo informativo, sem promessa de resultado.</span></div></footer>`;
 }
 
 /** Carimbo de conferência: quem conferiu e quando. */

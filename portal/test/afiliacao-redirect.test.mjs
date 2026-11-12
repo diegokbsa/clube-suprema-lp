@@ -53,3 +53,14 @@ test('instalador: post com "redirect" responde 301, sai do sitemap e da home; de
     assert.ok(!REDIRECT.test(outro.html), 'redirect para post inexistente é ignorado e o post continua');
   } finally { fs.rmSync(raiz, { recursive: true, force: true }); }
 });
+
+test('blogs: scripts externos só depois do "load" (PageSpeed) e o resto do Portal sem mudança', async () => {
+  const { montar } = await import('../lib/modules/paginas.mjs');
+  const site = { id: 1, domain: 'sublima.casa', tracking: JSON.stringify({ ga4: 'G-ABCD1234' }) };
+  const blog = montar('<!doctype html><html><head><meta name="scripts-depois" content="1"></head><body>x</body></html>', site);
+  assert.ok(!/<script(?![^>]*type="depois")[^>]*\ssrc=/.test(blog), 'nenhum script externo imediato');
+  assert.match(blog, /<script type="depois" src="\/assets\/medicao\.js"/);
+  assert.match(blog, /addEventListener\('load'/);
+  const outro = montar('<!doctype html><html><head></head><body>x</body></html>', site);
+  assert.ok(!outro.includes('type="depois"'), 'página sem a marca segue igual');
+});

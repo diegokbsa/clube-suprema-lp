@@ -39,4 +39,5 @@ test('rodapé liga as páginas obrigatórias e o script do AdSense nasce desliga
   assert.match(adsenseTag({ ativo: false, cliente: 'ca-pub-1234567890123456' }), /desligado/);
   assert.match(adsenseTag({ ativo: true, cliente: 'ca-pub-123' }), /desligado/, 'ID inválido não liga');
   assert.match(adsenseTag({ ativo: true, cliente: 'ca-pub-1234567890123456' }), /adsbygoogle\.js\?client=ca-pub-1234567890123456/);
+  assert.match(adsenseTag({ ativo: true, cliente: 'ca-pub-1234567890123456' }), /<script type="depois" async src=/, 'AdSense só depois do load (PageSpeed)');
 });
