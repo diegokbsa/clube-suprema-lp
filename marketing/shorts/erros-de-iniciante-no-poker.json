@@ -1,0 +1,16 @@
+{
+  "id": "erros-de-iniciante-no-poker",
+  "tipo": "Dica rápida",
+  "titulo": "5 erros de iniciante no poker que custam fichas (e como evitar) #shorts",
+  "descricao": "Os erros que quase todo iniciante comete no poker online: mãos demais, posição, pagar só para ver, apego ao par de ases e jogar sem limite. No próximo vídeo: pot odds e outs.\n\n18+ · Jogue com responsabilidade.\n\n#poker #pokeronline #texasholdem #supremapoker",
+  "post": "erros-de-iniciante-no-poker",
+  "cenas": [
+    { "tela": "**5 erros** que todo iniciante comete", "fala": "Cinco erros que quase todo iniciante comete no poker.", "imagem": "public/img/app-mesa.webp" },
+    { "passo": 1, "tela": "Jogar **mãos demais**", "fala": "Primeiro: jogar mãos demais. A maioria das mãos é fold, e tudo bem." },
+    { "passo": 2, "tela": "Esquecer a **posição**", "fala": "Segundo: esquecer a posição. A mesma mão vale mais no botão do que no UTG." },
+    { "passo": 3, "tela": "Pagar **só para ver**", "fala": "Terceiro: pagar só para ver o que vem. Cada call pequeno, somado, pesa." },
+    { "passo": 4, "tela": "Se apaixonar pelo **par de ases**", "fala": "Quarto: se apaixonar pelo par de ases. Ele é forte, mas perde mãos. Reavalie a cada carta." },
+    { "passo": 5, "tela": "Jogar **sem limite** de tempo", "fala": "Quinto: jogar sem limite. Defina antes quanto tempo vai jogar e pare na hora." },
+    { "tela": "No próximo: **pot odds e outs**. Segue o canal!", "fala": "No próximo vídeo, pot odds e outs, a conta para pagar ou largar. Segue o canal!", "imagem": "public/img/app-mesa.webp" }
+  ]
+}
