@@ -120,16 +120,23 @@ async function coletarGoogle(app, ctx, dominio, propriedade, hoje, log) {
   let urls = [];
   try { urls = [...new Set(await urlsDoSitemap(app.fetchImpl || fetch, dominio))]; } catch (e) { log(`${dominio}: sitemap público: ${e.message}`); }
   let inspecionadas = 0; let indexadas = 0; const estados = {};
-  for (const url of urls.slice(0, LIMITE_INSPECAO)) {
-    try {
-      const r = await googleRequest(app, repo, row, GOOGLE_INSPECT, { method: 'POST', body: JSON.stringify({ inspectionUrl: url, siteUrl: propriedade, languageCode: 'pt-BR' }) });
-      const st = r?.inspectionResult?.indexStatusResult || {};
-      inspecionadas++;
-      if (st.verdict === 'PASS') indexadas++;
-      const chave = String(st.coverageState || st.verdict || 'sem estado').slice(0, 80);
-      estados[chave] = (estados[chave] || 0) + 1;
-    } catch (e) { log(`${dominio}: inspeção parou em ${inspecionadas}: ${e.message}`); break; }
-  }
+  // 5 inspeções por vez (cota do Google: 600/min e 2.000/dia por propriedade); a primeira falha para o domínio
+  const fila = urls.slice(0, LIMITE_INSPECAO);
+  let parou = false;
+  const trabalhador = async () => {
+    while (fila.length && !parou) {
+      const url = fila.shift();
+      try {
+        const r = await googleRequest(app, repo, row, GOOGLE_INSPECT, { method: 'POST', body: JSON.stringify({ inspectionUrl: url, siteUrl: propriedade, languageCode: 'pt-BR' }) });
+        const st = r?.inspectionResult?.indexStatusResult || {};
+        inspecionadas++;
+        if (st.verdict === 'PASS') indexadas++;
+        const chave = String(st.coverageState || st.verdict || 'sem estado').slice(0, 80);
+        estados[chave] = (estados[chave] || 0) + 1;
+      } catch (e) { if (!parou) log(`${dominio}: inspeção parou em ${inspecionadas}: ${e.message}`); parou = true; }
+    }
+  };
+  await Promise.all(Array.from({ length: 5 }, trabalhador));
   app.db.prepare(`INSERT INTO sc_indexacao (dominio, dia, sitemap_urls, enviadas, indexadas_sitemap, inspecionadas, indexadas, detalhe, coletado_em)
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) ON CONFLICT (dominio, dia) DO UPDATE SET sitemap_urls = excluded.sitemap_urls, enviadas = excluded.enviadas,
     indexadas_sitemap = excluded.indexadas_sitemap, inspecionadas = excluded.inspecionadas, indexadas = excluded.indexadas, detalhe = excluded.detalhe, coletado_em = excluded.coletado_em`)
@@ -234,7 +241,11 @@ export async function coletar(app, { dir = process.env.PORTAL_DATA_DIR, inspecio
       } catch (e) { anota(`conexão do Google (operação ${row.tenant_id}): ${e.message}`); }
     }
     if (!conexoesGoogle(app).length) pendencias.push({ tipo: 'google_sem_conexao', passo: 'Conectar a conta Google no painel do Portal → Search Console → "Conectar conta Google".' });
+    const progresso = (fase) => { if (!dir) return; try { const pasta = path.join(dir, 'search-console'); fs.mkdirSync(pasta, { recursive: true });
+      fs.writeFileSync(path.join(pasta, 'progresso.json'), JSON.stringify({ em: new Date().toISOString(), fase, feitos: estadoDominios.length, total: lista.length, ultimo: estadoDominios.at(-1) || null, log: log.slice(-10) }, null, 1)); } catch { /* só aviso */ } };
+    progresso('google: propriedades listadas');
     for (const d of lista) {
+      progresso(`google: ${d}`);
       const alvo = mapa.get(d);
       if (!alvo) {
         estadoDominios.push({ dominio: d, estado: 'sem_propriedade', propriedade: null });
@@ -259,6 +270,7 @@ export async function coletar(app, { dir = process.env.PORTAL_DATA_DIR, inspecio
         try { e.bingDias = await coletarBing(app, apiKey, e.dominio); } catch (err) { e.bingErro = String(err.message).slice(0, 160); }
       }
     } else pendencias.push({ tipo: 'bing_sem_chave', passo: 'Opcional: colar a chave da API do Bing Webmaster no painel do Portal → Search Console (bing.com/webmasters → Configurações → API).' });
+    progresso('exportando');
     const estado = { dominios: estadoDominios, pendencias, log };
     ultimaColeta = { dia: hoje, em: new Date().toISOString(), ok: estadoDominios.filter((d) => d.estado === 'ok').length, total: lista.length };
     if (dir) exportar(app.db, dir, estado);
