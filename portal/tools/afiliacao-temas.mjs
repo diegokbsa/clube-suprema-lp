@@ -105,6 +105,18 @@ export const TEMAS = {
   },
 };
 
+/** Plantas (12/11/2026, pedido do Big: os 10 com a mesma estrutura parecem rede em escala para o Google). Home:
+ *  a = edição (destaque ao lado da voz, trilha em colunas, séries, grade), b = revista (cabeçalho centrado, foto larga, coluna
+ *  de leitura com lateral da voz e séries), c = almanaque (sem foto no topo, índice lateral fixo, trilha numerada, lista de
+ *  linhas), d = perguntas (o leitor escolhe o assunto primeiro, destaque invertido, voz numa faixa).
+ *  Post: 1 = índice à direita, 2 = índice à esquerda, 3 = revista (foto primeiro, coluna centrada), 4 = cabeçalho dividido. */
+export const PLANTAS = {
+  sublimacao: { home: 'b', post: 3 }, fornecedores: { home: 'c', post: 2 }, criativos: { home: 'd', post: 4 }, ia: { home: 'c', post: 4 },
+  achadinhos: { home: 'd', post: 3 }, manutencao: { home: 'c', post: 3 }, gamer: { home: 'b', post: 4 }, afiliado: { home: 'a', post: 2 },
+  milhas: { home: 'b', post: 1 }, automacao: { home: 'a', post: 1 },
+};
+export const plantaDe = (blog) => PLANTAS[blog] || { home: 'a', post: 1 };
+
 /** Séries da home: [nome, expressão no título]. Um post pode estar em mais de uma; série com menos de 2 posts não aparece. */
 export const SERIES = {
   sublimacao: [['Canecas', 'caneca'], ['Camiseta e tecido', 'camiseta|tecido|algod|poli[eé]ster|chinelo'], ['Prensa, impressora e papel', 'prensa|impressora|tinta|papel|epson'], ['Vender e precificar', 'pre[cç]|vender|datas|fornecedor']],

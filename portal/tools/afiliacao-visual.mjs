@@ -12,7 +12,7 @@ import { fileURLToPath } from 'node:url';
 import { institucional, ROTULO, PAGINAS, emailDe } from './afiliacao-institucional.mjs';
 import { htmlText, faqDoTexto, faqLd, IMG_LOCAL, dimensoesImagem } from '../lib/modules/blog.mjs';
 import { nomeVariante } from './afiliacao-variantes.mjs';
-import { temaDe, FONTES, SERIES } from './afiliacao-temas.mjs';
+import { temaDe, FONTES, SERIES, plantaDe } from './afiliacao-temas.mjs';
 
 const PUBLICO = path.join(path.dirname(fileURLToPath(import.meta.url)), '..', 'public');
 /** Foto do produto servida pelo próprio Portal (webp de 600 px gerado por tools/afiliacao-capas.mjs), em vez da original da Hotmart/Kiwify,
@@ -204,9 +204,47 @@ footer .rod{display:flex;flex-wrap:wrap;gap:6px 18px}footer .rod a{color:var(--t
 .melhor .tag{display:inline-block;margin-top:4px;padding:2px 7px;border-radius:3px;background:var(--m);color:var(--sm);font:700 .74rem var(--fb)}
 .mais{padding:20px 0 0}.mais h2{font-size:calc(1.45rem*var(--k));margin-bottom:18px}
 .viz ul{margin:0;padding:0;list-style:none;display:grid;gap:10px}.viz li{padding:14px 16px;border:1px solid var(--linha);border-radius:var(--r);background:var(--papel)}.viz li span{display:block;font-size:.84rem;color:var(--suave)}.viz a{font-weight:700;color:var(--tinta)}
-@media(max-width:960px){.post-g{grid-template-columns:1fr;gap:0}.lado{display:none}.indice-m{display:block}.top nav{display:none}
+/* plantas (afiliacao-temas.mjs PLANTAS): topo */
+.top{position:relative}.top-b .w{position:relative;flex-direction:column;justify-content:center;gap:8px;padding:20px 0 12px}.top-b .marca{margin:0;flex-direction:column;align-items:center;gap:4px;font-size:calc(2.1rem*var(--k))}
+.top-b .modo{position:absolute;right:0;top:20px}
+.top-c{background:var(--tinta);border:0}.top-c .marca,.top-c nav a,.top-c .modo{color:var(--fundo)}.top-c .marca b{color:var(--fundo);opacity:.72}.top-c .modo{border-color:color-mix(in srgb,var(--fundo) 35%,transparent)}.top-c .modo:hover{background:transparent}.top-c nav a:hover,.top-c nav a[aria-current]{border-color:var(--fundo)}
+/* home b: revista */
+.rev .cab-c{text-align:center;max-width:860px;margin:0 auto 30px}.cab-c h1,.cab-c .sub{margin-left:auto;margin-right:auto}.cab-c .edicao{border:0;padding:0}
+.hoje-capa>a{display:block;border-radius:var(--r);overflow:hidden;box-shadow:var(--sombra)}.hoje-capa img{width:100%;aspect-ratio:21/9;object-fit:cover}
+.hoje-capa .hc{max-width:760px;margin:26px auto 0;text-align:center}.hoje-capa h2{font-size:calc(1.1rem*var(--k));color:var(--a);margin-bottom:10px}.hoje-capa h3{font-size:calc(clamp(1.6rem,3vw,2.5rem)*var(--k))}.hoje-capa h3 a{color:var(--tinta);text-decoration:none}.hoje-capa p{color:var(--suave);margin:12px 0 16px}.hoje-capa .meta{font-size:.88rem}
+.rev-g{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:56px;align-items:start}.rev-lado{position:sticky;top:20px;display:grid;gap:26px}.rev-lado .voz{grid-template-columns:1fr}
+.linhas{list-style:none;margin:0;padding:0;border-top:2px solid var(--tinta)}.linhas li{border-bottom:1px solid var(--linha)}.linhas a{display:grid;grid-template-columns:120px minmax(0,1fr);gap:16px;align-items:center;padding:14px 0;color:var(--tinta);text-decoration:none}
+.linhas img{width:120px;aspect-ratio:16/9;object-fit:cover;border-radius:4px;background:var(--linha)}.linhas .k{display:block;font-size:.8rem;color:var(--suave);margin-bottom:3px}.linhas b{display:block;font:var(--ft) calc(1.12rem*var(--k))/1.28 var(--fh);transition:color .15s}.linhas a:hover b{color:var(--a)}
+.snav{border-top:2px solid var(--tinta);padding-top:12px}.snav>b{display:block;font:700 .76rem var(--fb);letter-spacing:.05em;text-transform:uppercase;color:var(--suave);margin-bottom:4px}.snav details{border-bottom:1px solid var(--linha)}
+.snav summary{cursor:pointer;padding:11px 0;font-weight:700;display:flex;justify-content:space-between;gap:10px;list-style:none}.snav summary::-webkit-details-marker{display:none}.snav summary .num{font-weight:400;color:var(--suave)}.snav ul{list-style:none;margin:0 0 12px;padding:0}.snav li{padding:4px 0;font-size:.93rem;line-height:1.4}.snav a{color:var(--suave);text-decoration:none}.snav a:hover{color:var(--a);text-decoration:underline}
+.trilha-f{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px;counter-reset:t}.trilha-f li{counter-increment:t}.trilha-f a{display:grid;gap:12px;color:var(--tinta);text-decoration:none;font:var(--ft) calc(1.15rem*var(--k))/1.25 var(--fh)}
+.trilha-f img{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:var(--r)}.trilha-f span:before{content:counter(t) 'º passo';display:block;font:700 .8rem var(--fb);color:var(--a);margin-bottom:6px}.trilha-f a:hover span{text-decoration:underline}
+/* home c: almanaque */
+.alm{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:56px;align-items:start;padding:40px 0 10px}.alm-lado{position:sticky;top:20px;display:grid;gap:24px}.voz-c{grid-template-columns:1fr}
+.alm-cab{padding:0 0 28px;border-bottom:2px solid var(--tinta)}.alm-cab .edicao{border:0;padding:0}.alm-sec{padding:40px 0;border-bottom:1px solid var(--linha)}.alm-sec:last-child{border:0}
+.trilha-l{list-style:none;padding:0;margin:0;counter-reset:t}.trilha-l li{counter-increment:t;display:grid;grid-template-columns:3.4rem minmax(0,1fr);gap:14px;padding:18px 0;border-top:1px solid var(--linha)}
+.trilha-l li:before{content:counter(t);font:var(--ft) calc(2.6rem*var(--k))/1 var(--fh);color:var(--a)}.trilha-l a{font:var(--ft) calc(1.3rem*var(--k))/1.22 var(--fh);color:var(--tinta);text-decoration:none}.trilha-l a:hover{text-decoration:underline}.trilha-l p{margin:6px 0 0;color:var(--suave);font-size:.97rem;line-height:1.5}
+.hoje-ficha{display:grid;grid-template-columns:minmax(0,1fr) 240px;gap:28px;align-items:center;padding:24px;border:1px solid var(--linha);border-radius:var(--r);background:var(--papel)}.hoje-ficha img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:4px}
+.hoje-ficha h2{font-size:calc(1.05rem*var(--k));color:var(--a);margin-bottom:8px}.hoje-ficha h3{font-size:calc(1.5rem*var(--k))}.hoje-ficha h3 a{color:var(--tinta);text-decoration:none}.hoje-ficha p{color:var(--suave);margin:10px 0 14px}.hoje-ficha .meta{font-size:.88rem}
+/* home d: perguntas */
+.cab-d{max-width:820px;margin-bottom:34px}.cab-d .edicao{border:0;padding:0}.pergunta{font-size:calc(1.15rem*var(--k));margin:0 0 14px}
+.temas{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.tema{display:flex;flex-direction:column;gap:6px;padding:18px 18px 20px;border-radius:var(--r);border:1px solid var(--linha);background:var(--fundo);color:var(--tinta);text-decoration:none;transition:border-color .2s,background-color .2s}
+.tema:hover{border-color:var(--a);background:var(--papel)}.tema b{font:var(--ft) calc(1.3rem*var(--k))/1.15 var(--fh)}.tema .num{font-size:.82rem;color:var(--a);font-weight:700}.tema span:last-child{font-size:.9rem;color:var(--suave);line-height:1.4}
+.hoje.inv{grid-template-columns:minmax(0,5fr) minmax(0,7fr)}
+.guias.g2{grid-template-columns:repeat(2,minmax(0,1fr));gap:44px 32px}.g2 .guia h3{font-size:calc(1.45rem*var(--k))}
+.faixa-voz{background:var(--papel)}.voz-d{grid-template-columns:auto minmax(0,1fr) auto;align-items:center;border:0;background:transparent;padding:0}.voz-d .ia{grid-column:2}.voz-d .lk{grid-column:3;grid-row:1/3;flex-direction:column}
+/* post 2 a 4 */
+.pp-2 .post-g{grid-template-columns:240px minmax(0,1fr)}.pp-2 .lado{order:-1}
+.pp-3>.capa{margin:22px 0 0}.pp-3>.capa img{aspect-ratio:21/9}.pp-3 .post-cab{margin:0 auto;text-align:center;max-width:820px}.pp-3 .linha-fina{margin-left:auto;margin-right:auto}.pp-3 .ficha{justify-content:center}.pp-3 .ficha dl{justify-content:center}
+.pp-3 .post-g{grid-template-columns:minmax(0,1fr);max-width:760px;margin:0 auto}.pp-3 .indice-m{display:block}
+.pp-4 .post-cab{max-width:none;display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:44px;align-items:center}.pp-4 .post-cab .capa{margin:0}.pp-4 .post-cab .capa img{aspect-ratio:4/3}.pp-4 .post-g{grid-template-columns:minmax(0,1fr)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:28px 0 0}.chips a{padding:6px 12px;border:1px solid var(--linha);border-radius:999px;font-size:.88rem;color:var(--tinta);text-decoration:none;background:var(--papel);transition:border-color .15s,color .15s}.chips a:hover{border-color:var(--a);color:var(--a)}
+@media(max-width:960px){.rev-g,.alm,.hoje-ficha,.pp-4 .post-cab,.pp-2 .post-g{grid-template-columns:1fr}.rev-lado,.alm-lado{position:static}.temas{grid-template-columns:repeat(2,minmax(0,1fr))}.trilha-f{grid-template-columns:1fr}
+.voz-d{grid-template-columns:auto minmax(0,1fr)}.voz-d .lk{grid-column:1/-1;grid-row:auto;flex-direction:row}.hoje.inv{grid-template-columns:1fr}.hoje.inv>div{order:2}.alm{gap:30px;padding-top:28px}.pp-4 .post-cab{gap:22px}.pp-4 .post-cab .capa{order:-1}.top-b .marca{font-size:calc(1.5rem*var(--k))}.top-b .w{padding:14px 0 10px}.top-b .modo{top:12px}
+.post-g{grid-template-columns:1fr;gap:0}.lado{display:none}.indice-m{display:block}.top nav{display:none}
 .hoje,.duas,.assine{grid-template-columns:1fr}.abre-g{grid-template-columns:1fr;grid-template-areas:'cab' 'hoje' 'voz';gap:28px}.hoje{gap:18px}.duas{gap:40px}.trilha{grid-template-columns:1fr;gap:22px}.guias{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:640px){body{font-size:1rem}.w{width:calc(100% - 32px)}.sec{padding:42px 0}.abre{padding:28px 0 36px}.marca b{display:none}
+@media(max-width:640px){.guias.g2{grid-template-columns:1fr}.linhas a{grid-template-columns:88px minmax(0,1fr);gap:12px}.linhas img{width:88px}.hoje-capa img,.pp-3>.capa img{aspect-ratio:16/9}.temas{gap:8px}.tema{padding:14px}.tema span:last-child{display:none}
+body{font-size:1rem}.w{width:calc(100% - 32px)}.sec{padding:42px 0}.abre{padding:28px 0 36px}.marca b{display:none}
 .guias,.guias.dest .guia:first-child,.series{grid-template-columns:1fr}.of-g{grid-template-columns:84px minmax(0,1fr);gap:14px}.of-g img{width:84px;height:84px}
 .tab thead{display:none}.tab tr{display:grid;grid-template-columns:1fr auto;align-items:center;gap:10px 12px;padding:14px 0;border-bottom:1px solid var(--linha)}.tab td{padding:0;border:0}.tab td:first-child{grid-column:1/-1}.tab td:nth-child(2){display:none}.tab .nm img{width:48px;height:48px}
 h1{font-size:calc(2rem*var(--k))}.abre .sub{font-size:1.05rem}.ficha dl{gap:6px 18px}.txt{font-size:1.06rem}.cap,.tel{padding:24px}}
@@ -264,11 +302,12 @@ const faixaBF = (bf) => (bf ? `<div class="bf" data-ate="${BF_ATE}"><div class="
 const ICONE_MODO = '<svg class="sol" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6"/></svg><svg class="lua" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.6A8.2 8.2 0 0 1 9.4 4a8.2 8.2 0 1 0 10.6 10.6Z"/></svg>';
 const SCRIPT_MODO = `<script>document.querySelector('.modo').addEventListener('click',function(){var r=document.documentElement,e=r.dataset.tema?r.dataset.tema==='escuro':matchMedia('(prefers-color-scheme: dark)').matches,n=e?'claro':'escuro';r.dataset.tema=n;try{localStorage.setItem('tema',n)}catch(x){}})</script>`;
 
-function topo(info, prefixo, v, atual = '') {
+/** Topo: planta b = cabeçalho de revista centrado; c = barra invertida (tinta) de almanaque; a e d = barra clara. */
+function topo(info, prefixo, v, atual = '', pl = plantaDe(blogDe(v)).home) {
   const bf = blackFriday(v, prefixo);
   const voz = vozDe(v, info);
   const nav = [[`${prefixo}/blog`, 'Guias', 'blog'], [`${prefixo}/#comece`, 'Comece por aqui', ''], [`${prefixo}/#fichas`, 'Fichas de compra', ''], [`${prefixo}/autor`, `Quem é ${voz.ele === 'a' ? 'a' : 'o'} ${voz.curto}`, 'autor']];
-  return `${faixaBF(bf)}<header class="top"><div class="w"><a class="marca" href="${prefixo}/">${esc(info.nome)}<b>com ${esc(voz.curto)}</b></a>
+  return `${faixaBF(bf)}<header class="top top-${pl}"><div class="w"><a class="marca" href="${prefixo}/">${esc(info.nome)}<b>com ${esc(voz.curto)}</b></a>
 <nav aria-label="Principal">${bf ? `<a href="${esc(bf.url)}">Black Friday</a>` : ''}${nav.map(([h, t, k]) => `<a href="${h}"${k && k === atual ? ' aria-current="page"' : ''}>${esc(t)}</a>`).join('')}</nav>
 <button class="modo" type="button" aria-label="Alternar modo claro ou escuro">${ICONE_MODO}</button></div></header>${SCRIPT_MODO}`;
 }
@@ -362,11 +401,13 @@ const recentes = (posts) => [...posts].map((p, i) => [p, p._publicado || '', i])
 
 const SCRIPT_PAROU = (blog) => `<script>try{var u=JSON.parse(localStorage.getItem('parou:${blog}')||'null'),e=document.querySelector('.parou');if(u&&u.s&&u.t&&e){e.querySelector('a').href=u.s;e.querySelector('a').textContent=u.t;e.hidden=false}}catch(x){}</script>`;
 
-/** Home: edição do dia. Abertura com a voz, destaque de hoje, comece por aqui, mais lidos, séries, recentes, fichas de compra,
- *  newsletter/Telegram, FAQ e método. maisLidos = slugs ordenados pelo contador do Portal (afiliacao-instalar). */
+/** Home: edição do dia, em uma de 4 plantas (afiliacao-temas.mjs, PLANTAS). Os mesmos blocos (voz, destaque, comece por aqui,
+ *  mais lidos, séries, recentes, fichas, newsletter/Telegram, FAQ, método) mudam de ordem, de grade e de tratamento, para os
+ *  blogs não terem a mesma planta. maisLidos = slugs ordenados pelo contador do Portal (afiliacao-instalar). */
 export function renderHome({ info, v, posts, prefixo, dados, maisLidos = [] }) {
   const blog = blogDe(v);
   const voz = vozDe(v, info);
+  const pl = v._planta || plantaDe(blog).home;
   const prods = (v.destaques || []).map((k) => produto(k, dados)).filter(Boolean);
   const titulo = `${v.h1_seo || v.h1} (${ANO}) · ${info.nome}`;
   const ordem = recentes(posts);
@@ -383,36 +424,83 @@ export function renderHome({ info, v, posts, prefixo, dados, maisLidos = [] }) {
   ] };
   const link = (p) => `${prefixo}/blog/${esc(p.slug)}`;
   const imHoje = hoje && imagemDo(hoje, blog);
-  const sizesHoje = '(max-width: 960px) 92vw, 680px';
+  // a foto do destaque só é LCP quando está na primeira dobra (no almanaque ela fica mais abaixo e vai sem pressa)
+  const fotoNoTopo = pl !== 'c';
+  const sizesHoje = pl === 'b' ? '(max-width: 960px) 92vw, 1160px' : pl === 'c' ? '(max-width: 640px) 92vw, 260px' : '(max-width: 960px) 92vw, 680px';
   const comece = comecePor(v, posts);
   const lidos = maisLidos.map((s) => posts.find((p) => p.slug === s)).filter(Boolean).slice(0, 5);
   const series = seriesDo(blog, posts);
-  const recentesHtml = ordem.filter((p) => p !== hoje).slice(0, 6).map((p) => `<a class="guia" href="${link(p)}">${capaCard(p, false, undefined, blog) || `<span class="gx" aria-hidden="true">${esc(info.nome)}</span>`}<span class="k">${esc(p.category || info.categoria)}</span><h3>${esc(p.title)}</h3></a>`).join('');
+  const outros = ordem.filter((p) => p !== hoje);
   const fichas = prods.slice(0, 4); // menor destaque: até 4 fichas, depois do conteúdo
-  const linhas = fichas.map((p) => `<tr><td><div class="nm">${p.img ? `<img src="${esc(mini(p.img, 160))}" alt="" loading="lazy" decoding="async" width="52" height="52">` : ''}<span>${esc(p.nome)}<small>${esc(p.tipo || '')}</small></span></div></td>
+  const sec = (corpo, extra = '') => `<section class="sec"${extra}><div class="w">${corpo}</div></section>`;
+  const iaVoz = `${esc(voz.nome)} é ${voz.ele === 'a' ? 'uma personagem criada' : 'um personagem criado'} com IA. Compara ficha e fontes; não diz que testou.`;
+
+  // ---- blocos ----
+  const cab = `<h1>${esc(info.tagline || v.h1)}</h1><p class="sub">${esc(frase(v.sub || info.descricao, 190))}</p>
+<p class="edicao">Edição de ${dataBr()} · <span class="num">${posts.length}</span> guias publicados · um novo por dia</p>`;
+  const vozCard = (cls = 'voz') => `<aside class="${cls}" aria-label="Quem escreve">${carimbo(voz, Date.now())}<div><h2>${esc(voz.nome)}</h2><p>${esc(cap(voz.papel))}. ${esc(voz.jeito)}</p></div>
+<p class="ia">${iaVoz}</p><div class="lk"><a href="#assine">Receber por e-mail</a>${v.telegram ? '<a href="#assine">Canal no Telegram</a>' : ''}<a href="${prefixo}/sobre">Como o blog funciona</a></div></aside>`;
+  const fotoHoje = (cls) => (imHoje ? imgTag(imHoje, hoje.title, { primeiro: fotoNoTopo, sizes: sizesHoje, cls }) : `<span class="gx">${esc(info.nome)}</span>`);
+  const textoHoje = hoje ? `<h2>${esc(voz.bordao)}</h2><h3><a href="${link(hoje)}">${esc(hoje.title)}</a></h3><p>${esc(frase(hoje.resposta || hoje.excerpt, 230))}</p>
+<p class="meta">${esc(hoje.category || info.categoria)} · ${minutos(hoje.content)} min de leitura</p><a class="btn" href="${link(hoje)}">Ler o guia</a>` : '';
+  const fotoLink = () => `<a href="${link(hoje)}" tabindex="-1" aria-hidden="true">${fotoHoje('fh')}</a>`;
+  const hojeHtml = !hoje ? '' : {
+    a: `<div class="hoje">${fotoLink()}<div>${textoHoje}</div></div>`,
+    b: `<div class="hoje-capa">${fotoLink()}<div class="hc">${textoHoje}</div></div>`,
+    c: `<div class="hoje-ficha"><div>${textoHoje}</div>${fotoLink()}</div>`,
+    d: `<div class="hoje inv"><div>${textoHoje}</div>${fotoLink()}</div>`,
+  }[pl];
+  const parou = `<div class="parou" hidden><div class="w"><b>Você parou em:</b><a href="#"></a></div></div>${SCRIPT_PAROU(blog)}`;
+  const comeceTit = `<h2>Comece por aqui</h2><p class="lead">Se é a primeira vez, leia nesta ordem. São os guias que ${esc(voz.curto)} indicaria para quem está começando.</p>`;
+  const comeceHtml = (forma) => {
+    if (!comece.length) return '';
+    if (forma === 'lista') return `<div id="comece">${comeceTit}<ol class="trilha-l">${comece.map((p) => `<li><div><a href="${link(p)}">${esc(p.title)}</a><p>${esc(frase(p.excerpt, 170))}</p></div></li>`).join('')}</ol></div>`;
+    if (forma === 'faixa') return `<div id="comece">${comeceTit}<ol class="trilha-f">${comece.map((p) => `<li><a href="${link(p)}">${capaCard(p, false, '(max-width: 640px) 92vw, 380px', blog)}<span>${esc(p.title)}</span></a></li>`).join('')}</ol></div>`;
+    return `<div id="comece">${comeceTit}<ol class="trilha">${comece.map((p) => `<li><a href="${link(p)}">${esc(p.title)}</a><p>${esc(frase(p.excerpt, 150))}</p></li>`).join('')}</ol></div>`;
+  };
+  const lidosHtml = lidos.length >= 3 ? `<div><h2>Mais lidos</h2><p class="lead">O que mais gente abriu nos últimos 30 dias.</p><ol class="top5">${lidos.map((p) => `<li><a href="${link(p)}">${esc(p.title)}</a></li>`).join('')}</ol></div>` : '';
+  const seriesHtml = (forma) => {
+    if (!series.length) return '';
+    if (forma === 'nav') return `<nav class="snav" aria-label="Séries"><b>Séries</b>${series.map(([nome, l]) => `<details><summary>${esc(nome)} <span class="num">${l.length}</span></summary><ul>${l.slice(0, 6).map((p) => `<li><a href="${link(p)}">${esc(p.title)}</a></li>`).join('')}</ul></details>`).join('')}</nav>`;
+    if (forma === 'temas') return `<div class="temas">${series.map(([nome, l]) => `<a class="tema" href="${link(l[0])}"><b>${esc(nome)}</b><span class="num">${l.length} guias</span><span>${esc(frase(l[0].title, 70))}</span></a>`).join('')}</div>`;
+    return `<div><h2>Séries</h2><p class="lead">Os guias agrupados pelo que você quer resolver.</p><div class="series">${series.map(([nome, l]) => `<div class="serie"><h3>${esc(nome)}<span class="num">${l.length} guias</span></h3><ul>${l.slice(0, 4).map((p) => `<li><a href="${link(p)}">${esc(p.title)}</a></li>`).join('')}</ul></div>`).join('')}</div></div>`;
+  };
+  const recentesHtml = (forma) => {
+    const l = outros.slice(0, forma === 'linhas' ? 8 : forma === 'duas' ? 4 : 6);
+    const corpo = forma === 'linhas'
+      ? `<ul class="linhas">${l.map((p) => `<li><a href="${link(p)}">${capaCard(p, false, '120px', blog)}<span><span class="k">${esc(p.category || info.categoria)} · ${minutos(p.content)} min</span><b>${esc(p.title)}</b></span></a></li>`).join('')}</ul>`
+      : `<div class="guias${forma === 'duas' ? ' g2' : ''}">${l.map((p) => `<a class="guia" href="${link(p)}">${capaCard(p, false, forma === 'duas' ? '(max-width: 640px) 92vw, 580px' : undefined, blog) || `<span class="gx" aria-hidden="true">${esc(info.nome)}</span>`}<span class="k">${esc(p.category || info.categoria)}</span><h3>${esc(p.title)}</h3>${forma === 'duas' ? `<p>${esc(frase(p.excerpt, 150))}</p>` : ''}</a>`).join('')}</div>`;
+    return `<h2>Saiu esta semana</h2><p class="lead">${esc(frase(info.home_intro || info.descricao, 200))}</p>${corpo}<p style="margin:26px 0 0"><a class="btn lin" href="${prefixo}/blog">Ver todos os ${posts.length} guias</a></p>`;
+  };
+  const linhasFicha = fichas.map((p) => `<tr><td><div class="nm">${p.img ? `<img src="${esc(mini(p.img, 160))}" alt="" loading="lazy" decoding="async" width="52" height="52">` : ''}<span>${esc(p.nome)}<small>${esc(p.tipo || '')}</small></span></div></td>
 <td>${esc(cap(v.melhor_para?.[p.chave] || ''))}</td><td>${p.preco ? brl(p.preco) : '—'}</td><td><a class="btn sm" href="${esc(p.url)}" ${REL}>Ver oferta</a></td></tr>`).join('');
-  return `${head({ titulo, desc, canonical, v: { ...v, imagem: v.imagem || capaHome, lcp: imHoje?.src || null, lcpSrcset: imHoje?.set || null, lcpSizes: sizesHoje }, ld })}<body>${topo(info, prefixo, v)}
-<main><section class="abre"><div class="w abre-g"><div class="cab"><h1>${esc(info.tagline || v.h1)}</h1><p class="sub">${esc(frase(v.sub || info.descricao, 190))}</p>
-<p class="edicao">Edição de ${dataBr()} · <span class="num">${posts.length}</span> guias publicados · um novo por dia</p></div>
-<aside class="voz" aria-label="Quem escreve">${carimbo(voz, Date.now())}<div><h2>${esc(voz.nome)}</h2><p>${esc(cap(voz.papel))}. ${esc(voz.jeito)}</p></div>
-<p class="ia">${esc(voz.nome)} é ${voz.ele === 'a' ? 'uma personagem criada' : 'um personagem criado'} com IA. Compara ficha e fontes; não diz que testou.</p>
-<div class="lk"><a href="#assine">Receber por e-mail</a>${v.telegram ? `<a href="#assine">Canal no Telegram</a>` : ''}<a href="${prefixo}/sobre">Como o blog funciona</a></div></aside>
-${hoje ? `<div class="hoje"><a href="${link(hoje)}" tabindex="-1" aria-hidden="true">${imHoje ? imgTag(imHoje, hoje.title, { primeiro: true, sizes: sizesHoje, cls: 'fh' }) : `<span class="gx">${esc(info.nome)}</span>`}</a>
-<div><h2>${esc(voz.bordao)}</h2><h3><a href="${link(hoje)}">${esc(hoje.title)}</a></h3><p>${esc(frase(hoje.resposta || hoje.excerpt, 230))}</p>
-<p class="meta">${esc(hoje.category || info.categoria)} · ${minutos(hoje.content)} min de leitura</p><a class="btn" href="${link(hoje)}">Ler o guia</a></div></div>` : ''}</div></section>
-<div class="parou" hidden><div class="w"><b>Você parou em:</b><a href="#"></a></div></div>${SCRIPT_PAROU(blog)}
-${comece.length ? `<section class="sec" id="comece"><div class="w"><h2>Comece por aqui</h2><p class="lead">Se é a primeira vez, leia nesta ordem. São os guias que ${esc(voz.curto)} indicaria para quem está começando.</p>
-<ol class="trilha">${comece.map((p) => `<li><a href="${link(p)}">${esc(p.title)}</a><p>${esc(frase(p.excerpt, 150))}</p></li>`).join('')}</ol></div></section>` : ''}
-${lidos.length >= 3 || series.length ? `<section class="sec"><div class="w duas">${lidos.length >= 3 ? `<div><h2>Mais lidos</h2><p class="lead">O que mais gente abriu nos últimos 30 dias.</p><ol class="top5">${lidos.map((p) => `<li><a href="${link(p)}">${esc(p.title)}</a></li>`).join('')}</ol></div>` : ''}
-${series.length ? `<div${lidos.length >= 3 ? '' : ' style="grid-column:1/-1"'}><h2>Séries</h2><p class="lead">Os guias agrupados pelo que você quer resolver.</p><div class="series">${series.map(([nome, l]) => `<div class="serie"><h3>${esc(nome)}<span class="num">${l.length} guias</span></h3><ul>${l.slice(0, 4).map((p) => `<li><a href="${link(p)}">${esc(p.title)}</a></li>`).join('')}</ul></div>`).join('')}</div></div>` : ''}</div></section>` : ''}
-<section class="sec"><div class="w"><h2>Saiu esta semana</h2><p class="lead">${esc(frase(info.home_intro || info.descricao, 200))}</p><div class="guias">${recentesHtml}</div><p style="margin:30px 0 0"><a class="btn lin" href="${prefixo}/blog">Ver todos os ${posts.length} guias</a></p></div></section>
-${fichas.length ? `<section class="sec" id="fichas"><div class="w ficha-tab" style="padding-top:22px"><div class="ficha-cab"><div><h2>${esc(v.tabela_titulo_novo || `Fichas de compra ${voz.ele === 'a' ? 'da' : 'do'} ${voz.curto}`)}</h2><p class="lead" style="margin:0">${esc(v.tabela_texto || 'Para quem cada opção serve e o preço da página oficial. Clique para conferir o conteúdo e a garantia antes de decidir.')}</p></div><span class="pub">Publicidade · links de afiliado</span></div>
-<div class="tabw"><table class="tab"><thead><tr><th>Opção</th><th>Para quem é</th><th>Preço</th><th>Oferta</th></tr></thead><tbody>${linhas}</tbody></table></div>
+  const fichasHtml = fichas.length ? `<section class="sec" id="fichas"><div class="w ficha-tab" style="padding-top:22px"><div class="ficha-cab"><div><h2>${esc(v.tabela_titulo_novo || `Fichas de compra ${voz.ele === 'a' ? 'da' : 'do'} ${voz.curto}`)}</h2><p class="lead" style="margin:0">${esc(v.tabela_texto || 'Para quem cada opção serve e o preço da página oficial. Clique para conferir o conteúdo e a garantia antes de decidir.')}</p></div><span class="pub">Publicidade · links de afiliado</span></div>
+<div class="tabw"><table class="tab"><thead><tr><th>Opção</th><th>Para quem é</th><th>Preço</th><th>Oferta</th></tr></thead><tbody>${linhasFicha}</tbody></table></div>
 <p class="nota">Preços conferidos em ${dataBr()} na página oficial de cada produto. Eles mudam: confira antes de comprar. Se você comprar por estes links, o blog recebe uma comissão, sem custo extra.</p>
-${kitBasico(v, dados)}</div></section>` : ''}
-<section class="sec" id="assine"><div class="w">${assineHtml(info, v)}</div></section>
-${faq.length ? `<section class="sec" id="duvidas"><div class="w"><h2 style="margin-bottom:16px">Perguntas frequentes</h2>${faqHtml(faq)}</div></section>` : ''}
-<section class="sec"><div class="w"><h2>Como ${esc(voz.curto)} escolhe</h2><p class="metodo">${esc(v.metodo || 'Comparamos o que cada produto mostra na página oficial: o tipo de conteúdo, o preço e para quem ele foi feito. Não aceitamos pagamento para mudar a ordem. Quando a página do produto muda, atualizamos o comparativo e a data no topo.')}</p></div></section></main>${rodape(info, prefixo, v)}</body></html>`;
+${kitBasico(v, dados)}</div></section>` : '';
+  const assine = `<section class="sec" id="assine"><div class="w">${assineHtml(info, v)}</div></section>`;
+  const faqSec = faq.length ? `<section class="sec" id="duvidas"><div class="w"><h2 style="margin-bottom:16px">Perguntas frequentes</h2>${faqHtml(faq)}</div></section>` : '';
+  const metodo = sec(`<h2>Como ${esc(voz.curto)} escolhe</h2><p class="metodo">${esc(v.metodo || 'Comparamos o que cada produto mostra na página oficial: o tipo de conteúdo, o preço e para quem ele foi feito. Não aceitamos pagamento para mudar a ordem. Quando a página do produto muda, atualizamos o comparativo e a data no topo.')}</p>`);
+  const seriesCol = seriesHtml('colunas');
+  const duasA = lidosHtml || seriesCol ? sec(`<div class="duas">${lidosHtml}${lidosHtml ? seriesCol : seriesCol.replace(/^<div>/, '<div style="grid-column:1/-1">')}</div>`) : '';
+
+  // ---- plantas ----
+  const corpo = {
+    a: `<main><section class="abre"><div class="w abre-g"><div class="cab">${cab}</div>${vozCard()}${hojeHtml}</div></section>${parou}
+${sec(comeceHtml('colunas'))}${duasA}${sec(recentesHtml('grade'))}${fichasHtml}${assine}${faqSec}${metodo}</main>`,
+    b: `<main><section class="abre rev"><div class="w"><div class="cab cab-c">${cab}</div>${hojeHtml}</div></section>${parou}
+<section class="sec"><div class="w rev-g"><div>${recentesHtml('linhas')}${lidosHtml ? `<div style="margin-top:44px">${lidosHtml}</div>` : ''}</div><div class="rev-lado">${vozCard('voz')}${seriesHtml('nav')}</div></div></section>
+${sec(comeceHtml('faixa'))}${fichasHtml}${assine}${faqSec}${metodo}</main>`,
+    c: `<main><div class="w alm"><div class="alm-m"><section class="alm-cab">${cab}</section>${parou}<section class="alm-sec">${comeceHtml('lista')}</section>
+<section class="alm-sec">${hojeHtml}</section><section class="alm-sec">${recentesHtml('linhas')}</section>${lidosHtml ? `<section class="alm-sec">${lidosHtml}</section>` : ''}</div>
+<div class="alm-lado">${vozCard('voz voz-c')}${seriesHtml('nav')}</div></div>${fichasHtml}${assine}${faqSec}${metodo}</main>`,
+    d: `<main><section class="abre"><div class="w"><div class="cab cab-d">${cab}</div>${series.length ? `<h2 class="pergunta">O que você quer resolver hoje?</h2>${seriesHtml('temas')}` : ''}</div></section>${parou}
+${sec(hojeHtml)}${lidosHtml ? sec(lidosHtml) : ''}${sec(recentesHtml('duas'))}
+<section class="sec faixa-voz"><div class="w">${vozCard('voz voz-d')}</div></section>
+${sec(comeceHtml('colunas'))}${fichasHtml}${assine}${faqSec}${metodo}</main>`,
+  }[pl];
+  return `${head({ titulo, desc, canonical, v: { ...v, imagem: v.imagem || capaHome, lcp: fotoNoTopo ? imHoje?.src || null : null, lcpSrcset: fotoNoTopo ? imHoje?.set || null : null, lcpSizes: sizesHoje }, ld })}<body class="pl-${pl}">${topo(info, prefixo, v, '', pl)}
+${corpo}${rodape(info, prefixo, v)}</body></html>`;
 }
 
 /** Lista de guias (/blog): o mais recente em destaque e a grade dos outros. */
@@ -597,20 +685,24 @@ export function renderPost({ info, v, post, posts, prefixo, dados, aplicarLinks,
   const titulo = `${post.seoTitle || post.title} · ${info.nome}`;
   const indiceItens = h2.map(([id, t]) => `<li><a href="#${id}">${t}</a></li>`).join('');
   const quando = atualizado || publicado;
-  return `${head({ titulo, desc: post.seoDescription || post.excerpt, canonical, v: { ...v, imagem: imagem || v.imagem, lcp: im?.src || null, lcpSrcset: im?.set || null, lcpSizes: '(max-width: 960px) 92vw, 836px' }, ld, og: 'article' })}<body><div class="progresso" aria-hidden="true"></div>${topo(info, prefixo, v)}
-<main><article class="w"><header class="post-cab"><div class="bc"><a href="${prefixo}/">${esc(info.nome)}</a> › <a href="${prefixo}/blog">Guias</a> › ${esc(post.category || info.categoria)}</div>
+  // planta do post (afiliacao-temas.mjs): 1 índice à direita, 2 à esquerda, 3 revista (foto primeiro, coluna centrada), 4 cabeçalho dividido
+  const pp = v._plantaPost || plantaDe(blog).post;
+  const tamFoto = pp === 3 ? '(max-width: 1200px) 100vw, 1160px' : pp === 4 ? '(max-width: 960px) 92vw, 520px' : '(max-width: 960px) 92vw, 836px';
+  const figura = im ? `<figure class="capa">${imgTag(im, (post.coverAlt || post.title).replace(/^Capa do guia: /, ''), { primeiro: true, sizes: tamFoto, cls: 'fh' })}</figure>` : '';
+  return `${head({ titulo, desc: post.seoDescription || post.excerpt, canonical, v: { ...v, imagem: imagem || v.imagem, lcp: im?.src || null, lcpSrcset: im?.set || null, lcpSizes: tamFoto }, ld, og: 'article' })}<body><div class="progresso" aria-hidden="true"></div>${topo(info, prefixo, v)}
+<main><article class="w pp-${pp}">${pp === 3 ? figura : ''}<header class="post-cab"><div class="pc-t"><div class="bc"><a href="${prefixo}/">${esc(info.nome)}</a> › <a href="${prefixo}/blog">Guias</a> › ${esc(post.category || info.categoria)}</div>
 <h1>${esc(post.title)}</h1>
 ${resposta ? `<p class="linha-fina rapida">${esc(resposta)}</p>` : ''}
-<div class="ficha">${carimbo(voz, quando)}<dl><div><dt>Por</dt><dd><a href="${prefixo}/autor" rel="author">${esc(voz.nome)}</a></dd></div>${publicado ? `<div><dt>Publicado</dt><dd><time datetime="${esc(String(publicado).slice(0, 10))}">${dataBr(publicado)}</time></dd></div>` : ''}<div><dt>Atualizado em</dt><dd><time datetime="${esc(String(quando || '').slice(0, 10))}">${dataBr(quando)}</time></dd></div><div><dt>Leitura</dt><dd class="num">${minutos(post.content)} min</dd></div>${capa ? `<div><dt>Resumo</dt><dd><a href="${prefixo}/stories/${esc(post.slug)}">Ver em story</a></dd></div>` : ''}</dl></div>
-${im ? `<figure class="capa">${imgTag(im, (post.coverAlt || post.title).replace(/^Capa do guia: /, ''), { primeiro: true, sizes: '(max-width: 960px) 92vw, 836px', cls: 'fh' })}</figure>` : ''}</header>
-<div class="post-g"><div class="corpo">${h2.length > 2 ? `<details class="indice-m"><summary>Neste guia (${h2.length} partes)</summary><ol>${indiceItens}</ol></details>` : ''}
+<div class="ficha">${carimbo(voz, quando)}<dl><div><dt>Por</dt><dd><a href="${prefixo}/autor" rel="author">${esc(voz.nome)}</a></dd></div>${publicado ? `<div><dt>Publicado</dt><dd><time datetime="${esc(String(publicado).slice(0, 10))}">${dataBr(publicado)}</time></dd></div>` : ''}<div><dt>Atualizado em</dt><dd><time datetime="${esc(String(quando || '').slice(0, 10))}">${dataBr(quando)}</time></dd></div><div><dt>Leitura</dt><dd class="num">${minutos(post.content)} min</dd></div>${capa ? `<div><dt>Resumo</dt><dd><a href="${prefixo}/stories/${esc(post.slug)}">Ver em story</a></dd></div>` : ''}</dl></div></div>
+${pp === 3 ? '' : figura}</header>
+${pp === 4 && h2.length > 2 ? `<nav class="chips" aria-label="Neste guia">${h2.map(([id, t]) => `<a href="#${id}">${t.replace(/<[^>]+>/g, '')}</a>`).join('')}</nav>` : ''}
+<div class="post-g"><div class="corpo">${h2.length > 2 && pp !== 4 ? `<details class="indice-m"${pp === 3 ? ' open' : ''}><summary>Neste guia (${h2.length} partes)</summary><ol>${indiceItens}</ol></details>` : ''}
 <div class="txt">${html}</div>
 <div class="assina">${carimbo(voz, quando)}<div><b><a href="${prefixo}/autor" rel="author" style="color:inherit">${esc(voz.nome)}</a></b><p>${esc(cap(voz.papel))}. ${esc(voz.nome)} é ${voz.ele === 'a' ? 'uma personagem criada' : 'um personagem criado'} com IA: confere a ficha e as fontes e não afirma ter testado. Este conteúdo pode conter links de afiliado; se você comprar por eles, o blog recebe uma comissão, sem custo extra para você.</p></div></div>
 ${(v.fontes || []).length ? `<section class="mais fontes"><h2>Fontes para conferir por conta própria</h2><ul>${v.fontes.map((f) => `<li><a href="${esc(f.u)}" rel="noopener" target="_blank">${esc(f.t)}</a></li>`).join('')}</ul></section>` : ''}
 ${outros.length ? `<section class="mais"><h2>Continue lendo</h2><div class="guias">${outros.map((p) => `<a class="guia" href="${prefixo}/blog/${esc(p.slug)}">${capaCard(p, false, undefined, blog)}<span class="k">${esc(p.category || info.categoria)}</span><h3>${esc(p.title)}</h3></a>`).join('')}</div></section>` : ''}
 ${vizinhos.length ? `<section class="mais viz"><h2>Do mesmo assunto nos nossos outros blogs</h2><ul>${vizinhos.map((x) => `<li><a href="${esc(x.url)}">${esc(x.title)}</a><span>${esc(x.blog)}</span></li>`).join('')}</ul></section>` : ''}
-</div><aside class="lado" aria-label="Neste guia">${h2.length > 2 ? `<nav class="indice" aria-label="Neste guia"><b>Neste guia</b><ol>${indiceItens}</ol></nav>` : ''}
-</aside></div>
+</div>${pp <= 2 ? `<aside class="lado" aria-label="Neste guia">${h2.length > 2 ? `<nav class="indice" aria-label="Neste guia"><b>Neste guia</b><ol>${indiceItens}</ol></nav>` : ''}</aside>` : ''}</div>
 <section class="sec" id="assine" style="border:0;padding-top:30px">${assineHtml(info, v)}</section></article></main>${rodape(info, prefixo, v)}
 ${SCRIPT_POST(blog, canonical, post.title)}</body></html>`;
 }

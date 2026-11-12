@@ -74,7 +74,21 @@
 
   var nomes = [(G || A) && 'Google', P && 'Meta', C && 'Microsoft Clarity'].filter(Boolean);
   var quem = nomes.length > 1 ? nomes.slice(0, -1).join(', ') + ' e ' + nomes[nomes.length - 1] : nomes[0];
+  // Blogs de afiliado (página com <meta name="scripts-depois">, 12/11/2026): faixa baixa no rodapé, nas cores do tema do blog
+  // (variáveis CSS da página), sem cobrir título nem foto. Os outros sites seguem com o cartão abaixo.
+  function faixa() {
+    var d = document.createElement('div');
+    d.setAttribute('role', 'region'); d.setAttribute('aria-label', 'Aviso de cookies');
+    d.style.cssText = 'position:fixed;left:0;right:0;bottom:0;z-index:99998;padding:8px 16px calc(8px + env(safe-area-inset-bottom));background:var(--papel,#fff);color:var(--suave,#4f5563);border-top:1px solid var(--linha,#e3e5ea);font:400 13px/1.4 var(--fb,system-ui,sans-serif);display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center;justify-content:center';
+    d.innerHTML = '<span>Cookies de medição (' + quem + ') só com a sua permissão.</span>'
+      + '<span style="display:flex;gap:6px"><button type="button" data-c="sim" style="cursor:pointer;border:0;border-radius:5px;padding:6px 12px;background:var(--a,#1d3a5c);color:var(--sa,#fff);font:700 13px var(--fb,system-ui,sans-serif)">Aceitar</button>'
+      + '<button type="button" data-c="nao" style="cursor:pointer;border:1px solid var(--linha,#ccc);border-radius:5px;padding:5px 11px;background:transparent;color:var(--tinta,#15171c);font:600 13px var(--fb,system-ui,sans-serif)">Recusar</button></span>';
+    return d;
+  }
   function aviso() {
+    if (document.querySelector('meta[name="scripts-depois"]')) { var f = faixa(); f.addEventListener('click', function (e) {
+      var b = e.target.closest && e.target.closest('[data-c]'); if (!b) return; gravar(b.getAttribute('data-c')); f.remove(); if (b.getAttribute('data-c') === 'sim') carregar();
+    }); document.body.appendChild(f); return; }
     var d = document.createElement('div');
     d.setAttribute('role', 'region'); d.setAttribute('aria-label', 'Aviso de cookies');
     d.style.cssText = 'position:fixed;left:12px;right:12px;bottom:12px;z-index:99998;max-width:640px;margin:auto;padding:14px 16px;border-radius:10px;background:#141110;color:#f7f1ea;border:1px solid #3a2618;box-shadow:0 10px 28px rgb(0 0 0/.5);font:500 14px/1.45 system-ui,-apple-system,Segoe UI,sans-serif;display:flex;flex-wrap:wrap;gap:10px;align-items:center';

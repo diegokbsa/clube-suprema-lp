@@ -5,6 +5,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { renderHome, renderLista, fotoLocal } from '../tools/afiliacao-visual.mjs';
+import { plantaDe, PLANTAS } from '../tools/afiliacao-temas.mjs';
 
 const RAIZ = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
 const C = path.join(RAIZ, 'conteudo', 'afiliacao');
@@ -21,11 +22,14 @@ test('home: og:image, foto do destaque sem lazy, voz assinando, Publicidade nas 
     assert.ok(!/class="selo"/.test(html), `${slug}: sem pílula acima do título`);
     const imgs = [...html.matchAll(/<img ([^>]+)>/g)].map((m) => m[1]);
     const lcp = imgs.filter((a) => /fetchpriority="high"/.test(a));
-    assert.equal(lcp.length, 1, `${slug}: uma imagem de LCP só`);
-    assert.ok(!/loading=/.test(lcp[0]), `${slug}: a foto do destaque não é lazy`);
+    const pl = plantaDe(slug).home;
+    // almanaque (c) não tem foto na primeira dobra: nada de preload nem de imagem com prioridade
+    assert.equal(lcp.length, pl === 'c' ? 0 : 1, `${slug}: imagem de LCP`);
+    if (lcp[0]) assert.ok(!/loading=/.test(lcp[0]), `${slug}: a foto do destaque não é lazy`);
     assert.ok(imgs.filter((a) => !/fetchpriority/.test(a)).every((a) => /loading="lazy"/.test(a)), `${slug}: as outras imagens são lazy`);
-    assert.match(html, /<link rel="preload" as="image" href="[^"]+" (imagesrcset="[^"]+" imagesizes="[^"]+" )?fetchpriority="high">/, `${slug}: preload da foto do destaque`);
-    assert.match(html, /<aside class="voz"[^]*com IA/, `${slug}: voz do blog declarada como personagem de IA`);
+    assert.equal(/<link rel="preload" as="image"/.test(html), pl !== 'c', `${slug}: preload da foto só quando ela está no topo`);
+    assert.match(html, new RegExp(`<body class="pl-${pl}">`), `${slug}: planta da home`);
+    assert.match(html, /<aside class="voz[ "][^]*com IA/, `${slug}: voz do blog declarada como personagem de IA`);
     assert.match(html, /<span class="pub">Publicidade/, `${slug}: rótulo de publicidade nas fichas`);
     assert.match(html, /@font-face\{font-family:'Titulo';src:url\(\/assets\/fontes\/[a-z-]+\.woff2\)/, `${slug}: fonte servida pelo Portal`);
     assert.ok(!/fonts\.googleapis/.test(html), `${slug}: sem Google Fonts na página`);
@@ -128,4 +132,11 @@ test('Black Friday 2026: faixa, menu e rodapé só no blog com o post BF e só a
     }
     assert.ok(!renderHome(blog('gamer')).includes('class="bf"') || fs.readdirSync(path.join(C, 'gamer', 'posts')).some((f) => /black-friday/.test(f)), 'blog sem post BF não ganha faixa');
   } finally { fs.rmSync(arq, { force: true }); }
+});
+
+test('plantas: pelo menos 3 de home e 3 de post, e nenhum par home+post repetido entre os blogs', () => {
+  const v = Object.values(PLANTAS);
+  assert.ok(new Set(v.map((x) => x.home)).size >= 3 && new Set(v.map((x) => x.post)).size >= 3);
+  const pares = v.map((x) => `${x.home}${x.post}`);
+  assert.equal(new Set(pares).size, pares.length, pares.join(' '));
 });
