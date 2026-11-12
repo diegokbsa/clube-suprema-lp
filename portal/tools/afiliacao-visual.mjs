@@ -51,7 +51,8 @@ export function imagemDo(p, blog) {
 const imgTag = (im, alt, { primeiro = false, sizes = '(max-width: 640px) 92vw, 380px', cls = 'gc' } = {}) => (im
   ? `<img class="${cls}" src="${esc(im.src)}"${im.set ? ` srcset="${esc(im.set)}" sizes="${sizes}"` : ''} alt="${esc(alt || '')}" ${primeiro ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async" width="${im.w}" height="${im.h}">` : '');
 /** Imagem do post em miniatura (lista, recentes, relacionados). primeiro = imagem do LCP. */
-const capaCard = (p, primeiro = false, sizes, blog) => imgTag(imagemDo(p, blog), p.coverAlt ? p.coverAlt.replace(/^Capa do guia: /, '') : p.title, { primeiro, sizes });
+// Miniatura dentro de link que já tem o título do post: alt só quando descreve a imagem; se repete o título, fica vazio (decorativa).
+const capaCard = (p, primeiro = false, sizes, blog) => { const alt = String(p.coverAlt || '').replace(/^Capa do guia: /, ''); return imgTag(imagemDo(p, blog), alt && alt !== p.title ? alt : '', { primeiro, sizes }); };
 
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const brl = (v) => (Number.isFinite(Number(v)) ? Number(v).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: Number(v) % 1 ? 2 : 0 }) : '');
