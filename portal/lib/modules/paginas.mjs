@@ -5,6 +5,7 @@ import { HttpError } from '../http.mjs';
 import { now } from '../db.mjs';
 import { tagVisitas } from './visitas.mjs';
 import { tagMinilytics, MINILYTICS_HOST } from '../minilytics.mjs';
+import { extrairConteudoRss, gerarRss, marcarOrigemRss } from '../rss.mjs';
 
 export const tables = ['paginas_proprias'];
 
@@ -87,6 +88,48 @@ export function sitemapEntries({ site, repo }) {
   return repo.all('paginas_proprias', { site_id: site.id, indexar: 1 }, { order: 'caminho ASC' })
     .map((p) => ({ path: p.caminho ? `/${p.caminho}` : '/', lastmod: p.updated_at }));
 }
+
+function feedDosBlogs({ req, res, site, tenant, repo, origin, send }) {
+  if (req.method !== 'GET' && req.method !== 'HEAD') return send(res, 405, 'Método não permitido.');
+  if (String(req.url || '').split('?')[0].replace(/\/$/, '') !== '/feed.xml') return false;
+  const home = repo.get('paginas_proprias', { site_id: site.id, caminho: '' });
+  // A marca é gerada apenas pelo renderizador dos 10 blogs de afiliado; evita expor RSS em sites fora do escopo.
+  if (!home?.html?.includes('data-rss-feed="blogs-afiliado"') || !(tenant?.slug === 'afiliacao' || /^blog-[a-z0-9-]+$/.test(tenant?.slug || ''))) return false;
+
+  const dominio = String(site.domain || '').trim();
+  let siteUrl;
+  try {
+    const host = dominio.includes('://') ? new URL(dominio).host : dominio.split('/')[0];
+    siteUrl = host ? `https://${host}/` : `${new URL(origin).origin}/`;
+  } catch { siteUrl = `${new URL(origin).origin}/`; }
+  const feedUrl = new URL('/feed.xml', siteUrl).href;
+  const artigos = repo.all('posts', { site_id: site.id }, { order: 'published_at DESC', limit: 40, extra: 'published_data IS NOT NULL' });
+  const itens = [];
+  for (const row of artigos) {
+    let dados;
+    try { dados = JSON.parse(row.published_data || 'null'); } catch { continue; }
+    if (!dados || !row.published_slug || !/^[a-z0-9-]+$/.test(row.published_slug)) continue;
+    const link = new URL(`/blog/${encodeURIComponent(row.published_slug)}`, siteUrl).href;
+    const pagina = repo.get('paginas_proprias', { site_id: site.id, caminho: `blog/${row.published_slug}` });
+    const html = extrairConteudoRss(pagina?.html);
+    if (!html) continue;
+    const coverRaw = dados.coverUrl || row.cover_url || '';
+    let coverUrl = '';
+    try {
+      const u = new URL(coverRaw, siteUrl);
+      if (u.protocol === 'https:' && !u.username && !u.password) coverUrl = u.href;
+    } catch { /* post pode estar sem capa local */ }
+    const ext = coverUrl ? (new URL(coverUrl).pathname.match(/\.([a-z0-9]+)$/i)?.[1] || '').toLowerCase() : '';
+    const coverType = ({ jpg: 'image/jpeg', jpeg: 'image/jpeg', png: 'image/png', webp: 'image/webp', avif: 'image/avif' })[ext] || 'image/webp';
+    itens.push({ title: dados.title || row.title, link, guid: link, publishedAt: dados.datePublished || row.published_at,
+      excerpt: dados.excerpt || row.excerpt || '', content: marcarOrigemRss(html, row.published_slug, siteUrl), coverUrl, coverType });
+  }
+  const xml = gerarRss({ title: site.name, siteUrl, feedUrl, description: `Artigos e guias de ${site.name}.`, items: itens });
+  return send(res, 200, req.method === 'HEAD' ? '' : xml, { 'Content-Type': 'application/rss+xml; charset=utf-8',
+    'X-Content-Type-Options': 'nosniff', 'Cache-Control': 'public, max-age=300' });
+}
+
+export const publicRoutes = [{ path: '/feed.xml', handler: feedDosBlogs }];
 
 /** Grava (cria ou troca) uma página própria. Usado pela API e pelo instalador do Hot Poker. */
 export function gravarPagina(repo, { siteId, caminho, html, titulo = '', indexar = true }) {

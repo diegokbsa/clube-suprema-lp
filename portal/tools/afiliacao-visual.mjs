@@ -274,10 +274,16 @@ function imagemPadrao(v, prefixo, posts = []) {
 
 // Modo escuro escolhido no botão (preferência de quem lê, só neste navegador): aplicado antes da pintura, sem piscar.
 const SCRIPT_TEMA = `<script>try{var m=localStorage.getItem('tema');if(m==='escuro'||m==='claro')document.documentElement.dataset.tema=m}catch(e){}</script>`;
-function head({ titulo, desc, canonical, v, ld, og, robots }) {
+export function rssAutodiscovery(info, prefixo = '') {
+  const base = String(prefixo || '').replace(/\/+$/, '');
+  return `<link rel="alternate" type="application/rss+xml" title="${esc(info?.nome || '')}" href="${esc(`${base}/feed.xml`)}" data-rss-feed="blogs-afiliado">`;
+}
+
+function head({ titulo, desc, canonical, v, ld, og, robots, info, prefixo }) {
   const t = temaDe(blogDe(v), v);
   return `<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>${esc(tituloCurto(titulo))}</title><meta name="description" content="${esc(desc).slice(0, 160)}"><link rel="canonical" href="${esc(canonical)}">
+${rssAutodiscovery(info, prefixo)}
 <meta name="robots" content="${robots || 'index,follow,max-image-preview:large'}"><meta name="scripts-depois" content="1"><meta property="og:type" content="${og || 'website'}"><meta property="og:title" content="${esc(titulo)}">
 <meta property="og:description" content="${esc(desc).slice(0, 200)}"><meta property="og:url" content="${esc(canonical)}"><meta property="og:locale" content="pt_BR">
 ${v.imagem ? `<meta property="og:image" content="${esc(v.imagem)}">${/-capa\.(png|jpe?g|webp)(\?|$)/.test(v.imagem) ? '<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">' : ''}<meta property="og:image:alt" content="${esc(titulo)}"><meta name="twitter:card" content="summary_large_image">` : '<meta name="twitter:card" content="summary">'}
@@ -328,7 +334,7 @@ function rodape(info, prefixo = '', v = {}) {
   const voz = vozDe(v, info);
   const email = emailDe(info, String(prefixo).replace(/^https?:\/\//, ''));
   return `<footer><div class="w"><strong>${esc(info.nome)}</strong><span>${esc(info.descricao)}</span>
-<nav class="rod" aria-label="Institucional"><a href="${prefixo}/blog">Todos os guias</a>${((bf) => (bf ? `<a href="${esc(bf.url)}">${esc(bf.titulo)}</a>` : ''))(blackFriday(v, prefixo))}${nav}</nav>
+<nav class="rod" aria-label="Institucional"><a href="${prefixo}/blog">Todos os guias</a><a href="${prefixo}/feed.xml">Assinar por RSS</a>${((bf) => (bf ? `<a href="${esc(bf.url)}">${esc(bf.titulo)}</a>` : ''))(blackFriday(v, prefixo))}${nav}</nav>
 <span>${esc(voz.nome)} é ${voz.ele === 'a' ? 'uma personagem criada' : 'um personagem criado'} com IA para dar voz ao blog: ${voz.ele === 'a' ? 'ela' : 'ele'} compara a ficha e as fontes de cada produto e não afirma ter testado nada.</span>
 <span><b>Transparência:</b> alguns links deste site são de afiliado. Se você comprar por eles, recebemos uma comissão, sem custo extra para você. Isso não muda a ordem nem o que escrevemos; confira sempre na página oficial o conteúdo, o preço e a garantia antes de comprar. <a href="${prefixo}/aviso-de-afiliados">Saiba mais</a>.</span>
 <span>Contato: <!--email_off--><a href="mailto:${esc(email)}">${esc(email)}</a><!--/email_off--> · © ${ANO} ${esc(info.nome)} · Conteúdo informativo, sem promessa de resultado.</span></div></footer>`;
@@ -514,7 +520,7 @@ ${sec(hojeHtml)}${lidosHtml ? sec(lidosHtml) : ''}${sec(recentesHtml('duas'))}
 <section class="sec faixa-voz"><div class="w">${vozCard('voz voz-d')}</div></section>
 ${sec(comeceHtml('colunas'))}${fichasHtml}${assine}${faqSec}${metodo}</main>`,
   }[pl];
-  return `${head({ titulo, desc, canonical, v: { ...v, imagem: v.imagem || capaHome, lcp: fotoNoTopo ? imHoje?.src || null : null, lcpSrcset: fotoNoTopo ? imHoje?.set || null : null, lcpSizes: sizesHoje }, ld })}<body class="pl-${pl}">${topo(info, prefixo, v, '', pl)}
+  return `${head({ titulo, desc, canonical, v: { ...v, imagem: v.imagem || capaHome, lcp: fotoNoTopo ? imHoje?.src || null : null, lcpSrcset: fotoNoTopo ? imHoje?.set || null : null, lcpSizes: sizesHoje }, ld, info, prefixo })}<body class="pl-${pl}">${topo(info, prefixo, v, '', pl)}
 ${corpo}${rodape(info, prefixo, v)}</body></html>`;
 }
 
@@ -529,7 +535,7 @@ export function renderLista({ info, v, posts, prefixo }) {
   const c0 = capaDo(ordem[0]);
   const im0 = ordem[0] && imagemDo(ordem[0], blog);
   const series = seriesDo(blog, posts);
-  return `${head({ titulo: `Guias ${v.assunto ? `de ${v.assunto} ` : ''}· ${info.nome}`, desc: info.descricao, canonical, v: { ...v, imagem: v.imagem || capaAbs(c0, prefixo), lcp: im0?.src || null, lcpSrcset: im0?.set || null, lcpSizes: '(max-width: 960px) 92vw, 680px' }, ld })}<body>${topo(info, prefixo, v, 'blog')}
+  return `${head({ titulo: `Guias ${v.assunto ? `de ${v.assunto} ` : ''}· ${info.nome}`, desc: info.descricao, canonical, v: { ...v, imagem: v.imagem || capaAbs(c0, prefixo), lcp: im0?.src || null, lcpSrcset: im0?.set || null, lcpSizes: '(max-width: 960px) 92vw, 680px' }, ld, info, prefixo })}<body>${topo(info, prefixo, v, 'blog')}
 <main><section class="abre"><div class="w"><h1>Todos os guias</h1><p class="sub" style="font-size:1.15rem;color:var(--suave);margin:12px 0 0;max-width:60ch">${esc(info.tagline)}</p>
 <p class="edicao"><span class="num">${posts.length}</span> guias · atualizado em ${dataBr()}${series.length ? ` · séries: ${series.map(([n, l]) => `${esc(n)} (${l.length})`).join(', ')}` : ''}</p></div></section>
 <section class="sec"><div class="w"><div class="guias dest">${guias}</div></div></section><section class="sec" id="assine"><div class="w">${assineHtml(info, v)}</div></section></main>${rodape(info, prefixo, v)}</body></html>`;
@@ -710,8 +716,8 @@ export function renderPost({ info, v, post, posts, prefixo, dados, aplicarLinks,
   const pp = v._plantaPost || plantaDe(blog).post;
   const tamFoto = pp === 3 ? '(max-width: 1200px) 100vw, 1160px' : pp === 4 ? '(max-width: 960px) 92vw, 520px' : '(max-width: 960px) 92vw, 836px';
   const figura = im ? `<figure class="capa">${imgTag(im, (post.coverAlt || post.title).replace(/^Capa do guia: /, ''), { primeiro: true, sizes: tamFoto, cls: 'fh' })}</figure>` : '';
-  return `${head({ titulo, desc: post.seoDescription || post.excerpt, canonical, v: { ...v, imagem: imagem || v.imagem, lcp: im?.src || null, lcpSrcset: im?.set || null, lcpSizes: tamFoto }, ld, og: 'article', robots: semOferta ? 'noindex,follow' : null })}<body><div class="progresso" aria-hidden="true"></div>${topo(info, prefixo, v)}
-<main><article class="w pp-${pp}">${pp === 3 ? figura : ''}<header class="post-cab"><div class="pc-t"><div class="bc"><a href="${prefixo}/">${esc(info.nome)}</a> › <a href="${prefixo}/blog">Guias</a> › ${esc(post.category || info.categoria)}</div>
+  return `${head({ titulo, desc: post.seoDescription || post.excerpt, canonical, v: { ...v, imagem: imagem || v.imagem, lcp: im?.src || null, lcpSrcset: im?.set || null, lcpSizes: tamFoto }, ld, og: 'article', robots: semOferta ? 'noindex,follow' : null, info, prefixo })}<body><div class="progresso" aria-hidden="true"></div>${topo(info, prefixo, v)}
+<main><!--rss-conteudo-inicio--><article class="w pp-${pp}">${pp === 3 ? figura : ''}<header class="post-cab"><div class="pc-t"><div class="bc"><a href="${prefixo}/">${esc(info.nome)}</a> › <a href="${prefixo}/blog">Guias</a> › ${esc(post.category || info.categoria)}</div>
 <h1>${esc(post.title)}</h1>
 ${resposta ? `<p class="linha-fina rapida">${esc(resposta)}</p>` : ''}
 <div class="ficha">${carimbo(voz, quando)}<dl><div><dt>Por</dt><dd><a href="${prefixo}/autor" rel="author">${esc(voz.nome)}</a></dd></div>${publicado ? `<div><dt>Publicado</dt><dd><time datetime="${esc(String(publicado).slice(0, 10))}">${dataBr(publicado)}</time></dd></div>` : ''}<div><dt>Atualizado em</dt><dd><time datetime="${esc(String(quando || '').slice(0, 10))}">${dataBr(quando)}</time></dd></div><div><dt>Leitura</dt><dd class="num">${minutos(post.content)} min</dd></div>${capa ? `<div><dt>Resumo</dt><dd><a href="${prefixo}/stories/${esc(post.slug)}">Ver em story</a></dd></div>` : ''}</dl></div></div>
@@ -725,7 +731,7 @@ ${(v.fontes || []).length ? `<section class="mais fontes"><h2>Fontes para confer
 ${outros.length ? `<section class="mais"><h2>Continue lendo</h2><div class="guias">${outros.map((p) => `<a class="guia" href="${prefixo}/blog/${esc(p.slug)}">${capaCard(p, false, undefined, blog)}<span class="k">${esc(p.category || info.categoria)}</span><h3>${esc(p.title)}</h3></a>`).join('')}</div></section>` : ''}
 ${vizinhos.length ? `<section class="mais viz"><h2>Do mesmo assunto nos nossos outros blogs</h2><ul>${vizinhos.map((x) => `<li><a href="${esc(x.url)}">${esc(x.title)}</a><span>${esc(x.blog)}</span></li>`).join('')}</ul></section>` : ''}
 </div>${pp <= 2 ? `<aside class="lado" aria-label="Neste guia">${h2.length > 2 ? `<nav class="indice" aria-label="Neste guia"><b>Neste guia</b><ol>${indiceItens}</ol></nav>` : ''}</aside>` : ''}</div>
-<section class="sec" id="assine" style="border:0;padding-top:30px">${assineHtml(info, v)}</section></article></main>${rodape(info, prefixo, v)}
+<section class="sec" id="assine" style="border:0;padding-top:30px">${assineHtml(info, v)}</section></article><!--rss-conteudo-fim--></main>${rodape(info, prefixo, v)}
 ${SCRIPT_POST(blog, canonical, post.title)}${semOferta ? scriptConvite(new URL(prefixo).host) : ''}</body></html>`;
 }
 
@@ -762,7 +768,7 @@ export function renderInstitucional({ pag, info, v, prefixo, posts = [], medicao
     isPartOf: { '@type': 'WebSite', name: info.nome, url: `${prefixo}/` }, ...(pag === 'autor' || pag === 'sobre' ? { about: { '@type': 'Organization', name: info.autor || `Equipe ${info.nome}`, url: `${prefixo}/autor`, email: emailDe(info, dominio) } } : {}) };
   const apresenta = pag === 'sobre' || pag === 'autor' ? `<aside class="voz" style="margin:0 0 34px;max-width:720px">${carimbo(voz, Date.now())}<div><h2>Oi, aqui é ${voz.ele === 'a' ? 'a' : 'o'} ${esc(voz.curto)}</h2><p>${esc(cap(voz.papel))}. ${esc(voz.jeito)}</p></div>
 <p class="ia">${esc(voz.nome)} é ${voz.ele === 'a' ? 'uma personagem criada' : 'um personagem criado'} com IA para dar voz ao ${esc(info.nome)}. Os guias são pesquisados e conferidos pela equipe: ninguém aqui diz que testou um produto sem ter testado.</p></aside>` : '';
-  return `${head({ titulo: t.titulo, desc: t.desc, canonical, v: { ...v, imagem: v.imagem || imagemPadrao(v, prefixo, posts), lcp: null }, ld })}<body>${topo(info, prefixo, v, pag)}
+  return `${head({ titulo: t.titulo, desc: t.desc, canonical, v: { ...v, imagem: v.imagem || imagemPadrao(v, prefixo, posts), lcp: null }, ld, info, prefixo })}<body>${topo(info, prefixo, v, pag)}
 <main><section class="abre"><div class="w"><h1>${esc(t.titulo.replace(/ · .*$/, ''))}</h1>${t.sub ? `<p class="sub" style="font-size:1.15rem;color:var(--suave);margin:12px 0 0;max-width:62ch">${esc(t.sub)}</p>` : ''}</div></section>
 <section class="sec"><div class="w">${apresenta}<div class="txt">${corpo}</div></div></section></main>${rodape(info, prefixo, v)}</body></html>`;
 }
@@ -795,7 +801,7 @@ ${it.nota ? `<p class="pq">${esc(it.nota)}</p>` : ''}
   const ld = { '@context': 'https://schema.org', '@type': 'CollectionPage', name: titulo, url: canonical, inLanguage: 'pt-BR',
     ...(itens.length ? { mainEntity: { '@type': 'ItemList', itemListElement: itens.map((it, i) => ({ '@type': 'ListItem', position: i + 1, name: it.nome })) } } : {}) };
   const vazio = `<div class="cap"><h2>Em breve</h2><p>Estamos conferindo preços e lojas. As primeiras ofertas aparecem aqui assim que cada preço for verificado na loja.</p></div>`;
-  return `${head({ titulo, desc, canonical, v: { ...v, imagem: v.imagem || imagemPadrao(v, prefixo), lcp: null }, ld })}<body>${topo(info, prefixo, v)}
+  return `${head({ titulo, desc, canonical, v: { ...v, imagem: v.imagem || imagemPadrao(v, prefixo), lcp: null }, ld, info, prefixo })}<body>${topo(info, prefixo, v)}
 <main><section class="abre"><div class="w"><h1>Ofertas do dia</h1><p class="sub" style="font-size:1.15rem;color:var(--suave);margin:12px 0 0;max-width:62ch">Cada preço aparece com a data em que foi conferido. Alguns links são de afiliado: se você comprar por eles, recebemos uma comissão, sem custo extra para você.</p>
 <p class="edicao">${itens.length ? `Atualizado em ${esc(dataBr(ofertas.atualizado || itens[0].preco_conferido_em))}` : 'Em preparação'}</p></div></section>
 <section class="sec"><div class="w">${itens.length ? `<div class="guias picks">${cards}</div>` : vazio}</div></section></main>${rodape(info, prefixo, v)}</body></html>`;
@@ -844,6 +850,7 @@ export function renderStory({ info, v, post, prefixo, dados }) {
   const link = (href, texto, patrocinado) => `<amp-story-page-outlink layout="nodisplay" theme="custom" cta-accent-element="background" cta-accent-color="${esc(t.claro.acento)}"><a href="${esc(href)}"${patrocinado ? ' rel="sponsored nofollow"' : ''}>${esc(texto)}</a></amp-story-page-outlink>`;
   return `<!doctype html><html ⚡ lang="pt-BR"><head><meta charset="utf-8"><title>${esc(tituloCurto(`${post.seoTitle || post.title} · ${info.nome}`))}</title>
 <link rel="canonical" href="${esc(url)}"><meta name="viewport" content="width=device-width"><meta name="description" content="${esc(desc).slice(0, 160)}">
+${rssAutodiscovery(info, prefixo)}
 <meta name="robots" content="index,follow,max-image-preview:large">
 <meta property="og:type" content="article"><meta property="og:title" content="${esc(post.title)}"><meta property="og:description" content="${esc(desc).slice(0, 200)}"><meta property="og:url" content="${esc(url)}"><meta property="og:locale" content="pt_BR"><meta property="og:site_name" content="${esc(info.nome)}"><meta property="og:image" content="${esc(`${origem}${comVersao(capa)}`)}"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="${esc(post.coverAlt || post.title)}"><meta name="twitter:card" content="summary_large_image">
 <script async src="https://cdn.ampproject.org/v0.js"></script><script async custom-element="amp-story" src="https://cdn.ampproject.org/v0/amp-story-1.0.js"></script>

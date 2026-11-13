@@ -17,7 +17,7 @@ import { cleanTheme } from '../lib/templates.mjs';
 import { scoped, registerTable } from '../lib/repo.mjs';
 import { gravarPagina, htmlRedirect } from '../lib/modules/paginas.mjs';
 import { publishedData } from '../lib/modules/blog.mjs';
-import { renderHome, renderLista, renderPost, renderInstitucional, renderOfertas, comOrigem, capaDo } from './afiliacao-visual.mjs';
+import { renderHome, renderLista, renderPost, renderInstitucional, renderOfertas, comOrigem, capaDo, rssAutodiscovery } from './afiliacao-visual.mjs';
 // blogs de produto físico com página /ofertas mesmo antes do ofertas.json (estado "em breve")
 const BLOGS_OFERTAS = new Set(['achadinhos', 'sublimacao', 'manutencao', 'gamer']);
 import { PAGINAS } from './afiliacao-institucional.mjs';
@@ -73,14 +73,14 @@ function homeHtml(info, posts, ga4, prefixo) {
   const itens = posts.map((p) => `<li><a href="blog/${esc(p.slug)}"><strong>${esc(p.title)}</strong></a><br><span>${esc(p.excerpt)}</span></li>`).join('\n');
   return `<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>${esc(info.nome)} · ${esc(info.tagline)}</title><meta name="description" content="${esc(info.descricao).slice(0, 160)}">
-<link rel="canonical" href="${esc(prefixo)}/"><link rel="stylesheet" href="/assets/site.css"><link rel="alternate" type="application/rss+xml" href="blog/feed.xml">
+<link rel="canonical" href="${esc(prefixo)}/"><link rel="stylesheet" href="/assets/site.css">${rssAutodiscovery(info, prefixo)}
 <style>body{max-width:760px;margin:0 auto;padding:32px 16px;font-family:system-ui,sans-serif;line-height:1.6;color:#1d1d1f;background:#fff}
 h1{font-size:2rem;margin:.2em 0}.tag{color:#5b4bd5;font-weight:600}ul{list-style:none;padding:0}li{padding:14px 0;border-bottom:1px solid #eee}
 a{color:#5b4bd5}footer{margin-top:40px;font-size:.85rem;color:#666}</style></head><body>
 <header><p class="tag">${esc(info.tagline)}</p><h1>${esc(info.nome)}</h1><p>${esc(info.home_intro || info.descricao)}</p></header>
 <main><h2>Guias e artigos</h2><ul>${itens}</ul><p><a href="blog">Ver todos os artigos</a></p>
 <section><h2>Sobre</h2><p>${esc(info.sobre || info.descricao)}</p></section></main>
-<footer>${esc(info.nome)} · Este site pode conter links de afiliado: se você comprar por eles, recebemos uma comissão, sem custo extra para você.</footer>
+<footer>${esc(info.nome)} · Este site pode conter links de afiliado: se você comprar por eles, recebemos uma comissão, sem custo extra para você. <a href="${esc(prefixo)}/feed.xml" style="font-size:.85rem;color:#666">Assinar por RSS</a></footer>
 </body></html>`;
 }
 
