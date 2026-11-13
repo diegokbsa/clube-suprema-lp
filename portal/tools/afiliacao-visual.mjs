@@ -279,6 +279,12 @@ export function rssAutodiscovery(info, prefixo = '') {
   return `<link rel="alternate" type="application/rss+xml" title="${esc(info?.nome || '')}" href="${esc(`${base}/feed.xml`)}" data-rss-feed="blogs-afiliado">`;
 }
 
+/** Meta tags de verificação de propriedade (impact.com, Yandex...), por blog, de <dados>/verificacoes.json. Só nome e valor no formato esperado. */
+export function metasTag(l) {
+  return (l || []).filter((m) => /^[a-z0-9:._-]{3,60}$/i.test(m?.name || '') && /^[A-Za-z0-9._:-]{8,80}$/.test(m?.value || ''))
+    .map((m) => (m.name === 'yandex-verification' ? `<meta name="${m.name}" content="${m.value}">` : `<meta name='${m.name}' value='${m.value}'>`)).join('');
+}
+
 function head({ titulo, desc, canonical, v, ld, og, robots, info, prefixo }) {
   const t = temaDe(blogDe(v), v);
   return `<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
@@ -289,7 +295,7 @@ ${rssAutodiscovery(info, prefixo)}
 ${v.imagem ? `<meta property="og:image" content="${esc(v.imagem)}">${/-capa\.(png|jpe?g|webp)(\?|$)/.test(v.imagem) ? '<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">' : ''}<meta property="og:image:alt" content="${esc(titulo)}"><meta name="twitter:card" content="summary_large_image">` : '<meta name="twitter:card" content="summary">'}
 ${v.lcp ? `<link rel="preload" as="image" href="${esc(v.lcp)}"${v.lcpSrcset ? ` imagesrcset="${esc(v.lcpSrcset)}" imagesizes="${esc(v.lcpSizes || '100vw')}"` : ''} fetchpriority="high">` : ''}
 <link rel="preload" as="font" type="font/woff2" href="/assets/fontes/texto.woff2" crossorigin><link rel="preload" as="font" type="font/woff2" href="/assets/fontes/${t.fonte}.woff2" crossorigin>
-<meta name="theme-color" content="${esc(t.claro.papel)}" media="(prefers-color-scheme: light)"><meta name="theme-color" content="${esc(t.escuro.papel)}" media="(prefers-color-scheme: dark)">${SCRIPT_TEMA}${adsenseTag(v._adsense)}<style>${css(v)}</style>
+<meta name="theme-color" content="${esc(t.claro.papel)}" media="(prefers-color-scheme: light)"><meta name="theme-color" content="${esc(t.escuro.papel)}" media="(prefers-color-scheme: dark)">${SCRIPT_TEMA}${adsenseTag(v._adsense)}${metasTag(v._metas)}<style>${css(v)}</style>
 ${ld ? `<script type="application/ld+json">${JSON.stringify(ld).replace(/</g, '\\u003c')}</script>` : ''}</head>`;
 }
 

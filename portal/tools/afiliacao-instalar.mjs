@@ -40,6 +40,7 @@ const LINKS = lerJson(path.join(CONTEUDO, 'links.json'), {});
 // para o checkout ("url" vira "destino", só para referência). Sem "curto", o link vai direto ao checkout, como antes.
 for (const v of Object.values(LINKS)) if (v?.curto && /^https:\/\/l\.kbsa\.app\/[a-z0-9-]+$/.test(v.curto)) { v.destino = v.url; v.url = v.curto; }
 // AdSense: <pasta de dados>/adsense.json {cliente:"ca-pub-...", ativo:true|false}; sem o arquivo, o espaço do script fica desligado.
+const VERIF = lerJson(path.join(DADOS, 'verificacoes.json'), {});
 const ADSENSE = lerJson(path.join(DADOS, 'adsense.json'), { ativo: false });
 const MEDICAO = lerJson(path.join(CONTEUDO, 'medicao.json'), {});
 const CATALOGO = lerJson(path.join(CONTEUDO, 'produtos.json'), {});
@@ -223,7 +224,7 @@ try {
     const vitrine = lerJson(path.join(dir, 'vitrine.json'), null);
     if (vitrine) {
       // visual de venda: home comparativa, lista e cada post como página própria (mesmos endereços do blog)
-      const v = { ...vitrine, _ativos: ATIVOS, _adsense: ADSENSE };
+      const v = { ...vitrine, _ativos: ATIVOS, _adsense: ADSENSE, _metas: VERIF[slugBlog] || [] };
       gravarPagina(repo, { siteId: site.id, caminho: '', html: comOrigem(renderHome({ info, v, posts: lista, prefixo, dados: DADOS_VITRINE, maisLidos: maisLidos(dominio) }), `${slugBlog}-home`), titulo: info.nome, indexar: true });
       gravarPagina(repo, { siteId: site.id, caminho: 'blog', html: comOrigem(renderLista({ info, v, posts: lista, prefixo }), `${slugBlog}-blog`), titulo: `Guias · ${info.nome}`, indexar: false });
       for (const a of lista) {
