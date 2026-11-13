@@ -201,7 +201,9 @@
     "curto": "https://l.kbsa.app/hm-tiktok-shop-do-zero"
   },
   "hm-negocio-de-canecas": {
-    "status": "pendente"
+    "status": "ativo",
+    "url": "https://go.hotmart.com/T108454194Y",
+    "curto": "https://l.kbsa.app/hm-negocio-de-canecas"
   },
   "hm-catalogo-papelaria": {
     "status": "ativo",
@@ -209,7 +211,9 @@
     "curto": "https://l.kbsa.app/hm-catalogo-papelaria"
   },
   "hm-vivendo-de-ar-condicionado": {
-    "status": "pendente"
+    "status": "ativo",
+    "url": "https://go.hotmart.com/O108445560K",
+    "curto": "https://l.kbsa.app/hm-vivendo-de-ar-condicionado"
   },
   "hm-formula-ar-condicionado": {
     "status": "ativo",
@@ -242,9 +246,10 @@
     "curto": "https://l.kbsa.app/hm-curso-de-ia"
   },
   "hm-ia-renda-extra": {
-    "status": "ativo",
+    "status": "suspenso",
     "url": "https://go.hotmart.com/C108392959X",
-    "curto": "https://l.kbsa.app/hm-ia-renda-extra"
+    "curto": "https://l.kbsa.app/hm-ia-renda-extra",
+    "motivo": "nome promete renda (\"IA para renda extra imediata\"); fora pelas regras da casa (12/11/2026)"
   },
   "hm-academia-do-afiliado": {
     "status": "suspenso",
