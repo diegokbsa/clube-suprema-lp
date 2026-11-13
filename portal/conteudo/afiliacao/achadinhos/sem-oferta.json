@@ -1,0 +1,11 @@
+{
+  "_nota": "Variante sem link de compra para tráfego pago (campanha W1 do Meta, 12/11/2026): cada slug vira /guia/<slug> com noindex, canonical para o post e convite para o canal da Bia. Texto do convite: Mesa de Copy.",
+  "posts": [
+    "cinco-achadinhos-organizacao-cozinha-shopee-ate-35"
+  ],
+  "convite": {
+    "titulo": "Achado bom só vai pro canal depois da ficha conferida",
+    "texto": "Uma dica curta por dia. Oferta só entra quando medida, avaliação com foto e frete batem com a ficha. Sem enxurrada de link.",
+    "botao": "Quero o canal da Bia no Telegram"
+  }
+}

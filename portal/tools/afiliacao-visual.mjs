@@ -239,6 +239,7 @@ footer .rod{display:flex;flex-wrap:wrap;gap:6px 18px}footer .rod a{color:var(--t
 .pp-3>.capa{margin:22px 0 0}.pp-3>.capa img{aspect-ratio:21/9}.pp-3 .post-cab{margin:0 auto;text-align:center;max-width:820px}.pp-3 .linha-fina{margin-left:auto;margin-right:auto}.pp-3 .ficha{justify-content:center}.pp-3 .ficha dl{justify-content:center}
 .pp-3 .post-g{grid-template-columns:minmax(0,1fr);max-width:760px;margin:0 auto}.pp-3 .indice-m{display:block}
 .pp-4 .post-cab{max-width:none;display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:44px;align-items:center}.pp-4 .post-cab .capa{margin:0}.pp-4 .post-cab .capa img{aspect-ratio:4/3}.pp-4 .post-g{grid-template-columns:minmax(0,1fr)}
+.convite{margin:2.2em 0 0;padding:26px;border-radius:var(--r);background:var(--papel);border:1px solid var(--linha);box-shadow:inset 0 3px 0 var(--a)}.convite h2{font-size:calc(1.35rem*var(--k));margin:0 0 8px}.convite p{margin:0 0 16px;color:var(--suave)}.cv-b{display:flex;flex-wrap:wrap;gap:10px}
 .chips{display:flex;flex-wrap:wrap;gap:8px;margin:28px 0 0}.chips a{padding:6px 12px;border:1px solid var(--linha);border-radius:999px;font-size:.88rem;color:var(--tinta);text-decoration:none;background:var(--papel);transition:border-color .15s,color .15s}.chips a:hover{border-color:var(--a);color:var(--a)}
 @media(max-width:960px){.rev-g,.alm,.hoje-ficha,.pp-4 .post-cab,.pp-2 .post-g{grid-template-columns:1fr}.rev-lado,.alm-lado{position:static}.temas{grid-template-columns:repeat(2,minmax(0,1fr))}.trilha-f{grid-template-columns:1fr}
 .voz-d{grid-template-columns:auto minmax(0,1fr)}.voz-d .lk{grid-column:1/-1;grid-row:auto;flex-direction:row}.hoje.inv{grid-template-columns:1fr}.hoje.inv>div{order:2}.alm{gap:30px;padding-top:28px}.pp-4 .post-cab{gap:22px}.pp-4 .post-cab .capa{order:-1}.top-b .marca{font-size:calc(1.5rem*var(--k))}.top-b .w{padding:14px 0 10px}.top-b .modo{top:12px}
@@ -273,11 +274,11 @@ function imagemPadrao(v, prefixo, posts = []) {
 
 // Modo escuro escolhido no botão (preferência de quem lê, só neste navegador): aplicado antes da pintura, sem piscar.
 const SCRIPT_TEMA = `<script>try{var m=localStorage.getItem('tema');if(m==='escuro'||m==='claro')document.documentElement.dataset.tema=m}catch(e){}</script>`;
-function head({ titulo, desc, canonical, v, ld, og }) {
+function head({ titulo, desc, canonical, v, ld, og, robots }) {
   const t = temaDe(blogDe(v), v);
   return `<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>${esc(tituloCurto(titulo))}</title><meta name="description" content="${esc(desc).slice(0, 160)}"><link rel="canonical" href="${esc(canonical)}">
-<meta name="robots" content="index,follow,max-image-preview:large"><meta name="scripts-depois" content="1"><meta property="og:type" content="${og || 'website'}"><meta property="og:title" content="${esc(titulo)}">
+<meta name="robots" content="${robots || 'index,follow,max-image-preview:large'}"><meta name="scripts-depois" content="1"><meta property="og:type" content="${og || 'website'}"><meta property="og:title" content="${esc(titulo)}">
 <meta property="og:description" content="${esc(desc).slice(0, 200)}"><meta property="og:url" content="${esc(canonical)}"><meta property="og:locale" content="pt_BR">
 ${v.imagem ? `<meta property="og:image" content="${esc(v.imagem)}">${/-capa\.(png|jpe?g|webp)(\?|$)/.test(v.imagem) ? '<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">' : ''}<meta property="og:image:alt" content="${esc(titulo)}"><meta name="twitter:card" content="summary_large_image">` : '<meta name="twitter:card" content="summary">'}
 ${v.lcp ? `<link rel="preload" as="image" href="${esc(v.lcp)}"${v.lcpSrcset ? ` imagesrcset="${esc(v.lcpSrcset)}" imagesizes="${esc(v.lcpSizes || '100vw')}"` : ''} fetchpriority="high">` : ''}
@@ -633,7 +634,10 @@ function autorLd(info, v, prefixo) {
 
 /** Post: cabeça com linha fina e ficha de conferência, capa, etiqueta/tabela no topo, índice, texto, assinatura da voz,
  *  relacionados; na lateral (computador) o índice que acompanha e a etiqueta do produto; no celular a barra de oferta. */
-export function renderPost({ info, v, post, posts, prefixo, dados, aplicarLinks, publicado, atualizado }) {
+/** semOferta (variante para tráfego pago, /guia/<slug>, 12/11/2026): {convite:{titulo,texto,botao}, whatsapp}. A mesma matéria sem
+ *  nenhum link de compra (caixa :::cta, link {{LINK}}, link direto de loja e bloco automático saem), com o convite para o canal
+ *  da voz depois do conteúdo, noindex e canonical para o post normal. O clique no convite e a leitura profunda vão para o contador. */
+export function renderPost({ info, v, post, posts, prefixo, dados, aplicarLinks, publicado, atualizado, semOferta = null }) {
   const blog = blogDe(v);
   const voz = vozDe(v, info);
   const canonical = `${prefixo}/blog/${post.slug}`;
@@ -644,7 +648,10 @@ export function renderPost({ info, v, post, posts, prefixo, dados, aplicarLinks,
     .sort((a, b) => b[2] - a[2] || a[1] - b[1]).map(([k]) => k);
   const principal = [...chaves, ...destaques].map((k) => produto(k, dados)).find(Boolean);
   // produto sem afiliação ativa: a caixa de oferta sai e o link vira texto comum (volta sozinho quando for aprovado)
-  let md = String(post.content)
+  let md = String(post.content);
+  if (semOferta) md = md.replace(/^:::cta[^\n]*\n[\s\S]*?\n:::[ \t]*$\n?/gm, '').replace(/\[([^\]]+)\]\(\{\{LINK:[a-z0-9-]+\}\}\)/g, '$1')
+    .replace(/\[([^\]]+)\]\((https:\/\/(?:l\.kbsa\.app\/(?!tel-)|(?:[a-z0-9-]+\.)*(?:shopee\.com\.br|shp\.ee|mercadolivre\.com\.br|amazon\.com\.br|amzn\.to|hotmart\.com|hotm\.art|kiwify\.app|kiwify\.com\.br))[^)]*)\)/g, '$1');
+  md = md
     .replace(/^:::cta[^\n]*\n([\s\S]*?)\n:::[ \t]*$/gm, (b, corpo) => { const k = /\{\{LINK:([a-z0-9-]+)\}\}/.exec(corpo)?.[1]; return k && !produto(k, dados) ? '' : b; })
     .replace(/\[([^\]]+)\]\(\{\{LINK:([a-z0-9-]+)\}\}\)/g, (m, t, k) => (produto(k, dados) ? m : t));
   md = comOfertas(md, dados);
@@ -669,7 +676,7 @@ export function renderPost({ info, v, post, posts, prefixo, dados, aplicarLinks,
   const comparados = [...new Set(post.comparar || chaves)].map((k) => produto(k, dados)).filter(Boolean);
   let caixas = 0;
   html = html.replace(/<aside class="oferta"[\s\S]*?<\/aside>/g, (m) => (comparados.length >= 2 || caixas++ ? '' : m));
-  if (!caixas && (principal || comparados.length >= 2)) {
+  if (!semOferta && !caixas && (principal || comparados.length >= 2)) {
     const melhor = principal && v.melhor_para?.[principal.chave];
     const rot = principal && chaves.includes(principal.chave) ? 'Recomendação do guia' : `Indicado pelo ${info.nome}`;
     const bloco = comparados.length >= 2 ? tabelaMelhor(comparados, v) : ofertaHtml(principal, `<p>${esc(cap(melhor ? `para quem é: ${melhor}` : principal.tipo || ''))}</p>`, rot);
@@ -703,7 +710,7 @@ export function renderPost({ info, v, post, posts, prefixo, dados, aplicarLinks,
   const pp = v._plantaPost || plantaDe(blog).post;
   const tamFoto = pp === 3 ? '(max-width: 1200px) 100vw, 1160px' : pp === 4 ? '(max-width: 960px) 92vw, 520px' : '(max-width: 960px) 92vw, 836px';
   const figura = im ? `<figure class="capa">${imgTag(im, (post.coverAlt || post.title).replace(/^Capa do guia: /, ''), { primeiro: true, sizes: tamFoto, cls: 'fh' })}</figure>` : '';
-  return `${head({ titulo, desc: post.seoDescription || post.excerpt, canonical, v: { ...v, imagem: imagem || v.imagem, lcp: im?.src || null, lcpSrcset: im?.set || null, lcpSizes: tamFoto }, ld, og: 'article' })}<body><div class="progresso" aria-hidden="true"></div>${topo(info, prefixo, v)}
+  return `${head({ titulo, desc: post.seoDescription || post.excerpt, canonical, v: { ...v, imagem: imagem || v.imagem, lcp: im?.src || null, lcpSrcset: im?.set || null, lcpSizes: tamFoto }, ld, og: 'article', robots: semOferta ? 'noindex,follow' : null })}<body><div class="progresso" aria-hidden="true"></div>${topo(info, prefixo, v)}
 <main><article class="w pp-${pp}">${pp === 3 ? figura : ''}<header class="post-cab"><div class="pc-t"><div class="bc"><a href="${prefixo}/">${esc(info.nome)}</a> › <a href="${prefixo}/blog">Guias</a> › ${esc(post.category || info.categoria)}</div>
 <h1>${esc(post.title)}</h1>
 ${resposta ? `<p class="linha-fina rapida">${esc(resposta)}</p>` : ''}
@@ -712,14 +719,36 @@ ${pp === 3 ? '' : figura}</header>
 ${pp === 4 && h2.length > 2 ? `<nav class="chips" aria-label="Neste guia">${h2.map(([id, t]) => `<a href="#${id}">${t.replace(/<[^>]+>/g, '')}</a>`).join('')}</nav>` : ''}
 <div class="post-g"><div class="corpo">${h2.length > 2 && pp !== 4 ? `<details class="indice-m"${pp === 3 ? ' open' : ''}><summary>Neste guia (${h2.length} partes)</summary><ol>${indiceItens}</ol></details>` : ''}
 <div class="txt">${html}</div>
-<div class="assina">${carimbo(voz, quando)}<div><b><a href="${prefixo}/autor" rel="author" style="color:inherit">${esc(voz.nome)}</a></b><p>${esc(cap(voz.papel))}. ${esc(voz.nome)} é ${voz.ele === 'a' ? 'uma personagem criada' : 'um personagem criado'} com IA: confere a ficha e as fontes e não afirma ter testado. Este conteúdo pode conter links de afiliado; se você comprar por eles, o blog recebe uma comissão, sem custo extra para você.</p></div></div>
+${semOferta ? conviteHtml(info, v, voz, semOferta) : ''}
+<div class="assina">${carimbo(voz, quando)}<div><b><a href="${prefixo}/autor" rel="author" style="color:inherit">${esc(voz.nome)}</a></b><p>${esc(cap(voz.papel))}. ${esc(voz.nome)} é ${voz.ele === 'a' ? 'uma personagem criada' : 'um personagem criado'} com IA: confere a ficha e as fontes e não afirma ter testado. ${semOferta ? 'Esta versão do guia não tem links de compra.' : 'Este conteúdo pode conter links de afiliado; se você comprar por eles, o blog recebe uma comissão, sem custo extra para você.'}</p></div></div>
 ${(v.fontes || []).length ? `<section class="mais fontes"><h2>Fontes para conferir por conta própria</h2><ul>${v.fontes.map((f) => `<li><a href="${esc(f.u)}" rel="noopener" target="_blank">${esc(f.t)}</a></li>`).join('')}</ul></section>` : ''}
 ${outros.length ? `<section class="mais"><h2>Continue lendo</h2><div class="guias">${outros.map((p) => `<a class="guia" href="${prefixo}/blog/${esc(p.slug)}">${capaCard(p, false, undefined, blog)}<span class="k">${esc(p.category || info.categoria)}</span><h3>${esc(p.title)}</h3></a>`).join('')}</div></section>` : ''}
 ${vizinhos.length ? `<section class="mais viz"><h2>Do mesmo assunto nos nossos outros blogs</h2><ul>${vizinhos.map((x) => `<li><a href="${esc(x.url)}">${esc(x.title)}</a><span>${esc(x.blog)}</span></li>`).join('')}</ul></section>` : ''}
 </div>${pp <= 2 ? `<aside class="lado" aria-label="Neste guia">${h2.length > 2 ? `<nav class="indice" aria-label="Neste guia"><b>Neste guia</b><ol>${indiceItens}</ol></nav>` : ''}</aside>` : ''}</div>
 <section class="sec" id="assine" style="border:0;padding-top:30px">${assineHtml(info, v)}</section></article></main>${rodape(info, prefixo, v)}
-${SCRIPT_POST(blog, canonical, post.title)}</body></html>`;
+${SCRIPT_POST(blog, canonical, post.title)}${semOferta ? scriptConvite(new URL(prefixo).host) : ''}</body></html>`;
 }
+
+// ---- Variante sem oferta: convite para o canal da voz e medição (contador do Portal, /pa/v, tipo "c" com destino "evento/<nome>") ----
+function conviteHtml(info, v, voz, cfg) {
+  const c = cfg.convite || {};
+  const tel = /^https:\/\/l\.kbsa\.app\/[a-z0-9-]+/.test(v.telegram || '') ? String(v.telegram) : '';
+  const wa = /^https:\/\/(l\.kbsa\.app\/[a-z0-9-]+|whatsapp\.com\/channel\/[A-Za-z0-9]+)/.test(cfg.whatsapp || '') ? String(cfg.whatsapp) : '';
+  if (!tel && !wa) return '';
+  const titulo = c.titulo || `As ofertas conferidas do dia saem no canal ${voz.ele === 'a' ? 'da' : 'do'} ${voz.curto}`;
+  const texto = c.texto || `Lá ${voz.ele === 'a' ? 'ela' : 'ele'} manda uma dica curta por dia e só avisa de oferta quando o preço foi conferido.`;
+  return `<aside class="convite" aria-label="Canal ${voz.ele === 'a' ? 'da' : 'do'} ${esc(voz.curto)}"><h2>${esc(titulo)}</h2><p>${esc(texto)}</p><div class="cv-b">
+${tel ? `<a class="btn" data-convite="telegram" href="${esc(tel)}" rel="nofollow noopener" target="_blank">${esc(c.botao || 'Entrar no canal do Telegram')}</a>` : ''}${wa ? `<a class="btn lin" data-convite="whatsapp" href="${esc(wa)}" rel="nofollow noopener" target="_blank">Seguir o Canal no WhatsApp</a>` : ''}</div></aside>`;
+}
+/** Medição da variante: utm do anúncio vira src do BigLinks no convite (meta_<campanha>_<criativo>), CliqueConvite no clique de gente
+ *  e LeituraProfunda com rolagem >= 60% e >= 30 s, uma vez por página. Sai sozinho com navigator.webdriver (robô e PageSpeed). */
+const scriptConvite = (k) => `<script>(function(){var n=navigator,d=document,l=location;if(n.webdriver)return;var q=new URLSearchParams(l.search),u=[q.get('utm_source'),q.get('utm_medium'),q.get('utm_campaign')],t0=Date.now(),max=0,lido=0;
+function ev(x){var j=JSON.stringify({k:${JSON.stringify(k)},t:'c',p:l.pathname,r:'',u:u,w:innerWidth,x:'evento/'+x});try{n.sendBeacon?n.sendBeacon('/pa/v',j):fetch('/pa/v',{method:'POST',body:j,keepalive:!0})}catch(e){}}
+var src=(['utm_source','utm_campaign','utm_content'].map(function(x){return q.get(x)}).filter(Boolean).join('_')||'').toLowerCase().replace(/[^a-z0-9]+/g,'_').slice(0,50);
+[].forEach.call(d.querySelectorAll('[data-convite]'),function(a){if(src&&q.get('utm_source')){var b=a.href.split('?')[0];a.href=b+'?src='+src+'&'+['utm_source','utm_medium','utm_campaign','utm_content'].filter(function(x){return q.get(x)}).map(function(x){return x+'='+encodeURIComponent(q.get(x))}).join('&')}
+a.addEventListener('click',function(e){if(e.isTrusted)ev('CliqueConvite_'+a.dataset.convite)})});
+function ver(){var h=d.documentElement,r=(scrollY+innerHeight)/h.scrollHeight;if(r>max)max=r;if(!lido&&max>=.6&&Date.now()-t0>=3e4){lido=1;ev('LeituraProfunda')}}
+addEventListener('scroll',ver,{passive:!0});setInterval(ver,5e3)})()</script>`;
 
 /** Página obrigatória (sobre, contato, privacidade, termos, aviso-de-afiliados, autor), com o mesmo tema do blog.
  *  Na "sobre", a voz do blog se apresenta antes do texto institucional. */

@@ -82,7 +82,7 @@ async function fotoProduto(chave) {
 
 // O Z-Image Turbo roda sem guidance (CFG 0), então o prompt negativo não pesa: o "sem texto" vai no próprio descritivo
 // e o OCR do Windows confere depois (placa, prancheta, embalagem e tela saem com letras falsas, que entregam cara de IA).
-const SEM_TEXTO = ', every surface plain and unlabeled, blank paper, no writing, no signage, no printed words, no letters';
+const SEM_TEXTO = ', every surface plain and unlabeled, no writing, no signage, no printed words, no letters'; // 12/11: sem citar papel; com CFG 0 o modelo desenha o que o texto cita, até em frase negativa ('blank paper' punha folha branca em quase toda foto)
 const OCR = path.join(path.dirname(fileURLToPath(import.meta.url)), 'ocr-windows.ps1');
 /** Fotos com texto legível pelo OCR (palavra de 4 letras ou mais), ampliadas 2x antes da leitura. Fora do Windows, nada é reprovado. */
 function comTexto(fotos) {

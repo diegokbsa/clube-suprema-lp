@@ -231,6 +231,16 @@ try {
         gravarPagina(repo, { siteId: site.id, caminho: `blog/${a.slug}`, titulo: a.title, indexar: false,
           html: comOrigem(renderPost({ info, v, post: a, posts: lista, prefixo, dados: DADOS_VITRINE, aplicarLinks, publicado: row?.published_at, atualizado: row?.updated_at }), `${slugBlog}-${a.slug}`) });
       }
+      // Variante sem oferta para tráfego pago (12/11/2026): <blog>/sem-oferta.json {"posts":[slug], "convite":{...}, "whatsapp"} grava
+      // /guia/<slug> sem nenhum link de compra, com convite para o canal da voz, noindex e fora do sitemap.
+      const semOferta = lerJson(path.join(dir, 'sem-oferta.json'), null);
+      for (const slugG of semOferta?.posts || []) {
+        const a = lista.find((x) => x.slug === slugG);
+        if (!a) { passo(`aviso: ${slugBlog}/sem-oferta.json cita ${slugG}, que não é post vivo`); continue; }
+        const row = repo.get('posts', { site_id: site.id, slug: a.slug });
+        gravarPagina(repo, { siteId: site.id, caminho: `guia/${a.slug}`, titulo: `${a.title} (sem oferta)`, indexar: false,
+          html: comOrigem(renderPost({ info, v, post: a, posts: lista, prefixo, dados: DADOS_VITRINE, aplicarLinks, publicado: row?.published_at, atualizado: row?.updated_at, semOferta }), `${slugBlog}-guia-${a.slug}`) });
+      }
       for (const pag of PAGINAS) {
         gravarPagina(repo, { siteId: site.id, caminho: pag, html: comOrigem(renderInstitucional({ pag, info, v, prefixo, posts: lista, medicao: med }), `${slugBlog}-${pag}`), titulo: pag, indexar: true });
       }

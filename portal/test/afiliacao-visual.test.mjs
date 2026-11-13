@@ -12,7 +12,7 @@ const C = path.join(RAIZ, 'conteudo', 'afiliacao');
 const j = (f) => JSON.parse(fs.readFileSync(f, 'utf8'));
 const dados = { catalogo: j(path.join(C, 'produtos.json')), links: j(path.join(C, 'links.json')) };
 const blog = (slug) => ({ info: j(path.join(C, slug, 'site.json')), v: j(path.join(C, slug, 'vitrine.json')),
-  posts: fs.readdirSync(path.join(C, slug, 'posts')).sort().map((f) => j(path.join(C, slug, 'posts', f))), prefixo: `https://kbsa.app/${slug}`, dados });
+  posts: fs.readdirSync(path.join(C, slug, 'posts')).sort().map((f) => j(path.join(C, slug, 'posts', f))).filter((p) => !p.redirect), prefixo: `https://kbsa.app/${slug}`, dados });
 
 test('home: og:image, foto do destaque sem lazy, voz assinando, Publicidade nas fichas e sem marcas de IA', () => {
   for (const slug of fs.readdirSync(C).filter((d) => fs.existsSync(path.join(C, d, 'site.json')))) {
