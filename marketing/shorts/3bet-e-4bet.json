@@ -1,0 +1,16 @@
+{
+  "id": "3bet-e-4bet",
+  "tipo": "Dica rápida",
+  "titulo": "3-bet e 4-bet: quando reaumentar antes do flop no poker #shorts",
+  "descricao": "3-bet é o primeiro reaumento antes do flop; 4-bet é o reaumento por cima dele. Use por valor com pares altos e AK, e blefe só com mãos que ainda jogam bem. No próximo vídeo: blefe no poker.\n\n18+ · Jogue com responsabilidade.\n\n#poker #pokeronline #texasholdem #supremapoker",
+  "post": "3bet-e-4bet",
+  "cenas": [
+    { "tela": "Aumentaram na sua frente. **Reaumenta?**", "fala": "Alguém aumentou antes do flop. Você paga ou reaumenta?", "imagem": "public/img/app-mesa.webp" },
+    { "passo": 1, "tela": "**3-bet** = a terceira aposta", "fala": "O big blind é a primeira aposta, o aumento é a segunda e o seu reaumento é o 3-bet." },
+    { "passo": 2, "tela": "Valor: **AA, KK, QQ e AK**", "fala": "Por valor, faça 3-bet com pares altos e ás-rei." },
+    { "passo": 3, "tela": "Blefe com **A5** do mesmo naipe", "fala": "Para blefar, escolha mãos que ainda jogam bem quando pagas, como ás-cinco do mesmo naipe." },
+    { "passo": 4, "tela": "Tamanho: **3x** em posição, **4x** fora", "fala": "Reaumente cerca de três vezes em posição e perto de quatro vezes fora de posição." },
+    { "passo": 5, "tela": "**4-bet**: o reaumento por cima", "fala": "E se reaumentarem de volta, isso é o 4-bet. Guarde para as mãos mais fortes." },
+    { "tela": "No próximo: **blefe**. Segue o canal!", "fala": "No próximo vídeo, quando o blefe funciona. Segue o canal!", "imagem": "public/img/app-mesa.webp" }
+  ]
+}
