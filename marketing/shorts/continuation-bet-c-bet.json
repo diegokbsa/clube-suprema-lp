@@ -1,0 +1,16 @@
+{
+  "id": "continuation-bet-c-bet",
+  "tipo": "Dica rápida",
+  "titulo": "Aumentou e errou o flop? Quando fazer c-bet no poker #shorts",
+  "descricao": "C-bet é a aposta no flop de quem aumentou antes do flop. Funciona melhor contra um adversário, em mesa seca e em posição. No próximo vídeo: 3-bet e 4-bet.\n\n18+ · Jogue com responsabilidade.\n\n#poker #pokeronline #texasholdem #supremapoker",
+  "post": "continuation-bet-c-bet",
+  "cenas": [
+    { "tela": "Aumentou e **errou** o flop?", "fala": "Você aumentou antes do flop e o flop veio sem nada?", "imagem": "public/img/app-mesa.webp" },
+    { "passo": 1, "tela": "**C-bet** = apostar de novo no flop", "fala": "A c-bet é apostar de novo no flop, continuando a história de mão forte." },
+    { "passo": 2, "tela": "Melhor contra **1** adversário", "fala": "Ela funciona melhor contra um adversário só. Contra três ou mais, cuidado." },
+    { "passo": 3, "tela": "Mesa **seca**: K 7 2 de naipes diferentes", "fala": "Mesa seca, como rei, sete e dois de naipes diferentes, ajuda quem aumentou." },
+    { "passo": 4, "tela": "1/3 do pote: precisa de **25%** de fold", "fala": "Apostando um terço do pote, o blefe só precisa funcionar uma vez em cada quatro." },
+    { "passo": 5, "tela": "Mesa **ligada**? Dê check", "fala": "Já em mesa baixa e ligada, como nove, oito, sete, dar check costuma ser melhor." },
+    { "tela": "No próximo: **3-bet**. Segue o canal!", "fala": "No próximo vídeo, o 3-bet e o 4-bet. Segue o canal!", "imagem": "public/img/app-mesa.webp" }
+  ]
+}

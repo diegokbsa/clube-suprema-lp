@@ -31,7 +31,7 @@ Fichas 24h por PIX, depósito não caiu, Suprema Poker é confiável, formatos d
 - [x] 2026-11-12 projetos-flush-draw-gutshot | Projetos no poker: flush draw, sequência aberta e gutshot | o que é gutshot
 - [x] 2026-11-12 probabilidades-no-poker | Probabilidades no poker: chances de par, trinca e flush | probabilidade poker
 - [x] 2026-11-13 o-que-e-range | O que é range e por que pensar em faixas de mãos | o que é range no poker
-- [ ] continuation-bet-c-bet | C-bet (continuation bet): quando apostar de novo no flop | o que é c-bet
+- [x] 2026-11-13 continuation-bet-c-bet | C-bet (continuation bet): quando apostar de novo no flop | o que é c-bet
 - [ ] 3bet-e-4bet | 3-bet e 4-bet: o que são e quando usar | o que é 3bet
 - [ ] blefe-no-poker | Blefe no poker: quando funciona e quando é melhor desistir | como blefar no poker
 - [ ] limp-no-poker | Limp: por que só pagar o big blind costuma ser um erro | o que é limp no poker
