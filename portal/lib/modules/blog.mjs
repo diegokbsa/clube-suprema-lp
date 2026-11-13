@@ -531,7 +531,10 @@ export const sitemapEntries = ({ site, repo }) => {
   const posts = repo.all('posts', { site_id: site.id }, { order: 'published_at DESC', extra: 'published_data IS NOT NULL' });
   if (!posts.length) return [];
   const lastmod = (post) => parse(post.published_data, {})?.dateModified || post.published_at;
-  return [{ path: '/blog', lastmod: lastmod(posts[0]) }, ...posts.map((post) => ({ path: `/blog/${encodeURIComponent(post.published_slug)}`, lastmod: lastmod(post) }))];
+  return [{ path: '/blog', lastmod: lastmod(posts[0]) }, ...posts.map((post) => {
+    const publicado = parse(post.published_data, {});
+    return { path: `/blog/${encodeURIComponent(post.published_slug)}`, lastmod: lastmod(post), ...(publicado.coverUrl ? { image: publicado.coverUrl } : {}) };
+  })];
 };
 
 /** Avisa os buscadores (IndexNow) do post e do índice do blog. Nunca derruba a publicação. */

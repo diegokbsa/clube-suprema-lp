@@ -823,7 +823,7 @@ export function trechosDoPost(content, max = 3) {
   }
   return out;
 }
-/** Imagens da story a partir da capa do post: pôster vertical (<slug>-story.webp) e logo do blog (logo.webp), geradas por afiliacao-capas.mjs. */
+/** Imagens da story a partir da capa do post: pôster 1200x1600 (<slug>-story.webp) e logo do blog (logo.webp), gerados por afiliacao-capas.mjs. */
 export const posterDa = (capa) => (capa ? capa.replace(/-capa\.(png|jpe?g|webp)$/, '-story.webp') : null);
 export const logoDa = (capa) => (capa ? capa.replace(/\/[^/]+$/, '/logo.webp') : null);
 
@@ -852,11 +852,12 @@ export function renderStory({ info, v, post, prefixo, dados }) {
 <link rel="canonical" href="${esc(url)}"><meta name="viewport" content="width=device-width"><meta name="description" content="${esc(desc).slice(0, 160)}">
 ${rssAutodiscovery(info, prefixo)}
 <meta name="robots" content="index,follow,max-image-preview:large">
-<meta property="og:type" content="article"><meta property="og:title" content="${esc(post.title)}"><meta property="og:description" content="${esc(desc).slice(0, 200)}"><meta property="og:url" content="${esc(url)}"><meta property="og:locale" content="pt_BR"><meta property="og:site_name" content="${esc(info.nome)}"><meta property="og:image" content="${esc(`${origem}${comVersao(capa)}`)}"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="${esc(post.coverAlt || post.title)}"><meta name="twitter:card" content="summary_large_image">
+<meta property="og:type" content="article"><meta property="og:title" content="${esc(post.title)}"><meta property="og:description" content="${esc(desc).slice(0, 200)}"><meta property="og:url" content="${esc(url)}"><meta property="og:locale" content="pt_BR"><meta property="og:site_name" content="${esc(info.nome)}"><meta property="og:image" content="${esc(poster)}"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="1600"><meta property="og:image:alt" content="${esc(post.coverAlt || post.title)}"><meta name="twitter:card" content="summary_large_image">
 <script async src="https://cdn.ampproject.org/v0.js"></script><script async custom-element="amp-story" src="https://cdn.ampproject.org/v0/amp-story-1.0.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;700&amp;family=${familiaFonte(fonte, '700')}&amp;display=swap" rel="stylesheet">
 ${AMP_BOILERPLATE}
-<style amp-custom>amp-story{font-family:'Atkinson Hyperlegible Next',sans-serif;color:${t.claro.sobreAcento}}
+<style amp-custom>.guia-link{display:inline-flex;align-items:center;min-height:52px;margin-top:28px;padding:0 20px;border:2px solid ${t.claro.sobreAcento};border-radius:8px;background:${t.claro.sobreAcento};color:${t.claro.acento};font-size:18px;font-weight:700;text-decoration:none}.guia-link:focus{outline:3px solid ${t.claro.sobreAcento};outline-offset:4px}
+amp-story{font-family:'Atkinson Hyperlegible Next',sans-serif;color:${t.claro.sobreAcento}}
 .tx{background:${t.claro.acento};padding:56px 28px 96px;align-content:center}
 .k{font-size:15px;font-weight:700;letter-spacing:.02em;opacity:.9;margin:0 0 10px}
 h1,h2{font-family:'${fonte}',sans-serif;font-weight:700;line-height:1.1;margin:0 0 16px}h1{font-size:34px}h2{font-size:30px}
@@ -864,10 +865,10 @@ p{font-size:20px;line-height:1.45;margin:0}.pr{font-size:28px;font-weight:700;ma
 .ft{background:#fff;border-radius:14px;padding:16px;margin-bottom:22px}.m{font-size:16px;font-weight:700;margin-top:22px}</style>
 <script type="application/ld+json">${JSON.stringify(ld).replace(/</g, '\\u003c')}</script></head><body>
 <amp-story standalone title="${esc(post.title)}" publisher="${esc(info.nome)}" publisher-logo-src="${esc(logo)}" poster-portrait-src="${esc(poster)}">
-<amp-story-page id="capa"><amp-story-grid-layer template="fill"><amp-img src="${esc(poster)}" width="720" height="960" layout="responsive" alt="${esc(post.coverAlt || post.title)}"></amp-img></amp-story-grid-layer></amp-story-page>
+<amp-story-page id="capa"><amp-story-grid-layer template="fill"><amp-img src="${esc(poster)}" width="1200" height="1600" layout="responsive" alt="${esc(post.coverAlt || post.title)}"></amp-img></amp-story-grid-layer></amp-story-page>
 ${resposta ? pagina('resposta', `<div><p class="k">Resposta rápida</p><h1>${esc(post.title)}</h1><p>${esc(resposta)}</p></div>`) : ''}
 ${trechos.map((x, i) => pagina(`parte-${i + 1}`, `<div><p class="k">${i + 1} de ${trechos.length}</p><h2>${esc(x.t)}</h2><p>${esc(x.d)}</p></div>`)).join('\n')}
 ${p ? pagina('oferta', `<div>${p.img ? `<div class="ft"><amp-img src="${esc(absoluta(p.img, prefixo))}" width="600" height="375" layout="responsive" alt="${esc(p.nome)}"></amp-img></div>` : ''}<p class="k">${chaves.includes(p.chave) ? 'Indicado neste guia' : `Indicado pelo ${esc(info.nome)}`}</p><h2>${esc(p.nome)}</h2>${p.preco ? `<p class="pr">${brl(p.preco)}</p>` : ''}<p class="m">Link de afiliado: confira preço e garantia na página oficial.</p></div>`, link(p.url, 'Ver oferta', true)) : ''}
-${pagina('guia', `<div><p class="k">${esc(info.nome)}</p><h2>Leia o guia completo</h2><p>${esc(frase(desc, 200))}</p></div>`, link(guia, 'Abrir o guia'))}
+${pagina('guia', `<div><p class="k">${esc(info.nome)}</p><h2>Leia o guia completo</h2><p>${esc(frase(desc, 200))}</p><a class="guia-link" href="${esc(guia)}" target="_blank" rel="noopener">Abrir o guia completo</a></div>`, link(guia, 'Abrir o guia'))}
 </amp-story></body></html>`;
 }

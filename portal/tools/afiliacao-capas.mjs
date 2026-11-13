@@ -6,11 +6,12 @@
 //     Nunca a foto de um produto que não está no post;
 //   - 4 composições alternadas dentro de cada blog (foto à direita, foto de fundo com faixa, fundo claro com foto à esquerda,
 //     foto em cima), nas cores do blog;
-//   - capa 1200x630 (<slug>-capa.webp), pôster da Web Story 720x960 (<slug>-story.webp) e logo do blog 192x192 (logo.webp);
+//   - capa 1200x630 (<slug>-capa.webp), pôster da Web Story 1200x1600 (<slug>-story.webp) e logo do blog 192x192 (logo.webp);
 //   - conferência no fim: REPROVA (código de saída 1) se um post ficar sem foto própria ou se duas capas do mesmo blog usarem
 //     a mesma foto (mesmo hash).
-// Uso: node tools/afiliacao-capas.mjs [--blog <slug>] [--refazer] [--refazer-fotos] [--sem-gerar] [--sem-json]
+// Uso: node tools/afiliacao-capas.mjs [--blog <slug>] [--refazer] [--refazer-fotos] [--so-stories] [--sem-gerar] [--sem-json]
 //   --refazer        redesenha capas e pôsteres (as fotos ficam)
+//   --so-stories     redesenha só os pôsteres da Web Story, em 1200x1600 (não mexe em capa, logo, foto nem JSON)
 //   --refazer-fotos  gera as fotos de novo (cuidado: ~18 s por foto na GPU)
 //   --sem-gerar      não chama o WanGP (só desenha com as fotos que já existem)
 //   --refazer-foto blog/slug,...  refaz foto, capa e pôster só desses posts (a foto nova passa pelo OCR: com texto, tenta outra semente)
@@ -31,6 +32,7 @@ const opt = (k) => { const i = ARGS.indexOf(k); return i >= 0 ? ARGS[i + 1] : nu
 const REFAZER = ARGS.includes('--refazer') || ARGS.includes('--refazer-fotos');
 const REFAZER_FOTOS = ARGS.includes('--refazer-fotos');
 const SEM_GERAR = ARGS.includes('--sem-gerar');
+const SO_STORIES = ARGS.includes('--so-stories'); // redesenha só o pôster da story (1200x1600), sem tocar em capa, logo, foto ou JSON
 const REFAZER_ALVO = new Set(String(opt('--refazer-foto') || '').split(',').filter(Boolean)); // blog/slug,... (foto, capa e pôster só desses)
 const CHROME = process.env.CHROME_PATH || ['C:/Program Files/Google/Chrome/Application/chrome.exe', '/usr/bin/google-chrome', '/usr/bin/chromium']
   .find((c) => fs.existsSync(c));
@@ -162,14 +164,14 @@ function capaHtml({ layout, titulo, blog, v, foto, prod }) {
   return `${css}<body style="background:#fff;display:grid;grid-template-rows:350px 1fr">
 <div class="ft" style="${bg}"></div><div style="padding:26px 60px 30px;display:flex;flex-direction:column;justify-content:space-between;border-top:10px solid ${cor}">${h1(tam(titulo, 38, 42, 46), '#15171c')}${marca('#5b6270', cor)}</div>${quadro(prod, 'right:44px;top:110px')}</body>`;
 }
-/** Pôster vertical da Web Story (720x960): foto em cima, título embaixo, margem lateral segura para o recorte 9:16. */
+/** Pôster retrato da Web Story (1200x1600): foto em cima, título embaixo, margem lateral segura para o recorte 9:16. */
 function storyHtml({ titulo, blog, v, foto, prod }) {
   const f = v.fonte || 'Archivo';
-  return `<style>${BASE}html,body{width:720px;height:960px}</style><body style="background:${v.cor};color:#fff">
-<div class="ft" style="background-image:url('${url(foto)}');height:470px"></div>
-<div style="padding:40px 108px 52px;height:490px;display:flex;flex-direction:column;justify-content:space-between">
+  return `<style>${BASE}html,body{width:1200px;height:1600px}</style><body style="background:${v.cor};color:#fff">
+<div class="ft" style="background-image:url('${url(foto)}');height:780px"></div>
+<div style="padding:66px 180px 82px;height:820px;display:flex;flex-direction:column;justify-content:space-between">
 <h1 style="font:700 ${tam(titulo, 36, 40, 46)}px/1.08 '${f}',sans-serif;text-wrap:balance">${esc(titulo)}</h1><div class="m"><i style="background:#fff"></i>${esc(blog)}</div></div>
-${quadro(prod, 'right:108px;top:330px')}</body>`;
+${quadro(prod, 'right:180px;top:550px')}</body>`;
 }
 function logoHtml({ blog, v }) {
   const f = v.fonte || 'Archivo';
@@ -201,7 +203,7 @@ for (const blog of blogs) {
 }
 const faltam = lista.filter((x) => REFAZER_FOTOS || REFAZER_ALVO.has(`${x.blog}/${x.post.slug}`) || !fs.existsSync(x.foto))
   .map((x) => ({ id: `${x.blog}/${x.post.slug}`, prompt: promptDe(x.blog, x.post), seed: semente(`${x.blog}/${x.post.slug}`), destino: x.foto }));
-if (faltam.length && !SEM_GERAR) gerarFotos(faltam);
+if (faltam.length && !SEM_GERAR && !SO_STORIES) gerarFotos(faltam);
 
 // 2) capas, pôsteres e logos
 let capas = 0; let json = 0; const erros = [];
@@ -209,7 +211,7 @@ for (const blog of blogs) {
   const info = lerJson(path.join(CONTEUDO, blog, 'site.json'), {});
   const v = lerJson(path.join(CONTEUDO, blog, 'vitrine.json'), {});
   const logo = path.join(PUBLICO, blog, 'logo.webp');
-  if (REFAZER || !fs.existsSync(logo)) fotografar(logoHtml({ blog: info.nome, v }), v.fonte || 'Archivo', logo, [192, 192], 90);
+  if (!SO_STORIES && (REFAZER || !fs.existsSync(logo))) fotografar(logoHtml({ blog: info.nome, v }), v.fonte || 'Archivo', logo, [192, 192], 90);
   const doBlog = lista.filter((x) => x.blog === blog);
   const vistos = new Map();
   for (const x of doBlog) {
@@ -219,15 +221,15 @@ for (const blog of blogs) {
     if (vistos.has(h)) erros.push(`${blog}/${post.slug}: mesma foto de ${vistos.get(h)}`); else vistos.set(h, post.slug);
     const capa = path.join(PUBLICO, blog, `${post.slug}-capa.webp`);
     const story = path.join(PUBLICO, blog, `${post.slug}-story.webp`);
-    if (REFAZER || REFAZER_ALVO.has(`${blog}/${post.slug}`) || !fs.existsSync(capa) || !fs.existsSync(story)) {
+    if (SO_STORIES || REFAZER || REFAZER_ALVO.has(`${blog}/${post.slug}`) || !fs.existsSync(capa) || !fs.existsSync(story)) {
       const chave = [...String(post.content).matchAll(/\{\{LINK:([a-z0-9-]+)\}\}/g)].map((m) => m[1]).find((k) => links[k]?.status === 'ativo');
       const prod = chave ? await fotoProduto(chave) : null;
       const dados = { layout: x.i % 4, titulo: post.title, blog: info.nome, v, foto: x.foto, prod };
-      fotografar(capaHtml(dados), v.fonte || 'Archivo', capa, [1200, 630]);
-      fotografar(storyHtml(dados), v.fonte || 'Archivo', story, [720, 960], 80);
+      if (!SO_STORIES) fotografar(capaHtml(dados), v.fonte || 'Archivo', capa, [1200, 630]);
+      fotografar(storyHtml(dados), v.fonte || 'Archivo', story, [1200, 1600], 80);
       capas++;
     }
-    if (!ARGS.includes('--sem-json') && !post.cover) {
+    if (!SO_STORIES && !ARGS.includes('--sem-json') && !post.cover) {
       const bruto = fs.readFileSync(x.arq, 'utf8');
       fs.writeFileSync(x.arq, JSON.stringify({ ...post, cover: `/assets/afiliacao/${blog}/${post.slug}-capa.webp`, coverAlt: `Capa do guia: ${post.title}` }, null, 2) + (bruto.endsWith('\n') ? '\n' : ''));
       json++;

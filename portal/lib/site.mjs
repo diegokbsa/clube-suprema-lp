@@ -81,12 +81,18 @@ ${corpo.includes('data-cd-ini') ? '<script src="/assets/contagem.js" defer></scr
 </html>`;
 }
 
-/** extras: entradas de módulos (posts do blog etc.): [{ path: '/blog/x', lastmod: ISO }] */
+/** extras: entradas de módulos (posts do blog etc.): [{ path: '/blog/x', lastmod: ISO, image: '/assets/capa.webp' }] */
 export function sitemapXml(origin, base, pages, extras = []) {
+  const absolute = (value) => {
+    const url = String(value || '');
+    if (/^https?:\/\//i.test(url)) return url;
+    const prefix = String(origin || '').replace(/\/$/, '');
+    return `${prefix}/${url.replace(/^\/+/, '')}`;
+  };
   const urls = pages.filter((p) => p.published && !parse(p.seo, {}).noindex)
     .map((p) => `<url><loc>${esc(`${origin}${base}/${p.slug}`.replace(/\/$/, '') || origin)}</loc><lastmod>${esc((p.published_at || '').slice(0, 10))}</lastmod></url>`)
-    .concat(extras.filter((x) => x?.path).map((x) => `<url><loc>${esc(`${origin}${base}${x.path}`)}</loc>${x.lastmod ? `<lastmod>${esc(String(x.lastmod).slice(0, 10))}</lastmod>` : ''}</url>`));
-  return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${urls.join('')}</urlset>\n`;
+    .concat(extras.filter((x) => x?.path).map((x) => `<url><loc>${esc(`${origin}${base}${x.path}`)}</loc>${x.lastmod ? `<lastmod>${esc(String(x.lastmod).slice(0, 10))}</lastmod>` : ''}${x.image ? `<image:image><image:loc>${esc(absolute(x.image))}</image:loc></image:image>` : ''}</url>`));
+  return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">${urls.join('')}</urlset>\n`;
 }
 
 export const robotsTxt = (origin, base) => `User-agent: *\nAllow: /\nSitemap: ${origin}${base}/sitemap.xml\n`;

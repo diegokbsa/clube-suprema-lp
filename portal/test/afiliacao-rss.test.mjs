@@ -6,7 +6,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { gerarRss, extrairConteudoRss, marcarOrigemRss } from '../lib/rss.mjs';
 import { publicRoutes } from '../lib/modules/paginas.mjs';
-import { renderHome, renderLista, renderPost, renderInstitucional, renderOfertas, renderStory, rssAutodiscovery } from '../tools/afiliacao-visual.mjs';
+import { renderHome, renderLista, renderPost, renderInstitucional, renderOfertas, renderStory, posterDa, rssAutodiscovery } from '../tools/afiliacao-visual.mjs';
 
 const RAIZ = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
 const C = path.join(RAIZ, 'conteudo', 'afiliacao');
@@ -116,10 +116,43 @@ test('todas as páginas geradas dos 10 blogs anunciam o RSS e mostram Assinar po
       assert.match(html, esperado, `${slug}: autodiscovery na página`);
     }
     for (const html of htmls) assert.match(html, /Assinar por RSS/, `${slug}: link discreto no rodapé`);
-    if (story) assert.match(story, /<amp-story/, `${slug}: história AMP também anuncia o feed`);
+    if (story) {
+      assert.match(story, /<amp-story/, `${slug}: história AMP também anuncia o feed`);
+      assert.match(story, /property="og:image:width" content="1200"/);
+      assert.match(story, /property="og:image:height" content="1600"/);
+      assert.match(story, /<amp-img src="[^"]+" width="1200" height="1600"/);
+      assert.match(story, /<amp-story-page id="guia">[\s\S]*?<a class="guia-link"[^>]*>Abrir o guia completo<\/a>[\s\S]*?<amp-story-page-outlink layout="nodisplay"/,
+        `${slug}: último quadro tem link visível e CTA AMP nativo`);
+    }
     const postHtml = htmls[2];
     assert.ok(extrairConteudoRss(postHtml), `${slug}: conteúdo do post fica marcado para o feed`);
   }
+});
+
+test('todas as Web Stories dos posts têm capa e og:image 1200x1600 e link visível no último quadro', () => {
+  let total = 0;
+  for (const slug of blogs) {
+    const info = lerJson(path.join(C, slug, 'site.json'));
+    const v = lerJson(path.join(C, slug, 'vitrine.json'));
+    const prefixo = `https://${info.dominio}`;
+    const posts = fs.readdirSync(path.join(C, slug, 'posts')).sort().map((f) => lerJson(path.join(C, slug, 'posts', f))).filter((p) => !p.redirect && p.cover);
+    for (const post of posts) {
+      const story = renderStory({ info, v, post, prefixo, dados: dadosBase });
+      assert.ok(story, `${slug}/${post.slug}: renderer gera Web Story`);
+      const poster = posterDa(post.cover);
+      assert.ok(fs.existsSync(path.join(RAIZ, 'public', poster.replace(/^\/+/, ''))), `${slug}/${post.slug}: pôster local existe`);
+      const og = /<meta property="og:image" content="([^"]+)"/.exec(story)?.[1] || '';
+      assert.ok(og.startsWith(`${prefixo}${poster}?v=`), `${slug}/${post.slug}: og:image usa o pôster retrato`);
+      assert.match(story, /property="og:image:width" content="1200"/);
+      assert.match(story, /property="og:image:height" content="1600"/);
+      assert.match(story, /<amp-img src="[^"]+" width="1200" height="1600"/);
+      const ultimo = /<amp-story-page id="guia">([\s\S]*?)<\/amp-story-page>/.exec(story)?.[1] || '';
+      assert.match(ultimo, /<a class="guia-link" href="[^"]+\/blog\/[^"]+" target="_blank" rel="noopener">Abrir o guia completo<\/a>/,
+        `${slug}/${post.slug}: último quadro mostra o link para o post`);
+      total++;
+    }
+  }
+  assert.ok(total > 250, `stories verificadas: ${total}`);
 });
 
 test('src do feed substitui a origem do artigo em BigLinks e não deixa macro cru', () => {
