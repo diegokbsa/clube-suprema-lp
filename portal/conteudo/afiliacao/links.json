@@ -889,5 +889,35 @@
   "kw-canal-criativo": {
     "status": "pendente",
     "pedido_em": "2026-11-12"
+  },
+  "hm-guitarra-intensiva": {
+    "status": "ativo",
+    "url": "https://go.hotmart.com/K108473953J",
+    "curto": "https://l.kbsa.app/hm-guitarra-intensiva"
+  },
+  "hm-curso-excel": {
+    "status": "ativo",
+    "url": "https://go.hotmart.com/O108473988N",
+    "curto": "https://l.kbsa.app/hm-curso-excel"
+  },
+  "hm-cilios-start": {
+    "status": "ativo",
+    "url": "https://go.hotmart.com/N108474030N",
+    "curto": "https://l.kbsa.app/hm-cilios-start"
+  },
+  "hm-proficiencia-ingles": {
+    "status": "ativo",
+    "url": "https://go.hotmart.com/R108474058G",
+    "curto": "https://l.kbsa.app/hm-proficiencia-ingles"
+  },
+  "hm-violao-100": {
+    "status": "ativo",
+    "url": "https://go.hotmart.com/B108474070X",
+    "curto": "https://l.kbsa.app/hm-violao-100"
+  },
+  "hm-excel-power-bi": {
+    "status": "ativo",
+    "url": "https://go.hotmart.com/B108474086X",
+    "curto": "https://l.kbsa.app/hm-excel-power-bi"
   }
 }

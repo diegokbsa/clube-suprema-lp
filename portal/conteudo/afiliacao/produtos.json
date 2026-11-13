@@ -1273,5 +1273,35 @@
   },
   "kw-canal-criativo": {
     "nome": "Canal Criativo · app de figurinhas"
+  },
+  "hm-guitarra-intensiva": {
+    "nome": "Guitarra Intensiva 2.0 (acesso vitalício)",
+    "tipo": "Curso online",
+    "preco": 597
+  },
+  "hm-curso-excel": {
+    "nome": "Curso de Excel",
+    "tipo": "Curso online",
+    "preco": 101
+  },
+  "hm-cilios-start": {
+    "nome": "Viver de Cílios · Plano Start (4 técnicas)",
+    "tipo": "Curso online",
+    "preco": 97
+  },
+  "hm-proficiencia-ingles": {
+    "nome": "Curso de Proficiência em Inglês (mestrado e doutorado)",
+    "tipo": "Curso online",
+    "preco": 297
+  },
+  "hm-violao-100": {
+    "nome": "Método Violão 100 (Arthur Endo, vitalício)",
+    "tipo": "Curso online",
+    "preco": 300
+  },
+  "hm-excel-power-bi": {
+    "nome": "Cursos de Excel e Power BI",
+    "tipo": "Curso online",
+    "preco": 197
   }
 }
