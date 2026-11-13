@@ -91,7 +91,8 @@
     "curto": "https://l.kbsa.app/escola-da-ia"
   },
   "promov-ai": {
-    "status": "pendente"
+    "status": "recusado",
+    "recusado_em": "2026-11-13"
   },
   "clube-videos-ia": {
     "status": "ativo",
@@ -180,7 +181,8 @@
     "status": "pendente"
   },
   "zap-suite": {
-    "status": "pendente"
+    "status": "recusado",
+    "recusado_em": "2026-11-13"
   },
   "lia-automacao": {
     "status": "suspenso",
@@ -193,7 +195,8 @@
     "motivo": "disparo em massa no WhatsApp"
   },
   "ciencia-tiktok": {
-    "status": "pendente"
+    "status": "recusado",
+    "recusado_em": "2026-11-13"
   },
   "hm-tiktok-shop-do-zero": {
     "status": "ativo",
@@ -994,5 +997,157 @@
     "status": "ativo",
     "url": "https://entrega.logzz.com.br/pay/memgnnr35/1-uni-por-8999",
     "curto": "https://l.kbsa.app/logzz-resina-extreme"
+  },
+  "ck-destravando-iceberg": {
+    "status": "ativo",
+    "url": "https://cakto.app/CUkDKKj/?affiliate=dDk6gNVc"
+  },
+  "ck-cafe-premium": {
+    "status": "ativo",
+    "url": "https://pay.cakto.com.br/5zMMU3j?affiliate=KsiyDFnG"
+  },
+  "ck-worship-multitracks": {
+    "status": "ativo",
+    "url": "https://pay.cakto.com.br/3A7KGvS?affiliate=EWvae5hc"
+  },
+  "ck-30-dias-oracoes": {
+    "status": "ativo",
+    "url": "https://pay.cakto.com.br/3bbkpz4_301356?affiliate=ULJRHprc"
+  },
+  "ck-knights-club": {
+    "status": "ativo",
+    "url": "https://cakto.app/84odmK2/?affiliate=P8tMqaRj"
+  },
+  "ck-octuz-ai": {
+    "status": "ativo",
+    "url": "https://pay.cakto.com.br/e92f24a?affiliate=7njSmmiQ"
+  },
+  "ck-netlivros": {
+    "status": "ativo",
+    "url": "https://pay.cakto.com.br/36m2pt5?affiliate=EChGupyA"
+  },
+  "ck-mapa-fornecedores-premium": {
+    "status": "suspenso",
+    "url": "https://pay.cakto.com.br/54kmxaq?affiliate=6wdUcFMk",
+    "motivo": "ofertas confusas (MDF, sinal de R$ 50) e página de vendas é perfil de Instagram; revisar antes de exibir"
+  },
+  "ck-nail-designer-pro": {
+    "status": "suspenso",
+    "motivo": "aprovado, mas sem checkout Cakto para afiliado; páginas do produtor fora da Cakto"
+  },
+  "ck-direct-line-app": {
+    "status": "suspenso",
+    "motivo": "produto pouco claro; página de vendas é grupo de WhatsApp"
+  },
+  "ck-jogos-cristao": {
+    "status": "suspenso",
+    "motivo": "oferta do checkout se chama \"CentralZAP\", não bate com o produto"
+  },
+  "ck-metodo-glow-up": {
+    "status": "suspenso",
+    "url": "https://cakto.app/3Nnuuhj/?affiliate=ZxUMgbAk",
+    "motivo": "promete transformar a aparência em 21 dias (na dúvida, fica de fora)"
+  },
+  "ck-google-ai-pro": {
+    "status": "pendente",
+    "pedido_em": "2026-11-13",
+    "nota": "revisar: pode ser revenda de acesso Google"
+  },
+  "ck-black-studio-cards": {
+    "status": "pendente",
+    "pedido_em": "2026-11-13"
+  },
+  "ck-planilha-virada-financeira": {
+    "status": "pendente",
+    "pedido_em": "2026-11-13"
+  },
+  "ck-kit-biblia-colorir": {
+    "status": "pendente",
+    "pedido_em": "2026-11-13"
+  },
+  "ck-manual-da-mente": {
+    "status": "pendente",
+    "pedido_em": "2026-11-13"
+  },
+  "ck-playlist-voz-viola": {
+    "status": "pendente",
+    "pedido_em": "2026-11-13"
+  },
+  "ck-enaus-criative-mensal": {
+    "status": "pendente",
+    "pedido_em": "2026-11-13"
+  },
+  "kw-automacao-subestacoes": {
+    "status": "ativo",
+    "url": "https://pay.kiwify.com.br/caJCZeG?afid=mQzsNwGK"
+  },
+  "kw-nota-do-afiliado": {
+    "status": "ativo",
+    "url": "https://pay.kiwify.com.br/QE6MNQZ?afid=5inXnofE"
+  },
+  "kw-cpm-cartoes-pontos-milhas": {
+    "status": "ativo",
+    "url": "https://pay.kiwify.com.br/GtvFJS1?afid=ZLcF9Pl9"
+  },
+  "kw-pontos-que-voam": {
+    "status": "ativo",
+    "url": "https://kiwify.app/oT7QFal?afid=CLEjdekv"
+  },
+  "kw-milhas-graziela": {
+    "status": "ativo",
+    "url": "https://pay.kiwify.com.br/fzlIvOD?afid=7J9uQEYb"
+  },
+  "kw-alerta-de-voos": {
+    "status": "ativo",
+    "url": "https://kiwify.app/kAvnesJ?afid=CtrJWqb8"
+  },
+  "kw-motores-de-popa": {
+    "status": "ativo",
+    "url": "https://kiwify.app/G7aDdlO?afid=UeJsZbQN"
+  },
+  "kw-biblioteca-fusca": {
+    "status": "ativo",
+    "url": "https://kiwify.app/bzejxlU?afid=yPRY2mmI"
+  },
+  "kw-maquinas-de-costura": {
+    "status": "ativo",
+    "url": "https://pay.kiwify.com.br/kKRe2cr?afid=nfJPmO8n"
+  },
+  "kw-manutencao-pcs-notebooks": {
+    "status": "ativo",
+    "url": "https://pay.kiwify.com.br/v6ZVlXX?afid=wJa6MdXb",
+    "nota": "página do produtor fala em renda extra; usar o checkout e post explicativo (Mesa de Copy)"
+  },
+  "kw-maquina-de-bordado": {
+    "status": "ativo",
+    "url": "https://pay.kiwify.com.br/TkGGvEn?afid=nMmxdp7H"
+  },
+  "kw-manutencao-motocicletas": {
+    "status": "ativo",
+    "url": "https://pay.kiwify.com.br/nF55cmi?afid=aUOhaIdq"
+  },
+  "kw-drone-agricola": {
+    "status": "ativo",
+    "url": "https://pay.kiwify.com.br/6V2EQYs?afid=MAXBY3rv"
+  },
+  "kw-montagem-computador": {
+    "status": "ativo",
+    "url": "https://pay.kiwify.com.br/QgC61IE?afid=eLvduS61"
+  },
+  "kw-drones-dji": {
+    "status": "pendente",
+    "pedido_em": "2026-11-13"
+  },
+  "kw-papo-de-milhas": {
+    "status": "pendente",
+    "pedido_em": "2026-11-13"
+  },
+  "kw-acelerador-de-pontos": {
+    "status": "pendente",
+    "pedido_em": "2026-11-13"
+  },
+  "kw-viajando-com-milhas": {
+    "status": "pendente",
+    "pedido_em": "2026-11-13"
   }
 }

@@ -1303,5 +1303,131 @@
     "nome": "Cursos de Excel e Power BI",
     "tipo": "Curso online",
     "preco": 197
+  },
+  "ck-destravando-iceberg": {
+    "nome": "Destravando o Iceberg",
+    "tipo": "Curso de criação de conteúdo",
+    "preco": 77.9,
+    "img": ""
+  },
+  "ck-cafe-premium": {
+    "nome": "Formação Café Premium 2.0",
+    "tipo": "Curso de barista",
+    "preco": 97,
+    "img": "https://cdn-checkout.cakto.com.br/products/9895721d-f3ae-4325-a23c-a667efb1b008.png"
+  },
+  "ck-worship-multitracks": {
+    "nome": "Multitracks Worship Gospel",
+    "tipo": "Pacote de multitracks",
+    "preco": 37,
+    "img": "https://cdn-checkout.cakto.com.br/products/0b7b1230-5029-46a9-9bdb-fe8b97ac7118.png"
+  },
+  "ck-30-dias-oracoes": {
+    "nome": "30 Dias de Orações para Restaurar",
+    "tipo": "E-book devocional",
+    "preco": 29.99,
+    "img": ""
+  },
+  "ck-knights-club": {
+    "nome": "Comunidade Knights Club (IA)",
+    "tipo": "Assinatura de comunidade de IA",
+    "preco": 67,
+    "img": "https://cdn-checkout.cakto.com.br/products/f8bde419-fcae-4edf-bf5d-54abfadce87d.png"
+  },
+  "ck-octuz-ai": {
+    "nome": "Octuz AI",
+    "tipo": "Assinatura de ferramenta de IA para conteúdo",
+    "preco": 67,
+    "img": "https://cdn-checkout.cakto.com.br/products/7ac1014b-7e12-476f-8450-db12d4eaa7d7.png"
+  },
+  "ck-netlivros": {
+    "nome": "App Netlivros",
+    "tipo": "Assinatura de app de livros",
+    "preco": 98.9,
+    "img": "https://cdn-checkout.cakto.com.br/products/5035115819415219142_rXUVQXR.jpg"
+  },
+  "kw-automacao-subestacoes": {
+    "nome": "Automação de Subestações",
+    "tipo": "Curso de automação elétrica",
+    "preco": 76.9,
+    "img": "https://aws-assets.kiwify.com.br/NzjzrXLs2tQwY8L/automacao-sub_5497ce4c4c54473fb6e373c59f228f9e.png"
+  },
+  "kw-nota-do-afiliado": {
+    "nome": "Nota do Afiliado (emissor de NF)",
+    "tipo": "Assinatura de software de nota fiscal",
+    "preco": 148.2,
+    "img": "https://aws-assets.kiwify.com.br/JDDqBKfo46Nv8hd/banner_985f2ab6f3014d19984214bd05255e63.png"
+  },
+  "kw-cpm-cartoes-pontos-milhas": {
+    "nome": "CPM - Cartões, Pontos e Milhas",
+    "tipo": "Mentoria de milhas",
+    "preco": 597,
+    "img": "https://storage.googleapis.com/assets.kiwify.com.br/mXFHR9mtX5Gmbot/Mentoria-Personalizada-7_e8f99e57d283450d8370d781b9a77e54.png"
+  },
+  "kw-pontos-que-voam": {
+    "nome": "Pontos Que Voam",
+    "tipo": "Mentoria de milhas",
+    "preco": 797,
+    "img": "https://aws-assets.kiwify.com.br/k6QsjvtvKFqzvgr/Premium-Travel-Points-Banner_e1a5751e40b4448dbb799cb350af9993.png"
+  },
+  "kw-milhas-graziela": {
+    "nome": "Milhas com Graziela Felicio",
+    "tipo": "Curso de milhas",
+    "preco": 349,
+    "img": "https://aws-assets.kiwify.com.br/KOcbY4Q5gFD9jnM/Design-sem-nome-11_a69aec4928f348718edeb72ebab488eb.jpg"
+  },
+  "kw-alerta-de-voos": {
+    "nome": "Alerta de Voos",
+    "tipo": "Clube de alertas de passagens (assinatura)",
+    "preco": 98,
+    "img": ""
+  },
+  "kw-motores-de-popa": {
+    "nome": "Revisão e Manutenção de Motores de Popa",
+    "tipo": "Curso de manutenção",
+    "preco": 592.2,
+    "img": "https://aws-assets.kiwify.com.br/KzAEAYc5K02iufH/capa-checkout_9b874772d7f94cad837acffab7f434a3.png"
+  },
+  "kw-biblioteca-fusca": {
+    "nome": "Biblioteca do Fusca",
+    "tipo": "Manuais de reparo (digital)",
+    "preco": 79.9,
+    "img": "https://aws-assets.kiwify.com.br/rwspqPjzM8BHIKv/CAPA-HT-BIBLIOTECA-FUSCA_110bc0ca8fc14d3689c4d1b66b20833a.jpg"
+  },
+  "kw-maquinas-de-costura": {
+    "nome": "Conserto de Máquinas de Costura",
+    "tipo": "Curso de manutenção",
+    "preco": 444,
+    "img": "https://s3.amazonaws.com/aws-assets.kiwify.com.br/gyxDL0cmViv4NAH/Capa-Hotmart_af80ced0d33c442aa6bb8690726b344c.png"
+  },
+  "kw-manutencao-pcs-notebooks": {
+    "nome": "Curso Expert em Manutenção de PCs e Notebooks",
+    "tipo": "Curso de manutenção",
+    "preco": 466.2,
+    "img": "https://aws-assets.kiwify.com.br/wfnFauAqmj0TYns/capa-checkout_dc626d7047af487babcec0495af2a90b.png"
+  },
+  "kw-maquina-de-bordado": {
+    "nome": "Manutenção de Máquina de Bordado",
+    "tipo": "Curso de manutenção",
+    "preco": 597,
+    "img": "https://s3.amazonaws.com/aws-assets.kiwify.com.br/1DmCxC7e4IcztOO/CHECK-OUT-KIWIFY_b164068337d749f8b68f1cf954890f11.png"
+  },
+  "kw-manutencao-motocicletas": {
+    "nome": "Guia de Manutenção de Motocicletas",
+    "tipo": "Guia digital",
+    "preco": 29.9,
+    "img": "https://aws-assets.kiwify.com.br/eBqZbRauQzAvscN/1_aeb1cf1e6eb24916a104f7f60d8c5fbd.png"
+  },
+  "kw-drone-agricola": {
+    "nome": "Manutenção Drone Agrícola 2.0",
+    "tipo": "Curso de manutenção",
+    "preco": 1280,
+    "img": "https://aws-assets.kiwify.com.br/IGoTuGK9dH3hml4/image_bb5bef2310874037b7bc938ef167ca85.png"
+  },
+  "kw-montagem-computador": {
+    "nome": "Manutenção e Montagem de Computador",
+    "tipo": "Curso de manutenção",
+    "preco": 97,
+    "img": "https://aws-assets.kiwify.com.br/FdyRTVsxVYmO1c7/Foto-de-SUPORTE---INSTITUTO-FOCURSOS-14_88582a17f83e4f27b4376515b288e4c4.jpg"
   }
 }
