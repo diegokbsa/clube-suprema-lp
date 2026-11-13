@@ -1,0 +1,16 @@
+{
+  "id": "o-que-e-range",
+  "tipo": "Dica rápida",
+  "titulo": "Pare de adivinhar a mão do adversário: o que é range no poker #shorts",
+  "descricao": "Range é a faixa de mãos que o adversário pode ter. Monte pela posição, tire mãos a cada ação e conte combinações. No próximo vídeo: c-bet, a aposta de continuação no flop.\n\n18+ · Jogue com responsabilidade.\n\n#poker #pokeronline #texasholdem #supremapoker",
+  "post": "o-que-e-range",
+  "cenas": [
+    { "tela": "Pare de **adivinhar** a mão dele", "fala": "Pare de tentar adivinhar a mão exata do adversário.", "imagem": "public/img/app-mesa.webp" },
+    { "passo": 1, "tela": "**Range** = todas as mãos possíveis", "fala": "Pense em range: todas as mãos que ele pode ter com aquela jogada." },
+    { "passo": 2, "tela": "**77+** = pares do 7 ao Ás", "fala": "Na notação, sete sete mais quer dizer todos os pares do sete até o Ás." },
+    { "passo": 3, "tela": "Par = **6** combos · AK = **16**", "fala": "Cada par tem seis combinações. Ás e rei tem dezesseis. Nem toda mão pesa igual." },
+    { "passo": 4, "tela": "Deu **check** no turn? Tire as mãos fortes", "fala": "A cada ação, tire mãos da faixa. Check no turn? Menos mãos muito fortes." },
+    { "passo": 5, "tela": "Sua mão ganha de **quanto** da faixa?", "fala": "Aí a pergunta certa é: minha mão ganha de quanto dessa faixa?" },
+    { "tela": "No próximo: **c-bet**. Segue o canal!", "fala": "No próximo vídeo, a c-bet, a aposta de continuação. Segue o canal!", "imagem": "public/img/app-mesa.webp" }
+  ]
+}
