@@ -1,0 +1,96 @@
+{
+  "medidoEm": "2026-11-14T16:51:50.257Z",
+  "como": "Chrome sem tela, fontes WOFF2 locais, font-size 100px, letter-spacing -4.5px. 'altura' é a tinta da palavra (actualBoundingBoxAscent, inclui acento); 'alturaMaiuscula' é a do H, que é o que a tinta do PNG mede na faixa cheia.",
+  "marcas": {
+    "achadinhos": {
+      "blog": "achadinhos",
+      "texto": "ACHADINHOS",
+      "viewBox": "1 0 626.3 68",
+      "larguraTexto": 627.3,
+      "altura": 68,
+      "alturaMaiuscula": 66,
+      "respiro": 1
+    },
+    "afiliado": {
+      "blog": "afiliado",
+      "texto": "AFILIADO",
+      "viewBox": "0.5 0 375.2 67",
+      "larguraTexto": 375.7,
+      "altura": 67,
+      "alturaMaiuscula": 65,
+      "respiro": 0.5
+    },
+    "automacao": {
+      "blog": "automacao",
+      "texto": "ATENDE",
+      "viewBox": "1.5 0 381.5 72",
+      "larguraTexto": 383,
+      "altura": 72,
+      "alturaMaiuscula": 72,
+      "respiro": 1.5
+    },
+    "criativos": {
+      "blog": "criativos",
+      "texto": "CRIATIVO",
+      "viewBox": "1.5 0 393.7 70",
+      "larguraTexto": 395.2,
+      "altura": 70,
+      "alturaMaiuscula": 68,
+      "respiro": 1.5
+    },
+    "fornecedores": {
+      "blog": "fornecedores",
+      "texto": "FORNECEDOR",
+      "viewBox": "5.5 0 532.6 70",
+      "larguraTexto": 538.1,
+      "altura": 70,
+      "alturaMaiuscula": 69,
+      "respiro": 5.5
+    },
+    "gamer": {
+      "blog": "gamer",
+      "texto": "MODOLIVE",
+      "viewBox": "6 0 456.2 70",
+      "larguraTexto": 462.2,
+      "altura": 70,
+      "alturaMaiuscula": 70,
+      "respiro": 6
+    },
+    "ia": {
+      "blog": "ia",
+      "texto": "PRÁTICA",
+      "viewBox": "6 0 432.6 98",
+      "larguraTexto": 438.6,
+      "altura": 98,
+      "alturaMaiuscula": 71,
+      "respiro": 6
+    },
+    "manutencao": {
+      "blog": "manutencao",
+      "texto": "OFICINA",
+      "viewBox": "3 0 246.9 71",
+      "larguraTexto": 249.9,
+      "altura": 71,
+      "alturaMaiuscula": 70,
+      "respiro": 3
+    },
+    "milhas": {
+      "blog": "milhas",
+      "texto": "MILHAS",
+      "viewBox": "7.5 0 337.3 72",
+      "larguraTexto": 344.8,
+      "altura": 72,
+      "alturaMaiuscula": 70,
+      "respiro": 7.5
+    },
+    "sublimacao": {
+      "blog": "sublimacao",
+      "texto": "SUBLIMA",
+      "viewBox": "1.5 0 476.4 76",
+      "larguraTexto": 477.9,
+      "altura": 76,
+      "alturaMaiuscula": 75,
+      "respiro": 1.5
+    }
+  }
+}

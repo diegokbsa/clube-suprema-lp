@@ -353,10 +353,14 @@ function rodape(info, prefixo = '', v = {}, posts) {
     cta.marcaClara && `--rodE-m-claro:${cta.marcaClara}`,
   ].filter(Boolean).join(';');
   const ajuste = propriedadesRodape ? ` style="${esc(propriedadesRodape)}"` : '';
-  const classe = propriedadesRodape ? 'rodE rodE-ajuste' : (cta.mantemAcentoEscuro ? 'rodE rodE-fundo-a-noite' : 'rodE');
+  // As duas não são exclusivas: rodE-ajuste escurece o acento no claro, rodE-fundo-a-noite conserva o
+  // acento como fundo no escuro. Escolher uma fazia o blog que pedisse as duas perder o tema escuro em
+  // silêncio — nenhum dos dez pede hoje, mas o décimo primeiro pediria.
+  const classe = ['rodE', propriedadesRodape && 'rodE-ajuste', cta.mantemAcentoEscuro && 'rodE-fundo-a-noite']
+    .filter(Boolean).join(' ');
   return `<footer class="${classe}"${ajuste}><div class="rodE-in"><div class="rodE-topo">
 <p class="rodE-chamada">${esc(cta.chamada)}</p><a class="rodE-btn" href="${esc(hrefGuia)}">${esc(cta.botao)}</a></div>
-<nav class="rodE-nav" aria-label="Institucional"><a href="${prefixo}/blog">Todos os guias</a><a href="${prefixo}/feed.xml">Assinar por RSS</a>${((bf) => (bf ? `<a href="${esc(bf.url)}">${esc(bf.titulo)}</a>` : ''))(blackFriday(v, prefixo))}${nav}</nav>
+<nav class="rodE-nav" aria-label="Institucional"><a href="${prefixo}/blog">Todos os guias</a><a href="${prefixo}/feed.xml">Assinar por RSS</a>${((bf) => (bf ? `<a href="${esc(bf.url)}">Black Friday</a>` : ''))(blackFriday(v, prefixo))}${nav}</nav>
 <p class="rodE-legal">${esc(info.descricao)}<br>
 ${esc(voz.nome)} é ${voz.ele === 'a' ? 'uma personagem criada' : 'um personagem criado'} com IA para dar voz ao blog: ${voz.ele === 'a' ? 'ela' : 'ele'} compara a ficha e as fontes de cada produto e não afirma ter testado nada.<br>
 <b>Transparência:</b> alguns links deste site são de afiliado. Se você comprar por eles, recebemos uma comissão, sem custo extra para você. Isso não muda a ordem nem o que escrevemos; confira sempre na página oficial o conteúdo, o preço e a garantia antes de comprar. <a href="${prefixo}/aviso-de-afiliados">Saiba mais</a>.<br>

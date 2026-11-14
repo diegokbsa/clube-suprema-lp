@@ -107,10 +107,33 @@ test('a marca gigante é uma palavra do nome do blog, com os acentos que ela tem
   }
 });
 
+test('o viewBox de cada marca é o que a fonte real mede, não um par coerente inventado', () => {
+  // Portão da proporção. O teste de aritmética abaixo só vê coerência interna: um viewBox com a largura
+  // pela metade e o textLength junto passa nele, e a marca sai com o DOBRO da altura no ar (medido:
+  // 156,3 px -> 312,7 px no achadinhos a 1440). A referência tem de vir de FORA do arquivo que o render
+  // usa — daí rodape-marcas-medidas.json, gerado por `node portal/tools/medir-rodape-marca.mjs --gravar`
+  // a partir dos WOFF2 reais. Mexeu no viewBox à mão sem remedir, este teste reprova.
+  const medidas = lerJson(path.join(RAIZ, 'tools', 'rodape-marcas-medidas.json'));
+  assert.deepEqual(
+    Object.keys(medidas.marcas).sort(), [...blogs].sort(),
+    'a medição das marcas cobre exatamente os dez blogs — remeça com medir-rodape-marca.mjs --gravar',
+  );
+  for (const slug of blogs) {
+    const usado = RODAPES_AFILIADOS[slug];
+    const medido = medidas.marcas[slug];
+    assert.equal(usado.marca, medido.texto, `${slug}: a palavra medida é outra — remeça a marca`);
+    assert.equal(usado.viewBox, medido.viewBox, `${slug}: viewBox "${usado.viewBox}" ≠ medido "${medido.viewBox}"`);
+    assert.ok(
+      Math.abs(usado.larguraTexto - medido.larguraTexto) <= 0.11,
+      `${slug}: larguraTexto ${usado.larguraTexto} ≠ medido ${medido.larguraTexto}`,
+    );
+    assert.ok(Math.abs(usado.altura - medido.altura) <= 0.11, `${slug}: altura ${usado.altura} ≠ medida ${medido.altura}`);
+  }
+});
+
 test('o viewBox da marca fecha com a largura medida: respiro + largura visível = textLength', () => {
-  // O viewBox e o textLength saem juntos de medir-rodape-marca.mjs. Isto pega o número editado sozinho,
-  // não um par internamente coerente mas errado: para esse, o portão é a tinta do PNG em
-  // tools/auditar-rodape-pixel.py (medido: trocar o respiro do milhas por 0 leva a marca a 32 px da borda).
+  // Aritmética do par. Pega o número editado sozinho; a proporção quem prende é o teste acima e,
+  // no pixel, tools/auditar-rodape-pixel.py (que reprova a altura da maiúscula fora do previsto).
   for (const slug of blogs) {
     const { viewBox, larguraTexto, altura } = RODAPES_AFILIADOS[slug];
     const [minX, minY, largura, alturaCaixa] = viewBox.split(/\s+/).map(Number);
@@ -143,5 +166,54 @@ test('o botão do rodapé aponta para um guia de verdade em TODA página do blog
       assert.ok(destino?.startsWith(`${prefixo}/blog/`), `${slug}/${nome}: o botão do rodapé vai para ${destino}`);
       assert.ok(posts.some((p) => destino.endsWith(`/${p.slug}`)), `${slug}/${nome}: o guia do botão existe`);
     }
+  }
+});
+
+test('a navegação do rodapé só tem rótulo curto: título de post não entra em versalete espaçado', () => {
+  // A nav do rodapé é `text-transform:uppercase` + `letter-spacing:.06em`. O item de Black Friday
+  // entrava com o TÍTULO DO POST ("BLACK FRIDAY DOS ACHADINHOS: O KIT TEM PREÇO REAL, O PACK NEM
+  // SEMPRE", 68 caracteres), que a 320 px toma a linha inteira — "monte de texto" da Regra −2 e
+  // divergência da peça aprovada, onde o rótulo é "BLACK FRIDAY". Rótulo é rótulo; título fica no corpo.
+  const LIMITE = 22;
+  for (const slug of blogs) {
+    const pasta = path.join(CONTEUDO, slug);
+    const info = lerJson(path.join(pasta, 'site.json'));
+    const v = lerJson(path.join(pasta, 'vitrine.json'));
+    const posts = fs.readdirSync(path.join(pasta, 'posts')).sort()
+      .map((f) => lerJson(path.join(pasta, 'posts', f))).filter((p) => !p.redirect);
+    const html = renderLista({ info, v, posts, prefixo: `https://kbsa.app/${slug}` });
+    const nav = html.match(/<nav class="rodE-nav"[^>]*>([\s\S]*?)<\/nav>/)?.[1];
+    assert.ok(nav, `${slug}: navegação do rodapé renderizada`);
+    for (const [, rotulo] of nav.matchAll(/<a [^>]*>([^<]*)<\/a>/g)) {
+      assert.ok(
+        rotulo.length <= LIMITE,
+        `${slug}: rótulo de ${rotulo.length} caracteres na nav do rodapé ("${rotulo}") — o limite é ${LIMITE}`,
+      );
+    }
+  }
+});
+
+test('as classes do rodapé se somam: acento claro e fundo escuro não se excluem', () => {
+  // Eram um ternário: quem pedisse acentoClaro perdia rodE-fundo-a-noite e o tema escuro invertia
+  // em silêncio. Nenhum dos dez pede as duas hoje — este teste é o que impede o décimo primeiro
+  // de entrar quebrado sem ninguém ver.
+  for (const slug of blogs) {
+    const pasta = path.join(CONTEUDO, slug);
+    const info = lerJson(path.join(pasta, 'site.json'));
+    const v = lerJson(path.join(pasta, 'vitrine.json'));
+    const posts = fs.readdirSync(path.join(pasta, 'posts')).sort()
+      .map((f) => lerJson(path.join(pasta, 'posts', f))).filter((p) => !p.redirect);
+    const html = renderLista({ info, v, posts, prefixo: `https://kbsa.app/${slug}` });
+    const classe = html.match(/<footer class="(rodE[^"]*)"/)?.[1];
+    const cta = RODAPES_AFILIADOS[slug];
+    assert.ok(classe, `${slug}: rodapé com classe`);
+    assert.equal(
+      classe.split(' ').includes('rodE-fundo-a-noite'), Boolean(cta.mantemAcentoEscuro),
+      `${slug}: mantemAcentoEscuro=${Boolean(cta.mantemAcentoEscuro)} mas a classe é "${classe}"`,
+    );
+    assert.equal(
+      classe.split(' ').includes('rodE-ajuste'), Boolean(cta.acentoClaro || cta.marcaClara),
+      `${slug}: acento/marca claros pedem rodE-ajuste, mas a classe é "${classe}"`,
+    );
   }
 });

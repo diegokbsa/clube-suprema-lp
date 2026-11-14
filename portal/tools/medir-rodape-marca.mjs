@@ -1,5 +1,11 @@
 // Mede viewBox e textLength dos rodapés usando as fontes WOFF2 locais em Chrome.
-// Rode: node portal/tools/medir-rodape-marca.mjs
+// Rode: node portal/tools/medir-rodape-marca.mjs            (imprime)
+//       node portal/tools/medir-rodape-marca.mjs --gravar   (grava rodape-marcas-medidas.json)
+//
+// Por que o JSON existe separado de afiliacao-rodapes.mjs: o teste precisa de uma referência que
+// NÃO saia do mesmo arquivo que o render usa. Um viewBox editado à mão continua internamente
+// coerente (minX + largura == larguraTexto) e passa num teste que só confere aritmética — mas a
+// marca sai com o dobro da altura. Comparar contra esta medição da fonte real é o portão.
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
@@ -27,7 +33,7 @@ const faces = [...new Map(fontes.map((f) => [f.familia, f])).values()]
   .join('\n');
 const textos = fontes.map((f, i) => `<svg><text id="marca-${i}" style="font-family:'${f.familia}';font-weight:${f.peso};font-size:100px;letter-spacing:-4.5px" x="0" y="100">${f.texto}</text></svg>`).join('\n');
 const html = `<!doctype html><meta charset="utf-8"><style>${faces}body{margin:0}svg{position:absolute;left:-10000px}text{white-space:pre}</style>${textos}<canvas id="medida"></canvas><pre id="saida"></pre><script>
-(async()=>{const fontes=${JSON.stringify(fontes.map(({ blog, texto, familia, peso }) => ({ blog, texto, familia, peso })))};await Promise.all(fontes.map(f=>document.fonts.load(f.peso+' 100px '+JSON.stringify(f.familia),f.texto)));await document.fonts.ready;const ctx=document.querySelector('#medida').getContext('2d');const n=x=>Number(x.toFixed(1));const saida=fontes.map((f,i)=>{const el=document.querySelector('#marca-'+i);if(!document.fonts.check(f.peso+' 100px '+JSON.stringify(f.familia),f.texto))throw new Error('Fonte não carregada: '+f.blog);const comprimento=el.getComputedTextLength();const c=document.createElement('canvas');c.width=400;c.height=240;const g=c.getContext('2d');g.scale(2,2);g.font=f.peso+' 100px '+JSON.stringify(f.familia);g.fillText(f.texto[0],0,120);const pixels=g.getImageData(0,0,c.width,c.height).data;let minX=c.width;for(let y=0;y<c.height;y++)for(let x=0;x<minX;x++)if(pixels[(y*c.width+x)*4+3]>0){minX=x;break}const respiro=minX===c.width?0:minX/2;ctx.font=f.peso+' 100px '+JSON.stringify(f.familia);const altura=ctx.measureText(f.texto).actualBoundingBoxAscent;return{blog:f.blog,texto:f.texto,viewBox:n(respiro)+' 0 '+n(comprimento-respiro)+' '+n(altura),larguraTexto:n(comprimento),altura:n(altura),respiro:n(respiro)}});document.querySelector('#saida').textContent=JSON.stringify(saida);document.documentElement.dataset.pronto='sim'})().catch(e=>{document.querySelector('#saida').textContent=JSON.stringify({erro:String(e)});document.documentElement.dataset.pronto='erro'});
+(async()=>{const fontes=${JSON.stringify(fontes.map(({ blog, texto, familia, peso }) => ({ blog, texto, familia, peso })))};await Promise.all(fontes.map(f=>document.fonts.load(f.peso+' 100px '+JSON.stringify(f.familia),f.texto)));await document.fonts.ready;const ctx=document.querySelector('#medida').getContext('2d');const n=x=>Number(x.toFixed(1));const saida=fontes.map((f,i)=>{const el=document.querySelector('#marca-'+i);if(!document.fonts.check(f.peso+' 100px '+JSON.stringify(f.familia),f.texto))throw new Error('Fonte não carregada: '+f.blog);const comprimento=el.getComputedTextLength();const c=document.createElement('canvas');c.width=400;c.height=240;const g=c.getContext('2d');g.scale(2,2);g.font=f.peso+' 100px '+JSON.stringify(f.familia);g.fillText(f.texto[0],0,120);const pixels=g.getImageData(0,0,c.width,c.height).data;let minX=c.width;for(let y=0;y<c.height;y++)for(let x=0;x<minX;x++)if(pixels[(y*c.width+x)*4+3]>0){minX=x;break}const respiro=minX===c.width?0:minX/2;ctx.font=f.peso+' 100px '+JSON.stringify(f.familia);const altura=ctx.measureText(f.texto).actualBoundingBoxAscent;const alturaMaiuscula=ctx.measureText('H').actualBoundingBoxAscent;return{blog:f.blog,texto:f.texto,viewBox:n(respiro)+' 0 '+n(comprimento-respiro)+' '+n(altura),larguraTexto:n(comprimento),altura:n(altura),alturaMaiuscula:n(alturaMaiuscula),respiro:n(respiro)}});document.querySelector('#saida').textContent=JSON.stringify(saida);document.documentElement.dataset.pronto='sim'})().catch(e=>{document.querySelector('#saida').textContent=JSON.stringify({erro:String(e)});document.documentElement.dataset.pronto='erro'});
 </script>`;
 const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'portal-rodape-medida-'));
 try {
@@ -44,6 +50,17 @@ try {
   if (!htmlSaida) throw new Error('Chrome não devolveu as medidas SVG.');
   const dados = JSON.parse(htmlSaida.replace(/&quot;/g, '"').replace(/&amp;/g, '&'));
   if (!Array.isArray(dados)) throw new Error(dados.erro || 'Falha ao medir as marcas.');
+  if (process.argv.includes('--gravar')) {
+    const destino = path.join(raizes, 'tools', 'rodape-marcas-medidas.json');
+    const conteudo = {
+      medidoEm: new Date().toISOString(),
+      como: "Chrome sem tela, fontes WOFF2 locais, font-size 100px, letter-spacing -4.5px. 'altura' é a tinta da palavra "
+        + "(actualBoundingBoxAscent, inclui acento); 'alturaMaiuscula' é a do H, que é o que a tinta do PNG mede na faixa cheia.",
+      marcas: Object.fromEntries(dados.map((d) => [d.blog, d])),
+    };
+    fs.writeFileSync(destino, `${JSON.stringify(conteudo, null, 2)}\n`, 'utf8');
+    process.stderr.write(`gravado: ${destino}\n`);
+  }
   process.stdout.write(`${JSON.stringify(dados, null, 2)}\n`);
 } finally {
   fs.rmSync(dir, { recursive: true, force: true });
