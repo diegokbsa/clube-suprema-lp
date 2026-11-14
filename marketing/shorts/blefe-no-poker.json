@@ -1,0 +1,16 @@
+{
+  "id": "blefe-no-poker",
+  "tipo": "Dica rápida",
+  "titulo": "Blefe no poker: quando funciona e quando é melhor desistir #shorts",
+  "descricao": "Blefe funciona contra poucos adversários, contra quem sabe largar e quando a história das apostas faz sentido. Contra quem paga tudo, não blefe. No próximo vídeo: o limp.\n\n18+ · Jogue com responsabilidade.\n\n#poker #pokeronline #texasholdem #blefe #supremapoker",
+  "post": "blefe-no-poker",
+  "cenas": [
+    { "tela": "Seu blefe **sempre** é pago?", "fala": "Seu blefe sempre é pago? O problema pode não ser a coragem.", "imagem": "public/img/app-mesa.webp" },
+    { "passo": 1, "tela": "A **história** precisa fechar", "fala": "Primeiro, a história. Suas apostas desde o pré-flop precisam combinar com uma mão forte." },
+    { "passo": 2, "tela": "Melhor contra **1** adversário", "fala": "Contra um adversário, só ele precisa largar. Contra três, todos precisam." },
+    { "passo": 3, "tela": "Meio pote: precisa de **33%** de fold", "fala": "Apostando meio pote, o blefe só precisa funcionar uma vez em cada três." },
+    { "passo": 4, "tela": "**Semi-blefe**: aposte com projeto", "fala": "Com projeto de flush, o semi-blefe ganha se ele largar ou se a carta vier." },
+    { "passo": 5, "tela": "Ele paga tudo? **Não blefe**", "fala": "E se o adversário paga tudo, esquece o blefe e aposte só com mão boa." },
+    { "tela": "No próximo: o **limp**. Segue o canal!", "fala": "No próximo vídeo, por que só pagar o big blind costuma ser erro. Segue o canal!", "imagem": "public/img/app-mesa.webp" }
+  ]
+}
