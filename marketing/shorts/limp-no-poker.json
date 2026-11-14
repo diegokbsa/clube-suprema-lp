@@ -1,0 +1,16 @@
+{
+  "id": "limp-no-poker",
+  "tipo": "Dica rápida",
+  "titulo": "Limp no poker: por que só pagar o big blind costuma ser erro #shorts",
+  "descricao": "Limp é entrar só pagando o big blind. Ele nunca ganha o pote antes do flop e deixa o big blind jogar de graça. Aumente ou largue. No próximo vídeo: o slowplay.\n\n18+ · Jogue com responsabilidade.\n\n#poker #pokeronline #texasholdem #supremapoker",
+  "post": "limp-no-poker",
+  "cenas": [
+    { "tela": "Só pagou o big blind? **Erro.**", "fala": "Você só pagou o big blind pra ver o flop? Isso tem nome, e custa caro.", "imagem": "public/img/app-mesa.webp" },
+    { "passo": 1, "tela": "**Limp** = entrar só pagando", "fala": "Limp é entrar na mão antes do flop só pagando o big blind, sem aumentar." },
+    { "passo": 2, "tela": "Nunca ganha o pote **antes do flop**", "fala": "Com aumento, todo mundo pode largar e o pote é seu. Com limp, essa chance não existe." },
+    { "passo": 3, "tela": "O big blind joga **de graça**", "fala": "O big blind vê o flop sem pagar nada, e mais gente entra barato." },
+    { "passo": 4, "tela": "Regra: **aumente ou largue**", "fala": "Se a mão é boa pra entrar, é boa pra aumentar. Se não é, largue." },
+    { "passo": 5, "tela": "Exceção: **small blind**", "fala": "A exceção mais comum é completar no small blind quando todo mundo largou." },
+    { "tela": "No próximo: **slowplay**. Segue o canal!", "fala": "No próximo vídeo, quando esconder uma mão forte. Segue o canal!", "imagem": "public/img/app-mesa.webp" }
+  ]
+}
