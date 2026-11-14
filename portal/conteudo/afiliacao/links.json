@@ -1084,7 +1084,8 @@
   "ck-enaus-criative-mensal": {
     "status": "ativo",
     "url": "https://pay.cakto.com.br/33kfqm3_909391?affiliate=tWiuEpLj",
-    "nota": "aprovado 14/11; checkout direto (a página enauscriative.com.br mistura planos Cakto e Kiwify); assinatura mensal R$ 29,90"
+    "nota": "aprovado 14/11; checkout direto (a página enauscriative.com.br mistura planos Cakto e Kiwify); assinatura mensal R$ 29,90",
+    "curto": "https://l.kbsa.app/ck-enaus-criative-mensal"
   },
   "kw-automacao-subestacoes": {
     "status": "ativo",
@@ -1177,13 +1178,15 @@
     "status": "ativo",
     "url": "https://cakto.app/4cwuEE8/?affiliate=8asQyahf",
     "pedido_em": "2026-11-14",
-    "nota": "aprovado na hora 14/11; página shadowexcellence.com.br leva ao checkout Cakto BUdZwRU (R$ 297)"
+    "nota": "aprovado na hora 14/11; página shadowexcellence.com.br leva ao checkout Cakto BUdZwRU (R$ 297)",
+    "curto": "https://l.kbsa.app/ck-shadow-excellence"
   },
   "ck-academia-pitagoras": {
     "status": "ativo",
     "url": "https://pay.cakto.com.br/b8asini_792217?affiliate=9yRjCVKj",
     "pedido_em": "2026-11-14",
-    "nota": "aprovado na hora 14/11; checkout direto (sween.com.br sem botão de checkout no HTML); treinamento para a OBMEP"
+    "nota": "aprovado na hora 14/11; checkout direto (sween.com.br sem botão de checkout no HTML); treinamento para a OBMEP",
+    "curto": "https://l.kbsa.app/ck-academia-pitagoras"
   },
   "ck-motos-eletricas": {
     "status": "pendente",
@@ -1297,6 +1300,7 @@
     "status": "ativo",
     "url": "https://pay.kiwify.com.br/PsOcEkC?afid=aZxvJqR6",
     "pedido_em": "2026-11-14",
-    "nota": "aprovado na hora 14/11; checkout direto porque a página kiwify.app/1dInlmr cai em 404 (escoladoeletricista.com)"
+    "nota": "aprovado na hora 14/11; checkout direto porque a página kiwify.app/1dInlmr cai em 404 (escoladoeletricista.com)",
+    "curto": "https://l.kbsa.app/kw-guia-instalacao-eletrica"
   }
 }
