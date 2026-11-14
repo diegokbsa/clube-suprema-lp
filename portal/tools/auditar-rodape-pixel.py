@@ -74,6 +74,9 @@ def audita(caminho: Path) -> dict:
 
 
 def main():
+    # Redirecionado, o Python do Windows escreve na codepage do console (cp1252) e o JSON de
+    # evidência sai ilegível como UTF-8 na primeira mensagem com acento ou travessão.
+    sys.stdout.reconfigure(encoding="utf-8")
     pasta = Path(sys.argv[1])
     # A lista vem do capturas.json, não de um glob: a pasta de entrega também guarda prancha e
     # referências, e um glob por nome já reprovou a prancha como se fosse rodapé de blog.
