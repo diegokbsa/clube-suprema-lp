@@ -1,0 +1,16 @@
+{
+  "id": "slowplay-no-poker",
+  "tipo": "Dica rápida",
+  "titulo": "Slowplay no poker: quando vale esconder uma mão forte #shorts",
+  "descricao": "Slowplay é jogar uma mão forte devagar para o adversário colocar mais fichas. Só funciona com board seco e adversário agressivo. Na dúvida, aposte. No próximo vídeo: a textura do board.\n\n18+ · Jogue com responsabilidade.\n\n#poker #pokeronline #texasholdem #supremapoker",
+  "post": "slowplay-no-poker",
+  "cenas": [
+    { "tela": "Trinca no flop. **Check?**", "fala": "Você pegou uma trinca no flop e deu check. Boa ideia ou erro?", "imagem": "public/img/app-mesa.webp" },
+    { "passo": 1, "tela": "**Slowplay** = esconder a força", "fala": "Slowplay é jogar uma mão forte devagar, com check ou call, pra parecer fraco." },
+    { "passo": 2, "tela": "Funciona em **board seco**", "fala": "Funciona quando o board é seco, sem muitos projetos, e o adversário costuma apostar sozinho." },
+    { "passo": 3, "tela": "Board molhado = **carta grátis**", "fala": "Em board molhado, o check dá carta grátis pra quem tem projeto de flush ou sequência." },
+    { "passo": 4, "tela": "Adversário passivo? **Aposte**", "fala": "Se o adversário só dá check, ninguém coloca ficha no pote. Aposte por valor." },
+    { "passo": 5, "tela": "Na dúvida, **aposte**", "fala": "Na dúvida, aposte. O slowplay é a exceção, não a regra." },
+    { "tela": "No próximo: **textura do board**. Segue o canal!", "fala": "No próximo vídeo, como ler o board seco e o molhado. Segue o canal!", "imagem": "public/img/app-mesa.webp" }
+  ]
+}
