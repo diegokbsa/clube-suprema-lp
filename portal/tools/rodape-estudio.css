@@ -16,8 +16,8 @@
 .rodE-marca{display:block;margin:0;line-height:0}
 .rodE-marca svg{display:block;width:100%;height:auto}
 .rodE-marca text{font-family:var(--fh);font-weight:var(--ft,800);font-size:100px;letter-spacing:-4.5px;fill:color-mix(in srgb,currentColor 96%,transparent)}
-@media (prefers-reduced-motion:no-preference){.rodE-marca{animation:rodE-sobe .9s cubic-bezier(.2,.7,.1,1) both;animation-timeline:view();animation-range:entry 0% entry 60%}}
-@keyframes rodE-sobe{from{transform:translateY(14%);opacity:0}to{transform:none;opacity:1}}
+/* Sem movimento atado à rolagem: a tabela de padrões diz "não" para blogs (linha 10), e o estado inicial
+   da animação era opacity:0, que derrubava o contraste medido da marca justamente enquanto ela entra na tela. */
 /* Em modo claro, só o fundo do rodapé recebe o acento escurecido nos três temas que precisaram. */
 .rodE-ajuste{background:var(--rodE-a-claro,var(--a))}
 /* No escuro, a marca clara vira assinatura e --sa, que já é sua cor escura, vira a superfície.

@@ -54,7 +54,14 @@ def audita(caminho: Path) -> dict:
 
 def main():
     pasta = Path(sys.argv[1])
-    saida = [audita(p) for p in sorted(pasta.glob("*-*.png")) if not p.name.startswith("mosaico")]
+    # A lista vem do capturas.json, não de um glob: a pasta de entrega também guarda prancha e
+    # referências, e um glob por nome já reprovou a prancha como se fosse rodapé de blog.
+    registro = json.loads((pasta / "capturas.json").read_text(encoding="utf-8"))
+    alvos = [Path(r["png"]) for r in registro if r.get("png") and not r.get("mosaico")]
+    if len(alvos) != 40:
+        print(json.dumps({"erro": f"esperava 40 capturas de blog no capturas.json, achei {len(alvos)}"}, ensure_ascii=False))
+        sys.exit(1)
+    saida = [audita(p) for p in alvos]
     ruins = [s for s in saida if s.get("erro")
              or s["marcaEsquerda"] > LIMITE_BORDA or s["marcaDireita"] > LIMITE_BORDA or s["marcaBase"] > LIMITE_BORDA]
     print(json.dumps({"capturas": len(saida), "medidas": saida,

@@ -56,8 +56,13 @@ test('rodapé editorial: dez blogs, destino válido, marca medida e textos legai
     assert.ok(!rodape.includes('viewBox="0 0 0 0"') && rodape.includes(`textLength="${chamada.larguraTexto}"`), `${slug}: escala da marca válida`);
     assert.ok(!rodape.includes('<script'), `${slug}: nenhum JavaScript novo no rodapé`);
   }
-  assert.match(css, /prefers-reduced-motion:no-preference/);
   assert.match(css, /\.rodE-legal a\{color:inherit/);
+  // Padrão 10 da tabela da casa: movimento atado à rolagem ou ao cursor é "não" para blogs.
+  // O estado inicial da animação que existia aqui era opacity:0, que derrubava o contraste medido
+  // da marca exatamente enquanto o rodapé entra na tela — e nenhuma captura pega esse instante.
+  for (const proibido of [/animation/i, /@keyframes/i, /transition/i, /scroll\(/i, /view\(/i, /:hover\s*\{[^}]*transform/i]) {
+    assert.doesNotMatch(css, proibido, `o rodapé não pode ter movimento: ${proibido}`);
+  }
 });
 
 test('contraste WCAG AA e de superfície passa nos dez temas claro e escuro', () => {
