@@ -1429,5 +1429,88 @@
     "tipo": "Curso de manutenção",
     "preco": 97,
     "img": "https://aws-assets.kiwify.com.br/FdyRTVsxVYmO1c7/Foto-de-SUPORTE---INSTITUTO-FOCURSOS-14_88582a17f83e4f27b4376515b288e4c4.jpg"
+  },
+  "ck-enaus-criative-mensal": {
+    "nome": "Enaus Criative (mensal)",
+    "tipo": "Assinatura de artes e criativos",
+    "preco": 29.9,
+    "img": "https://cdn-checkout.cakto.com.br/images/d9814cb3-b9f2-4d22-923e-d4443307370a.png"
+  },
+  "ck-shadow-excellence": {
+    "nome": "Shadow Excellence (sobrancelha shadow)",
+    "tipo": "Curso on-line",
+    "preco": 297,
+    "img": "https://cdn-checkout.cakto.com.br/products/CAPA_MOBILE.PNG"
+  },
+  "ck-academia-pitagoras": {
+    "nome": "Academia de Pitágoras (OBMEP)",
+    "tipo": "Curso on-line de matemática",
+    "preco": 480,
+    "img": "https://cdn-checkout.cakto.com.br/products/dbb15652-9a5d-40c8-81b5-d49abca0b9f4.png"
+  },
+  "ck-motos-eletricas": {
+    "nome": "Imersão Especialista em Motos Elétricas",
+    "tipo": "Curso on-line de manutenção",
+    "preco": 2638.99,
+    "img": "https://cdn-checkout.cakto.com.br/products/797a63f8-7165-4416-9136-7bbbcea523dd.webp"
+  },
+  "kw-viver-automacao-residencial": {
+    "nome": "Viver de Automação Residencial"
+  },
+  "kw-iniciante-automacao-residencial": {
+    "nome": "Iniciante Viver de Automação Residencial"
+  },
+  "kw-excel-profissional": {
+    "nome": "Curso de Excel Profissional"
+  },
+  "kw-excel-basico-avancado": {
+    "nome": "Curso Excel do Básico ao Avançado"
+  },
+  "kw-dashboard-insano": {
+    "nome": "Dashboard Insano 2.0"
+  },
+  "kw-comunidade-excel-pro": {
+    "nome": "Comunidade Excel Pro"
+  },
+  "kw-excel-power-bi": {
+    "nome": "Curso de Excel e Power BI"
+  },
+  "kw-power-bi-start": {
+    "nome": "Power BI Start"
+  },
+  "kw-python-turbo": {
+    "nome": "Curso de Python Turbo"
+  },
+  "kw-python-expert": {
+    "nome": "Formação Python Expert"
+  },
+  "kw-manutencao-software-celulares": {
+    "nome": "Manutenção de Software em Celulares"
+  },
+  "kw-valvulas-industriais": {
+    "nome": "Manutenção de Válvulas Industriais"
+  },
+  "kw-valvulas-de-controle": {
+    "nome": "Manutenção de Válvulas de Controle"
+  },
+  "kw-eletrica-predial": {
+    "nome": "Elétrica Predial e Residencial"
+  },
+  "kw-mestre-power-bi": {
+    "nome": "Mestre do Power BI"
+  },
+  "kw-ia-professores": {
+    "nome": "Inteligência Artificial para Professores"
+  },
+  "kw-ia-iniciantes": {
+    "nome": "Inteligência Artificial para Iniciantes"
+  },
+  "kw-do-zero-as-milhas": {
+    "nome": "Mentoria Do Zero às Milhas"
+  },
+  "kw-guia-instalacao-eletrica": {
+    "nome": "Guia para Instalação Elétrica Residencial",
+    "tipo": "Guia digital",
+    "img": "https://aws-assets.kiwify.com.br/3QZNsrXuPESRb35/Copia-de-Curso-de-Eletrica-Predial-e-Residencial-2-1_37083ad464824a7a9823368282e8424a.png"
   }
 }

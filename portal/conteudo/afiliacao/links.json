@@ -810,7 +810,8 @@
   },
   "ck-enaus-criative": {
     "status": "pendente",
-    "pedido_em": "2026-11-12"
+    "pedido_em": "2026-11-12",
+    "nota": "mesmo produto do ck-enaus-criative-mensal; a Cakto tem só 1 afiliação (ativa, ver -mensal)"
   },
   "kw-sublimacao-jardel": {
     "status": "ativo",
@@ -1081,8 +1082,9 @@
     "pedido_em": "2026-11-13"
   },
   "ck-enaus-criative-mensal": {
-    "status": "pendente",
-    "pedido_em": "2026-11-13"
+    "status": "ativo",
+    "url": "https://pay.cakto.com.br/33kfqm3_909391?affiliate=tWiuEpLj",
+    "nota": "aprovado 14/11; checkout direto (a página enauscriative.com.br mistura planos Cakto e Kiwify); assinatura mensal R$ 29,90"
   },
   "kw-automacao-subestacoes": {
     "status": "ativo",
@@ -1170,5 +1172,131 @@
   "kw-viajando-com-milhas": {
     "status": "pendente",
     "pedido_em": "2026-11-13"
+  },
+  "ck-shadow-excellence": {
+    "status": "ativo",
+    "url": "https://cakto.app/4cwuEE8/?affiliate=8asQyahf",
+    "pedido_em": "2026-11-14",
+    "nota": "aprovado na hora 14/11; página shadowexcellence.com.br leva ao checkout Cakto BUdZwRU (R$ 297)"
+  },
+  "ck-academia-pitagoras": {
+    "status": "ativo",
+    "url": "https://pay.cakto.com.br/b8asini_792217?affiliate=9yRjCVKj",
+    "pedido_em": "2026-11-14",
+    "nota": "aprovado na hora 14/11; checkout direto (sween.com.br sem botão de checkout no HTML); treinamento para a OBMEP"
+  },
+  "ck-motos-eletricas": {
+    "status": "pendente",
+    "pedido_em": "2026-11-14"
+  },
+  "kw-viver-automacao-residencial": {
+    "status": "pendente",
+    "pedido_em": "2026-11-14",
+    "kiwify_id": "HgtHfleK",
+    "nota": "aprovado na hora em 14/11 (Ativo no painel); falta coletar o link kiwify.app com afid em /products/affiliate/HgtHfleK (Kiwify parou de carregar a sessão depois da rodada)"
+  },
+  "kw-iniciante-automacao-residencial": {
+    "status": "pendente",
+    "pedido_em": "2026-11-14",
+    "kiwify_id": "LdobGSvu",
+    "nota": "aprovado na hora em 14/11 (Ativo no painel); falta coletar o link kiwify.app com afid em /products/affiliate/LdobGSvu (Kiwify parou de carregar a sessão depois da rodada)"
+  },
+  "kw-excel-profissional": {
+    "status": "pendente",
+    "pedido_em": "2026-11-14",
+    "kiwify_id": "FUis07Li",
+    "nota": "aprovado na hora em 14/11 (Ativo no painel); falta coletar o link kiwify.app com afid em /products/affiliate/FUis07Li (Kiwify parou de carregar a sessão depois da rodada)"
+  },
+  "kw-excel-basico-avancado": {
+    "status": "pendente",
+    "pedido_em": "2026-11-14",
+    "kiwify_id": "0EjjQeoz",
+    "nota": "aprovado na hora em 14/11 (Ativo no painel); falta coletar o link kiwify.app com afid em /products/affiliate/0EjjQeoz (Kiwify parou de carregar a sessão depois da rodada)"
+  },
+  "kw-dashboard-insano": {
+    "status": "pendente",
+    "pedido_em": "2026-11-14",
+    "kiwify_id": "5OZ4V9sG",
+    "nota": "aprovado na hora em 14/11 (Ativo no painel); falta coletar o link kiwify.app com afid em /products/affiliate/5OZ4V9sG (Kiwify parou de carregar a sessão depois da rodada)"
+  },
+  "kw-comunidade-excel-pro": {
+    "status": "pendente",
+    "pedido_em": "2026-11-14",
+    "kiwify_id": "o3xOp33Q",
+    "nota": "aprovado na hora em 14/11 (Ativo no painel); falta coletar o link kiwify.app com afid em /products/affiliate/o3xOp33Q (Kiwify parou de carregar a sessão depois da rodada)"
+  },
+  "kw-excel-power-bi": {
+    "status": "pendente",
+    "pedido_em": "2026-11-14",
+    "kiwify_id": "x0F2AB4H",
+    "nota": "aprovado na hora em 14/11 (Ativo no painel); falta coletar o link kiwify.app com afid em /products/affiliate/x0F2AB4H (Kiwify parou de carregar a sessão depois da rodada)"
+  },
+  "kw-power-bi-start": {
+    "status": "pendente",
+    "pedido_em": "2026-11-14",
+    "kiwify_id": "Qp7xe2Sm",
+    "nota": "aprovado na hora em 14/11 (Ativo no painel); falta coletar o link kiwify.app com afid em /products/affiliate/Qp7xe2Sm (Kiwify parou de carregar a sessão depois da rodada)"
+  },
+  "kw-python-turbo": {
+    "status": "pendente",
+    "pedido_em": "2026-11-14",
+    "kiwify_id": "rnxsM2q5",
+    "nota": "aprovado na hora em 14/11 (Ativo no painel); falta coletar o link kiwify.app com afid em /products/affiliate/rnxsM2q5 (Kiwify parou de carregar a sessão depois da rodada)"
+  },
+  "kw-python-expert": {
+    "status": "pendente",
+    "pedido_em": "2026-11-14",
+    "kiwify_id": "Xpn5pLtN",
+    "nota": "aprovado na hora em 14/11 (Ativo no painel); falta coletar o link kiwify.app com afid em /products/affiliate/Xpn5pLtN (Kiwify parou de carregar a sessão depois da rodada)"
+  },
+  "kw-manutencao-software-celulares": {
+    "status": "pendente",
+    "pedido_em": "2026-11-14",
+    "kiwify_id": "bHne0TkS",
+    "nota": "aprovado na hora em 14/11 (Ativo no painel); falta coletar o link kiwify.app com afid em /products/affiliate/bHne0TkS (Kiwify parou de carregar a sessão depois da rodada)"
+  },
+  "kw-valvulas-industriais": {
+    "status": "pendente",
+    "pedido_em": "2026-11-14",
+    "kiwify_id": "505q3AVS",
+    "nota": "aprovado na hora em 14/11 (Ativo no painel); falta coletar o link kiwify.app com afid em /products/affiliate/505q3AVS (Kiwify parou de carregar a sessão depois da rodada)"
+  },
+  "kw-valvulas-de-controle": {
+    "status": "pendente",
+    "pedido_em": "2026-11-14",
+    "kiwify_id": "FaacKE5k",
+    "nota": "aprovado na hora em 14/11 (Ativo no painel); falta coletar o link kiwify.app com afid em /products/affiliate/FaacKE5k (Kiwify parou de carregar a sessão depois da rodada)"
+  },
+  "kw-eletrica-predial": {
+    "status": "pendente",
+    "pedido_em": "2026-11-14",
+    "kiwify_id": "Lw6MjFoz",
+    "nota": "aprovado na hora em 14/11 (Ativo no painel); falta coletar o link kiwify.app com afid em /products/affiliate/Lw6MjFoz (Kiwify parou de carregar a sessão depois da rodada)"
+  },
+  "kw-mestre-power-bi": {
+    "status": "pendente",
+    "pedido_em": "2026-11-14",
+    "kiwify_id": "xXChmzX4"
+  },
+  "kw-ia-professores": {
+    "status": "pendente",
+    "pedido_em": "2026-11-14",
+    "kiwify_id": "kJEwl6xo"
+  },
+  "kw-ia-iniciantes": {
+    "status": "pendente",
+    "pedido_em": "2026-11-14",
+    "kiwify_id": "SsC5zK4b"
+  },
+  "kw-do-zero-as-milhas": {
+    "status": "pendente",
+    "pedido_em": "2026-11-14",
+    "kiwify_id": "6EAl1qOL"
+  },
+  "kw-guia-instalacao-eletrica": {
+    "status": "ativo",
+    "url": "https://pay.kiwify.com.br/PsOcEkC?afid=aZxvJqR6",
+    "pedido_em": "2026-11-14",
+    "nota": "aprovado na hora 14/11; checkout direto porque a página kiwify.app/1dInlmr cai em 404 (escoladoeletricista.com)"
   }
 }
