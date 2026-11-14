@@ -42,10 +42,15 @@ export async function abrirChrome({ timeout = 30000 } = {}) {
   const fechar = async () => {
     try { await cdp.fechar(); } catch { /* o navegador já pode ter saído */ }
     processo.kill('SIGKILL');
-    await espera(150);
     const pasta = path.resolve(perfil);
     if (!pasta.startsWith(`${raizTemp}${path.sep}`)) throw new Error(`Perfil fora do temporário: ${pasta}`);
-    fs.rmSync(pasta, { recursive: true, force: true });
+    // O Chrome ainda segura arquivos do perfil por um instante depois do SIGKILL: apagar na hora dá EPERM.
+    // Perfil temporário que sobra não estraga entrega nenhuma, então aqui insistimos e seguimos.
+    for (let tentativa = 0; tentativa < 8; tentativa += 1) {
+      await espera(150 * (tentativa + 1));
+      try { fs.rmSync(pasta, { recursive: true, force: true }); return; } catch { /* tenta de novo */ }
+    }
+    process.emitWarning(`Perfil temporário do Chrome ficou para trás: ${pasta}`);
   };
   return { cdp, fechar, endereco };
 }

@@ -5,7 +5,7 @@
 // 1. A largura vem de `Emulation.setDeviceMetricsOverride` (CDP), não de `--window-size`: a janela do Chrome sem tela
 //    não desce de 500 px, então `--window-size=390` gravava um PNG de 390 px de uma página desenhada com 500 e
 //    parecia estouro horizontal no celular. Medido: a 390/360/320 px reais, scrollWidth == clientWidth nos dez blogs.
-// 2. A foto é da página inteira (`captureBeyondViewport`), porque o rodapé tem de 599 a 944 px de altura e a janela
+// 2. A foto é da página inteira (`captureBeyondViewport`), porque o rodapé tem de 632 a 948 px de altura e a janela
 //    de 720 px cortava a base da marca em sete dos dez blogs a 1440 px.
 import fs from 'node:fs';
 import path from 'node:path';
@@ -50,11 +50,14 @@ try {
           const m = JSON.parse(await alvo.avaliar(MEDIDA));
           if (m.viewport !== largura) throw new Error(`${slug}/${modo}: a tela emulada saiu com ${m.viewport} px em vez de ${largura}.`);
           if (m.estouro > 0.5) throw new Error(`${slug}/${modo}/${largura}: estouro horizontal de ${m.estouro} px.`);
-          fs.writeFileSync(arquivoPng, await fotografar(alvo, { largura, alturaDoc: m.alturaDoc }));
-          itens.push({ nome, imagem: arquivoPng, altura: Math.round(m.alturaDoc) });
+          // A foto é exatamente o rodapé: a altura do documento inclui a sobra da janela e mostraria
+          // o fundo do <body> (que no escuro é outra cor) como se fizesse parte da peça.
+          const alturaFoto = Math.ceil(m.alturaRodape);
+          fs.writeFileSync(arquivoPng, await fotografar(alvo, { largura, alturaDoc: alturaFoto }));
+          itens.push({ nome, imagem: arquivoPng, altura: alturaFoto });
           registros.push({
             blog: slug, nome, modo, largura, html: arquivoHtml, png: arquivoPng,
-            alturaRodape: Math.round(m.alturaRodape), alturaFoto: Math.round(m.alturaDoc), estouro: Number(m.estouro.toFixed(1)),
+            alturaRodape: Math.round(m.alturaRodape), alturaFoto, alturaDocumento: Math.round(m.alturaDoc), estouro: Number(m.estouro.toFixed(1)),
             marcaEncosta: {
               esquerda: Number(m.marca.esq.toFixed(1)),
               direita: Number((largura - m.marca.dir).toFixed(1)),

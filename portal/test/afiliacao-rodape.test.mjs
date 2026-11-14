@@ -86,3 +86,32 @@ test('contraste WCAG AA e de superfície passa nos dez temas claro e escuro', ()
     assert.ok(contraste(escuro.marca, fundoEscuro) >= 3, `${slug}: --m/superfície escura`);
   }
 });
+
+test('a marca gigante é uma palavra do nome do blog, com os acentos que ela tem', () => {
+  // Pega o erro que o olho pegou em 14/11/2026: a marca do IA na Prática estava "PRATICA", sem acento,
+  // porque a altura do viewBox era a da maiúscula e o acento não caberia. Comparar sem acento não serve.
+  for (const slug of blogs) {
+    const info = lerJson(path.join(CONTEUDO, slug, 'site.json'));
+    const marca = RODAPES_AFILIADOS[slug].marca;
+    const palavras = info.nome.split(/\s+/).filter(Boolean);
+    const juncoes = palavras.flatMap((_, i) => palavras.slice(i).map((_p, j) => palavras.slice(i, i + j + 1).join('')));
+    assert.ok(
+      juncoes.some((j) => j.toLocaleUpperCase('pt-BR') === marca),
+      `${slug}: a marca "${marca}" não é nenhuma palavra de "${info.nome}" em maiúsculas (acento incluído)`,
+    );
+  }
+});
+
+test('o viewBox da marca fecha com a largura medida: respiro + largura visível = textLength', () => {
+  // O viewBox e o textLength saem juntos de medir-rodape-marca.mjs. Isto pega o número editado sozinho,
+  // não um par internamente coerente mas errado: para esse, o portão é a tinta do PNG em
+  // tools/auditar-rodape-pixel.py (medido: trocar o respiro do milhas por 0 leva a marca a 32 px da borda).
+  for (const slug of blogs) {
+    const { viewBox, larguraTexto, altura } = RODAPES_AFILIADOS[slug];
+    const [minX, minY, largura, alturaCaixa] = viewBox.split(/\s+/).map(Number);
+    assert.equal(minY, 0, `${slug}: o viewBox começa na base da maiúscula`);
+    assert.ok(Math.abs(minX + largura - larguraTexto) <= 0.11, `${slug}: ${minX} + ${largura} ≠ ${larguraTexto}`);
+    assert.equal(alturaCaixa, altura, `${slug}: a altura do viewBox é a usada no y do <text>`);
+    assert.ok(altura >= 50 && altura <= 130, `${slug}: altura medida fora do razoável (${altura})`);
+  }
+});
