@@ -13,8 +13,10 @@ import { institucional, ROTULO, PAGINAS, emailDe } from './afiliacao-institucion
 import { htmlText, faqDoTexto, faqLd, IMG_LOCAL, dimensoesImagem } from '../lib/modules/blog.mjs';
 import { nomeVariante } from './afiliacao-variantes.mjs';
 import { temaDe, FONTES, SERIES, plantaDe } from './afiliacao-temas.mjs';
+import { RODAPES_AFILIADOS } from './afiliacao-rodapes.mjs';
 
 const PUBLICO = path.join(path.dirname(fileURLToPath(import.meta.url)), '..', 'public');
+const CSS_RODAPE_ESTUDIO = fs.readFileSync(new URL('./rodape-estudio.css', import.meta.url), 'utf8');
 /** Foto do produto servida pelo próprio Portal (webp de 600 px gerado por tools/afiliacao-capas.mjs), em vez da original da Hotmart/Kiwify,
  *  que chega com vários MB. Sem o arquivo local, segue a foto original. */
 export const fotoLocal = (chave) => { const rel = `/assets/afiliacao/produtos/${chave}.webp`; return fs.existsSync(path.join(PUBLICO, rel)) ? rel : null; };
@@ -168,8 +170,9 @@ h1{font-size:calc(clamp(2.1rem,4.6vw,3.5rem)*var(--k))}h2{font-size:calc(clamp(1
 .faq{max-width:820px}.faq details{border-bottom:1px solid var(--linha)}.faq summary{cursor:pointer;font-weight:700;padding:17px 0;list-style:none;display:flex;justify-content:space-between;gap:16px}.faq summary::-webkit-details-marker{display:none}
 .faq summary:after{content:'';flex:none;width:9px;height:9px;margin-top:8px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(45deg);transition:transform .25s cubic-bezier(.16,1,.3,1)}.faq details[open] summary:after{transform:rotate(225deg)}.faq details p{margin:0 0 18px;color:var(--suave);max-width:70ch}
 .metodo{max-width:72ch;color:var(--suave)}
-footer{padding:46px 0 120px;background:var(--papel);border-top:1px solid var(--linha);color:var(--suave);font-size:.9rem}footer .w{display:grid;gap:12px}footer strong{font:var(--ft) calc(1.25rem*var(--k)) var(--fh);color:var(--tinta)}footer span{max-width:80ch}
-footer .rod{display:flex;flex-wrap:wrap;gap:6px 18px}footer .rod a{color:var(--tinta)}
+footer:not(.rodE){padding:46px 0 120px;background:var(--papel);border-top:1px solid var(--linha);color:var(--suave);font-size:.9rem}footer:not(.rodE) .w{display:grid;gap:12px}footer:not(.rodE) strong{font:var(--ft) calc(1.25rem*var(--k)) var(--fh);color:var(--tinta)}footer:not(.rodE) span{max-width:80ch}
+footer:not(.rodE) .rod{display:flex;flex-wrap:wrap;gap:6px 18px}footer:not(.rodE) .rod a{color:var(--tinta)}
+${CSS_RODAPE_ESTUDIO}
 /* post */
 .progresso{position:fixed;inset:0 0 auto;height:3px;background:var(--a);transform-origin:0 50%;transform:scaleX(0);z-index:40}
 @supports (animation-timeline:scroll()){@media(prefers-reduced-motion:no-preference){.progresso{animation:ler linear both;animation-timeline:scroll(root)}@keyframes ler{to{transform:scaleX(1)}}}}
@@ -335,15 +338,28 @@ function topo(info, prefixo, v, atual = '', pl = plantaDe(blogDe(v)).home) {
 <button class="modo" type="button" aria-label="Alternar modo claro ou escuro">${ICONE_MODO}</button></div></header>${SCRIPT_MODO}`;
 }
 
-function rodape(info, prefixo = '', v = {}) {
+function rodape(info, prefixo = '', v = {}, posts = []) {
+  const cta = RODAPES_AFILIADOS[blogDe(v)];
+  if (!cta) throw new Error(`Falta o rodapé editorial do blog ${blogDe(v)}.`);
+  const guia = comecePor(v, posts)[0];
+  const hrefGuia = guia?.slug ? `${prefixo}/blog/${guia.slug}` : `${prefixo}/blog`;
   const nav = PAGINAS.map((p) => `<a href="${prefixo}/${p}">${esc(ROTULO[p])}</a>`).join('');
   const voz = vozDe(v, info);
   const email = emailDe(info, String(prefixo).replace(/^https?:\/\//, ''));
-  return `<footer><div class="w"><strong>${esc(info.nome)}</strong><span>${esc(info.descricao)}</span>
-<nav class="rod" aria-label="Institucional"><a href="${prefixo}/blog">Todos os guias</a><a href="${prefixo}/feed.xml">Assinar por RSS</a>${((bf) => (bf ? `<a href="${esc(bf.url)}">${esc(bf.titulo)}</a>` : ''))(blackFriday(v, prefixo))}${nav}</nav>
-<span>${esc(voz.nome)} é ${voz.ele === 'a' ? 'uma personagem criada' : 'um personagem criado'} com IA para dar voz ao blog: ${voz.ele === 'a' ? 'ela' : 'ele'} compara a ficha e as fontes de cada produto e não afirma ter testado nada.</span>
-<span><b>Transparência:</b> alguns links deste site são de afiliado. Se você comprar por eles, recebemos uma comissão, sem custo extra para você. Isso não muda a ordem nem o que escrevemos; confira sempre na página oficial o conteúdo, o preço e a garantia antes de comprar. <a href="${prefixo}/aviso-de-afiliados">Saiba mais</a>.</span>
-<span>Contato: <!--email_off--><a href="mailto:${esc(email)}">${esc(email)}</a><!--/email_off--> · © ${ANO} ${esc(info.nome)} · Conteúdo informativo, sem promessa de resultado.</span></div></footer>`;
+  const propriedadesRodape = [
+    cta.acentoClaro && `--rodE-a-claro:${cta.acentoClaro}`,
+    cta.marcaClara && `--rodE-m-claro:${cta.marcaClara}`,
+  ].filter(Boolean).join(';');
+  const ajuste = propriedadesRodape ? ` style="${esc(propriedadesRodape)}"` : '';
+  const classe = propriedadesRodape ? 'rodE rodE-ajuste' : (cta.mantemAcentoEscuro ? 'rodE rodE-fundo-a-noite' : 'rodE');
+  return `<footer class="${classe}"${ajuste}><div class="rodE-in"><div class="rodE-topo">
+<p class="rodE-chamada">${esc(cta.chamada)}</p><a class="rodE-btn" href="${esc(hrefGuia)}">${esc(cta.botao)}</a></div>
+<nav class="rodE-nav" aria-label="Institucional"><a href="${prefixo}/blog">Todos os guias</a><a href="${prefixo}/feed.xml">Assinar por RSS</a>${((bf) => (bf ? `<a href="${esc(bf.url)}">${esc(bf.titulo)}</a>` : ''))(blackFriday(v, prefixo))}${nav}</nav>
+<p class="rodE-legal">${esc(info.descricao)}<br>
+${esc(voz.nome)} é ${voz.ele === 'a' ? 'uma personagem criada' : 'um personagem criado'} com IA para dar voz ao blog: ${voz.ele === 'a' ? 'ela' : 'ele'} compara a ficha e as fontes de cada produto e não afirma ter testado nada.<br>
+<b>Transparência:</b> alguns links deste site são de afiliado. Se você comprar por eles, recebemos uma comissão, sem custo extra para você. Isso não muda a ordem nem o que escrevemos; confira sempre na página oficial o conteúdo, o preço e a garantia antes de comprar. <a href="${prefixo}/aviso-de-afiliados">Saiba mais</a>.<br>
+Contato: <!--email_off--><a href="mailto:${esc(email)}">${esc(email)}</a><!--/email_off--> · © ${ANO} ${esc(info.nome)} · Conteúdo informativo, sem promessa de resultado.</p></div>
+<div class="rodE-marca"><svg viewBox="${cta.viewBox}" role="img" aria-label="${esc(info.nome)}"><text x="0" y="${cta.altura}" textLength="${cta.larguraTexto}" lengthAdjust="spacingAndGlyphs">${esc(cta.marca)}</text></svg></div></footer>`;
 }
 
 /** Carimbo de conferência: quem conferiu e quando. */
@@ -527,7 +543,7 @@ ${sec(hojeHtml)}${lidosHtml ? sec(lidosHtml) : ''}${sec(recentesHtml('duas'))}
 ${sec(comeceHtml('colunas'))}${fichasHtml}${assine}${faqSec}${metodo}</main>`,
   }[pl];
   return `${head({ titulo, desc, canonical, v: { ...v, imagem: v.imagem || capaHome, lcp: fotoNoTopo ? imHoje?.src || null : null, lcpSrcset: fotoNoTopo ? imHoje?.set || null : null, lcpSizes: sizesHoje }, ld, info, prefixo })}<body class="pl-${pl}">${topo(info, prefixo, v, '', pl)}
-${corpo}${rodape(info, prefixo, v)}</body></html>`;
+${corpo}${rodape(info, prefixo, v, posts)}</body></html>`;
 }
 
 /** Lista de guias (/blog): o mais recente em destaque e a grade dos outros. */
@@ -544,7 +560,7 @@ export function renderLista({ info, v, posts, prefixo }) {
   return `${head({ titulo: `Guias ${v.assunto ? `de ${v.assunto} ` : ''}· ${info.nome}`, desc: info.descricao, canonical, v: { ...v, imagem: v.imagem || capaAbs(c0, prefixo), lcp: im0?.src || null, lcpSrcset: im0?.set || null, lcpSizes: '(max-width: 960px) 92vw, 680px' }, ld, info, prefixo })}<body>${topo(info, prefixo, v, 'blog')}
 <main><section class="abre"><div class="w"><h1>Todos os guias</h1><p class="sub" style="font-size:1.15rem;color:var(--suave);margin:12px 0 0;max-width:60ch">${esc(info.tagline)}</p>
 <p class="edicao"><span class="num">${posts.length}</span> guias · atualizado em ${dataBr()}${series.length ? ` · séries: ${series.map(([n, l]) => `${esc(n)} (${l.length})`).join(', ')}` : ''}</p></div></section>
-<section class="sec"><div class="w"><div class="guias dest">${guias}</div></div></section><section class="sec" id="assine"><div class="w">${assineHtml(info, v)}</div></section></main>${rodape(info, prefixo, v)}</body></html>`;
+<section class="sec"><div class="w"><div class="guias dest">${guias}</div></div></section><section class="sec" id="assine"><div class="w">${assineHtml(info, v)}</div></section></main>${rodape(info, prefixo, v, posts)}</body></html>`;
 }
 
 /** Marca a origem em todo link de checkout/afiliado da Hotmart (go./pay.hotmart.com, hotm.art) e da Kiwify (kiwify.app, pay.kiwify.com.br) com ?src=<origem>, para a
@@ -737,7 +753,7 @@ ${(v.fontes || []).length ? `<section class="mais fontes"><h2>Fontes para confer
 ${outros.length ? `<section class="mais"><h2>Continue lendo</h2><div class="guias">${outros.map((p) => `<a class="guia" href="${prefixo}/blog/${esc(p.slug)}">${capaCard(p, false, undefined, blog)}<span class="k">${esc(p.category || info.categoria)}</span><h3>${esc(p.title)}</h3></a>`).join('')}</div></section>` : ''}
 ${vizinhos.length ? `<section class="mais viz"><h2>Do mesmo assunto nos nossos outros blogs</h2><ul>${vizinhos.map((x) => `<li><a href="${esc(x.url)}">${esc(x.title)}</a><span>${esc(x.blog)}</span></li>`).join('')}</ul></section>` : ''}
 </div>${pp <= 2 ? `<aside class="lado" aria-label="Neste guia">${h2.length > 2 ? `<nav class="indice" aria-label="Neste guia"><b>Neste guia</b><ol>${indiceItens}</ol></nav>` : ''}</aside>` : ''}</div>
-<section class="sec" id="assine" style="border:0;padding-top:30px">${assineHtml(info, v)}</section></article><!--rss-conteudo-fim--></main>${rodape(info, prefixo, v)}
+<section class="sec" id="assine" style="border:0;padding-top:30px">${assineHtml(info, v)}</section></article><!--rss-conteudo-fim--></main>${rodape(info, prefixo, v, posts)}
 ${SCRIPT_POST(blog, canonical, post.title)}${semOferta ? scriptConvite(new URL(prefixo).host) : ''}</body></html>`;
 }
 
@@ -776,7 +792,7 @@ export function renderInstitucional({ pag, info, v, prefixo, posts = [], medicao
 <p class="ia">${esc(voz.nome)} é ${voz.ele === 'a' ? 'uma personagem criada' : 'um personagem criado'} com IA para dar voz ao ${esc(info.nome)}. Os guias são pesquisados e conferidos pela equipe: ninguém aqui diz que testou um produto sem ter testado.</p></aside>` : '';
   return `${head({ titulo: t.titulo, desc: t.desc, canonical, v: { ...v, imagem: v.imagem || imagemPadrao(v, prefixo, posts), lcp: null }, ld, info, prefixo })}<body>${topo(info, prefixo, v, pag)}
 <main><section class="abre"><div class="w"><h1>${esc(t.titulo.replace(/ · .*$/, ''))}</h1>${t.sub ? `<p class="sub" style="font-size:1.15rem;color:var(--suave);margin:12px 0 0;max-width:62ch">${esc(t.sub)}</p>` : ''}</div></section>
-<section class="sec"><div class="w">${apresenta}<div class="txt">${corpo}</div></div></section></main>${rodape(info, prefixo, v)}</body></html>`;
+<section class="sec"><div class="w">${apresenta}<div class="txt">${corpo}</div></div></section></main>${rodape(info, prefixo, v, posts)}</body></html>`;
 }
 
 /** Lojas aceitas como link direto nas ofertas (além do {{LINK:chave}} de produto ativo e do curto l.kbsa.app). */
@@ -792,7 +808,7 @@ export function linkOferta(link, dados) {
 
 /** Ofertas do dia (<domínio>/ofertas): preço e data da conferência visíveis, link patrocinado, estado vazio "em breve".
  *  Lê ofertas.json do blog: {"atualizado":"ISO","itens":[{nome, preco, preco_conferido_em, loja, link, imagem, nota}]}. */
-export function renderOfertas({ info, v, ofertas, prefixo, dados }) {
+export function renderOfertas({ info, v, ofertas, prefixo, dados, posts = [] }) {
   const canonical = `${prefixo}/ofertas`;
   const itens = (ofertas?.itens || []).map((it) => ({ ...it, url: linkOferta(it.link, dados) }))
     .filter((it) => it.nome && it.url && Number.isFinite(Number(it.preco)) && it.preco_conferido_em);
@@ -810,7 +826,7 @@ ${it.nota ? `<p class="pq">${esc(it.nota)}</p>` : ''}
   return `${head({ titulo, desc, canonical, v: { ...v, imagem: v.imagem || imagemPadrao(v, prefixo), lcp: null }, ld, info, prefixo })}<body>${topo(info, prefixo, v)}
 <main><section class="abre"><div class="w"><h1>Ofertas do dia</h1><p class="sub" style="font-size:1.15rem;color:var(--suave);margin:12px 0 0;max-width:62ch">Cada preço aparece com a data em que foi conferido. Alguns links são de afiliado: se você comprar por eles, recebemos uma comissão, sem custo extra para você.</p>
 <p class="edicao">${itens.length ? `Atualizado em ${esc(dataBr(ofertas.atualizado || itens[0].preco_conferido_em))}` : 'Em preparação'}</p></div></section>
-<section class="sec"><div class="w">${itens.length ? `<div class="guias picks">${cards}</div>` : vazio}</div></section></main>${rodape(info, prefixo, v)}</body></html>`;
+<section class="sec"><div class="w">${itens.length ? `<div class="guias picks">${cards}</div>` : vazio}</div></section></main>${rodape(info, prefixo, v, posts)}</body></html>`;
 }
 
 // ---- Web Story (AMP) de cada post, em <domínio>/stories/<slug> (09/11/2026): Google Discover e busca de imagens ----

@@ -1,0 +1,28 @@
+/* Rodapé "marca gigante + chamada final": código nosso, só CSS + 1 SVG inline por blog.
+   Tokens que cada blog já tem: --a (cor de marca), --sa (texto sobre --a), --m/--sm (destaque e texto sobre ele),
+   --fh/--ft (fonte e peso do título, a fonte real do blog), --fb (corpo), --r (raio, 6px nos blogs).
+   Por blog muda só o SVG da marca: viewBox medido uma vez (largura do texto, altura = altura da maiúscula). */
+.rodE{background:var(--a);color:var(--sa);font-family:var(--fb);overflow:hidden}
+.rodE-in{padding:clamp(1.5rem,4vw,3.5rem) clamp(1rem,3vw,3rem) 0}
+.rodE-topo{display:flex;flex-wrap:wrap;gap:1.25rem 2rem;align-items:flex-end;justify-content:space-between;padding-bottom:clamp(1.25rem,3vw,2.5rem);border-bottom:1px solid color-mix(in srgb,var(--sa) 35%,transparent)}
+.rodE-chamada{font-family:var(--fh);font-weight:var(--ft,800);font-size:clamp(1.75rem,4.6vw,3.75rem);line-height:1;letter-spacing:-.035em;max-width:16ch;margin:0}
+.rodE-btn{display:inline-flex;align-items:center;justify-content:center;min-height:3rem;padding:13px 20px;border-radius:var(--r,6px);background:var(--rodE-m-claro,var(--m));color:var(--sm)!important;font:700 1rem/1.15 var(--fb);text-decoration:none}
+.rodE-btn:hover{filter:brightness(1.08)}
+.rodE-nav{display:flex;flex-wrap:wrap;gap:.75rem 2rem;padding-block:1.25rem;font-size:.8125rem;letter-spacing:.06em;text-transform:uppercase}
+.rodE-nav a{color:inherit;opacity:.92;text-decoration:none}.rodE-nav a:hover{opacity:1;text-decoration:underline}
+.rodE-legal{font-size:.75rem;line-height:1.5;opacity:.9;max-width:80ch;padding-bottom:1.5rem;margin:0}
+.rodE-legal a{color:inherit;text-underline-offset:.18em}
+/* A marca encosta nas bordas esquerda, direita e inferior; a baseline coincide com a base do rodapé. */
+.rodE-marca{display:block;margin:0;line-height:0}
+.rodE-marca svg{display:block;width:100%;height:auto}
+.rodE-marca text{font-family:var(--fh);font-weight:var(--ft,800);font-size:100px;letter-spacing:-4.5px;fill:color-mix(in srgb,currentColor 96%,transparent)}
+@media (prefers-reduced-motion:no-preference){.rodE-marca{animation:rodE-sobe .9s cubic-bezier(.2,.7,.1,1) both;animation-timeline:view();animation-range:entry 0% entry 60%}}
+@keyframes rodE-sobe{from{transform:translateY(14%);opacity:0}to{transform:none;opacity:1}}
+/* Em modo claro, só o fundo do rodapé recebe o acento escurecido nos três temas que precisaram. */
+.rodE-ajuste{background:var(--rodE-a-claro,var(--a))}
+/* No escuro, a marca clara vira assinatura e --sa, que já é sua cor escura, vira a superfície.
+   O Atende Fácil conserva o par original porque --m/--a já tem 5.52:1 nesse modo. */
+:root[data-tema=escuro] .rodE:not(.rodE-fundo-a-noite){background:var(--sa);color:var(--a)}
+:root[data-tema=escuro] .rodE-btn{background:var(--m)}
+@media(prefers-color-scheme:dark){:root:not([data-tema=claro]) .rodE:not(.rodE-fundo-a-noite){background:var(--sa);color:var(--a)}}
+@media(prefers-color-scheme:dark){:root:not([data-tema=claro]) .rodE-btn{background:var(--m)}}
