@@ -338,9 +338,11 @@ function topo(info, prefixo, v, atual = '', pl = plantaDe(blogDe(v)).home) {
 <button class="modo" type="button" aria-label="Alternar modo claro ou escuro">${ICONE_MODO}</button></div></header>${SCRIPT_MODO}`;
 }
 
-function rodape(info, prefixo = '', v = {}, posts = []) {
+function rodape(info, prefixo = '', v = {}, posts) {
   const cta = RODAPES_AFILIADOS[blogDe(v)];
   if (!cta) throw new Error(`Falta o rodapé editorial do blog ${blogDe(v)}.`);
+  // Sem a lista de guias o botão cai em /blog prometendo um guia; falhar alto é melhor que link errado no ar.
+  if (!Array.isArray(posts)) throw new Error(`Falta a lista de guias de ${blogDe(v)} para o botão do rodapé.`);
   const guia = comecePor(v, posts)[0];
   const hrefGuia = guia?.slug ? `${prefixo}/blog/${guia.slug}` : `${prefixo}/blog`;
   const nav = PAGINAS.map((p) => `<a href="${prefixo}/${p}">${esc(ROTULO[p])}</a>`).join('');
@@ -808,7 +810,7 @@ export function linkOferta(link, dados) {
 
 /** Ofertas do dia (<domínio>/ofertas): preço e data da conferência visíveis, link patrocinado, estado vazio "em breve".
  *  Lê ofertas.json do blog: {"atualizado":"ISO","itens":[{nome, preco, preco_conferido_em, loja, link, imagem, nota}]}. */
-export function renderOfertas({ info, v, ofertas, prefixo, dados, posts = [] }) {
+export function renderOfertas({ info, v, ofertas, prefixo, dados, posts }) {
   const canonical = `${prefixo}/ofertas`;
   const itens = (ofertas?.itens || []).map((it) => ({ ...it, url: linkOferta(it.link, dados) }))
     .filter((it) => it.nome && it.url && Number.isFinite(Number(it.preco)) && it.preco_conferido_em);

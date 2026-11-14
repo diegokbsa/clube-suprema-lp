@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { renderLista } from '../tools/afiliacao-visual.mjs';
+import { renderLista, renderHome, renderPost, renderInstitucional, renderOfertas } from '../tools/afiliacao-visual.mjs';
 import { RODAPES_AFILIADOS } from '../tools/afiliacao-rodapes.mjs';
 import { TEMAS } from '../tools/afiliacao-temas.mjs';
 import { PAGINAS } from '../tools/afiliacao-institucional.mjs';
@@ -113,5 +113,30 @@ test('o viewBox da marca fecha com a largura medida: respiro + largura visível 
     assert.ok(Math.abs(minX + largura - larguraTexto) <= 0.11, `${slug}: ${minX} + ${largura} ≠ ${larguraTexto}`);
     assert.equal(alturaCaixa, altura, `${slug}: a altura do viewBox é a usada no y do <text>`);
     assert.ok(altura >= 50 && altura <= 130, `${slug}: altura medida fora do razoável (${altura})`);
+  }
+});
+
+test('o botão do rodapé aponta para um guia de verdade em TODA página do blog, não só na lista', () => {
+  // A página de ofertas era chamada sem `posts` e o botão caía em /blog, com o texto prometendo um guia.
+  for (const slug of blogs) {
+    const pasta = path.join(CONTEUDO, slug);
+    const info = lerJson(path.join(pasta, 'site.json'));
+    const v = lerJson(path.join(pasta, 'vitrine.json'));
+    const posts = fs.readdirSync(path.join(pasta, 'posts')).sort()
+      .map((f) => lerJson(path.join(pasta, 'posts', f))).filter((p) => !p.redirect);
+    const prefixo = `https://kbsa.app/${slug}`;
+    const dados = { catalogo: lerJson(path.join(CONTEUDO, 'produtos.json')), links: lerJson(path.join(CONTEUDO, 'links.json')) };
+    const paginas = {
+      home: renderHome({ info, v, posts, prefixo, dados }),
+      lista: renderLista({ info, v, posts, prefixo }),
+      post: renderPost({ info, v, post: posts[0], posts, prefixo, dados, aplicarLinks: (t) => String(t) }),
+      institucional: renderInstitucional({ pag: 'sobre', info, v, prefixo, posts, medicao: {} }),
+      ofertas: renderOfertas({ info, v, ofertas: { itens: [] }, prefixo, posts, dados }),
+    };
+    for (const [nome, html] of Object.entries(paginas)) {
+      const destino = html.match(/<a class="rodE-btn" href="([^"]+)"/i)?.[1];
+      assert.ok(destino?.startsWith(`${prefixo}/blog/`), `${slug}/${nome}: o botão do rodapé vai para ${destino}`);
+      assert.ok(posts.some((p) => destino.endsWith(`/${p.slug}`)), `${slug}/${nome}: o guia do botão existe`);
+    }
   }
 });

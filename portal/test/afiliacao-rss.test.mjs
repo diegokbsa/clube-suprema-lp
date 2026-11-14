@@ -108,7 +108,7 @@ test('todas as páginas geradas dos 10 blogs anunciam o RSS e mostram Assinar po
     const htmls = [renderHome({ info, v, posts, prefixo, dados: dadosBase }), renderLista({ info, v, posts, prefixo }),
       renderPost({ info, v, post: artigo, posts, prefixo, dados: dadosBase, aplicarLinks, publicado: '2026-11-12T18:00:00Z' }),
       renderInstitucional({ pag: 'sobre', info, v, posts, prefixo, medicao: {} }),
-      renderOfertas({ info, v, ofertas: { itens: [] }, prefixo, dados: dadosBase })];
+      renderOfertas({ info, v, ofertas: { itens: [] }, prefixo, dados: dadosBase, posts })];
     const story = renderStory({ info, v, post: artigo, prefixo, dados: dadosBase });
     const esperado = new RegExp(`<link rel="alternate" type="application/rss\\+xml" title="${escaparRe(info.nome)}" href="${escaparRe(prefixo)}/feed\\.xml" data-rss-feed="blogs-afiliado">`);
     assert.match(rssAutodiscovery(info, prefixo), esperado, `${slug}: autodiscovery da home simples`);

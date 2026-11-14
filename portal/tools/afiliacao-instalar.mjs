@@ -249,7 +249,7 @@ try {
       // Sem item válido a página mostra "Em breve" e fica fora do sitemap; com itens, entra (indexar).
       const arqOfertas = lerJson(path.join(dir, 'ofertas.json'), null);
       if (arqOfertas || BLOGS_OFERTAS.has(slugBlog)) {
-        const html = renderOfertas({ info, v, ofertas: arqOfertas || { itens: [] }, prefixo, dados: DADOS_VITRINE });
+        const html = renderOfertas({ info, v, ofertas: arqOfertas || { itens: [] }, prefixo, dados: DADOS_VITRINE, posts: lista });
         const nItens = (html.match(/<article class="card">/g) || []).length;
         gravarPagina(repo, { siteId: site.id, caminho: 'ofertas', html: comOrigem(html, `${slugBlog}-ofertas`), titulo: `Ofertas · ${info.nome}`, indexar: nItens > 0 });
         passo(`${slugBlog}: página de ofertas gravada (${nItens} itens válidos de ${(arqOfertas?.itens || []).length})`);
