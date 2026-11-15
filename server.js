@@ -10,7 +10,7 @@ import * as flow from './lib/orchestrator.js';
 import { createLead, recordLeadEvent, leadsOverview } from './lib/leads.js';
 import { validateSignup, validateLead } from './public/shared/validate.js';
 import { comBigLinks } from './lib/biglinks.js';
-import { renderBlogIndex, renderBlogPost, renderNotFound, renderSitemap, renderFeed, renderLlms, renderLlmsFull, renderAbout, renderTorneios, renderTorneiosTxt } from './lib/blog.js';
+import { renderBlogIndex, renderBlogPost, renderNotFound, renderSitemap, renderFeed, renderLlms, renderLlmsFull, renderAbout, renderLegal, LEGAL_PAGES, renderFooter, renderTorneios, renderTorneiosTxt } from './lib/blog.js';
 import { getGrade } from './lib/torneios.js';
 import { announceNewPosts, shareNewPosts, shareDailyGrade } from './lib/novos-posts.js';
 import { startBot, botStatus } from './lib/telegram-bot.js';
@@ -321,7 +321,7 @@ const SCRIPT_VISITAS = '<script>(function(){var n=navigator,d=document,l=locatio
 const SCRIPT_MINILYTICS = '<script defer data-website-id="94260f12380fdbaa" src="https://mini.kbsa.app/js/script.js"></script>';
 // BigLinks na saída (lib/biglinks.js): botões de conversão por l.kbsa.app com src=suprema_<página>.
 const comVisitas = (html, pathname = '/') => {
-  const s = comBigLinks(html, pathname);
+  const s = comBigLinks(html.replace(/<footer class="footer">[\s\S]*?<\/footer>/, renderFooter()), pathname);
   const i = s.toLowerCase().lastIndexOf('</body>');
   const tags = SCRIPT_VISITAS + SCRIPT_MINILYTICS;
   return i < 0 ? s + tags : s.slice(0, i) + tags + s.slice(i);
@@ -355,6 +355,8 @@ function servePage(req, res, url) {
   if (p === '/blog/feed.xml') return send(renderFeed(), 'application/rss+xml; charset=utf-8');
   if (p === '/sitemap.xml') return send(renderSitemap(), 'application/xml; charset=utf-8');
   if (p === '/sobre') return html(renderAbout());
+  const legal = p.match(/^[/]([a-z]+)$/);
+  if (legal && LEGAL_PAGES[legal[1]]) return html(renderLegal(legal[1]));
   if (p === '/llms.txt') return send(renderLlms(), 'text/plain; charset=utf-8');
   if (p === '/llms-full.txt') return send(renderLlmsFull(), 'text/plain; charset=utf-8');
   const post = p.match(/^[/]blog[/]([a-z0-9-]+)$/);
