@@ -1,7 +1,7 @@
 """Capa de um post novo (1200x630) a partir do front matter, sem editar capas.py: usado pela rotina de posts automáticos.
 
 Campos lidos de content/blog/<slug>.md (todos opcionais):
-  capaTema      cartas (padrão), mesa, app, clube, suporte, torneio, prazos, erros, liga: escolhe a ilustração da direita
+  capaTema      cartas (padrão), mesa, app, clube, suporte, torneio, prazos, erros, liga, saque: escolhe a ilustração da direita
   capaChamada   linha dourada de cima, ex. "Guia · Regras"
   capaTitulo    título curto da capa (padrão: title)
   capaSubtitulo uma frase embaixo do título (padrão: description cortada)
@@ -141,6 +141,24 @@ def illus_liga(img):
     capas.pill(img, "Mesas compartilhadas", 944, 440, capas.font(16, 700))
 
 
+
+def illus_saque(img):
+    x0, y0, x1, y1 = 748, 112, 1124, 432
+    d = _painel(img, x0, y0, x1, y1)
+    d.text((x0 + 28, y0 + 26), "SAQUE · 4 PASSOS", font=capas.font(16, 700), fill=GOLD)
+    d.text((x0 + 28, y0 + 52), "No Fichas 24h", font=capas.font(15, 500), fill=_MUTED)
+    rows = ["Chaves Pix", "Retirar Fichas", "Revisão de até 24 h", "Histórico de Transações"]
+    for i, tx in enumerate(rows):
+        cy = y0 + 118 + i * 52
+        cx = x0 + 46
+        d.ellipse((cx - 16, cy - 16, cx + 16, cy + 16), fill=GOLD)
+        d.text((cx, cy), str(i + 1), font=capas.font(18, 900), fill=INK, anchor="mm")
+        d.text((cx + 32, cy), tx, font=capas.font(18, 700), fill=capas.WHITE, anchor="lm")
+        if i < len(rows) - 1:
+            d.line((x0 + 28, cy + 26, x1 - 28, cy + 26), fill=(52, 52, 58), width=1)
+    capas.pill(img, "Passo a passo", 936, 494, capas.font(16, 700))
+
+
 data = front_matter(SLUG)
 tema = data.get("capaTema", "cartas")
 etiqueta = data.get("capaEtiqueta", "")
@@ -154,6 +172,7 @@ capas.ILLUS[SLUG] = {
     "prazos": illus_prazos,
     "erros": illus_erros,
     "liga": illus_liga,
+    "saque": illus_saque,
 }.get(tema) or illus_cartas(etiqueta)
 
 desc = data.get("description", "")
