@@ -2,7 +2,7 @@
 title: "O que é flop, turn e river: as fases de uma mão de poker"
 description: Pré-flop, flop, turn e river explicados com exemplo: quantas cartas abrem em cada fase, quem fala primeiro, o que muda nas decisões e a regra dos outs.
 date: 2026-10-31
-updated: 2026-10-31
+updated: 2026-11-15
 cover: /img/blog/flop-turn-river/cover.jpg
 coverAlt: Mesa de poker com as cartas comunitárias abertas e o título "Flop, turn e river"
 tags: [regras, iniciantes, guia]
@@ -33,10 +33,6 @@ capaEtiqueta: 4 fases
 ---
 
 Quem começa a assistir a poker ouve o tempo todo que "o flop veio seco", que "o turn pareou a mesa" ou que alguém "pegou o river". São os nomes das fases de uma mão de **Texas Hold'em**, e entender o que acontece em cada uma é o primeiro passo para acompanhar a ação e decidir melhor. Este guia mostra as quatro fases com exemplo, quem fala primeiro em cada uma e o que muda nas decisões conforme as cartas vão aparecendo.
-
-:::nota Resposta curta
-**Pré-flop**: cada jogador recebe 2 cartas fechadas e apostam. **Flop**: a mesa abre 3 cartas comunitárias de uma vez. **Turn**: sai a quarta carta. **River**: sai a quinta e última. Depois de cada fase há uma rodada de apostas; depois do river, quem continuar mostra as cartas no **showdown**.
-:::
 
 ## As quatro fases em uma tabela
 

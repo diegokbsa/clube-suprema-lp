@@ -2,7 +2,7 @@
 title: "Etiqueta no poker online: tempo de ação, chat e slowroll"
 description: Regras de etiqueta no poker online. Quanto tempo usar na sua vez, o que escrever no chat, por que o slowroll irrita e os erros que deixam a mesa pesada.
 date: 2026-11-08
-updated: 2026-11-08
+updated: 2026-11-15
 cover: /img/blog/etiqueta-no-poker-online/cover.jpg
 coverAlt: Celular com uma mesa de poker na tela e o título "Etiqueta na mesa"
 tags: [regras, iniciantes, guia]
@@ -35,13 +35,9 @@ capaEtiqueta: Boas maneiras
 
 No poker ao vivo, a etiqueta passa por gestos, olhares e o jeito de empurrar as fichas. No poker online, ela aparece em três lugares: no **tempo que você leva para agir**, no **chat** e no **momento de mostrar as cartas**. Nada disso muda as regras do Texas Hold'em, mas faz muita diferença para a mesa ser um lugar agradável. Este guia explica as boas maneiras que os jogadores esperam e os erros que mais irritam.
 
-:::nota Resposta curta
-Etiqueta no poker online é **agir no seu tempo sem enrolar de propósito**, usar o **chat com respeito**, **não comentar mãos em andamento** e **mostrar logo a mão vencedora** no showdown. O **slowroll**, demorar de propósito para revelar uma mão que ganha, é visto como falta de educação. Combinar jogadas com outro jogador é **trapaça**, não etiqueta.
-:::
-
 ## Por que etiqueta importa no poker online?
 
-Porque o poker é um jogo social, mesmo na tela do celular. Você divide a mesa com até oito pessoas, e cada uma tem o mesmo tempo e a mesma vontade de jogar. Quando alguém trava o jogo, provoca no chat ou faz suspense com uma mão ganha, a mesa inteira perde.
+Porque o poker é um jogo social, mesmo na tela do celular. Você divide a mesa com até oito outros jogadores (mesas de 9), e cada uma tem o mesmo tempo e a mesma vontade de jogar. Quando alguém trava o jogo, provoca no chat ou faz suspense com uma mão ganha, a mesa inteira perde.
 
 Há também um lado prático. Mesas tranquilas rodam mais mãos por hora, e um ambiente sem brigas ajuda você a decidir com a cabeça fria. Quem se irrita com o chat costuma jogar pior nas mãos seguintes, e o poker já tem pressão suficiente sem isso.
 

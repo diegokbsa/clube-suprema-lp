@@ -3,7 +3,7 @@ title: "PLO (Pot Limit Omaha): regras, como jogar e diferenças para o Hold'em"
 seoTitle: "Como jogar Omaha poker (PLO): regras e diferenças"
 description: Como jogar Omaha poker (PLO). As 4 cartas na mão, a regra de usar exatamente duas, como calcular a aposta máxima do pot limit e os erros de quem vem do Hold'em.
 date: 2026-11-07
-updated: 2026-11-07
+updated: 2026-11-15
 cover: /img/blog/plo-pot-limit-omaha-regras/cover.jpg
 coverAlt: Cartas de poker e fichas com o título "PLO: regras do Omaha"
 tags: [regras, iniciantes, guia]
@@ -36,17 +36,13 @@ capaEtiqueta: Omaha
 
 Quem já joga Texas Hold'em costuma achar que o Omaha é "o mesmo jogo com mais cartas". É quase isso, e esse quase é onde mora o perigo. No **PLO (Pot Limit Omaha)** você recebe 4 cartas, mas só pode usar 2. E a aposta máxima tem um limite, o tamanho do pote. Este guia explica as regras, mostra como fazer a conta do pot limit e aponta os erros mais comuns de quem vem do Hold'em.
 
-:::nota Resposta curta
-No **PLO** cada jogador recebe **4 cartas fechadas** e a mesa tem **5 cartas comunitárias**, como no Hold'em. A mão final precisa usar **exatamente 2 cartas da mão e 3 da mesa**. A aposta máxima é o **tamanho do pote** (*pot limit*). O ranking das mãos é o mesmo, mas as mãos que ganham costumam ser bem mais fortes.
-:::
-
 ## O que é PLO no poker?
 
 **PLO** é a sigla de *Pot Limit Omaha*. "Omaha" é a variante: 4 cartas na mão e 5 na mesa. "Pot limit" é a regra de aposta: ninguém aposta mais do que o tamanho do pote.
 
 A estrutura da mão é a mesma do Texas Hold'em. Há small blind e big blind, quatro rodadas de apostas (pré-flop, flop, turn e river) e showdown no final. Se quiser revisar essa sequência, veja o guia de [pré-flop, flop, turn e river](/blog/flop-turn-river).
 
-O Omaha é a segunda modalidade mais conhecida do poker, atrás do Hold'em. No app Suprema Poker ele aparece no lobby como **PLO**, e também existe o **PLO5**, com 5 cartas na mão. As siglas da grade estão explicadas em [modalidades e formatos de torneio](/blog/formatos-de-torneio-poker-online).
+O Omaha é uma das variantes mais jogadas, depois do Hold'em. No app Suprema Poker ele aparece no lobby como **PLO**, e também existe o **PLO5**, com 5 cartas na mão. As siglas da grade estão explicadas em [modalidades e formatos de torneio](/blog/formatos-de-torneio-poker-online).
 
 ## A regra de ouro: exatamente 2 cartas da mão
 

@@ -3,7 +3,7 @@ title: "All-in e side pot no poker: como funciona o pote paralelo, com exemplos"
 seoTitle: "Side pot no poker: como funciona o pote paralelo no all-in"
 description: O que é side pot no poker, como montar o pote principal e os potes paralelos quando alguém vai all-in, quem pode ganhar cada um e exemplos com contas.
 date: 2026-11-06
-updated: 2026-11-06
+updated: 2026-11-15
 cover: /img/blog/all-in-e-side-pot/cover.jpg
 coverAlt: Cartas sobre feltro verde com o título "All-in e side pot"
 tags: [regras, iniciantes, guia]
@@ -35,10 +35,6 @@ capaEtiqueta: Side pot
 ---
 
 Um jogador empurra todas as fichas para o meio, dois adversários pagam e continuam apostando entre si. No final aparecem dois montes de fichas na mesa, e muita gente não sabe dizer quem pode ganhar cada um. Esse segundo monte é o **side pot**, o pote paralelo. Este guia explica de onde ele vem, como fazer a conta e quem disputa cada pote, com exemplos passo a passo.
-
-:::nota Resposta curta
-Quem vai **all-in** só pode ganhar de cada adversário **o mesmo tanto que colocou**. O que cabe nesse limite forma o **pote principal**, disputado por todos. O que os outros apostam acima disso vai para o **side pot**, disputado **só por quem continuou apostando**. No showdown, cada pote tem o seu vencedor.
-:::
 
 ## O que é all-in?
 

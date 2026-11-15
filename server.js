@@ -320,8 +320,13 @@ const SCRIPT_VISITAS = '<script>(function(){var n=navigator,d=document,l=locatio
 // Minilytics (mini.kbsa.app, fork sem cookie, pedido do Kbsa 09/11/2026): tag defer com o id do suprema.blog.
 const SCRIPT_MINILYTICS = '<script defer data-website-id="94260f12380fdbaa" src="https://mini.kbsa.app/js/script.js"></script>';
 // BigLinks na saída (lib/biglinks.js): botões de conversão por l.kbsa.app com src=suprema_<página>.
+// Elementos do modo teste só existem no HTML quando testMode está ligado (revisão de 15/11/2026: nada de "PIX simulado" no HTML público).
+const semModoTeste = (h) => (testMode ? h : h
+  .replace(/<div class="test-banner"[^>]*>[\s\S]*?<\/div>/, '')
+  .replace(/<button[^>]*data-action="fill-test"[^>]*>[\s\S]*?<\/button>/, '')
+  .replace(/<button[^>]*id="simulate-paid"[^>]*>[\s\S]*?<\/button>/, ''));
 const comVisitas = (html, pathname = '/') => {
-  const s = comBigLinks(html.replace(/<footer class="footer">[\s\S]*?<\/footer>/, renderFooter()), pathname);
+  const s = comBigLinks(semModoTeste(html).replace(/<footer class="footer">[\s\S]*?<\/footer>/, () => renderFooter()), pathname);
   const i = s.toLowerCase().lastIndexOf('</body>');
   const tags = SCRIPT_VISITAS + SCRIPT_MINILYTICS;
   return i < 0 ? s + tags : s.slice(0, i) + tags + s.slice(i);
@@ -355,7 +360,7 @@ function servePage(req, res, url) {
   if (p === '/blog/feed.xml') return send(renderFeed(), 'application/rss+xml; charset=utf-8');
   if (p === '/sitemap.xml') return send(renderSitemap(), 'application/xml; charset=utf-8');
   if (p === '/sobre') return html(renderAbout());
-  const legal = p.match(/^[/]([a-z]+)$/);
+  const legal = p.match(/^[/]([a-z-]+)$/);
   if (legal && LEGAL_PAGES[legal[1]]) return html(renderLegal(legal[1]));
   if (p === '/llms.txt') return send(renderLlms(), 'text/plain; charset=utf-8');
   if (p === '/llms-full.txt') return send(renderLlmsFull(), 'text/plain; charset=utf-8');

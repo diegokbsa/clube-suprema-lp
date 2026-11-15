@@ -3,7 +3,7 @@ title: "10 erros de iniciante no poker online e como evitar cada um"
 seoTitle: "Erros de iniciante no poker online: 10 e como evitar"
 description: Os 10 erros de iniciante no poker online que mais custam fichas, de jogar mãos demais a ignorar a posição, com exemplos e o jeito simples de corrigir cada um.
 date: 2026-11-11
-updated: 2026-11-11
+updated: 2026-11-15
 cover: /img/blog/erros-de-iniciante-no-poker/cover.jpg
 coverAlt: Cartas sobre feltro verde com o título "10 erros de iniciante no poker"
 tags: [iniciantes, regras, guia]
@@ -23,7 +23,7 @@ faq:
   - q: Jogar várias mesas ao mesmo tempo é ruim para iniciante?
     a: No começo, sim. Com várias mesas você decide mais rápido e presta menos atenção em cada mão. Comece com uma mesa e só aumente quando as decisões ficarem automáticas.
   - q: Par de ases sempre ganha?
-    a: Não. É a melhor mão inicial, mas perde mãos com frequência, principalmente contra muitos adversários ou em bordos que formam sequência ou flush. Ter A-A não obriga você a ir até o fim.
+    a: Não. É a melhor mão inicial, mas perde mãos com frequência, principalmente contra muitos adversários ou em mesas que formam sequência ou flush. Ter A-A não obriga você a ir até o fim.
   - q: Como saber se estou jogando mãos demais?
     a: Repare quantas vezes você entra no pote por vontade própria, sem contar os blinds. Se é em quase toda mão, está demais. Um plano por posição ajuda a fechar essa porta.
 capaTema: cartas
@@ -35,10 +35,6 @@ capaEtiqueta: Iniciantes
 ---
 
 Todo jogador de poker já cometeu os mesmos erros no começo. A boa notícia é que eles se repetem tanto que dá para listar e corrigir um por um. Nenhum deles exige matemática avançada: quase todos se resolvem com paciência, atenção à posição e um pouco mais de fold. Este guia mostra os **10 erros de iniciante no poker online** que mais custam fichas e o que fazer no lugar de cada um.
-
-:::nota Resposta curta
-O erro número um é **jogar mãos demais**. Depois vêm **ignorar a posição**, **pagar apostas só para ver o que acontece**, **se apaixonar por mãos boas** e **blefar contra quem paga tudo**. A correção de quase todos começa no mesmo lugar: **escolher melhor as mãos e dar mais fold**.
-:::
 
 ## 1. Jogar mãos demais
 
@@ -66,7 +62,7 @@ O contrário também acontece. O iniciante tem uma mão forte, fica com medo de 
 
 ## 5. Se apaixonar por mãos boas
 
-Par de ases é a melhor mão inicial do Hold'em, mas não ganha sempre. Se o bordo vem com quatro cartas do mesmo naipe, ou com uma sequência possível, e o adversário passa a apostar forte, o A-A pode estar atrás. O mesmo vale para top pair com kicker fraco.
+Par de ases é a melhor mão inicial do Hold'em, mas não ganha sempre. Se a mesa vem com quatro cartas do mesmo naipe, ou com uma sequência possível, e o adversário passa a apostar forte, o A-A pode estar atrás. O mesmo vale para top pair com kicker fraco.
 
 **Como evitar:** reavalie a mão a cada carta comunitária. Pergunte o que o adversário pode ter que ganha de você. Uma mão forte no pré-flop pode virar uma mão média no river. Se precisar revisar o que vence o quê, o [ranking das mãos do poker](/blog/ranking-de-maos-do-poker) ajuda.
 

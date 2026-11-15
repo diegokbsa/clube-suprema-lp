@@ -3,7 +3,7 @@ title: "Suprema Poker app: guia do lobby, mesa, fichas e configurações"
 seoTitle: "Suprema Poker app: guia do lobby, mesa e configurações"
 description: Guia do app Suprema Poker com imagens: o lobby do clube, como ler a mesa, onde ficam as ações de aposta, as fichas e as configurações úteis.
 date: 2026-10-23
-updated: 2026-10-27
+updated: 2026-11-15
 cover: /img/blog/guia-do-app-suprema-poker/cover.jpg
 coverAlt: Celular inclinado mostrando uma mesa de poker do app Suprema Poker com cartas e fichas
 tags: [app, guia, mesa]
@@ -12,7 +12,7 @@ faq:
   - q: Onde fica o meu ID da Suprema?
     a: No seu perfil dentro do app. É um número fixo da sua conta, pedido na primeira compra de fichas e sempre que você fala com o suporte.
   - q: Dá para jogar em mais de uma mesa ao mesmo tempo?
-    a: Em muitos clubes sim, alternando entre as mesas abertas. Comece com uma só até se acostumar com o tempo de decisão.
+    a: Sim, até 4 mesas ao mesmo tempo com uma conta, segundo a descrição do app na App Store. Comece com uma só até se acostumar com o tempo de decisão.
   - q: O que acontece se minha internet cair no meio da mão?
     a: O app dá um tempo para você reconectar. Se o tempo acabar, a mão é dada como desistida, mas as fichas continuam na mesa. Reabra o app e volte à mesa.
   - q: As fichas do clube valem dinheiro?
@@ -101,6 +101,10 @@ A versão para **Windows** tem as mesmas mesas e a mesma conta. A tela maior aju
 - Use a mesma conta em todos os aparelhos; criar contas duplicadas gera bloqueio.
 - Defina limites de tempo e de fichas antes de sentar. A Suprema mantém uma página sobre [jogo consciente](https://supremapoker.com.br/jogo-consciente) com orientações e canais de ajuda.
 - O app é para **maiores de 18 anos**.
+
+:::nota Jogo consciente
+O Suprema Poker e os clubes são para **maiores de 18 anos**. Defina antes quanto vai gastar e respeite o limite. A Suprema mantém uma página sobre [jogo consciente](https://supremapoker.com.br/jogo-consciente).
+:::
 
 :::cta Ainda não está no clube?
 O [link oficial](/baixar) abre o app já no Clube Suprema. Depois é só comprar fichas por PIX e escolher a mesa. Qualquer dúvida, o suporte 24h responde no WhatsApp.

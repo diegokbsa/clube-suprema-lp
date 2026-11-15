@@ -399,7 +399,8 @@ function initForm() {
   form.addEventListener('change', (e) => setFieldError(form, e.target.name, ''));
   form.addEventListener('submit', submitSignup);
 
-  $('[data-action="fill-test"]').hidden = !state.config.testMode;
+  const fillTest = $('[data-action="fill-test"]');
+  if (fillTest) fillTest.hidden = !state.config.testMode;
   if (hasFinePointer()) f.email.focus();
   trackOnce('signup_start', 'signup_start');
 }
@@ -669,7 +670,7 @@ async function initDeposit() {
     (v) => (/^\d{6,8}$/.test(onlyDigits(v)) ? '' : 'Digite os números do código que chegou no e-mail.')));
   $('#chips-form').addEventListener('submit', (e) => sendDepositNeed(e, 'validation', '#f-chips', '#chips-error', 'value',
     (v) => (/^\d+([.,]\d{1,2})?$/.test(String(v).trim()) ? '' : 'Digite o valor que chegou, como aparece no app (ex.: 3,5).')));
-  $('#simulate-paid').addEventListener('click', simulatePaid);
+  $('#simulate-paid')?.addEventListener('click', simulatePaid);
 
   const payer = $('#payer-form');
   setupPayerMasks(payer);
@@ -840,7 +841,8 @@ function showPix(d) {
   $('#pix-value').textContent = d.amount.toLocaleString('pt-BR', { minimumFractionDigits: 2 });
   $('#pix-code').value = d.copiaECola;
   renderQr(d.copiaECola);
-  $('#simulate-paid').hidden = !state.config.testMode;
+  const simPaid = $('#simulate-paid');
+  if (simPaid) simPaid.hidden = !state.config.testMode;
 
   const timer = $('#pix-timer');
   const tick = () => {
@@ -875,14 +877,14 @@ function updatePixStatus(d) {
   if (d.status === 'pago') {
     text.textContent = 'Pagamento recebido! Creditando suas fichas…';
     $('#pix-timer').textContent = '';
-    $('#simulate-paid').hidden = true;
+    { const sp = $('#simulate-paid'); if (sp) sp.hidden = true; }
   }
   if (d.status === 'expirado') {
     stopAll();
     storage.remove(KEYS.deposit);
     text.textContent = 'Este PIX expirou. Gere um novo.';
     $('#pix-timer').textContent = '';
-    $('#simulate-paid').hidden = true;
+    { const sp = $('#simulate-paid'); if (sp) sp.hidden = true; }
   }
   if (d.status === 'creditado') {
     stopAll();
@@ -1123,7 +1125,8 @@ async function init() {
     document.body.insertAdjacentHTML('afterbegin', '<div class="test-banner">Não foi possível carregar a página. Recarregue para tentar de novo.</div>');
     return;
   }
-  $('#test-banner').hidden = !state.config.testMode;
+  const testBanner = $('#test-banner');
+  if (testBanner) testBanner.hidden = !state.config.testMode;
   if (state.config.f24h?.guided) {
     FLOW_VIEWS.completo = jornada() === 'b'
       ? [['form', 'Cadastro'], ['fichas', 'Fichas 24h'], ['confirm', 'Entrar no clube'], ['compra', 'Comprar'], ['app', 'Jogar']]

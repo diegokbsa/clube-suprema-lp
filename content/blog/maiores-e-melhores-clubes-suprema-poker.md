@@ -3,7 +3,7 @@ title: "Maiores e melhores clubes do Suprema Poker: como escolher onde jogar"
 seoTitle: "Maiores e melhores clubes do Suprema Poker: como escolher"
 description: Os maiores e melhores clubes do Suprema Poker, por que o tamanho depende da liga, o que avaliar antes de depositar e onde fica o Clube Suprema.
 date: 2026-10-26
-updated: 2026-10-26
+updated: 2026-11-15
 cover: /img/blog/maiores-e-melhores-clubes-suprema-poker/cover.jpg
 coverAlt: Pilhas de fichas crescentes com o logo do Clube Suprema no topo e o selo da SX
 tags: [clube, guia, ligas]
@@ -23,10 +23,6 @@ faq:
 
 Quem procura os **maiores e melhores clubes do Suprema Poker** quer basicamente três coisas: mesa cheia a qualquer hora, pagamento sem dor de cabeça e alguém que responda quando algo dá errado. Este guia mostra o que realmente faz um clube ser grande, o que avaliar antes de depositar e onde o **Clube Suprema (ID 10001)** se encaixa.
 
-:::nota Resposta curta
-Não existe ranking oficial de clubes. O tamanho de verdade vem da **liga ou união**: clubes que dividem o mesmo pool de jogadores têm mais mesas e torneios maiores. O Clube Suprema faz parte da **SX** e da **Liga Suprema**.
-:::
-
 ## O que faz um clube ser "grande" no Suprema Poker
 
 No app, cada clube tem o próprio lobby, mas boa parte dos clubes não joga sozinha. Eles se organizam em **uniões**, também chamadas de ligas, que são grupos de clubes que **dividem o mesmo pool de jogadores**. Resultado: um jogador do clube A senta na mesma mesa que um jogador do clube B, e os torneios somam inscritos de todos os clubes da união.
@@ -37,7 +33,7 @@ Por isso, ao comparar clubes, olhe menos para "quantos membros tem o clube" e ma
 - **Quantas mesas aparecem no lobby** nos horários em que você joga.
 - **Quais torneios garantidos** rodam na semana e de que tamanho.
 
-A própria história do app mostra o peso das ligas. Segundo o [WorldPokerDeals](https://worldpokerdeals.com/rakeback-deals/suprema-poker-app-review), o Suprema Poker foi lançado em 2021 quando clubes brasileiros da **Liga Suprema** decidiram criar a própria plataforma. Hoje, de acordo com o [site oficial](https://www.supremapoker.net/), são mais de 500 clubes filiados em mais de 70 países.
+A própria história do app mostra o peso das ligas. Segundo o [WorldPokerDeals](https://worldpokerdeals.com/rakeback-deals/suprema-poker-app-review), o Suprema Poker, em resenha de site de afiliados em inglês, foi lançado em outubro de 2021 quando clubes brasileiros da **Liga Suprema** decidiram criar a própria plataforma. O site oficial diz que a Suprema foi fundada em 2018. Hoje, de acordo com o [site oficial](https://www.supremapoker.net/), são mais de 500 clubes filiados (o supremapoker.com.br informa 300 clubes filiados e download em mais de 70 países).
 
 :::cta Quer jogar em um clube de liga?
 O **Clube Suprema (ID 10001, agente 1439098)** faz parte da SX e da Liga Suprema. Pelo celular, abra o [link oficial](/baixar) e você já entra no clube.
@@ -47,13 +43,13 @@ O **Clube Suprema (ID 10001, agente 1439098)** faz parte da SX e da Liga Suprema
 
 ### Grupo SX e Liga Suprema
 
-A **SX** é um grupo de poker de Sorocaba (SP), criado em 2021 a partir da união de quatro clubes: DRX, Stars Poker, GoPro e Liga Máxima. Segundo o [site da SX](https://www.sx-co.com/sobre), são **mais de 100 clubes parceiros**, e o grupo se apresenta como o maior grupo de poker do Brasil e do mundo. Para os clubes, a SX oferece central de atendimento 24h, o **Fichas 24h** para depósitos e saques e o acesso à **Liga Suprema**, que ela descreve como a maior liga de poker do Brasil.
+A **SX** é um grupo de poker criado em 2021 a partir da união de quatro clubes: DRX, Stars Poker, GoPro e Liga Máxima. Segundo o [site da SX](https://www.sx-co.com/sobre), são **mais de 100 clubes parceiros**, e o grupo se apresenta como o maior grupo de poker do Brasil e do mundo. A empresa SX Intermediações S/A (CNPJ 43.787.764/0001-81) tem sede registrada em Belo Horizonte (MG), segundo a consulta pública de CNPJ de 15/11/2026; o rodapé do site da SX cita Sorocaba (SP), cidade onde fica a sede da própria Suprema Poker. Para os clubes, a SX oferece central de atendimento 24h, o **Fichas 24h** para depósitos e saques e o acesso à **Liga Suprema**, que ela descreve como a maior liga de poker do Brasil.
 
 O **Clube Suprema (ID 10001)** é um dos clubes do grupo SX e joga na Liga Suprema. Na prática, você entra por um clube só e encontra as mesas e os torneios da liga.
 
 ### H2 Club
 
-Outro nome que aparece muito nas buscas é o **H2 Club**, de São Paulo, que o [Lance](https://www.lance.com.br/poquer/club-tera-programacao-especial-durante-carnaval.html) descreve como o maior clube de poker da América Latina. As edições da **Suprema Poker Series** rodaram dentro do H2Club no app. Explicamos como funciona o H2 e o pool da Suprema em [ID do clube H2 no Suprema Poker e o pool da Liga Suprema](/blog/id-clube-h2-suprema-poker-pool-liga-suprema).
+Outro nome que aparece muito nas buscas é o **H2 Club**, de São Paulo, que o [Lance](https://www.lance.com.br/poquer/club-tera-programacao-especial-durante-carnaval.html) descrevia, em matéria de 25/02/2019, como o maior clube de poker da América Latina. As edições da **Suprema Poker Series** rodaram dentro do H2Club no app. Explicamos como funciona o H2 e o pool da Suprema em [ID do clube H2 no Suprema Poker e o pool da Liga Suprema](/blog/id-clube-h2-suprema-poker-pool-liga-suprema).
 
 Fora os nomes famosos, a maioria dos clubes grandes é grande **por estar em uma liga forte**. É o caso dos clubes do grupo SX na Liga Suprema, que dividem o pool e por isso têm ação em horários em que um clube isolado ficaria vazio.
 
@@ -71,19 +67,7 @@ Use esta lista antes de comprar fichas em qualquer clube. Dê um ponto para cada
 | Faz parte de uma **liga ou união**? | Define quantas mesas e torneios você vai encontrar. |
 | Os torneios têm **restrição de GPS, IP e aparelho**? | Dificulta conluio e contas duplicadas. |
 
-Seis ou sete pontos: clube sólido. Menos de quatro: procure outro.
-
-## Como o Clube Suprema se sai nessa lista
-
-| Critério | Clube Suprema |
-|---|---|
-| ID do clube e do agente | **10001** e **1439098**, informados em todo lugar |
-| App | Link oficial do Suprema Poker, que abre o app já no convite |
-| Pagamento | PIX da conta no seu CPF, pelo Fichas 24h |
-| Saque | Na chave PIX do seu CPF |
-| Suporte | Central 24h no WhatsApp, em português, inglês e espanhol |
-| Grupo e liga | Grupo **SX** (mais de 100 clubes parceiros) e **Liga Suprema**, com mesas compartilhadas |
-| Modalidades | NLH, PLO, torneios, sit & go e [Spin Suprema](/blog/spin-suprema-como-funciona-e-primeiro-grande-ganhador) |
+Esta pontuação é uma sugestão editorial nossa, não um padrão do mercado.
 
 :::cta Entre agora no Clube Suprema
 Clube **10001**, agente **1439098**. No celular, toque no [link oficial](/baixar). No computador, siga o [tutorial para baixar no PC, notebook ou MacBook](/blog/como-baixar-suprema-poker-no-pc) e entre com o ID.

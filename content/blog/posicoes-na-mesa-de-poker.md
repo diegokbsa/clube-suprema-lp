@@ -2,7 +2,7 @@
 title: "Posições no poker: botão, blinds, UTG, hijack e cutoff"
 description: As posições da mesa de poker explicadas com tabela e exemplo: botão, small e big blind, UTG, hijack e cutoff, e por que falar por último vale tanto.
 date: 2026-11-01
-updated: 2026-11-01
+updated: 2026-11-15
 cover: /img/blog/posicoes-na-mesa-de-poker/cover.jpg
 coverAlt: Mesa de poker com as posições marcadas e o título "Posições na mesa de poker"
 tags: [regras, iniciantes, guia]
@@ -16,7 +16,7 @@ passos:
   - Do flop em diante, fala primeiro quem está à esquerda do botão e o botão fala por último.
 faq:
   - q: Qual é a melhor posição no poker?
-    a: O botão. Do flop em diante ele é o último a falar em todas as rodadas de apostas, então decide depois de ver o que todos fizeram. Por isso é a posição em que dá para jogar mais mãos com lucro.
+    a: O botão. Do flop em diante ele é o último a falar em todas as rodadas de apostas, então decide depois de ver o que todos fizeram. Por isso é a posição em que dá para jogar mais mãos de forma lucrativa na média (não em cada mão).
   - q: O que significa UTG no poker?
     a: UTG vem de "under the gun", algo como "na mira". É o jogador sentado à esquerda do big blind, o primeiro a falar no pré-flop. Como ainda falta todo mundo agir depois dele, é a posição em que se joga menos mãos.
   - q: O que é cutoff e hijack?
@@ -34,10 +34,6 @@ capaEtiqueta: Posições
 ---
 
 Duas pessoas podem receber as mesmas cartas na mesma mesa e tomar decisões opostas, e as duas estarem certas. A diferença é a **posição**: o lugar de cada um em relação ao botão do dealer. Ela define quem fala primeiro e quem fala por último, e por isso é um dos conceitos que mais pesam no Texas Hold'em. Este guia mostra o nome de cada posição, onde ela fica e o que muda no seu jogo.
-
-:::nota Resposta curta
-A posição é o seu lugar em relação ao **botão**. À esquerda do botão ficam o **small blind** e o **big blind**; à esquerda do big blind fica o **UTG**, o primeiro a falar no pré-flop. As cadeiras logo antes do botão são o **hijack** e o **cutoff**. Quanto mais perto do botão, mais tarde você fala e mais mãos pode jogar.
-:::
 
 ## O que é posição no poker
 

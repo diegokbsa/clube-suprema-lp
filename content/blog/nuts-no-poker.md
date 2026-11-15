@@ -3,7 +3,7 @@ title: "O que é nuts no poker e como saber se a sua mão é a melhor possível"
 seoTitle: "O que é nuts no poker e como achar a melhor mão possível"
 description: O que é ter o nuts no poker, como descobrir a melhor mão possível em qualquer mesa, por que o nuts muda a cada rua e o que são nut flush e second nuts.
 date: 2026-11-07
-updated: 2026-11-07
+updated: 2026-11-15
 cover: /img/blog/nuts-no-poker/cover.jpg
 coverAlt: Cartas sobre feltro verde com o título "Nuts no poker"
 tags: [regras, iniciantes, guia]
@@ -35,10 +35,6 @@ capaEtiqueta: Melhor mão
 ---
 
 Você já ouviu alguém dizer que "estava com o nuts" e não entendeu? A palavra aparece o tempo todo no chat, nos vídeos e nas conversas sobre mãos. **Nuts** é a melhor mão possível com as cartas que estão na mesa. Saber reconhecer o nuts ajuda a apostar com confiança quando você tem a melhor mão e a frear quando a mesa permite combinações que batem a sua.
-
-:::nota Resposta curta
-**Nuts** é a **melhor mão possível** com as cartas da mesa naquele momento. Quem tem o nuts **não perde**, no máximo **divide o pote**. Para achá-lo, olhe a mesa e confira, de cima para baixo no ranking, se dá straight flush, quadra, full house, flush e sequência. O nuts **muda a cada carta nova**.
-:::
 
 ## O que é ter o nuts?
 

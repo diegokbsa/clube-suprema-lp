@@ -3,7 +3,7 @@ title: "Mãos iniciais no poker: quais jogar no pré-flop, por posição"
 seoTitle: "Mãos iniciais no poker: quais jogar no pré-flop"
 description: Quais mãos iniciais jogar no Texas Hold'em, com tabela por posição, a diferença entre mão do mesmo naipe e de naipes diferentes e os erros mais comuns.
 date: 2026-11-08
-updated: 2026-11-08
+updated: 2026-11-15
 cover: /img/blog/maos-iniciais-texas-holdem/cover.jpg
 coverAlt: Duas cartas sobre feltro verde com o título "Mãos iniciais no poker"
 tags: [regras, iniciantes, guia]
@@ -35,10 +35,6 @@ capaEtiqueta: Pré-flop
 ---
 
 No Texas Hold'em a decisão que você mais vai tomar é a do pré-flop: jogar ou largar as duas cartas que acabou de receber. Ela parece pequena, mas define quase tudo o que vem depois. Quem entra em mãos demais passa a noite em situações difíceis. Quem escolhe bem as **mãos iniciais** começa cada pote com vantagem. Este guia mostra quais mãos jogar, como a posição muda essa lista e os erros que mais custam fichas.
-
-:::nota Resposta curta
-**Mãos iniciais** são as duas cartas de cada jogador no pré-flop. As mais fortes são os **pares altos** (A-A, K-K, Q-Q) e as **cartas altas juntas**, como A-K. Jogue **poucas mãos nas posições iniciais** e **mais mãos no cutoff e no botão**. Quando a mão não está na sua faixa, o certo é o **fold**.
-:::
 
 ## Quantas mãos iniciais existem
 
@@ -125,6 +121,8 @@ Mesmas cartas, decisões diferentes. O que mudou foi quantos jogadores ainda pod
 ## Jogue com limite
 
 Poker é jogo para **maiores de 18 anos**. Escolher bem as mãos iniciais melhora as suas decisões, mas não garante resultado: a sorte das cartas sempre conta, e até A-A perde mãos. Defina antes quanto tempo e quanto dinheiro vai usar em cada sessão e pare quando chegar ao limite.
+
+Como conferimos: 1.326 é o número de combinações de 2 cartas num baralho de 52 (52 × 51 ÷ 2); os 169 tipos são 13 pares + 78 mãos do mesmo naipe + 78 de naipes diferentes. A tabela por posição é uma referência editorial nossa, um ponto de partida e não um padrão do mercado.
 
 :::cta Pronto para colocar em prática?
 Com a tabela na cabeça, falta só a mesa. Veja [como entrar no Clube Suprema](/blog/como-entrar-no-clube-suprema) ou [entre direto pelo link](/baixar).

@@ -3,7 +3,7 @@ title: "Showdown no poker: quem mostra as cartas primeiro e quando dá para esco
 seoTitle: "Showdown no poker: quem mostra as cartas primeiro"
 description: Regras do showdown no poker. Quem mostra as cartas primeiro, quando dá para esconder a mão perdedora, o que muda no all-in e por que as cartas falam.
 date: 2026-11-06
-updated: 2026-11-06
+updated: 2026-11-15
 cover: /img/blog/showdown-quem-mostra-primeiro/cover.jpg
 coverAlt: Cartas sobre feltro verde com o título "Showdown no poker"
 tags: [regras, iniciantes, guia]
@@ -35,10 +35,6 @@ capaEtiqueta: Showdown
 ---
 
 A última carta caiu, as apostas acabaram e ainda tem gente na mão. Agora vem o **showdown**, a hora de mostrar as cartas. É um momento rápido, mas cheio de dúvidas: quem vira primeiro? Dá para esconder a mão que perdeu? E se alguém estiver all-in? Este guia explica a ordem do showdown, o que é permitido e os erros que fazem jogador perder pote que era dele.
-
-:::nota Resposta curta
-No showdown, mostra primeiro **quem fez a última aposta ou o último aumento**. Se todos passaram no river, mostra primeiro o jogador **mais à esquerda do botão** que ainda está na mão. Quem vê que perdeu pode, em geral, **descartar as cartas sem mostrar**. Quando alguém está **all-in** e não há mais apostas, as mãos costumam ser abertas na hora.
-:::
 
 ## O que é showdown no poker?
 

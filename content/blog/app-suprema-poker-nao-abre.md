@@ -3,7 +3,7 @@ title: "App Suprema Poker não abre? Como resolver, reinstalar e voltar ao clube
 seoTitle: "App Suprema Poker não abre? Como resolver e reinstalar"
 description: O que fazer quando o app Suprema Poker não abre, fecha sozinho ou trava no Android, iPhone e PC, e como reinstalar sem perder a conta.
 date: 2026-10-26
-updated: 2026-10-26
+updated: 2026-11-15
 cover: /img/blog/app-suprema-poker-nao-abre/cover.jpg
 coverAlt: Celular com o app Suprema Poker e um ícone de recarregar, com o texto Reinstalar e entrar no clube 10001
 tags: [app, suporte, instalação]
@@ -29,7 +29,7 @@ faq:
     a: Às vezes a atualização não termina direito. Reinicie o aparelho e, se não resolver, desinstale e instale de novo pela loja ou pelo endereço oficial.
 ---
 
-O **app Suprema Poker não abre**, fecha sozinho ou fica parado na tela de carregamento? Na grande maioria dos casos o problema se resolve em poucos minutos, e **reinstalar não apaga a sua conta nem as suas fichas**. Este guia mostra o que testar primeiro, como reinstalar no Android, no iPhone e no PC e como voltar para o **Clube Suprema (ID 10001, agente 1439098)**.
+O **app Suprema Poker não abre**, fecha sozinho ou fica parado na tela de carregamento? Na maioria dos casos, atualizar e reiniciar resolve, e **reinstalar não apaga a sua conta nem as suas fichas**. Este guia mostra o que testar primeiro, como reinstalar no Android, no iPhone e no PC e como voltar para o **Clube Suprema (ID 10001, agente 1439098)**.
 
 :::nota Antes de tudo
 A sua conta, os seus clubes e o seu saldo ficam no **servidor**, não no aparelho. Por isso dá para reinstalar sem medo: é só entrar de novo com o mesmo e-mail e senha.
@@ -105,6 +105,10 @@ Ainda não é do Clube Suprema? É o mesmo caminho: com o app funcionando, entre
 Se você fez o teste rápido e reinstalou e o app ainda não abre, chame o **suporte 24h no WhatsApp**. Informe o modelo do aparelho, o sistema, a versão do app e, se tiver, uma foto da mensagem de erro. Muitas vezes é instabilidade momentânea do servidor, e o suporte avisa quando normaliza.
 
 Outras dúvidas de conta, fichas e saque estão nas [perguntas frequentes do suporte](/blog/perguntas-frequentes-suporte).
+
+:::nota Jogo consciente
+O Suprema Poker e os clubes são para **maiores de 18 anos**. Defina antes quanto vai gastar e respeite o limite. A Suprema mantém uma página sobre [jogo consciente](https://supremapoker.com.br/jogo-consciente).
+:::
 
 :::cta App funcionando? Hora de jogar
 Entre no **Clube Suprema** com o **ID 10001** e o **agente 1439098**: PIX no seu CPF pelo Fichas 24h, mesas da Liga Suprema e suporte 24h. No celular, toque no [link oficial](/baixar).

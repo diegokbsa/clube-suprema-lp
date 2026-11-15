@@ -3,11 +3,11 @@ title: "Limp no poker: o que é e por que só pagar o big blind costuma ser erro
 seoTitle: "O que é limp no poker? Por que costuma ser erro"
 description: O que é limp no poker, por que entrar só pagando o big blind costuma custar fichas, quando ele faz sentido e como atacar quem dá limp, com exemplos.
 date: 2026-11-14
-updated: 2026-11-14
+updated: 2026-11-15
 cover: /img/blog/limp-no-poker/cover.jpg
 coverAlt: Mesa de poker sobre fundo preto com o título "Limp no poker"
 tags: [regras, iniciantes, guia]
-resumo: Limp é entrar na mão antes do flop só pagando o valor do big blind, sem aumentar. Na maior parte das situações é um erro, porque o limp nunca ganha o pote antes do flop, deixa o big blind ver o flop de graça e costuma levar a potes com vários jogadores, onde mãos médias sofrem. A alternativa padrão é abrir com um aumento ou largar. O limp faz mais sentido no small blind, em alguns torneios com stack curto e como over-limp com mãos especulativas em mesas muito passivas.
+resumo: Limp é entrar na mão antes do flop só pagando o valor do big blind, sem aumentar. Na maior parte das situações é um erro, porque o limp quase nunca ganha o pote antes do flop, deixa o big blind ver o flop de graça e costuma levar a potes com vários jogadores, onde mãos médias sofrem. A alternativa padrão é abrir com um aumento ou largar. O limp faz mais sentido no small blind, em alguns torneios com stack curto e como over-limp com mãos especulativas em mesas muito passivas.
 passosTitulo: O que fazer antes do flop quando ninguém entrou ainda
 passos:
   - Olhe a sua posição e a sua mão. Se ela é boa o bastante para jogar dali, abra com um aumento de 2 a 3 big blinds.
@@ -34,10 +34,6 @@ capaEtiqueta: Limp
 
 A mesa larga até você, a mão parece mais ou menos e você só paga o big blind para ver o flop "barato". Essa jogada tem nome: **limp**. É uma das mais comuns entre iniciantes e uma das que mais custam fichas sem fazer barulho. Este guia explica **o que é limp no poker**, por que ele costuma ser um erro, as poucas situações em que faz sentido e como aproveitar quando outro jogador dá limp na sua frente.
 
-:::nota Resposta curta
-**Limp** é entrar na mão antes do flop pagando só o **big blind**, sem aumentar. Quase sempre é melhor **abrir com um aumento ou largar**: o limp nunca ganha o pote antes do flop, deixa o big blind jogar de graça e leva a potes com vários jogadores. Exceções: **completar no small blind**, alguns spots de **torneio com stack curto** e o **over-limp** em posição em mesas muito passivas.
-:::
-
 ## O que é limp, exatamente
 
 Antes do flop, quem age primeiro tem três escolhas: largar, pagar o big blind ou aumentar. Pagar o big blind quando ninguém aumentou é o limp. Se você está na mesa de 1/2, por exemplo, o limp é colocar 2 fichas e passar a vez.
@@ -53,7 +49,7 @@ Se as ações básicas ainda confundem, o post sobre [check, call, raise e fold]
 
 ## Por que o limp costuma ser um erro
 
-### 1. Ele nunca ganha o pote antes do flop
+### 1. Ele quase nunca ganha o pote antes do flop
 
 Quando você abre com um aumento, existe uma chance real de todos largarem e o pote ser seu ali mesmo. Com limp, isso não acontece: o big blind pode simplesmente dar check e ver o flop. Você abre mão de um jeito inteiro de ganhar fichas.
 

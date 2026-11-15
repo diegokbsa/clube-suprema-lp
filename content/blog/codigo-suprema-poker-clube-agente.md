@@ -3,7 +3,7 @@ title: "Código promocional do Suprema Poker existe? O que é o código do clube
 seoTitle: "Código promocional Suprema Poker existe? Clube e agente"
 description: Não há código promocional oficial do Suprema Poker com bônus. O que chamam de código é o ID do clube e do agente: veja como usar e fugir de golpes.
 date: 2026-10-30
-updated: 2026-10-30
+updated: 2026-11-15
 cover: /img/blog/codigo-suprema-poker-clube-agente/cover.jpg
 coverAlt: Cupom com o código do Clube Suprema, ID do clube 10001 e ID do agente 1439098, sobre fundo preto e dourado
 tags: [clube, primeiros passos, fichas]
@@ -32,13 +32,9 @@ faq:
 
 Quem busca **código promocional do Suprema Poker**, **código de convite** ou até "supremapix código promocional" quer, quase sempre, duas coisas: um código para entrar em um clube e um jeito de pagar as fichas por PIX. A resposta curta: o "código" do Suprema Poker não é um cupom de desconto, é o **ID do clube** e o **ID do agente**. Veja o que cada número faz, como usar o código do **Clube Suprema (clube 10001, agente 1439098)** e como reconhecer quem promete "código de bônus".
 
-:::nota Em uma frase
-O código que os clubes passam é o **ID do clube** mais o **ID do agente**. Ele serve para entrar no clube e não dá bônus. No Clube Suprema: clube **10001**, agente **1439098**.
-:::
-
 ## Existe código promocional no Suprema Poker?
 
-Não encontramos nenhum código promocional oficial da Suprema que dê bônus, fichas grátis ou desconto. Faz sentido pelo jeito como o app funciona: o Suprema Poker é a plataforma, e quem vende e paga as fichas é cada **clube**, pelo agente ou pelo canal de pagamento que ele usa. Por isso, o que corre por aí com o nome de código é, na prática, o convite de um clube.
+Não encontramos, em 15/11/2026, nenhum código promocional oficial da Suprema que dê bônus, fichas grátis ou desconto. Faz sentido pelo jeito como o app funciona: o Suprema Poker é a plataforma, e quem vende e paga as fichas é cada **clube**, pelo agente ou pelo canal de pagamento que ele usa. Por isso, o que corre por aí com o nome de código é, na prática, o convite de um clube.
 
 Duas coisas costumam confundir:
 

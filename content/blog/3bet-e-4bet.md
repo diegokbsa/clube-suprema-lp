@@ -3,10 +3,11 @@ title: "3-bet e 4-bet no poker: o que são e quando usar antes do flop"
 seoTitle: "O que é 3-bet e 4-bet no poker? Quando usar"
 description: O que é 3-bet e 4-bet no poker, por que o nome conta as apostas, que mãos usar, que tamanho escolher e como responder, com exemplos e contas.
 date: 2026-11-13
-updated: 2026-11-13
+updated: 2026-11-15
 cover: /img/blog/3bet-e-4bet/cover.jpg
 coverAlt: Mesa de poker sobre fundo preto com o título "3-bet e 4-bet"
 tags: [regras, iniciantes, guia]
+relacionados: [o-que-e-range, continuation-bet-c-bet, maos-iniciais-texas-holdem]
 resumo: 3-bet é o primeiro reaumento antes do flop, feito em cima de quem abriu a mão com um aumento. 4-bet é o reaumento seguinte, em resposta ao 3-bet. O nome conta as apostas da rodada, e o big blind já é a primeira. Use o 3-bet por valor com mãos fortes e, com cuidado, como blefe com algumas mãos que ainda jogam bem quando pagas. O tamanho mais comum fica perto de três vezes o aumento em posição e um pouco mais fora de posição.
 passosTitulo: Como decidir um 3-bet em três perguntas
 passos:
@@ -33,10 +34,6 @@ capaEtiqueta: 3-bet
 ---
 
 Alguém aumenta antes do flop e você tem uma mão boa. Pagar ou aumentar de novo? Esse reaumento tem nome: **3-bet**. E quando quem abriu a mão aumenta mais uma vez, isso é um **4-bet**. São duas das jogadas que mais mudam o tamanho dos potes no pré-flop, e entender quando usá-las separa quem só paga de quem toma a iniciativa. Este guia explica **o que é 3-bet**, o que é 4-bet, que mãos usar, que tamanho escolher e como reagir quando o reaumento vem contra você.
-
-:::nota Resposta curta
-**3-bet** é o primeiro reaumento antes do flop, em cima de quem abriu com um aumento. **4-bet** é o reaumento por cima do 3-bet. Use o 3-bet por **valor** com pares altos e AK e, com moderação, como **blefe** com mãos que ainda jogam bem quando pagas. Tamanho comum: perto de **3 vezes** o aumento em posição e de **3,5 a 4 vezes** fora de posição.
-:::
 
 ## Por que se chama 3-bet?
 
@@ -111,6 +108,8 @@ O tamanho do 4-bet costuma ficar entre **2,2 e 2,5 vezes** o 3-bet quando você 
 Esses vícios custam caro principalmente nos potes grandes, que é onde o 3-bet leva a mão.
 
 O 3-bet e o 4-bet são ferramentas para tomar decisões melhores ao longo de muitas mãos, não uma garantia de resultado em nenhuma delas. Poker é para **maiores de 18 anos**. Antes de jogar, defina quanto tempo e quanto dinheiro vai usar e pare quando chegar ao limite.
+
+Como conferimos: o 3-bet de 8 para ganhar 4 pede 8 ÷ (4 + 8) = 66,7% de sucesso, na conta de aposta ÷ (pote + aposta).
 
 :::cta Quer treinar o 3-bet numa mesa de verdade?
 Agora que você sabe quando reaumentar antes do flop, falta praticar. Veja [como entrar no Clube Suprema](/blog/como-entrar-no-clube-suprema) ou [entre direto pelo link](/baixar).

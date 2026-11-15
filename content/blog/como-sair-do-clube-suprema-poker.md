@@ -3,7 +3,7 @@ title: "Como sair do clube no Suprema Poker: saldo, passo a passo e como entrar 
 seoTitle: "Como sair do clube no Suprema Poker sem perder o saldo"
 description: Como sair de um clube no Suprema Poker sem perder fichas: saque o saldo antes, ache a opção no app, fale com o agente e entre em outro clube.
 date: 2026-10-27
-updated: 2026-10-27
+updated: 2026-11-15
 cover: /img/blog/como-sair-do-clube-suprema-poker/cover.jpg
 coverAlt: Cartão de um clube antigo com saldo zerado e uma seta de saída, ao lado do cartão do Clube Suprema ID 10001
 tags: [clube, guia, fichas]
@@ -31,10 +31,6 @@ faq:
 ---
 
 Quer **sair de um clube no Suprema Poker**, trocar de clube ou só limpar a sua lista? Dá para fazer, mas a ordem importa: **primeiro o saldo, depois a saída**. As fichas de um clube só valem dentro dele, então quem sai com saldo fica dependendo do clube para recuperar o valor. Este guia mostra o que fazer com as fichas, onde procurar a opção no app, quem pode tirar você do clube e como entrar em outro, como o **Clube Suprema (ID 10001, agente 1439098)**.
-
-:::nota Em uma frase
-Saque o saldo, confira no **Caixa** do clube que ele zerou e só então saia. Para entrar em outro clube você **não precisa** sair do atual: a mesma conta fica em vários clubes.
-:::
 
 ## Antes de sair: o que acontece com o saldo
 
@@ -66,7 +62,7 @@ A Suprema não publica um passo a passo oficial para sair de um clube, e o nome 
 <!-- CAPTURA SUGERIDA: menu ou configurações do clube com a opção de sair em destaque (arquivo /img/blog/como-sair-do-clube-suprema-poker/sair-do-clube.webp, alt "Opção de sair do clube no app Suprema Poker") -->
 
 :::dica Não achou a opção?
-Há jogadores que relatam não encontrar a opção de sair no app. Nesse caso, peça ao **agente que te atende** ou ao **dono do clube** para tirar você da lista, informando o seu **ID da Suprema**, que fica no seu perfil.
+Se você não encontrar a opção de sair no app, peça ao **agente que te atende** ou ao **dono do clube** para tirar você da lista, informando o seu **ID da Suprema**, que fica no seu perfil.
 :::
 
 ## Quem pode tirar você de um clube
@@ -94,7 +90,7 @@ São três coisas diferentes, que costumam se confundir:
 
 **Clube criado sem querer** é comum: o app deixa qualquer pessoa criar um clube grátis, e muita gente toca em criar quando queria entrar. Se aparecer um clube vazio com o seu nome, foi isso. Procure a opção de excluir nas configurações dele e, para entrar no clube certo, use a busca de clubes com o ID de quem te convidou. O [guia dos clubes do Suprema Poker](/blog/clubes-suprema-poker) explica a diferença entre criar e entrar.
 
-**Excluir a conta** é definitivo. A política de privacidade da Suprema prevê o pedido de encerramento da conta, e jogadores relatam que o app pede para sair de todos os clubes antes. Em um atendimento público, a Suprema pediu uma foto da conta logada mostrando o ID, os clubes vinculados e a data e a hora atuais para dar andamento à exclusão.
+**Excluir a conta** é definitivo. A política de privacidade da Suprema prevê o pedido de encerramento da conta. O passo a passo exato pode mudar: peça-o à Suprema pelo e-mail oficial antes de sair de qualquer clube.
 
 ## Como entrar em outro clube
 

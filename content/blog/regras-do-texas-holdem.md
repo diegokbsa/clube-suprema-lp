@@ -3,7 +3,7 @@ title: "Regras do Texas Hold'em passo a passo: blinds, apostas e showdown"
 seoTitle: "Regras do Texas Hold'em: blinds, apostas e showdown"
 description: Como funciona uma mão de Texas Hold'em do começo ao fim: botão, blinds, as quatro rodadas de aposta, all-in, pote paralelo e showdown.
 date: 2026-10-31
-updated: 2026-10-31
+updated: 2026-11-15
 cover: /img/blog/regras-do-texas-holdem/cover.jpg
 coverAlt: Mesa de poker com cartas e fichas e o título "Regras do Texas Hold'em"
 tags: [regras, iniciantes, guia]
@@ -22,7 +22,7 @@ faq:
   - q: Quem começa a falar em cada rodada?
     a: No pré-flop, o primeiro a agir é o jogador à esquerda do big blind. Do flop em diante, começa o primeiro jogador ainda na mão à esquerda do botão.
   - q: Qual é o aumento mínimo no Texas Hold'em?
-    a: No no limit, o aumento precisa ser pelo menos do tamanho da aposta ou do aumento anterior. Se alguém apostou 100, o próximo aumento leva o total a pelo menos 200. Não há limite máximo além das suas fichas.
+    a: Nas mesas no limit, o aumento precisa ser pelo menos do tamanho da aposta ou do aumento anterior. Se alguém apostou 100, o próximo aumento leva o total a pelo menos 200. Não há limite máximo além das suas fichas.
   - q: O que acontece quando alguém vai all-in com menos fichas?
     a: Ele disputa só a parte do pote que conseguiu cobrir. O que os outros apostarem além disso forma um pote paralelo, que só eles disputam.
   - q: Preciso mostrar as cartas se todos desistirem?
@@ -36,10 +36,6 @@ capaEtiqueta: Passo a passo
 ---
 
 O Texas Hold'em é a modalidade de poker mais jogada do mundo, e a maioria das mesas e torneios do poker online é dela. As regras cabem numa página: duas cartas na mão, cinco na mesa, quatro rodadas de aposta. Este guia mostra uma mão inteira, do botão ao showdown, com exemplos e os detalhes que confundem quem está começando.
-
-:::nota Resposta curta
-Cada jogador recebe **2 cartas fechadas** e a mesa abre **5 cartas comunitárias**. Antes de tudo, dois jogadores pagam os **blinds**. Há **quatro rodadas de aposta**: pré-flop, flop, turn e river. Quem sobrar no fim mostra as cartas no **showdown**, e vence a **melhor mão de 5 cartas** entre as 7 disponíveis.
-:::
 
 ## Qual é o objetivo do Texas Hold'em?
 

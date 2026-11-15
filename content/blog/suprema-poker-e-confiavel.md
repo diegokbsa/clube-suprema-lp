@@ -3,7 +3,7 @@ title: "Suprema Poker é confiável? Como funcionam o app, o clube e o agente"
 seoTitle: "Suprema Poker é confiável? App, clube e agente explicados"
 description: O que conferir antes de jogar no Suprema Poker: app oficial, quem vende as fichas, clube e agente, PIX no seu CPF, sinais de golpe e jogo consciente.
 date: 2026-10-30
-updated: 2026-10-30
+updated: 2026-11-15
 cover: /img/blog/suprema-poker-e-confiavel/cover.jpg
 coverAlt: Escudo dourado com o logo do Clube Suprema e o selo 18+, com as etiquetas App oficial, Clube e agente e PIX no seu CPF
 tags: [clube, guia, segurança]
@@ -34,13 +34,9 @@ faq:
 
 **Suprema Poker é confiável?** É a pergunta certa antes do primeiro PIX. A resposta tem duas partes, porque no Suprema Poker o app e o dinheiro passam por mãos diferentes: o app é a plataforma, e quem vende as fichas e paga os saques é o **clube**, pelo agente ou pelo canal de pagamento dele. Este guia explica quem faz o quê, o que dá para conferir no app e no clube, os sinais de golpe e as regras de jogo consciente e de idade. No fim, aplicamos o checklist ao **Clube Suprema (ID 10001)**.
 
-:::nota Resposta curta
-O app é **oficial** e vem da Google Play, da App Store ou do site oficial. O dinheiro passa pelo **clube**. Por isso, confira o clube: ID do clube e do agente informados, PIX que sai e volta para o **seu CPF** e suporte que responde. App e clubes são só para **maiores de 18 anos**.
-:::
-
 ## O que é o Suprema Poker
 
-O Suprema Poker é um app de poker online do grupo **Suprema Gaming**, criado em 2018. Segundo o [site oficial](https://www.supremapoker.net/), é o maior app de poker B2B da América Latina, com **mais de 500 clubes filiados em mais de 70 países**. B2B quer dizer que o app atende clubes, e cada clube atende os próprios jogadores.
+O Suprema Poker é um app de poker online do grupo **Suprema Gaming**, criado em 2018. Segundo o [site oficial](https://www.supremapoker.net/), é o maior app de poker B2B da América Latina, com **mais de 500 clubes filiados** (o supremapoker.com.br informa 300 clubes filiados e download em mais de 70 países). B2B quer dizer que o app atende clubes, e cada clube atende os próprios jogadores.
 
 Os downloads oficiais são estes:
 
@@ -126,12 +122,14 @@ Jogar com segurança também é saber quando parar. O que vale no Suprema Poker 
 - **Defina um limite antes de sentar**, de tempo e de dinheiro, e respeite.
 - **Faça pausas** e **não tente recuperar perdas**.
 - **Jogue só com dinheiro que não faz falta** para contas e compromissos.
-- **Autoexclusão**: se quiser parar de vez, peça ao suporte da Suprema. Ela encerra a conta de forma definitiva. O e-mail publicado no [site oficial](https://supremapoker.com.br/) é **contato@suprema.group**.
-- A Suprema mantém uma página sobre [jogo consciente](https://supremapoker.com.br/jogo-consciente), com orientações e canais de ajuda.
+- **Encerrar a conta**: o pedido de encerramento é feito à Suprema (a política de privacidade da Suprema prevê esse pedido). O e-mail publicado no [site oficial](https://supremapoker.com.br/) é **contato@suprema.group**. Não encontramos, na página oficial de jogo consciente, um canal de autoexclusão: confirme o caminho com a Suprema antes de contar com ele.
+- A Suprema mantém uma página sobre [jogo consciente](https://supremapoker.com.br/jogo-consciente), com dicas de limite e verificação de CPF. Para apoio fora do app, veja a nossa página de [jogo responsável](/jogo-responsavel).
 
 Se a ideia é só trocar de clube, e não parar, veja [como sair do clube no Suprema Poker sem perder o saldo](/blog/como-sair-do-clube-suprema-poker).
 
-## O checklist aplicado ao Clube Suprema
+## O Clube Suprema segundo o próprio clube (autoavaliação)
+
+**Atenção:** quem escreve este guia é o próprio Clube Suprema, que é do grupo SX, o mesmo do Fichas 24h. Por isso esta tabela é uma autoavaliação, não uma avaliação independente. Em 15/11/2026, as notas públicas das lojas eram: Suprema Poker, 2,7 na Google Play (4,37 mil avaliações) e 4,1 na App Store (1,8 mil); Fichas 24h, 4,2 na Google Play (82 avaliações) e 3,9 na App Store (15), com relatos de usuários sobre depósito e saque não creditados. Leia as avaliações antes de depositar.
 
 | Critério | Clube Suprema |
 |---|---|

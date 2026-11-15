@@ -3,7 +3,7 @@ title: "Kicker no poker: a carta que desempata mãos iguais, com exemplos"
 seoTitle: "Kicker no poker: a carta que desempata mãos iguais"
 description: O que é kicker no poker, em quais mãos ele conta, como desempatar par, trinca e dois pares, quando a mesa joga e o erro do ás com kicker fraco.
 date: 2026-11-01
-updated: 2026-11-01
+updated: 2026-11-15
 cover: /img/blog/kicker-no-poker/cover.jpg
 coverAlt: Cartas sobre feltro verde com o título "Kicker no poker"
 tags: [regras, iniciantes, guia]
@@ -35,10 +35,6 @@ capaEtiqueta: Desempate
 ---
 
 Você tem um ás, a mesa abre outro ás e você vai até o fim confiante. No showdown, o adversário também mostra um ás, e o pote vai para ele. O motivo quase sempre é o **kicker**: a carta que sobra na mão e decide quem ganha quando os dois têm a mesma combinação. Entender o kicker evita perder fichas em mãos que pareciam boas e ajuda a escolher melhor com quais cartas entrar no pote.
-
-:::nota Resposta curta
-**Kicker** é a carta que fica **fora da combinação principal** e entra só para completar as 5 cartas da mão. Ele desempata mãos do mesmo tipo: com o mesmo par, ganha quem tem a carta seguinte mais alta. **Sequência, flush e full house não têm kicker**, e o **naipe nunca desempata**.
-:::
 
 ## O que é kicker no poker?
 

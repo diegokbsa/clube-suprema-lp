@@ -3,7 +3,7 @@ title: "Clubes do Suprema Poker: como funcionam, ID, como entrar e sair"
 seoTitle: "Clubes do Suprema Poker: como funcionam, ID, entrar e sair"
 description: Guia dos clubes do Suprema Poker: o que é um clube, onde achar o ID, como entrar pelo link ou ID, jogar em vários clubes e escolher um confiável.
 date: 2026-10-26
-updated: 2026-10-26
+updated: 2026-11-15
 cover: /img/blog/clubes-suprema-poker/cover.jpg
 coverAlt: Cartões de clubes do Suprema Poker empilhados, com o Clube Suprema ID 10001 em destaque
 tags: [clube, primeiros passos, guia]
@@ -25,13 +25,9 @@ faq:
 
 No Suprema Poker ninguém joga "solto": toda mesa pertence a um **clube**. Entender isso resolve a maioria das dúvidas de quem está começando, como onde fica o ID, por que o saldo some ao trocar de clube ou por que você criou um clube sem querer. Este guia explica como os clubes funcionam e como entrar, jogar em mais de um e sair. No fim, mostra como escolher um clube confiável.
 
-:::nota Em uma frase
-O app é a plataforma, e o clube é a sala. Você baixa o Suprema Poker uma vez, entra no clube pelo ID ou pelo link e joga com as fichas daquele clube.
-:::
-
 ## O que é um clube no Suprema Poker
 
-O Suprema Poker é um app do grupo Suprema Gaming, criado em 2018. Segundo o [site oficial](https://www.supremapoker.net/), é o maior app de poker B2B da América Latina, com **mais de 500 clubes filiados em mais de 70 países**. B2B quer dizer que o app atende clubes, e cada clube atende os próprios jogadores.
+O Suprema Poker é um app do grupo Suprema Gaming, criado em 2018. Segundo o [site oficial](https://www.supremapoker.net/), é o maior app de poker B2B da América Latina, com **mais de 500 clubes filiados** (o supremapoker.com.br informa 300 clubes filiados e download em mais de 70 países). B2B quer dizer que o app atende clubes, e cada clube atende os próprios jogadores.
 
 Na prática, cada clube tem:
 

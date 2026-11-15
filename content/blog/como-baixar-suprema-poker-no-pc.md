@@ -3,7 +3,7 @@ title: "Como baixar o Suprema Poker no PC, notebook e MacBook (passo a passo)"
 seoTitle: "Como baixar o Suprema Poker no PC, notebook e MacBook"
 description: Como baixar e instalar o Suprema Poker no PC e no notebook com Windows, o que fazer no MacBook, criar a conta e entrar no Clube Suprema.
 date: 2026-10-26
-updated: 2026-10-26
+updated: 2026-11-15
 cover: /img/blog/como-baixar-suprema-poker-no-pc/cover.jpg
 coverAlt: Notebook com a mesa do app Suprema Poker na tela e o selo de download, com os textos PC, notebook e MacBook
 tags: [app, instalação, pc]
@@ -43,7 +43,7 @@ Jogar o **Suprema Poker no PC ou no notebook** tem vantagens claras: tela grande
 
 ## Passo 1: baixar o instalador oficial
 
-1. Abra o endereço oficial para Windows: [security.supremapoker.com.br/download](https://security.supremapoker.com.br/download). Ele baixa o arquivo **supremapoker.exe**, o mesmo indicado no [site oficial do Suprema Poker](https://www.supremapoker.net/).
+1. Abra o endereço oficial para Windows: [security.supremapoker.com.br/download](https://security.supremapoker.com.br/download), o mesmo que o site oficial supremapoker.net indica. Só prossiga se o arquivo veio desse endereço. Ele baixa o arquivo **supremapoker.exe**, o mesmo indicado no [site oficial do Suprema Poker](https://www.supremapoker.net/).
 2. Espere o download terminar. O arquivo vai para a pasta **Downloads**.
 
 :::dica Baixe só do endereço oficial
@@ -123,6 +123,10 @@ Clube **10001**, agente **1439098**, do grupo SX e da Liga Suprema, com mesas co
 | O app abre e fecha, ou não abre | Reinstale pelo endereço oficial. O passo a passo está em [app Suprema Poker não abre](/blog/app-suprema-poker-nao-abre). |
 | "Clube não encontrado" | Confira os números: clube **10001** e agente **1439098**, sem espaços. |
 | A mesa trava no notebook | Ligue na tomada, ative o alto desempenho e feche programas pesados. |
+
+:::nota Jogo consciente
+O Suprema Poker e os clubes são para **maiores de 18 anos**. Defina antes quanto vai gastar e respeite o limite. A Suprema mantém uma página sobre [jogo consciente](https://supremapoker.com.br/jogo-consciente).
+:::
 
 :::cta Tudo pronto
 Baixe, instale e entre no **Clube Suprema** com o **ID 10001** e o **agente 1439098**. No celular, o atalho é o [link oficial](/baixar), que já abre o app no clube.

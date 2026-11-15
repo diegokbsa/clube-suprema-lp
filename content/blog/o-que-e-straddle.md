@@ -3,7 +3,7 @@ title: "O que é straddle no poker: a aposta cega extra antes das cartas"
 seoTitle: "O que é straddle no poker e como funciona"
 description: Straddle no poker explicado. Quem pode fazer, quanto vale, quem fala por último no pré-flop, o que é Mississippi straddle e quando vale a pena.
 date: 2026-11-06
-updated: 2026-11-06
+updated: 2026-11-15
 cover: /img/blog/o-que-e-straddle/cover.jpg
 coverAlt: Mesa de poker com fichas na frente do UTG e o título "O que é straddle"
 tags: [regras, iniciantes, guia]
@@ -36,10 +36,6 @@ capaEtiqueta: Straddle
 ---
 
 Você sentou numa mesa de cash game e, antes das cartas, o jogador à esquerda do big blind colocou o dobro do big blind na mesa. Ninguém pediu, ninguém obrigou. Isso é um **straddle**. Ele parece só mais uma aposta, mas muda a ordem do pré-flop, o tamanho dos potes e até a profundidade das fichas na mesa. Este guia explica o que é, quem pode fazer, como fica a ação e quando costuma valer a pena.
-
-:::nota Resposta curta
-**Straddle** é uma aposta cega **voluntária**, feita antes das cartas, em geral pelo jogador **à esquerda do big blind** e no valor de **2 big blinds**. Ela vira uma espécie de terceiro blind: quem quer jogar precisa pagar pelo menos esse valor. Em troca, quem fez o straddle **fala por último no pré-flop**. É comum em cash game ao vivo, raro em torneio, e **só vale quando a mesa permite**.
-:::
 
 ## O que é straddle no poker?
 

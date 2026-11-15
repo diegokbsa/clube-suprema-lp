@@ -3,11 +3,11 @@ title: "Check, bet, call, raise e fold: as ações do poker e quando usar"
 seoTitle: "Check, bet, call, raise e fold: as ações do poker"
 description: O que é check no poker e o que fazem bet, call, raise, fold e all-in, quando usar cada ação, aumento mínimo, check-raise e os erros de iniciante.
 date: 2026-10-31
-updated: 2026-10-31
+updated: 2026-11-15
 cover: /img/blog/acoes-do-poker-check-call-raise-fold/cover.jpg
 coverAlt: Cartas e fichas na mesa de poker com o título "Check, call, raise e fold"
 tags: [regras, iniciantes, guia]
-resumo: No poker, na sua vez você pode passar (check), apostar (bet), pagar (call), aumentar (raise) ou desistir (fold). Check e bet só existem quando ninguém apostou ainda na rodada. Com aposta na sua frente, as opções passam a ser call, raise ou fold. All-in é apostar todas as suas fichas, e no no limit você pode fazer isso a qualquer momento.
+resumo: No poker, na sua vez você pode passar (check), apostar (bet), pagar (call), aumentar (raise) ou desistir (fold). Check e bet só existem quando ninguém apostou ainda na rodada. Com aposta na sua frente, as opções passam a ser call, raise ou fold. All-in é apostar todas as suas fichas, e, nas mesas no limit, você pode fazer isso a qualquer momento.
 passosTitulo: Como decidir a sua ação em 4 passos
 passos:
   - Veja se já houve aposta nesta rodada.
@@ -35,10 +35,6 @@ capaEtiqueta: As 5 ações
 
 Toda decisão no poker se resume a poucas palavras: **check, bet, call, raise e fold**. Elas aparecem nos botões do app, nas transmissões e nas conversas de mesa, quase sempre em inglês. Este guia explica o que cada ação faz, quando ela está disponível e como pensar antes de clicar.
 
-:::nota Resposta curta
-**Check** é passar sem pôr fichas. **Bet** é apostar primeiro. **Call** é pagar a aposta de alguém. **Raise** é aumentar essa aposta. **Fold** é desistir da mão. Check e bet só existem quando **ninguém apostou** ainda na rodada; com aposta na sua frente, você escolhe entre **call, raise ou fold**.
-:::
-
 ## Quais são as ações do poker?
 
 São cinco, mais o all-in, que é um caso especial de aposta:
@@ -50,7 +46,7 @@ São cinco, mais o all-in, que é um caso especial de aposta:
 | Call | Pagar | Iguala a aposta que está na sua frente | Quando há aposta |
 | Raise | Aumentar | Iguala e põe mais fichas | Quando há aposta |
 | Fold | Desistir | Larga as cartas e sai da mão | Sempre (com aposta faz sentido; sem aposta, o check é grátis) |
-| All-in | Tudo | Aposta todas as suas fichas | A qualquer momento no no limit |
+| All-in | Tudo | Aposta todas as suas fichas | A qualquer momento nas mesas no limit |
 
 A regra que organiza tudo é simples: **primeiro veja se já houve aposta nesta rodada**. Isso define quais botões fazem sentido.
 
@@ -80,7 +76,7 @@ Pagar é a ação que mais engana iniciantes. Parece seguro, mas quem só paga n
 
 ## Raise: aumentar a aposta
 
-**Raise** é igualar a aposta e colocar mais em cima. No no limit, o aumento precisa ser **pelo menos do tamanho da aposta ou do aumento anterior**.
+**Raise** é igualar a aposta e colocar mais em cima. Nas mesas no limit, o aumento precisa ser **pelo menos do tamanho da aposta ou do aumento anterior**.
 
 Exemplo, com blinds 50/100:
 
@@ -100,7 +96,7 @@ Uma dica prática: quando ninguém apostou, **não dê fold, dê check**. Passar
 
 ## All-in: apostar tudo
 
-**All-in** é colocar todas as suas fichas no pote. No no limit, você pode fazer isso a qualquer momento da sua vez, como bet, call ou raise.
+**All-in** é colocar todas as suas fichas no pote. Nas mesas no limit, você pode fazer isso a qualquer momento da sua vez, como bet, call ou raise.
 
 Você nunca é obrigado a sair da mão por falta de fichas. Se a aposta for maior que o que você tem, pode pagar com tudo e disputa só a parte do pote que cobriu. O resto vira um **pote paralelo** entre os outros, como explicado nas [regras do Texas Hold'em](/blog/regras-do-texas-holdem).
 

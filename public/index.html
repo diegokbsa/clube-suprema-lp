@@ -8,6 +8,7 @@
        rolagem, ou 3 s depois da página carregar, para não disputar o celular com o topo da página (PageSpeed 69).
        As chamadas ficam na fila do dataLayer até ele chegar; quem sai antes disso sem tocar na tela não é contado. -->
   <script>
+    window.clubeConsent = function () { try { return localStorage.getItem('clube.consent') === 'yes'; } catch (e) { return false; } };
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
@@ -17,13 +18,14 @@
     (function (w, d) {
       var ok = 0;
       function go() {
-        if (ok) return;
+        if (ok || !w.clubeConsent()) return;
         ok = 1;
         var s = d.createElement('script');
         s.async = true;
         s.src = 'https://www.googletagmanager.com/gtag/js?id=AW-970454313';
         d.head.appendChild(s);
       }
+      w.addEventListener('clube:consent', go);
       ['scroll', 'pointerdown', 'keydown', 'touchstart'].forEach(function (e) { w.addEventListener(e, go, { once: true, passive: true }); });
       if (d.readyState === 'complete') setTimeout(go, 3000);
       else w.addEventListener('load', function () { setTimeout(go, 3000); });
@@ -33,8 +35,9 @@
        primeira interação (rolar, tocar, clicar ou tecla): os cookies de terceiros do Clarity derrubavam "Boas práticas" do PageSpeed
        para 79. Custo aceito: não grava quem sai sem interagir. As chamadas feitas antes ficam na fila clarity.q. -->
   <script>(function(c,l,a,r,i){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};var ok=0;
-  function go(){if(ok)return;ok=1;var t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+  function go(){if(ok||!c.clubeConsent())return;ok=1;var t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
   var y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);}
+  c.addEventListener('clube:consent',go);
   ['scroll','pointerdown','keydown','touchstart'].forEach(function(e){c.addEventListener(e,go,{once:true,passive:true});});
   })(window,document,"clarity","script","z41gk7muip");</script>
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -42,7 +45,7 @@
   <meta name="description" content="Entre no Clube Suprema (ID 10001) do Suprema Poker em 2 minutos: baixe o app pelo nosso link, compre fichas por PIX e jogue com suporte 24h.">
   <meta name="theme-color" content="#000000">
   <meta property="og:title" content="Clube Suprema · Entre no clube e jogue">
-  <meta property="og:description" content="Ação a qualquer hora, fichas por PIX na hora e suporte 24h. Abra o app pelo nosso link e você já cai dentro do clube.">
+  <meta property="og:description" content="Ação a qualquer hora, fichas por PIX pelo Fichas 24h e atendimento 24h. Abra o app pelo nosso link e você já cai dentro do clube.">
   <meta property="og:locale" content="pt_BR">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://suprema.blog/">
@@ -118,8 +121,8 @@
             <p class="lead reveal">Baixe o app Suprema Poker grátis, compre fichas por PIX e jogue no Clube Suprema, com suporte 24h.</p>
           </div>
           <div data-flow="completo" hidden>
-            <h1 class="reveal">Um cadastro só. PIX aqui mesmo. <span class="accent">Você já entra no clube.</span></h1>
-            <p class="lead reveal">Crie sua conta só com e-mail e senha, deposite por PIX nesta página e abra o app já dentro do clube.</p>
+            <h1 class="reveal">Cadastro aqui; o PIX é no Fichas 24h. <span class="accent">Depois você entra no clube.</span></h1>
+            <p class="lead reveal">Crie sua conta só com e-mail e senha, pague o PIX no Fichas 24h (plataforma de terceiros) e abra o app já dentro do clube.</p>
           </div>
           <div class="hero-cta reveal">
             <button class="btn btn-lg" type="button" data-action="start">Quero jogar <span class="btn-arrow" aria-hidden="true">→</span></button>
@@ -127,7 +130,7 @@
           </div>
           <p class="hero-note reveal">Grátis · leva 2 minutos · somente +18</p>
           <ul class="trust reveal" aria-label="Vantagens">
-            <li><span aria-hidden="true">⚡</span> PIX na hora</li>
+            <li><span aria-hidden="true">⚡</span> PIX pelo Fichas 24h</li>
             <li><span aria-hidden="true">💬</span> Suporte 24h</li>
             <li><span aria-hidden="true">🔞</span> Somente +18</li>
           </ul>
@@ -152,7 +155,7 @@
 
     <div class="ticker" aria-hidden="true">
       <div class="ticker-track">
-        <span>Ação a qualquer hora</span><span>PIX na hora</span><span>Suporte 24h</span><span>Clube <b data-bind="club-id">10001</b></span><span>NLH · PLO</span><span>Spin Suprema · até <b>50.000×</b></span><span>Somente +18</span>
+        <span>Ação a qualquer hora</span><span>PIX pelo Fichas 24h</span><span>Suporte 24h</span><span>Clube <b data-bind="club-id">10001</b></span><span>NLH · PLO</span><span>Spin Suprema · até <b>50.000×</b></span><span>Somente +18</span>
       </div>
     </div>
 
@@ -235,8 +238,8 @@
       </div>
       <ul class="stats">
         <li class="glow-card reveal"><strong class="stat-num">2<small>min</small></strong><span>para entrar no clube pelo nosso link</span></li>
-        <li class="glow-card reveal"><strong class="stat-num">24<small>h</small></strong><span>suporte humano no WhatsApp, todo dia</span></li>
-        <li class="glow-card reveal"><strong class="stat-num">PIX</strong><span>fichas na hora pelo Fichas 24h; saque na chave do seu CPF</span></li>
+        <li class="glow-card reveal"><strong class="stat-num">24<small>h</small></strong><span>atendimento no WhatsApp, todos os dias</span></li>
+        <li class="glow-card reveal"><strong class="stat-num">PIX</strong><span>fichas pelo Fichas 24h, normalmente em minutos; saque na chave do seu CPF</span></li>
         <li class="glow-card reveal"><strong class="stat-num">+18</strong><span>app oficial Suprema Poker e jogo consciente</span></li>
       </ul>
       <ul class="trust-row reveal" aria-label="Confiança">
@@ -268,7 +271,7 @@
         <details class="reveal">
           <summary>Como compro fichas?</summary>
           <p data-flow="convite guiado">Pelo Fichas 24h, por PIX. Na primeira compra, informe o seu ID da Suprema (fica no seu perfil no app), o clube <strong data-bind="club-id">10001</strong> e o agente <strong data-bind="agent-id">1439098</strong>.</p>
-          <p data-flow="completo" hidden>Você paga por PIX aqui na página. O pagamento é processado pelo Fichas 24h e as fichas caem na sua conta do app em instantes.</p>
+          <p data-flow="completo" hidden>Você paga o PIX no Fichas 24h, plataforma de terceiros. Normalmente as fichas caem em minutos; em casos raros, segundo o próprio Fichas 24h, pode levar até 2 horas.</p>
         </details>
         <details class="reveal">
           <summary>Como faço para sacar?</summary>
@@ -284,7 +287,7 @@
         </details>
         <details class="reveal" data-flow="completo" hidden>
           <summary>Minha senha fica guardada aqui?</summary>
-          <p>Não. Ela é usada só na hora de criar suas contas e não fica salva nesta página.</p>
+          <p>Não. Ela é usada só para criar suas contas e não é gravada em arquivo; fica na memória do servidor por até 30 minutos. Detalhes na <a href="/privacidade">política de privacidade</a>.</p>
         </details>
         <details class="reveal">
           <summary>Quem pode jogar?</summary>
@@ -352,7 +355,7 @@
       </div>
       <label class="check">
         <input type="checkbox" name="acceptedTerms" id="f-terms">
-        <span>Tenho 18 anos ou mais e aceito os termos de uso e a política de privacidade.</span>
+        <span>Tenho 18 anos ou mais e aceito os <a href="/termos" target="_blank" rel="noopener">termos de uso</a> e a <a href="/privacidade" target="_blank" rel="noopener">política de privacidade</a>.</span>
       </label>
       <small class="error" data-error="acceptedTerms"></small>
       <div class="form-error" id="form-error" role="alert" hidden></div>
@@ -416,7 +419,7 @@
       </div>
       <label class="check">
         <input type="checkbox" name="acceptedTerms" id="f-terms">
-        <span>Tenho 18 anos ou mais e aceito os termos de uso e a política de privacidade.</span>
+        <span>Tenho 18 anos ou mais e aceito os <a href="/termos" target="_blank" rel="noopener">termos de uso</a> e a <a href="/privacidade" target="_blank" rel="noopener">política de privacidade</a>.</span>
       </label>
       <small class="error" data-error="acceptedTerms"></small>
       <div class="form-error" id="form-error" role="alert" hidden></div>
@@ -626,7 +629,7 @@
         </li>
         <li class="card-inline" data-step="compra">
           <h3>Compre suas fichas por PIX</h3>
-          <p class="muted">No Fichas 24h, toque em depositar, escolha a sua conta do clube e o valor, e pague o QR Code no app do seu banco. As fichas caem na hora.</p>
+          <p class="muted">No Fichas 24h, toque em depositar, escolha a sua conta do clube e o valor, e pague o QR Code no app do seu banco. As fichas normalmente caem em minutos; em casos raros, segundo o próprio Fichas 24h, pode levar até 2 horas.</p>
           <a class="btn btn-block" id="f24h-buy" target="_blank" rel="noopener">Comprar fichas no Fichas 24h</a>
         </li>
       </ol>

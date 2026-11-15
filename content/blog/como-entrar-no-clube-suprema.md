@@ -2,7 +2,7 @@
 title: Como entrar no Clube Suprema pelo link ou com o ID do clube
 description: Duas formas de entrar no Clube Suprema no app Suprema Poker, com o ID do clube 10001 e do agente 1439098, e como confirmar que deu certo.
 date: 2026-10-23
-updated: 2026-10-26
+updated: 2026-11-15
 cover: /img/blog/como-entrar-no-clube-suprema/cover.jpg
 coverAlt: Ilustração com um celular abrindo o app e os números do clube 10001 e do agente 1439098
 tags: [clube, primeiros passos, app]
@@ -27,7 +27,7 @@ faq:
     a: Pelo Fichas 24h, com PIX da conta do seu próprio CPF. Na primeira compra, informe o seu ID da Suprema, o clube 10001 e o agente 1439098.
 ---
 
-No Suprema Poker os jogadores se organizam em **clubes**, e cada clube tem um número. O **Clube Suprema é o 10001**, e o agente que te coloca dentro dele é o **1439098**. Entrar leva menos de um minuto e pode ser feito de dois jeitos: pelo link oficial, que já traz os números preenchidos, ou digitando o ID dentro do app.
+No Suprema Poker os jogadores se organizam em **clubes**, e cada clube tem um número. O **Clube Suprema é o 10001**, e o agente que te coloca dentro dele é o **1439098**. Entrar costuma levar poucos minutos e pode ser feito de dois jeitos: pelo link oficial, que já traz os números preenchidos, ou digitando o ID dentro do app.
 
 :::nota Antes de começar
 Você precisa do app instalado e de uma conta criada com e-mail confirmado. Se ainda não fez isso, siga o [guia de instalação do Suprema Poker](/blog/como-instalar-app-suprema-poker) e volte aqui.
@@ -92,6 +92,10 @@ O passo a passo completo, com os erros mais comuns, está em [perguntas frequent
 ## Já tenho conta ou já jogo em outro clube
 
 Não precisa criar outra conta. O mesmo login serve para o Clube Suprema. Abra o nosso link com o app instalado ou entre com o ID: o clube 10001 passa a aparecer junto dos que você já tem. O saldo de fichas é separado por clube; o [guia dos clubes do Suprema Poker](/blog/clubes-suprema-poker) explica como jogar em vários clubes e como sair de um.
+
+:::nota Jogo consciente
+O Suprema Poker e os clubes são para **maiores de 18 anos**. Defina antes quanto vai gastar e respeite o limite. A Suprema mantém uma página sobre [jogo consciente](https://supremapoker.com.br/jogo-consciente).
+:::
 
 :::cta Pronto para entrar?
 Pelo celular, abra o [link oficial](/baixar) e aceite o convite. Pelo computador, use clube **10001** e agente **1439098**. Travou em algum passo? O suporte 24h no WhatsApp resolve com você, em português, inglês ou espanhol.

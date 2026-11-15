@@ -2,7 +2,7 @@
 title: "Blefe no poker: quando funciona e quando é melhor desistir"
 description: Como blefar no poker com critério, quantas vezes o blefe precisa funcionar, o que é semi-blefe e contra quem é melhor nem tentar, com exemplos.
 date: 2026-11-14
-updated: 2026-11-14
+updated: 2026-11-15
 cover: /img/blog/blefe-no-poker/cover.jpg
 coverAlt: Cartas sobre fundo preto com o título "Blefe no poker"
 tags: [regras, iniciantes, guia]
@@ -33,10 +33,6 @@ capaEtiqueta: Blefe
 ---
 
 O blefe é a jogada mais famosa do poker. É também a que mais faz iniciante perder fichas à toa. Muita gente acha que blefar é coragem: apostar alto e torcer. Na prática, um bom blefe é uma conta e uma história bem contada. Este guia mostra **como blefar no poker** com critério, quantas vezes o blefe precisa dar certo e quando é melhor simplesmente desistir da mão.
-
-:::nota Resposta curta
-**Blefe** é apostar com uma mão fraca para o adversário largar uma mão melhor. Ele funciona contra **poucos adversários**, contra quem **sabe largar** e quando a **história das suas apostas** faz sentido. Uma aposta de **meio pote** precisa que o adversário largue **33%** das vezes para empatar a conta. Contra quem paga tudo, não blefe.
-:::
 
 ## O que é blefe no poker?
 

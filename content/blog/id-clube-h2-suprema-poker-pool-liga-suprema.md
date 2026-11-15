@@ -3,7 +3,7 @@ title: "ID do clube H2 no Suprema Poker: como funciona o pool e a Liga Suprema"
 seoTitle: "ID do clube H2 no Suprema Poker: pool e Liga Suprema"
 description: Antes de procurar o ID do clube H2 no Suprema Poker: como entrar no H2Club, o que é o pool de jogadores e como as ligas dividem as mesas.
 date: 2026-10-26
-updated: 2026-10-26
+updated: 2026-11-15
 cover: /img/blog/id-clube-h2-suprema-poker-pool-liga-suprema/cover.jpg
 coverAlt: Diagrama do pool da Liga Suprema ligando vários clubes, com o Clube Suprema ID 10001 em destaque
 tags: [clube, ligas, guia]
@@ -29,7 +29,7 @@ O H2Club tem um caminho próprio de entrada, divulgado nas séries oficiais. For
 
 ## O H2 Club e o Suprema Poker
 
-O H2 Club é um clube de poker de São Paulo que o [Lance](https://www.lance.com.br/poquer/club-tera-programacao-especial-durante-carnaval.html) descreve como o maior da América Latina. No app, ele aparece como **H2Club**, e foi lá que rodaram edições da Suprema Poker Series.
+O H2 Club é um clube de poker de São Paulo que o [Lance](https://www.lance.com.br/poquer/club-tera-programacao-especial-durante-carnaval.html) descrevia, em matéria de 25/02/2019, como o maior da América Latina. No app, ele aparece como **H2Club**, e foi lá que rodaram edições da Suprema Poker Series.
 
 Na 5ª edição da série, a orientação publicada pelo [BNLData](https://bnldata.com.br/suprema-poker-series-no-h2poker-tera-r-50-milhoes-garantidos-em-premiacao/) foi esta:
 
@@ -60,9 +60,9 @@ O **Clube Suprema (ID 10001, agente 1439098)** faz parte da Liga Suprema e da SX
 
 ## A Liga Suprema e a SX
 
-A **Liga Suprema** é uma união de clubes com história no poker online brasileiro. Segundo o [WorldPokerDeals](https://worldpokerdeals.com/rakeback-deals/suprema-poker-app-review), foram clubes da Liga Suprema que decidiram criar a própria plataforma em 2021, e assim nasceu o app Suprema Poker. Hoje, de acordo com o [site oficial](https://www.supremapoker.net/), o app tem mais de 500 clubes filiados em mais de 70 países.
+A **Liga Suprema** é uma união de clubes com história no poker online brasileiro. Segundo o [WorldPokerDeals](https://worldpokerdeals.com/rakeback-deals/suprema-poker-app-review), foram clubes da Liga Suprema que decidiram criar a própria plataforma em 2021, e assim nasceu o app Suprema Poker. O site oficial, por outro lado, diz que a Suprema foi fundada em 2018: são duas fontes, e não conseguimos reconciliá-las. Hoje, de acordo com o [site oficial](https://www.supremapoker.net/), o app tem mais de 500 clubes filiados (o supremapoker.com.br informa 300 clubes filiados e download em mais de 70 países).
 
-A **SX** é um grupo de poker de Sorocaba (SP), criado em 2021 a partir da união de quatro clubes: DRX, Stars Poker, GoPro e Liga Máxima. Segundo o [site da SX](https://www.sx-co.com/sobre), são **mais de 100 clubes parceiros**, e o grupo se apresenta como o maior grupo de poker do Brasil e do mundo. Para os clubes, a SX oferece central de atendimento 24h, o **Fichas 24h** para depósitos e saques e o acesso à **Liga Suprema**, que ela descreve como a maior liga de poker do Brasil.
+A **SX** é um grupo de poker criado em 2021 a partir da união de quatro clubes: DRX, Stars Poker, GoPro e Liga Máxima. Segundo o [site da SX](https://www.sx-co.com/sobre), são **mais de 100 clubes parceiros**, e o grupo se apresenta como o maior grupo de poker do Brasil e do mundo. A empresa SX Intermediações S/A (CNPJ 43.787.764/0001-81) tem sede registrada em Belo Horizonte (MG), segundo a consulta pública de CNPJ de 15/11/2026; o rodapé do site da SX cita Sorocaba (SP), cidade onde fica a sede da própria Suprema Poker. Para os clubes, a SX oferece central de atendimento 24h, o **Fichas 24h** para depósitos e saques e o acesso à **Liga Suprema**, que ela descreve como a maior liga de poker do Brasil.
 
 O **Clube Suprema** é um dos clubes do grupo SX e joga na **Liga Suprema**. Para você, jogador, isso significa entrar por um clube só e encontrar mesas e torneios com jogadores de vários clubes.
 

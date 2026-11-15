@@ -3,7 +3,7 @@ title: "Projetos no poker: flush draw, sequência aberta e gutshot"
 seoTitle: "O que é gutshot no poker? Flush draw e projetos explicados"
 description: O que é gutshot, flush draw e sequência aberta no poker, quantos outs cada projeto tem e a chance real de fechar no turn e no river.
 date: 2026-11-12
-updated: 2026-11-12
+updated: 2026-11-15
 cover: /img/blog/projetos-flush-draw-gutshot/cover.jpg
 coverAlt: Cartas e fichas sobre fundo preto com o título "Projetos no poker"
 tags: [regras, iniciantes, guia]
@@ -33,10 +33,6 @@ capaEtiqueta: Outs
 ---
 
 O flop sai e a sua mão ainda não é nada, mas falta só uma carta para virar flush ou sequência. Essa mão incompleta tem nome: **projeto**, ou *draw* em inglês. Saber que tipo de projeto você tem é o primeiro passo para decidir se vale pagar uma aposta. Este guia explica **o que é gutshot**, flush draw e sequência aberta, quantos outs cada um tem e a chance real de fechar.
-
-:::nota Resposta curta
-**Flush draw**: quatro cartas do mesmo naipe, **9 outs**, cerca de **35%** do flop ao river. **Sequência aberta**: quatro cartas seguidas que fecham pelas duas pontas, **8 outs**, cerca de **31%**. **Gutshot**: sequência com uma carta faltando no meio, **4 outs**, cerca de **17%**. As chances de duas cartas valem só quando você verá o turn e o river sem pagar mais nada.
-:::
 
 ## O que é um projeto no poker?
 
@@ -76,7 +72,7 @@ Não conte a mesma carta duas vezes. O 6♠ e o J♠ já estão entre as 9 espad
 
 ## Backdoor: o projeto que precisa de duas cartas
 
-Um **backdoor** precisa que **o turn e o river** ajudem. Com três copas no flop, você precisa de copas nas duas cartas seguintes para fazer flush. A chance é de cerca de **4%** (10 em 47 no turn, depois 9 em 46 no river).
+Um **backdoor** precisa que **o turn e o river** ajudem. Com três copas entre as suas cartas e o flop (por exemplo, duas na mão e uma na mesa), você precisa de copas nas duas cartas seguintes para fazer flush. A chance é de cerca de **4%** (10 em 47 no turn, depois 9 em 46 no river).
 
 Sozinho, um backdoor quase nunca justifica pagar uma aposta. Ele serve de bônus: se você já tem outro motivo para continuar, ele soma alguma chance.
 

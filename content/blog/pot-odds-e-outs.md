@@ -3,10 +3,11 @@ title: "Pot odds e outs: como calcular a conta rápida para pagar ou largar"
 seoTitle: "Como calcular pot odds e outs no poker (com exemplos)"
 description: Como calcular pot odds e outs no poker em três passos, com a regra do 2 e do 4, tabela de apostas e exemplos de flush draw e gutshot.
 date: 2026-11-12
-updated: 2026-11-12
+updated: 2026-11-15
 cover: /img/blog/pot-odds-e-outs/cover.jpg
 coverAlt: Cartas sobre feltro verde com o título "Pot odds e outs"
 tags: [iniciantes, regras, guia]
+relacionados: [projetos-flush-draw-gutshot, probabilidades-no-poker, 3bet-e-4bet]
 resumo: Pot odds é a relação entre o que você precisa pagar e o tamanho do pote no fim da jogada. Para achar a chance mínima de vitória, divida o valor do call pelo pote final, já contando a aposta do adversário e o seu call. Outs são as cartas que ainda podem sair e completar a sua mão. Multiplique os outs por 2 com uma carta por vir, ou por 4 com duas cartas por vir e sem mais apostas, para estimar a sua chance. Se a sua chance for maior que a exigida pelo pote, o call se paga a longo prazo; se for menor, o fold é o caminho.
 passosTitulo: Como calcular pot odds e outs em três passos
 passos:
@@ -33,10 +34,6 @@ capaEtiqueta: Matemática
 ---
 
 Você tem quatro cartas do mesmo naipe depois do flop, o adversário aposta e a dúvida aparece: pagar para tentar o flush ou largar? A resposta não depende de palpite. Duas contas simples, **pot odds** e **outs**, dizem se o call vale a pena. Este guia mostra **como calcular pot odds e outs** de cabeça, com tabelas e exemplos de mesa.
-
-:::nota Resposta curta
-**Pot odds** = o seu call dividido pelo pote final (pote + aposta do adversário + o seu call). Esse número é a chance mínima de vitória de que você precisa. **Outs** são as cartas que completam a sua mão. Multiplique os outs por **2** com uma carta por vir e por **4** com duas cartas por vir sem mais apostas. Se a sua chance for **maior** que a exigida, pague. Se for **menor**, largue.
-:::
 
 ## O que são pot odds?
 
@@ -142,6 +139,8 @@ Use com cuidado:
 Saber [em que fase da mão você está](/blog/flop-turn-river) e quais [mãos iniciais](/blog/maos-iniciais-texas-holdem) levar ao flop deixa essas contas mais fáceis, porque você chega aos projetos com mãos melhores e em posição.
 
 A matemática melhora as decisões, mas não elimina a sorte de cada mão: um call certo perde muitas vezes, e um call errado às vezes ganha. O que conta é a soma de muitas decisões. Poker é para **maiores de 18 anos**. Defina antes quanto tempo e quanto dinheiro vai usar na sessão e pare quando chegar ao limite.
+
+Como conferimos: com duas cartas por vir, a chance de acertar é 1 − (cartas que não ajudam ÷ 47 × cartas que não ajudam menos 1 ÷ 46). Com 15 outs: 1 − (32 ÷ 47 × 31 ÷ 46) ≈ 54%.
 
 :::cta Quer treinar a conta numa mesa de verdade?
 Com pot odds e outs na cabeça, falta praticar. Veja [como entrar no Clube Suprema](/blog/como-entrar-no-clube-suprema) ou [entre direto pelo link](/baixar).

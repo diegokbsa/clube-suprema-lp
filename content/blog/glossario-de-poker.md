@@ -3,7 +3,7 @@ title: "Glossário de poker: os termos que você vai ouvir na mesa"
 seoTitle: "Termos de poker: glossário com o que cada palavra quer dizer"
 description: Termos de poker explicados em português. Blind, check, nuts, kicker, outs, tilt, bad beat, stack, ITM e outras palavras que aparecem na mesa e no chat.
 date: 2026-11-07
-updated: 2026-11-07
+updated: 2026-11-15
 cover: /img/blog/glossario-de-poker/cover.jpg
 coverAlt: Cartas de poker e fichas com o título "Glossário de poker"
 tags: [regras, iniciantes, guia]
@@ -28,10 +28,6 @@ capaEtiqueta: Termos
 ---
 
 Você senta na primeira mesa e, em poucos minutos, alguém escreve "nh" no chat, o adversário dá "check-raise" e outro reclama de "bad beat". O poker tem um vocabulário próprio, quase todo em inglês, e entender essas palavras é metade do caminho para entender o jogo. Este glossário reúne os **termos de poker** mais usados, separados por assunto, com uma explicação curta de cada um.
-
-:::nota Resposta curta
-Os **termos de poker** se dividem em cinco grupos: **ações** (check, bet, call, raise, fold), **posições** (botão, blinds, UTG, cutoff), **fases da mão** (pré-flop, flop, turn, river, showdown), **mãos e cartas** (nuts, kicker, outs, draw) e **gírias** (tilt, bad beat, fish). Saber os principais já basta para acompanhar a mesa e o chat.
-:::
 
 ## Ações: o que você faz na sua vez
 

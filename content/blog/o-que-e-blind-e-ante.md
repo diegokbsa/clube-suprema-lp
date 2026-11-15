@@ -2,7 +2,7 @@
 title: "O que é blind no poker: small blind, big blind e ante"
 description: Small blind, big blind e ante explicados com exemplo: quem paga, quanto, por que existem, como sobem no torneio e o que muda nas suas decisões.
 date: 2026-11-01
-updated: 2026-11-01
+updated: 2026-11-15
 cover: /img/blog/o-que-e-blind-e-ante/cover.jpg
 coverAlt: Mesa de poker com as fichas dos blinds e o título "Small blind, big blind e ante"
 tags: [regras, iniciantes, guia]
@@ -20,7 +20,7 @@ faq:
   - q: Qual a diferença entre blind e ante?
     a: O blind é pago só por dois jogadores e conta como aposta deles na rodada pré-flop. O ante é uma quantia menor que entra no pote antes das cartas, paga por todos ou só pelo big blind, e não conta como aposta de ninguém.
   - q: O que significa blinds 50/100?
-    a: Significa que o small blind é 50 e o big blind é 100. A aposta mínima para entrar na mão é 100, e os aumentos no no limit partem desse valor.
+    a: Significa que o small blind é 50 e o big blind é 100. A aposta mínima para entrar na mão é 100, e os aumentos nas mesas no limit partem desse valor.
   - q: O que é big blind ante?
     a: É o formato em que o jogador do big blind paga o ante de toda a mesa de uma vez, em vez de cada um pagar o seu. O pote começa do mesmo tamanho, mas o jogo fica mais rápido. É comum nos torneios atuais.
   - q: Os blinds sobem no cash game?
@@ -34,10 +34,6 @@ capaEtiqueta: Blinds
 ---
 
 Toda mão de Texas Hold'em começa com fichas na mesa antes de alguém ver uma carta sequer. Essas fichas são os **blinds** e, em muitos torneios, o **ante**. Parece detalhe, mas são eles que dão ritmo ao jogo, definem o tamanho da mesa e, no torneio, decidem quanto tempo você tem até precisar arriscar. Este guia explica quem paga cada um, quanto, por que eles existem e o que mudam nas suas decisões.
-
-:::nota Resposta curta
-**Small blind**: aposta obrigatória do primeiro jogador à esquerda do botão, em geral metade do big blind. **Big blind**: aposta obrigatória do segundo jogador à esquerda do botão, que vale como aposta mínima da mesa. **Ante**: quantia menor que entra no pote antes das cartas, paga por todos ou só pelo big blind. Todos existem para que sempre haja fichas em disputa.
-:::
 
 ## Quem paga o quê
 

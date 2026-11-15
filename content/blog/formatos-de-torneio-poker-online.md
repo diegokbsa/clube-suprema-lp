@@ -3,7 +3,7 @@ title: Modalidades e formatos de torneio no poker online: guia completo
 seoTitle: "Modalidades e formatos de torneio no poker online"
 description: Diferenças entre Hold'em e Omaha, cash game, Sit & Go, torneio e Spin, e o que são freezeout, re-entry, turbo, knockout, satélite e garantido.
 date: 2026-10-23
-updated: 2026-10-26
+updated: 2026-11-15
 cover: /img/blog/formatos-de-torneio-poker-online/cover.jpg
 coverAlt: Cartas e fichas sobre feltro verde com o título "Modalidades e formatos de torneio"
 tags: [torneios, regras, iniciantes]
@@ -70,7 +70,7 @@ Parecido com o re-entry, mas o **rebuy** acontece sem sair da mesa, enquanto voc
 
 ### Turbo e hyper-turbo
 
-O que muda é a **duração dos níveis de blind**. Em um torneio regular os níveis costumam durar de 10 a 15 minutos; no turbo, cerca de 5 a 6; no hyper, 2 a 3. Quanto mais rápido, menos espaço para jogo pós-flop e mais decisões de all-in. Bom para quem tem pouco tempo.
+O que muda é a **duração dos níveis de blind**. A duração do nível varia por torneio; confira a coluna Blinds da grade de [torneios](/torneios) (a grade de 14/11/2026 trazia níveis de 5 a 8 minutos nos torneios comuns). Quanto mais rápido, menos espaço para jogo pós-flop e mais decisões de all-in. Bom para quem tem pouco tempo.
 
 ### Knockout, bounty e PKO
 
@@ -90,7 +90,7 @@ Não é um formato de jogo, mas aparece em quase todo título: **GTD** é o valo
 
 ## Como ler a grade do app
 
-A ficha de um torneio no app traz quase tudo em uma linha. Exemplo de como interpretar:
+A ficha de um torneio no app traz quase tudo em uma linha. Exemplo ilustrativo (o nome do torneio é inventado) de como interpretar:
 
 | Campo | Exemplo | O que significa |
 |---|---|---|
@@ -113,6 +113,10 @@ Com esses números você estima a duração: um torneio com stack de 60K, blinds
 - **Quer jogar um evento maior gastando menos**: satélite.
 
 Seja qual for a escolha, defina antes quanto vai investir na sessão e não ultrapasse. Uma regra comum entre jogadores recreativos é não colocar em um único torneio mais do que uma pequena fração da banca reservada ao poker.
+
+:::nota Jogo consciente
+O Suprema Poker e os clubes são para **maiores de 18 anos**. Defina antes quanto vai gastar e respeite o limite. A Suprema mantém uma página sobre [jogo consciente](https://supremapoker.com.br/jogo-consciente).
+:::
 
 :::cta Quer ver a grade de hoje?
 A [grade de torneios de hoje da Liga Suprema](/torneios) mostra todos os torneios do dia com horário, buy-in, garantido, stack, blinds e late, atualizada ao longo do dia. Para jogar, [entre no clube pelo link](/baixar) ou [veja como entrar com o ID](/blog/como-entrar-no-clube-suprema).

@@ -3,7 +3,7 @@ title: "Probabilidades no poker: chances de par, trinca e flush (tabelas)"
 seoTitle: "Probabilidades no poker: chances de par, trinca e flush"
 description: As probabilidades do poker em tabelas simples. Chance de receber par, acertar trinca ou flush no flop e de cada mão aparecer até o river.
 date: 2026-11-12
-updated: 2026-11-12
+updated: 2026-11-15
 cover: /img/blog/probabilidades-no-poker/cover.jpg
 coverAlt: Cartas sobre feltro verde com o título "Probabilidades no poker"
 tags: [iniciantes, regras, guia]
@@ -33,10 +33,6 @@ capaEtiqueta: Matemática
 ---
 
 Você recebe 7-7, entra no pote e torce por um terceiro sete no flop. Vale a pena? Quantas vezes isso acontece de verdade? No poker, essa resposta não depende de sorte nem de feeling. Ela vem de **probabilidades** que qualquer pessoa consegue entender com uma conta de dividir. Este guia mostra as chances que mais aparecem na mesa de Texas Hold'em, em tabelas, e como usar cada número para decidir melhor.
-
-:::nota Resposta curta
-Você recebe **um par na mão** em cerca de **5,9%** das mãos (1 em 17). Com par na mão, a **trinca ou melhor no flop** sai em **11,8%** das vezes (1 em 8,5). Com duas cartas do mesmo naipe, o **flush no flop** sai só **0,84%** das vezes, mas um **flush draw** aparece em quase **11%** dos flops. Um flush draw no flop completa até o river em cerca de **35%** das vezes.
-:::
 
 ## Como funciona a probabilidade no poker
 
@@ -129,6 +125,8 @@ O jeito certo de usar esses números:
 4. **Depois da mão**, avalie a decisão, não o resultado. Uma jogada boa às vezes perde, e uma ruim às vezes ganha.
 
 Poker é para **maiores de 18 anos**. A matemática melhora as decisões, mas não elimina a variação de cada mão. Defina antes quanto tempo e quanto dinheiro vai usar na sessão e pare quando chegar ao limite.
+
+Como conferimos: um par na mão tem 13 pares × 6 combinações = 78 mãos; 78 ÷ 1.326 mãos possíveis de 2 cartas ≈ 5,9%.
 
 :::cta Quer ver esses números na mesa?
 Com as probabilidades na cabeça, falta praticar. Veja [como entrar no Clube Suprema](/blog/como-entrar-no-clube-suprema) ou [entre direto pelo link](/baixar).

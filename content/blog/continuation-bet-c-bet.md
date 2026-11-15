@@ -3,7 +3,7 @@ title: "C-bet no poker: quando apostar de novo no flop (continuation bet)"
 seoTitle: "O que é c-bet no poker? Quando apostar no flop"
 description: O que é c-bet no poker, quando a aposta de continuação no flop funciona, que tamanho usar e quando é melhor dar check, com exemplos e contas.
 date: 2026-11-13
-updated: 2026-11-13
+updated: 2026-11-15
 cover: /img/blog/continuation-bet-c-bet/cover.jpg
 coverAlt: Cartas sobre fundo preto com o título "C-bet no flop"
 tags: [regras, iniciantes, guia]
@@ -33,10 +33,6 @@ capaEtiqueta: C-bet
 ---
 
 Você aumentou antes do flop, um adversário pagou e o flop veio sem nada para você. E agora: aposta ou desiste? Essa aposta no flop, feita por quem aumentou no pré-flop, tem nome: **c-bet**, de *continuation bet*, ou aposta de continuação. É uma das jogadas mais comuns do poker e uma das mais mal usadas por iniciantes. Este guia explica **o que é c-bet**, quando ela funciona, que tamanho usar e quando é melhor dar check.
-
-:::nota Resposta curta
-**C-bet** é a aposta no flop de quem aumentou antes do flop. Ela funciona melhor contra **um adversário**, em **mesas secas** (sem projetos) e quando você está **em posição**. Uma c-bet de blefe de **um terço do pote** precisa que o adversário largue só **25%** das vezes para empatar a conta. Contra vários jogadores e em mesas molhadas, dê check com mais frequência.
-:::
 
 ## O que é c-bet no poker?
 
@@ -76,12 +72,7 @@ Há flops em que apostar sempre custa caro:
 
 O tamanho da aposta muda o quanto o blefe precisa funcionar. A conta é simples: aposta dividida por (pote + aposta).
 
-| Tamanho da c-bet | Exemplo (pote de 100) | O adversário precisa largar |
-|---|---|---|
-| Um terço do pote | 33 | 25% das vezes |
-| Metade do pote | 50 | 33% das vezes |
-| Dois terços do pote | 67 | 40% das vezes |
-| Pote inteiro | 100 | 50% das vezes |
+A conta é a mesma do blefe: quanto maior a aposta, mais vezes o adversário precisa largar para ela dar certo. A tabela com os números está em [blefe no poker](/blog/blefe-no-poker).
 
 Na prática:
 

@@ -26,7 +26,7 @@ O site tem links para Suprema Poker, Fichas 24h, SX, WhatsApp, Telegram e outros
 
 ## Direitos sobre o conteúdo
 
-Os textos e as imagens do site são da equipe do Clube Suprema. Você pode citar trechos com link para a página de origem. Suprema Poker e Fichas 24h são marcas de terceiros. O Clube Suprema (ID 10001) é um clube do grupo SX dentro do app Suprema Poker, e este site é mantido por ele. Isso significa que o clube tem interesse comercial em que você jogue por ele.
+Os textos e as imagens do site são da equipe do Clube Suprema. Você pode citar trechos com link para a página de origem. Suprema Poker e Fichas 24h são marcas de terceiros. O Clube Suprema (ID 10001) é um clube do grupo SX dentro do app Suprema Poker, e este site é mantido por ele. Isso significa que o clube tem interesse comercial em que você jogue por ele; veja a [divulgação](/divulgacao). A Suprema Gaming não patrocina nem revisa o conteúdo deste site.
 
 ## Limite de responsabilidade
 
@@ -34,7 +34,7 @@ Fazemos o possível para manter o site no ar e o conteúdo correto, mas não gar
 
 ## Lei aplicável
 
-Estes termos seguem a lei brasileira.
+Estes termos seguem a lei brasileira. Enquanto o responsável legal do site não estiver identificado na página [Sobre](/sobre), as dúvidas sobre estes termos se resolvem no Brasil, no foro do domicílio do usuário. Quando a razão social for publicada, esta cláusula será atualizada com o foro da sede.
 
 ## Mudanças
 

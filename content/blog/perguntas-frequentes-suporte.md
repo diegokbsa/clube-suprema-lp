@@ -2,7 +2,7 @@
 title: "Perguntas frequentes do suporte: fichas, PIX, saque e login"
 description: As dúvidas que mais chegam ao suporte 24h do Clube Suprema: compra de fichas por PIX no Fichas 24h, saque, ID da Suprema, login e clube pendente.
 date: 2026-10-23
-updated: 2026-10-26
+updated: 2026-11-15
 cover: /img/blog/perguntas-frequentes-suporte/cover.jpg
 coverAlt: Balão de conversa do WhatsApp com o texto "Perguntas frequentes do suporte" sobre fundo preto e dourado
 tags: [suporte, fichas, pix, saque]
@@ -26,7 +26,7 @@ faq:
     a: Pelo WhatsApp, 24 horas por dia, todos os dias, em português, inglês e espanhol. Diga o seu nome, que você é do Clube Suprema (10001, agente 1439098) e o seu ID da Suprema.
 ---
 
-Esta página reúne o que o **suporte 24h** mais responde, em ordem do que acontece primeiro: conta, entrada no clube, fichas, saque e problemas no app. Se a sua dúvida não estiver aqui, o WhatsApp do suporte funciona todos os dias, a qualquer hora, em português, inglês e espanhol.
+Esta página reúne dúvidas frequentes sobre o clube, em ordem do que acontece primeiro: conta, entrada no clube, fichas, saque e problemas no app. Se a sua dúvida não estiver aqui, o WhatsApp do suporte funciona todos os dias, a qualquer hora, em português, inglês e espanhol.
 
 ![Ciclo das fichas no Clube Suprema: PIX da sua conta, Fichas 24h, saldo no app, mesa e saque na chave PIX do seu CPF](/img/blog/ciclo-fichas.svg "O dinheiro entra e sai pelo mesmo caminho: PIX no seu CPF, via Fichas 24h.")
 
@@ -98,7 +98,7 @@ Pelo **Fichas 24h**, para a **chave PIX do seu CPF**. Informe o valor e o seu ID
 
 ### Quanto tempo leva?
 
-O prazo é informado pelo suporte no momento do pedido e depende do horário e da validação. Se o prazo informado passar, chame o suporte com o número do pedido.
+Todo saque passa por uma revisão que pode levar até 24 horas, segundo o Fichas 24h. Se o prazo informado passar, chame o suporte com o número do pedido.
 
 ### Posso sacar para a conta de outra pessoa?
 
@@ -140,6 +140,10 @@ O suporte do Fichas 24h atende pelo **WhatsApp, 24 horas, todos os dias**, em po
 > Oi, meu nome é [seu nome], venho do Clube Suprema (clube 10001, agente 1439098), meu ID da Suprema é [número] e preciso de ajuda com [compra / saque / acesso].
 
 Se for sobre pagamento, já anexe o comprovante.
+
+:::nota Jogo consciente
+O Suprema Poker e os clubes são para **maiores de 18 anos**. Defina antes quanto vai gastar e respeite o limite. A Suprema mantém uma página sobre [jogo consciente](https://supremapoker.com.br/jogo-consciente).
+:::
 
 :::cta Ainda não entrou no clube?
 Leva menos de 2 minutos: [abra o link oficial](/baixar), aceite o convite e compre as fichas por PIX. O suporte 24h acompanha você em qualquer passo.

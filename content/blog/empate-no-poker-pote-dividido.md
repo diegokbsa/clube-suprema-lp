@@ -3,7 +3,7 @@ title: "Empate no poker: quando o pote é dividido (split pot), com exemplos"
 seoTitle: "Empate no poker: quando o pote é dividido (split pot)"
 description: Quando há empate no poker, como o pote é dividido, por que o naipe não desempata, quando a mesa joga e o que acontece com a ficha que sobra.
 date: 2026-11-05
-updated: 2026-11-05
+updated: 2026-11-15
 cover: /img/blog/empate-no-poker-pote-dividido/cover.jpg
 coverAlt: Cartas sobre feltro verde com o título "Empate no poker"
 tags: [regras, iniciantes, guia]
@@ -35,10 +35,6 @@ capaEtiqueta: Split pot
 ---
 
 Você chega ao showdown, vira as cartas e o adversário mostra uma mão parecida com a sua. Quem ganha? Às vezes ninguém: o pote é **dividido**. Mas muita gente divide pote que não deveria, ou acha que perdeu quando, na verdade, empatou. Este guia mostra quando existe empate de verdade no poker, como a divisão funciona e os casos que mais confundem.
-
-:::nota Resposta curta
-Só há **empate** quando dois ou mais jogadores têm a **mesma mão de 5 cartas em valor**, carta por carta. Aí o pote é **dividido em partes iguais** (split pot). O **naipe nunca desempata**, e a sexta e a sétima carta não contam. Se uma única carta da mão de 5 for diferente, quem tem a maior ganha sozinho.
-:::
 
 ## Quando acontece empate no poker?
 

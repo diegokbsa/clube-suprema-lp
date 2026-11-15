@@ -3,10 +3,11 @@ title: "Fichas 24 Horas: como comprar fichas do Suprema Poker por PIX"
 seoTitle: "Fichas 24 Horas: comprar fichas do Suprema Poker por PIX"
 description: Passo a passo do Fichas 24h para comprar fichas do Suprema Poker por PIX: conta, ID da Suprema e do clube, verificação, QR Code no seu CPF e saque.
 date: 2026-10-27
-updated: 2026-10-27
+updated: 2026-11-15
 cover: /img/blog/fichas-24-horas-suprema-poker-pix/cover.jpg
 coverAlt: Celular com um QR Code PIX e fichas douradas, com o texto PIX no seu CPF
 tags: [fichas, pix, saque, primeiros passos]
+relacionados: [deposito-suprema-poker-nao-caiu, id-do-jogador-suprema-poker, suprema-poker-e-confiavel]
 resumo: O Fichas 24 Horas, também buscado como Fichas 24h, é o site e app em que você compra e saca fichas do Suprema Poker por PIX. Crie a conta em fichas24horas.com.br, cadastre o seu ID da Suprema e o clube, verifique a conta e toque em Comprar Fichas para gerar o QR Code. O PIX precisa sair de uma conta de pessoa física no seu próprio CPF.
 passosTitulo: Como comprar fichas do Suprema Poker no Fichas 24h
 passos:
@@ -104,7 +105,7 @@ PIX feito sem gerar o QR Code no Fichas 24h não vira fichas automaticamente. Ne
 
 ## As regras do PIX
 
-Estas regras estão nas perguntas frequentes do próprio Fichas 24h:
+Estas regras vêm das perguntas frequentes do Fichas 24h ([fichas24horas.com.br/auto-atendimento](https://fichas24horas.com.br/auto-atendimento), consultadas em 15/11/2026; o site não abre para consulta automática, então confirme no app):
 
 | Regra | O que vale |
 |---|---|
@@ -150,6 +151,8 @@ Segundo as perguntas frequentes do Fichas 24h:
 Se a compra não caiu, o passo a passo para conferir e o que mandar ao suporte estão em [depósito no Suprema Poker não caiu](/blog/deposito-suprema-poker-nao-caiu).
 
 ## Segurança
+
+O Fichas 24h é publicado pela SX&CO, do mesmo grupo do Clube Suprema. Em 15/11/2026, a nota era 4,2 na Google Play (82 avaliações) e 3,9 na App Store (15), com relatos de usuários sobre compra não recebida. Se algo não cair, guarde o comprovante.
 
 - Use só o endereço **fichas24horas.com.br** e o app oficial nas lojas.
 - Ninguém do suporte pede a sua **senha** ou o **código** que chega no seu e-mail.

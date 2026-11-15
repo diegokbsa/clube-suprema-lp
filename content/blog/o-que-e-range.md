@@ -3,7 +3,7 @@ title: "O que é range no poker e por que pensar em faixas de mãos"
 seoTitle: "O que é range no poker? Faixas de mãos explicadas"
 description: O que é range no poker, como ler a notação 77+ e ATs+, quantas combinações cada mão tem e como estreitar o range do adversário a cada ação.
 date: 2026-11-13
-updated: 2026-11-13
+updated: 2026-11-15
 cover: /img/blog/o-que-e-range/cover.jpg
 coverAlt: Cartas sobre fundo preto com o título "O que é range"
 tags: [regras, iniciantes, guia]
@@ -33,10 +33,6 @@ capaEtiqueta: Range
 ---
 
 O adversário aumenta e você se pergunta: "o que ele tem?". Tentar acertar as duas cartas exatas quase nunca funciona. Jogadores mais experientes fazem outra pergunta: "**quais mãos** ele pode ter aqui?". Essa lista de mãos possíveis se chama **range**, ou faixa de mãos. Este guia explica **o que é range no poker**, como ler a notação usada para escrever um range e como estreitar a faixa do adversário a cada ação.
-
-:::nota Resposta curta
-**Range** é o conjunto de mãos que um jogador pode ter numa situação. Você monta a faixa pela posição e pela primeira ação, e tira mãos dela a cada aposta, call ou check. Para saber o que é mais provável dentro da faixa, conte combinações: cada par tem **6**, cada mão do mesmo naipe tem **4** e cada mão de naipes diferentes tem **12**.
-:::
 
 ## O que é range no poker?
 
@@ -109,6 +105,8 @@ Saber qual dos dois o adversário tem ajuda a escolher a jogada. Contra um range
 Range, [pot odds e outs](/blog/pot-odds-e-outs) e a ideia de [nuts](/blog/nuts-no-poker) formam a base das decisões mais difíceis do poker. Os termos que aparecem aqui estão reunidos no [glossário de poker](/blog/glossario-de-poker).
 
 Pensar em range melhora as decisões ao longo de muitas mãos, mas não garante resultado em nenhuma delas. Poker é para **maiores de 18 anos**. Antes de jogar, defina quanto tempo e quanto dinheiro vai usar e pare quando chegar ao limite.
+
+Como conferimos: um par tem 6 combinações, uma mão do mesmo naipe tem 4 e uma de naipes diferentes tem 12. QQ, KK e AA somam 3 × 6 = 18; AK soma 4 + 12 = 16.
 
 :::cta Quer praticar a leitura de faixas numa mesa de verdade?
 Agora que você sabe o que é range, falta treinar. Veja [como entrar no Clube Suprema](/blog/como-entrar-no-clube-suprema) ou [entre direto pelo link](/baixar).

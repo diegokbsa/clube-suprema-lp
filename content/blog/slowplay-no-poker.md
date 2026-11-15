@@ -3,7 +3,7 @@ title: "Slowplay no poker: o que é e quando esconder uma mão forte"
 seoTitle: "O que é slowplay no poker? Quando esconder a mão"
 description: O que é slowplay no poker, quando vale esconder uma mão forte, quais os riscos de jogar devagar e por que apostar costuma render mais, com exemplos.
 date: 2026-11-14
-updated: 2026-11-14
+updated: 2026-11-15
 cover: /img/blog/slowplay-no-poker/cover.jpg
 coverAlt: Mesa de poker sobre fundo preto com o título "Slowplay no poker"
 tags: [regras, iniciantes, guia]
@@ -33,10 +33,6 @@ capaEtiqueta: Slowplay
 ---
 
 Você abre o flop com uma trinca e pensa: "se eu apostar, todo mundo larga". Então dá check, esperando o adversário apostar. Essa jogada tem nome: **slowplay**. Ela pode render um pote enorme ou deixar o adversário fechar uma sequência na cara. Este guia explica **o que é slowplay no poker**, quando ele funciona, quando é erro e por que, na maior parte das vezes, apostar é melhor.
-
-:::nota Resposta curta
-**Slowplay** é jogar uma mão forte de forma passiva (check ou call) para parecer fraco e fazer o adversário colocar mais fichas no pote. Funciona com **mão muito forte, board seco e adversário agressivo**. Em boards molhados ou com vários jogadores, costuma ser erro: você dá cartas grátis a quem pode ultrapassar a sua mão. A jogada padrão continua sendo **apostar por valor**.
-:::
 
 ## O que é slowplay, exatamente
 
@@ -69,7 +65,7 @@ Com a mão escondida, uma carta ruim no turn ou no river deixa você sem saber s
 Há situações em que a jogada é boa. As mais comuns reúnem três condições:
 
 1. **A sua mão é muito forte.** Pense em trinca ou melhor, a ponto de dificilmente perder se o board não mudar muito. Mãos médias nunca devem fazer slowplay, porque precisam de proteção.
-2. **O board é seco.** Seco é aquele que oferece poucos projetos. Um flop como K♣ 7♦ 2♠ dá poucas chances de o adversário melhorar de graça. Em um flop como 9♥ 8♥ 7♣, quase tudo é projeto, e o slowplay é perigoso. A textura do board é um tema próprio e merece um guia à parte.
+2. **A mesa é seca.** Seca é a mesa (board) que oferece poucos projetos. Um flop como K♣ 7♦ 2♠ dá poucas chances de o adversário melhorar de graça. Em um flop como 9♥ 8♥ 7♣, quase tudo é projeto, e o slowplay é perigoso. A textura do board é um tema próprio e merece um guia à parte.
 3. **O adversário aposta sozinho.** Se ele costuma apostar o flop com qualquer coisa, o seu check lhe dá a chance de fazer o que ele faz de qualquer jeito. Se ele só paga ou dá check, não há ganho.
 
 Vale ainda quando você é o **agressor** que chegou ao flop com muitas mãos fortes no seu [range](/blog/o-que-e-range). Assim, o check não "entrega" a sua mão: ele aparece com mãos fracas e fortes juntas.

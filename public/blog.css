@@ -184,3 +184,6 @@ body.page-blog, body.page-post { background: #000; } /* fundo 100% preto */
 }
 .grade-resumo { max-width: 760px; margin: -14px auto 32px; text-align: center; color: var(--muted); font-size: 1.02rem; line-height: 1.6; }
 .grade-resumo b { color: var(--text); }
+
+/* Rótulo de divulgação nas chamadas do clube (transparência comercial, 15/11/2026) */
+.cta-label { display: inline-block; margin: 0 0 8px; padding: 2px 8px; border: 1px solid currentColor; border-radius: 4px; font-size: 12px; letter-spacing: .06em; text-transform: uppercase; opacity: .9; position: relative; }
