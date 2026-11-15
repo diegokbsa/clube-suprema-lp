@@ -1,12 +1,12 @@
 Estes termos valem para o uso do **suprema.blog**, mantido pela equipe do **Clube Suprema** (ID 10001, agente 1439098), clube do grupo SX no app Suprema Poker. Ao usar o site, você concorda com eles.
 
 :::nota Resumo
-O site é informativo e educativo. Ele **não é casa de jogo**, não recebe depósitos e não promete ganho. Poker online envolve risco financeiro. Só para maiores de 18 anos.
+O site é informativo e educativo. Ele **não é casa de jogo**, não guarda saldo nem fichas, não processa pagamentos e não promete ganho. Poker online envolve risco financeiro. Só para maiores de 18 anos.
 :::
 
 ## O que o site é
 
-O suprema.blog reúne guias sobre poker, sobre o app Suprema Poker e sobre o Clube Suprema, e a grade de torneios da Liga Suprema. O jogo em si acontece no app Suprema Poker, com regras e ambiente próprios. A compra e o saque de fichas passam pelo Fichas 24h, plataforma de terceiros. Este site não opera nenhum dos dois.
+O suprema.blog reúne guias sobre poker, sobre o app Suprema Poker e sobre o Clube Suprema, e a grade de torneios da Liga Suprema. O jogo em si acontece no app Suprema Poker, com regras e ambiente próprios. A compra e o saque de fichas, inclusive o PIX, passam pelo Fichas 24h, plataforma de terceiros. Este site não opera nenhum dos dois: ele guia o seu cadastro e leva você até eles.
 
 ## Maiores de 18 anos
 

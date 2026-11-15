@@ -1,30 +1,34 @@
 Esta página explica quais dados o **suprema.blog** coleta, para que usamos e como você pede acesso ou exclusão, conforme a Lei Geral de Proteção de Dados (LGPD, Lei 13.709/2018). O site é mantido pela equipe do **Clube Suprema** (ID 10001, agente 1439098), clube do grupo SX no app Suprema Poker.
 
 :::nota Resumo
-Pedimos só o seu e-mail (e o WhatsApp, se você quiser). Não pedimos senha nem dados de cartão e não recebemos depósitos aqui. Medimos visitas e cliques para saber quais guias ajudam. Para ver ou apagar o que temos sobre você, fale com o suporte 24h pelo WhatsApp, na página de [contato](/contato).
+O servidor do site recebe o seu e-mail e a senha do cadastro (a senha fica só na memória, por até 30 minutos, e não é gravada em arquivo). Nome, CPF, celular e data de nascimento, se você os preencher para o Fichas 24h, ficam só no seu aparelho e o site não os recebe. Medimos visitas e cliques para saber quais guias ajudam. Para ver ou apagar o que temos sobre você, fale com o suporte 24h pelo WhatsApp, na página de [contato](/contato).
 :::
 
 ## Que dados coletamos
 
-**1. O que você digita no formulário da página inicial.** E-mail e, se quiser, o número de WhatsApp. Guardamos junto de onde você veio (parâmetros UTM do link, site de origem e a página de entrada) e de quais passos você tocou: abrir o link do app, comprar fichas, chamar o suporte ou baixar o app. Uma cópia fica em uma planilha do Google, usada só pela equipe do clube.
+**1. O que você digita no cadastro da página inicial.** E-mail e senha e, no formulário de convite, o número de WhatsApp (opcional). Depois do cadastro, a página pede o ID do seu jogador no Suprema Poker para vincular a conta. Guardamos junto de onde você veio (parâmetros UTM do link, site de origem e página de entrada) e de quais passos você tocou: abrir o link do app, comprar fichas, chamar o suporte ou baixar o app. A **senha** fica só na memória do servidor por até 30 minutos e não é gravada em arquivo nem enviada à planilha. O e-mail, o ID e o histórico de passos ficam no servidor do site, e uma cópia do e-mail e da origem fica em uma planilha do Google usada só pela equipe do clube.
 
-**2. Dados técnicos da visita.** Um contador de visitas próprio e o Minilytics (mini.kbsa.app), que funciona sem cookie, registram a página vista, o navegador, o país e o endereço IP da conexão.
+**2. Dados para o cadastro no Fichas 24h.** Para você terminar o cadastro no Fichas 24h, a página pode pedir nome, CPF, celular e data de nascimento e deixá-los prontos para copiar. Esses dados ficam **só no seu aparelho** (armazenamento local do navegador) e são apagados ao fim do processo; o servidor do suprema.blog não os recebe. Quem os trata depois é o Fichas 24h, em sistema próprio.
 
-**3. Cliques nos botões de saída.** Botões como o do WhatsApp, do Telegram e do download do app passam por links curtos (l.kbsa.app). O link curto conta o clique por página e leva você ao destino.
+**3. Dados técnicos da visita.** Um contador de visitas próprio e o Minilytics (mini.kbsa.app), que funciona sem cookie, registram a página vista, o navegador, o país e o endereço IP da conexão.
 
-**4. Ferramentas de medição de terceiros.** Google Analytics 4, Google Ads e Google Tag Manager medem o uso do site e a eficácia da divulgação; o Microsoft Clarity grava como a página é usada (toques e rolagem), com os campos digitados mascarados. Elas podem gravar cookies no seu navegador e só carregam depois do primeiro toque ou rolagem, ou cerca de 3 segundos depois que a página abre.
+**4. Cliques nos botões de saída.** Botões como o do WhatsApp, do Telegram e do download do app passam por links curtos (l.kbsa.app). O link curto conta o clique por página e leva você ao destino.
 
-**5. Cloudflare.** Fica na frente do site para entregar as páginas e protegê-lo, e por isso também vê o endereço IP da conexão.
+**5. Ferramentas de medição de terceiros.** Google Analytics 4, Google Ads e Google Tag Manager medem o uso do site e a eficácia da divulgação; o Microsoft Clarity grava como a página é usada (toques e rolagem), com os campos digitados mascarados. Elas podem gravar cookies no seu navegador e só carregam depois do primeiro toque ou rolagem, ou cerca de 3 segundos depois que a página abre.
+
+**6. Cloudflare.** Fica na frente do site para entregar as páginas e protegê-lo, e por isso também vê o endereço IP da conexão.
 
 ## O que não coletamos
 
-Não pedimos CPF, senha, dados de cartão ou conta bancária neste site, e ele não recebe depósitos. A compra de fichas acontece no Fichas 24h, uma plataforma de terceiros com a própria política de privacidade.
+Não pedimos dados de cartão nem de conta bancária, e o seu CPF não é gravado nos servidores do suprema.blog. O PIX e a compra de fichas acontecem no Fichas 24h, uma plataforma de terceiros com a própria política de privacidade.
+
+O armazenamento local do seu navegador também guarda a origem do seu primeiro acesso (UTM), a versão da jornada de cadastro que você viu e o seu progresso. Dá para apagar isso nas configurações do navegador.
 
 ## Para que usamos e em que base da LGPD
 
 | Uso | Base legal |
 |---|---|
-| Enviar o link do clube e responder a você quando pede suporte | Seu consentimento, ao enviar o formulário (art. 7º, I) |
+| Criar o seu cadastro, vincular o ID, enviar o link do clube e responder quando você pede suporte | Seu consentimento, ao enviar o formulário (art. 7º, I) |
 | Medir visitas, cliques e uso das páginas para melhorar os guias | Legítimo interesse (art. 7º, IX) |
 
 Não vendemos seus dados e não os usamos para decisões automatizadas sobre você.
