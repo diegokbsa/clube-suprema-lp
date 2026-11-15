@@ -24,7 +24,26 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 SITE = "https://suprema.blog"
 BRT = dt.timezone(dt.timedelta(hours=-3))
-ADB = r"C:\LDPlayer\LDPlayer9\adb.exe"
+
+
+def _acha_adb():
+    """Caminho do adb. Nunca o do LDPlayer: em 06/11/2026 ele derrubou o POCO F5 e o POCO Azul."""
+    import os
+    import shutil
+
+    candidatos = [
+        os.environ.get("ADB_EXE"),
+        str(Path(os.environ.get("LOCALAPPDATA", "")) / "Microsoft/WinGet/Packages"
+            / "Google.PlatformTools_Microsoft.Winget.Source_8wekyb3d8bbwe/platform-tools/adb.exe"),
+        shutil.which("adb"),
+    ]
+    for c in candidatos:
+        if c and "LDPlayer" not in c and Path(c).exists():
+            return c
+    return "adb"
+
+
+ADB = _acha_adb()
 SERIAL = "192.168.16.11:5555"
 TELEGRAM = "clubsupremapokerxx"
 BLUESKY = "supremapoker.bsky.social"
