@@ -14,7 +14,7 @@ O servidor do site recebe o seu e-mail e a senha do cadastro (a senha fica só n
 
 **4. Cliques nos botões de saída.** Botões como o do WhatsApp, do Telegram e do download do app passam por links curtos (l.kbsa.app). O link curto conta o clique por página e leva você ao destino.
 
-**5. Ferramentas de medição de terceiros.** Google Analytics 4, Google Ads e Google Tag Manager medem o uso do site e a eficácia da divulgação; o Microsoft Clarity grava como a página é usada (toques e rolagem), com os campos digitados mascarados. Elas podem gravar cookies no seu navegador e só carregam depois do primeiro toque ou rolagem, ou cerca de 3 segundos depois que a página abre.
+**5. Ferramentas de medição de terceiros.** Google Analytics 4, Google Ads e Google Tag Manager medem o uso do site e a eficácia da divulgação; o Microsoft Clarity grava como a página é usada (toques e rolagem), com os campos digitados mascarados. O Google e outros fornecedores podem usar cookies para medir anúncios e personalizá-los com base em visitas a este e a outros sites; você pode desativar a personalização em https://adssettings.google.com. Elas podem gravar cookies no seu navegador e só carregam depois do primeiro toque ou rolagem, ou cerca de 3 segundos depois que a página abre.
 
 **6. Cloudflare.** Fica na frente do site para entregar as páginas e protegê-lo, e por isso também vê o endereço IP da conexão.
 

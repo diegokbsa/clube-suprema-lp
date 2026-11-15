@@ -2,7 +2,7 @@ Estes são os canais que a equipe do **Clube Suprema** (ID 10001, agente 1439098
 
 ## Suporte 24h no WhatsApp
 
-Atendimento humano, todos os dias, em português, inglês e espanhol. Serve para dúvidas sobre entrar no clube, fichas por PIX e saque.
+Atendimento todos os dias, em português, inglês e espanhol. Serve para dúvidas sobre entrar no clube, fichas por PIX e saque.
 
 [Abrir o WhatsApp do suporte](https://wa.me/5511952138293?text=Oi%2C%20vim%20do%20suprema.blog%20e%20quero%20suporte.)
 

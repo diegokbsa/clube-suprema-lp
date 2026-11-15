@@ -18,7 +18,7 @@ Nada aqui garante ganho, renda ou resultado. Poker online envolve risco financei
 
 ## Conteúdo e precisão
 
-Escrevemos os guias com base em fontes que citamos no próprio texto. Regras, telas do app, prazos, limites e torneios mudam; por isso cada página mostra a data de atualização. Antes de decidir algo que envolva dinheiro, confirme no app ou com o suporte. O conteúdo não é consultoria jurídica, financeira ou fiscal, e cabe a você conhecer as regras que valem para a sua situação.
+Escrevemos os guias com base em fontes públicas, que citamos sempre que possível. Regras, telas do app, prazos, limites e torneios mudam; por isso cada página mostra a data de atualização. Antes de decidir algo que envolva dinheiro, confirme no app ou com o suporte. O conteúdo não é consultoria jurídica, financeira ou fiscal, e cabe a você conhecer as regras que valem para a sua situação.
 
 ## Links e serviços de terceiros
 
@@ -26,7 +26,7 @@ O site tem links para Suprema Poker, Fichas 24h, SX, WhatsApp, Telegram e outros
 
 ## Direitos sobre o conteúdo
 
-Os textos e as imagens do site são da equipe do Clube Suprema. Você pode citar trechos com link para a página de origem. Suprema Poker, SX, Fichas 24h e outras marcas pertencem aos seus titulares, que não patrocinam nem revisam este site pelo fato de serem citadas.
+Os textos e as imagens do site são da equipe do Clube Suprema. Você pode citar trechos com link para a página de origem. Suprema Poker e Fichas 24h são marcas de terceiros. O Clube Suprema (ID 10001) é um clube do grupo SX dentro do app Suprema Poker, e este site é mantido por ele. Isso significa que o clube tem interesse comercial em que você jogue por ele.
 
 ## Limite de responsabilidade
 
