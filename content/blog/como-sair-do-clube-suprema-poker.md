@@ -5,9 +5,9 @@ description: Como sair de um clube no Suprema Poker sem perder fichas: saque o s
 date: 2026-10-27
 updated: 2026-11-15
 cover: /img/blog/como-sair-do-clube-suprema-poker-2/cover.jpg
-coverAlt: Cartão de um clube antigo com saldo zerado e uma seta de saída, ao lado do cartão do Clube Suprema ID 10001
+coverAlt: Cartão de um clube antigo com saldo zerado e uma seta de saída, ao lado do cartão do Clube Suprema o clube
 tags: [clube, guia, fichas]
-resumo: Para sair de um clube no Suprema Poker, saque antes todo o saldo daquele clube, porque as fichas valem só dentro dele, e confira no Caixa do clube que ele zerou. Depois abra o clube e procure a opção de sair no menu dele. Se ela não aparecer, peça ao agente ou ao dono do clube. Para entrar em outro, como o Clube Suprema, use o clube 10001 e o agente 1439098.
+resumo: Para sair de um clube no Suprema Poker, saque antes todo o saldo daquele clube, porque as fichas valem só dentro dele, e confira no Caixa do clube que ele zerou. Depois abra o clube e procure a opção de sair no menu dele. Se ela não aparecer, peça ao agente ou ao dono do clube. Para entrar em outro, como o Clube Suprema, use o clube e o agente indicados em a página de entrada no clube.
 passosTitulo: Como sair de um clube no Suprema Poker
 passos:
   - Saque todo o saldo do clube com o agente ou pelo canal de pagamento que ele usa.
@@ -23,14 +23,14 @@ faq:
   - q: Quem pode me tirar de um clube?
     a: A administração do clube, que é quem aprova a entrada dos jogadores. O agente que te atende leva o pedido até ela. Se você perdeu o contato com o clube, fale com o suporte da Suprema.
   - q: Preciso sair de um clube para entrar em outro?
-    a: Não. A mesma conta entra em vários clubes, e cada um tem o próprio saldo. Para entrar no Clube Suprema, use o clube 10001 e o agente 1439098 ou abra o link oficial no celular.
+    a: Não. A mesma conta entra em vários clubes, e cada um tem o próprio saldo. Para entrar no Clube Suprema, use o clube e o agente indicados em a página de entrada no clube ou abra o link oficial no celular.
   - q: Sair do clube apaga a minha conta?
     a: Não. Você só deixa de ver aquele clube. A conta, o seu ID e os outros clubes continuam. Excluir a conta é outro pedido, feito ao suporte da Suprema, e é definitivo.
   - q: Criei um clube sem querer. Como apago?
     a: Abra o clube que você criou e procure a opção de excluir nas configurações dele. Depois use a busca de clubes com o ID de quem te convidou para entrar no clube certo.
 ---
 
-Quer **sair de um clube no Suprema Poker**, trocar de clube ou só limpar a sua lista? Dá para fazer, mas a ordem importa: **primeiro o saldo, depois a saída**. As fichas de um clube só valem dentro dele, então quem sai com saldo fica dependendo do clube para recuperar o valor. Este guia mostra o que fazer com as fichas, onde procurar a opção no app, quem pode tirar você do clube e como entrar em outro, como o **Clube Suprema (ID 10001, agente 1439098)**.
+Quer **sair de um clube no Suprema Poker**, trocar de clube ou só limpar a sua lista? Dá para fazer, mas a ordem importa: **primeiro o saldo, depois a saída**. As fichas de um clube só valem dentro dele, então quem sai com saldo fica dependendo do clube para recuperar o valor. Este guia mostra o que fazer com as fichas, onde procurar a opção no app, quem pode tirar você do clube e como entrar em outro, como o **Clube Suprema**.
 
 ## Antes de sair: o que acontece com o saldo
 
@@ -103,17 +103,17 @@ Para trocar de clube você não precisa sair do atual. A mesma conta entra em v�
 
 <!-- CAPTURA SUGERIDA: busca de clubes com os campos de ID do clube e do agente preenchidos (arquivo /img/blog/como-sair-do-clube-suprema-poker/buscar-clube.webp, alt "Busca de clubes no app Suprema Poker com o ID do clube e do agente") -->
 
-### Exemplo: entrar no Clube Suprema (ID 10001)
+### Exemplo: entrar no Clube Suprema
 
 - **No celular**, abra o [link oficial](/baixar). Ele abre o app já no convite, com o clube e o agente preenchidos.
-- **No computador**, use o **clube 10001** e o **agente 1439098** na busca de clubes.
+- **No computador**, use o clube e o agente indicados em [como entrar no clube](/blog/como-entrar-no-clube-suprema) na busca de clubes.
 - **Fichas** por PIX, de uma conta no seu CPF, pelo Fichas 24h.
-- **Suporte 24h** no WhatsApp, em português, inglês e espanhol.
+- **Contato** pelo canal do Telegram, na página de [contato](/contato).
 
 O passo a passo completo, com os problemas mais comuns, está em [como entrar no Clube Suprema pelo link ou com o ID](/blog/como-entrar-no-clube-suprema). O clube é do grupo SX e joga na Liga Suprema, com mesas compartilhadas entre vários clubes; entenda como funciona em [ID do clube H2 e o pool da Liga Suprema](/blog/id-clube-h2-suprema-poker-pool-liga-suprema).
 
 :::cta Vai trocar de clube?
-Entre no **Clube Suprema** sem sair do atual: no celular, toque no [link oficial](/baixar); no computador, use o clube **10001** e o agente **1439098**. Fichas por PIX no seu CPF e contato do clube.
+Entre no **Clube Suprema** sem sair do atual: no celular, toque no [link oficial](/baixar); no computador, use o clube e o agente indicados em [como entrar no clube](/blog/como-entrar-no-clube-suprema). Fichas por PIX no seu CPF e contato do clube.
 :::
 
 ## Problemas comuns
@@ -135,5 +135,5 @@ O Suprema Poker e os clubes são para **maiores de 18 anos**. Se a vontade é pa
 :::
 
 :::cta Pronto para jogar em outro clube?
-O **Clube Suprema** é o ID **10001**, com o agente **1439098**. Abra o [link oficial](/baixar) no celular ou entre com o ID no computador. Travou em algum passo? O contato do clube resolve com você.
+Abra o [link oficial](/baixar) no celular ou veja [como entrar no clube](/blog/como-entrar-no-clube-suprema) para entrar pelo computador. Travou em algum passo? O contato do clube resolve com você.
 :::

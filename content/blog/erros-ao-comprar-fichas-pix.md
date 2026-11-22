@@ -60,7 +60,7 @@ Cada clube configura o seu depósito mínimo e máximo. Se o valor ficar abaixo 
 
 A compra cai na hora, inclusive no fim de semana. Em casos raros, o PIX atrasa até **2 horas**. Passar disso sem falar com ninguém só alonga o problema.
 
-**Como evitar:** passou de 2 horas, chame o suporte **com o comprovante**. No Clube Suprema (ID 10001), o clube atende pelos canais da página de [contato](/contato). Se o app não abrir para conferir o Caixa, veja [app Suprema Poker não abre](/blog/app-suprema-poker-nao-abre) — a conta e as fichas ficam no servidor.
+**Como evitar:** passou de 2 horas, chame o suporte **com o comprovante**. No Clube Suprema, o clube atende pelos canais da página de [contato](/contato). Se o app não abrir para conferir o Caixa, veja [app Suprema Poker não abre](/blog/app-suprema-poker-nao-abre) — a conta e as fichas ficam no servidor.
 
 ## Erro 7: comprar de pessoa que "vende fichas"
 
@@ -100,5 +100,5 @@ O Fichas 24h e o Suprema Poker são só para **maiores de 18 anos**. Defina ante
 :::
 
 :::nota Transparência
-Este site é mantido pelo Clube Suprema (ID 10001), do grupo SX. O Fichas 24h é publicado pela SX&CO, do mesmo grupo. O clube tem interesse comercial em que você jogue por ele; veja a [divulgação](/divulgacao). As regras do Fichas 24h citadas aqui vêm das perguntas frequentes da própria plataforma, que bloqueia leitura automática: confira na fonte antes de decidir.
+Este site é mantido pelo Clube Suprema, do grupo SX. O Fichas 24h é publicado pela SX&CO, do mesmo grupo. O clube tem interesse comercial em que você jogue por ele; veja a [divulgação](/divulgacao). As regras do Fichas 24h citadas aqui vêm das perguntas frequentes da própria plataforma, que bloqueia leitura automática: confira na fonte antes de decidir.
 :::

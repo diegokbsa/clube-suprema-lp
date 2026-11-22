@@ -1,12 +1,12 @@
 ---
 title: Como entrar no Clube Suprema pelo link ou com o ID do clube
-description: Duas formas de entrar no Clube Suprema no app Suprema Poker, com o ID do clube 10001 e do agente 1439098, e como confirmar que deu certo.
+description: Duas formas de entrar no Clube Suprema no app Suprema Poker, com o ID do clube e do agente, e como confirmar que deu certo.
 date: 2026-10-23
 updated: 2026-11-15
 cover: /img/blog/como-entrar-no-clube-suprema-2/cover.jpg
-coverAlt: Ilustração com um celular abrindo o app e os números do clube 10001 e do agente 1439098
+coverAlt: Ilustração com um celular abrindo o app e os números do clube e do agente
 tags: [clube, primeiros passos, app]
-resumo: Para entrar no Clube Suprema, abra o link oficial no celular com o app instalado. Ou, dentro do app, use a opção de entrar em um clube e digite o ID do clube 10001 e o ID do agente 1439098. Se o clube ficar pendente, aguarde alguns minutos ou chame o suporte 24h com o seu ID de jogador.
+resumo: Para entrar no Clube Suprema, abra o link oficial no celular com o app instalado. Ou, dentro do app, use a opção de entrar em um clube e digite o ID do clube e o ID do agente deste guia. Se o clube ficar pendente, aguarde alguns minutos ou chame o suporte 24h com o seu ID de jogador.
 passosTitulo: Como entrar no Clube Suprema com o ID
 passos:
   - Abra o app Suprema Poker e entre na sua conta.
@@ -24,7 +24,7 @@ faq:
   - q: O link abriu a loja em vez do app. E agora?
     a: É o comportamento esperado quando o app ainda não está instalado. Instale pela loja, volte e abra o mesmo link de novo: dessa vez ele abre o app direto no convite.
   - q: Entrei no clube. Como consigo fichas?
-    a: Pelo Fichas 24h, com PIX da conta do seu próprio CPF. Na primeira compra, informe o seu ID da Suprema, o clube 10001 e o agente 1439098.
+    a: Pelo Fichas 24h, com PIX da conta do seu próprio CPF. Na primeira compra, informe o seu ID da Suprema, o clube e o agente, como no passo a passo acima.
 ---
 
 No Suprema Poker os jogadores se organizam em **clubes**, e cada clube tem um número. O **Clube Suprema é o 10001**, e o agente que te coloca dentro dele é o **1439098**. Entrar costuma levar poucos minutos e pode ser feito de dois jeitos: pelo link oficial, que já traz os números preenchidos, ou digitando o ID dentro do app.

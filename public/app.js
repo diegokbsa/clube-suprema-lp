@@ -319,7 +319,6 @@ function initLead() {
   form.addEventListener('input', (e) => setFieldError(form, e.target.name, ''));
   form.addEventListener('change', (e) => setFieldError(form, e.target.name, ''));
   form.addEventListener('submit', submitLead);
-  form.elements.whatsapp?.addEventListener('input', (e) => { e.target.value = maskPhone(e.target.value); });
   if (hasFinePointer()) form.elements.email.focus();
   trackOnce('signup_start', 'signup_start');
 }
@@ -328,8 +327,8 @@ async function submitLead(e) {
   e.preventDefault();
   const form = e.currentTarget;
   const f = form.elements;
-  const whatsapp = f.whatsapp?.value || ''; // campo opcional (pode não existir numa versão antiga da página em cache)
-  const input = { email: f.email.value, whatsapp, acceptedTerms: f.acceptedTerms.checked };
+  const telegram = f.telegram?.value || ''; // campo opcional (pode não existir numa versão antiga da página em cache)
+  const input = { email: f.email.value, telegram, acceptedTerms: f.acceptedTerms.checked };
   const { errors } = validateLead(input);
   showFormError('');
   if (Object.keys(errors).length) return showErrors(form, errors);
@@ -342,7 +341,7 @@ async function submitLead(e) {
     storage.set(KEYS.lead, lead.id);
     storage.set(KEYS.leadEmail, lead.email);
     const u = utm();
-    trackOnce(`lead:${lead.id}`, 'signup_complete', { origem: leadOrigin(u), pagina_entrada: u.landing || location.pathname, com_whatsapp: whatsapp ? 'sim' : 'nao' });
+    trackOnce(`lead:${lead.id}`, 'signup_complete', { origem: leadOrigin(u), pagina_entrada: u.landing || location.pathname, com_telegram: telegram ? 'sim' : 'nao' });
     render('invite');
   } catch (err) {
     if (err.data?.errors) showErrors(form, err.data.errors);

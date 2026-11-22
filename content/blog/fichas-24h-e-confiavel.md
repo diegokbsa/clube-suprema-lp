@@ -12,7 +12,7 @@ capaChamada: Segurança · PIX
 capaTitulo: Fichas 24h é confiável?
 capaSubtitulo: O que conferir antes do primeiro PIX
 capaSelo: Confira você mesmo
-resumo: O Fichas 24h é a plataforma de compra e saque de fichas por PIX que o grupo SX oferece aos clubes parceiros, como o Clube Suprema (ID 10001). O app é publicado nas lojas pela SX&CO; a Google Play identifica a empresa como SX INTERMEDIACOES SA, CNPJ 43.787.764/0001-81, ativa e com sede em Belo Horizonte (MG). CNPJ ativo prova que há empresa identificável, não que o serviço sempre pague no prazo; por isso confira também a regra do CPF, a verificação de conta, as avaliações das lojas (3,9 de 5 na App Store, 15 avaliações; 4,2 de 5 na Google Play, 82 avaliações; ambas com relatos bons e ruins) e comece com uma compra pequena.
+resumo: O Fichas 24h é a plataforma de compra e saque de fichas por PIX que o grupo SX oferece aos clubes parceiros, como o Clube Suprema. O app é publicado nas lojas pela SX&CO; a Google Play identifica a empresa como SX INTERMEDIACOES SA, CNPJ 43.787.764/0001-81, ativa e com sede em Belo Horizonte (MG). CNPJ ativo prova que há empresa identificável, não que o serviço sempre pague no prazo; por isso confira também a regra do CPF, a verificação de conta, as avaliações das lojas (3,9 de 5 na App Store, 15 avaliações; 4,2 de 5 na Google Play, 82 avaliações; ambas com relatos bons e ruins) e comece com uma compra pequena.
 faq:
   - q: Fichas 24h é confiável?
     a: Há sinais objetivos que você confere sozinho — endereço oficial fichas24horas.com.br, app publicado pela SX&CO nas lojas, empresa com CNPJ ativo (SX Intermediações S/A, 43.787.764/0001-81), regra do CPF e pagamento só por QR Code gerado na compra. Mas nenhum sinal garante o serviço; as avaliações das lojas têm elogios e relatos negativos, então comece com um valor pequeno.
@@ -28,12 +28,12 @@ faq:
     a: O pagamento é sempre pelo QR Code gerado dentro do Fichas 24h na hora da compra. PIX feito sem gerar o QR Code não vira fichas automaticamente.
 ---
 
-"**Fichas 24h é confiável?**" é a pergunta certa antes do primeiro PIX. Aqui não há veredito. Há o que você mesmo pode conferir: endereço, empresa, lojas de app, regras de pagamento e sinais de golpe — inclusive o que as avaliações têm de ruim. É a plataforma por onde o **Clube Suprema (ID 10001)** vende e paga as fichas do Suprema Poker.
+"**Fichas 24h é confiável?**" é a pergunta certa antes do primeiro PIX. Aqui não há veredito. Há o que você mesmo pode conferir: endereço, empresa, lojas de app, regras de pagamento e sinais de golpe — inclusive o que as avaliações têm de ruim. É a plataforma por onde o **Clube Suprema** vende e paga as fichas do Suprema Poker.
 
 ## 1. O endereço oficial é um só
 
 :::nota Quem escreve este post
-Este site é mantido pelo Clube Suprema (ID 10001), do grupo SX, o mesmo grupo da SX&CO, que publica o Fichas 24h. Temos interesse comercial em que você use os dois. Por isso este texto não dá veredito: lista o que você mesmo pode conferir, inclusive o que é negativo. Veja a [divulgação](/divulgacao).
+Este site é mantido pelo Clube Suprema, do grupo SX, o mesmo grupo da SX&CO, que publica o Fichas 24h. Temos interesse comercial em que você use os dois. Por isso este texto não dá veredito: lista o que você mesmo pode conferir, inclusive o que é negativo. Veja a [divulgação](/divulgacao).
 :::
 
 O Fichas 24h funciona em **fichas24horas.com.br** e no app **Fichas 24 Horas**, disponível para [Android](https://play.google.com/store/apps/details?id=com.mycompany.fichas24horas&hl=pt_BR) e [iPhone](https://apps.apple.com/br/app/fichas-24-horas/id6469055865), publicado nas lojas pela **SX&CO**. A classificação etária na App Store é 18 anos; a Google Play mostra classificação 18 anos. Qualquer site ou app fora desses endereços não é o Fichas 24h.
@@ -98,7 +98,7 @@ As duas lojas trazem a declaração do próprio desenvolvedor, e elas descrevem 
 | Reclamações | Reclame Aqui, buscando o nome da empresa |
 | Regra do CPF | Perguntas frequentes do próprio Fichas 24h |
 | Prazo do saque | FAQ do Fichas 24h: revisão de até 24 horas |
-| Suporte do clube | WhatsApp 24h do Clube Suprema, em português, inglês e espanhol |
+| Contato do clube | canal do Telegram, na página de [contato](/contato) |
 
 ## Dúvidas comuns sobre confiança
 
@@ -113,5 +113,5 @@ O Fichas 24h e o Suprema Poker são só para **maiores de 18 anos**. Defina ante
 :::
 
 :::nota Transparência
-Este site é mantido pelo Clube Suprema (ID 10001), do grupo SX. O Fichas 24h é publicado pela SX&CO, do mesmo grupo. O clube tem interesse comercial em que você jogue por ele; veja a [divulgação](/divulgacao). As regras do Fichas 24h citadas aqui vêm das perguntas frequentes da própria plataforma, que bloqueia leitura automática: confira na fonte antes de decidir.
+Este site é mantido pelo Clube Suprema, do grupo SX. O Fichas 24h é publicado pela SX&CO, do mesmo grupo. O clube tem interesse comercial em que você jogue por ele; veja a [divulgação](/divulgacao). As regras do Fichas 24h citadas aqui vêm das perguntas frequentes da própria plataforma, que bloqueia leitura automática: confira na fonte antes de decidir.
 :::

@@ -1,4 +1,4 @@
-Estes termos valem para o uso do **suprema.blog**, mantido pela equipe do **Clube Suprema** (ID 10001, agente 1439098), clube do grupo SX no app Suprema Poker. Ao usar o site, você concorda com eles.
+Estes termos valem para o uso do **suprema.blog**, mantido pela equipe do **Clube Suprema**, clube do grupo SX no app Suprema Poker. Ao usar o site, você concorda com eles.
 
 :::nota Resumo
 O site é informativo e educativo. Ele **não é casa de jogo**, não guarda saldo nem fichas, não processa pagamentos e não promete ganho. Poker online envolve risco financeiro. Só para maiores de 18 anos.
@@ -26,7 +26,7 @@ O site tem links para Suprema Poker, Fichas 24h, SX, Telegram e outros sites. Pa
 
 ## Direitos sobre o conteúdo
 
-Os textos e as imagens do site são da equipe do Clube Suprema. Você pode citar trechos com link para a página de origem. Suprema Poker e Fichas 24h são marcas de terceiros. O Clube Suprema (ID 10001) é um clube do grupo SX dentro do app Suprema Poker, e este site é mantido por ele. Isso significa que o clube tem interesse comercial em que você jogue por ele; veja a [divulgação](/divulgacao). A Suprema Gaming não patrocina nem revisa o conteúdo deste site.
+Os textos e as imagens do site são da equipe do Clube Suprema. Você pode citar trechos com link para a página de origem. Suprema Poker e Fichas 24h são marcas de terceiros. O Clube Suprema é um clube do grupo SX dentro do app Suprema Poker, e este site é mantido por ele. Isso significa que o clube tem interesse comercial em que você jogue por ele; veja a [divulgação](/divulgacao). A Suprema Gaming não patrocina nem revisa o conteúdo deste site.
 
 ## Limite de responsabilidade
 

@@ -5,14 +5,14 @@ description: Guia dos clubes do Suprema Poker: o que é um clube, onde achar o I
 date: 2026-10-26
 updated: 2026-11-15
 cover: /img/blog/clubes-suprema-poker-2/cover.jpg
-coverAlt: Cartões de clubes do Suprema Poker empilhados, com o Clube Suprema ID 10001 em destaque
+coverAlt: Cartões de clubes do Suprema Poker empilhados, com o Clube Suprema o clube em destaque
 tags: [clube, primeiros passos, guia]
-resumo: No Suprema Poker toda mesa pertence a um clube, identificado por um número, o ID. Você entra pelo link de convite ou digitando o ID do clube e do agente, pode estar em vários clubes com a mesma conta e cada clube tem saldo próprio. O Clube Suprema é o ID 10001, com o agente 1439098.
+resumo: No Suprema Poker toda mesa pertence a um clube, identificado por um número, o ID. Você entra pelo link de convite ou digitando o ID do clube e do agente, pode estar em vários clubes com a mesma conta e cada clube tem saldo próprio. Os números do Clube Suprema e do agente estão na página de entrada no clube.
 faq:
   - q: O que é um clube no Suprema Poker?
     a: É a sala onde você joga dentro do app. Cada clube tem um número de identificação, as próprias mesas e torneios e o próprio saldo de fichas. Você entra no clube com o ID ou pelo link de convite e passa a ver o lobby dele.
   - q: Onde encontro o ID de um clube do Suprema Poker?
-    a: Quem convida informa o ID. Ele também aparece no próprio clube, dentro do app, depois que você entra. O ID do Clube Suprema é 10001, e o do agente é 1439098.
+    a: Quem convida informa o ID. Ele também aparece no próprio clube, dentro do app, depois que você entra. Os números do Clube Suprema e do agente estão em a página de entrada no clube.
   - q: Posso jogar em mais de um clube com a mesma conta?
     a: Pode. A mesma conta do Suprema Poker entra em quantos clubes você quiser, e cada um aparece na sua lista de clubes. O saldo de fichas é separado por clube.
   - q: Como saio de um clube no Suprema Poker?
@@ -44,8 +44,8 @@ O ID do clube é o "endereço" dele dentro do app. Muitos clubes pedem também o
 
 | O que é | Para que serve | Exemplo |
 |---|---|---|
-| ID do clube | encontrar e entrar no clube | 10001 (Clube Suprema) |
-| ID do agente | ligar a sua conta ao agente que te atende | 1439098 |
+| ID do clube | encontrar e entrar no clube | veja [como entrar no clube](/blog/como-entrar-no-clube-suprema) |
+| ID do agente | ligar a sua conta ao agente que te atende | veja [como entrar no clube](/blog/como-entrar-no-clube-suprema) |
 | ID do jogador | identificar você na compra de fichas e no suporte | aparece no seu perfil no app |
 
 Quem te convida informa os números. Você também pode receber um **link de convite**, que abre o app com os IDs já preenchidos. Quando alguém fala em "código promocional" ou "código de convite" do Suprema Poker, quase sempre são esses números: veja [o que é o código do clube e do agente](/blog/codigo-suprema-poker-clube-agente).
@@ -100,7 +100,7 @@ Não existe uma lista oficial de "melhores clubes do Suprema Poker". O melhor cl
 | Pergunta | Sinal bom | Sinal de alerta |
 |---|---|---|
 | O link é oficial? | Abre o app Suprema Poker ou a loja oficial | Pede para instalar um app diferente |
-| O clube e o agente se identificam? | Informam ID do clube e do agente | Só um número de WhatsApp |
+| O clube e o agente se identificam? | Informam ID do clube e do agente | Só um número de celular |
 | Como é o pagamento? | PIX de uma conta no seu CPF, com comprovante | Pagamento para conta de terceiros |
 | E o saque? | Vai para a chave PIX do seu CPF, com prazo claro | Regras vagas ou "taxa para liberar" |
 | O suporte responde? | Atende rápido e por escrito | Some depois da compra |
@@ -116,15 +116,15 @@ O Suprema Poker e os clubes são para **maiores de 18 anos**. Defina antes quant
 
 | Item | Clube Suprema |
 |---|---|
-| ID do clube | **10001** |
-| ID do agente | **1439098** |
+| ID do clube | veja [como entrar no clube](/blog/como-entrar-no-clube-suprema) |
+| ID do agente | veja [como entrar no clube](/blog/como-entrar-no-clube-suprema) |
 | Fichas e saque | PIX no seu CPF, pelo Fichas 24h |
-| Suporte | 24h no WhatsApp, em português, inglês e espanhol |
+| Contato | canal do Telegram, na página de [contato](/contato) |
 | Grupo e liga | Grupo SX e Liga Suprema, com mesas compartilhadas |
 | Modalidades | NLH, PLO, torneios, sit & go e [Spin Suprema](/blog/spin-suprema-como-funciona-e-primeiro-grande-ganhador) |
 
 Dúvidas de fichas, PIX e saque estão nas [perguntas frequentes do suporte](/blog/perguntas-frequentes-suporte). Para entender os formatos de jogo, veja [modalidades e formatos de torneio](/blog/formatos-de-torneio-poker-online).
 
 :::cta Quer entrar no Clube Suprema?
-Pelo celular, abra o [link oficial](/baixar) e aceite o convite. Pelo computador, entre com o clube **10001** e o agente **1439098**. Travou em algum passo? O contato do clube resolve com você.
+Pelo celular, abra o [link oficial](/baixar) e aceite o convite. Pelo computador, entre com o clube e o agente indicados em [como entrar no clube](/blog/como-entrar-no-clube-suprema). Travou em algum passo? O contato do clube resolve com você.
 :::

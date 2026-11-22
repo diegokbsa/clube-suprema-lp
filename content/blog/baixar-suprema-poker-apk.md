@@ -7,14 +7,14 @@ updated: 2026-11-15
 cover: /img/blog/baixar-suprema-poker-apk/cover.jpg
 coverAlt: Celular Android baixando o APK do Suprema Poker no site oficial, com um selo de segurança e as etiquetas Android APK e iPhone App Store
 tags: [app, instalação, primeiros passos]
-resumo: O APK do Suprema Poker é o instalador do app para Android fora da Google Play e deve ser baixado só no site oficial, supremapoker.net. Libere a instalação de apps desconhecidos apenas para o navegador que baixou o arquivo, instale, crie a conta e confirme o e-mail. No iPhone não existe APK, e o app oficial vem da App Store. Depois, entre no Clube Suprema pelo link oficial ou com o clube 10001 e o agente 1439098.
+resumo: O APK do Suprema Poker é o instalador do app para Android fora da Google Play e deve ser baixado só no site oficial, supremapoker.net. Libere a instalação de apps desconhecidos apenas para o navegador que baixou o arquivo, instale, crie a conta e confirme o e-mail. No iPhone não existe APK, e o app oficial vem da App Store. Depois, entre no Clube Suprema pelo link oficial ou com o clube e o agente indicados em a página de entrada no clube.
 passosTitulo: Como instalar o APK do Suprema Poker no Android
 passos:
   - No celular Android, abra o site oficial supremapoker.net e baixe o APK para Android.
   - Quando o Android pedir, permita instalar apps desconhecidos só para o navegador que baixou o arquivo.
   - Abra o arquivo baixado e toque em Instalar.
   - Abra o app, crie a conta com e-mail e senha e confirme o código enviado ao seu e-mail.
-  - Abra o link oficial do Clube Suprema ou entre com o clube 10001 e o agente 1439098.
+  - Abra o link oficial do Clube Suprema ou entre com o clube e o agente indicados em a página de entrada no clube.
   - Volte às configurações e bloqueie de novo a instalação de apps desconhecidos no navegador.
 faq:
   - q: O que é o APK do Suprema Poker?
@@ -30,10 +30,10 @@ faq:
   - q: O Android avisou que o arquivo pode ser perigoso. É normal?
     a: O Android costuma avisar quando um app é instalado fora da loja. Se o arquivo veio do site oficial, siga com a instalação. Se veio de outro lugar, cancele e apague o arquivo.
   - q: Instalei o APK. Como entro no Clube Suprema?
-    a: Com o app instalado, abra o link oficial do clube no celular e aceite o convite. Se o link abrir a loja ou não abrir o app, entre com o ID, usando o clube 10001 e o agente 1439098.
+    a: Com o app instalado, abra o link oficial do clube no celular e aceite o convite. Se o link abrir a loja ou não abrir o app, entre com o ID, usando o clube e o agente indicados em a página de entrada no clube.
 ---
 
-Quem procura **Suprema Poker APK** quer instalar o app no Android sem passar pela Google Play: porque o celular não tem a loja, porque a loja não está funcionando ou porque alguém mandou "o APK" em um grupo. O APK é só o arquivo de instalação do Android, e o app é o mesmo das lojas. Este guia mostra quando vale usar o APK, como baixar no site oficial, liberar a instalação, atualizar sem perder a conta e o que fazer no iPhone, onde APK não funciona. No fim, você entra no **Clube Suprema (ID 10001, agente 1439098)**.
+Quem procura **Suprema Poker APK** quer instalar o app no Android sem passar pela Google Play: porque o celular não tem a loja, porque a loja não está funcionando ou porque alguém mandou "o APK" em um grupo. O APK é só o arquivo de instalação do Android, e o app é o mesmo das lojas. Este guia mostra quando vale usar o APK, como baixar no site oficial, liberar a instalação, atualizar sem perder a conta e o que fazer no iPhone, onde APK não funciona. No fim, você entra no **Clube Suprema**.
 
 ## APK, Google Play ou App Store: qual usar
 
@@ -94,7 +94,7 @@ O código é só seu: ninguém do suporte pede esse código nem a sua senha. Os 
 Com o app instalado e a conta confirmada, falta o clube:
 
 - **Pelo link**: no celular, abra o [link oficial do Clube Suprema](/baixar). Com o app instalado, ele abre o Suprema Poker já no convite, com o clube e o agente preenchidos. Se ele abrir a loja, ou não abrir o app, use o ID.
-- **Pelo ID**: no app, toque na opção de **entrar em um clube** e digite o clube **10001** e o agente **1439098**.
+- **Pelo ID**: no app, toque na opção de **entrar em um clube** e digite o clube e o agente indicados em [como entrar no clube](/blog/como-entrar-no-clube-suprema).
 
 Se o clube ficar **pendente**, aguarde alguns minutos. Se continuar, fale com o clube pela página de [contato](/contato) com o seu [ID do jogador](/blog/id-do-jogador-suprema-poker), que fica no seu perfil. Os outros problemas na entrada estão em [como entrar no Clube Suprema](/blog/como-entrar-no-clube-suprema).
 
@@ -114,7 +114,7 @@ Não existe **Suprema Poker APK para iPhone**. APK é um formato do Android e n�
 
 1. Abra a página do app na App Store e toque em **Obter**.
 2. Confirme com Face ID, Touch ID ou a senha da conta Apple.
-3. Abra o app, entre ou crie a conta e entre no clube pelo [link oficial](/baixar) ou com o clube **10001** e o agente **1439098**.
+3. Abra o app, entre ou crie a conta e entre no clube pelo [link oficial](/baixar) ou com o clube e o agente indicados em [como entrar no clube](/blog/como-entrar-no-clube-suprema).
 
 Se a App Store disser que o app não está disponível na sua região, a conta Apple está em uma loja de outro país. Troque a região para Brasil nas configurações da Apple. Desconfie de sites que oferecem "APK para iPhone" ou pedem para instalar perfis e certificados: isso não é o app oficial.
 
@@ -127,7 +127,7 @@ Se a App Store disser que o app não está disponível na sua região, a conta A
 | Erro ao analisar o pacote | O download pode ter ficado incompleto. Baixe de novo no site oficial, de preferência no Wi-Fi |
 | Não acho o arquivo baixado | Abra o app **Arquivos** e procure na pasta **Downloads** |
 | O app pede atualização para entrar | Baixe o APK mais recente no site oficial e instale por cima |
-| O link do clube abriu a loja | Com o app já instalado, entre com o ID: clube **10001** e agente **1439098** |
+| O link do clube abriu a loja | Com o app já instalado, entre com o ID: o clube e o agente indicados em [como entrar no clube](/blog/como-entrar-no-clube-suprema) |
 | O app abre e fecha | Siga o guia de [app Suprema Poker não abre](/blog/app-suprema-poker-nao-abre) |
 
 Se nada resolver, fale com o **contato do clube**, que atende todos os dias em português, inglês e espanhol. Diga o modelo do celular, a versão do Android e o que aparece na tela.
@@ -141,5 +141,5 @@ O Suprema Poker e os clubes são só para **maiores de 18 anos**. Defina antes q
 :::
 
 :::cta APK instalado? Entre no clube
-No celular, abra o [link oficial](/baixar) e aceite o convite, ou entre com o clube **10001** e o agente **1439098**. Fichas por PIX no seu CPF e contato do clube para qualquer passo.
+No celular, abra o [link oficial](/baixar) e aceite o convite, ou entre com o clube e o agente indicados em [como entrar no clube](/blog/como-entrar-no-clube-suprema). Fichas por PIX no seu CPF e contato do clube para qualquer passo.
 :::

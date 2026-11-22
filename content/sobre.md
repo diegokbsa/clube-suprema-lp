@@ -1,7 +1,7 @@
-O **Clube Suprema** é um clube de poker online que funciona dentro do app **Suprema Poker**. O clube é o **ID 10001**, e o agente que coloca você dentro dele é o **1439098**. Este site, o suprema.blog, é mantido pelo clube: daqui você baixa o app, entra no clube e encontra os guias do blog.
+O **Clube Suprema** é um clube de poker online que funciona dentro do app **Suprema Poker**. Os números do clube e do agente ficam só no passo a passo de [como entrar no clube](/blog/como-entrar-no-clube-suprema). Este site, o suprema.blog, é mantido pelo clube: daqui você baixa o app, entra no clube e encontra os guias do blog.
 
 :::nota Resposta rápida
-Clube Suprema, ID 10001, agente 1439098. Clube do grupo SX que joga na Liga Suprema, no app Suprema Poker. Fichas e saques por PIX no seu CPF, pelo Fichas 24h. Novidades no canal do Telegram. Somente maiores de 18 anos. Conteúdo com interesse comercial do clube (veja "Quem mantém e como ganhamos").
+Clube Suprema. Clube do grupo SX que joga na Liga Suprema, no app Suprema Poker. Fichas e saques por PIX no seu CPF, pelo Fichas 24h. Novidades no canal do Telegram. Somente maiores de 18 anos. Conteúdo com interesse comercial do clube (veja "Quem mantém e como ganhamos").
 :::
 
 ## Quem somos
@@ -15,7 +15,7 @@ O app usado é o [Suprema Poker](https://www.supremapoker.net/), do grupo Suprem
 | Etapa | Como é no Clube Suprema |
 |---|---|
 | App | Suprema Poker, gratuito, para Android, iPhone e Windows |
-| Entrada no clube | Pelo link oficial, no celular, ou com o clube **10001** e o agente **1439098** |
+| Entrada no clube | Pelo link oficial, no celular, ou com o clube e o agente indicados em [como entrar no clube](/blog/como-entrar-no-clube-suprema) |
 | Fichas | PIX de uma conta no seu próprio CPF, pelo Fichas 24h |
 | Saque | Na chave PIX do seu CPF |
 | Contato | Canal do Telegram e página de contato |
@@ -25,7 +25,7 @@ Os passos estão em [como baixar no celular](/blog/como-instalar-app-suprema-pok
 
 ## Quem mantém e como ganhamos
 
-Este site é mantido pela equipe do **Clube Suprema** (ID 10001, agente 1439098). Ainda não publicamos razão social, CNPJ e endereço do responsável; quando houver, esta página será a primeira a trazê-los. O clube e o agente têm **interesse comercial em que você jogue por eles**, e os botões "Quero jogar", de suporte e de canal levam a serviços do próprio clube ou de terceiros (Suprema Poker, Fichas 24h). A forma exata de remuneração entre clube, agente e plataforma não é publicada aqui. Veja também a página de [divulgação](/divulgacao).
+Este site é mantido pela equipe do **Clube Suprema**. Ainda não publicamos razão social, CNPJ e endereço do responsável; quando houver, esta página será a primeira a trazê-los. O clube e o agente têm **interesse comercial em que você jogue por eles**, e os botões "Quero jogar", de suporte e de canal levam a serviços do próprio clube ou de terceiros (Suprema Poker, Fichas 24h). A forma exata de remuneração entre clube, agente e plataforma não é publicada aqui. Veja também a página de [divulgação](/divulgacao).
 
 ## Como produzimos o conteúdo
 
@@ -43,5 +43,5 @@ Achou algo desatualizado ou errado? Fale pela página de [contato](/contato). Os
 O Clube Suprema e o app Suprema Poker são **somente para maiores de 18 anos**. Defina antes quanto vai gastar, faça pausas e não tente recuperar perdas. A Suprema mantém uma página sobre [jogo consciente](https://supremapoker.com.br/jogo-consciente).
 
 :::cta Quer jogar no Clube Suprema?
-Pelo celular, abra o [link oficial](/baixar) e você já entra no clube. Pelo computador, entre com o clube **10001** e o agente **1439098**. Novidades no canal do Telegram.
+Pelo celular, abra o [link oficial](/baixar) e você já entra no clube. Pelo computador, entre com o clube e o agente indicados em [como entrar no clube](/blog/como-entrar-no-clube-suprema). Novidades no canal do Telegram.
 :::

@@ -4,12 +4,12 @@ description: As dúvidas que mais chegam ao suporte 24h do Clube Suprema: compra
 date: 2026-10-23
 updated: 2026-11-15
 cover: /img/blog/perguntas-frequentes-suporte/cover.jpg
-coverAlt: Balão de conversa do WhatsApp com o texto "Perguntas frequentes do suporte" sobre fundo preto e dourado
+coverAlt: Balão de conversa com o texto "Perguntas frequentes do suporte" sobre fundo preto e dourado
 tags: [suporte, fichas, pix, saque]
-resumo: No Clube Suprema, as fichas são compradas por PIX no Fichas 24h, de uma conta no seu próprio CPF. Na primeira compra, informe o seu ID da Suprema, o clube 10001 e o agente 1439098. O saque vai para a chave PIX do seu CPF, e o ID de jogador fica no perfil do app.
+resumo: No Clube Suprema, as fichas são compradas por PIX no Fichas 24h, de uma conta no seu próprio CPF. Na primeira compra, informe o seu ID da Suprema, o clube e o agente indicados em a página de entrada no clube. O saque vai para a chave PIX do seu CPF, e o ID de jogador fica no perfil do app.
 faq:
   - q: Como compro fichas no Clube Suprema?
-    a: Pelo Fichas 24h, por PIX, a partir de uma conta no seu próprio CPF. Na primeira compra, informe o seu ID da Suprema, o clube 10001 e o agente 1439098, além de CPF, celular e data de nascimento.
+    a: Pelo Fichas 24h, por PIX, a partir de uma conta no seu próprio CPF. Na primeira compra, informe o seu ID da Suprema, o clube e o agente indicados em a página de entrada no clube, além de CPF, celular e data de nascimento.
   - q: Posso pagar o PIX da conta de outra pessoa?
     a: Não. O Fichas 24h só aceita PIX vindo de conta no CPF do próprio jogador. Pagamentos de terceiros são devolvidos e atrasam o crédito.
   - q: Paguei e as fichas não caíram. O que faço?
@@ -23,12 +23,12 @@ faq:
   - q: O clube aparece como pendente. E agora?
     a: Aguarde alguns minutos. Se continuar pendente, chame o suporte informando o seu ID da Suprema para a liberação.
   - q: Como falo com o suporte?
-    a: Pelo WhatsApp, 24 horas por dia, todos os dias, em português, inglês e espanhol. Diga o seu nome, que você é do Clube Suprema (10001, agente 1439098) e o seu ID da Suprema.
+    a: Pelo canal do Telegram do clube, na página de contato. Diga o seu nome, que você é do Clube Suprema e o seu ID da Suprema.
 ---
 
 Esta página reúne dúvidas frequentes sobre o clube, em ordem do que acontece primeiro: conta, entrada no clube, fichas, saque e problemas no app. Se a sua dúvida não estiver aqui, a página de [contato](/contato) lista os canais do clube, em português, inglês e espanhol.
 
-![Ciclo das fichas no Clube Suprema: PIX da sua conta, Fichas 24h, saldo no app, mesa e saque na chave PIX do seu CPF](/img/blog/ciclo-fichas.svg "O dinheiro entra e sai pelo mesmo caminho: PIX no seu CPF, via Fichas 24h.")
+![Ciclo das fichas no Clube Suprema: PIX da sua conta, Fichas 24h, saldo no app, mesa e saque na chave PIX do seu CPF](/img/blog/ciclo-fichas-2.svg "O dinheiro entra e sai pelo mesmo caminho: PIX no seu CPF, via Fichas 24h.")
 
 ## Conta e login
 
@@ -52,11 +52,11 @@ Instale o app no aparelho novo e entre com o mesmo e-mail e senha. O clube, o sa
 
 ### Qual é o ID do clube e do agente?
 
-Clube **10001**, agente **1439098**. Pelo [link oficial](/baixar) os dois já vão preenchidos. O passo a passo das duas formas de entrada está em [como entrar no Clube Suprema](/blog/como-entrar-no-clube-suprema).
+Clube Suprema. Pelo [link oficial](/baixar) os dois já vão preenchidos. O passo a passo das duas formas de entrada está em [como entrar no Clube Suprema](/blog/como-entrar-no-clube-suprema).
 
 ### O clube aparece como pendente
 
-Aguarde alguns minutos e puxe a tela para atualizar. Se continuar pendente, mande ao suporte o seu **ID da Suprema** pedindo a liberação no clube 10001.
+Aguarde alguns minutos e puxe a tela para atualizar. Se continuar pendente, mande ao suporte o seu **ID da Suprema** pedindo a liberação no clube.
 
 ### O link abriu a loja em vez do app
 
@@ -66,7 +66,7 @@ Aguarde alguns minutos e puxe a tela para atualizar. Se continuar pendente, mand
 
 ### Como compro fichas?
 
-Pelo **Fichas 24h**, por PIX. Na primeira compra, o Fichas 24h pede **CPF, celular e data de nascimento** para validar o pagador, mais o seu **ID da Suprema**, o **clube 10001** e o **agente 1439098**. Depois da primeira vez, as compras seguintes são mais rápidas. O passo a passo, da criação da conta à verificação e ao QR Code, está em [Fichas 24 Horas: como comprar fichas do Suprema Poker por PIX](/blog/fichas-24-horas-suprema-poker-pix).
+Pelo **Fichas 24h**, por PIX. Na primeira compra, o Fichas 24h pede **CPF, celular e data de nascimento** para validar o pagador, mais o seu **ID da Suprema**, o clube e o agente indicados em [como entrar no clube](/blog/como-entrar-no-clube-suprema). Depois da primeira vez, as compras seguintes são mais rápidas. O passo a passo, da criação da conta à verificação e ao QR Code, está em [Fichas 24 Horas: como comprar fichas do Suprema Poker por PIX](/blog/fichas-24-horas-suprema-poker-pix).
 
 ### Quem pode fazer o PIX?
 
@@ -77,7 +77,7 @@ Só você, de uma conta no **seu próprio CPF**. Essa é a regra que mais gera a
 Confira, nesta ordem:
 
 1. O PIX saiu de uma conta no **seu CPF**?
-2. O **ID da Suprema**, o clube **10001** e o agente **1439098** estavam corretos no pedido?
+2. O **ID da Suprema**, o clube e o agente indicados em [como entrar no clube](/blog/como-entrar-no-clube-suprema) estavam corretos no pedido?
 3. O pagamento aparece como **concluído** no app do banco?
 
 Se tudo estiver certo, mande o **comprovante** ao suporte do Fichas 24h, junto com o seu ID da Suprema. A equipe localiza o pagamento e credita.
@@ -130,14 +130,14 @@ Antes do início, o buy-in volta para o seu saldo. Depois de iniciado, vale a re
 
 - O app e o clube são para **maiores de 18 anos**.
 - Ninguém do suporte pede a sua **senha** ou o **código de confirmação**. Se alguém pedir, é golpe.
-- Use só os canais oficiais: o app, o Fichas 24h e o WhatsApp do suporte indicado na [página inicial](/).
+- Use só os canais oficiais: o app, o Fichas 24h e a página de [contato](/contato) do clube.
 - Defina limites antes de jogar. A Suprema tem uma página sobre [jogo consciente](https://supremapoker.com.br/jogo-consciente).
 
 ## Como falar com o suporte
 
-O suporte do Fichas 24h atende pelo **WhatsApp, 24 horas, todos os dias**, em português, inglês e espanhol. Para ser atendido mais rápido, comece a conversa com:
+O suporte do Fichas 24h atende pelos canais do próprio Fichas 24h. Para ser atendido mais rápido, comece a conversa com:
 
-> Oi, meu nome é [seu nome], venho do Clube Suprema (clube 10001, agente 1439098), meu ID da Suprema é [número] e preciso de ajuda com [compra / saque / acesso].
+> Oi, meu nome é [seu nome], venho do Clube Suprema, meu ID da Suprema é [número] e preciso de ajuda com [compra / saque / acesso].
 
 Se for sobre pagamento, já anexe o comprovante.
 

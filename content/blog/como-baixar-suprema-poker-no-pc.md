@@ -7,31 +7,31 @@ updated: 2026-11-15
 cover: /img/blog/como-baixar-suprema-poker-no-pc-2/cover.jpg
 coverAlt: Notebook com a mesa do app Suprema Poker na tela e o selo de download, com os textos PC, notebook e MacBook
 tags: [app, instalação, pc]
-resumo: Para jogar Suprema Poker no PC ou no notebook, baixe o instalador oficial para Windows em security.supremapoker.com.br/download, instale e entre com a sua conta. No computador, a entrada no clube é com o ID, clube 10001 e agente 1439098. Não há versão oficial para macOS, então no MacBook jogue pelo celular, por máquina virtual ou por emulador.
+resumo: Para jogar Suprema Poker no PC ou no notebook, baixe o instalador oficial para Windows em security.supremapoker.com.br/download, instale e entre com a sua conta. No computador, a entrada no clube é com o ID, o clube e o agente indicados em a página de entrada no clube. Não há versão oficial para macOS, então no MacBook jogue pelo celular, por máquina virtual ou por emulador.
 passosTitulo: Como instalar o Suprema Poker no PC com Windows
 passos:
   - Baixe o instalador supremapoker.exe em security.supremapoker.com.br/download.
   - Execute o arquivo e, se o SmartScreen avisar, clique em Mais informações e em Executar assim mesmo.
   - Siga o assistente até o fim e abra o app pelo atalho criado.
   - Entre com a sua conta ou crie uma com e-mail e senha.
-  - Entre no Clube Suprema com o clube 10001 e o agente 1439098.
+  - Entre no Clube Suprema com o clube e o agente indicados em a página de entrada no clube.
 faq:
   - q: Como baixar o Suprema Poker no PC?
-    a: Abra o endereço oficial para Windows (security.supremapoker.com.br/download), baixe o instalador supremapoker.exe, execute e siga o assistente. Depois entre na sua conta e no clube com o ID. No Clube Suprema, o clube é 10001 e o agente é 1439098.
+    a: Abra o endereço oficial para Windows (security.supremapoker.com.br/download), baixe o instalador supremapoker.exe, execute e siga o assistente. Depois entre na sua conta e no clube com o ID. Os números do Clube Suprema estão na página de entrada no clube.
   - q: O Suprema Poker funciona no notebook?
     a: Funciona. O instalador é o mesmo do PC de mesa, para notebooks com Windows. Deixe o notebook na tomada e no modo de alto desempenho para as mesas rodarem lisas.
   - q: Tem Suprema Poker para MacBook?
     a: O site oficial não oferece versão para macOS. No MacBook, jogue pelo celular, rode o Windows em máquina virtual ou use um emulador Android. Antes de usar emulador, confira com o suporte, porque alguns torneios restringem o tipo de aparelho.
   - q: Como entro no clube pelo computador?
-    a: No computador o link de convite não abre o app, então a entrada é com o ID. No app, use a opção de entrar em um clube e digite o clube 10001 e o agente 1439098 para entrar no Clube Suprema.
+    a: No computador o link de convite não abre o app, então a entrada é com o ID. No app, use a opção de entrar em um clube e digite o clube e o agente indicados em a página de entrada no clube para entrar no Clube Suprema.
   - q: O Windows bloqueou o instalador. É seguro?
     a: Se o arquivo veio do endereço oficial, sim. O aviso do SmartScreen aparece para instaladores de fora da Microsoft Store. Clique em Mais informações e em Executar assim mesmo.
 ---
 
-Jogar o **Suprema Poker no PC ou no notebook** tem vantagens claras: tela grande, mais conforto para sessões longas e espaço para abrir várias mesas ao mesmo tempo. Este tutorial mostra como baixar e instalar no Windows, o que fazer no MacBook, como criar a conta e como entrar no **Clube Suprema (ID 10001, agente 1439098)**.
+Jogar o **Suprema Poker no PC ou no notebook** tem vantagens claras: tela grande, mais conforto para sessões longas e espaço para abrir várias mesas ao mesmo tempo. Este tutorial mostra como baixar e instalar no Windows, o que fazer no MacBook, como criar a conta e como entrar no **Clube Suprema**.
 
 :::nota Os números que você vai usar
-**ID do clube: 10001** · **ID do agente: 1439098**. Guarde os dois: no computador, a entrada no clube é feita com eles.
+Os números do clube e do agente estão em [como entrar no clube](/blog/como-entrar-no-clube-suprema). Guarde os dois: no computador, a entrada no clube é feita com eles.
 :::
 
 ## O que você precisa
@@ -39,7 +39,7 @@ Jogar o **Suprema Poker no PC ou no notebook** tem vantagens claras: tela grande
 - Um **PC ou notebook com Windows** atualizado.
 - **Internet estável**, de preferência cabo ou Wi-Fi perto do roteador.
 - Um **e-mail** que você acessa, para confirmar a conta.
-- Os IDs do clube: **10001** e do agente: **1439098**.
+- Os IDs do clube e do agente ([como entrar no clube](/blog/como-entrar-no-clube-suprema)).
 
 ## Passo 1: baixar o instalador oficial
 
@@ -60,7 +60,7 @@ Versões de sites de terceiros podem estar desatualizadas ou alteradas. Se algu�
 Na primeira abertura, o app pode baixar recursos extras. Isso leva um ou dois minutos.
 
 :::cta Já instalou?
-Agora é entrar no **Clube Suprema**: clube **10001**, agente **1439098**. Se ainda não tem conta, siga o próximo passo.
+Agora é entrar no **Clube Suprema**: o clube e o agente indicados em [como entrar no clube](/blog/como-entrar-no-clube-suprema). Se ainda não tem conta, siga o próximo passo.
 :::
 
 ## Passo 3: criar a conta ou entrar
@@ -74,8 +74,8 @@ Se é a primeira vez, crie a conta com e-mail e senha e confirme o código que c
 No computador, o link de convite não abre o app. Por isso a entrada é com o ID:
 
 1. No app, procure a opção de **entrar em um clube**.
-2. Digite o **ID do clube: 10001**.
-3. Digite o **ID do agente: 1439098**.
+2. Digite o **ID do clube**.
+3. Digite o **ID do agente**.
 4. Confirme. O **Clube Suprema** aparece na sua lista de clubes.
 
 Se o clube aparecer como pendente, aguarde alguns minutos ou chame o suporte 24h com o seu ID de jogador, que fica no seu perfil. Os problemas mais comuns estão em [como entrar no Clube Suprema](/blog/como-entrar-no-clube-suprema).
@@ -102,16 +102,16 @@ O [site oficial](https://www.supremapoker.net/) oferece downloads para Android, 
 Alguns torneios aplicam restrição de **aparelho, IP e GPS** para evitar contas duplicadas. Nesses torneios, o emulador pode não ser aceito. Na dúvida, pergunte ao suporte 24h antes de comprar fichas.
 :::
 
-Depois de instalar por qualquer caminho, a entrada no clube é a mesma: **ID 10001** e **agente 1439098**.
+Depois de instalar por qualquer caminho, a entrada no clube é a mesma: o clube e o agente indicados em [como entrar no clube](/blog/como-entrar-no-clube-suprema).
 
 ## Comprar fichas e jogar
 
-Com o clube adicionado, compre fichas por **PIX**, pelo **Fichas 24h**, de uma conta no **seu próprio CPF**. Na primeira compra, informe o seu ID da Suprema, o **clube 10001** e o **agente 1439098**. O saque vai para a chave PIX do seu CPF. Tudo explicado nas [perguntas frequentes do suporte](/blog/perguntas-frequentes-suporte).
+Com o clube adicionado, compre fichas por **PIX**, pelo **Fichas 24h**, de uma conta no **seu próprio CPF**. Na primeira compra, informe o seu ID da Suprema, o clube e o agente indicados em [como entrar no clube](/blog/como-entrar-no-clube-suprema). O saque vai para a chave PIX do seu CPF. Tudo explicado nas [perguntas frequentes do suporte](/blog/perguntas-frequentes-suporte).
 
 No PC, a tela maior ajuda a acompanhar **até 4 mesas ao mesmo tempo**, recurso descrito na [página do app](https://apps.apple.com/br/app/suprema-poker/id1583176410).
 
 :::cta Jogue no PC pelo Clube Suprema
-Clube **10001**, agente **1439098**, do grupo SX e da Liga Suprema, com mesas compartilhadas, PIX no seu CPF e suporte 24h. Instalou e travou em algum passo? Chame o suporte no WhatsApp.
+Clube Suprema, do grupo SX e da Liga Suprema, com mesas compartilhadas, PIX no seu CPF e suporte 24h. Instalou e travou em algum passo? Veja a página de [contato](/contato).
 :::
 
 ## Problemas comuns no PC
@@ -121,7 +121,7 @@ Clube **10001**, agente **1439098**, do grupo SX e da Liga Suprema, com mesas co
 | O antivírus bloqueou o instalador | Baixe de novo só pelo endereço oficial e libere a execução. |
 | O SmartScreen não deixa abrir | Clique em **Mais informações** e em **Executar assim mesmo**. |
 | O app abre e fecha, ou não abre | Reinstale pelo endereço oficial. O passo a passo está em [app Suprema Poker não abre](/blog/app-suprema-poker-nao-abre). |
-| "Clube não encontrado" | Confira os números: clube **10001** e agente **1439098**, sem espaços. |
+| "Clube não encontrado" | Confira os números: o clube e o agente indicados em [como entrar no clube](/blog/como-entrar-no-clube-suprema), sem espaços. |
 | A mesa trava no notebook | Ligue na tomada, ative o alto desempenho e feche programas pesados. |
 
 :::nota Jogo consciente
@@ -129,5 +129,5 @@ O Suprema Poker e os clubes são para **maiores de 18 anos**. Defina antes quant
 :::
 
 :::cta Tudo pronto
-Baixe, instale e entre no **Clube Suprema** com o **ID 10001** e o **agente 1439098**. No celular, o atalho é o [link oficial](/baixar), que já abre o app no clube.
+Baixe, instale e entre no **Clube Suprema** com o clube e o agente indicados em [como entrar no clube](/blog/como-entrar-no-clube-suprema). No celular, o atalho é o [link oficial](/baixar), que já abre o app no clube.
 :::

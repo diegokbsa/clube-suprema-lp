@@ -34,7 +34,7 @@ faq:
     a: Cadastre uma chave PIX no seu nome em Chaves Pix e use Retirar Fichas. Todo saque passa por revisão, que pode levar até 24 horas, e você acompanha em Histórico de Transações.
 ---
 
-Quem procura **fichas24h** ou **fichas 24 horas suprema** quer, quase sempre, a mesma coisa: colocar fichas no Suprema Poker pagando com PIX. O **Fichas 24 Horas** é o canal que faz isso, com site e app próprios, e é por ele que o **Clube Suprema (ID 10001)** vende e paga as fichas. Este guia mostra o processo do jeito que o próprio Fichas 24h descreve: criar a conta, ligar o seu ID da Suprema, verificar, comprar e sacar.
+Quem procura **fichas24h** ou **fichas 24 horas suprema** quer, quase sempre, a mesma coisa: colocar fichas no Suprema Poker pagando com PIX. O **Fichas 24 Horas** é o canal que faz isso, com site e app próprios, e é por ele que o **Clube Suprema** vende e paga as fichas. Este guia mostra o processo do jeito que o próprio Fichas 24h descreve: criar a conta, ligar o seu ID da Suprema, verificar, comprar e sacar.
 
 :::nota Tenha em mãos
 - O app Suprema Poker instalado e você já dentro de um clube. Se ainda não entrou, veja [como entrar no Clube Suprema](/blog/como-entrar-no-clube-suprema).
@@ -47,9 +47,9 @@ Quem procura **fichas24h** ou **fichas 24 horas suprema** quer, quase sempre, a 
 
 O Fichas 24h é uma plataforma para comprar e sacar fichas de apps de poker com PIX. Funciona no navegador, em [fichas24horas.com.br](https://fichas24horas.com.br/auto-atendimento), e em app para [Android](https://play.google.com/store/apps/details?id=com.mycompany.fichas24horas&hl=pt_BR) e [iPhone](https://apps.apple.com/br/app/fichas-24-horas/id6469055865), publicado nas lojas pela SX&CO e classificado para maiores de 18 anos. O [site da SX](https://www.sx-co.com/sobre) apresenta o Fichas 24H como a plataforma de depósitos e saques automatizados que o grupo oferece aos clubes parceiros. O Clube Suprema é um desses clubes.
 
-Ao abrir o endereço, você cai na página de **auto-atendimento**, com três caminhos: **Entrar**, com login e senha, **Criar conta** e **Fale conosco no WhatsApp**. É para lá que o botão de comprar fichas da nossa [página inicial](/#cadastro) leva.
+Ao abrir o endereço, você cai na página de **auto-atendimento**, com três caminhos: **Entrar**, com login e senha, **Criar conta** e **Fale conosco**. É para lá que o botão de comprar fichas da nossa [página inicial](/#cadastro) leva.
 
-<!-- CAPTURA SUGERIDA: página de auto-atendimento do Fichas 24h com os botões Entrar, Criar conta e Fale conosco no WhatsApp (arquivo /img/blog/fichas-24-horas-suprema-poker-pix/auto-atendimento.webp, alt "Página de auto-atendimento do Fichas 24h") -->
+<!-- CAPTURA SUGERIDA: página de auto-atendimento do Fichas 24h com os botões Entrar, Criar conta e Fale conosco (arquivo /img/blog/fichas-24-horas-suprema-poker-pix/auto-atendimento.webp, alt "Página de auto-atendimento do Fichas 24h") -->
 
 ## Passo 1: criar a conta
 
@@ -67,11 +67,11 @@ Agora você liga o Fichas 24h à sua conta no app. Na área de contas, em **Cada
 | Campo | O que colocar |
 |---|---|
 | Plataforma | Suprema Poker |
-| Clube | o clube em que você joga; no nosso caso, o Clube Suprema (ID 10001) |
+| Clube | o clube em que você joga; no nosso caso, o Clube Suprema |
 | ID Player | o seu ID da Suprema, que está no seu perfil no app |
 | Apelido da conta | um nome para você reconhecer, como "Minha conta principal" |
 
-Se aparecer **ID do jogador inválido**, confira o número no seu perfil: é o ID numérico da conta, não o apelido. No Clube Suprema, se o suporte pedir, informe também o agente **1439098**. Onde achar esse número e como ele difere do ID do clube e do agente está em [ID do jogador no Suprema Poker](/blog/id-do-jogador-suprema-poker).
+Se aparecer **ID do jogador inválido**, confira o número no seu perfil: é o ID numérico da conta, não o apelido. No Clube Suprema, se o suporte pedir, informe também o agente do clube. Onde achar esse número e como ele difere do ID do clube e do agente está em [ID do jogador no Suprema Poker](/blog/id-do-jogador-suprema-poker).
 
 <!-- CAPTURA SUGERIDA: formulário Adicionar Conta do Fichas 24h com Plataforma, Clube, ID Player e Apelido da conta (arquivo /img/blog/fichas-24-horas-suprema-poker-pix/cadastrar-id.webp, alt "Cadastro do ID da Suprema no Fichas 24h") -->
 
@@ -166,13 +166,13 @@ O Fichas 24h e o Suprema Poker são só para **maiores de 18 anos**. Defina ante
 
 ## Comprar fichas no Clube Suprema
 
-1. **Entre no clube**: no celular, pelo [link oficial](/baixar); no computador, com o clube **10001** e o agente **1439098**.
+1. **Entre no clube**: no celular, pelo [link oficial](/baixar); no computador, com o clube e o agente indicados em [como entrar no clube](/blog/como-entrar-no-clube-suprema).
 2. **Cadastre o seu ID** no Fichas 24h com a plataforma Suprema Poker e o Clube Suprema.
 3. **Verifique a conta** e compre as fichas pelo QR Code PIX.
-4. Travou? O **suporte 24h** atende no WhatsApp, em português, inglês e espanhol.
+4. Travou? Veja a página de [contato](/contato).
 
 Está trocando de clube? Veja antes [como sair do clube no Suprema Poker sem perder o saldo](/blog/como-sair-do-clube-suprema-poker).
 
 :::cta Ainda não está no Clube Suprema?
-Abra o [link oficial](/baixar) no celular ou entre com o clube **10001** e o agente **1439098**. Depois é só cadastrar o seu ID no Fichas 24h e comprar as fichas por PIX, de uma conta no seu CPF.
+Abra o [link oficial](/baixar) no celular ou entre com o clube e o agente indicados em [como entrar no clube](/blog/como-entrar-no-clube-suprema). Depois é só cadastrar o seu ID no Fichas 24h e comprar as fichas por PIX, de uma conta no seu CPF.
 :::

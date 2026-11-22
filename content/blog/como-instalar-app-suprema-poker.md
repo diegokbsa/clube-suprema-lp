@@ -6,21 +6,21 @@ updated: 2026-10-27
 cover: /img/blog/como-instalar-app-suprema-poker/cover.jpg
 coverAlt: Celular com a tela de abertura do app Suprema Poker e o texto "Como baixar o Suprema Poker no celular"
 tags: [app, instalação, primeiros passos]
-resumo: Baixe o Suprema Poker na Google Play, no Android, ou na App Store, no iPhone. Crie a conta com e-mail e senha e confirme o código enviado por e-mail. Depois, abra o link oficial do Clube Suprema ou entre com o clube 10001 e o agente 1439098. O app é gratuito.
+resumo: Baixe o Suprema Poker na Google Play, no Android, ou na App Store, no iPhone. Crie a conta com e-mail e senha e confirme o código enviado por e-mail. Depois, abra o link oficial do Clube Suprema ou entre com o clube e o agente indicados em a página de entrada no clube. O app é gratuito.
 passosTitulo: Como baixar o Suprema Poker no celular
 passos:
   - Abra a Google Play, no Android, ou a App Store, no iPhone.
   - Procure Suprema Poker e toque em Instalar ou Obter.
   - Abra o app e crie a conta com e-mail e senha.
   - Confirme o código enviado para o seu e-mail.
-  - Abra o link oficial do Clube Suprema ou entre com o clube 10001 e o agente 1439098.
+  - Abra o link oficial do Clube Suprema ou entre com o clube e o agente indicados em a página de entrada no clube.
 faq:
   - q: O app Suprema Poker é gratuito?
     a: Sim. O download e a criação da conta não custam nada. Você só gasta quando decide comprar fichas para jogar.
   - q: Em quais aparelhos o Suprema Poker funciona?
     a: Em celulares e tablets Android, em iPhone e iPad e em PC ou notebook com Windows. O site oficial não oferece versão para Mac nem para Linux.
   - q: Como baixar o Suprema Poker no PC ou no notebook?
-    a: Baixe o instalador no endereço oficial para Windows, execute e siga o assistente. O tutorial de PC, notebook e MacBook do blog mostra cada passo. No computador, entre no Clube Suprema com o clube 10001 e o agente 1439098.
+    a: Baixe o instalador no endereço oficial para Windows, execute e siga o assistente. O tutorial de PC, notebook e MacBook do blog mostra cada passo. No computador, entre no Clube Suprema com o clube e o agente indicados em a página de entrada no clube.
   - q: Tem Suprema Poker para Mac ou MacBook?
     a: O site oficial não oferece instalador para macOS. No Mac, o caminho mais simples é jogar pelo celular. As alternativas com máquina virtual e emulador estão no tutorial de PC, notebook e MacBook do blog.
   - q: O app Suprema Poker não abre. O que fazer?
@@ -36,7 +36,7 @@ faq:
 O **Suprema Poker** é o aplicativo onde o Clube Suprema funciona. Antes de sentar em qualquer mesa, você precisa de três coisas: o app instalado no aparelho certo, uma conta criada com e-mail confirmado e o clube adicionado. Este guia mostra como baixar o Suprema Poker no **Android** e no **iPhone** e como criar a conta. Vai jogar no computador? Siga o [tutorial para baixar o Suprema Poker no PC, notebook e MacBook](/blog/como-baixar-suprema-poker-no-pc). Para a terceira parte, veja [como entrar no Clube Suprema pelo link ou com o ID](/blog/como-entrar-no-clube-suprema). Se ainda não sabe como os clubes funcionam, leia antes o [guia dos clubes do Suprema Poker](/blog/clubes-suprema-poker).
 
 :::nota Resumo rápido
-Baixe o app pela loja do seu aparelho (ou pelo nosso [link único](/baixar), que detecta o sistema), crie a conta com e-mail e senha, confirme o código que chega no e-mail e volte ao nosso link para cair direto no clube 10001.
+Baixe o app pela loja do seu aparelho (ou pelo nosso [link único](/baixar), que detecta o sistema), crie a conta com e-mail e senha, confirme o código que chega no e-mail e volte ao nosso link para cair direto no clube.
 :::
 
 ## Onde baixar o app certo
@@ -84,7 +84,7 @@ Se a App Store disser que o app não está disponível na sua região, a conta A
 2. Execute o arquivo. Se o Windows SmartScreen mostrar um aviso, clique em **Mais informações** e depois em **Executar assim mesmo**; o aviso aparece para qualquer instalador fora da Microsoft Store.
 3. Siga o assistente até o fim e abra o app pelo atalho criado.
 
-No computador, a entrada no clube é feita com o ID: clube **10001** e agente **1439098**. O passo a passo completo, com notebook e com as alternativas para **MacBook**, que não tem versão oficial, está no [tutorial para baixar o Suprema Poker no PC, notebook e MacBook](/blog/como-baixar-suprema-poker-no-pc).
+No computador, a entrada no clube é feita com o ID: o clube e o agente indicados em [como entrar no clube](/blog/como-entrar-no-clube-suprema). O passo a passo completo, com notebook e com as alternativas para **MacBook**, que não tem versão oficial, está no [tutorial para baixar o Suprema Poker no PC, notebook e MacBook](/blog/como-baixar-suprema-poker-no-pc).
 
 ## Criar a conta
 

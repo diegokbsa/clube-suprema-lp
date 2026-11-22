@@ -5,21 +5,21 @@ description: Não há código promocional oficial do Suprema Poker com bônus. O
 date: 2026-10-30
 updated: 2026-11-15
 cover: /img/blog/codigo-suprema-poker-clube-agente-2/cover.jpg
-coverAlt: Cupom com o código do Clube Suprema, ID do clube 10001 e ID do agente 1439098, sobre fundo preto e dourado
+coverAlt: Cupom com o código do Clube Suprema, o clube e o agente indicados em a página de entrada no clube, sobre fundo preto e dourado
 tags: [clube, primeiros passos, fichas]
-resumo: Não encontramos um código promocional oficial do Suprema Poker que dê bônus ou fichas grátis. O que os clubes chamam de código é o ID do clube e o ID do agente, os dois números que colocam você dentro de um clube. No Clube Suprema, o código é o clube 10001 com o agente 1439098. Digite os dois na opção de entrar em um clube, aguarde a aprovação e compre as fichas por PIX no Fichas 24h, de uma conta no seu CPF.
+resumo: Não encontramos um código promocional oficial do Suprema Poker que dê bônus ou fichas grátis. O que os clubes chamam de código é o ID do clube e o ID do agente, os dois números que colocam você dentro de um clube. No Clube Suprema, o código é o clube e o agente indicados em a página de entrada no clube. Digite os dois na opção de entrar em um clube, aguarde a aprovação e compre as fichas por PIX no Fichas 24h, de uma conta no seu CPF.
 passosTitulo: Como usar o código do Clube Suprema no Suprema Poker
 passos:
   - Abra o app Suprema Poker e entre na sua conta.
   - Toque na opção de entrar em um clube, pela busca de clubes ou pela entrada com ID.
-  - Digite o ID do clube 10001 e o ID do agente 1439098 e envie o pedido.
+  - Digite o clube e o agente indicados em a página de entrada no clube e envie o pedido.
   - Aguarde o Clube Suprema aparecer na sua lista; se ficar pendente, chame o suporte 24h com o seu ID de jogador.
   - Na primeira compra no Fichas 24h, cadastre o seu ID de jogador com o Clube Suprema e pague o QR Code PIX de uma conta no seu CPF.
 faq:
   - q: Qual é o código promocional do Suprema Poker?
-    a: Não encontramos um código promocional oficial do app que dê bônus. O que circula como código é o ID do clube e o ID do agente, usados para entrar em um clube. No Clube Suprema, são o clube 10001 e o agente 1439098.
+    a: Não encontramos um código promocional oficial do app que dê bônus. O que circula como código é o ID do clube e o ID do agente, usados para entrar em um clube. No Clube Suprema, são o clube e o agente indicados em a página de entrada no clube.
   - q: Qual é o código do Clube Suprema?
-    a: Clube 10001 e agente 1439098. No celular, o link oficial já abre o app com os dois preenchidos. No computador, você digita os dois números na opção de entrar em um clube.
+    a: Os números do clube e do agente estão em a página de entrada no clube. No celular, o link oficial já abre o app com os dois preenchidos. No computador, você digita os dois números na opção de entrar em um clube.
   - q: O código do clube dá bônus ou fichas grátis?
     a: Não. Ele só coloca você dentro do clube. As fichas são compradas pelo canal do clube; no Clube Suprema, por PIX no Fichas 24h, de uma conta no seu CPF.
   - q: Onde digito o código no app?
@@ -27,10 +27,10 @@ faq:
   - q: Pediram um PIX adiantado ou a minha senha para liberar um código de bônus. É seguro?
     a: Não. É sinal de golpe. Ninguém do suporte pede a sua senha ou o código que chega no seu e-mail, e no Fichas 24h o pagamento é sempre pelo QR Code gerado na compra, nunca para a conta de uma pessoa.
   - q: Preciso do código do agente para comprar fichas?
-    a: Na primeira compra no Fichas 24h você cadastra o seu ID de jogador e escolhe a plataforma Suprema Poker e o Clube Suprema. Se o suporte pedir, informe também o agente 1439098.
+    a: Na primeira compra no Fichas 24h você cadastra o seu ID de jogador e escolhe a plataforma Suprema Poker e o Clube Suprema. Se o suporte pedir, informe também o agente do clube.
 ---
 
-Quem busca **código promocional do Suprema Poker**, **código de convite** ou até "supremapix código promocional" quer, quase sempre, duas coisas: um código para entrar em um clube e um jeito de pagar as fichas por PIX. A resposta curta: o "código" do Suprema Poker não é um cupom de desconto, é o **ID do clube** e o **ID do agente**. Veja o que cada número faz, como usar o código do **Clube Suprema (clube 10001, agente 1439098)** e como reconhecer quem promete "código de bônus".
+Quem busca **código promocional do Suprema Poker**, **código de convite** ou até "supremapix código promocional" quer, quase sempre, duas coisas: um código para entrar em um clube e um jeito de pagar as fichas por PIX. A resposta curta: o "código" do Suprema Poker não é um cupom de desconto, é o **ID do clube** e o **ID do agente**. Veja o que cada número faz, como usar o código do **Clube Suprema** e como reconhecer quem promete "código de bônus".
 
 ## Existe código promocional no Suprema Poker?
 
@@ -51,8 +51,8 @@ Cada clube tem um número no app, e muitos pedem também o número do agente que
 
 | Nome que você ouve | O que é de verdade | No Clube Suprema |
 |---|---|---|
-| Código do clube | O ID do clube, que encontra o clube no app | **10001** |
-| Código do agente ou de indicação | O ID do agente, que liga a sua conta a quem cuida das suas fichas e saques | **1439098** |
+| Código do clube | O ID do clube, que encontra o clube no app | veja [como entrar no clube](/blog/como-entrar-no-clube-suprema) |
+| Código do agente ou de indicação | O ID do agente, que liga a sua conta a quem cuida das suas fichas e saques | veja [como entrar no clube](/blog/como-entrar-no-clube-suprema) |
 | Código ou link de convite | Um link que abre o app com os dois IDs preenchidos | o [link oficial](/baixar), no celular |
 | Código de confirmação | O código do e-mail que libera a sua conta | é só seu; não passe adiante |
 
@@ -68,8 +68,8 @@ Abra o [link oficial](/baixar) com o app instalado. Ele abre o Suprema Poker já
 
 1. Abra o app e entre na sua conta.
 2. Procure a opção de **entrar em um clube**. Conforme a versão, ela aparece como busca de clubes ou como entrada com ID.
-3. Digite o **ID do clube: 10001**.
-4. Digite o **ID do agente: 1439098**.
+3. Digite o **ID do clube**.
+4. Digite o **ID do agente**.
 5. Envie o pedido e aguarde o clube aparecer na sua lista.
 
 Se o clube ficar **pendente**, aguarde alguns minutos. Se continuar assim, fale com o clube pela página de [contato](/contato) e informe o seu ID de jogador, que fica no seu perfil. O passo a passo com os erros mais comuns está em [como entrar no Clube Suprema pelo link ou com o ID](/blog/como-entrar-no-clube-suprema).
@@ -83,11 +83,11 @@ O app deixa qualquer pessoa criar um clube grátis, e é comum tocar em criar qu
 Com o clube na sua lista, as fichas do Clube Suprema entram por PIX pelo **Fichas 24h**, em [fichas24horas.com.br](https://fichas24horas.com.br/auto-atendimento). Na primeira vez:
 
 1. Crie a conta com os seus dados verdadeiros e confirme o e-mail.
-2. Cadastre o seu ID: escolha a plataforma **Suprema Poker**, o clube **Clube Suprema** e, no campo do jogador, o **seu** ID, que está no seu perfil no app. Não use o 10001 nem o 1439098 nesse campo.
+2. Cadastre o seu ID: escolha a plataforma **Suprema Poker**, o clube **Clube Suprema** e, no campo do jogador, o **seu** ID, que está no seu perfil no app. Não use o ID do clube nem o do agente nesse campo.
 3. Verifique a conta com o valor da movimentação que aparece no **Caixa** do clube.
 4. Toque em **Comprar Fichas**, digite o valor e pague o **QR Code PIX** de uma conta de pessoa física no **seu CPF**.
 
-Se o suporte pedir, informe também o agente **1439098**. Cada tela, com as regras do PIX e do saque, está em [Fichas 24 Horas: como comprar fichas do Suprema Poker por PIX](/blog/fichas-24-horas-suprema-poker-pix).
+Se o suporte pedir, informe também o agente do clube. Cada tela, com as regras do PIX e do saque, está em [Fichas 24 Horas: como comprar fichas do Suprema Poker por PIX](/blog/fichas-24-horas-suprema-poker-pix).
 
 ## Cuidado com "código de bônus"
 
@@ -106,5 +106,5 @@ O Suprema Poker e os clubes são só para **maiores de 18 anos**. Nenhum código
 :::
 
 :::cta Use o código do Clube Suprema
-No celular, abra o [link oficial](/baixar) e aceite o convite. No computador, entre com o clube **10001** e o agente **1439098**. Fichas por PIX no seu CPF e contato do clube.
+No celular, abra o [link oficial](/baixar) e aceite o convite. No computador, entre com o clube e o agente indicados em [como entrar no clube](/blog/como-entrar-no-clube-suprema). Fichas por PIX no seu CPF e contato do clube.
 :::

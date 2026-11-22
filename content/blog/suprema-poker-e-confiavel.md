@@ -21,7 +21,7 @@ faq:
   - q: Para quem eu pago as fichas no Suprema Poker?
     a: Para o canal de pagamento do clube, não para a loja do app. No Clube Suprema, a compra é pelo Fichas 24h, por um QR Code PIX gerado na compra e pago de uma conta no seu CPF.
   - q: O que é o agente no Suprema Poker?
-    a: É quem trabalha com o clube trazendo jogadores, vendendo fichas e cuidando dos saques. Ele tem um ID próprio, que você informa ao entrar no clube. No Clube Suprema, o agente é o 1439098.
+    a: É quem trabalha com o clube trazendo jogadores, vendendo fichas e cuidando dos saques. Ele tem um ID próprio, que você informa ao entrar no clube. O número do agente do Clube Suprema está na página de entrada no clube.
   - q: O Suprema Poker paga? Como funciona o saque?
     a: Quem paga o saque é o clube, pelo canal de pagamento dele. No Clube Suprema, o saque é pelo Fichas 24h, na chave PIX do seu CPF. Segundo o Fichas 24h, todo saque passa por uma revisão interna que pode levar até 24 horas.
   - q: Como sei se um clube do Suprema Poker é confiável?
@@ -32,7 +32,7 @@ faq:
     a: A autoexclusão é pedida ao suporte da Suprema e encerra a conta de forma definitiva. Antes, saque o saldo dos seus clubes. A Suprema mantém uma página sobre jogo consciente, com orientações e canais de ajuda.
 ---
 
-**Suprema Poker é confiável?** É a pergunta certa antes do primeiro PIX. A resposta tem duas partes, porque no Suprema Poker o app e o dinheiro passam por mãos diferentes: o app é a plataforma, e quem vende as fichas e paga os saques é o **clube**, pelo agente ou pelo canal de pagamento dele. Este guia explica quem faz o quê, o que dá para conferir no app e no clube, os sinais de golpe e as regras de jogo consciente e de idade. No fim, aplicamos o checklist ao **Clube Suprema (ID 10001)**.
+**Suprema Poker é confiável?** É a pergunta certa antes do primeiro PIX. A resposta tem duas partes, porque no Suprema Poker o app e o dinheiro passam por mãos diferentes: o app é a plataforma, e quem vende as fichas e paga os saques é o **clube**, pelo agente ou pelo canal de pagamento dele. Este guia explica quem faz o quê, o que dá para conferir no app e no clube, os sinais de golpe e as regras de jogo consciente e de idade. No fim, aplicamos o checklist ao **Clube Suprema**.
 
 ## O que é o Suprema Poker
 
@@ -56,8 +56,8 @@ A dúvida "é confiável?" fica mais fácil quando você separa os papéis:
 | Quem | O que faz | No Clube Suprema |
 |---|---|---|
 | App Suprema Poker | A plataforma: a sua conta, as mesas, os torneios e a estrutura dos clubes | O app oficial |
-| Clube | Tem o próprio lobby e o próprio saldo de fichas; é criado e administrado por um usuário, o administrador do clube | Clube Suprema, ID **10001**, do grupo SX, na Liga Suprema |
-| Agente | Traz jogadores, vende fichas e cuida dos saques; tem ID próprio | Agente **1439098** |
+| Clube | Tem o próprio lobby e o próprio saldo de fichas; é criado e administrado por um usuário, o administrador do clube | Clube Suprema, do grupo SX, na Liga Suprema |
+| Agente | Traz jogadores, vende fichas e cuida dos saques; tem ID próprio | Agente do clube |
 | Canal de pagamento | Recebe o PIX da compra e paga o saque | Fichas 24h, PIX no seu CPF |
 
 Três consequências práticas:
@@ -82,7 +82,7 @@ Antes do primeiro depósito, responda estas perguntas:
 
 | Pergunta | Sinal bom | Sinal de alerta |
 |---|---|---|
-| Quem é o clube? | Informa o ID do clube e o ID do agente | Só um número de WhatsApp, sem ID |
+| Quem é o clube? | Informa o ID do clube e o ID do agente | Só um número de celular, sem ID |
 | Como você entra? | Por um link que abre o app oficial ou pelo ID, dentro do app | Pedido para instalar outro app |
 | Como você paga? | PIX de uma conta no seu CPF, com QR Code e comprovante | PIX para a conta de uma pessoa |
 | Como você saca? | Na chave PIX do seu CPF, com regras e prazos explicados antes | Regras vagas ou "taxa para liberar" |
@@ -134,16 +134,16 @@ Se a ideia é só trocar de clube, e não parar, veja [como sair do clube no Sup
 | Critério | Clube Suprema |
 |---|---|
 | App | Suprema Poker oficial, pela Google Play, pela App Store, pelo site oficial ou pelo instalador para Windows |
-| ID do clube e do agente | Clube **10001** e agente **1439098**, informados em todo o site |
+| ID do clube e do agente | O clube e o agente estão em [como entrar no clube](/blog/como-entrar-no-clube-suprema) |
 | Entrada | Pelo [link oficial](/baixar), no celular, ou com o ID, dentro do app |
 | Compra de fichas | PIX de uma conta no seu CPF, pelo QR Code do Fichas 24h |
 | Saque | Na chave PIX do seu CPF, pelo Fichas 24h |
-| Suporte | 24 horas no WhatsApp, em português, inglês e espanhol |
+| Suporte | canal do Telegram, na página de [contato](/contato) |
 | Grupo e liga | Grupo SX, com mais de 100 clubes parceiros segundo o [site da SX](https://www.sx-co.com/sobre), e Liga Suprema |
 | Idade | Somente maiores de 18 anos |
 
 Quem somos e como produzimos o conteúdo do blog está em [sobre o Clube Suprema](/sobre). Para entender as mesas compartilhadas da liga, veja [o pool da Liga Suprema](/blog/id-clube-h2-suprema-poker-pool-liga-suprema).
 
 :::cta Quer conferir na prática?
-Entre no **Clube Suprema** pelo [link oficial](/baixar) no celular ou com o clube **10001** e o agente **1439098**. Antes de comprar fichas, tire qualquer dúvida com o contato do clube.
+Entre no **Clube Suprema** pelo [link oficial](/baixar) no celular ou com o clube e o agente indicados em [como entrar no clube](/blog/como-entrar-no-clube-suprema). Antes de comprar fichas, tire qualquer dúvida com o contato do clube.
 :::

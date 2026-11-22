@@ -7,21 +7,21 @@ updated: 2026-11-15
 cover: /img/blog/maiores-e-melhores-clubes-suprema-poker-2/cover.jpg
 coverAlt: Pilhas de fichas crescentes com o logo do Clube Suprema no topo e o selo da SX
 tags: [clube, guia, ligas]
-resumo: Não existe ranking oficial de clubes do Suprema Poker. O tamanho real vem da liga, porque clubes da mesma liga dividem mesas e torneios. Avalie se o clube informa o ID, se o pagamento sai do seu CPF, se o saque é claro e se o suporte responde rápido. O Clube Suprema (ID 10001) é do grupo SX, com mais de 100 clubes parceiros, e joga na Liga Suprema.
+resumo: Não existe ranking oficial de clubes do Suprema Poker. O tamanho real vem da liga, porque clubes da mesma liga dividem mesas e torneios. Avalie se o clube informa o ID, se o pagamento sai do seu CPF, se o saque é claro e se o suporte responde rápido. O Clube Suprema é do grupo SX, com mais de 100 clubes parceiros, e joga na Liga Suprema.
 faq:
   - q: Qual é o maior clube do Suprema Poker?
     a: Não existe ranking oficial. O que deixa um clube "grande" é o pool de jogadores da liga ou união da qual ele faz parte, porque as mesas são compartilhadas entre os clubes. Clubes ligados a uniões fortes têm mesas cheias a qualquer hora.
   - q: Como saber se um clube do Suprema Poker é bom?
     a: Veja se ele informa ID do clube e do agente, se o pagamento sai de uma conta no seu CPF com comprovante, se o saque tem prazo claro, se o suporte responde rápido e se há mesas no seu horário e limite.
   - q: O Clube Suprema faz parte de alguma liga?
-    a: Sim. O Clube Suprema (ID 10001) faz parte do grupo SX, que reúne mais de 100 clubes parceiros, e joga na Liga Suprema. Por isso divide mesas e torneios com jogadores de outros clubes da liga.
+    a: Sim. O Clube Suprema faz parte do grupo SX, que reúne mais de 100 clubes parceiros, e joga na Liga Suprema. Por isso divide mesas e torneios com jogadores de outros clubes da liga.
   - q: Posso testar um clube antes de depositar muito?
     a: Pode. Entre com o ID, confira o lobby em horários diferentes e faça uma primeira compra pequena para testar o pagamento e o saque. No Clube Suprema a compra e o saque são por PIX, no seu CPF.
   - q: Qual é o ID do Clube Suprema?
-    a: O clube é o 10001 e o agente é o 1439098. Pelo link oficial os dois já vão preenchidos.
+    a: Os números do clube e do agente estão em a página de entrada no clube. Pelo link oficial os dois já vão preenchidos.
 ---
 
-Quem procura os **maiores e melhores clubes do Suprema Poker** quer basicamente três coisas: mesa cheia a qualquer hora, pagamento sem dor de cabeça e alguém que responda quando algo dá errado. Este guia mostra o que realmente faz um clube ser grande, o que avaliar antes de depositar e onde o **Clube Suprema (ID 10001)** se encaixa.
+Quem procura os **maiores e melhores clubes do Suprema Poker** quer basicamente três coisas: mesa cheia a qualquer hora, pagamento sem dor de cabeça e alguém que responda quando algo dá errado. Este guia mostra o que realmente faz um clube ser grande, o que avaliar antes de depositar e onde o **Clube Suprema** se encaixa.
 
 ## O que faz um clube ser "grande" no Suprema Poker
 
@@ -36,7 +36,7 @@ Por isso, ao comparar clubes, olhe menos para "quantos membros tem o clube" e ma
 A própria história do app mostra o peso das ligas. Segundo o [WorldPokerDeals](https://worldpokerdeals.com/rakeback-deals/suprema-poker-app-review), o Suprema Poker, em resenha de site de afiliados em inglês, foi lançado em outubro de 2021 quando clubes brasileiros da **Liga Suprema** decidiram criar a própria plataforma. O site oficial diz que a Suprema foi fundada em 2018. Hoje, de acordo com o [site oficial](https://www.supremapoker.net/), são mais de 500 clubes filiados (o supremapoker.com.br informa 300 clubes filiados e download em mais de 70 países).
 
 :::cta Quer jogar em um clube de liga?
-O **Clube Suprema (ID 10001, agente 1439098)** faz parte da SX e da Liga Suprema. Pelo celular, abra o [link oficial](/baixar) e você já entra no clube.
+O **Clube Suprema** faz parte da SX e da Liga Suprema. Pelo celular, abra o [link oficial](/baixar) e você já entra no clube.
 :::
 
 ## Os maiores nomes do ecossistema
@@ -45,7 +45,7 @@ O **Clube Suprema (ID 10001, agente 1439098)** faz parte da SX e da Liga Suprema
 
 A **SX** é um grupo de poker criado em 2021 a partir da união de quatro clubes: DRX, Stars Poker, GoPro e Liga Máxima. Segundo o [site da SX](https://www.sx-co.com/sobre), são **mais de 100 clubes parceiros**, e o grupo se apresenta como o maior grupo de poker do Brasil e do mundo. A empresa SX Intermediações S/A (CNPJ 43.787.764/0001-81) tem sede registrada em Belo Horizonte (MG), segundo a consulta pública de CNPJ de 15/11/2026; o rodapé do site da SX cita Sorocaba (SP), cidade onde fica a sede da própria Suprema Poker. Para os clubes, a SX oferece central de atendimento 24h, o **Fichas 24h** para depósitos e saques e o acesso à **Liga Suprema**, que ela descreve como a maior liga de poker do Brasil.
 
-O **Clube Suprema (ID 10001)** é um dos clubes do grupo SX e joga na Liga Suprema. Na prática, você entra por um clube só e encontra as mesas e os torneios da liga.
+O **Clube Suprema** é um dos clubes do grupo SX e joga na Liga Suprema. Na prática, você entra por um clube só e encontra as mesas e os torneios da liga.
 
 ### H2 Club
 
@@ -70,7 +70,7 @@ Use esta lista antes de comprar fichas em qualquer clube. Dê um ponto para cada
 Esta pontuação é uma sugestão editorial nossa, não um padrão do mercado.
 
 :::cta Entre agora no Clube Suprema
-Clube **10001**, agente **1439098**. No celular, toque no [link oficial](/baixar). No computador, siga o [tutorial para baixar no PC, notebook ou MacBook](/blog/como-baixar-suprema-poker-no-pc) e entre com o ID.
+Clube Suprema. No celular, toque no [link oficial](/baixar). No computador, siga o [tutorial para baixar no PC, notebook ou MacBook](/blog/como-baixar-suprema-poker-no-pc) e entre com o ID.
 :::
 
 ## Como testar um clube sem arriscar muito
@@ -96,5 +96,5 @@ Clubes de poker são para **maiores de 18 anos**. Defina antes quanto vai gastar
 :::
 
 :::cta Pronto para escolher?
-Jogue em um clube de liga, com PIX no seu CPF e suporte 24h: **Clube Suprema, ID 10001, agente 1439098**. Abra o [link oficial](/baixar) ou chame o suporte no WhatsApp se travar em algum passo.
+Jogue em um clube de liga, com PIX no seu CPF e suporte 24h: **Clube Suprema**. Abra o [link oficial](/baixar) ou veja a página de [contato](/contato) se travar em algum passo.
 :::

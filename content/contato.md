@@ -1,4 +1,4 @@
-Estes são os canais que a equipe do **Clube Suprema** (ID 10001, agente 1439098) mantém abertos. Não temos e-mail de atendimento neste site; o contato é pelo Telegram. O responsável pelo site é a equipe do Clube Suprema; razão social e CNPJ ainda não estão publicados (veja [Sobre](/sobre)).
+Estes são os canais que a equipe do **Clube Suprema** mantém abertos. Não temos e-mail de atendimento neste site; o contato é pelo Telegram. O responsável pelo site é a equipe do Clube Suprema; razão social e CNPJ ainda não estão publicados (veja [Sobre](/sobre)).
 
 ## Canal do clube no Telegram
 

@@ -5,16 +5,16 @@ description: Antes de procurar o ID do clube H2 no Suprema Poker: como entrar no
 date: 2026-10-26
 updated: 2026-11-15
 cover: /img/blog/id-clube-h2-suprema-poker-pool-liga-suprema-2/cover.jpg
-coverAlt: Diagrama do pool da Liga Suprema ligando vários clubes, com o Clube Suprema ID 10001 em destaque
+coverAlt: Diagrama do pool da Liga Suprema ligando vários clubes, com o Clube Suprema o clube em destaque
 tags: [clube, ligas, guia]
-resumo: Não encontramos o ID do H2Club em fontes oficiais abertas. Nas séries oficiais, a entrada foi pela aba Clubes do app, depois de criar conta no H2poker. Para mesas cheias, o que importa é o pool, porque clubes da mesma liga dividem os jogadores. O Clube Suprema (ID 10001), do grupo SX, joga na Liga Suprema.
+resumo: Não encontramos o ID do H2Club em fontes oficiais abertas. Nas séries oficiais, a entrada foi pela aba Clubes do app, depois de criar conta no H2poker. Para mesas cheias, o que importa é o pool, porque clubes da mesma liga dividem os jogadores. O Clube Suprema, do grupo SX, joga na Liga Suprema.
 faq:
   - q: Qual é o ID do clube H2 no Suprema Poker?
     a: Não encontramos o ID do H2Club publicado em fontes oficiais abertas. Nas séries oficiais, a orientação divulgada foi criar a conta no H2poker, entrar no app Suprema Poker com esses dados, abrir a aba Clubes e escolher o H2Club. Confirme o ID nos canais oficiais do H2 e desconfie de números tirados de grupos.
   - q: O que é o pool no Suprema Poker?
     a: É o conjunto de jogadores que vários clubes compartilham quando fazem parte da mesma liga ou união. As mesas e os torneios da liga juntam jogadores de todos esses clubes, por isso enchem mais rápido e têm prêmios maiores.
   - q: O que é a Liga Suprema?
-    a: É uma liga de clubes de poker no app Suprema Poker, que o grupo SX descreve como a maior liga de poker do Brasil. Os clubes da liga dividem o mesmo pool de jogadores. O Clube Suprema (ID 10001) é do grupo SX e joga na Liga Suprema.
+    a: É uma liga de clubes de poker no app Suprema Poker, que o grupo SX descreve como a maior liga de poker do Brasil. Os clubes da liga dividem o mesmo pool de jogadores. O Clube Suprema é do grupo SX e joga na Liga Suprema.
   - q: Jogando em um clube da liga, onde fica o meu saldo?
     a: O saldo de fichas continua no seu clube. Você compra e saca com o agente do seu clube, mesmo jogando em mesas compartilhadas com jogadores de outros clubes.
   - q: Preciso estar no H2 para jogar mesas grandes?
@@ -24,7 +24,7 @@ faq:
 "**ID clube Suprema Poker H2**" é uma das buscas mais feitas sobre o app. Faz sentido: o H2 é o nome mais famoso do poker brasileiro, e as séries oficiais da Suprema já rodaram lá. Mas, para jogar mesas cheias e torneios grandes, o que mais importa não é o ID de um clube famoso. É o **pool**, o conjunto de jogadores que os clubes de uma liga dividem. Este guia explica as duas coisas.
 
 :::nota Em resumo
-O H2Club tem um caminho próprio de entrada, divulgado nas séries oficiais. Fora dele, quem joga em um clube de liga, como o **Clube Suprema (ID 10001)**, da **Liga Suprema** e da **SX**, senta nas mesas compartilhadas da liga.
+O H2Club tem um caminho próprio de entrada, divulgado nas séries oficiais. Fora dele, quem joga em um clube de liga, como o **Clube Suprema**, da **Liga Suprema** e da **SX**, senta nas mesas compartilhadas da liga.
 :::
 
 ## O H2 Club e o Suprema Poker
@@ -55,7 +55,7 @@ Na prática, isso muda três coisas:
 O seu **saldo de fichas continua no seu clube**. Você compra e saca com o agente do seu clube, mesmo jogando contra gente de outros clubes da liga.
 
 :::cta Jogue no pool da Liga Suprema
-O **Clube Suprema (ID 10001, agente 1439098)** faz parte da Liga Suprema e da SX. Pelo celular, abra o [link oficial](/baixar) e você já cai no clube, com acesso às mesas da liga.
+O **Clube Suprema** faz parte da Liga Suprema e da SX. Pelo celular, abra o [link oficial](/baixar) e você já cai no clube, com acesso às mesas da liga.
 :::
 
 ## A Liga Suprema e a SX
@@ -77,7 +77,7 @@ O **Clube Suprema** é um dos clubes do grupo SX e joga na **Liga Suprema**. Par
 
 1. **Baixe o app** pelo [link oficial](/baixar), no celular, ou siga o [tutorial para PC, notebook e MacBook](/blog/como-baixar-suprema-poker-no-pc).
 2. **Crie a conta** e confirme o e-mail.
-3. **Entre no clube**: pelo link oficial, no celular, ou com o **ID do clube 10001** e o **ID do agente 1439098**.
+3. **Entre no clube**: pelo link oficial, no celular, ou com o clube e o agente indicados em [como entrar no clube](/blog/como-entrar-no-clube-suprema).
 4. **Compre fichas por PIX**, pelo Fichas 24h, com uma conta no seu CPF.
 5. **Escolha a mesa** no lobby. As mesas da liga aparecem junto das do clube.
 
@@ -94,5 +94,5 @@ O Suprema Poker e os clubes são para **maiores de 18 anos**. Defina antes quant
 :::
 
 :::cta Entre no Clube Suprema
-Clube **10001**, agente **1439098**, da Liga Suprema e da SX. Abra o [link oficial](/baixar) no celular ou entre com o ID no computador. Suporte 24h no WhatsApp para qualquer passo.
+Clube Suprema, da Liga Suprema e da SX. Abra o [link oficial](/baixar) no celular ou entre com o ID no computador. Dúvida em algum passo? Veja a página de [contato](/contato).
 :::

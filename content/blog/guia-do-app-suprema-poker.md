@@ -70,7 +70,7 @@ Antes da sua vez, alguns apps permitem **pré-selecionar** a ação (pagar qualq
 O saldo de fichas do clube aparece no lobby e na hora de sentar. Para colocar fichas na conta:
 
 1. Abra o seu **perfil** e anote o seu **ID da Suprema**.
-2. Acesse o **Fichas 24h** e faça a compra por **PIX**, sempre a partir de uma conta no **seu CPF**. Na primeira compra, informe o ID da Suprema, o **clube 10001** e o **agente 1439098**, além de CPF, celular e nascimento.
+2. Acesse o **Fichas 24h** e faça a compra por **PIX**, sempre a partir de uma conta no **seu CPF**. Na primeira compra, informe o ID da Suprema, o clube e o agente indicados em [como entrar no clube](/blog/como-entrar-no-clube-suprema), além de CPF, celular e nascimento.
 3. As fichas entram no seu saldo do clube. Se demorar além do normal, fale com o suporte 24h com o comprovante.
 
 O caminho inverso, do saque, também passa pelo Fichas 24h e cai na chave PIX do seu CPF. Detalhes e prazos em [perguntas frequentes do suporte](/blog/perguntas-frequentes-suporte).
@@ -93,7 +93,7 @@ No perfil você encontra o ID, o apelido, a foto e, em geral, o **histórico de 
 
 ## Jogar no computador
 
-A versão para **Windows** tem as mesmas mesas e a mesma conta. A tela maior ajuda quem joga mais de uma mesa. Baixe pelo [site oficial](https://security.supremapoker.com.br/download) e, no computador, entre no clube com o **ID 10001** e o agente **1439098**, já que o link de convite é feito para o celular.
+A versão para **Windows** tem as mesmas mesas e a mesma conta. A tela maior ajuda quem joga mais de uma mesa. Baixe pelo [site oficial](https://security.supremapoker.com.br/download) e, no computador, entre no clube pelo passo a passo de [como entrar no clube](/blog/como-entrar-no-clube-suprema), já que o link de convite é feito para o celular.
 
 ## Segurança da conta e jogo responsável
 
@@ -107,5 +107,5 @@ O Suprema Poker e os clubes são para **maiores de 18 anos**. Defina antes quant
 :::
 
 :::cta Ainda não está no clube?
-O [link oficial](/baixar) abre o app já no Clube Suprema. Depois é só comprar fichas por PIX e escolher a mesa. Qualquer dúvida, o suporte 24h responde no WhatsApp.
+O [link oficial](/baixar) abre o app já no Clube Suprema. Depois é só comprar fichas por PIX e escolher a mesa. Qualquer dúvida, veja a página de [contato](/contato).
 :::

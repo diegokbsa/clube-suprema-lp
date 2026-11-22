@@ -18,7 +18,7 @@ faq:
   - q: Onde vejo as chances de cada multiplicador?
     a: Dentro do app, na própria área do Spin, em "Prêmios e probabilidades". Multiplicadores altos são raros; a maioria dos Spins sai com o multiplicador mínimo.
   - q: Preciso estar no Clube Suprema para jogar o Spin?
-    a: O Spin é um formato do app Suprema Poker e aparece no lobby dos clubes que o oferecem. Entrando no Clube Suprema (ID 10001) você joga com as fichas do clube, compradas por PIX pelo Fichas 24h.
+    a: O Spin é um formato do app Suprema Poker e aparece no lobby dos clubes que o oferecem. Entrando no Clube Suprema você joga com as fichas do clube, compradas por PIX pelo Fichas 24h.
 ---
 
 O **Spin Suprema** chegou ao app Suprema Poker em outubro de 2026: um torneio que começa com três jogadores, dura minutos e pode pagar até **50.000 vezes o buy-in**. Este post explica como o formato funciona e como ler o multiplicador que a roleta sorteia.
@@ -74,5 +74,5 @@ O Spin é um jogo de **push/fold** desde cedo. Alguns princípios que ajudam:
 Multiplicadores de 1.000×, 3.000× ou 50.000× são **eventos raros**. A maior parte dos Spins paga o multiplicador mínimo, e é normal encadear muitos deles sem um grande. Trate o Spin como lazer de ritmo alto, defina antes quanto vai gastar na sessão e respeite o limite. O app e o Clube Suprema são para **maiores de 18 anos**; a Suprema mantém uma página sobre [jogo consciente](https://supremapoker.com.br/jogo-consciente).
 
 :::cta Quer jogar o Spin Suprema?
-Entre no Clube Suprema em 2 minutos: [abra o link oficial](/baixar), compre fichas por PIX e procure o Spin no lobby. Dúvida em qualquer passo, o suporte 24h responde no WhatsApp.
+Entre no Clube Suprema em 2 minutos: [abra o link oficial](/baixar), compre fichas por PIX e procure o Spin no lobby. Dúvida em qualquer passo, veja a página de [contato](/contato).
 :::

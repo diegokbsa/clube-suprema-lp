@@ -1,4 +1,4 @@
-Este site é mantido pelo **Clube Suprema** (ID 10001, agente 1439098), clube do grupo SX no app Suprema Poker. O clube e o agente têm **interesse comercial em que você jogue por eles**.
+Este site é mantido pelo **Clube Suprema**, clube do grupo SX no app Suprema Poker. O clube e o agente têm **interesse comercial em que você jogue por eles**.
 
 ## O que isso significa na prática
 

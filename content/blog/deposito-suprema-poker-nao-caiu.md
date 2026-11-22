@@ -27,12 +27,12 @@ faq:
   - q: Posso fazer outro PIX enquanto espero?
     a: Não é o ideal. Antes, confira o Caixa do clube e o status no banco. Um segundo pagamento não acelera o primeiro e deixa mais um comprovante para acompanhar.
   - q: O que mando para o suporte?
-    a: O comprovante do PIX, o seu ID da Suprema, o valor, o horário do pagamento e a informação de que você é do Clube Suprema, clube 10001 e agente 1439098.
+    a: O comprovante do PIX, o seu ID da Suprema, o valor, o horário do pagamento e a informação de que você é do Clube Suprema, o clube e o agente indicados em a página de entrada no clube.
   - q: Alguém pediu uma taxa para liberar o meu depósito. Devo pagar?
     a: Não. Cobrança para liberar depósito ou saque é sinal de golpe. Ninguém do suporte pede a sua senha nem o código do seu e-mail. Fale só pelos canais oficiais do clube e, no Fichas 24h, pague apenas o QR Code gerado na compra.
 ---
 
-Você pagou o PIX, voltou para o app e o saldo continua o mesmo? Quase sempre a explicação está em um destes pontos: o pagamento ainda não foi concluído no banco, saiu de uma conta que não é do seu CPF, foi feito sem o QR Code da compra ou as fichas entraram em outro clube. Este guia mostra **quanto tempo o depósito leva para cair no Suprema Poker**, onde conferir, por que um PIX é devolvido e o que mandar ao suporte 24h do **Clube Suprema (ID 10001)** para resolver rápido.
+Você pagou o PIX, voltou para o app e o saldo continua o mesmo? Quase sempre a explicação está em um destes pontos: o pagamento ainda não foi concluído no banco, saiu de uma conta que não é do seu CPF, foi feito sem o QR Code da compra ou as fichas entraram em outro clube. Este guia mostra **quanto tempo o depósito leva para cair no Suprema Poker**, onde conferir, por que um PIX é devolvido e o que mandar ao suporte 24h do **Clube Suprema** para resolver rápido.
 
 Os prazos acima vêm das perguntas frequentes do Fichas 24h ([auto-atendimento](https://fichas24horas.com.br/auto-atendimento), consultadas em 15/11/2026). Avaliações públicas do Fichas 24h relatam atrasos e compras não creditadas; guarde sempre o comprovante.
 
@@ -88,16 +88,16 @@ Não reaproveite um QR Code antigo nem faça PIX para uma chave copiada de outro
 
 ## Passou de 2 horas: como chamar o suporte
 
-O suporte atende no **WhatsApp, 24 horas, todos os dias**, em português, inglês e espanhol. Na página de auto-atendimento do Fichas 24h também há o botão **Fale conosco no WhatsApp**. Para a equipe localizar o pagamento sem idas e vindas, mande tudo na primeira mensagem:
+O clube atende pelo canal do Telegram da página de [contato](/contato). Na página de auto-atendimento do Fichas 24h também há o botão **Fale conosco**. Para a equipe localizar o pagamento sem idas e vindas, mande tudo na primeira mensagem:
 
 - o **comprovante** do PIX;
 - o seu **ID da Suprema**, que fica no seu perfil no app ([veja onde encontrar](/blog/id-do-jogador-suprema-poker));
 - o **valor** e o **horário** do pagamento;
-- que você é do **Clube Suprema**, clube **10001**, agente **1439098**.
+- que você é do **Clube Suprema**, o clube e o agente indicados em [como entrar no clube](/blog/como-entrar-no-clube-suprema).
 
 Um modelo para copiar:
 
-> Oi, sou do Clube Suprema (clube 10001, agente 1439098) e meu ID da Suprema é [número]. Fiz um PIX de R$ [valor] às [horário] pelo Fichas 24h e as fichas não caíram. Segue o comprovante.
+> Oi, sou do Clube Suprema e meu ID da Suprema é [número]. Fiz um PIX de R$ [valor] às [horário] pelo Fichas 24h e as fichas não caíram. Segue o comprovante.
 
 Mais respostas do atendimento estão nas [perguntas frequentes do suporte](/blog/perguntas-frequentes-suporte).
 
@@ -131,7 +131,7 @@ Quem está esperando fichas fica mais exposto a promessas de "resolver rápido".
 - quem pede a sua **senha** ou o **código** que chega no seu e-mail. Ninguém do suporte pede isso;
 - quem manda fazer um **novo PIX para a conta de uma pessoa** para "compensar" o primeiro;
 - quem oferece **código de bônus** em troca de PIX. Veja [o que é, de verdade, o código do clube e do agente](/blog/codigo-suprema-poker-clube-agente);
-- perfis que dizem ser do suporte, mas não usam o WhatsApp indicado no site do clube.
+- perfis que dizem ser do suporte, mas não aparecem na página de [contato](/contato) nem no app.
 
 Os outros sinais de golpe, e o que conferir em qualquer clube, estão em [Suprema Poker é confiável?](/blog/suprema-poker-e-confiavel).
 
@@ -140,5 +140,5 @@ O Suprema Poker, os clubes e o Fichas 24h são só para **maiores de 18 anos**. 
 :::
 
 :::cta Precisa de ajuda com um depósito?
-Chame o contato do clube com o comprovante e o seu ID da Suprema. Ainda não está no **Clube Suprema**? Abra o [link oficial](/baixar) no celular ou entre com o clube **10001** e o agente **1439098**.
+Chame o contato do clube com o comprovante e o seu ID da Suprema. Ainda não está no **Clube Suprema**? Abra o [link oficial](/baixar) no celular ou entre com o clube e o agente indicados em [como entrar no clube](/blog/como-entrar-no-clube-suprema).
 :::

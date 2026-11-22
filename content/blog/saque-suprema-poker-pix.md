@@ -32,7 +32,7 @@ faq:
     a: Cai na chave PIX que você cadastrou, que precisa ser sua. A chegada ao banco depende da instituição; em geral o PIX é rápido.
 ---
 
-Sacar é a etapa em que mais aparecem dúvidas de prazo e de regra. No **Clube Suprema (ID 10001)**, o saque do Suprema Poker é feito pelo **Fichas 24h**, em PIX, sempre para uma chave **no seu CPF**. O caminho completo do saque: cadastrar a chave, pedir, entender a revisão e acompanhar.
+Sacar é a etapa em que mais aparecem dúvidas de prazo e de regra. No **Clube Suprema**, o saque do Suprema Poker é feito pelo **Fichas 24h**, em PIX, sempre para uma chave **no seu CPF**. O caminho completo do saque: cadastrar a chave, pedir, entender a revisão e acompanhar.
 
 :::nota Tenha em mãos
 - A conta no **Fichas 24h** já criada e verificada. Se ainda não comprou fichas, o passo a passo está em [Fichas 24 Horas: como comprar por PIX](/blog/fichas-24-horas-suprema-poker-pix).
@@ -80,7 +80,7 @@ Se o pedido passar de 24 horas parado, chame o suporte com o comprovante. Se a s
 
 **"Mudei de banco, e agora?"** Cadastre a nova chave em **Chaves Pix** — de uma conta sua, no seu CPF — e use ela no próximo saque.
 
-**"O clube pode bloquear meu saque?"** Se a sua conta for impedida de sacar pelo canal, a liberação é com o agente ou com o clube, segundo o FAQ do Fichas 24h. No Clube Suprema, o suporte 24h atende no WhatsApp.
+**"O clube pode bloquear meu saque?"** Se a sua conta for impedida de sacar pelo canal, a liberação é com o agente ou com o clube, segundo o FAQ do Fichas 24h. No Clube Suprema, o contato do clube fica na página de [contato](/contato).
 
 :::dica Sinais de golpe: saque nunca pede "taxa de liberação"
 Taxa para "liberar" saque que não está nas regras do Fichas 24h é sinal de golpe, e ninguém do suporte pede a sua senha ou o código que chega no seu e-mail. Pediu? Pare e fale com o suporte oficial. Mais sinais em [Suprema Poker é confiável?](/blog/suprema-poker-e-confiavel).
@@ -102,5 +102,5 @@ O Suprema Poker e o Fichas 24h são só para **maiores de 18 anos**. Defina ante
 :::
 
 :::nota Transparência
-Este site é mantido pelo Clube Suprema (ID 10001), do grupo SX. O Fichas 24h é publicado pela SX&CO, do mesmo grupo. O clube tem interesse comercial em que você jogue por ele; veja a [divulgação](/divulgacao). As regras do Fichas 24h citadas aqui vêm das perguntas frequentes da própria plataforma, que bloqueia leitura automática: confira na fonte antes de decidir.
+Este site é mantido pelo Clube Suprema, do grupo SX. O Fichas 24h é publicado pela SX&CO, do mesmo grupo. O clube tem interesse comercial em que você jogue por ele; veja a [divulgação](/divulgacao). As regras do Fichas 24h citadas aqui vêm das perguntas frequentes da própria plataforma, que bloqueia leitura automática: confira na fonte antes de decidir.
 :::

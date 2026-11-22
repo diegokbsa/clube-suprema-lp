@@ -26,7 +26,7 @@ faq:
     a: Sim. A compra é automática e funciona inclusive no fim de semana. O que muda é o limite diário de saque, que é menor em fins de semana e feriados.
 ---
 
-Antes de colocar dinheiro num clube de poker, a pergunta certa é: **quanto tempo leva e qual é o limite?** Estes são os prazos e limites que o **Fichas 24h** declara. É a plataforma por onde o **Clube Suprema (ID 10001)** vende e paga fichas do Suprema Poker. As regras abaixo são as das perguntas frequentes do próprio Fichas 24h (fichas24horas.com.br; o site bloqueia leitura automática, então não conseguimos reconfirmar em 15/11/2026: confira na fonte). O Fichas 24h é do mesmo grupo (SX) do Clube Suprema, que mantém este site. Passo a passo da compra no [guia completo do Fichas 24h](/blog/fichas-24-horas-suprema-poker-pix).
+Antes de colocar dinheiro num clube de poker, a pergunta certa é: **quanto tempo leva e qual é o limite?** Estes são os prazos e limites que o **Fichas 24h** declara. É a plataforma por onde o **Clube Suprema** vende e paga fichas do Suprema Poker. As regras abaixo são as das perguntas frequentes do próprio Fichas 24h (fichas24horas.com.br; o site bloqueia leitura automática, então não conseguimos reconfirmar em 15/11/2026: confira na fonte). O Fichas 24h é do mesmo grupo (SX) do Clube Suprema, que mantém este site. Passo a passo da compra no [guia completo do Fichas 24h](/blog/fichas-24-horas-suprema-poker-pix).
 
 ## Prazos da compra (PIX → fichas)
 
@@ -90,5 +90,5 @@ O Fichas 24h e o Suprema Poker são só para **maiores de 18 anos**. Defina ante
 :::
 
 :::nota Transparência
-Este site é mantido pelo Clube Suprema (ID 10001), do grupo SX. O Fichas 24h é publicado pela SX&CO, do mesmo grupo. O clube tem interesse comercial em que você jogue por ele; veja a [divulgação](/divulgacao). As regras do Fichas 24h citadas aqui vêm das perguntas frequentes da própria plataforma, que bloqueia leitura automática: confira na fonte antes de decidir.
+Este site é mantido pelo Clube Suprema, do grupo SX. O Fichas 24h é publicado pela SX&CO, do mesmo grupo. O clube tem interesse comercial em que você jogue por ele; veja a [divulgação](/divulgacao). As regras do Fichas 24h citadas aqui vêm das perguntas frequentes da própria plataforma, que bloqueia leitura automática: confira na fonte antes de decidir.
 :::

@@ -1,25 +1,25 @@
 ---
 title: "Liga Suprema: o que é e como o pool de clubes funciona no Suprema Poker"
 seoTitle: "Liga Suprema: o que é e como funciona no Suprema Poker"
-description: O que é a Liga Suprema no Suprema Poker: como o pool compartilhado enche mesas e torneios, o que a liga não muda e onde o Clube Suprema (ID 10001) se encaixa.
+description: O que é a Liga Suprema no Suprema Poker: como o pool compartilhado enche mesas e torneios, o que a liga não muda e onde o Clube Suprema se encaixa.
 date: 2026-11-14
 updated: 2026-11-15
 cover: /img/blog/liga-suprema-poker-o-que-e/cover.jpg
-coverAlt: "Diagrama em preto e laranja: o Clube 10001 e outros dois clubes ligados a um bloco Pool de mesas e torneios"
+coverAlt: "Diagrama em preto e laranja: o Um clube e outros dois clubes ligados a um bloco Pool de mesas e torneios"
 tags: [clube, ligas, guia]
 capaTema: liga
 capaChamada: Guia · Clubes
 capaTitulo: "O que é a Liga Suprema"
 capaSubtitulo: "Como o pool dos clubes enche mesas e torneios"
 capaSelo: Antes de escolher clube
-resumo: A Liga Suprema é a liga dentro do Suprema Poker em que clubes dividem o mesmo pool de jogadores — as mesas e os torneios somam gente de todos os clubes. Sobre a origem, as fontes divergem: um site de afiliados em inglês (WorldPokerDeals, 2023) diz que o Suprema Poker foi lançado em 2021 por clubes da união Liga Suprema, vinda do PPPoker; o site oficial do app diz que a Suprema foi fundada em 2018 e hoje cita mais de 500 clubes filiados. O Clube Suprema (ID 10001) faz parte do grupo SX e, segundo o próprio clube, joga na Liga Suprema. A nossa captura da grade pública da SX mostrou, em 14/11/2026, 98 torneios no dia, com garantido de até R$ 50.000. O que a liga não muda: rake, saque e suporte seguem sendo do clube e do agente.
+resumo: A Liga Suprema é a liga dentro do Suprema Poker em que clubes dividem o mesmo pool de jogadores — as mesas e os torneios somam gente de todos os clubes. Sobre a origem, as fontes divergem: um site de afiliados em inglês (WorldPokerDeals, 2023) diz que o Suprema Poker foi lançado em 2021 por clubes da união Liga Suprema, vinda do PPPoker; o site oficial do app diz que a Suprema foi fundada em 2018 e hoje cita mais de 500 clubes filiados. O Clube Suprema faz parte do grupo SX e, segundo o próprio clube, joga na Liga Suprema. A nossa captura da grade pública da SX mostrou, em 14/11/2026, 98 torneios no dia, com garantido de até R$ 50.000. O que a liga não muda: rake, saque e suporte seguem sendo do clube e do agente.
 faq:
   - q: O que é a Liga Suprema?
     a: É a liga do Suprema Poker em que clubes dividem o mesmo pool de jogadores. Quem entra por um clube da liga senta nas mesmas mesas e joga os mesmos torneios dos outros clubes.
   - q: Liga e união são a mesma coisa?
     a: Na prática, os dois nomes são usados para o mesmo tipo de grupo: clubes que compartilham mesas e torneios dentro do app. É o que define o tamanho real do seu clube.
   - q: O Clube Suprema faz parte da Liga Suprema?
-    a: Segundo o próprio clube, sim. O Clube Suprema (ID 10001), que mantém este site, é do grupo SX, que reúne mais de 100 clubes parceiros, e joga na Liga Suprema.
+    a: Segundo o próprio clube, sim. O Clube Suprema, que mantém este site, é do grupo SX, que reúne mais de 100 clubes parceiros, e joga na Liga Suprema.
   - q: Jogar num clube de liga muda o quê?
     a: Em geral mais mesas e torneios com mais inscritos, porque o pool é somado. Um clube isolado depende só dos próprios membros. O que não muda: rake, saque e suporte continuam sendo do seu clube e do seu agente.
   - q: Onde vejo os torneios da Liga Suprema?
@@ -28,7 +28,7 @@ faq:
     a: Não é a mesma coisa. A Liga Suprema é um grupo de clubes que joga dentro do app. Sobre a origem, as fontes divergem: o WorldPokerDeals (afiliados, 2023) diz que o app nasceu em 2021 de clubes da liga; o site oficial diz que a Suprema foi fundada em 2018.
 ---
 
-Quando alguém pergunta se um clube do Suprema Poker é "grande", a resposta quase nunca está no clube: está na **liga**. A **Liga Suprema** é um grupo de clubes do Suprema Poker que dividem as mesmas mesas e torneios. A seguir: como ela aparece no app, o que muda e o que não muda para quem joga, e onde o **Clube Suprema (ID 10001)**, que mantém este site, se encaixa.
+Quando alguém pergunta se um clube do Suprema Poker é "grande", a resposta quase nunca está no clube: está na **liga**. A **Liga Suprema** é um grupo de clubes do Suprema Poker que dividem as mesmas mesas e torneios. A seguir: como ela aparece no app, o que muda e o que não muda para quem joga, e onde o **Clube Suprema**, que mantém este site, se encaixa.
 
 ## O que é uma liga no Suprema Poker
 
@@ -44,7 +44,7 @@ No app, cada clube tem o próprio lobby, mas boa parte dos clubes não joga sozi
 
 Segundo a resenha do [WorldPokerDeals](https://worldpokerdeals.com/rakeback-deals/suprema-poker-app-review), atualizada em maio de 2023 (o app pode ter mudado, então confira na sua tela), o lobby principal lista os clubes disponíveis, cada um com o seu conjunto de mesas e de stakes. Os clubes que se uniram em uma aliança dividem o mesmo pool de jogadores.
 
-Para entrar em um clube, a mesma resenha descreve o caminho: tocar na lupa do menu principal, digitar o **ID do clube** e o **ID do agente** e esperar o administrador aceitar o pedido. Depois do aceite, o ícone do clube aparece no app. É o que você faz com o ID 10001 e o agente 1439098 no Clube Suprema — ou pelo [link oficial](/baixar), que já abre o clube.
+Para entrar em um clube, a mesma resenha descreve o caminho: tocar na lupa do menu principal, digitar o **ID do clube** e o **ID do agente** e esperar o administrador aceitar o pedido. Depois do aceite, o ícone do clube aparece no app. É o que você faz com o clube e o agente indicados em [como entrar no clube](/blog/como-entrar-no-clube-suprema) no Clube Suprema — ou pelo [link oficial](/baixar), que já abre o clube.
 
 A resenha também lista a Liga Suprema como uma união para México e América Latina, com cash games, torneios e sit & go. Os números de mesas que ela cita são de 2022 e 2023: use como contexto histórico, não como retrato de hoje.
 
@@ -75,7 +75,7 @@ Ou seja: entrar numa liga forte resolve o problema de **ter mesa e torneio**, e 
 
 A **SX** é um grupo de poker criado em 2021 pela fusão de quatro clubes: DRX, Stars Poker, GoPro e Liga Máxima. Segundo o [site da SX](https://www.sx-co.com/sobre), o grupo reúne **mais de 100 clubes parceiros** e oferece aos clubes central de atendimento 24h, o Fichas 24h para depósitos e saques e o acesso à Liga Suprema, que o grupo descreve como a maior liga de poker do Brasil.
 
-O **Clube Suprema (ID 10001)**, que mantém este site, é um clube do grupo SX e, segundo o próprio clube, joga na Liga Suprema. Ou seja: você entra por um clube só e joga nas mesas e nos torneios da liga.
+O **Clube Suprema**, que mantém este site, é um clube do grupo SX e, segundo o próprio clube, joga na Liga Suprema. Ou seja: você entra por um clube só e joga nas mesas e nos torneios da liga.
 
 ## De onde veio o app: duas versões
 
@@ -111,5 +111,5 @@ Clubes de poker são para **maiores de 18 anos**. Defina antes quanto vai gastar
 :::
 
 :::nota Transparência
-Este site é mantido pelo Clube Suprema (ID 10001), do grupo SX. O Fichas 24h é publicado pela SX&CO, do mesmo grupo. O clube tem interesse comercial em que você jogue por ele; veja a [divulgação](/divulgacao). As regras do Fichas 24h citadas aqui vêm das perguntas frequentes da própria plataforma, que bloqueia leitura automática: confira na fonte antes de decidir.
+Este site é mantido pelo Clube Suprema, do grupo SX. O Fichas 24h é publicado pela SX&CO, do mesmo grupo. O clube tem interesse comercial em que você jogue por ele; veja a [divulgação](/divulgacao). As regras do Fichas 24h citadas aqui vêm das perguntas frequentes da própria plataforma, que bloqueia leitura automática: confira na fonte antes de decidir.
 :::
