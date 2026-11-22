@@ -36,7 +36,7 @@ Fichas 24h por PIX, depósito não caiu, Suprema Poker é confiável, formatos d
 - [x] 2026-11-14 blefe-no-poker | Blefe no poker: quando funciona e quando é melhor desistir | como blefar no poker
 - [x] 2026-11-14 limp-no-poker | Limp: por que só pagar o big blind costuma ser um erro | o que é limp no poker
 - [x] 2026-11-14 slowplay-no-poker | Slowplay: quando esconder uma mão forte | o que é slowplay
-- [ ] textura-do-board | Textura do board: mesas secas e molhadas | board seco e molhado
+- [x] 2026-11-22 textura-do-board | Textura do board: mesas secas e molhadas | board seco e molhado
 - [ ] heads-up-poker | Heads-up: como jogar mano a mano | como jogar heads up
 - [ ] seis-max-ou-mesa-cheia | 6-max ou mesa cheia: o que muda na estratégia | 6 max poker
 - [ ] stack-em-big-blinds | Stack em big blinds e stack efetivo: como medir as fichas | stack efetivo poker
