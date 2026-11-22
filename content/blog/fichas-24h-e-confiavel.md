@@ -33,7 +33,7 @@ faq:
 ## 1. O endereço oficial é um só
 
 :::nota Quem escreve este post
-Este site é mantido pelo Clube Suprema, do grupo SX, o mesmo grupo da SX&CO, que publica o Fichas 24h. Temos interesse comercial em que você use os dois. Por isso este texto não dá veredito: lista o que você mesmo pode conferir, inclusive o que é negativo. Veja a [divulgação](/divulgacao).
+Este site é mantido pelo Clube Suprema, do grupo SX, o mesmo grupo da SX&CO, que publica o Fichas 24h. O clube tem interesse comercial no uso dos dois. Por isso este texto não dá veredito: lista o que você mesmo pode conferir, inclusive o que é negativo. Veja a [divulgação](/divulgacao).
 :::
 
 O Fichas 24h funciona em **fichas24horas.com.br** e no app **Fichas 24 Horas**, disponível para [Android](https://play.google.com/store/apps/details?id=com.mycompany.fichas24horas&hl=pt_BR) e [iPhone](https://apps.apple.com/br/app/fichas-24-horas/id6469055865), publicado nas lojas pela **SX&CO**. A classificação etária na App Store é 18 anos; a Google Play mostra classificação 18 anos. Qualquer site ou app fora desses endereços não é o Fichas 24h.
@@ -44,7 +44,7 @@ O próprio grupo SX apresenta a plataforma no [seu site](https://www.sx-co.com/s
 
 A regra central do Fichas 24h: o PIX da compra precisa sair de **conta de pessoa física no mesmo CPF do cadastro**, e o saque só vai para **chave PIX do titular**. Pagamento de terceiro ou de empresa é devolvido.
 
-Parece burocracia, mas é o contrário: é o que impede alguém de sacar o seu saldo para a conta de outra pessoa.
+A regra existe para que ninguém saque o seu saldo para a conta de outra pessoa.
 
 ## 3. A verificação de conta é uma prova de posse
 

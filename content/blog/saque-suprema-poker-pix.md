@@ -46,7 +46,7 @@ Sacar é a etapa em que mais aparecem dúvidas de prazo e de regra. No **Clube S
 2. Abra **Chaves Pix** e toque em cadastrar.
 3. Informe a chave. Só são aceitas chaves do **titular da conta**, isto é, no mesmo CPF do cadastro.
 
-Essa trava existe para proteger você: ninguém saca o seu saldo para a conta de outra pessoa. A mesma regra vale na compra — PIX de terceiros ou de empresa é devolvido, como explicamos no [guia do Fichas 24h](/blog/fichas-24-horas-suprema-poker-pix).
+Segundo o FAQ, a regra existe para que ninguém saque o seu saldo para a conta de outra pessoa. A mesma regra vale na compra — PIX de terceiros ou de empresa é devolvido, como explicamos no [guia do Fichas 24h](/blog/fichas-24-horas-suprema-poker-pix).
 
 ## Passo 2: pedir o saque
 

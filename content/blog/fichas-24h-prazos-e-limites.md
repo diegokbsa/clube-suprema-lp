@@ -12,7 +12,7 @@ capaChamada: "Guia · Prazos"
 capaTitulo: "Prazos e limites do Fichas 24h"
 capaSubtitulo: "Compra, saque e o que esperar"
 capaSelo: "Antes de depositar"
-resumo: No Fichas 24h, a compra de fichas por PIX cai na hora e é automática, inclusive no fim de semana; em casos raros o PIX pode atrasar até 2 horas. O saque passa por revisão interna de até 24 horas. Depósito mínimo e máximo variam por clube, e o próprio app avisa o mínimo na hora da compra. Há limite diário de saque, menor em fins de semana e feriados, e não há limite para o número de saques. PIX errado ou sem QR Code volta para a conta de origem em 24 a 72 horas após o envio do comprovante.
+resumo: No Fichas 24h, a compra de fichas por PIX, segundo o FAQ, costuma cair na hora e é automática, inclusive no fim de semana; em casos raros o PIX pode atrasar até 2 horas. O saque passa por revisão interna de até 24 horas. Depósito mínimo e máximo variam por clube, e o próprio app avisa o mínimo na hora da compra. Há limite diário de saque, menor em fins de semana e feriados, e não há limite para o número de saques. PIX errado ou sem QR Code volta para a conta de origem em 24 a 72 horas após o envio do comprovante.
 faq:
   - q: Quanto tempo leva para as fichas caírem depois do PIX?
     a: Normalmente na hora, de forma automática, inclusive no fim de semana. Em casos raros o PIX pode atrasar até 2 horas. Passou disso, chame o suporte com o comprovante.
@@ -37,7 +37,7 @@ Antes de colocar dinheiro num clube de poker, a pergunta certa é: **quanto temp
 | Passou de 2 horas | Chame o suporte com o comprovante |
 | PIX sem gerar QR Code, ou de conta de outra pessoa | Não vira fichas; devolução em 24 a 72 h após o comprovante |
 
-O detalhe que mais pega: **PIX só vira fichas quando você gera o QR Code dentro do Fichas 24h**. Transferir "na confiança" para uma chave avulsa não entra no sistema — e PIX para conta de outra pessoa ou de empresa é devolvido, porque a compra precisa sair de uma conta de pessoa física no seu CPF.
+O ponto que mais gera problema: **PIX só vira fichas quando você gera o QR Code dentro do Fichas 24h**. Transferir "na confiança" para uma chave avulsa não entra no sistema — e PIX para conta de outra pessoa ou de empresa é devolvido, porque a compra precisa sair de uma conta de pessoa física no seu CPF.
 
 ## Prazos do saque (fichas → PIX)
 
@@ -63,7 +63,7 @@ Se pretende sacar um valor alto, confira antes o limite diário do dia em quest�
 
 ## Madrugada e fim de semana
 
-A compra funciona 24 horas, todos os dias, porque é automática: o QR Code é gerado na hora e as fichas caem sem depender de ninguém. É o mesmo funcionamento que o site da [SX](https://www.sx-co.com/sobre) descreve ao apresentar o Fichas 24h como plataforma de depósitos e saques automatizados para os clubes parceiros. No Clube Suprema, se algo travar, o clube atende pelos canais da página de [contato](/contato) — inclusive de madrugada.
+Segundo a plataforma, a compra funciona 24 horas, todos os dias, porque é automática: o QR Code é gerado na hora e as fichas entram sem etapa humana. É o mesmo funcionamento que o site da [SX](https://www.sx-co.com/sobre) descreve ao apresentar o Fichas 24h como plataforma de depósitos e saques automatizados para os clubes parceiros. No Clube Suprema, se algo travar, o clube atende pelos canais da página de [contato](/contato) — inclusive de madrugada.
 
 ## Por que a compra é na hora e o saque não
 

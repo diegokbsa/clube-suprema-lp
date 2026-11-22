@@ -173,6 +173,6 @@ O Fichas 24h e o Suprema Poker são só para **maiores de 18 anos**. Defina ante
 
 Está trocando de clube? Veja antes [como sair do clube no Suprema Poker sem perder o saldo](/blog/como-sair-do-clube-suprema-poker).
 
-:::cta Ainda não está no Clube Suprema?
-Abra o [link oficial](/baixar) no celular ou entre com o clube e o agente indicados em [como entrar no clube](/blog/como-entrar-no-clube-suprema). Depois é só cadastrar o seu ID no Fichas 24h e comprar as fichas por PIX, de uma conta no seu CPF.
+:::cta Como entrar no Clube Suprema
+No celular, o [link oficial](/baixar) abre o app já no clube; no computador, o clube e o agente estão em [como entrar no clube](/blog/como-entrar-no-clube-suprema). A compra no Fichas 24h exige o ID cadastrado e PIX de uma conta no seu CPF.
 :::

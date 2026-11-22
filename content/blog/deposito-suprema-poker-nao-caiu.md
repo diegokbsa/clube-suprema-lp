@@ -140,5 +140,5 @@ O Suprema Poker, os clubes e o Fichas 24h são só para **maiores de 18 anos**. 
 :::
 
 :::cta Precisa de ajuda com um depósito?
-Chame o contato do clube com o comprovante e o seu ID da Suprema. Ainda não está no **Clube Suprema**? Abra o [link oficial](/baixar) no celular ou entre com o clube e o agente indicados em [como entrar no clube](/blog/como-entrar-no-clube-suprema).
+Chame o contato do clube com o comprovante e o seu ID da Suprema. Para entrar no **Clube Suprema**, use o [link oficial](/baixar) no celular ou entre com o clube e o agente indicados em [como entrar no clube](/blog/como-entrar-no-clube-suprema).
 :::

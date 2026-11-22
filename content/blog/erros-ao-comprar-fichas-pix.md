@@ -30,7 +30,7 @@ A compra de fichas do Suprema Poker pelo **Fichas 24h** é automática — mas a
 
 O Fichas 24h só aceita PIX de **conta de pessoa física no mesmo CPF do cadastro**. PIX da conta do cônjuge, do amigo ou da sua empresa é **devolvido**, e as fichas não entram.
 
-**Como evitar:** pague sempre de um banco seu. Trocou de banco? Sem problema — desde que a conta seja sua.
+**Como evitar:** pague sempre de um banco seu. Trocar de banco não muda a regra: a conta continua precisando ser sua.
 
 ## Erro 2: fazer PIX sem gerar o QR Code
 
@@ -40,7 +40,7 @@ PIX avulso, feito direto no app do banco para uma chave qualquer, **não vira fi
 
 ## Erro 3: deixar a conta sem verificar
 
-Conta não verificada **não pode ser usada em transações**, segundo o próprio app. A verificação é simples: o Fichas 24h envia e retira fichas do seu clube, e você informa o valor da movimentação, que aparece no **Caixa** do app Suprema Poker.
+Conta não verificada **não pode ser usada em transações**, segundo o próprio app. A verificação funciona assim: o Fichas 24h envia e retira fichas do seu clube, e você informa o valor da movimentação, que aparece no **Caixa** do app Suprema Poker.
 
 **Como evitar:** logo depois de cadastrar o seu ID, faça a verificação. Perdeu a tela? Use a opção de verificar de novo que o próprio app mostra..
 
@@ -58,7 +58,7 @@ Cada clube configura o seu depósito mínimo e máximo. Se o valor ficar abaixo 
 
 ## Erro 6: esperar sem agir depois de 2 horas
 
-A compra cai na hora, inclusive no fim de semana. Em casos raros, o PIX atrasa até **2 horas**. Passar disso sem falar com ninguém só alonga o problema.
+Segundo o FAQ do Fichas 24h, a compra costuma cair na hora, inclusive no fim de semana. Em casos raros, o PIX atrasa até **2 horas**. Passar disso sem falar com ninguém só alonga o problema.
 
 **Como evitar:** passou de 2 horas, chame o suporte **com o comprovante**. No Clube Suprema, o clube atende pelos canais da página de [contato](/contato). Se o app não abrir para conferir o Caixa, veja [app Suprema Poker não abre](/blog/app-suprema-poker-nao-abre) — a conta e as fichas ficam no servidor.
 
@@ -76,7 +76,7 @@ Um golpe conhecido: alguém oferece ficha mais barata por PIX direto e some depo
 
 ## Se travar: o que mandar ao suporte
 
-Um bom pedido de ajuda resolve na primeira resposta. Mande:
+O pedido de ajuda fica completo com:
 
 1. O **comprovante do PIX** (ou o print do pedido, no caso de saque);
 2. O seu **ID da Suprema** (o numérico do perfil);
@@ -84,7 +84,7 @@ Um bom pedido de ajuda resolve na primeira resposta. Mande:
 
 No Clube Suprema, o clube atende pelos canais da página de [contato](/contato). As respostas para as dúvidas mais comuns estão nas [perguntas frequentes do suporte](/blog/perguntas-frequentes-suporte).
 
-## Checklist da compra sem erro
+## Checklist antes de comprar
 
 1. Conta criada e e-mail confirmado.
 2. ID da Suprema cadastrado (numérico, plataforma e clube certos).

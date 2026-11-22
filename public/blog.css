@@ -22,7 +22,7 @@ body.page-blog, body.page-post { background: #000; } /* fundo 100% preto */
 
 /* Cabeçalho do índice */
 .blog-head { max-width: 820px; margin: 0 auto 44px; text-align: center; }
-.blog-head h1 { font-size: clamp(2.1rem, 5.2vw, 3.7rem); font-weight: 900; text-transform: uppercase; letter-spacing: -.01em; line-height: 1.02; margin: 0 0 16px; text-shadow: 0 10px 40px rgba(0, 0, 0, .6); }
+.blog-head h1 { font-size: clamp(2.1rem, 5.2vw, 3.7rem); font-weight: 900; text-transform: uppercase; letter-spacing: -.01em; line-height: 1.02; margin: 0 0 16px;  }
 .blog-head .eyebrow { margin-bottom: 18px; }
 .blog-head .lead { max-width: 640px; margin: 0 auto; }
 .blog-head::after { content: ""; display: block; width: min(520px, 70%); height: 1px; margin: 30px auto 0; background: var(--gold-line); }
@@ -44,7 +44,7 @@ body.page-blog, body.page-post { background: #000; } /* fundo 100% preto */
 
 /* Artigo */
 .post { max-width: 760px; margin: 0 auto; }
-.post-head h1 { font-size: clamp(1.9rem, 4.2vw, 2.8rem); font-weight: 900; letter-spacing: -.02em; line-height: 1.1; margin: 12px 0 14px; text-shadow: 0 10px 40px rgba(0, 0, 0, .6); }
+.post-head h1 { font-size: clamp(1.9rem, 4.2vw, 2.8rem); font-weight: 900; letter-spacing: -.02em; line-height: 1.1; margin: 12px 0 14px;  }
 .post-head .lead { font-size: 1.15rem; color: #d9d4cb; }
 .post-cover { margin: 24px 0 8px; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--gold-border-soft); box-shadow: 0 30px 80px rgba(0, 0, 0, .6), 0 0 60px rgba(239, 161, 68, .12); }
 .post-cover img { display: block; width: 100%; height: auto; }
@@ -84,7 +84,7 @@ body.page-blog, body.page-post { background: #000; } /* fundo 100% preto */
 
 /* Caixas */
 .post-cta, .post-note, .post-tip, .post-shot { margin: 28px 0; padding: 18px 22px; border-radius: var(--radius); border: 1px solid var(--gold-border-soft); }
-.post-cta { background: linear-gradient(180deg, rgba(34, 24, 11, .96), rgba(10, 8, 6, .96)); border-color: var(--gold-border); box-shadow: 0 20px 60px rgba(0, 0, 0, .5), 0 0 50px rgba(239, 161, 68, .14); position: relative; overflow: hidden; }
+.post-cta { background: #17110a; border-color: var(--gold-border); box-shadow: 0 20px 60px rgba(0, 0, 0, .5), 0 0 50px rgba(239, 161, 68, .14); position: relative; overflow: hidden; }
 .post-cta::before { content: ""; position: absolute; inset: 0; background: var(--glass-gold); pointer-events: none; }
 .post-cta::after { content: ""; position: absolute; left: 10%; right: 10%; top: 0; height: 1px; background: var(--gold-line); }
 .post-cta > * { position: relative; }
@@ -116,7 +116,7 @@ body.page-blog, body.page-post { background: #000; } /* fundo 100% preto */
 .related > h2 { font-size: 1.5rem; font-weight: 900; text-transform: uppercase; letter-spacing: .01em; margin-bottom: 20px; text-align: center; }
 
 /* Rodapé */
-.page-blog .footer, .page-post .footer { border-top: 0; position: relative; background: linear-gradient(180deg, transparent, rgba(0, 0, 0, .65)); }
+.page-blog .footer, .page-post .footer { border-top: 0; position: relative; background: #050505; }
 .page-blog .footer::before, .page-post .footer::before { content: ""; position: absolute; left: 10%; right: 10%; top: 0; height: 1px; background: var(--gold-line); }
 .page-blog .footer a, .page-post .footer a { color: var(--gold-hi); }
 
@@ -152,7 +152,7 @@ body.page-blog, body.page-post { background: #000; } /* fundo 100% preto */
 .grade-destaque { background: var(--card-luxo); border: 1px solid var(--gold-border); border-radius: var(--radius); padding: 20px 22px; text-align: center; }
 .grade-destaque-hora { margin: 0; font: 700 2.2rem/1 var(--font-num); color: var(--gold-hi); letter-spacing: .02em; }
 .grade-destaque h2 { margin: 8px 0 4px; font-size: 1.2rem; font-weight: 900; text-transform: uppercase; }
-.grade-destaque-gtd { margin: 0 0 6px; font-weight: 800; background: var(--gold-text); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+.grade-destaque-gtd { margin: 0 0 6px; font-weight: 800; color: #efa144; }
 .grade-destaque .small { margin: 0; }
 .grade { max-width: 900px; margin: 0 auto 28px; }
 .grade-period { font-size: 1.25rem; font-weight: 900; text-transform: uppercase; margin: 0 0 12px; display: flex; align-items: baseline; gap: 10px; }
