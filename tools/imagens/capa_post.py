@@ -1,12 +1,13 @@
 """Capa de um post novo (1200x630) a partir do front matter, sem editar capas.py: usado pela rotina de posts automáticos.
 
 Campos lidos de content/blog/<slug>.md (todos opcionais):
-  capaTema      cartas (padrão), mesa, app, clube, suporte, torneio, prazos, erros, liga, saque: escolhe a ilustração da direita
+  capaTema      cartas (padrão), mesa, app, clube, suporte, torneio, prazos, erros, liga, saque, banca, abertura: escolhe a ilustração da direita
   capaChamada   linha dourada de cima, ex. "Guia · Regras"
   capaTitulo    título curto da capa (padrão: title)
   capaSubtitulo uma frase embaixo do título (padrão: description cortada)
   capaSelo      pílula do rodapé, ex. "Para iniciantes"
   capaEtiqueta  texto da pílula da ilustração (temas cartas e mesa)
+  capaPasta     pasta de saída em public/img/blog (padrão: o slug); troque para forçar endereço novo na CDN
 
 Uso (na raiz do projeto): python tools/imagens/capa_post.py <slug>
 Saída: public/img/blog/<slug>/cover.jpg + cover.webp + cover-600.webp
@@ -213,7 +214,8 @@ capas.ILLUS[SLUG] = {
 
 desc = data.get("description", "")
 sub = data.get("capaSubtitulo") or (desc[:110].rsplit(" ", 1)[0] + "…" if len(desc) > 110 else desc)
-jpg = os.path.join(ROOT, "public", "img", "blog", SLUG, "cover.jpg")
+# capaPasta: pasta da capa quando ela precisa de endereço novo (o Cloudflare guarda cover.jpg por 30 dias)
+jpg = os.path.join(ROOT, "public", "img", "blog", data.get("capaPasta") or SLUG, "cover.jpg")
 capas.cover(jpg, SLUG, data.get("capaChamada", "Blog · Poker"), data.get("capaTitulo") or data.get("title", SLUG), sub,
             data.get("capaSelo") or None)
 print("  ", ", ".join(capas_webp.variantes(jpg)))

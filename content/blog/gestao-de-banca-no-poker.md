@@ -4,8 +4,9 @@ seoTitle: "Gestão de banca no poker: limites e variância"
 description: O que é banca no poker, por que a variância faz até quem joga bem perder várias sessões seguidas e como definir limite de perda, de tempo e de buy-in com exemplos.
 date: 2026-11-22
 updated: 2026-11-22
-cover: /img/blog/gestao-de-banca-no-poker/cover.jpg
+cover: /img/blog/gestao-de-banca-no-poker-2/cover.jpg
 coverAlt: "Capa do guia Gestão de banca no poker: os três limites a definir antes de sentar (perda, tempo e buy-in)"
+capaPasta: gestao-de-banca-no-poker-2
 capaTema: banca
 capaChamada: "Guia · Responsabilidade"
 capaTitulo: "Gestão de banca"

@@ -4,8 +4,9 @@ seoTitle: "Tamanho da abertura no pré-flop: 2x, 2,5x ou 3x o big blind?"
 description: "Quanto apostar ao abrir o pote no pré-flop do Texas Hold'em. Faixas de 2x a 4x o big blind por posição, cash e torneio, e a conta simples por trás de cada tamanho."
 date: 2026-11-22
 updated: 2026-11-22
-cover: /img/blog/tamanho-da-abertura-no-pre-flop/cover.jpg
+cover: /img/blog/tamanho-da-abertura-no-pre-flop-2/cover.jpg
 coverAlt: "Capa do guia Tamanho da abertura no pré-flop: faixas do aumento em múltiplos do big blind por posição"
+capaPasta: tamanho-da-abertura-no-pre-flop-2
 capaTema: abertura
 capaChamada: "Guia · Estratégia"
 capaTitulo: "Tamanho da abertura no pré-flop"
