@@ -22,7 +22,7 @@ Escrevemos os guias com base em fontes públicas, que citamos sempre que possív
 
 ## Links e serviços de terceiros
 
-O site tem links para Suprema Poker, Fichas 24h, SX, WhatsApp, Telegram e outros sites. Parte dos botões passa por links curtos (l.kbsa.app) que contam o clique. Não controlamos esses serviços e não respondemos pelos termos, prazos ou conteúdo deles. Veja como tratamos dados na [política de privacidade](/privacidade).
+O site tem links para Suprema Poker, Fichas 24h, SX, Telegram e outros sites. Parte dos botões passa por links curtos (l.kbsa.app) que contam o clique. Não controlamos esses serviços e não respondemos pelos termos, prazos ou conteúdo deles. Veja como tratamos dados na [política de privacidade](/privacidade).
 
 ## Direitos sobre o conteúdo
 

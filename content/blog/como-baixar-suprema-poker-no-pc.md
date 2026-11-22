@@ -4,7 +4,7 @@ seoTitle: "Como baixar o Suprema Poker no PC, notebook e MacBook"
 description: Como baixar e instalar o Suprema Poker no PC e no notebook com Windows, o que fazer no MacBook, criar a conta e entrar no Clube Suprema.
 date: 2026-10-26
 updated: 2026-11-15
-cover: /img/blog/como-baixar-suprema-poker-no-pc/cover.jpg
+cover: /img/blog/como-baixar-suprema-poker-no-pc-2/cover.jpg
 coverAlt: Notebook com a mesa do app Suprema Poker na tela e o selo de download, com os textos PC, notebook e MacBook
 tags: [app, instalação, pc]
 resumo: Para jogar Suprema Poker no PC ou no notebook, baixe o instalador oficial para Windows em security.supremapoker.com.br/download, instale e entre com a sua conta. No computador, a entrada no clube é com o ID, clube 10001 e agente 1439098. Não há versão oficial para macOS, então no MacBook jogue pelo celular, por máquina virtual ou por emulador.

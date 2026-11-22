@@ -63,7 +63,7 @@ Se pretende sacar um valor alto, confira antes o limite diário do dia em quest�
 
 ## Madrugada e fim de semana
 
-A compra funciona 24 horas, todos os dias, porque é automática: o QR Code é gerado na hora e as fichas caem sem depender de ninguém. É o mesmo funcionamento que o site da [SX](https://www.sx-co.com/sobre) descreve ao apresentar o Fichas 24h como plataforma de depósitos e saques automatizados para os clubes parceiros. No Clube Suprema, se algo travar, o suporte 24h atende no WhatsApp em português, inglês e espanhol — inclusive de madrugada.
+A compra funciona 24 horas, todos os dias, porque é automática: o QR Code é gerado na hora e as fichas caem sem depender de ninguém. É o mesmo funcionamento que o site da [SX](https://www.sx-co.com/sobre) descreve ao apresentar o Fichas 24h como plataforma de depósitos e saques automatizados para os clubes parceiros. No Clube Suprema, se algo travar, o clube atende pelos canais da página de [contato](/contato) — inclusive de madrugada.
 
 ## Por que a compra é na hora e o saque não
 

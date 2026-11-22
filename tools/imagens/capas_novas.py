@@ -99,7 +99,7 @@ def illus_deposito(img):
     img.alpha_composite(overlay(Image.new("RGBA", img.size, (0, 0, 0, 0)), body))
     d = ImageDraw.Draw(img)
     d.text((x0 + 28, y0 + 26), "DEPÓSITO · PIX", font=font(16, 700), fill=GOLD)
-    d.text((x0 + 28, y0 + 52), "Clube 10001", font=font(15, 500), fill=MUTED)
+    d.text((x0 + 28, y0 + 52), "Clube Suprema", font=font(15, 500), fill=MUTED)
     rows = ["PIX concluído no banco", "Conta no seu CPF", "QR Code da compra", "Fichas no Caixa do clube"]
     f = font(19, 700)
     for i, t in enumerate(rows):
@@ -157,7 +157,7 @@ def illus_confiavel(img):
     img.alpha_composite(shield_layer(sw, sh), (sx, sy))
     logo_box(img, 940 - 56, sy + 66, 112)
     d = ImageDraw.Draw(img)
-    d.text((940, sy + 206), "CLUBE 10001", font=font(16, 800), fill=GOLD, anchor="mm")
+    d.text((940, sy + 206), "CLUBE SUPREMA", font=font(16, 800), fill=GOLD, anchor="mm")
     # selo 18+
     cx, cy, r = sx + sw - 6, sy + 30, 42
     d.ellipse((cx - r, cy - r, cx + r, cy + r), fill=GOLD)

@@ -4,7 +4,7 @@ seoTitle: "ID do jogador no Suprema Poker: onde achar e para que serve"
 description: Onde fica o ID do jogador no app Suprema Poker, para que serve na compra de fichas, no clube e no suporte, e a diferença para o ID do clube.
 date: 2026-10-30
 updated: 2026-11-15
-cover: /img/blog/id-do-jogador-suprema-poker/cover.jpg
+cover: /img/blog/id-do-jogador-suprema-poker-2/cover.jpg
 coverAlt: Cartão de perfil do app com o campo ID do jogador em destaque, ao lado das etiquetas clube 10001 e agente 1439098
 tags: [app, fichas, suporte]
 resumo: O ID do jogador, também chamado de ID da Suprema, é o número fixo da sua conta no Suprema Poker e fica no seu perfil dentro do app, junto com o apelido e a foto. Ele é pedido no cadastro do Fichas 24h para comprar fichas, pelo suporte para liberar a sua entrada no clube e sempre que você fala com o agente. Não confunda com o ID do clube, que no Clube Suprema é 10001, nem com o ID do agente, 1439098.

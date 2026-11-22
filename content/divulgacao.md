@@ -2,7 +2,7 @@ Este site é mantido pelo **Clube Suprema** (ID 10001, agente 1439098), clube do
 
 ## O que isso significa na prática
 
-- Os botões "Quero jogar", "Suporte no WhatsApp" e "Canal no Telegram" levam a serviços do próprio clube ou de terceiros (Suprema Poker, Fichas 24h) e podem gerar receita para o clube.
+- Os botões "Quero jogar" e "Canal no Telegram" levam a serviços do próprio clube ou de terceiros (Suprema Poker, Fichas 24h) e podem gerar receita para o clube.
 - Os blocos rotulados "Divulgação do clube" são publicidade do próprio clube, não conteúdo editorial.
 - O Fichas 24h é publicado pela SX&CO, do mesmo grupo do clube. O Suprema Poker é de terceiros (Suprema Gaming), que não patrocina nem revisa este site.
 - Quando passarmos a exibir anúncios do Google, eles serão identificados como anúncios.

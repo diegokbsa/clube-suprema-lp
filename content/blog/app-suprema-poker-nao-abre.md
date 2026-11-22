@@ -4,7 +4,7 @@ seoTitle: "App Suprema Poker não abre? Como resolver e reinstalar"
 description: O que fazer quando o app Suprema Poker não abre, fecha sozinho ou trava no Android, iPhone e PC, e como reinstalar sem perder a conta.
 date: 2026-10-26
 updated: 2026-11-15
-cover: /img/blog/app-suprema-poker-nao-abre/cover.jpg
+cover: /img/blog/app-suprema-poker-nao-abre-2/cover.jpg
 coverAlt: Celular com o app Suprema Poker e um ícone de recarregar, com o texto Reinstalar e entrar no clube 10001
 tags: [app, suporte, instalação]
 resumo: Quando o app Suprema Poker não abre, atualize o app, reinicie o aparelho, desligue a VPN e libere espaço. Se não resolver, reinstale pela loja oficial ou pelo instalador para Windows, porque a conta e as fichas ficam no servidor. Depois, entre de novo no Clube Suprema com o ID 10001 e o agente 1439098.
@@ -102,7 +102,7 @@ Ainda não é do Clube Suprema? É o mesmo caminho: com o app funcionando, entre
 
 ## Quando chamar o suporte
 
-Se você fez o teste rápido e reinstalou e o app ainda não abre, chame o **suporte 24h no WhatsApp**. Informe o modelo do aparelho, o sistema, a versão do app e, se tiver, uma foto da mensagem de erro. Muitas vezes é instabilidade momentânea do servidor, e o suporte avisa quando normaliza.
+Se você fez o teste rápido e reinstalou e o app ainda não abre, fale com o clube pela página de [contato](/contato). Informe o modelo do aparelho, o sistema, a versão do app e, se tiver, uma foto da mensagem de erro. Muitas vezes é instabilidade momentânea do servidor, e o suporte avisa quando normaliza.
 
 Outras dúvidas de conta, fichas e saque estão nas [perguntas frequentes do suporte](/blog/perguntas-frequentes-suporte).
 

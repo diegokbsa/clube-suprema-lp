@@ -30,22 +30,22 @@
   --pill: 90px;
   --shadow-lg: 5px 10px 100px rgba(0, 0, 0, .5);
   --shadow: 2px 2px 35px rgba(0, 0, 0, .5);
-  --glow: 0 0 40px rgba(239, 161, 68, .35);
+  --glow: none;
   --gold-line: linear-gradient(127deg, rgba(223, 151, 65, 0), #efa144, rgba(223, 151, 65, 0));
   --ease: cubic-bezier(.16, 1, .3, 1);
   --font: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --font-num: "Antonio", "Montserrat", Arial, sans-serif;
   /* Camada "luxo" (peças oficiais da Suprema): degradê dourado, pílulas com borda, painéis quentes */
-  --gold-grad: linear-gradient(180deg, #f9cf7f 0%, #efa144 52%, #d4852a 100%);
-  --gold-grad-hover: linear-gradient(180deg, #ffe0a0 0%, #f3ad58 52%, #de9035 100%);
-  --gold-text: linear-gradient(180deg, #ffd98a 0%, #efa144 58%, #d98b2f 100%);
+  --gold-grad: #efa144; /* cor chapada (Regra -2, 22/11/2026) */
+  --gold-grad-hover: #f5b45e;
+  --gold-text: #efa144;
   --gold-hi: #f3b662;
   --gold-border: rgba(239, 161, 68, .55);
   --gold-border-soft: rgba(239, 161, 68, .22);
   --ink-warm: #1a1206;
   --panel: rgba(16, 12, 7, .72);
   --card-luxo: linear-gradient(180deg, rgba(30, 22, 12, .80), rgba(12, 10, 8, .94));
-  --glow-gold: 0 0 40px rgba(239, 161, 68, .18);
+  --glow-gold: none;
   --side: 16px; /* recuo lateral do conteúdo */
 }
 
@@ -94,10 +94,10 @@ p { margin: 0 0 1em; }
   border: 0; border-radius: 14px; cursor: pointer;
   background: var(--gold-grad); color: var(--ink-warm);
   font: 800 1rem/1 var(--font); letter-spacing: .04em; text-transform: uppercase; padding: 14px 20px; text-decoration: none;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .5), 0 10px 30px rgba(239, 161, 68, .22);
+  box-shadow: none;
   transition: transform .4s var(--ease), box-shadow .4s var(--ease), background .4s var(--ease), opacity .2s;
 }
-.btn:hover { background: var(--gold-grad-hover); transform: translateY(-1px) scale(1.02); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .55), 0 14px 40px rgba(239, 161, 68, .38); }
+.btn:hover { background: var(--gold-grad-hover); transform: translateY(-1px); box-shadow: none; }
 .btn:active { transform: translateY(1px); }
 .btn:disabled { opacity: .55; cursor: progress; transform: none; }
 .btn-sm { padding: 9px 14px; font-size: .9rem; }
@@ -146,7 +146,7 @@ p { margin: 0 0 1em; }
 .bt-fita {
   position: absolute; top: 0; left: 50%; transform: translateX(-50%); z-index: 1;
   padding: 3px 9px; border-radius: 4px 2px 2px 4px;
-  background: linear-gradient(#ffb64a, #f39a26); color: #141414;
+  background: #f39a26; color: #141414;
   font: 900 .44rem/1 var(--font); letter-spacing: .2em; text-indent: .2em;
   box-shadow: 0 2px 5px rgba(0, 0, 0, .45);
 }

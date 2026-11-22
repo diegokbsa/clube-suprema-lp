@@ -162,9 +162,9 @@ def illus_entrar(img):
     d.rounded_rectangle((x0, y0, x1, y1), radius=26, fill=(26, 26, 29, 255), outline=GOLD, width=2)
     d.text((x0 + 28, y0 + 26), "CLUBE SUPREMA", font=font(16, 700), fill=GOLD)
     d.text((x0 + 28, y0 + 56), "ID do clube", font=font(16, 500), fill=MUTED)
-    d.text((x0 + 28, y0 + 80), "10001", font=font(58, 800), fill=WHITE)
+    d.text((x0 + 28, y0 + 80), "•••••", font=font(58, 800), fill=WHITE)
     d.text((x0 + 28, y0 + 160), "Agente", font=font(16, 500), fill=MUTED)
-    d.text((x0 + 28, y0 + 184), "1439098", font=font(40, 800), fill=GOLD)
+    d.text((x0 + 28, y0 + 184), "•••••••", font=font(40, 800), fill=GOLD)
     logo_box(img, x1 - 86, y0 + 26, 58)
     # ficha e "link"
     paste(img, chip(150), (990, 330))
@@ -191,8 +191,8 @@ def illus_clubes(img):
     d = ImageDraw.Draw(img)
     d.text((x0 + 26, y0 + 24), "CLUBE SUPREMA", font=font(16, 700), fill=GOLD)
     d.text((x0 + 26, y0 + 52), "ID do clube", font=font(15, 500), fill=MUTED)
-    d.text((x0 + 26, y0 + 74), "10001", font=font(54, 800), fill=WHITE)
-    d.text((x0 + 26, y0 + 140), "Agente 1439098", font=font(16, 700), fill=GOLD)
+    d.text((x0 + 26, y0 + 74), "•••••", font=font(54, 800), fill=WHITE)
+    d.text((x0 + 26, y0 + 140), "Agente •••••••", font=font(16, 700), fill=GOLD)
     logo_box(img, x0 + 330 - 84, y0 + 22, 56)
     pill(img, "Entrar · Trocar · Sair", 915, 480, font(16, 700))
 
@@ -235,7 +235,7 @@ def illus_pool(img):
             logo_box(img, x - 66, y - 22, 44)
             d = ImageDraw.Draw(img)
             d.text((x - 16, y - 12), "Clube", font=font(13, 700), fill=MUTED)
-            d.text((x - 16, y + 2), "10001", font=font(20, 900), fill=WHITE)
+            d.text((x - 16, y + 2), "•••••", font=font(20, 900), fill=WHITE)
         else:
             d.ellipse((x - 26, y - 26, x + 26, y + 26), fill=(36, 36, 40), outline=GOLD + (160,), width=2)
             d.text((x, y), "clube", font=font(11, 700), fill=MUTED, anchor="mm")
@@ -253,7 +253,7 @@ def illus_pc(img):
     logo_box(img, (x0 + x1) // 2 - 40, y0 + 34, 80)
     d = ImageDraw.Draw(img)
     d.text(((x0 + x1) / 2, y0 + 140), "SUPREMA POKER", font=font(22, 900), fill=WHITE, anchor="mm")
-    d.text(((x0 + x1) / 2, y0 + 176), "Clube 10001 · Agente 1439098", font=font(15, 700), fill=GOLD, anchor="mm")
+    d.text(((x0 + x1) / 2, y0 + 176), "Clube e agente no link oficial", font=font(15, 700), fill=GOLD, anchor="mm")
     cx, cy = x1 + 10, y0 + 10
     d.ellipse((cx - 42, cy - 42, cx + 42, cy + 42), fill=GOLD)
     d.line((cx, cy - 20, cx, cy + 12), fill=INK, width=8)
@@ -277,7 +277,7 @@ def illus_naoabre(img):
     a = _m.radians(-60)
     ax, ay = cx + 26 * _m.cos(a), cy + 26 * _m.sin(a)
     d.polygon([(ax + 4, ay - 16), (ax + 16, ay + 6), (ax - 10, ay + 4)], fill=INK)
-    pill(img, "Reinstalar → Clube 10001", 960, 528, font(17, 700))
+    pill(img, "Reinstalar → voltar ao clube", 960, 528, font(17, 700))
 
 
 def illus_sair(img):
@@ -310,8 +310,8 @@ def illus_sair(img):
     d = ImageDraw.Draw(img)
     d.text((x0 + 26, y0 + 24), "CLUBE SUPREMA", font=font(16, 700), fill=GOLD)
     d.text((x0 + 26, y0 + 52), "ID do clube", font=font(15, 500), fill=MUTED)
-    d.text((x0 + 26, y0 + 74), "10001", font=font(54, 800), fill=WHITE)
-    d.text((x0 + 26, y0 + 140), "Agente 1439098", font=font(16, 700), fill=GOLD)
+    d.text((x0 + 26, y0 + 74), "•••••", font=font(54, 800), fill=WHITE)
+    d.text((x0 + 26, y0 + 140), "Agente •••••••", font=font(16, 700), fill=GOLD)
     logo_box(img, x0 + 330 - 84, y0 + 22, 56)
     pill(img, "Sacar → Sair → Entrar", 915, 500, font(16, 700))
 
@@ -380,9 +380,9 @@ def illus_codigo(img):
     # lado do código
     d.text((x0 + 28, y0 + 26), "CÓDIGO DO CLUBE", font=font(16, 700), fill=GOLD)
     d.text((x0 + 28, y0 + 58), "ID do clube", font=font(15, 500), fill=MUTED)
-    d.text((x0 + 28, y0 + 80), "10001", font=font(58, 800), fill=WHITE)
+    d.text((x0 + 28, y0 + 80), "•••••", font=font(58, 800), fill=WHITE)
     d.text((x0 + 28, y0 + 158), "ID do agente", font=font(15, 500), fill=MUTED)
-    d.text((x0 + 28, y0 + 180), "1439098", font=font(38, 800), fill=GOLD)
+    d.text((x0 + 28, y0 + 180), "•••••••", font=font(38, 800), fill=GOLD)
     # canhoto com o logo
     cx = (perf + x1) // 2
     logo_box(img, cx - 32, (y0 + y1) // 2 - 50, 64)
@@ -424,7 +424,7 @@ def illus_id_jogador(img):
     d.rounded_rectangle((cx - 16, cy - 8, cx + 8, cy + 18), radius=5, fill=(14, 10, 5), outline=GOLD, width=3)
     # etiquetas: seu ID (destaque), clube e agente
     f = font(15, 700)
-    labels = ["Seu ID", "Clube 10001", "Agente 1439098"]
+    labels = ["Seu ID", "Clube Suprema", "Agente •••••••"]
     pad, gap = 18, 12
     widths = [d.textlength(t, font=f) + 2 * pad for t in labels]
     x = 940 - (sum(widths) + gap * (len(labels) - 1)) / 2
@@ -549,19 +549,19 @@ def cover(path, key, eyebrow, title, subtitle, badge=None):
 
 posts = [
     ("como-instalar-app-suprema-poker", "Guia · App", "Como baixar o Suprema Poker no celular", "Android e iPhone · conta, e-mail e primeiros ajustes para entrar no clube", "Passo a passo"),
-    ("maiores-e-melhores-clubes-suprema-poker", "Guia · Clubes", "Maiores e melhores clubes do Suprema Poker", "Por que o tamanho vem da liga, o que avaliar antes de depositar e onde jogar", "Clube 10001"),
+    ("maiores-e-melhores-clubes-suprema-poker", "Guia · Clubes", "Maiores e melhores clubes do Suprema Poker", "Por que o tamanho vem da liga, o que avaliar antes de depositar e onde jogar", "Clube Suprema"),
     ("id-clube-h2-suprema-poker-pool-liga-suprema", "Guia · Ligas", "ID do clube H2 no Suprema Poker e o pool da Liga Suprema", "Como entrar no H2Club, o que é o pool e como jogar nas mesas compartilhadas da liga", "Liga Suprema"),
-    ("como-baixar-suprema-poker-no-pc", "Tutorial · PC", "Como baixar o Suprema Poker no PC, notebook e MacBook", "Instalador oficial, conta e entrada no Clube Suprema com o ID 10001", "Passo a passo"),
-    ("app-suprema-poker-nao-abre", "Suporte · App", "App Suprema Poker não abre? Como resolver e reinstalar", "Android, iPhone e PC, sem perder a conta, e de volta ao clube 10001", "Resolva já"),
+    ("como-baixar-suprema-poker-no-pc", "Tutorial · PC", "Como baixar o Suprema Poker no PC, notebook e MacBook", "Instalador oficial, conta e entrada no Clube Suprema", "Passo a passo"),
+    ("app-suprema-poker-nao-abre", "Suporte · App", "App Suprema Poker não abre? Como resolver e reinstalar", "Android, iPhone e PC, sem perder a conta, e de volta ao clube", "Resolva já"),
     ("clubes-suprema-poker", "Guia · Clubes", "Clubes do Suprema Poker: como funcionam, ID, como entrar e sair", "O que é um clube, ID do clube e do agente, jogar em vários clubes e escolher um confiável", "Guia completo"),
-    ("como-entrar-no-clube-suprema", "Guia · Clube", "Como entrar no Clube Suprema pelo link ou com o ID", "Clube 10001 · Agente 1439098 · o que fazer se o link abrir a loja", "Clube 10001"),
+    ("como-entrar-no-clube-suprema", "Guia · Clube", "Como entrar no Clube Suprema pelo link ou com o ID", "Clube e agente no link oficial · o que fazer se o link abrir a loja", "Clube Suprema"),
     ("formatos-de-torneio-poker-online", "Guia · Torneios", "Modalidades e formatos de torneio no poker online", "NLH, PLO, freezeout, re-entry, turbo, knockout, satélite e Spin", "Para iniciantes"),
     ("guia-do-app-suprema-poker", "Guia · App", "Guia do app Suprema Poker: lobby, mesa, fichas e configurações", "Um tour pelas telas que importam, com imagens", "Tour pelo app"),
     ("spin-suprema-como-funciona-e-primeiro-grande-ganhador", "Novidade · Spin", "Spin Suprema: como funciona e o prêmio de 3.000× na primeira semana", "Roleta de multiplicador até 50.000× · R$ 100 de buy-in viraram R$ 300 mil", "Primeira semana"),
     ("perguntas-frequentes-suporte", "Suporte 24h", "Perguntas frequentes do suporte: fichas, PIX, saque e login", "As respostas mais pedidas no WhatsApp, em um lugar só", "FAQ"),
-    ("como-sair-do-clube-suprema-poker", "Guia · Clubes", "Como sair do clube no Suprema Poker", "Saque o saldo antes, onde fica a opção, quem remove e como entrar no clube 10001", "Passo a passo"),
+    ("como-sair-do-clube-suprema-poker", "Guia · Clubes", "Como sair do clube no Suprema Poker", "Saque o saldo antes, onde fica a opção, quem remove e como entrar de novo no clube", "Passo a passo"),
     ("fichas-24-horas-suprema-poker-pix", "Guia · Fichas", "Fichas 24 Horas: como comprar fichas do Suprema Poker por PIX", "Conta, ID da Suprema, verificação, QR Code no seu CPF e saque", "Guia completo"),
-    ("codigo-suprema-poker-clube-agente", "Guia · Clube", "Código promocional do Suprema Poker existe?", "O código é o ID do clube e do agente: como usar o 10001 e o 1439098 sem cair em golpe", "Clube 10001"),
+    ("codigo-suprema-poker-clube-agente", "Guia · Clube", "Código promocional do Suprema Poker existe?", "O código é o ID do clube e do agente: como usar os dois sem cair em golpe", "Clube Suprema"),
     ("id-do-jogador-suprema-poker", "Guia · App", "ID do jogador no Suprema Poker: onde encontrar", "Para que serve no Fichas 24h, no clube e no suporte, e a diferença para o ID do clube e do agente", "Passo a passo"),
 ]
 ONLY = os.environ.get("ONLY")
@@ -571,4 +571,4 @@ for slug, eyebrow, title, subtitle, badge in posts:
     cover(os.path.join(ROOT, "public", "img", "blog", slug, "cover.jpg"), slug, eyebrow, title, subtitle, badge)
     capas_webp.variantes(os.path.join(ROOT, "public", "img", "blog", slug, "cover.jpg"))
 if not ONLY:
-    cover(os.path.join(ROOT, "public", "img", "og-clube-suprema.jpg"), "og", "Suprema Poker · Clube 10001", "Entre no Clube Suprema em 2 minutos", "Ação a qualquer hora, fichas por PIX na hora e suporte 24h no WhatsApp", "Somente +18")
+    cover(os.path.join(ROOT, "public", "img", "og-clube-suprema.jpg"), "og", "Suprema Poker · Clube Suprema", "Entre no Clube Suprema em 2 minutos", "Ação a qualquer hora, fichas por PIX pelo Fichas 24h e jogo só para maiores de 18", "Somente +18")

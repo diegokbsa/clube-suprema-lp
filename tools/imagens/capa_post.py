@@ -130,7 +130,7 @@ def illus_erros(img):
 
 def illus_liga(img):
     d = ImageDraw.Draw(img)
-    clubes = [("Clube 10001", True), ("Outro clube", False), ("Outro clube", False)]
+    clubes = [("Clube Suprema", True), ("Outro clube", False), ("Outro clube", False)]
     for i, (nome, ouro) in enumerate(clubes):
         x0, y0 = 748, 120 + i * 96
         d.rounded_rectangle((x0, y0, x0 + 190, y0 + 74), radius=18, fill=_CARD, outline=GOLD if ouro else (90, 90, 96), width=2)

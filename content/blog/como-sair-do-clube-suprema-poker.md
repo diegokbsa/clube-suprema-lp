@@ -4,7 +4,7 @@ seoTitle: "Como sair do clube no Suprema Poker sem perder o saldo"
 description: Como sair de um clube no Suprema Poker sem perder fichas: saque o saldo antes, ache a opção no app, fale com o agente e entre em outro clube.
 date: 2026-10-27
 updated: 2026-11-15
-cover: /img/blog/como-sair-do-clube-suprema-poker/cover.jpg
+cover: /img/blog/como-sair-do-clube-suprema-poker-2/cover.jpg
 coverAlt: Cartão de um clube antigo com saldo zerado e uma seta de saída, ao lado do cartão do Clube Suprema ID 10001
 tags: [clube, guia, fichas]
 resumo: Para sair de um clube no Suprema Poker, saque antes todo o saldo daquele clube, porque as fichas valem só dentro dele, e confira no Caixa do clube que ele zerou. Depois abra o clube e procure a opção de sair no menu dele. Se ela não aparecer, peça ao agente ou ao dono do clube. Para entrar em outro, como o Clube Suprema, use o clube 10001 e o agente 1439098.
@@ -113,7 +113,7 @@ Para trocar de clube você não precisa sair do atual. A mesma conta entra em v�
 O passo a passo completo, com os problemas mais comuns, está em [como entrar no Clube Suprema pelo link ou com o ID](/blog/como-entrar-no-clube-suprema). O clube é do grupo SX e joga na Liga Suprema, com mesas compartilhadas entre vários clubes; entenda como funciona em [ID do clube H2 e o pool da Liga Suprema](/blog/id-clube-h2-suprema-poker-pool-liga-suprema).
 
 :::cta Vai trocar de clube?
-Entre no **Clube Suprema** sem sair do atual: no celular, toque no [link oficial](/baixar); no computador, use o clube **10001** e o agente **1439098**. Fichas por PIX no seu CPF e suporte 24h no WhatsApp.
+Entre no **Clube Suprema** sem sair do atual: no celular, toque no [link oficial](/baixar); no computador, use o clube **10001** e o agente **1439098**. Fichas por PIX no seu CPF e contato do clube.
 :::
 
 ## Problemas comuns
@@ -135,5 +135,5 @@ O Suprema Poker e os clubes são para **maiores de 18 anos**. Se a vontade é pa
 :::
 
 :::cta Pronto para jogar em outro clube?
-O **Clube Suprema** é o ID **10001**, com o agente **1439098**. Abra o [link oficial](/baixar) no celular ou entre com o ID no computador. Travou em algum passo? O suporte 24h no WhatsApp resolve com você.
+O **Clube Suprema** é o ID **10001**, com o agente **1439098**. Abra o [link oficial](/baixar) no celular ou entre com o ID no computador. Travou em algum passo? O contato do clube resolve com você.
 :::

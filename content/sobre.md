@@ -1,7 +1,7 @@
 O **Clube Suprema** é um clube de poker online que funciona dentro do app **Suprema Poker**. O clube é o **ID 10001**, e o agente que coloca você dentro dele é o **1439098**. Este site, o suprema.blog, é mantido pelo clube: daqui você baixa o app, entra no clube e encontra os guias do blog.
 
 :::nota Resposta rápida
-Clube Suprema, ID 10001, agente 1439098. Clube do grupo SX que joga na Liga Suprema, no app Suprema Poker. Fichas e saques por PIX no seu CPF, pelo Fichas 24h. Suporte 24 horas no WhatsApp. Somente maiores de 18 anos. Conteúdo com interesse comercial do clube (veja "Quem mantém e como ganhamos").
+Clube Suprema, ID 10001, agente 1439098. Clube do grupo SX que joga na Liga Suprema, no app Suprema Poker. Fichas e saques por PIX no seu CPF, pelo Fichas 24h. Novidades no canal do Telegram. Somente maiores de 18 anos. Conteúdo com interesse comercial do clube (veja "Quem mantém e como ganhamos").
 :::
 
 ## Quem somos
@@ -18,7 +18,7 @@ O app usado é o [Suprema Poker](https://www.supremapoker.net/), do grupo Suprem
 | Entrada no clube | Pelo link oficial, no celular, ou com o clube **10001** e o agente **1439098** |
 | Fichas | PIX de uma conta no seu próprio CPF, pelo Fichas 24h |
 | Saque | Na chave PIX do seu CPF |
-| Suporte | WhatsApp, todos os dias, em português, inglês e espanhol |
+| Contato | Canal do Telegram e página de contato |
 | Modalidades | NLH, PLO, torneios, sit & go e Spin Suprema |
 
 Os passos estão em [como baixar no celular](/blog/como-instalar-app-suprema-poker), [como baixar no PC, notebook e MacBook](/blog/como-baixar-suprema-poker-no-pc) e [como entrar no Clube Suprema](/blog/como-entrar-no-clube-suprema).
@@ -43,5 +43,5 @@ Achou algo desatualizado ou errado? Fale pela página de [contato](/contato). Os
 O Clube Suprema e o app Suprema Poker são **somente para maiores de 18 anos**. Defina antes quanto vai gastar, faça pausas e não tente recuperar perdas. A Suprema mantém uma página sobre [jogo consciente](https://supremapoker.com.br/jogo-consciente).
 
 :::cta Quer jogar no Clube Suprema?
-Pelo celular, abra o [link oficial](/baixar) e você já entra no clube. Pelo computador, entre com o clube **10001** e o agente **1439098**. Suporte 24h no WhatsApp para qualquer passo.
+Pelo celular, abra o [link oficial](/baixar) e você já entra no clube. Pelo computador, entre com o clube **10001** e o agente **1439098**. Novidades no canal do Telegram.
 :::

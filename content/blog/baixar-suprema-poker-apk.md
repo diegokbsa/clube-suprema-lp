@@ -96,7 +96,7 @@ Com o app instalado e a conta confirmada, falta o clube:
 - **Pelo link**: no celular, abra o [link oficial do Clube Suprema](/baixar). Com o app instalado, ele abre o Suprema Poker já no convite, com o clube e o agente preenchidos. Se ele abrir a loja, ou não abrir o app, use o ID.
 - **Pelo ID**: no app, toque na opção de **entrar em um clube** e digite o clube **10001** e o agente **1439098**.
 
-Se o clube ficar **pendente**, aguarde alguns minutos. Se continuar, chame o suporte 24h no WhatsApp com o seu [ID do jogador](/blog/id-do-jogador-suprema-poker), que fica no seu perfil. Os outros problemas na entrada estão em [como entrar no Clube Suprema](/blog/como-entrar-no-clube-suprema).
+Se o clube ficar **pendente**, aguarde alguns minutos. Se continuar, fale com o clube pela página de [contato](/contato) com o seu [ID do jogador](/blog/id-do-jogador-suprema-poker), que fica no seu perfil. Os outros problemas na entrada estão em [como entrar no Clube Suprema](/blog/como-entrar-no-clube-suprema).
 
 ## Como atualizar o app instalado pelo APK
 
@@ -130,7 +130,7 @@ Se a App Store disser que o app não está disponível na sua região, a conta A
 | O link do clube abriu a loja | Com o app já instalado, entre com o ID: clube **10001** e agente **1439098** |
 | O app abre e fecha | Siga o guia de [app Suprema Poker não abre](/blog/app-suprema-poker-nao-abre) |
 
-Se nada resolver, fale com o **suporte 24h no WhatsApp**, que atende todos os dias em português, inglês e espanhol. Diga o modelo do celular, a versão do Android e o que aparece na tela.
+Se nada resolver, fale com o **contato do clube**, que atende todos os dias em português, inglês e espanhol. Diga o modelo do celular, a versão do Android e o que aparece na tela.
 
 ## Depois da instalação: fichas por PIX
 
@@ -141,5 +141,5 @@ O Suprema Poker e os clubes são só para **maiores de 18 anos**. Defina antes q
 :::
 
 :::cta APK instalado? Entre no clube
-No celular, abra o [link oficial](/baixar) e aceite o convite, ou entre com o clube **10001** e o agente **1439098**. Fichas por PIX no seu CPF e suporte 24h no WhatsApp para qualquer passo.
+No celular, abra o [link oficial](/baixar) e aceite o convite, ou entre com o clube **10001** e o agente **1439098**. Fichas por PIX no seu CPF e contato do clube para qualquer passo.
 :::

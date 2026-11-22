@@ -125,7 +125,7 @@ Com a conta confirmada, vale gastar dois minutos em três pontos:
 | Não consigo instalar o APK | Permita "fontes desconhecidas" só para o navegador ou gerenciador de arquivos que abriu o arquivo. |
 | Antivírus do Windows bloqueou o instalador | Baixe de novo apenas do site oficial e libere a execução. |
 
-Se nada disso resolver, fale com o **suporte 24h no WhatsApp**: a equipe atende todos os dias, em português, inglês e espanhol, e resolve a maioria dos casos na hora.
+Se nada disso resolver, fale com o clube pela página de [contato](/contato), e resolve a maioria dos casos na hora.
 
 :::nota Jogo consciente
 O Suprema Poker e os clubes são para **maiores de 18 anos**. Defina antes quanto vai gastar e respeite o limite. A Suprema mantém uma página sobre [jogo consciente](https://supremapoker.com.br/jogo-consciente).

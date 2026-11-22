@@ -4,17 +4,17 @@ seoTitle: "Depósito no Suprema Poker não caiu? Veja o que fazer"
 description: Quanto tempo as fichas levam para cair após o PIX no Fichas 24h, onde ver o saldo, por que um depósito volta e o que mandar ao suporte 24h.
 date: 2026-10-30
 updated: 2026-11-15
-cover: /img/blog/deposito-suprema-poker-nao-caiu/cover.jpg
+cover: /img/blog/deposito-suprema-poker-nao-caiu-2/cover.jpg
 coverAlt: Cartão de depósito com a lista de conferência do PIX e um relógio dourado, com a etiqueta Comprovante para o suporte 24h
 tags: [fichas, pix, suporte]
-resumo: No Clube Suprema, o depósito é a compra de fichas por PIX no Fichas 24h e normalmente cai na hora, inclusive no fim de semana; em casos raros, pode atrasar até 2 horas. Confira o saldo no Caixa do clube, se o PIX foi concluído no banco, se saiu de uma conta no seu CPF e se você pagou o QR Code gerado na compra. Passou de 2 horas, mande o comprovante, o seu ID da Suprema e o valor ao suporte 24h no WhatsApp.
+resumo: No Clube Suprema, o depósito é a compra de fichas por PIX no Fichas 24h e normalmente cai na hora, inclusive no fim de semana; em casos raros, pode atrasar até 2 horas. Confira o saldo no Caixa do clube, se o PIX foi concluído no banco, se saiu de uma conta no seu CPF e se você pagou o QR Code gerado na compra. Passou de 2 horas, mande o comprovante, o seu ID da Suprema e o valor ao contato do clube.
 passosTitulo: O que fazer quando o depósito não cai no Suprema Poker
 passos:
   - Confira no app do banco se o PIX aparece como concluído.
   - Abra o Clube Suprema no app Suprema Poker, toque em Caixa e veja se as fichas entraram.
   - Confirme que o PIX saiu de uma conta de pessoa física no seu CPF e que você pagou o QR Code gerado na compra.
   - Aguarde, porque normalmente as fichas caem na hora e, em casos raros, levam até 2 horas.
-  - Passou de 2 horas, mande o comprovante, o seu ID da Suprema e o valor ao suporte 24h no WhatsApp.
+  - Passou de 2 horas, mande o comprovante, o seu ID da Suprema e o valor ao contato do clube.
 faq:
   - q: Quanto tempo demora para cair o depósito no Suprema Poker?
     a: No Clube Suprema, a compra é pelo Fichas 24h e normalmente cai na hora, inclusive no fim de semana. Em casos raros, o PIX pode atrasar até 2 horas. Passou disso, chame o suporte 24h com o comprovante.
@@ -140,5 +140,5 @@ O Suprema Poker, os clubes e o Fichas 24h são só para **maiores de 18 anos**. 
 :::
 
 :::cta Precisa de ajuda com um depósito?
-Chame o suporte 24h no WhatsApp com o comprovante e o seu ID da Suprema. Ainda não está no **Clube Suprema**? Abra o [link oficial](/baixar) no celular ou entre com o clube **10001** e o agente **1439098**.
+Chame o contato do clube com o comprovante e o seu ID da Suprema. Ainda não está no **Clube Suprema**? Abra o [link oficial](/baixar) no celular ou entre com o clube **10001** e o agente **1439098**.
 :::

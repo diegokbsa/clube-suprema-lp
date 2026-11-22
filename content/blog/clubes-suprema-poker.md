@@ -4,7 +4,7 @@ seoTitle: "Clubes do Suprema Poker: como funcionam, ID, entrar e sair"
 description: Guia dos clubes do Suprema Poker: o que é um clube, onde achar o ID, como entrar pelo link ou ID, jogar em vários clubes e escolher um confiável.
 date: 2026-10-26
 updated: 2026-11-15
-cover: /img/blog/clubes-suprema-poker/cover.jpg
+cover: /img/blog/clubes-suprema-poker-2/cover.jpg
 coverAlt: Cartões de clubes do Suprema Poker empilhados, com o Clube Suprema ID 10001 em destaque
 tags: [clube, primeiros passos, guia]
 resumo: No Suprema Poker toda mesa pertence a um clube, identificado por um número, o ID. Você entra pelo link de convite ou digitando o ID do clube e do agente, pode estar em vários clubes com a mesma conta e cada clube tem saldo próprio. O Clube Suprema é o ID 10001, com o agente 1439098.
@@ -126,5 +126,5 @@ O Suprema Poker e os clubes são para **maiores de 18 anos**. Defina antes quant
 Dúvidas de fichas, PIX e saque estão nas [perguntas frequentes do suporte](/blog/perguntas-frequentes-suporte). Para entender os formatos de jogo, veja [modalidades e formatos de torneio](/blog/formatos-de-torneio-poker-online).
 
 :::cta Quer entrar no Clube Suprema?
-Pelo celular, abra o [link oficial](/baixar) e aceite o convite. Pelo computador, entre com o clube **10001** e o agente **1439098**. Travou em algum passo? O suporte 24h no WhatsApp resolve com você.
+Pelo celular, abra o [link oficial](/baixar) e aceite o convite. Pelo computador, entre com o clube **10001** e o agente **1439098**. Travou em algum passo? O contato do clube resolve com você.
 :::

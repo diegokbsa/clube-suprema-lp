@@ -4,7 +4,7 @@ seoTitle: "Código promocional Suprema Poker existe? Clube e agente"
 description: Não há código promocional oficial do Suprema Poker com bônus. O que chamam de código é o ID do clube e do agente: veja como usar e fugir de golpes.
 date: 2026-10-30
 updated: 2026-11-15
-cover: /img/blog/codigo-suprema-poker-clube-agente/cover.jpg
+cover: /img/blog/codigo-suprema-poker-clube-agente-2/cover.jpg
 coverAlt: Cupom com o código do Clube Suprema, ID do clube 10001 e ID do agente 1439098, sobre fundo preto e dourado
 tags: [clube, primeiros passos, fichas]
 resumo: Não encontramos um código promocional oficial do Suprema Poker que dê bônus ou fichas grátis. O que os clubes chamam de código é o ID do clube e o ID do agente, os dois números que colocam você dentro de um clube. No Clube Suprema, o código é o clube 10001 com o agente 1439098. Digite os dois na opção de entrar em um clube, aguarde a aprovação e compre as fichas por PIX no Fichas 24h, de uma conta no seu CPF.
@@ -72,7 +72,7 @@ Abra o [link oficial](/baixar) com o app instalado. Ele abre o Suprema Poker já
 4. Digite o **ID do agente: 1439098**.
 5. Envie o pedido e aguarde o clube aparecer na sua lista.
 
-Se o clube ficar **pendente**, aguarde alguns minutos. Se continuar assim, chame o suporte 24h no WhatsApp e informe o seu ID de jogador, que fica no seu perfil. O passo a passo com os erros mais comuns está em [como entrar no Clube Suprema pelo link ou com o ID](/blog/como-entrar-no-clube-suprema).
+Se o clube ficar **pendente**, aguarde alguns minutos. Se continuar assim, fale com o clube pela página de [contato](/contato) e informe o seu ID de jogador, que fica no seu perfil. O passo a passo com os erros mais comuns está em [como entrar no Clube Suprema pelo link ou com o ID](/blog/como-entrar-no-clube-suprema).
 
 :::dica Entrar, não criar
 O app deixa qualquer pessoa criar um clube grátis, e é comum tocar em criar quando a ideia era entrar. Se aparecer um clube vazio com o seu nome, volte e use a opção de entrar com o ID.
@@ -106,5 +106,5 @@ O Suprema Poker e os clubes são só para **maiores de 18 anos**. Nenhum código
 :::
 
 :::cta Use o código do Clube Suprema
-No celular, abra o [link oficial](/baixar) e aceite o convite. No computador, entre com o clube **10001** e o agente **1439098**. Fichas por PIX no seu CPF e suporte 24h no WhatsApp.
+No celular, abra o [link oficial](/baixar) e aceite o convite. No computador, entre com o clube **10001** e o agente **1439098**. Fichas por PIX no seu CPF e contato do clube.
 :::

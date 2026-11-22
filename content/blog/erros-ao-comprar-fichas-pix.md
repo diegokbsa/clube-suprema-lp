@@ -60,7 +60,7 @@ Cada clube configura o seu depósito mínimo e máximo. Se o valor ficar abaixo 
 
 A compra cai na hora, inclusive no fim de semana. Em casos raros, o PIX atrasa até **2 horas**. Passar disso sem falar com ninguém só alonga o problema.
 
-**Como evitar:** passou de 2 horas, chame o suporte **com o comprovante**. No Clube Suprema (ID 10001), o suporte 24h atende no WhatsApp em português, inglês e espanhol. Se o app não abrir para conferir o Caixa, veja [app Suprema Poker não abre](/blog/app-suprema-poker-nao-abre) — a conta e as fichas ficam no servidor.
+**Como evitar:** passou de 2 horas, chame o suporte **com o comprovante**. No Clube Suprema (ID 10001), o clube atende pelos canais da página de [contato](/contato). Se o app não abrir para conferir o Caixa, veja [app Suprema Poker não abre](/blog/app-suprema-poker-nao-abre) — a conta e as fichas ficam no servidor.
 
 ## Erro 7: comprar de pessoa que "vende fichas"
 
@@ -82,7 +82,7 @@ Um bom pedido de ajuda resolve na primeira resposta. Mande:
 2. O seu **ID da Suprema** (o numérico do perfil);
 3. O **horário** da operação.
 
-No Clube Suprema, o suporte 24h atende no WhatsApp em português, inglês e espanhol. As respostas para as dúvidas mais comuns estão nas [perguntas frequentes do suporte](/blog/perguntas-frequentes-suporte).
+No Clube Suprema, o clube atende pelos canais da página de [contato](/contato). As respostas para as dúvidas mais comuns estão nas [perguntas frequentes do suporte](/blog/perguntas-frequentes-suporte).
 
 ## Checklist da compra sem erro
 

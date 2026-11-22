@@ -1,7 +1,7 @@
 Esta página explica quais dados o **suprema.blog** coleta, para que usamos e como você pede acesso ou exclusão, conforme a Lei Geral de Proteção de Dados (LGPD, Lei 13.709/2018). O site é mantido pela equipe do **Clube Suprema** (ID 10001, agente 1439098), clube do grupo SX no app Suprema Poker, que é o controlador dos dados. A razão social, o CNPJ e o endereço do responsável ainda não estão publicados; quando forem, esta página os trará no topo.
 
 :::nota Resumo
-O servidor do site recebe o seu e-mail e a senha do cadastro (a senha fica só na memória, por até 30 minutos, e não é gravada em arquivo). Nome, CPF, celular e data de nascimento, se você os preencher para o Fichas 24h, ficam só no seu aparelho e o site não os recebe. Medimos visitas e cliques para saber quais guias ajudam. Para ver ou apagar o que temos sobre você, fale com o suporte 24h pelo WhatsApp, na página de [contato](/contato).
+O servidor do site recebe o seu e-mail e a senha do cadastro (a senha fica só na memória, por até 30 minutos, e não é gravada em arquivo). Nome, CPF, celular e data de nascimento, se você os preencher para o Fichas 24h, ficam só no seu aparelho e o site não os recebe. Medimos visitas e cliques para saber quais guias ajudam. Para ver ou apagar o que temos sobre você, use a página de [contato](/contato).
 :::
 
 ## Que dados coletamos
@@ -12,7 +12,7 @@ O servidor do site recebe o seu e-mail e a senha do cadastro (a senha fica só n
 
 **3. Dados técnicos da visita.** Um contador de visitas próprio e o Minilytics (mini.kbsa.app), que funciona sem cookie, registram a página vista, o navegador, o país e o endereço IP da conexão.
 
-**4. Cliques nos botões de saída.** Botões como o do WhatsApp, do Telegram e do download do app passam por links curtos (l.kbsa.app). O link curto conta o clique por página e leva você ao destino.
+**4. Cliques nos botões de saída.** Botões como o do Telegram e do download do app passam por links curtos (l.kbsa.app). O link curto conta o clique por página e leva você ao destino.
 
 **5. Ferramentas de medição de terceiros.** Google Analytics 4, Google Ads e Google Tag Manager medem o uso do site e a eficácia da divulgação; o Microsoft Clarity grava como a página é usada (toques e rolagem), com os campos digitados mascarados. O Google e outros fornecedores podem usar cookies para medir anúncios e personalizá-los com base em visitas a este e a outros sites; você pode desativar a personalização em https://adssettings.google.com. Elas podem gravar cookies no seu navegador e **só carregam depois que você toca em Aceitar** no aviso de cookies. Se você tocar em Recusar, elas não carregam. Saiba mais sobre como o Google usa dados de sites parceiros em https://policies.google.com/technologies/partner-sites.
 
@@ -37,7 +37,7 @@ Não vendemos seus dados e não os usamos para decisões automatizadas sobre voc
 
 - Google (planilha de cadastros, Analytics, Ads e Tag Manager) e Microsoft (Clarity).
 - Cloudflare, que entrega e protege o site.
-- WhatsApp e Telegram, apenas quando você mesmo toca no botão e abre a conversa.
+- Telegram, apenas quando você mesmo toca no botão e abre a conversa.
 
 Alguns desses serviços usam servidores fora do Brasil, e cada um tem a própria política de privacidade.
 
@@ -49,7 +49,7 @@ O e-mail e o histórico de passos ficam enquanto o clube mantiver contato com vo
 
 Pela LGPD (art. 18), você pode pedir: confirmação de que tratamos seus dados, acesso a eles, correção, anonimização ou eliminação, portabilidade, informação sobre com quem compartilhamos e a revogação do consentimento.
 
-**Como pedir:** pela página de [contato](/contato), no WhatsApp do suporte 24h, escrevendo "privacidade" e o e-mail que você cadastrou. O mesmo canal recebe dúvidas e reclamações sobre dados e é o contato do encarregado pelo tratamento de dados do site; o nome do encarregado ainda não está publicado. Se não ficar satisfeito, você pode procurar a Autoridade Nacional de Proteção de Dados (ANPD).
+**Como pedir:** pela página de [contato](/contato), pelo canal do Telegram do clube, escrevendo "privacidade" e o e-mail que você cadastrou. O mesmo canal recebe dúvidas e reclamações sobre dados e é o contato do encarregado pelo tratamento de dados do site; o nome do encarregado ainda não está publicado. Se não ficar satisfeito, você pode procurar a Autoridade Nacional de Proteção de Dados (ANPD).
 
 ## Cookies
 

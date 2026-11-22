@@ -4,7 +4,7 @@ seoTitle: "Suprema Poker é confiável? App, clube e agente explicados"
 description: O que conferir antes de jogar no Suprema Poker: app oficial, quem vende as fichas, clube e agente, PIX no seu CPF, sinais de golpe e jogo consciente.
 date: 2026-10-30
 updated: 2026-11-15
-cover: /img/blog/suprema-poker-e-confiavel/cover.jpg
+cover: /img/blog/suprema-poker-e-confiavel-2/cover.jpg
 coverAlt: Escudo dourado com o logo do Clube Suprema e o selo 18+, com as etiquetas App oficial, Clube e agente e PIX no seu CPF
 tags: [clube, guia, segurança]
 resumo: O Suprema Poker é um app oficial do grupo Suprema Gaming, distribuído pela Google Play, pela App Store e pelo site oficial. Ele funciona como plataforma para clubes, e quem vende as fichas e paga os saques é o clube, pelo agente ou pelo canal de pagamento dele. Por isso, a confiança depende também do clube. Confira se ele informa o ID do clube e do agente, se o PIX sai e volta para o seu CPF e se o suporte responde. O app e os clubes são só para maiores de 18 anos.
@@ -145,5 +145,5 @@ Se a ideia é só trocar de clube, e não parar, veja [como sair do clube no Sup
 Quem somos e como produzimos o conteúdo do blog está em [sobre o Clube Suprema](/sobre). Para entender as mesas compartilhadas da liga, veja [o pool da Liga Suprema](/blog/id-clube-h2-suprema-poker-pool-liga-suprema).
 
 :::cta Quer conferir na prática?
-Entre no **Clube Suprema** pelo [link oficial](/baixar) no celular ou com o clube **10001** e o agente **1439098**. Antes de comprar fichas, tire qualquer dúvida com o suporte 24h no WhatsApp.
+Entre no **Clube Suprema** pelo [link oficial](/baixar) no celular ou com o clube **10001** e o agente **1439098**. Antes de comprar fichas, tire qualquer dúvida com o contato do clube.
 :::

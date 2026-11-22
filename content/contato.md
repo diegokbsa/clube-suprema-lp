@@ -1,24 +1,18 @@
-Estes são os canais que a equipe do **Clube Suprema** (ID 10001, agente 1439098) mantém abertos. Não temos e-mail de atendimento neste site. O responsável pelo site é a equipe do Clube Suprema; razão social e CNPJ ainda não estão publicados (veja [Sobre](/sobre)).
-
-## Suporte 24h no WhatsApp
-
-Atendimento todos os dias, em português, inglês e espanhol. Serve para dúvidas sobre entrar no clube, fichas por PIX e saque.
-
-[Abrir o WhatsApp do suporte](https://wa.me/5511952138293?text=Oi%2C%20vim%20do%20suprema.blog%20e%20quero%20suporte.)
+Estes são os canais que a equipe do **Clube Suprema** (ID 10001, agente 1439098) mantém abertos. Não temos e-mail de atendimento neste site; o contato é pelo Telegram. O responsável pelo site é a equipe do Clube Suprema; razão social e CNPJ ainda não estão publicados (veja [Sobre](/sobre)).
 
 ## Canal do clube no Telegram
 
-Avisos de torneios e novidades dos guias.
+Avisos de torneios e novidades dos guias. Dúvidas sobre os guias também podem ser mandadas por lá.
 
 [Abrir o canal no Telegram](https://t.me/clubsupremapokerxx)
 
 ## Pedidos de privacidade (LGPD)
 
-Para ver, corrigir ou apagar os dados que temos sobre você, escreva "privacidade" e o e-mail cadastrado no WhatsApp acima. Detalhes na [política de privacidade](/privacidade).
+Para ver, corrigir ou apagar os dados que temos sobre você, escreva "privacidade" e o e-mail cadastrado no canal do Telegram acima. Detalhes na [política de privacidade](/privacidade).
 
 ## Corrigir um erro no site
 
-Achou dado desatualizado ou link quebrado? Mande no WhatsApp o endereço da página e o que está errado. Os guias mostram a data da última revisão no topo.
+Achou dado desatualizado ou link quebrado? Mande no Telegram o endereço da página e o que está errado. Os guias mostram a data da última revisão no topo.
 
 ## Jogo consciente
 

@@ -13,7 +13,7 @@ faq:
   - q: Posso pagar o PIX da conta de outra pessoa?
     a: Não. O Fichas 24h só aceita PIX vindo de conta no CPF do próprio jogador. Pagamentos de terceiros são devolvidos e atrasam o crédito.
   - q: Paguei e as fichas não caíram. O que faço?
-    a: Confira se o PIX saiu de uma conta no seu CPF e se o ID da Suprema, o clube e o agente estavam certos. Depois mande o comprovante ao suporte 24h no WhatsApp com o seu ID da Suprema.
+    a: Confira se o PIX saiu de uma conta no seu CPF e se o ID da Suprema, o clube e o agente estavam certos. Depois mande o comprovante ao contato do clube com o seu ID da Suprema.
   - q: Como faço para sacar?
     a: Pelo Fichas 24h, para a chave PIX do seu CPF. Informe o valor e o ID da Suprema; o suporte confirma o prazo no momento do pedido.
   - q: Onde encontro o meu ID da Suprema?
@@ -26,7 +26,7 @@ faq:
     a: Pelo WhatsApp, 24 horas por dia, todos os dias, em português, inglês e espanhol. Diga o seu nome, que você é do Clube Suprema (10001, agente 1439098) e o seu ID da Suprema.
 ---
 
-Esta página reúne dúvidas frequentes sobre o clube, em ordem do que acontece primeiro: conta, entrada no clube, fichas, saque e problemas no app. Se a sua dúvida não estiver aqui, o WhatsApp do suporte funciona todos os dias, a qualquer hora, em português, inglês e espanhol.
+Esta página reúne dúvidas frequentes sobre o clube, em ordem do que acontece primeiro: conta, entrada no clube, fichas, saque e problemas no app. Se a sua dúvida não estiver aqui, a página de [contato](/contato) lista os canais do clube, em português, inglês e espanhol.
 
 ![Ciclo das fichas no Clube Suprema: PIX da sua conta, Fichas 24h, saldo no app, mesa e saque na chave PIX do seu CPF](/img/blog/ciclo-fichas.svg "O dinheiro entra e sai pelo mesmo caminho: PIX no seu CPF, via Fichas 24h.")
 
@@ -80,7 +80,7 @@ Confira, nesta ordem:
 2. O **ID da Suprema**, o clube **10001** e o agente **1439098** estavam corretos no pedido?
 3. O pagamento aparece como **concluído** no app do banco?
 
-Se tudo estiver certo, mande o **comprovante** ao suporte no WhatsApp, junto com o seu ID da Suprema. A equipe localiza o pagamento e credita.
+Se tudo estiver certo, mande o **comprovante** ao suporte do Fichas 24h, junto com o seu ID da Suprema. A equipe localiza o pagamento e credita.
 
 ### Existe valor mínimo ou máximo?
 

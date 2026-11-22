@@ -70,7 +70,7 @@ Na prática, isso muda o seu planejamento: se você quer sacar um valor alto par
 
 Em **Perfil** e depois **Histórico de Transações** você vê o saque sair da revisão. Aprovado, o valor vai para a chave PIX cadastrada; o prazo de chegada depende do banco.
 
-Se o pedido passar de 24 horas parado, chame o suporte com o comprovante. Se a sua conta for impedida de sacar por esse canal, a liberação é com o agente ou com o clube. No Clube Suprema, o suporte 24h atende no WhatsApp em português, inglês e espanhol.
+Se o pedido passar de 24 horas parado, chame o suporte com o comprovante. Se a sua conta for impedida de sacar por esse canal, a liberação é com o agente ou com o clube. No Clube Suprema, o clube atende pelos canais da página de [contato](/contato).
 
 ## Dúvidas comuns sobre saque
 
