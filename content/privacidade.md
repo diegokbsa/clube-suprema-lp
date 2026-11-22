@@ -6,7 +6,7 @@ O servidor do site recebe o seu e-mail e a senha do cadastro (a senha fica só n
 
 ## Que dados coletamos
 
-**1. O que você digita no cadastro da página inicial.** E-mail e senha e, no formulário de convite, o usuário do Telegram (opcional). Depois do cadastro, a página pede o ID do seu jogador no Suprema Poker para vincular a conta. Guardamos junto de onde você veio (parâmetros UTM do link, site de origem e página de entrada) e de quais passos você tocou: abrir o link do app, comprar fichas, chamar o suporte ou baixar o app. A **senha** fica só na memória do servidor por até 30 minutos e não é gravada em arquivo nem enviada à planilha. O e-mail, o ID e o histórico de passos ficam no servidor do site, e uma cópia do e-mail e da origem fica em uma planilha do Google usada só pela equipe do clube.
+**1. O que você digita no cadastro da página inicial.** E-mail e senha e, no formulário de convite, o usuário do Telegram (opcional). Depois do cadastro, a página pede o ID do seu jogador no Suprema Poker para vincular a conta. Guardamos junto de onde você veio (parâmetros UTM do link, site de origem e página de entrada) e de quais passos você tocou: abrir o link do app, comprar fichas, abrir o contato ou baixar o app. A **senha** fica só na memória do servidor por até 30 minutos e não é gravada em arquivo nem enviada à planilha. O e-mail, o ID e o histórico de passos ficam no servidor do site, e uma cópia do e-mail, do usuário do Telegram (se você o informou) e da origem fica em uma planilha do Google usada só pela equipe do clube.
 
 **2. Dados para o cadastro no Fichas 24h.** Para você terminar o cadastro no Fichas 24h, a página pode pedir nome, CPF, celular e data de nascimento e deixá-los prontos para copiar. Esses dados ficam **só no seu aparelho** (armazenamento local do navegador) e são apagados ao fim do processo; o servidor do suprema.blog não os recebe. Quem os trata depois é o Fichas 24h, em sistema próprio.
 
@@ -14,7 +14,7 @@ O servidor do site recebe o seu e-mail e a senha do cadastro (a senha fica só n
 
 **4. Cliques nos botões de saída.** Botões como o do Telegram e do download do app passam por links curtos (l.kbsa.app). O link curto conta o clique por página e leva você ao destino.
 
-**5. Ferramentas de medição de terceiros.** Google Analytics 4, Google Ads e Google Tag Manager medem o uso do site e a eficácia da divulgação; o Microsoft Clarity grava como a página é usada (toques e rolagem), com os campos digitados mascarados. O Google e outros fornecedores podem usar cookies para medir anúncios e personalizá-los com base em visitas a este e a outros sites; você pode desativar a personalização em https://adssettings.google.com. Elas podem gravar cookies no seu navegador e **só carregam depois que você toca em Aceitar** no aviso de cookies. Se você tocar em Recusar, elas não carregam. Saiba mais sobre como o Google usa dados de sites parceiros em https://policies.google.com/technologies/partner-sites.
+**5. Ferramentas de medição de terceiros.** O Google Analytics 4 mede o uso do site (o site não usa Google Ads nem Google Tag Manager); o Microsoft Clarity grava como a página é usada (toques e rolagem), com os campos digitados mascarados. Elas podem gravar cookies no seu navegador e **só carregam depois que você toca em Aceitar** no aviso de cookies. Se você tocar em Recusar, elas não carregam. Saiba mais em policies.google.com/technologies/partner-sites.
 
 **6. Cloudflare.** Fica na frente do site para entregar as páginas e protegê-lo, e por isso também vê o endereço IP da conexão.
 
@@ -35,7 +35,7 @@ Não vendemos seus dados e não os usamos para decisões automatizadas sobre voc
 
 ## Com quem os dados passam
 
-- Google (planilha de cadastros, Analytics, Ads e Tag Manager) e Microsoft (Clarity).
+- Google (planilha de cadastros e Analytics) e Microsoft (Clarity).
 - Cloudflare, que entrega e protege o site.
 - Telegram, apenas quando você mesmo toca no botão e abre a conversa.
 

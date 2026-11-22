@@ -485,8 +485,21 @@ def illus_spin(img):
 
 
 def illus_og(img):
-    ph = phone_from(os.path.join(ROOT, "public/img/app-mesa.webp"), (40, 70, 620, 900), 440)
-    paste(img, ph, (970 - ph.width // 2, 90))
+    """Imagem de compartilhamento da home: painel chapado com os 3 passos, sem mockup de celular (Regra -2)."""
+    x0, y0, x1, y1 = 700, 96, 1124, 438
+    d = ImageDraw.Draw(img)
+    d.rounded_rectangle((x0, y0, x1, y1), radius=26, fill=(26, 26, 29), outline=GOLD, width=2)
+    d.text((x0 + 30, y0 + 30), "ENTRE EM 3 PASSOS", font=font(18, 800), fill=GOLD)
+    rows = [("Abra o link do clube", "no celular, direto no app"), ("Compre fichas por PIX", "no Fichas 24h, no seu CPF"), ("Sente na mesa", "somente maiores de 18 anos")]
+    for i, (a_, b_) in enumerate(rows):
+        cy = y0 + 112 + i * 78
+        cx = x0 + 52
+        d.ellipse((cx - 22, cy - 22, cx + 22, cy + 22), fill=GOLD)
+        d.text((cx, cy), str(i + 1), font=font(24, 900), fill=INK, anchor="mm")
+        d.text((cx + 42, cy - 12), a_, font=font(24, 800), fill=WHITE, anchor="lm")
+        d.text((cx + 42, cy + 17), b_, font=font(16, 500), fill=MUTED, anchor="lm")
+        if i < 2:
+            d.line((x0 + 30, cy + 39, x1 - 30, cy + 39), fill=(52, 52, 58), width=1)
 
 
 ILLUS = {
