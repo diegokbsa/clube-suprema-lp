@@ -13,7 +13,7 @@ capaSubtitulo: "Seco ou molhado: o que as cartas da mesa dizem."
 capaSelo: "Maiores de 18"
 capaEtiqueta: "Flop"
 tags: [regras, iniciantes, guia]
-resumo: Textura do board é o jeito como as cartas comunitárias se combinam entre si. Um board seco tem cartas soltas, sem sequências nem cor possíveis, como K-7-2 de naipes diferentes. Um board molhado tem cartas conectadas ou do mesmo naipe, como 9♥ 8♥ 6♣ (duas copas e cartas conectadas), e a melhor mão muda de dono com facilidade. Ler a textura ajuda a estimar quanto a sua mão vale e o que os outros jogadores podem ter.
+resumo: Textura do board é o jeito como as cartas comunitárias se combinam entre si. Um board seco tem cartas soltas, sem projetos de sequência nem de cor no flop, como K-7-2 de naipes diferentes. Um board molhado tem cartas conectadas ou do mesmo naipe, como 9♥ 8♥ 6♣ (duas copas e cartas conectadas), e a melhor mão muda de dono com facilidade. Ler a textura ajuda a estimar quanto a sua mão vale e o que os outros jogadores podem ter.
 passosTitulo: Como ler a textura do flop em quatro perguntas
 passos:
   - Conte os naipes. Três do mesmo naipe é cor feita para quem tem duas dessas cartas na mão; dois do mesmo naipe é um projeto de cor.
@@ -56,7 +56,7 @@ Nele, não há projeto de cor, as cartas estão longe umas das outras e nenhuma 
 
 Um board molhado tem cartas conectadas, do mesmo naipe, ou as duas coisas. Exemplo: **9♥ 8♥ 6♣**.
 
-Aqui quem tem 10-7 ou 7-5 já fez sequência, quem tem só o 7 ou o 10 tem um projeto de sequência, e quem tem duas copas na mão tem projeto de cor. O resultado:
+Aqui quem tem 10-7 ou 7-5 já fez sequência. Quem tem só o 7 tem um projeto aberto (o 5 ou o 10 completam), e quem tem só o 10 tem um projeto no buraco (só o 7 completa). Quem tem duas copas na mão tem projeto de cor. O resultado:
 
 1. A melhor mão do flop **muda de dono com facilidade** no turn e no river.
 2. Mãos fortes, como um par alto, valem menos em segurança do que no board seco, porque muitas combinações podem alcançá-las.
