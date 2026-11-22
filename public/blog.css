@@ -55,7 +55,7 @@ body.page-blog, body.page-post { background: #000; } /* fundo 100% preto */
 .toc a { color: #d9d4cb; text-decoration: none; }
 .toc a:hover { color: var(--gold-hi); text-decoration: underline; text-underline-offset: 3px; }
 
-.prose { font-size: 1.05rem; line-height: 1.75; color: #e6e2da; }
+.prose { overflow-wrap: anywhere; font-size: 1.05rem; line-height: 1.75; color: #e6e2da; }
 .prose h2 { font-size: clamp(1.4rem, 3vw, 1.8rem); font-weight: 800; letter-spacing: -.015em; margin: 44px 0 14px; padding-top: 14px; position: relative; scroll-margin-top: 90px; }
 .prose h2::before { content: ""; position: absolute; left: 0; top: 0; width: 72px; height: 2px; background: var(--gold-grad); box-shadow: 0 0 14px rgba(239, 161, 68, .5); }
 .prose h3 { font-size: 1.15rem; margin: 28px 0 10px; scroll-margin-top: 90px; }

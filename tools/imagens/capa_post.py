@@ -159,6 +159,40 @@ def illus_saque(img):
     capas.pill(img, "Passo a passo", 936, 494, capas.font(16, 700))
 
 
+def illus_banca(img):
+    x0, y0, x1, y1 = 748, 112, 1124, 432
+    d = _painel(img, x0, y0, x1, y1)
+    d.text((x0 + 28, y0 + 26), "TRÊS LIMITES · ANTES DE SENTAR", font=capas.font(16, 700), fill=GOLD)
+    d.text((x0 + 28, y0 + 52), "Anote os três e pare ao atingir um", font=capas.font(15, 500), fill=_MUTED)
+    rows = [("Perda por sessão", "valor fixo"), ("Tempo de jogo", "com pausas"), ("Buy-in por mesa", "fração da banca")]
+    for i, (a, b) in enumerate(rows):
+        cy = y0 + 124 + i * 62
+        cx = x0 + 46
+        d.ellipse((cx - 17, cy - 17, cx + 17, cy + 17), fill=GOLD)
+        d.text((cx, cy), str(i + 1), font=capas.font(19, 900), fill=INK, anchor="mm")
+        d.text((cx + 34, cy - 10), a, font=capas.font(19, 700), fill=capas.WHITE, anchor="lm")
+        d.text((cx + 34, cy + 13), b, font=capas.font(14, 500), fill=_MUTED, anchor="lm")
+        if i < len(rows) - 1:
+            d.line((x0 + 28, cy + 31, x1 - 28, cy + 31), fill=(52, 52, 58), width=1)
+    capas.pill(img, "Só para maiores de 18", 936, 494, capas.font(16, 700))
+
+
+def illus_abertura(img):
+    x0, y0, x1, y1 = 748, 112, 1124, 432
+    d = _painel(img, x0, y0, x1, y1)
+    d.text((x0 + 28, y0 + 26), "ABRIR O POTE · CASH GAME", font=capas.font(16, 700), fill=GOLD)
+    d.text((x0 + 28, y0 + 52), "Múltiplos do big blind, por posição", font=capas.font(15, 500), fill=_MUTED)
+    rows = [("Inicial", "2,5x a 3x", 0.80), ("Intermediária", "2,2x a 2,7x", 0.66), ("Final", "2x a 2,5x", 0.56), ("Small blind", "3x a 4x", 1.0)]
+    for i, (a, b, frac) in enumerate(rows):
+        cy = y0 + 118 + i * 52
+        d.text((x0 + 28, cy), a, font=capas.font(17, 600), fill=capas.WHITE, anchor="lm")
+        bx0, bx1 = x0 + 170, x1 - 28
+        d.rounded_rectangle((bx0, cy - 14, bx1, cy + 14), radius=14, fill=(46, 46, 52))
+        d.rounded_rectangle((bx0, cy - 14, bx0 + int((bx1 - bx0) * frac), cy + 14), radius=14, fill=GOLD)
+        d.text((bx0 + 14, cy), b, font=capas.font(16, 800), fill=INK, anchor="lm")
+    capas.pill(img, "Ponto de partida, não regra", 936, 494, capas.font(16, 700))
+
+
 data = front_matter(SLUG)
 tema = data.get("capaTema", "cartas")
 etiqueta = data.get("capaEtiqueta", "")
@@ -173,6 +207,8 @@ capas.ILLUS[SLUG] = {
     "erros": illus_erros,
     "liga": illus_liga,
     "saque": illus_saque,
+    "banca": illus_banca,
+    "abertura": illus_abertura,
 }.get(tema) or illus_cartas(etiqueta)
 
 desc = data.get("description", "")

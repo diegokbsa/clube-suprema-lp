@@ -5,7 +5,12 @@ description: O que é banca no poker, por que a variância faz até quem joga be
 date: 2026-11-22
 updated: 2026-11-22
 cover: /img/blog/gestao-de-banca-no-poker/cover.jpg
-coverAlt: Mesa de poker sobre fundo preto com o título "Gestão de banca no poker"
+coverAlt: "Capa do guia Gestão de banca no poker: os três limites a definir antes de sentar (perda, tempo e buy-in)"
+capaTema: banca
+capaChamada: "Guia · Responsabilidade"
+capaTitulo: "Gestão de banca"
+capaSubtitulo: "Limites antes de sentar, não depois de perder."
+capaSelo: "Maiores de 18"
 tags: [iniciantes, guia, jogo responsável]
 resumo: Banca é o dinheiro separado só para jogar poker, que você aceita perder sem afetar contas e compromissos. Gestão de banca é a regra que liga esse valor ao tamanho dos buy-ins, para que a variância, a oscilação natural dos resultados, não te tire do jogo nem do orçamento. Regras de bolso comuns são ter de 20 a 30 buy-ins para cash game e 100 ou mais para torneios, mas nenhuma regra garante resultado: poker envolve risco de perda, e o limite que vale é o que você definiu antes de sentar.
 passosTitulo: Como definir os seus limites antes de jogar
@@ -27,12 +32,6 @@ faq:
     a: Não. Aumentar o valor para recuperar perdas é um dos sinais de alerta do jogo problemático e costuma aumentar a perda. A decisão certa é parar quando o limite chega.
   - q: Onde procurar ajuda se o jogo deixou de ser lazer?
     a: O CVV atende de graça, 24 horas por dia, pelo telefone 188 (cvv.org.br), e o Jogadores Anônimos Brasil mantém grupos de apoio (jogadoresanonimos.com.br). Fale também com alguém de confiança.
-capaTema: mesa
-capaChamada: "Guia · Responsabilidade"
-capaTitulo: Gestão de banca
-capaSubtitulo: Limites antes de sentar, não depois de perder.
-capaSelo: Maiores de 18
-capaEtiqueta: Banca
 ---
 
 Você aprende as regras, entende as posições, joga uma noite boa e, na seguinte, perde três mãos em que estava na frente. Nada de errado com o seu jogo: foi a **variância**. Este guia explica **o que é banca no poker**, como a gestão de banca funciona e como definir limites de dinheiro e de tempo antes de sentar. Poker é só para **maiores de 18 anos**, envolve **risco de perda de dinheiro** e nada aqui garante ganho.
