@@ -52,7 +52,7 @@ Fichas 24h por PIX, depósito não caiu, Suprema Poker é confiável, formatos d
 - [ ] estrategia-spin-3-jogadores | Estratégia para Spin: como jogar com 3 jogadores e blinds rápidos | estratégia spin poker
 - [ ] cash-game-ou-torneio | Cash game ou torneio: qual combina com o seu tempo e o seu estilo | cash game ou torneio
 ## Jogo responsável e cabeça
-- [ ] tilt-no-poker | Tilt: o que é e como parar antes de perder o controle | o que é tilt no poker
+- [x] 2026-11-23 tilt-no-poker | Tilt: o que é e como parar antes de perder o controle | o que é tilt no poker
 - [ ] gestao-de-banca-no-poker | Gestão de banca: quanto separar para jogar e como não passar do limite | gestão de banca poker
 - [ ] variancia-no-poker | Variância: por que dá para jogar bem e perder, e como lidar | variância poker
 - [ ] limites-de-tempo-e-dinheiro | Jogo consciente: como definir limites de tempo e dinheiro no poker online | jogo responsável poker
