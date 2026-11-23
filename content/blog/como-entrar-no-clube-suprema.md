@@ -44,7 +44,7 @@ Você precisa do app instalado e de uma conta criada com e-mail confirmado. Se a
 3. Com o app instalado, o link abre o Suprema Poker já no convite do clube. Confirme a entrada.
 4. Entre com a sua conta (ou crie uma) e o clube 10001 aparece na sua lista.
 
-O link traz embutidos o clube e o agente, então não há risco de errar número. Ele é o mesmo que aparece no botão **Quero jogar** da [página inicial](/#cadastro).
+O link traz embutidos o clube e o agente, então não há risco de errar número. Ele é o mesmo link oficial do clube.
 
 <!-- CAPTURA SUGERIDA: tela de convite do clube aberta pelo link, com o botão de aceitar (arquivo /img/blog/como-entrar-no-clube-suprema/convite.webp, alt "Convite do Clube Suprema aberto no app") -->
 
