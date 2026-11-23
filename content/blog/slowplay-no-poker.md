@@ -101,7 +101,3 @@ Na maioria das mesas, a aposta por valor ganha mais ao longo de muitas mãos. O 
 5. **Esquecer de investir nas ruas seguintes.** Se você fez slowplay no flop, precisa começar a apostar no turn ou no river.
 
 O slowplay, como qualquer jogada, é uma decisão para melhorar os resultados ao longo de muitas mãos, e não uma garantia em nenhuma delas. Poker é para **maiores de 18 anos**. Antes de jogar, defina quanto tempo e quanto dinheiro vai usar e pare quando chegar ao limite.
-
-:::cta Quer treinar a leitura do board numa mesa de verdade?
-Agora que você sabe quando esconder uma mão forte e quando apostar, falta praticar. Veja [como entrar no Clube Suprema](/blog/como-entrar-no-clube-suprema) ou [entre direto pelo link](/baixar).
-:::

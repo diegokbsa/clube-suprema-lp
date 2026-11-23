@@ -111,7 +111,3 @@ Isso costuma ser proibido pelas regras das salas e dos clubes. Se você suspeita
 5. Precisa sair? Fique ausente ou deixe a mesa.
 
 Poker é jogo para **maiores de 18 anos**. Defina antes quanto tempo e quanto dinheiro vai dedicar a cada sessão e pare ao chegar no limite. Uma mesa educada deixa o jogo melhor, mas o resultado de cada mão continua dependendo das cartas e das suas decisões.
-
-:::cta Pronto para sentar na mesa?
-Agora que você conhece as boas maneiras do poker online, o próximo passo é jogar. Veja [como entrar no Clube Suprema](/blog/como-entrar-no-clube-suprema) ou [entre direto pelo link](/baixar).
-:::

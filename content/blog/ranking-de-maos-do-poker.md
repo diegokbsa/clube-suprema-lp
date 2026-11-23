@@ -121,7 +121,3 @@ Regras que valem sempre:
 Poker é jogo para **maiores de 18 anos**. Defina antes quanto tempo e quanto dinheiro vai dedicar a cada sessão e pare quando chegar ao limite. Saber o ranking ajuda a tomar decisões melhores, mas não garante resultado: a sorte de cada mão sempre tem peso.
 
 Como conferimos: as chances de cada mão de 5 cartas vêm da contagem das 2.598.960 combinações possíveis de 5 cartas num baralho de 52.
-
-:::cta Pronto para praticar?
-Com o ranking na cabeça, o próximo passo é sentar numa mesa. Veja [como baixar e instalar o app Suprema Poker](/blog/como-instalar-app-suprema-poker) e depois [como entrar no Clube Suprema](/blog/como-entrar-no-clube-suprema), ou [entre direto pelo link](/baixar).
-:::

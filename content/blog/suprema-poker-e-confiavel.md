@@ -143,7 +143,3 @@ Se a ideia é só trocar de clube, e não parar, veja [como sair do clube no Sup
 | Idade | Somente maiores de 18 anos |
 
 Quem somos e como produzimos o conteúdo do blog está em [sobre o Clube Suprema](/sobre). Para entender as mesas compartilhadas da liga, veja [o pool da Liga Suprema](/blog/id-clube-h2-suprema-poker-pool-liga-suprema).
-
-:::cta Quer conferir na prática?
-Entre no **Clube Suprema** pelo [link oficial](/baixar) no celular ou com o clube e o agente indicados em [como entrar no clube](/blog/como-entrar-no-clube-suprema). Antes de comprar fichas, tire qualquer dúvida com o contato do clube.
-:::

@@ -139,7 +139,3 @@ No Clube Suprema, as fichas entram por **PIX**, pelo **Fichas 24h**, de uma cont
 :::nota Jogo consciente
 O Suprema Poker e os clubes são só para **maiores de 18 anos**. Defina antes quanto vai colocar e respeite o limite. A Suprema mantém uma página sobre [jogo consciente](https://supremapoker.com.br/jogo-consciente).
 :::
-
-:::cta APK instalado? Entre no clube
-No celular, abra o [link oficial](/baixar) e aceite o convite, ou entre com o clube e o agente indicados em [como entrar no clube](/blog/como-entrar-no-clube-suprema). Fichas por PIX no seu CPF e contato do clube para qualquer passo.
-:::

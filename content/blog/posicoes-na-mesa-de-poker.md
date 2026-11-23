@@ -121,7 +121,3 @@ Jogar em posição permite controlar o tamanho do pote, pedir mesa de graça qua
 Para revisar a ordem completa de uma mão, do pré-flop ao showdown, veja as [regras do Texas Hold'em](/blog/regras-do-texas-holdem).
 
 Poker é jogo para **maiores de 18 anos**. Defina antes quanto tempo e quanto dinheiro vai usar em cada sessão e pare quando chegar ao limite. Jogar bem a posição ajuda nas decisões, mas não garante resultado: a sorte das cartas sempre tem peso.
-
-:::cta Pronto para escolher a sua cadeira?
-Com a posição na cabeça, falta só a mesa. Veja [como entrar no Clube Suprema](/blog/como-entrar-no-clube-suprema) ou [entre direto pelo link](/baixar).
-:::

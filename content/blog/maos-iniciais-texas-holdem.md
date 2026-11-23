@@ -123,7 +123,3 @@ Mesmas cartas, decisões diferentes. O que mudou foi quantos jogadores ainda pod
 Poker é jogo para **maiores de 18 anos**. Escolher bem as mãos iniciais melhora as suas decisões, mas não garante resultado: a sorte das cartas sempre conta, e até A-A perde mãos. Defina antes quanto tempo e quanto dinheiro vai usar em cada sessão e pare quando chegar ao limite.
 
 Como conferimos: 1.326 é o número de combinações de 2 cartas num baralho de 52 (52 × 51 ÷ 2); os 169 tipos são 13 pares + 78 mãos do mesmo naipe + 78 de naipes diferentes. A tabela por posição é uma referência editorial nossa, um ponto de partida e não um padrão do mercado.
-
-:::cta Pronto para colocar em prática?
-Com a tabela na cabeça, falta só a mesa. Veja [como entrar no Clube Suprema](/blog/como-entrar-no-clube-suprema) ou [entre direto pelo link](/baixar).
-:::

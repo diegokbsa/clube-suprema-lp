@@ -140,7 +140,3 @@ Para começar, o melhor caminho é o PLO tradicional, com 4 cartas.
 - **Revise o básico.** As [regras do Texas Hold'em](/blog/regras-do-texas-holdem) explicam blinds, rodadas e showdown, que são iguais no Omaha.
 
 Poker é jogo para **maiores de 18 anos**. Nenhuma modalidade garante resultado, e o Omaha costuma ter mais altos e baixos que o Hold'em. Antes de sentar, defina quanto tempo e quanto dinheiro vai usar na sessão e pare ao chegar no limite.
-
-:::cta Pronto para experimentar o PLO?
-Com as regras na cabeça, falta sentar numa mesa. Veja [como entrar no Clube Suprema](/blog/como-entrar-no-clube-suprema) ou [entre direto pelo link](/baixar).
-:::

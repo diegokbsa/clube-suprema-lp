@@ -105,7 +105,3 @@ A versão para **Windows** tem as mesmas mesas e a mesma conta. A tela maior aju
 :::nota Jogo consciente
 O Suprema Poker e os clubes são para **maiores de 18 anos**. Defina antes quanto vai gastar e respeite o limite. A Suprema mantém uma página sobre [jogo consciente](https://supremapoker.com.br/jogo-consciente).
 :::
-
-:::cta Ainda não está no clube?
-O [link oficial](/baixar) abre o app já no Clube Suprema. Depois é só comprar fichas por PIX e escolher a mesa. Qualquer dúvida, veja a página de [contato](/contato).
-:::

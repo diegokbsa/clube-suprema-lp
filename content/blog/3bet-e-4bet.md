@@ -110,7 +110,3 @@ Esses vícios custam caro principalmente nos potes grandes, que é onde o 3-bet 
 O 3-bet e o 4-bet são ferramentas para tomar decisões melhores ao longo de muitas mãos, não uma garantia de resultado em nenhuma delas. Poker é para **maiores de 18 anos**. Antes de jogar, defina quanto tempo e quanto dinheiro vai usar e pare quando chegar ao limite.
 
 Como conferimos: o 3-bet de 8 para ganhar 4 pede 8 ÷ (4 + 8) = 66,7% de sucesso, na conta de aposta ÷ (pote + aposta).
-
-:::cta Quer treinar o 3-bet numa mesa de verdade?
-Agora que você sabe quando reaumentar antes do flop, falta praticar. Veja [como entrar no Clube Suprema](/blog/como-entrar-no-clube-suprema) ou [entre direto pelo link](/baixar).
-:::

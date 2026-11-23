@@ -72,7 +72,3 @@ O Spin é um jogo de **push/fold** desde cedo. Alguns princípios que ajudam:
 ## Variância e banca
 
 Multiplicadores de 1.000×, 3.000× ou 50.000× são **eventos raros**. A maior parte dos Spins paga o multiplicador mínimo, e é normal encadear muitos deles sem um grande. Trate o Spin como lazer de ritmo alto, defina antes quanto vai gastar na sessão e respeite o limite. O app e o Clube Suprema são para **maiores de 18 anos**; a Suprema mantém uma página sobre [jogo consciente](https://supremapoker.com.br/jogo-consciente).
-
-:::cta Quer jogar o Spin Suprema?
-Entre no Clube Suprema em 2 minutos: [abra o link oficial](/baixar), compre fichas por PIX e procure o Spin no lobby. Dúvida em qualquer passo, veja a página de [contato](/contato).
-:::

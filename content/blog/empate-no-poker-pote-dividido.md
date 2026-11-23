@@ -110,7 +110,3 @@ No **Omaha Hi/Lo**, o pote é dividido por regra entre a mão mais alta e a mão
 - **Revise as fases da mão.** Entender como a mesa se forma no [flop, turn e river](/blog/flop-turn-river) ajuda a prever quando um empate é possível.
 
 Poker é jogo para **maiores de 18 anos**. Defina antes quanto tempo e quanto dinheiro vai dedicar a cada sessão e pare ao chegar no limite. Saber quando o pote é dividido ajuda a entender cada resultado, mas nenhuma regra garante ganho: a sorte de cada mão sempre tem peso. Para revisar tudo do começo, veja as [regras do Texas Hold'em](/blog/regras-do-texas-holdem).
-
-:::cta Pronto para praticar?
-Com as regras de desempate na cabeça, falta só sentar numa mesa. Veja [como entrar no Clube Suprema](/blog/como-entrar-no-clube-suprema) ou [entre direto pelo link](/baixar).
-:::

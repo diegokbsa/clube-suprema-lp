@@ -107,7 +107,3 @@ Range, [pot odds e outs](/blog/pot-odds-e-outs) e a ideia de [nuts](/blog/nuts-n
 Pensar em range melhora as decisões ao longo de muitas mãos, mas não garante resultado em nenhuma delas. Poker é para **maiores de 18 anos**. Antes de jogar, defina quanto tempo e quanto dinheiro vai usar e pare quando chegar ao limite.
 
 Como conferimos: um par tem 6 combinações, uma mão do mesmo naipe tem 4 e uma de naipes diferentes tem 12. QQ, KK e AA somam 3 × 6 = 18; AK soma 4 + 12 = 16.
-
-:::cta Quer praticar a leitura de faixas numa mesa de verdade?
-Agora que você sabe o que é range, falta treinar. Veja [como entrar no Clube Suprema](/blog/como-entrar-no-clube-suprema) ou [entre direto pelo link](/baixar).
-:::

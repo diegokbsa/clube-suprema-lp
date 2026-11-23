@@ -119,7 +119,3 @@ Algumas dicas práticas:
 5. **Superestimar qualquer ás.** O ás sozinho não basta; a segunda carta define se a mão aguenta uma disputa.
 
 Poker é jogo para **maiores de 18 anos**. Defina antes quanto tempo e quanto dinheiro vai dedicar a cada sessão e pare ao chegar no limite. Conhecer o kicker ajuda a decidir melhor, mas nenhuma regra garante resultado: a sorte de cada mão sempre tem peso. Para revisar o básico, veja as [regras do Texas Hold'em](/blog/regras-do-texas-holdem).
-
-:::cta Pronto para praticar?
-Com o desempate na cabeça, o próximo passo é sentar numa mesa. Veja [como entrar no Clube Suprema](/blog/como-entrar-no-clube-suprema) ou [entre direto pelo link](/baixar).
-:::

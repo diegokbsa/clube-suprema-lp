@@ -59,10 +59,6 @@ Versões de sites de terceiros podem estar desatualizadas ou alteradas. Se algu�
 
 Na primeira abertura, o app pode baixar recursos extras. Isso leva um ou dois minutos.
 
-:::cta Já instalou?
-Agora é entrar no **Clube Suprema**: o clube e o agente indicados em [como entrar no clube](/blog/como-entrar-no-clube-suprema). Se ainda não tem conta, siga o próximo passo.
-:::
-
 ## Passo 3: criar a conta ou entrar
 
 Se você já joga no celular, **use a mesma conta**: o login é o mesmo em todos os aparelhos, e os seus clubes aparecem no PC também.
@@ -110,10 +106,6 @@ Com o clube adicionado, compre fichas por **PIX**, pelo **Fichas 24h**, de uma c
 
 No PC, a tela maior ajuda a acompanhar **até 4 mesas ao mesmo tempo**, recurso descrito na [página do app](https://apps.apple.com/br/app/suprema-poker/id1583176410).
 
-:::cta Jogue no PC pelo Clube Suprema
-Clube Suprema, do grupo SX e da Liga Suprema, com mesas compartilhadas, PIX no seu CPF e suporte 24h. Instalou e travou em algum passo? Veja a página de [contato](/contato).
-:::
-
 ## Problemas comuns no PC
 
 | O que aconteceu | Como resolver |
@@ -126,8 +118,4 @@ Clube Suprema, do grupo SX e da Liga Suprema, com mesas compartilhadas, PIX no s
 
 :::nota Jogo consciente
 O Suprema Poker e os clubes são para **maiores de 18 anos**. Defina antes quanto vai gastar e respeite o limite. A Suprema mantém uma página sobre [jogo consciente](https://supremapoker.com.br/jogo-consciente).
-:::
-
-:::cta Tudo pronto
-Baixe, instale e entre no **Clube Suprema** com o clube e o agente indicados em [como entrar no clube](/blog/como-entrar-no-clube-suprema). No celular, o atalho é o [link oficial](/baixar), que já abre o app no clube.
 :::

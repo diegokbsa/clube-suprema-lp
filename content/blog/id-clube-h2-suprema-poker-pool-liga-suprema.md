@@ -54,10 +54,6 @@ Na prática, isso muda três coisas:
 
 O seu **saldo de fichas continua no seu clube**. Você compra e saca com o agente do seu clube, mesmo jogando contra gente de outros clubes da liga.
 
-:::cta Jogue no pool da Liga Suprema
-O **Clube Suprema** faz parte da Liga Suprema e da SX. Pelo celular, abra o [link oficial](/baixar) e você já cai no clube, com acesso às mesas da liga.
-:::
-
 ## A Liga Suprema e a SX
 
 A **Liga Suprema** é uma união de clubes com história no poker online brasileiro. Segundo o [WorldPokerDeals](https://worldpokerdeals.com/rakeback-deals/suprema-poker-app-review), foram clubes da Liga Suprema que decidiram criar a própria plataforma em 2021, e assim nasceu o app Suprema Poker. O site oficial, por outro lado, diz que a Suprema foi fundada em 2018: são duas fontes, e não conseguimos reconciliá-las. Hoje, de acordo com o [site oficial](https://www.supremapoker.net/), o app tem mais de 500 clubes filiados (o supremapoker.com.br informa 300 clubes filiados e download em mais de 70 países).
@@ -91,8 +87,4 @@ Se travar em algum passo, o [guia para entrar no Clube Suprema](/blog/como-entra
 
 :::nota Jogo consciente
 O Suprema Poker e os clubes são para **maiores de 18 anos**. Defina antes quanto vai gastar e respeite o limite.
-:::
-
-:::cta Entre no Clube Suprema
-Clube Suprema, da Liga Suprema e da SX. Abra o [link oficial](/baixar) no celular ou entre com o ID no computador. Dúvida em algum passo? Veja a página de [contato](/contato).
 :::

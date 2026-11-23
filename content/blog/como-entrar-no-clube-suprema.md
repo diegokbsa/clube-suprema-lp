@@ -96,7 +96,3 @@ Não precisa criar outra conta. O mesmo login serve para o Clube Suprema. Abra o
 :::nota Jogo consciente
 O Suprema Poker e os clubes são para **maiores de 18 anos**. Defina antes quanto vai gastar e respeite o limite. A Suprema mantém uma página sobre [jogo consciente](https://supremapoker.com.br/jogo-consciente).
 :::
-
-:::cta Pronto para entrar?
-Pelo celular, abra o [link oficial](/baixar) e aceite o convite. Pelo computador, use clube **10001** e agente **1439098**. Travou em algum passo? A página de [contato](/contato) mostra como falar com o clube.
-:::

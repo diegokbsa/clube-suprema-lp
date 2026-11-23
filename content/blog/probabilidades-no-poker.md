@@ -127,7 +127,3 @@ O jeito certo de usar esses números:
 Poker é para **maiores de 18 anos**. A matemática melhora as decisões, mas não elimina a variação de cada mão. Defina antes quanto tempo e quanto dinheiro vai usar na sessão e pare quando chegar ao limite.
 
 Como conferimos: um par na mão tem 13 pares × 6 combinações = 78 mãos; 78 ÷ 1.326 mãos possíveis de 2 cartas ≈ 5,9%.
-
-:::cta Quer ver esses números na mesa?
-Com as probabilidades na cabeça, falta praticar. Veja [como entrar no Clube Suprema](/blog/como-entrar-no-clube-suprema) ou [entre direto pelo link](/baixar).
-:::

@@ -112,10 +112,6 @@ Para trocar de clube você não precisa sair do atual. A mesma conta entra em v�
 
 O passo a passo completo, com os problemas mais comuns, está em [como entrar no Clube Suprema pelo link ou com o ID](/blog/como-entrar-no-clube-suprema). O clube é do grupo SX e joga na Liga Suprema, com mesas compartilhadas entre vários clubes; entenda como funciona em [ID do clube H2 e o pool da Liga Suprema](/blog/id-clube-h2-suprema-poker-pool-liga-suprema).
 
-:::cta Vai trocar de clube?
-Entre no **Clube Suprema** sem sair do atual: no celular, toque no [link oficial](/baixar); no computador, use o clube e o agente indicados em [como entrar no clube](/blog/como-entrar-no-clube-suprema). Fichas por PIX no seu CPF e contato do clube.
-:::
-
 ## Problemas comuns
 
 | O que aconteceu | O que fazer |
@@ -132,8 +128,4 @@ Outras dúvidas de conta, fichas e saque estão nas [perguntas frequentes do sup
 
 :::nota Jogo consciente
 O Suprema Poker e os clubes são para **maiores de 18 anos**. Se a vontade é parar de jogar, e não só trocar de clube, veja a página de [jogo consciente](https://supremapoker.com.br/jogo-consciente) da Suprema. A autoexclusão, pedida ao suporte da Suprema, encerra a conta de forma definitiva.
-:::
-
-:::cta Pronto para jogar em outro clube?
-Abra o [link oficial](/baixar) no celular ou veja [como entrar no clube](/blog/como-entrar-no-clube-suprema) para entrar pelo computador. Travou em algum passo? O contato do clube resolve com você.
 :::

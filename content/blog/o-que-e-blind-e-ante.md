@@ -128,7 +128,3 @@ Mas defender demais é um erro clássico. O big blind fala **primeiro** do flop 
 Depois dos blinds, a mão segue pelas quatro fases explicadas no guia de [flop, turn e river](/blog/flop-turn-river).
 
 Poker é jogo para **maiores de 18 anos**. Defina antes quanto tempo e quanto dinheiro vai usar em cada sessão e pare quando chegar ao limite. Entender os blinds ajuda a decidir melhor, mas não garante resultado: a sorte das cartas sempre tem peso.
-
-:::cta Pronto para pagar o seu primeiro blind?
-Com as regras na cabeça, falta só a mesa. Veja [como entrar no Clube Suprema](/blog/como-entrar-no-clube-suprema) ou [entre direto pelo link](/baixar).
-:::

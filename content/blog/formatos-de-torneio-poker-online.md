@@ -118,10 +118,6 @@ Seja qual for a escolha, defina antes quanto vai investir na sessão e não ultr
 O Suprema Poker e os clubes são para **maiores de 18 anos**. Defina antes quanto vai gastar e respeite o limite. A Suprema mantém uma página sobre [jogo consciente](https://supremapoker.com.br/jogo-consciente).
 :::
 
-:::cta Quer ver a grade de hoje?
-A [grade de torneios de hoje da Liga Suprema](/torneios) mostra todos os torneios do dia com horário, buy-in, garantido, stack, blinds e late, atualizada ao longo do dia. Para jogar, [entre no clube pelo link](/baixar) ou [veja como entrar com o ID](/blog/como-entrar-no-clube-suprema).
-:::
-
 ## Perguntas que o suporte mais recebe sobre torneios
 
 - **Perdi o início, ainda posso entrar?** Sim, enquanto o registro tardio (late) estiver aberto. Você entra com o stack inicial cheio.

@@ -130,7 +130,3 @@ Se nada disso resolver, fale com o clube pela página de [contato](/contato), e 
 :::nota Jogo consciente
 O Suprema Poker e os clubes são para **maiores de 18 anos**. Defina antes quanto vai gastar e respeite o limite. A Suprema mantém uma página sobre [jogo consciente](https://supremapoker.com.br/jogo-consciente).
 :::
-
-:::cta Próximo passo
-App instalado e conta confirmada? Agora é entrar no clube. Pelo celular, abra o [nosso link](/baixar) e aceite o convite; pelo computador, use o ID do clube e do agente, como mostra o [guia de entrada no Clube Suprema](/blog/como-entrar-no-clube-suprema).
-:::

@@ -115,7 +115,3 @@ Se o limper paga o seu aumento, você chega ao flop com a iniciativa e, muitas v
 5. **Copiar o limp de torneio no cash game.** O que funciona no small blind com stack curto não vale para todas as posições.
 
 O limp, como qualquer jogada, é uma decisão para melhorar seus resultados ao longo de muitas mãos, e não uma garantia em nenhuma delas. Poker é para **maiores de 18 anos**. Antes de jogar, defina quanto tempo e quanto dinheiro vai usar e pare quando chegar ao limite.
-
-:::cta Quer praticar a abertura certa numa mesa de verdade?
-Agora que você sabe por que o limp custa caro, falta treinar. Veja [como entrar no Clube Suprema](/blog/como-entrar-no-clube-suprema) ou [entre direto pelo link](/baixar).
-:::

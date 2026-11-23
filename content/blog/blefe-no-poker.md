@@ -110,7 +110,3 @@ Agora compare com um blefe puro ruim: você só pagou a mão inteira com **7♣ 
 Esses e outros vícios estão na lista de [erros de iniciante no poker](/blog/erros-de-iniciante-no-poker).
 
 O blefe é uma ferramenta para tomar decisões melhores ao longo de muitas mãos, não um truque que garante resultado em nenhuma delas. Poker é para **maiores de 18 anos**. Antes de jogar, defina quanto tempo e quanto dinheiro vai usar e pare quando chegar ao limite.
-
-:::cta Quer treinar a leitura de mesa?
-Agora que você sabe quando o blefe faz sentido, falta praticar com calma. Veja [como entrar no Clube Suprema](/blog/como-entrar-no-clube-suprema) ou [entre direto pelo link](/baixar).
-:::

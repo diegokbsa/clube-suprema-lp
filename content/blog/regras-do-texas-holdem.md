@@ -131,7 +131,3 @@ No mano a mano a ordem muda um pouco: o **botão paga o small blind** e fala **p
 O caminho mais tranquilo é começar por mesas e torneios de valor baixo, observar algumas mãos e conferir no showdown se você leu certo quem ganhou. O [guia do app Suprema Poker](/blog/guia-do-app-suprema-poker) mostra onde ficam o lobby, as mesas e os torneios.
 
 Poker é jogo para **maiores de 18 anos**. Defina antes quanto tempo e quanto dinheiro vai dedicar a cada sessão e pare quando chegar ao limite. Saber as regras ajuda a decidir melhor, mas não garante resultado: a sorte de cada mão sempre tem peso.
-
-:::cta Pronto para a primeira mão?
-Com as regras na cabeça, falta só a mesa. Veja [como entrar no Clube Suprema](/blog/como-entrar-no-clube-suprema) ou [entre direto pelo link](/baixar).
-:::

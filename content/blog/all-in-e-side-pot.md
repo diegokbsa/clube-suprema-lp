@@ -130,7 +130,3 @@ Os formatos de jogo estão explicados em [formatos de torneio de poker online](/
 - **Revise o básico.** Se a ordem das rodadas de aposta ainda confunde, volte às [regras do Texas Hold'em](/blog/regras-do-texas-holdem).
 
 Poker é jogo para **maiores de 18 anos**. Ir all-in é uma decisão de jogo, não uma forma de recuperar perdas. Defina antes quanto tempo e quanto dinheiro vai dedicar a cada sessão e pare ao chegar no limite. Nenhuma jogada garante ganho: a sorte de cada mão sempre tem peso.
-
-:::cta Pronto para praticar?
-Agora que você sabe quem disputa cada pote, falta sentar numa mesa. Veja [como entrar no Clube Suprema](/blog/como-entrar-no-clube-suprema) ou [entre direto pelo link](/baixar).
-:::

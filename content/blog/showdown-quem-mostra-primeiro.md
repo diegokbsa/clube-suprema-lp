@@ -121,7 +121,3 @@ O jeito educado é simples: se você sabe que ganhou, **mostre logo**.
 - **Revise as regras gerais.** As [regras do Texas Hold'em](/blog/regras-do-texas-holdem) mostram a mão inteira, do botão ao showdown.
 
 Poker é jogo para **maiores de 18 anos**. Chegar ao showdown com uma mão boa não é garantia de ganhar, e nenhuma jogada garante resultado. Defina antes quanto tempo e quanto dinheiro vai dedicar a cada sessão e pare ao chegar no limite.
-
-:::cta Pronto para praticar?
-Agora que você sabe como funciona o showdown, falta sentar numa mesa. Veja [como entrar no Clube Suprema](/blog/como-entrar-no-clube-suprema) ou [entre direto pelo link](/baixar).
-:::

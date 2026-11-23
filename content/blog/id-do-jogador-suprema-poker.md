@@ -118,7 +118,3 @@ Para entrar no clube, você usa o ID do clube e o do agente. Para comprar fichas
 :::nota Jogo consciente
 O Suprema Poker e os clubes são só para **maiores de 18 anos**. Defina antes quanto vai colocar e respeite o limite. A Suprema mantém uma página sobre [jogo consciente](https://supremapoker.com.br/jogo-consciente).
 :::
-
-:::cta Já tem o seu ID em mãos?
-Entre no **Clube Suprema**: no celular, pelo [link oficial](/baixar); no computador, com o clube e o agente indicados em [como entrar no clube](/blog/como-entrar-no-clube-suprema). Depois, cadastre o seu ID no Fichas 24h e compre as fichas por PIX, de uma conta no seu CPF. Dúvida em algum passo? Veja a página de [contato](/contato).
-:::

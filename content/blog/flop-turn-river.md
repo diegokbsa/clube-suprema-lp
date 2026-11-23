@@ -122,7 +122,3 @@ No app, as fases acontecem sozinhas: o sistema distribui as cartas, abre flop, t
 5. **Perseguir o projeto no turn ao mesmo preço do flop.** Com uma carta só por vir, a chance cai pela metade.
 
 Poker é jogo para **maiores de 18 anos**. Defina antes quanto tempo e quanto dinheiro vai usar em cada sessão e pare quando chegar ao limite. Conhecer as fases ajuda a decidir melhor, mas não garante resultado: a sorte das cartas sempre tem peso.
-
-:::cta Pronto para ver o seu primeiro flop?
-Com as fases na cabeça, falta só a mesa. Veja [como entrar no Clube Suprema](/blog/como-entrar-no-clube-suprema) ou [entre direto pelo link](/baixar).
-:::

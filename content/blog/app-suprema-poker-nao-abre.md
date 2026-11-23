@@ -75,10 +75,6 @@ Se a App Store disser que o app não está disponível, a sua conta Apple está 
 
 O passo a passo completo, incluindo o que fazer no MacBook, está no [tutorial para baixar o Suprema Poker no PC, notebook e MacBook](/blog/como-baixar-suprema-poker-no-pc).
 
-:::cta Reinstalou? Volte para o clube
-Entre com a sua conta e confira se o **Clube Suprema** está na lista. Se não estiver, entre com o clube e o agente indicados em [como entrar no clube](/blog/como-entrar-no-clube-suprema). No celular, o [link oficial](/baixar) já abre o app no convite.
-:::
-
 ## Depois de reinstalar: voltar ao Clube Suprema
 
 1. Abra o app e entre com o **mesmo e-mail e senha** de antes.
@@ -108,8 +104,4 @@ Outras dúvidas de conta, fichas e saque estão nas [perguntas frequentes do sup
 
 :::nota Jogo consciente
 O Suprema Poker e os clubes são para **maiores de 18 anos**. Defina antes quanto vai gastar e respeite o limite. A Suprema mantém uma página sobre [jogo consciente](https://supremapoker.com.br/jogo-consciente).
-:::
-
-:::cta App funcionando? Hora de jogar
-Entre no **Clube Suprema** com o clube e o agente indicados em [como entrar no clube](/blog/como-entrar-no-clube-suprema): PIX no seu CPF pelo Fichas 24h, mesas da Liga Suprema e suporte 24h. No celular, toque no [link oficial](/baixar).
 :::

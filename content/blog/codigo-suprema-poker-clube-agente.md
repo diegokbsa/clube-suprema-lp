@@ -104,7 +104,3 @@ Se algo assim aparecer, não pague e fale com o suporte do seu clube pelos canai
 :::nota Jogo consciente
 O Suprema Poker e os clubes são só para **maiores de 18 anos**. Nenhum código muda as suas chances na mesa. Defina antes quanto vai colocar e respeite o limite. A Suprema mantém uma página sobre [jogo consciente](https://supremapoker.com.br/jogo-consciente).
 :::
-
-:::cta Use o código do Clube Suprema
-No celular, abra o [link oficial](/baixar) e aceite o convite. No computador, entre com o clube e o agente indicados em [como entrar no clube](/blog/como-entrar-no-clube-suprema). Fichas por PIX no seu CPF e contato do clube.
-:::

@@ -131,7 +131,3 @@ Ninguém precisa decorar a lista inteira antes de jogar. Um caminho mais simples
 Para ver tudo isso funcionando junto, as [regras do Texas Hold'em](/blog/regras-do-texas-holdem) mostram uma mão completa do começo ao fim.
 
 Poker é jogo para **maiores de 18 anos**. Conhecer os termos ajuda a entender o jogo, mas não garante resultado. Antes de sentar, defina quanto tempo e quanto dinheiro vai usar na sessão e pare ao chegar no limite.
-
-:::cta Já fala a língua da mesa?
-Com o vocabulário na ponta da língua, falta sentar e jogar. Veja [como entrar no Clube Suprema](/blog/como-entrar-no-clube-suprema) ou [entre direto pelo link](/baixar).
-:::

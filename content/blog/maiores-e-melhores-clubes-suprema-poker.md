@@ -35,10 +35,6 @@ Por isso, ao comparar clubes, olhe menos para "quantos membros tem o clube" e ma
 
 A própria história do app mostra o peso das ligas. Segundo o [WorldPokerDeals](https://worldpokerdeals.com/rakeback-deals/suprema-poker-app-review), o Suprema Poker, em resenha de site de afiliados em inglês, foi lançado em outubro de 2021 quando clubes brasileiros da **Liga Suprema** decidiram criar a própria plataforma. O site oficial diz que a Suprema foi fundada em 2018. Hoje, de acordo com o [site oficial](https://www.supremapoker.net/), são mais de 500 clubes filiados (o supremapoker.com.br informa 300 clubes filiados e download em mais de 70 países).
 
-:::cta Quer jogar em um clube de liga?
-O **Clube Suprema** faz parte da SX e da Liga Suprema. Pelo celular, abra o [link oficial](/baixar) e você já entra no clube.
-:::
-
 ## Os maiores nomes do ecossistema
 
 ### Grupo SX e Liga Suprema
@@ -69,10 +65,6 @@ Use esta lista antes de comprar fichas em qualquer clube. Dê um ponto para cada
 
 Esta pontuação é uma sugestão editorial nossa, não um padrão do mercado.
 
-:::cta Entre agora no Clube Suprema
-Clube Suprema. No celular, toque no [link oficial](/baixar). No computador, siga o [tutorial para baixar no PC, notebook ou MacBook](/blog/como-baixar-suprema-poker-no-pc) e entre com o ID.
-:::
-
 ## Como testar um clube sem arriscar muito
 
 1. **Entre com o ID** e olhe o lobby em dois ou três horários diferentes.
@@ -93,8 +85,4 @@ Para entender melhor como os clubes funcionam, como entrar, jogar em vários e s
 
 :::nota Jogo consciente
 Clubes de poker são para **maiores de 18 anos**. Defina antes quanto vai gastar e respeite o limite. A Suprema mantém uma página sobre [jogo consciente](https://supremapoker.com.br/jogo-consciente).
-:::
-
-:::cta Pronto para escolher?
-Jogue em um clube de liga, com PIX no seu CPF e suporte 24h: **Clube Suprema**. Abra o [link oficial](/baixar) ou veja a página de [contato](/contato) se travar em algum passo.
 :::

@@ -124,7 +124,3 @@ O Suprema Poker e os clubes são para **maiores de 18 anos**. Defina antes quant
 | Modalidades | NLH, PLO, torneios, sit & go e [Spin Suprema](/blog/spin-suprema-como-funciona-e-primeiro-grande-ganhador) |
 
 Dúvidas de fichas, PIX e saque estão nas [perguntas frequentes do suporte](/blog/perguntas-frequentes-suporte). Para entender os formatos de jogo, veja [modalidades e formatos de torneio](/blog/formatos-de-torneio-poker-online).
-
-:::cta Quer entrar no Clube Suprema?
-Pelo celular, abra o [link oficial](/baixar) e aceite o convite. Pelo computador, entre com o clube e o agente indicados em [como entrar no clube](/blog/como-entrar-no-clube-suprema). Travou em algum passo? O contato do clube resolve com você.
-:::

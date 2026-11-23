@@ -141,7 +141,3 @@ Saber [em que fase da mão você está](/blog/flop-turn-river) e quais [mãos in
 A matemática melhora as decisões, mas não elimina a sorte de cada mão: um call certo perde muitas vezes, e um call errado às vezes ganha. O que conta é a soma de muitas decisões. Poker é para **maiores de 18 anos**. Defina antes quanto tempo e quanto dinheiro vai usar na sessão e pare quando chegar ao limite.
 
 Como conferimos: com duas cartas por vir, a chance de acertar é 1 − (cartas que não ajudam ÷ 47 × cartas que não ajudam menos 1 ÷ 46). Com 15 outs: 1 − (32 ÷ 47 × 31 ÷ 46) ≈ 54%.
-
-:::cta Quer treinar a conta numa mesa de verdade?
-Com pot odds e outs na cabeça, falta praticar. Veja [como entrar no Clube Suprema](/blog/como-entrar-no-clube-suprema) ou [entre direto pelo link](/baixar).
-:::

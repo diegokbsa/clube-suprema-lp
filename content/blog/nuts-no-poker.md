@@ -109,7 +109,3 @@ Saber qual é o nuts não quer dizer que você só deve apostar quando o tiver. 
 4. **Com o nuts, pense em como ganhar mais.** Se ninguém pode bater a sua mão naquele momento, a dúvida passa a ser quanto apostar para o adversário continuar pagando.
 
 Poker é jogo para **maiores de 18 anos**. Defina antes quanto tempo e quanto dinheiro vai dedicar a cada sessão e pare ao chegar no limite. Ler a mesa ajuda a decidir melhor, mas não garante resultado: mesmo com boa leitura, a sorte de cada mão tem peso.
-
-:::cta Pronto para praticar?
-Agora que você sabe achar a melhor mão possível, o próximo passo é treinar numa mesa. Veja [como entrar no Clube Suprema](/blog/como-entrar-no-clube-suprema) ou [entre direto pelo link](/baixar).
-:::

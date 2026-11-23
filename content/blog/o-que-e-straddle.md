@@ -111,7 +111,3 @@ No **cash game online**, depende da sala e da configuração da mesa. Muitas sal
 - **Revise o básico.** As [regras do Texas Hold'em](/blog/regras-do-texas-holdem) mostram a mão inteira, dos blinds ao showdown.
 
 Poker é jogo para **maiores de 18 anos**. Nenhuma jogada, com ou sem straddle, garante resultado. Antes de sentar, defina quanto tempo e quanto dinheiro vai usar na sessão e pare ao chegar no limite.
-
-:::cta Pronto para praticar?
-Agora que você entende o straddle, falta sentar numa mesa. Veja [como entrar no Clube Suprema](/blog/como-entrar-no-clube-suprema) ou [entre direto pelo link](/baixar).
-:::

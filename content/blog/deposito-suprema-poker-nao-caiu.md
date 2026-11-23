@@ -138,7 +138,3 @@ Os outros sinais de golpe, e o que conferir em qualquer clube, estão em [Suprem
 :::nota Jogo consciente
 O Suprema Poker, os clubes e o Fichas 24h são só para **maiores de 18 anos**. Defina antes quanto vai colocar, não deposite para tentar recuperar perdas e respeite o limite. A Suprema mantém uma página sobre [jogo consciente](https://supremapoker.com.br/jogo-consciente).
 :::
-
-:::cta Precisa de ajuda com um depósito?
-Chame o contato do clube com o comprovante e o seu ID da Suprema. Para entrar no **Clube Suprema**, use o [link oficial](/baixar) no celular ou entre com o clube e o agente indicados em [como entrar no clube](/blog/como-entrar-no-clube-suprema).
-:::

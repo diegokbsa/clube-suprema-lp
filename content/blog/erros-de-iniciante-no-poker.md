@@ -120,7 +120,3 @@ Aqui aparecem quatro erros da lista: mão fora da faixa no UTG (erro 1 e 2), ent
 ## Jogue com limite
 
 Corrigir esses erros melhora as suas decisões, mas não garante resultado: no poker a sorte das cartas sempre conta, e o melhor jogador também perde mãos. Defina limites antes de jogar e trate cada sessão como diversão.
-
-:::cta Pronto para jogar com mais calma?
-Com a lista na cabeça, falta só a mesa. Veja [como entrar no Clube Suprema](/blog/como-entrar-no-clube-suprema) ou [entre direto pelo link](/baixar).
-:::

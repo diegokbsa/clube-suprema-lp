@@ -144,7 +144,3 @@ Se for sobre pagamento, já anexe o comprovante.
 :::nota Jogo consciente
 O Suprema Poker e os clubes são para **maiores de 18 anos**. Defina antes quanto vai gastar e respeite o limite. A Suprema mantém uma página sobre [jogo consciente](https://supremapoker.com.br/jogo-consciente).
 :::
-
-:::cta Ainda não entrou no clube?
-Leva menos de 2 minutos: [abra o link oficial](/baixar), aceite o convite e compre as fichas por PIX. O suporte 24h acompanha você em qualquer passo.
-:::

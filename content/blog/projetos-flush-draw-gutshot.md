@@ -111,7 +111,3 @@ Na dúvida, desconte um ou dois outs. Errar para menos protege as suas fichas.
 Esses deslizes aparecem entre os [erros de iniciante no poker](/blog/erros-de-iniciante-no-poker). E, para nomear cada mão na mesa, o [glossário de poker](/blog/glossario-de-poker) reúne os termos.
 
 Projeto bom não é garantia de nada: mesmo com 15 outs você perde boa parte das vezes. O que a conta faz é ajudar a tomar decisões melhores ao longo de muitas mãos. Poker é para **maiores de 18 anos**. Antes de sentar, defina quanto tempo e quanto dinheiro vai usar e pare quando chegar ao limite.
-
-:::cta Quer reconhecer os projetos numa mesa de verdade?
-Agora que você sabe contar os outs, falta praticar. Veja [como entrar no Clube Suprema](/blog/como-entrar-no-clube-suprema) ou [entre direto pelo link](/baixar).
-:::

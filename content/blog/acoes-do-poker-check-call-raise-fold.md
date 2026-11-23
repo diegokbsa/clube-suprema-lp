@@ -139,7 +139,3 @@ Falar por último é uma vantagem: você decide depois de ver o que todos fizera
 O jeito mais tranquilo de fixar as ações é jogar mesas e torneios de valor baixo e prestar atenção em cada decisão. O [guia do app Suprema Poker](/blog/guia-do-app-suprema-poker) mostra onde ficam o lobby, as mesas e os torneios.
 
 Poker é jogo para **maiores de 18 anos**. Defina antes quanto tempo e quanto dinheiro vai usar em cada sessão e pare quando chegar ao limite. Entender as ações ajuda a decidir melhor, mas não garante resultado: a sorte de cada mão sempre tem peso.
-
-:::cta Hora de praticar
-Com as ações na ponta da língua, falta a mesa. Veja [como entrar no Clube Suprema](/blog/como-entrar-no-clube-suprema) ou [entre direto pelo link](/baixar).
-:::
