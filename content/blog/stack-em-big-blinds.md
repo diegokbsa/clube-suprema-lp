@@ -26,7 +26,7 @@ faq:
   - q: O que significa stack em big blinds?
     a: É o stack dividido pelo valor do big blind. Com 2.000 fichas e big blind de 20, o stack é de 100 BB. A medida mostra a margem de jogo independentemente do valor absoluto das fichas.
   - q: O que é stack efetivo?
-    a: É o menor stack entre os jogadores que disputam a mão. Se um jogador tem 100 BB e o outro tem 40 BB, o stack efetivo é de 40 BB, porque o primeiro não pode perder mais do que o segundo tem.
+    a: É o menor stack entre dois jogadores que disputam a mão (com mais jogadores, a conta é feita par a par). Se um jogador tem 100 BB e o outro tem 40 BB, o stack efetivo é de 40 BB, porque o primeiro não pode perder mais do que o segundo tem.
   - q: Por que contar em big blinds e não em fichas?
     a: Porque o valor das fichas muda de mesa para mesa e de nível para nível em torneios. Em BB, 40 de uma mesa e 40 de outra dão uma margem parecida (ante e estrutura de blinds ainda podem mudar o quadro).
   - q: Ter mais fichas garante vantagem?
@@ -45,6 +45,13 @@ A conta é uma divisão:
 
 **stack em BB = fichas ÷ valor do big blind**
 
+Em quatro passos:
+
+1. Veja quantas fichas você tem e qual é o valor do big blind na mesa.
+2. Divida as suas fichas pelo big blind: o resultado é o seu stack em BB.
+3. Faça a mesma conta para o adversário que está na mão com você.
+4. O menor dos dois valores é o stack efetivo.
+
 Exemplos:
 
 | Fichas | Big blind | Stack em BB |
@@ -57,7 +64,7 @@ Repare que 12 BB é um stack bem mais curto do que 100 BB, mesmo que 1.200 ficha
 
 ## O que é stack efetivo
 
-Em uma mão, cada jogador só pode perder ou ganhar do adversário até o valor do **menor stack** entre os dois. Esse valor é o **stack efetivo**.
+Em uma mão entre dois jogadores, cada um só pode perder ou ganhar do outro até o valor do **menor stack** entre os dois. Esse valor é o **stack efetivo**. Quando há mais jogadores no pote, a conta é feita entre cada par de jogadores.
 
 Exemplo: o jogador A tem 100 BB e o jogador B tem 40 BB. Se os dois forem para o confronto, A e B só podem disputar 40 BB entre si. O stack efetivo é de **40 BB**.
 
@@ -65,13 +72,13 @@ Por isso, quem pensa na mão olha primeiro para o stack efetivo, e não para o s
 
 ## Por que medir em big blinds
 
-- **Comparação entre mesas:** 40 BB em uma mesa pequena e 40 BB em uma mesa grande significam a mesma margem de jogo, mesmo com fichas de valores diferentes.
+- **Comparação entre mesas:** 40 BB em uma mesa e 40 BB em outra dão uma margem parecida (ante e estrutura de blinds ainda podem mudar o quadro), mesmo com fichas de valores diferentes.
 - **Torneios:** os blinds sobem a cada nível. Sem mudar o número de fichas, o seu stack em BB cai, e a margem diminui.
 - **Linguagem comum:** conteúdos de estratégia falam em "stack de 100 BB" ou "stack curto" porque a medida é universal.
 
 ## Stack curto, médio e fundo
 
-Essas faixas são referências de conversa, não regras fixas. Muitos jogadores falam em stack **curto** para algo em torno de 20 BB ou menos, **médio** para algo entre 20 e 100 BB e **fundo** para 100 BB ou mais. Os limites variam de um jogador ou de um material para outro. Cada faixa muda as opções disponíveis: com stack curto, sobra pouco espaço para apostar em mais de uma rua.
+Essas faixas são referências de conversa, não regras fixas. Muitos jogadores falam em stack **curto** para algo em torno de 20 BB ou menos, **médio** para algo entre 21 e 99 BB e **fundo** para 100 BB ou mais. Os limites variam de um jogador ou de um material para outro. Cada faixa muda as opções disponíveis: com stack curto, sobra pouco espaço para apostar em mais de uma rua.
 
 :::nota
 Resposta curta: stack é a quantidade de fichas. Em big blinds, é fichas divididas pelo big blind. Stack efetivo é o menor stack entre os jogadores da mão. Nenhuma dessas medidas garante resultado: elas só mostram a margem que você tem.
@@ -86,6 +93,6 @@ Resposta curta: stack é a quantidade de fichas. Em big blinds, é fichas dividi
 
 ## Jogue com consciência
 
-Entender o stack melhora as decisões, mas não remove a variância. Defina limites de perda e de tempo antes de sentar, como explica o guia de [gestão de banca no poker](/blog/gestao-de-banca-no-poker), e pare quando atingi-los. A [variância](/blog/variancia-no-poker) faz parte do jogo, até para quem decide bem.
+Entender o stack ajuda a decidir com mais critério, mas não remove a variância. Defina limites de perda e de tempo antes de sentar, como explica o guia de [gestão de banca no poker](/blog/gestao-de-banca-no-poker), e pare quando atingi-los. A [variância](/blog/variancia-no-poker) faz parte do jogo, até para quem decide bem.
 
 O conteúdo é educativo e para **maiores de 18 anos**. Não há promessa de ganho: o poker envolve risco de perda. Se o jogo deixou de ser lazer, procure ajuda: CVV (telefone 188) e Jogadores Anônimos Brasil.

@@ -48,9 +48,10 @@ Veja como a probabilidade mostra que perder "estando na frente" é normal:
 |---|---|---|
 | Ases contra reis, tudo no pré-flop | Ases, com cerca de 82% | cerca de 18% para os reis |
 | Flush draw (9 outs) no flop, até o river | Quem não tem o projeto | cerca de 35% de completar |
-| Cara ou coroa, 5 caras seguidas | Não há quem esteja na frente: cada lançamento é independente | 1 chance em 32 (3,1%) para uma sequência específica de 5 lançamentos |
 
-Ao contar [outs e pot odds](/blog/pot-odds-e-outs), você vê que um projeto com 35% de chance completa mais de 1 vez a cada 3. Quem tem a mão pronta e perde para ele não fez nada errado. O mesmo vale para as [probabilidades do poker](/blog/probabilidades-no-poker) em geral: quem está com 82% perde 18 vezes em 100.
+Um exemplo fora do poker mostra a mesma ideia: em cara ou coroa, cada lançamento é independente, e uma sequência específica de 5 caras seguidas acontece 1 vez em 32 (3,1%). Parece raro, mas com muitas sequências isso aparece.
+
+Ao contar [outs e pot odds](/blog/pot-odds-e-outs), você vê que um projeto com 35% de chance completa mais de 1 vez a cada 3. Quem tem a mão pronta e perde para ele não necessariamente errou: o resultado de uma mão não mede a qualidade da decisão, que depende de como a mão foi jogada. O mesmo vale para as [probabilidades do poker](/blog/probabilidades-no-poker) em geral: quem está com 82% perde 18 vezes em 100.
 
 ## Por que a variância é maior do que parece
 
@@ -66,6 +67,13 @@ A parte difícil não é a matemática, é aceitar o número. Depois de uma sequ
 Resposta curta: variância é a oscilação natural dos resultados no poker. Uma decisão correta pode perder, como ases contra reis, que perdem cerca de 18% das vezes. Não dá para eliminá-la; dá para reconhecê-la, avaliar a decisão e não o resultado, e parar ao atingir os limites definidos antes de sentar.
 :::
 
+## Como lidar com a variância em quatro passos
+
+1. **Avalie a decisão, não o resultado.** Pergunte se, com as informações que tinha, a jogada fazia sentido, e não se a carta certa saiu.
+2. **Defina limites antes de sentar.** Um limite de perda e um limite de tempo, anotados antes de começar.
+3. **Pare ao atingir um limite.** Não aumente o buy-in para recuperar o que perdeu.
+4. **Olhe o conjunto de muitas sessões.** Uma sessão ruim pouco diz sobre a qualidade do seu jogo.
+
 ## Erros comuns
 
 - **Julgar a decisão só pelo resultado.** Uma mão perdida não prova que a jogada foi ruim, nem uma ganha prova que foi boa.
@@ -77,4 +85,4 @@ Resposta curta: variância é a oscilação natural dos resultados no poker. Uma
 
 Entender variância é aceitar que o poker envolve risco, e que nenhum conhecimento garante ganho. Se for jogar, defina antes quanto está disposto a perder e por quanto tempo, e respeite os dois números.
 
-O conteúdo é educativo e para **maiores de 18 anos**. Não há promessa de ganho: o poker envolve risco de perda. Se o jogo deixou de ser lazer, procure ajuda: CVV (telefone 188) e Jogadores Anônimos Brasil.
+O conteúdo é educativo e para **maiores de 18 anos**. Não há promessa de ganho: o poker envolve risco de perda. Se o jogo deixou de ser lazer, procure ajuda: o [CVV](https://www.cvv.org.br) atende de graça, 24 horas, pelo telefone 188 (apoio emocional), e os [Jogadores Anônimos Brasil](https://www.jogadoresanonimos.com.br) mantêm grupos de apoio para quem tem problemas com jogo.
