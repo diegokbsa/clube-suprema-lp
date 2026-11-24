@@ -39,7 +39,7 @@ Fichas 24h por PIX, depósito não caiu, Suprema Poker é confiável, formatos d
 - [x] 2026-11-22 textura-do-board | Textura do board: mesas secas e molhadas | board seco e molhado
 - [ ] heads-up-poker | Heads-up: como jogar mano a mano | como jogar heads up
 - [ ] seis-max-ou-mesa-cheia | 6-max ou mesa cheia: o que muda na estratégia | 6 max poker
-- [ ] stack-em-big-blinds | Stack em big blinds e stack efetivo: como medir as fichas | stack efetivo poker
+- [x] 2026-11-23 stack-em-big-blinds | Stack em big blinds e stack efetivo: como medir as fichas | stack efetivo poker
 ## Torneios
 - [ ] push-or-fold-stack-curto | Push or fold: como jogar com stack curto no torneio | push or fold poker
 - [ ] bolha-do-torneio | Bolha do torneio: como jogar perto da zona de prêmios | bolha poker torneio
