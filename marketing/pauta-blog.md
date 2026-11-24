@@ -54,7 +54,7 @@ Fichas 24h por PIX, depósito não caiu, Suprema Poker é confiável, formatos d
 ## Jogo responsável e cabeça
 - [x] 2026-11-23 tilt-no-poker | Tilt: o que é e como parar antes de perder o controle | o que é tilt no poker
 - [ ] gestao-de-banca-no-poker | Gestão de banca: quanto separar para jogar e como não passar do limite | gestão de banca poker
-- [ ] variancia-no-poker | Variância: por que dá para jogar bem e perder, e como lidar | variância poker
+- [x] 2026-11-23 variancia-no-poker | Variância: por que dá para jogar bem e perder, e como lidar | variância poker
 - [ ] limites-de-tempo-e-dinheiro | Jogo consciente: como definir limites de tempo e dinheiro no poker online | jogo responsável poker
 ## App Suprema Poker (só com fatos que já estão nos posts publicados)
 - [ ] atualizar-suprema-poker | Como atualizar o Suprema Poker no Android, no iPhone e no PC | atualizar suprema poker
