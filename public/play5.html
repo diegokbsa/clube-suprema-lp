@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="robots" content="noindex,follow">
+<meta name="ad.size" content="width=320,height=480">
+<title>Mira no ás</title>
+<style>
+:root{--ac:#ee6a1a;--bg:#090909;--ink:#f4f1ea;--red:#e23b2f}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;user-select:none}
+html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(--ink);font-family:Impact,"Arial Narrow",Arial,sans-serif}
+canvas{position:fixed;inset:0;width:100%;height:100%;touch-action:none}
+#top{position:fixed;left:0;right:0;top:0;z-index:3;display:flex;justify-content:space-between;align-items:center;padding:calc(10px + env(safe-area-inset-top)) 14px 0;pointer-events:none}
+#top b{font-size:28px;letter-spacing:.04em;line-height:.9}
+#top span{font-family:Arial,sans-serif;font-size:11px;font-weight:700;letter-spacing:.14em}
+.s18{border:2px solid var(--ink);padding:2px 6px;font-size:13px}
+#call{position:fixed;left:0;right:0;top:22%;z-index:3;text-align:center;pointer-events:none}
+#call strong{display:block;font-size:clamp(42px,12vw,92px);line-height:.84;letter-spacing:-.02em}
+#call em{font-style:normal;color:var(--ac)}
+#call small{display:block;margin-top:8px;font-family:Arial,sans-serif;font-size:13px;letter-spacing:.16em;font-weight:700}
+#end{position:fixed;inset:0;z-index:5;display:none;flex-direction:column;justify-content:flex-end;padding:22px 18px calc(18px + env(safe-area-inset-bottom));background:linear-gradient(to top,#000 0 42%,rgba(0,0,0,.2) 70%,transparent)}
+#end.show{display:flex}
+#end .k{font-family:Arial,sans-serif;font-size:12px;font-weight:700;letter-spacing:.2em}
+#end h1{font-size:clamp(52px,14vw,96px);line-height:.82;margin:6px 0 10px}
+#end p{font-family:Arial,sans-serif;font-size:15px;line-height:1.35;max-width:28rem}
+.nums{display:flex;gap:18px;margin:14px 0}
+.nums b{display:block;font-size:28px}
+.nums span{font-family:Arial,sans-serif;font-size:11px;letter-spacing:.12em}
+#cta{display:block;margin-top:8px;background:var(--ac);color:#111;text-align:center;text-decoration:none;font-size:28px;letter-spacing:.04em;padding:14px 12px}
+.legal{margin-top:10px;font-size:11px!important;opacity:.8}
+#flash{position:fixed;inset:0;z-index:4;pointer-events:none;opacity:0;background:#fff}
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div id="flash"></div>
+<div id="top"><b id="combo">0</b><span class="s18">18+</span></div>
+<div id="call"><strong id="line">ACERTA<br><em>O ÁS</em></strong><small id="sub">TOQUE NA MÃO CERTA</small></div>
+<div id="end">
+  <div class="k" id="brand">HOT POKER</div>
+  <h1>ÁS<br>COM ÁS</h1>
+  <p>Demonstração de uma mão fixa. A página abre a mesa do clube no app.</p>
+  <div class="nums" id="nums"></div>
+  <a id="cta" href="#">Jogar agora</a>
+  <p class="legal">18+ Poker é habilidade e sorte. Resultados variam. Jogue com responsabilidade. <a href="https://supremapoker.com.br/jogo-consciente" style="color:inherit">Jogo consciente</a></p>
+</div>
+<script>
+(function(){
+var MODE="shoot";
+var host=location.hostname;
+var hot=host.indexOf('hotpoker')>=0;
+var acento=hot?'#ee6a1a':'#e8ff47';
+document.documentElement.style.setProperty('--ac',acento);
+var brand=document.getElementById('brand');
+brand.textContent=hot?'HOT POKER':'CLUBE SUPREMA';
+var q=new URLSearchParams(location.search);
+var fallback=hot?'https://l.kbsa.app/hp-app-onelink?src=hotpoker_play5':'https://l.kbsa.app/sx-tg-clube?src=suprema_play5';
+var club=q.get('url')?decodeURIComponent(q.get('url')):fallback;
+document.getElementById('cta').href=club;
+var nums=document.getElementById('nums');
+nums.innerHTML=hot?'<div><span>CLUBE</span><b>33548</b></div><div><span>AGENTE</span><b>768286</b></div>':'<div><span>CLUBE</span><b>10001</b></div>';
+var cv=document.getElementById('c'),ctx=cv.getContext('2d');
+var flash=document.getElementById('flash');
+var line=document.getElementById('line'),sub=document.getElementById('sub'),comboEl=document.getElementById('combo');
+var w=1,h=1,dpr=1;
+function fit(){dpr=Math.min(2,devicePixelRatio||1);w=innerWidth;h=innerHeight;cv.width=w*dpr;cv.height=h*dpr;ctx.setTransform(dpr,0,0,dpr,0,0)}
+addEventListener('resize',fit);fit();
+var ac,pressed=false,px=w/2,py=h/2,shake=0,freeze=0,combo=0,miss=0,need=3,got=0,phase='play',t=0,last=0;
+var pops=[],cards=[],gates=[],targets=[],ring=null;
+function snd(f,d,ty,g){if(!ac)return;var o=ac.createOscillator(),a=ac.createGain();o.type=ty||'square';o.frequency.value=f;a.gain.setValueAtTime(g||0.06,ac.currentTime);a.gain.exponentialRampToValueAtTime(0.001,ac.currentTime+d);o.connect(a);a.connect(ac.destination);o.start();o.stop(ac.currentTime+d)}
+function boom(good){shake=good?16:10;freeze=good?0.07:0.05;flash.style.opacity=good?'0.85':'0.35';flash.style.background=good?'#fff':'#e23b2f';setTimeout(function(){flash.style.opacity='0'},70);snd(good?180:70,good?0.12:0.18,good?'square':'sawtooth',0.07);if(good)snd(520,0.08,'square',0.04)}
+function burst(x,y,col){for(var i=0;i<14;i++){var a=Math.random()*6.28,s=80+Math.random()*220;pops.push({x:x,y:y,vx:Math.cos(a)*s,vy:Math.sin(a)*s,life:0.45,col:col})}}
+function setCombo(){comboEl.textContent=String(combo)}
+function win(){if(phase==='end')return;phase='end';line.innerHTML='ÁS<br><em>COM ÁS</em>';sub.textContent='MÃO FECHADA';document.getElementById('end').className='show';boom(true);burst(w/2,h*0.45,acento)}
+function bad(){miss++;combo=0;setCombo();boom(false);if(miss>=3){sub.textContent='A MÃO CERTA ERA O PAR DE ASES';setTimeout(win,500)}}
+function good(x,y){combo++;got++;setCombo();boom(true);burst(x,y,acento);if(got>=need)setTimeout(win,280)}
+var SUITS={s:'♠',h:'♥',d:'♦',c:'♣'};
+function card(ctx,x,y,rw,rh,rank,suit,hotcard){
+  ctx.save();ctx.translate(x,y);ctx.rotate(hotcard?Math.sin(t*6)*0.04:0);
+  ctx.fillStyle='#f4f1ea';ctx.fillRect(-rw/2,-rh/2,rw,rh);
+  ctx.lineWidth=hotcard?6:3;ctx.strokeStyle=hotcard?acento:'#111';ctx.strokeRect(-rw/2,-rh/2,rw,rh);
+  ctx.fillStyle=(suit==='h'||suit==='d')?'#d51212':'#111';
+  ctx.font='700 '+Math.floor(rh*0.42)+'px Impact,sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';
+  ctx.fillText(rank,0,-rh*0.08);
+  ctx.font=Math.floor(rh*0.28)+'px Arial';ctx.fillText(SUITS[suit]||'',0,rh*0.22);
+  ctx.restore();
+}
+var wave=0;
+var waves=[[{k:'aa',a:['A','s'],b:['A','h']},{k:'no',a:['7','d'],b:['2','c']},{k:'no',a:['K','c'],b:['4','s']}],[{k:'no',a:['9','h'],b:['3','d']},{k:'aa',a:['A','d'],b:['A','c']},{k:'no',a:['Q','s'],b:['8','h']}],[{k:'no',a:['J','d'],b:['5','c']},{k:'no',a:['T','h'],b:['6','s']},{k:'aa',a:['A','s'],b:['A','d']}]];
+function layoutSlap(){cards=waves[Math.min(wave,2)].map(function(slot,i){return {k:slot.k,a:slot.a,b:slot.b,x:(i+0.5)*(w/3),y:h*0.62}})}
+var cam={z:0};
+var builds=[];
+for(var i=0;i<30;i++){builds.push({side:i%2?1:-1,z:6+i*4.2,w:1.5+(i%3)*0.35,ht:2+(i%5)*0.7,col:i%3})}
+function proj(x,y,z){var dz=z-cam.z;if(dz<0.4)return null;var s=(h*0.85)/dz;return {x:w/2+x*s,y:h*0.58+y*s,s:s,dz:dz}}
+function drawCity(){
+  ctx.fillStyle='#07080c';ctx.fillRect(0,0,w,h);
+  ctx.fillStyle='#12141a';
+  var horizon=proj(0,-0.2,cam.z+80);if(horizon){ctx.fillRect(0,horizon.y,w,h)}
+  var far=cam.z+70, near=cam.z+0.5;
+  var a=proj(-1.15,0.15,far), b=proj(1.15,0.15,far), c=proj(1.15,0.15,near), d=proj(-1.15,0.15,near);
+  if(a&&c){ctx.fillStyle='#1b1c16';ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.lineTo(c.x,c.y);ctx.lineTo(d.x,d.y);ctx.fill();
+    ctx.strokeStyle=acento;ctx.globalAlpha=0.35;ctx.beginPath();ctx.moveTo((a.x+b.x)/2,(a.y+b.y)/2);ctx.lineTo((c.x+d.x)/2,(c.y+d.y)/2);ctx.stroke();ctx.globalAlpha=1}
+  var list=builds.filter(function(B){return B.z>cam.z+0.4}).sort(function(p,q){return q.z-p.z});
+  list.forEach(function(B){
+    var x=B.side*(2.3+B.w);
+    var p1=proj(x,0.15,B.z), p2=proj(x,-B.ht,B.z), p3=proj(x+B.side*B.w,-B.ht,B.z), p4=proj(x+B.side*B.w,0.15,B.z);
+    if(!p1||!p2)return;
+    ctx.fillStyle=B.col===0?'#141414':B.col===1?'#1c140f':'#10140f';
+    ctx.beginPath();ctx.moveTo(p1.x,p1.y);ctx.lineTo(p2.x,p2.y);ctx.lineTo(p3.x,p3.y);ctx.lineTo(p4.x,p4.y);ctx.fill();
+    if(B.col===0){ctx.fillStyle=acento;ctx.globalAlpha=0.85;ctx.fillRect(p2.x,p2.y,Math.max(8,p1.s*0.15),4);ctx.globalAlpha=1}
+  });
+  for(var c=0;c<8;c++){
+    var zz=cam.z+4+((c*9-t*18)%40);
+    var car=proj((c%2?0.45:-0.45),0.05,zz);
+    if(!car)continue;
+    ctx.fillStyle=c%2?'#f4f1ea':'#c83a1a';
+    ctx.fillRect(car.x-car.s*0.18,car.y-car.s*0.08,car.s*0.36,car.s*0.1);
+  }
+}
+function setup(){
+  if(MODE==='slap'){sub.textContent='TOQUE NO PAR DE ASES';need=3;layoutSlap()}
+  if(MODE==='street'){sub.textContent='TOQUE QUANDO O ÁS ENCHER A RUA';need=3;gates=[{z:10,k:'no'},{z:18,k:'aa'},{z:27,k:'no'},{z:36,k:'aa'},{z:46,k:'aa'}]}
+  if(MODE==='roof'){sub.textContent='TOQUE NO ÁS QUE CAI';need=4;cards=[]}
+  if(MODE==='ring'){sub.textContent='TOQUE QUANDO O ANEL FECHAR';need=3;ring={life:0}}
+  if(MODE==='shoot'){sub.textContent='MIRA. SÓ O ÁS';need=4;targets=[]}
+}
+function onPress(){
+  if(phase!=='play'||freeze>0)return;
+  if(MODE==='slap'){
+    var hit=null,rw=Math.min(150,w*0.28),rh=rw*1.35;
+    cards.forEach(function(cd,i){var x=(i+0.5)*(w/3);if(Math.abs(px-x)<rw&&Math.abs(py-cd.y)<rh)hit=cd});
+    if(!hit)return;
+    if(hit.k==='aa'){good(hit.x,hit.y);wave++;if(wave<3)layoutSlap()} else bad();
+  }
+  if(MODE==='street'){
+    var g=gates.filter(function(G){return !G.used&&G.z-cam.z<2.4&&G.z-cam.z>0.7})[0];
+    if(!g){bad();return}
+    g.used=1; if(g.k==='aa')good(w/2,h*0.5); else bad();
+  }
+  if(MODE==='roof'){
+    var hitr=null;
+    cards.forEach(function(cd){if(cd.used)return;var p=proj(cd.x,cd.y,cd.z);if(!p)return;var rw=p.s*0.55;if(Math.abs(px-p.x)<rw&&Math.abs(py-p.y)<rw*1.3)hitr=cd});
+    if(!hitr){bad();return}
+    hitr.used=1; if(hitr.k==='aa')good(px,py); else bad();
+  }
+  if(MODE==='ring'&&ring){
+    var u=ring.life%1; if(u>0.72&&u<0.9)good(w/2,h*0.55); else bad();
+  }
+  if(MODE==='shoot'){
+    var ht=null;
+    targets.forEach(function(tg){if(tg.used)return;if(Math.abs(px-tg.x)<tg.w*0.5&&Math.abs(py-tg.y)<tg.h*0.5)ht=tg});
+    if(!ht){bad();return}
+    ht.used=1; if(ht.k==='aa')good(ht.x,ht.y); else bad();
+  }
+}
+addEventListener('pointerdown',function(e){
+  if(!ac){var AC=window.AudioContext||window.webkitAudioContext;if(AC)ac=new AC()}
+  px=e.clientX;py=e.clientY;pressed=true;onPress();
+});
+function spawnRoof(){if(cards.filter(function(c){return !c.used&&c.z>cam.z}).length>2)return;cards.push({x:(Math.random()*2-1)*1.2,y:-1.2-Math.random()*2,z:cam.z+8+Math.random()*6,k:Math.random()<0.45?'aa':'no',rank:Math.random()<0.45?'A':'K',suit:Math.random()<0.5?'s':'d',used:0})}
+function spawnTarget(){if(targets.filter(function(tg){return !tg.used&&tg.life>0}).length>2)return;var ace=Math.random()<0.5;targets.push({x:40+Math.random()*(w-80),y:h*0.35+Math.random()*h*0.4,w:Math.min(120,w*0.28),h:Math.min(160,w*0.36),k:ace?'aa':'no',rank:ace?'A':['7','K','2','Q'][Math.floor(Math.random()*4)],suit:ace?'s':'h',life:1.05,used:0})}
+function update(dt){
+  t+=dt;
+  if(MODE==='street')cam.z+=dt*7.5;
+  if(MODE==='roof'){cam.z+=dt*2.2;if(Math.random()<dt*2.2)spawnRoof();cards.forEach(function(cd){cd.y+=dt*1.4})}
+  if(MODE==='ring')ring.life+=dt*0.85;
+  if(MODE==='shoot'&&Math.random()<dt*1.8)spawnTarget();
+  targets.forEach(function(tg){tg.life-=dt});
+  pops.forEach(function(p){p.life-=dt;p.x+=p.vx*dt;p.y+=p.vy*dt});
+  pops=pops.filter(function(p){return p.life>0});
+}
+function draw(){
+  ctx.save();
+  if(shake>0.4)ctx.translate((Math.random()-0.5)*shake,(Math.random()-0.5)*shake);
+  if(MODE==='street'||MODE==='roof')drawCity();
+  else {ctx.fillStyle='#090909';ctx.fillRect(0,0,w,h);ctx.fillStyle='#12110f';ctx.fillRect(0,h*0.72,w,h*0.28)}
+  if(MODE==='slap'){
+    cards.forEach(function(cd,i){var x=(i+0.5)*(w/3),rw=Math.min(92,w*0.2),rh=rw*1.35;card(ctx,x-rw*0.42,cd.y,rw,rh,cd.a[0],cd.a[1],cd.k==='aa');card(ctx,x+rw*0.42,cd.y+6,rw,rh,cd.b[0],cd.b[1],cd.k==='aa')});
+  }
+  if(MODE==='street'){
+    gates.forEach(function(g){if(g.used)return;var p=proj(0,-0.8,g.z);if(!p)return;var rw=Math.max(40,p.s*0.7);card(ctx,p.x,p.y,rw,rw*1.3,g.k==='aa'?'A':'7',g.k==='aa'?'s':'d',g.k==='aa'&&g.z-cam.z<2.6)});
+    ctx.strokeStyle=acento;ctx.lineWidth=3;ctx.strokeRect(w/2-70,h*0.48,140,90);
+  }
+  if(MODE==='roof'){
+    cards.forEach(function(cd){if(cd.used)return;var p=proj(cd.x,cd.y,cd.z);if(!p)return;card(ctx,p.x,p.y,Math.max(36,p.s*0.5),Math.max(50,p.s*0.68),cd.rank,cd.suit,cd.k==='aa')});
+    ctx.strokeStyle='#f4f1ea';ctx.lineWidth=2;ctx.beginPath();ctx.arc(w/2,h*0.5,28,0,6.28);ctx.stroke();
+  }
+  if(MODE==='ring'){
+    card(ctx,w/2,h*0.55,Math.min(160,w*0.4),Math.min(220,w*0.55),'A','s',true);
+    var u=ring.life%1;var rad=200-(u*170);
+    ctx.strokeStyle=u>0.72&&u<0.9?acento:'#f4f1ea';ctx.lineWidth=u>0.72&&u<0.9?10:4;
+    ctx.beginPath();ctx.arc(w/2,h*0.55,rad,0,6.28);ctx.stroke();
+  }
+  if(MODE==='shoot'){
+    ctx.strokeStyle=acento;ctx.lineWidth=2;
+    ctx.beginPath();ctx.moveTo(px-18,py);ctx.lineTo(px+18,py);ctx.moveTo(px,py-18);ctx.lineTo(px,py+18);ctx.stroke();
+    targets.forEach(function(tg){if(tg.used||tg.life<=0)return;card(ctx,tg.x,tg.y,tg.w,tg.h,tg.rank,tg.suit,tg.k==='aa')});
+  }
+  pops.forEach(function(p){ctx.globalAlpha=Math.max(0,p.life*2);ctx.fillStyle=p.col;ctx.fillRect(p.x,p.y,6,6);ctx.globalAlpha=1});
+  ctx.restore();
+  shake*=0.86;
+}
+function loop(now){
+  if(!last)last=now;var dt=Math.min(0.033,(now-last)/1000);last=now;
+  if(freeze>0)freeze-=dt;else if(phase==='play')update(dt);
+  draw();requestAnimationFrame(loop);
+}
+setup();requestAnimationFrame(loop);
+})();
+</script>
+</body>
+</html>

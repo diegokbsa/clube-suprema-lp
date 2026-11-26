@@ -285,6 +285,7 @@ function serveStatic(req, res, url) {
   if (pathname === '/admin') pathname = '/admin.html';
   // Versões da LP com motion sempre ligado: /fichas (ficha 3D) e /spin (rolo do Spin Suprema)
   if (/^[/](fichas|spin)$/.test(pathname)) pathname = '/index.html';
+  if (/^[/]play[1-5]$/.test(pathname)) pathname += '.html';
   const file = path.join(PUBLIC_DIR, path.normalize(pathname));
   if (!file.startsWith(PUBLIC_DIR)) {
     res.writeHead(403);
