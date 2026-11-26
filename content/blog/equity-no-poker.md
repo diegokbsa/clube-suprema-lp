@@ -2,8 +2,8 @@
 title: "Equity no poker: o que é, como calcular e como usar na decisão"
 seoTitle: "Equity no poker: o que é e como calcular"
 description: O que é equity no poker, como estimar a chance de ganhar a mão com a regra do 4 e do 2, exemplos com contas e como comparar equity com pot odds.
-date: 2026-11-24
-updated: 2026-11-24
+date: 2026-11-25
+updated: 2026-11-25
 cover: /img/blog/equity-no-poker/cover.jpg
 coverAlt: "Capa do guia Equity no poker: a sua fatia do pote em porcentagem"
 capaTema: cartas
